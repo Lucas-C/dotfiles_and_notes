@@ -1,5 +1,5 @@
-if filereadable("/apollo/env/envImprovement/var/vimrc")
-    source /apollo/env/envImprovement/var/vimrc
+if filereadable("~/.vimrc_ext")
+    source ~/.vimrc_ext
 endif
 
 set autochdir
@@ -80,24 +80,6 @@ set viminfo='20,\"50
 "don't automatically spell check!
 let spell_auto_type=""
 
-"taglist.vim settings
-if exists("g:useNinjaTagList") && g:useNinjaTagList == 1
-    set updatetime=1000 "interval to update list window
-
-    let Tlist_Auto_Open=1 "Auto open the list window
-    let Tlist_Compact_Format=1
-    let Tlist_Ctags_Cmd = g:ApolloRoot . '/bin/ctags' "Ctags binary to use
-    let Tlist_Enable_Fold_Column=0 "Turn off the fold column for list window
-    let Tlist_Exit_OnlyWindow=1 "Exit if list is only window
-    let Tlist_File_Fold_Auto_Close=1
-    let Tlist_Show_Menu=1 "Show tag menu in gvim
-    let Tlist_Use_Right_Window = 1 "put list window on the rigth
-
-    "maps to close, and open list window
-    map <silent> <Leader>tc :TlistClose<CR>
-    map <silent> <Leader>to :TlistOpen<CR>
-endif
-
 " LargeFile.vim settings
 " don't run syntax and other expensive things on files larger than NUM megs
 let g:LargeFile = 100
@@ -110,11 +92,6 @@ filetype indent on
 
 "Turn on syntax highlighting
 syntax on
-
-"mappings
-"normal mode maps
-"Map \pe to editing the file in perforce
-nmap <Leader>pe :!PWD=`/apollo/env/envImprovement/bin/realdir %` p4 edit `basename %`<CR>
 
 "Map \e to edit a file from the directory of the current buffer
 if has("unix")

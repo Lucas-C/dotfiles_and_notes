@@ -126,23 +126,6 @@ alias t5='tail -500'
 alias py='python2.7'
 alias rmpyc='find . -name "*.pyc" | xargs rm -f'
 
-#------
-# Dirs
-#------
-dirs=(
-   'ws=/workplace/$USER'
-   'apo=/apollo/env'
-   'vlog=/var/logs'
-   'cron=/etc/cron.d'
-)
-for pass in one two; do
-   for unexDir in ${dirs[@]}; do
-      dir=`eval echo ${unexDir}`
-      export $dir
-      alias "${dir/=/=cd }"
-   done
-done
-
 
 ############
 # FUNCTIONS
@@ -151,7 +134,7 @@ done
 #------
 # ssh
 #------
-HID_CONF_FILES=".bash_profile .bash_prompt .bashrc* .gitconfig .gitignore_core .inputrc .screenrc .vimrc .zshrc"
+HID_CONF_FILES=".bash_profile .bash_prompt .bash_screen .bashrc* .gitconfig .gitignore_core .inputrc .screenrc .vimrc* .zshrc"
 
 # Will create a /home/$USER dir if needed (and then only, will ask for pswd). DO NOT use sshl in that cmd.
 exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open

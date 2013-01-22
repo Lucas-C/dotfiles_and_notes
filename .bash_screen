@@ -1,0 +1,13 @@
+if [ $TERM == "screen" ]; then
+    echo "WARNING: Screen got invoked, something weird's going on"
+    return
+fi
+
+if ! ps -eo args | grep '^screen'; then
+    screen -d -m
+fi
+screen -A -x
+
+# screen -ls
+# screen -r
+# DOC: http://www.bangmoney.org/presentations/screen.html

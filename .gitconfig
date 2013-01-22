@@ -36,9 +36,6 @@
 # git origin: show the "upstream" remote branch which the local branch is tracking
     origin = !git for-each-ref --format='%(upstream:short)' $(git symbolic-ref HEAD)
 
-# == Configs: ==
-
-# you ALWAYS want these, IMO; see [[Jmason/GitQuickReference]]
 [branch]
     autosetuprebase = always
 
