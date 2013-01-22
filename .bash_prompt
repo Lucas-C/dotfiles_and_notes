@@ -1,0 +1,63 @@
+# shortstatus - terse bash prompt uses text characteristics to show
+# ssh-agent status, writability of current directory and exit code of
+# last command, if nonzero. The prompt format is common; I got the idea
+# for showing the exit code from "Dan's Prompt"
+# http://www.dreaming.org/~giles/bashprompt/prompts/dan.html
+#
+# jeremy-bash@batray.net
+#
+
+export T_normal=0
+export T_bold=1
+export T_underline=4
+export C_owner='0;32'
+export C_write='0;36'
+export C_nowrite='0;31'
+export C_error='1;31'
+
+export DIRCOLOR=$T_normal
+export EXIT_CODE=0
+export CODE_COLOR=$T_normal
+export CODE_STRING=
+export USER_STYLE=$T_normal
+export HOST_COLOR='1;35'
+
+prompt_command()
+{
+   EXIT_CODE=$?
+   DIRCOLOR=$T_normal
+   if [ -O "$PWD" ]
+   then
+      DIRCOLOR=$C_owner
+   elif [ -w "$PWD" ]
+   then
+      DIRCOLOR=$C_write
+   else
+      DIRCOLOR=$C_nowrite
+   fi
+   if [ $EXIT_CODE -ne 0 ]
+   then
+      CODE_COLOR=$C_error
+      CODE_STRING=\ $EXIT_CODE
+   else
+      CODE_COLOR=$T_normal
+      CODE_STRING=
+   fi
+
+   if [ -S "$SSH_AUTH_SOCK" ]
+   then
+      USER_STYLE=$T_underline
+   else
+      USER_STYLE=$T_normal
+   fi
+}
+export PROMPT_COMMAND=prompt_command
+if [ ${TERM:0:5} = xterm ]
+then
+   PS1='\[\e]0;\u@\h:\W\007\]'
+else
+   PS1=''
+fi
+
+PS1=$PS1'\[\e[${USER_STYLE}m\]\u\[\e[${T_normal}m\]@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]:\[\e[${DIRCOLOR}m\]\W\[\e[${CODE_COLOR}m\]$CODE_STRING\[\e[${T_normal}m\]\$ '
+export PS1

@@ -1,0 +1,58 @@
+# Thx to Justin Mason for that
+
+[diff]
+    renames = true
+
+[color]
+    ui = true
+
+[alias]
+
+# Some obvious short-form aliases
+    st = status
+    co = checkout
+    ca = commit -a
+    br = branch
+    mvbranch = branch -m
+    unadd = reset HEAD
+    p = pull
+
+# Better UI for common diff command: diff against upstream, use color & pager
+    d = !git diff --color origin/mainline | less -cR
+
+# Log using color, pager, and a graphical representation of branches/merges
+    l = !git log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color | less -cR
+
+# see diffstat(1) for info about what this looks like
+    diffstat = diff --stat -r
+
+# show info about the last commit
+    last = log -1 HEAD
+
+# git rb: generate a ReviewBoard-compatible diff, in case you need to do
+# something that "post-review-from-git" can't handle
+    rb = diff --no-color -U999999
+
+# git origin: show the "upstream" remote branch which the local branch is tracking
+    origin = !git for-each-ref --format='%(upstream:short)' $(git symbolic-ref HEAD)
+
+# == Configs: ==
+
+# you ALWAYS want these, IMO; see [[Jmason/GitQuickReference]]
+[branch]
+    autosetuprebase = always
+
+[push]
+    default = tracking
+
+# I don't care about whitespace changes
+[apply]
+    whitespace = nowarn
+
+[core]
+    whitespace = -blank-at-eol,-blank-at-eof
+    excludesfile = ~/.gitignore_core
+    editor = vim
+[user]
+	name = Lucas Cimon
+	email = lucas.cimon@gmail.com

@@ -1,0 +1,33 @@
+#change the hardstatus settings to give an window list at the bottom of the
+#screen, with the time and date and with the current window highlighted
+hardstatus alwayslastline
+# %{= dg} %H %{G}| %{B}%l
+caption always '%{= dg} %{B}%M %d %c:%s %{G}|%=%?%{d}%-w%?%{r}(%{d}%n %t%? {%u} %?%{r})%{d}%?%+w%?%='
+
+startup_message off
+
+altscreen on # To clear screen after using a full-terminal program
+
+bindkey -d ^af fit
+bindkey -d ^a^f fit
+bindkey -d ^as split
+bindkey -d ^a^s split
+bindkey -d ^ax remove
+bindkey -d ^a^x remove
+
+bindkey -d ^a^d detach
+
+# Bind F1... keys
+# Known pb: http://stackoverflow.com/questions/4653572/how-do-i-get-the-f1-f12-keys-to-switch-screens-in-gnu-screen-in-cygwin-when-conn
+bindkey -k k1 prev
+bindkey -k k2 next
+bindkey -k k3 select 0
+bindkey -k k4 select 1
+bindkey -k k5 select 2
+bindkey -k k6 select 3
+bindkey -k k7 select 4
+bindkey -k k8 select 5
+bindkey -k k9 select 6
+
+# Cmds list: http://www.oreillynet.com/linux/cmd/cmd.csp?path=s/screen ; http://aperiodic.net/screen/commands:start
+# Tips : http://aperiodic.net/screen/faq#i_have_a_nested_screen_session_-_how_do_i_send_screen_commands_to_the_inner_screen

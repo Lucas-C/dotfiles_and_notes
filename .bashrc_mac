@@ -1,0 +1,14 @@
+####################################
+# SPECIFIC conf for Mac
+[ $(uname -s) = Darwin ] || return 0
+####################################
+
+export EDITOR='open -a /Applications/Xcode.app'
+
+export PATH=/usr/X11/bin:$PATH
+export PATH=/Users/$USER/bin:$PATH
+
+alias l='/bin/ls -BFG'
+unset touch
+alias f='open -a /Applications/Firefox.app'
+alias freeplane='open -a /Applications/Freeplane.app'

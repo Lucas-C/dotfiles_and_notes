@@ -1,0 +1,11 @@
+set input-meta on
+set output-meta on
+set convert-meta off
+
+set show-all-if-ambiguous on
+set completion-ignore-case on
+
+# Ctrl+left/right arrows
+"\eO5C": forward-word
+"\eO5D": backward-word
+
