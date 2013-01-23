@@ -1,0 +1,87 @@
+# Checking ports
+nmap -sS -O 127.0.0.1 # Guess OS !!
+netstat -nap
+lsof -i -n -P 
+
+#Shows Where a File/Directory Comes From (links, etc.)
+namei
+
+#How to grep IPs
+grep '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
+
+curl
+#See: http://curl.haxx.se/docs/httpscripting.html
+
+# Create fake file
+sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000
+
+# Script parent dir
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Find non-ASCII characters
+grep --color='auto' -P -n "[\x80-\xFF]" file.xml
+
+is_true() { ! ( [[ -z "$1" ]] || [[ "$1" = 0 ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
+
+# Fixing terminal frenzy
+echo <ctrl-v><ctrl-o>
+
+# Abort <CMD> after a timeout
+( cmdpid=$BASHPID; (sleep 10; kill $cmdpid) & exec <CMD> )
+
+# Standard logs date
+date "+%F %T,%N" | cut -c-23
+
+# Watch system stats
+watch -d 'cat /proc/meminfo'
+
+# Checking Swap Space Size and Usage
+vmstat 2
+sar
+# + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
+
+snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysDescr.0
+snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysUpTime.0
+
+#Iptables
+iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
+iptables -n -L -v
+
+# Sum up kind of files without ext
+ls | cut -d . -f 1 | sort | uniq -c
+
+hexdump -c
+
+#Append at the end of stdout (or beginning with ^)
+echo ECHO | sed s/$/.ext/
+
+# Sets intersec
+comm -12 #or uniq -d
+
+# How to start a file to make it executable AND runnable with mysql < FILE.mysql :
+/*/cat <<NOEND | mysql #*/
+use ...;
+select
+    ...
+from
+    ...
+where
+    ...;
+    
+# 'top'
+* killing : Press "k", then pid, then signal (15, 9...)
+* sorting : press "O" and select the column
+* display absolute path of commands : "c"
+
+# List system users
+awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd | grep netmon
+
+
+#######
+# Git
+#######
+
+# Reflog
+ git reflog –> To list all actions done on the git repo ( not only the commits, but all commands that were run )
+ git reset --hard HEAD@{3} -> To rewind the repo back to the state of HEAD@{3} in the reflog lists.
+ 
