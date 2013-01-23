@@ -1,9 +1,9 @@
 if [ $TERM == "screen" ]; then
-    echo "WARNING: Screen got invoked, something weird's going on"
+    echo "WARNING: Screen got invoked into screen, ignoring"
     return
 fi
 
-if ! ps -eo args | grep '^screen'; then
+if ! ps -eo args | grep -q '^screen'; then
     screen -d -m
 fi
 screen -A -x

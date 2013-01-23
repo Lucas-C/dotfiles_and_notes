@@ -50,9 +50,9 @@ alias pa='grep --color=always -h "^[[:space:]]*[[:alnum:]]* () {\|^[[:space:]]*a
 #----
 unset ls; unalias ls 2>/dev/null
 export LS_COLORS="ln=target" # Avoid mixing all symlinks in same color, and anyway we alias ls with -F
-alias l='ls -BF --color'
-alias la='l -A'         # show hidden files
-alias ll='l -lhA'
+alias l='ls -BF --color=always'
+alias la='ls -ABF --color=always'   # l -A
+alias ll='ls -lhABF --color=always' # la -lh
 alias lk='ll -Sr'       # sort by size, biggest last
 alias lr='ll -lR'       # recursive ls
 alias lc='ll -tc'       # sort by and show change time, most recent first
@@ -69,9 +69,11 @@ lse () {                # group files by their extension
 # grep
 #------
 unset grep; unalias grep 2>/dev/null
-alias grep='grep -i --color=always'
+alias grep='grep -i --color=auto'
+alias grepc='grep -i --color=always'
 unset zgrep; unalias zgrep 2>/dev/null
-alias zgrep='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
+alias zgrep='zgrep -i --color=auto' # zgrep also works on plain text files, but '-r' isn't supported
+alias zgrepc='zgrep -i --color=always'
 rzgrep () {
     local pattern=$1
     shift
@@ -93,9 +95,6 @@ alias gl='git log'
 alias gll='git log origin/mainline..HEAD' # local commits only
 alias gri='git rebase --interactive origin/mainline'
 alias gpr='git pull --rebase'
-
-git config --global user.name "Lucas Cimon"
-git config --global user.email lucas.cimon@gmail.com
 
 #------------
 # One-letter
@@ -134,7 +133,7 @@ alias rmpyc='find . -name "*.pyc" | xargs rm -f'
 #------
 # ssh
 #------
-HID_CONF_FILES=".bash_profile .bash_prompt .bash_screen .bashrc* .gitconfig .gitignore_core .inputrc .screenrc .vimrc* .zshrc"
+HID_CONF_FILES=".bash_profile .bash_prompt .bash_screen .bashrc* .gitconfig .gitignore_* .inputrc .screenrc .vimrc* .zshrc"
 
 # Will create a /home/$USER dir if needed (and then only, will ask for pswd). DO NOT use sshl in that cmd.
 exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open
@@ -142,10 +141,8 @@ exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true
     local keep_ssh_open_cmd ; is_true $2 && keep_ssh_open_cmd='/bin/bash -i' # --rcfile ~/.bash_profile
     local install_bazsh_cmd="
         [ -x /home/$USER ] || ( sudo mkdir /home/$USER && sudo chown $USER /home/$USER ) ;
-        cd /home/$USER ;
-        ( rm -f $HID_CONF_FILES ) 2>/dev/null ;
         cd /tmp ;
-        mv $HID_CONF_FILES /home/$USER ;
+        mv -f $HID_CONF_FILES /home/$USER ;
         cd /home/$USER ;
         chmod -w $HID_CONF_FILES
 "
@@ -177,7 +174,7 @@ rmRemoteHome () {       # remove remote /home/$USER
         local logdir=~/ssh_logs/$1 ; [ -x $logdir ] || mkdir $logdir
         scp $dst:~/.*history $logdir
         for f in $logdir/.*history; do mv $f $logdir/$(date +%Y-%m-%d-%Hh_%Mm_%Ss)$(basename $f) ; done
-    ssh -t $dst "rm -rf /home/$USER/* && sudo rmdir /home/$USER"
+    ssh -t $dst "rm -rf /home/$USER/* && sudo rmdir /home/$USER" || return 1
     [ -w ~/.visited ] && sed -i -e /$1/d ~/.visited
 }
 
