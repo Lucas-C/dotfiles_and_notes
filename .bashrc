@@ -273,11 +273,11 @@ kill_cmd ()             # WIP - Kill every process starting with the pattern pas
 # Dirs
 #------
 for pass in one two; do
-    for unexDir in "$(cat ${BASHRC_DIR}/.bash_dirs)"; do
+    while read unexDir; do
         dir=`eval echo ${unexDir}`
         export "$dir"
         alias "${dir/=/=cd }"
-    done
+    done < ${BASHRC_DIR}/.bash_dirs
 done
 
 
