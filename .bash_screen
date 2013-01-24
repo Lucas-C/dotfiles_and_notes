@@ -14,10 +14,11 @@ function set_screen_title() {
 }
 
 if [ $TERM != "screen" ]; then
-    if ! ps -eo args | grep -q '^screen'; then
+    if ! ps -eo comm | grep -q '^screen'; then
         screen -d -m
+    else
+        screen -A -x
     fi
-    screen -A -x
 else
     # HACKED thanks to http://code-and-hacks.blogspot.com/2010/04/setting-terminal-title-in-gnu-screen.html
     # and http://www.davidpashley.com/articles/xterm-titles-with-bash.html

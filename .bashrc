@@ -284,7 +284,6 @@ done
 ########################
 # Additionnal .bashrc_*
 ########################
-
 for f in ${BASHRC_DIR}/.bashrc_*; do
     source $f
 done
