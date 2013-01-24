@@ -1,12 +1,29 @@
-if [ $TERM == "screen" ]; then
-    echo "WARNING: Screen got invoked into screen, ignoring"
-    return
-fi
+LAST_DIR_SCREEN_TMP_FILE=~/.screen-pwd.tmp
 
-if ! ps -eo args | grep -q '^screen'; then
-    screen -d -m
+function s() { # New screen window in same dir
+    screen -X chdir $PWD
+    rm $LAST_DIR_SCREEN_TMP_FILE
+    screen
+}
+
+function set_screen_title() {
+    if [ -n "$STY" ] && [ "$@" != "prompt_command" ] ; then
+        screen -X title "$@"
+        [ "$PWD" != "$HOME" ] && pwd > $LAST_DIR_SCREEN_TMP_FILE
+    fi
+}
+
+if [ $TERM != "screen" ]; then
+    if ! ps -eo args | grep -q '^screen'; then
+        screen -d -m
+    fi
+    screen -A -x
+else
+    # HACKED thanks to http://code-and-hacks.blogspot.com/2010/04/setting-terminal-title-in-gnu-screen.html
+    # and http://www.davidpashley.com/articles/xterm-titles-with-bash.html
+    trap 'set_screen_title "$BASH_COMMAND"' DEBUG
+    [ -f $LAST_DIR_SCREEN_TMP_FILE ] && cd $(cat $LAST_DIR_SCREEN_TMP_FILE)
 fi
-screen -A -x
 
 # screen -ls
 # screen -r

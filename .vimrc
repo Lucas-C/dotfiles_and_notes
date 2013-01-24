@@ -156,4 +156,6 @@ end
 "http://vim.wikia.com/wiki/Toggle_auto-indenting_for_code_paste
 "set pastetoggle=<C-> # Ctrl+?
 
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
 map!  

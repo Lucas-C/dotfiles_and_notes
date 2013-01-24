@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Ethernet file copy script
+# THIS IS NOT SAFE, use only between locally connected pc with static eth0 ip
+# (SECURE: tar -cf - /some/file | ssh host.name tar -xf - -C /destination)
+# Use tar & netcat
+# Lucas Cimon 2011/10/06
+
+# Compression doesn't really speed up things (tested for a big 700Mo iso)
+# USE_COMPRESSION=-z
+VERBOSE=-v
+
+# Default values
+PORT=7000
+. pair_pc_ip.sh
+
+usage () {
+	cat <<END
+	USAGE: `basename $0` -r [<port>=$PORT]
+	       `basename $0` <dir> [<dest_host>=$HOST] [<port>=$PORT]
+END
+}
+
+# Print USAGE
+[ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ] && usage && exit
+
+if [ "$1" = "-r" ]; then
+# Receive
+	[ $# -eq 2 ] && PORT=$2
+	nc -l $PORT | tar x $USE_COMPRESSION $VERBOSE -mf-
+else
+# Send
+	DIR="$1"
+	! [ -r "$DIR" ] && echo "Error: unreadable file or directory ($DIR)" && usage && exit
+	[ $# -ge 2 ] && HOST=$2
+	[ -z "$HOST" ] && echo "Error: distant host not specified" && usage && exit
+	[ $# -eq 3 ] && PORT=$3
+	tar c $USE_COMPRESSION $VERBOSE "$DIR" | nc $HOST $PORT
+fi

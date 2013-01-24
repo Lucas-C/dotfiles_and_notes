@@ -6,7 +6,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
-# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+# don't overwrite GNU Midnight Commander's setting of 'ignorespace'.
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # ... or force ignoredups and ignorespace
 export HISTCONTROL=ignoreboth
@@ -16,6 +16,10 @@ shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -24,8 +28,10 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+BASHRC_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd)"
+
 # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'
-source ~/.bash_prompt
+source ${BASHRC_DIR}/.bash_prompt
 
 ###########
 # EXPORTS
@@ -43,7 +49,7 @@ export PATH=/usr/local/bsin:$PATH
 ##########
 # ALIASES
 ##########
-alias pa='grep --color=always -h "^[[:space:]]*[[:alnum:]]* () {\|^[[:space:]]*alias [[:alnum:]]*=\|^[[:space:]]*'\''[[:alnum:]]*=" ~/.bashrc*'
+alias pa="grep '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs && grep --color=always -h '^[[:space:]]*[[:alnum:]]* () {\|^[[:space:]]*alias [[:alnum:]]*=' ${BASHRC_DIR}/.bash*"
 
 #----
 # ls
@@ -96,16 +102,6 @@ alias gll='git log origin/mainline..HEAD' # local commits only
 alias gri='git rebase --interactive origin/mainline'
 alias gpr='git pull --rebase'
 
-#------------
-# One-letter
-#------------
-alias e='$EDITOR'
-alias b='cd $OLDPWD'
-alias p='pwd'
-alias f='firefox'
-alias h='history'
-alias t='tree'
-
 #--------
 # Redefs
 #--------
@@ -115,6 +111,20 @@ unset df; unalias df 2>/dev/null
 alias df='df -h'        # !! Won't work with sudo
 unset du; unalias du 2>/dev/null
 alias du='du -sh'       # !! Won't work with sudo
+unset make; unalias make 2>/dev/null
+alias make='make -j3 '
+unset tkcon; unalias tkcon 2>/dev/null
+alias tkcon='tkcon -load Tk'
+
+#------------
+# One-letter
+#------------
+alias e='$EDITOR'
+alias b='cd $OLDPWD'
+alias f='firefox'
+alias h='history'
+alias p='pwd'
+alias t='tree'
 
 #--------
 # Others
@@ -122,8 +132,15 @@ alias du='du -sh'       # !! Won't work with sudo
 alias pg='ps -ef | grep -i' # using -l make it not portable on Mac
 alias tF='tail -F'
 alias t5='tail -500'
-alias py='python2.7'
+alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
+alias py='ipython'
 alias rmpyc='find . -name "*.pyc" | xargs rm -f'
+
+alias nav='nautilus $(pwd)/'
+alias pdf='evince'
+
+
+fopen () { ( firefox file://$(pwd)/$1 ) }
 
 
 ############
@@ -134,8 +151,11 @@ alias rmpyc='find . -name "*.pyc" | xargs rm -f'
 # ssh
 #------
 HID_CONF_FILES=".bash_profile .bash_prompt .bash_screen .bashrc* .gitconfig .gitignore_* .inputrc .screenrc .vimrc* .zshrc"
+SSH_LOG_DIR=~/ssh_logs
+VISITED_HOSTS_LOG_FILE=~/.visited
 
-# Will create a /home/$USER dir if needed (and then only, will ask for pswd). DO NOT use sshl in that cmd.
+# Will create a remote /home/$USER dir if needed (and then only, will ask for pswd).
+# Should be run in $HOME. DO NOT use sshl in that cmd.
 exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open
     local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     local keep_ssh_open_cmd ; is_true $2 && keep_ssh_open_cmd='/bin/bash -i' # --rcfile ~/.bash_profile
@@ -146,10 +166,8 @@ exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true
         cd /home/$USER ;
         chmod -w $HID_CONF_FILES
 "
-    cd
     scp $HID_CONF_FILES $dst:/tmp/ || return 1
     ssh -t $dst "$install_bazsh_cmd $keep_ssh_open_cmd" || return 1
-    cd $OLDPWD
 }
 
 ssh_setup () {
@@ -162,20 +180,22 @@ ssh_setup () {
 
 visit () {              # ssh to a host after calling 'exportHidConf'. List visited hosts in ~/.visited
     ssh_setup
-    if exportHidConf $1 true && ! grep -q $1 ~/.visited; then
-        echo $@ >> ~/.visited
+    cd
+    if exportHidConf $1 true && ! grep -q $1 $VISITED_HOSTS_LOG_FILE; then
+        echo $@ >> $VISITED_HOSTS_LOG_FILE
     fi
+    cd $OLDPWD
 }
 
 rmRemoteHome () {       # remove remote /home/$USER
     local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     ssh_setup
     # Backup .*history files
-        local logdir=~/ssh_logs/$1 ; [ -x $logdir ] || mkdir $logdir
+        local logdir=$SSH_LOG_DIR/$1 ; [ -x $logdir ] || mkdir -p $logdir
         scp $dst:~/.*history $logdir
         for f in $logdir/.*history; do mv $f $logdir/$(date +%Y-%m-%d-%Hh_%Mm_%Ss)$(basename $f) ; done
     ssh -t $dst "rm -rf /home/$USER/* && sudo rmdir /home/$USER" || return 1
-    [ -w ~/.visited ] && sed -i -e /$1/d ~/.visited
+    [ -w $VISITED_HOSTS_LOG_FILE ] && sed -i -e /$1/d $VISITED_HOSTS_LOG_FILE
 }
 
 sshl () { # Ssh with console logs, useful but not good for security
@@ -184,7 +204,7 @@ sshl () { # Ssh with console logs, useful but not good for security
         [[ ${1:${#1}-1} =~ "[bcDeFiLlmOopRSw]" ]] && shift
         shift
     done
-    local logdir=~/ssh_logs/$1 ; [ -x $logdir ] || mkdir $logdir
+    local logdir=$SSH_LOG_DIR/$1 ; [ -x $logdir ] || mkdir -p $logdir
     local logfile=$logdir/$(date +"%Y-%m-%d-%Hh_%Mm_%Ss").log
     script -c "ssh $params" $logfile
     gzip $logfile &
@@ -205,19 +225,23 @@ touch () {              # touch [EPOCH] [+/-<modifier>] <files>
         HHMM=0000
         shift
     fi
-    if [[ "$1" =~ "^[+-][0-9]" ]]; then
+    if [[ $1 =~ ^[+-][0-9] ]]; then
         dd=$(($dd$1))
         [ ${#dd} -eq 1 ] && dd=0$dd
         shift
     fi
     local stamp=$yymm$dd$HHMM
-    (! [[ "$dd" =~ "^[0-3][0-9]$" ]] || [ $dd -eq 0 ] || [ $dd -gt 31 ]) && echo "Day modifier cannot be applied: $stamp" && return
+    (! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ]) && echo "Day modifier cannot be applied: $stamp" && return
     $(which touch) -t $stamp $@
 }
 
+is_true () { ! ( [ -z "$1" ] || [ "$1" -eq 0 ] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
+
 is_file_open () { ( lsof | grep $(readlink -f "$1") ) }
 
-is_true () { ! ( [[ -z "$1" ]] || [[ "$1" = 0 ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
+fqdn () { ( python -c "import socket ; print socket.getfqdn(\"$@\")" ) }
+
+findTxt () { ( find "$@" -type f -exec file {} \; | grep text | cut -d':' -f1 ) }
 
 notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
     for f in $(findTxt "$@"); do
@@ -225,10 +249,6 @@ notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spac
         sed -i -e 's/    /    /g' "$f"
     done
 }
-
-findTxt () { ( find "$@" -type f -exec file {} \; | grep text | cut -d':' -f1 ) }
-
-fqdn () { ( python -c "import socket ; print socket.getfqdn(\"$@\")" ) }
 
 tstp () {               # timestamp converter
     echo $@ | gawk '{print strftime("%c", $0)}'
@@ -249,36 +269,22 @@ kill_cmd ()             # WIP - Kill every process starting with the pattern pas
 }
 
 
-#########
-# SCREEN
-#########
-
-# HACKED thanks to http://code-and-hacks.blogspot.com/2010/04/setting-terminal-title-in-gnu-screen.html
-# and http://www.davidpashley.com/articles/xterm-titles-with-bash.html
-LAST_DIR_SCREEN_TMP_FILE=$HOME/.screen-pwd.tmp
-function set_screen_title() {
-    if [ -n "$STY" ] && [ "$@" != "prompt_command" ] ; then
-        screen -X title "$@"
-        [ "$PWD" != "$HOME" ] && pwd > $LAST_DIR_SCREEN_TMP_FILE
-    fi
-}
-function s() { # New screen window in same dir
-    screen -X chdir $PWD
-    rm $LAST_DIR_SCREEN_TMP_FILE
-    screen
-}
-case $TERM in
-    screen)
-        trap 'set_screen_title "$BASH_COMMAND"' DEBUG
-        [ -f $LAST_DIR_SCREEN_TMP_FILE ] && cd $(cat $LAST_DIR_SCREEN_TMP_FILE)
-        export STY=
-    ;;
-esac
+#------
+# Dirs
+#------
+for pass in one two; do
+    for unexDir in "$(cat ${BASHRC_DIR}/.bash_dirs)"; do
+        dir=`eval echo ${unexDir}`
+        export "$dir"
+        alias "${dir/=/=cd }"
+    done
+done
 
 
 ########################
 # Additionnal .bashrc_*
 ########################
-for f in ~/.bashrc_*; do
+
+for f in ${BASHRC_DIR}/.bashrc_*; do
     source $f
 done

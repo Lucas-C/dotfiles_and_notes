@@ -11,6 +11,7 @@
 # Some obvious short-form aliases
     st = status
     co = checkout
+    ci = commit
     ca = commit -a
     br = branch
     mvbranch = branch -m

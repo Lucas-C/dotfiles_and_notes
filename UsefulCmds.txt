@@ -1,6 +1,9 @@
+# List packet exchanges
+netstat
+
 # Checking ports
-nmap -sS -O 127.0.0.1 # Guess OS !!
 netstat -nap
+nmap -sS -O 127.0.0.1 # Guess OS !!
 lsof -i -n -P 
 
 #Shows Where a File/Directory Comes From (links, etc.)
@@ -75,6 +78,49 @@ where
 
 # List system users
 awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd | grep netmon
+
+# Sudo user
+sudo su -l
+
+# Change keyboard to FR
+loadkeys fr
+
+#Attribute IP ton interface
+ifconfig eth0 192.168.0.1
+
+# Follow program system calls
+strace
+
+# Named pipes: https://en.wikipedia.org/wiki/Named_pipe
+
+sudo ldconfig
+
+nm *.o
+
+readelf -Ws *.so
+
+sudo dpkg -D1 -i *.deb
+
+# Rescan for memory card
+sudo su -l
+echo 1 > /sys/bus/pci/rescan
+
+
+#-----#
+# SVN #
+#-----#
+
+# Svn ignore
+svn propset svn:ignore PATTERN DIR
+
+# Get all svn props
+svn propget -R svn:ignore .
+
+# Rm added then removed files
+svn status | grep '!M' | awk '{print $2}' | xargs svn rm #--force
+
+# Display even ignored files
+svn status --no-ignore
 
 
 #######
