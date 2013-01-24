@@ -24,8 +24,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Find non-ASCII characters
 grep --color='auto' -P -n "[\x80-\xFF]" file.xml
 
-is_true() { ! ( [[ -z "$1" ]] || [[ "$1" = 0 ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
-
 # Fixing terminal frenzy
 echo <ctrl-v><ctrl-o>
 
@@ -81,6 +79,9 @@ awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd | grep netmon
 
 # Sudo user
 sudo su -l
+
+# Remove sudo time stamp => no more sudo rights
+sudo -K
 
 # Change keyboard to FR
 loadkeys fr
