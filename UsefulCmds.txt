@@ -75,7 +75,7 @@ where
 * display absolute path of commands : "c"
 
 # List system users
-awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd | grep netmon
+awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd
 
 # Sudo user
 sudo su -l
@@ -129,6 +129,6 @@ svn status --no-ignore
 #######
 
 # Reflog
- git reflog –> To list all actions done on the git repo ( not only the commits, but all commands that were run )
+ git reflog –> To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
  git reset --hard HEAD@{3} -> To rewind the repo back to the state of HEAD@{3} in the reflog lists.
  

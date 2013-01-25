@@ -150,7 +150,7 @@ fopen () { ( firefox file://$(pwd)/$1 ) }
 #------
 # ssh
 #------
-HID_CONF_FILES=".bash_profile .bash_prompt .bash_screen .bashrc* .gitconfig .gitignore_* .inputrc .screenrc .vimrc* .zshrc"
+HID_CONF_FILES=".bash_dirs .bash_profile .bash_prompt .bash_screen .bashrc* .gitconfig .gitignore_* .inputrc .screenrc .vimrc* .zshrc"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited
 
@@ -235,7 +235,7 @@ touch () {              # touch [EPOCH] [+/-<modifier>] <files>
     $(which touch) -t $stamp $@
 }
 
-is_true () { ! ( [ -z "$1" ] || [ "$1" -eq 0 ] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
+is_true () { ! ( [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
 
 is_file_open () { ( lsof | grep $(readlink -f "$1") ) }
 
