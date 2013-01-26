@@ -106,6 +106,15 @@ sudo dpkg -D1 -i *.deb
 sudo su -l
 echo 1 > /sys/bus/pci/rescan
 
+# Convert .wmv to .avi
+mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
+# .mp4 to .avi
+ffmpeg -i vid.mp4 -f avi -vcodec copy -acodec copy vid.avi
+
+lsb_release -a
+cat /etc/motd
+uname -a
+cat /etc/issue*
 
 #-----#
 # SVN #
