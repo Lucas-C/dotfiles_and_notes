@@ -42,7 +42,11 @@ sar
 # + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
 
 snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysDescr.0
-snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysUpTime.0
+# or sysUpTime, sysName
+# The community string can be found in the 'Variables' tab in the AutoNOC device page
+
+# Dump all tcp transmission to a specific IP :
+sudo tcpdump host $IP
 
 #Iptables
 iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
@@ -116,6 +120,41 @@ cat /etc/motd
 uname -a
 cat /etc/issue*
 
+############
+# Scripting
+############
+
+cat <<EOF
+EOF
+
+# Standard warnings
+set -eux
+
+# Redirect logs
+exec >>$0.log.$(date +%Y-%m-%d-%H) 2>&1
+
+# Set positional parameters $0 $1 ...
+set - A B C
+
+# Garbage cleaner
+trap "e=$?;<CMDS>;exit $e" EXIT INT TERM
+
+# mktemp dir & default value
+tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0)"
+
+# Parsing *=* args (unsecure)
+# Push element in an array
+declare -a argFiles
+for arg in "$@"; do
+    case $arg in
+        *=*) eval $arg;;
+        *) argFiles[${#argFiles[*]}]="$(readlink -f $arg)";;
+    esac
+done
+
+# Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
+echo ${PWD//\//-}
+
 #-----#
 # SVN #
 #-----#
@@ -141,3 +180,12 @@ svn status --no-ignore
  git reflog –> To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
  git reset --hard HEAD@{3} -> To rewind the repo back to the state of HEAD@{3} in the reflog lists.
  
+ 
+#------#
+# Java #
+#------#
+// String / ByteString correct conversion :
+String asString = new String( byteString.getArray(), "UTF-8" );
+ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
+
+// Built-in parallelism the easy way : ExecutorService

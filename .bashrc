@@ -49,7 +49,10 @@ export PATH=/usr/local/bsin:$PATH
 ##########
 # ALIASES
 ##########
-alias pa="grep '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs && grep --color=always -h '^[[:space:]]*[[:alnum:]]* () {\|^[[:space:]]*alias [[:alnum:]]*=' ${BASHRC_DIR}/.bash*"
+pa () {
+    grepc '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
+    grepc -h '^[[:space:]]*[[:alnum:]_-]* () {\|^[[:space:]]*alias [[:alnum:]_-]*=' ${BASHRC_DIR}/.bash*
+}
 
 #----
 # ls
