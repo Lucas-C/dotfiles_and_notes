@@ -120,6 +120,15 @@ cat /etc/motd
 uname -a
 cat /etc/issue*
 
+# Virtualbox
+sudo adduser $USER vboxusers
+VBoxManage list vms
+VBoxManage controlvm <name> poweroff
+
+# Get uid / groups infos
+id $USER # for primary group, use -ng flag or grep gid=
+
+
 ############
 # Scripting
 ############

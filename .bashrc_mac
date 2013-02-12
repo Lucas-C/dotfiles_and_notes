@@ -8,7 +8,8 @@ export EDITOR='open -a /Applications/Xcode.app'
 export PATH=/usr/X11/bin:$PATH
 export PATH=/Users/$USER/bin:$PATH
 
-alias l='/bin/ls -BFG'
+alias l='ls -BFG'
 unset touch
+unset ssh
 alias f='open -a /Applications/Firefox.app'
 alias freeplane='open -a /Applications/Freeplane.app'

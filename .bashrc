@@ -28,7 +28,9 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-BASHRC_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd)"
+BASHRC_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null )" )" && pwd)"
+# readlink fail on Mac
+BASHRC_DIR=${BASHRC_DIR:-$HOME}
 
 # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'
 source ${BASHRC_DIR}/.bash_prompt
@@ -45,13 +47,12 @@ export PATH=/usr/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/bsin:$PATH
 
-
 ##########
 # ALIASES
 ##########
 pa () {
+    grepc -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bash*
     grepc '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
-    grepc -h '^[[:space:]]*[[:alnum:]_-]* () {\|^[[:space:]]*alias [[:alnum:]_-]*=' ${BASHRC_DIR}/.bash*
 }
 
 #----
@@ -60,8 +61,8 @@ pa () {
 unset ls; unalias ls 2>/dev/null
 export LS_COLORS="ln=target" # Avoid mixing all symlinks in same color, and anyway we alias ls with -F
 alias l='ls -BF --color=always'
-alias la='ls -ABF --color=always'   # l -A
-alias ll='ls -lhABF --color=always' # la -lh
+alias la='l -A'
+alias ll='l -lhA'
 alias lk='ll -Sr'       # sort by size, biggest last
 alias lr='ll -lR'       # recursive ls
 alias lc='ll -tc'       # sort by and show change time, most recent first
@@ -160,39 +161,51 @@ VISITED_HOSTS_LOG_FILE=~/.visited
 # Will create a remote /home/$USER dir if needed (and then only, will ask for pswd).
 # Should be run in $HOME. DO NOT use sshl in that cmd.
 exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open
-    local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
-    local keep_ssh_open_cmd ; is_true $2 && keep_ssh_open_cmd='/bin/bash -i' # --rcfile ~/.bash_profile
-    local install_bazsh_cmd="
-        [ -x /home/$USER ] || ( sudo mkdir /home/$USER && sudo chown $USER /home/$USER ) ;
-        cd /tmp ;
-        mv -f $HID_CONF_FILES /home/$USER ;
-        cd /home/$USER ;
-        chmod -w $HID_CONF_FILES
-"
-    scp $HID_CONF_FILES $dst:/tmp/ || return 1
-    ssh -t $dst "$install_bazsh_cmd $keep_ssh_open_cmd" || return 1
-}
-
-ssh_setup () {
-    ssh-add -l >/dev/null 2>&1 && return
-    eval $(ssh-agent)
-    for file_key in ~/.ssh/*.pub; do
-        ssh-add ${file_key%.pub}
+    #local keep_ssh_open_cmd ; is_true $2 && keep_ssh_open_cmd='/bin/bash -i' # --rcfile ~/.bash_profile
+    for dst in $@; do
+        scp $HID_CONF_FILES $dst:/tmp/ || return 1
+        ssh -t $dst <<EOF || return 1
+[ -x /home/$USER ] || ( sudo mkdir /home/$USER && sudo chown $USER /home/$USER ) ;
+cd /tmp ;
+mv -f $HID_CONF_FILES /home/$USER ;
+cd /home/$USER ;
+chmod -w $HID_CONF_FILES ;
+$keep_ssh_open_cmd
+EOF
     done
 }
 
-visit () {              # ssh to a host after calling 'exportHidConf'. List visited hosts in ~/.visited
-    ssh_setup
-    cd
-    if exportHidConf $1 true && ! grep -q $1 $VISITED_HOSTS_LOG_FILE; then
-        echo $@ >> $VISITED_HOSTS_LOG_FILE
+ssh_setup () {
+    local agentConfFile=~/.ssh/.ssh-agent.sh
+    if ps -e | grep -q 'ssh-agent$'; then
+        . $agentConfFile >/dev/null
+        return
     fi
+    ssh-agent >$agentConfFile
+    . $agentConfFile >/dev/null
+    for pub_file_key in ~/.ssh/*.pub; do
+        local priv_file_key=${pub_file_key%.pub}
+        [ -r $priv_file_key ] && ssh-add $priv_file_key
+    done
+}
+
+unset ssh; unalias ssh 2>/dev/null
+ssh () {
+    ssh_setup
+    $(which ssh) $@
+}
+
+visit () {              # ssh to a host after calling 'exportHidConf'. List visited hosts in ~/.visited
+    local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
+    cd
+    exportHidConf $dst || return 1
     cd $OLDPWD
+    grep -q $dst $VISITED_HOSTS_LOG_FILE || echo $dst >> $VISITED_HOSTS_LOG_FILE
+    ssh $dst
 }
 
 rmRemoteHome () {       # remove remote /home/$USER
     local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
-    ssh_setup
     # Backup .*history files
         local logdir=$SSH_LOG_DIR/$1 ; [ -x $logdir ] || mkdir -p $logdir
         scp $dst:~/.*history $logdir
