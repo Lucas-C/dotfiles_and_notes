@@ -49,8 +49,8 @@
 
 [core]
     whitespace = -blank-at-eol,-blank-at-eof
-    excludesfile = ~/.gitignore_core
     editor = vim
+
 [user]
     name = Lucas Cimon
     email = lucas.cimon@gmail.com

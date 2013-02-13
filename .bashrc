@@ -30,7 +30,7 @@ fi
 
 BASHRC_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null )" )" && pwd)"
 # readlink fail on Mac
-BASHRC_DIR=${BASHRC_DIR:-$HOME}
+export BASHRC_DIR=${BASHRC_DIR:-$HOME}
 
 # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'
 source ${BASHRC_DIR}/.bash_prompt
@@ -51,8 +51,8 @@ export PATH=/usr/local/bsin:$PATH
 # ALIASES
 ##########
 pa () {
-    grepc -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bash*
-    grepc '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
+    grep --color -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bash*
+    grep --color '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
 }
 
 #----
@@ -105,6 +105,17 @@ alias gl='git log'
 alias gll='git log origin/mainline..HEAD' # local commits only
 alias gri='git rebase --interactive origin/mainline'
 alias gpr='git pull --rebase'
+giti () {
+    cat >>.gitignore <<EOF
+
+# Universal
+nohup.out
+.project
+.classpath
+*.pyc
+*.o
+EOF
+}
 
 #--------
 # Redefs

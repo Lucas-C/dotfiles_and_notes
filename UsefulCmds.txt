@@ -120,6 +120,9 @@ cat /etc/motd
 uname -a
 cat /etc/issue*
 
+# Notepad in browser
+data:text/html, <html contenteditable>
+
 # Virtualbox
 sudo adduser $USER vboxusers # then logout
 VBoxManage list vms
@@ -170,7 +173,7 @@ echo ${PWD//\//-}
 #-----#
 
 # Svn ignore
-svn propset svn:ignore PATTERN DIR
+svn propedit svn:ignore DIR # then specify PATTERNS
 
 # Get all svn props
 svn propget -R svn:ignore .
@@ -187,9 +190,11 @@ svn status --no-ignore
 #######
 
 # Reflog
- git reflog –> To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
- git reset --hard HEAD@{3} -> To rewind the repo back to the state of HEAD@{3} in the reflog lists.
+git reflog –> To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
+git reset --hard HEAD@{3} -> To rewind the repo back to the state of HEAD@{3} in the reflog lists.
  
+# List versioned files
+git ls-tree --name-only HEAD
  
 #------#
 # Java #
