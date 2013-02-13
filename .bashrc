@@ -151,84 +151,9 @@ fopen () { ( firefox file://$(pwd)/$1 ) }
 # FUNCTIONS
 ############
 
-#------
-# ssh
-#------
-HID_CONF_FILES=".bash_dirs .bash_profile .bash_prompt .bash_screen .bashrc* .gitconfig .gitignore_* .inputrc .screenrc .vimrc* .zshrc"
-SSH_LOG_DIR=~/ssh_logs
-VISITED_HOSTS_LOG_FILE=~/.visited
+source ${BASHRC_DIR}/.bash_ssh_conf
 
-# Will create a remote /home/$USER dir if needed (and then only, will ask for pswd).
-# Should be run in $HOME. DO NOT use sshl in that cmd.
-exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open
-    #local keep_ssh_open_cmd ; is_true $2 && keep_ssh_open_cmd='/bin/bash -i' # --rcfile ~/.bash_profile
-    for dst in $@; do
-        scp $HID_CONF_FILES $dst:/tmp/ || return 1
-        ssh -t $dst <<EOF || return 1
-[ -x /home/$USER ] || ( sudo mkdir /home/$USER && sudo chown $USER /home/$USER ) ;
-cd /tmp ;
-mv -f $HID_CONF_FILES /home/$USER ;
-cd /home/$USER ;
-chmod -w $HID_CONF_FILES ;
-$keep_ssh_open_cmd
-EOF
-    done
-}
 
-ssh_setup () {
-    local agentConfFile=~/.ssh/.ssh-agent.sh
-    if ps -e | grep -q 'ssh-agent$'; then
-        . $agentConfFile >/dev/null
-        return
-    fi
-    ssh-agent >$agentConfFile
-    . $agentConfFile >/dev/null
-    for pub_file_key in ~/.ssh/*.pub; do
-        local priv_file_key=${pub_file_key%.pub}
-        [ -r $priv_file_key ] && ssh-add $priv_file_key
-    done
-}
-
-unset ssh; unalias ssh 2>/dev/null
-ssh () {
-    ssh_setup
-    $(which ssh) $@
-}
-
-visit () {              # ssh to a host after calling 'exportHidConf'. List visited hosts in ~/.visited
-    local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
-    cd
-    exportHidConf $dst || return 1
-    cd $OLDPWD
-    grep -q $dst $VISITED_HOSTS_LOG_FILE || echo $dst >> $VISITED_HOSTS_LOG_FILE
-    ssh $dst
-}
-
-rmRemoteHome () {       # remove remote /home/$USER
-    local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
-    # Backup .*history files
-        local logdir=$SSH_LOG_DIR/$1 ; [ -x $logdir ] || mkdir -p $logdir
-        scp $dst:~/.*history $logdir
-        for f in $logdir/.*history; do mv $f $logdir/$(date +%Y-%m-%d-%Hh_%Mm_%Ss)$(basename $f) ; done
-    ssh -t $dst "rm -rf /home/$USER/* && sudo rmdir /home/$USER" || return 1
-    [ -w $VISITED_HOSTS_LOG_FILE ] && sed -i -e /$1/d $VISITED_HOSTS_LOG_FILE
-}
-
-sshl () { # Ssh with console logs, useful but not good for security
-    local params="$*"
-    while [ "${1:0:1}" = "-" ]; do
-        [[ ${1:${#1}-1} =~ "[bcDeFiLlmOopRSw]" ]] && shift
-        shift
-    done
-    local logdir=$SSH_LOG_DIR/$1 ; [ -x $logdir ] || mkdir -p $logdir
-    local logfile=$logdir/$(date +"%Y-%m-%d-%Hh_%Mm_%Ss").log
-    script -c "ssh $params" $logfile
-    gzip $logfile &
-}
-
-#--------
-# Others
-#--------
 unset man; unalias man 2>/dev/null
 man () { $(which man) $@ || ( help $@ 2> /dev/null && help $@ | less ) }
 

@@ -121,12 +121,13 @@ uname -a
 cat /etc/issue*
 
 # Virtualbox
-sudo adduser $USER vboxusers
+sudo adduser $USER vboxusers # then logout
 VBoxManage list vms
 VBoxManage controlvm <name> poweroff
 
 # Get uid / groups infos
 id $USER # for primary group, use -ng flag or grep gid=
+adduser / moduser -a -G # DO NOT FORGET THE -a !!!
 
 
 ############
