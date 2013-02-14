@@ -5,8 +5,7 @@ Linux configuration files
 Compatible for Ubuntu, Red Hat, OSX and Cygwin.
 
 
-INSTALLATION
-------------
+### INSTALLATION
 
 Clone the repository and create symlinks from your $HOME to :
   .bashrc
@@ -14,7 +13,7 @@ Clone the repository and create symlinks from your $HOME to :
   .inputrc
   .vimrc
 
-To launch *screen*, you need to source .bash_screen.
+To launch **screen**, you need to source .bash_screen.
 
 Alternatively, you can source the .bashrc :
 
@@ -22,7 +21,7 @@ Alternatively, you can source the .bashrc :
 
     alias a=alias # added alias
 
-    # Invoke screen if not in a *tilda* terminal
+    # Invoke screen if not in a **tilda** terminal
     ps -eo pid,comm | grep $PPID | grep -q 'tilda' || source ${BASHRC_DIR}/.bash_screen
 
 Any other .bashrc_* file in the same directory will be sourced.
