@@ -46,6 +46,7 @@ export PATH=/usr/bin:$PATH
 export PATH=/usr/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/bsin:$PATH
+export PATH=$BASHRC_DIR/bin:$PATH
 
 ##########
 # ALIASES

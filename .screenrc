@@ -5,6 +5,7 @@ hardstatus alwayslastline
 caption always '%{= dg} %{B}%M %d %c:%s %{G}|%=%?%{d}%-w%?%{r}(%{d}%n %t%? {%u} %?%{r})%{d}%?%+w%?%='
 
 startup_message off
+defutf8 on
 
 altscreen on # To clear screen after using a full-terminal program
 
