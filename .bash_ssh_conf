@@ -24,11 +24,11 @@ $keep_ssh_open_cmd
 ssh_setup () {
     local agentConfFile=~/.ssh/.ssh-agent.sh
     if ps -e | grep -q 'ssh-agent$'; then
-        . $agentConfFile >/dev/null
+        [ -r $agentConfFile ] && source $agentConfFile >/dev/null
         return
     fi
     ssh-agent >$agentConfFile
-    . $agentConfFile >/dev/null
+    source $agentConfFile >/dev/null
     for pub_file_key in ~/.ssh/*.pub; do
         local priv_file_key=${pub_file_key%.pub}
         [ -r $priv_file_key ] && ssh-add $priv_file_key
