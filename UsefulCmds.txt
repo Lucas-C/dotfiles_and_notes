@@ -195,7 +195,16 @@ git reset --hard HEAD@{3} -> To rewind the repo back to the state of HEAD@{3} in
  
 # List versioned files
 git ls-tree --name-only HEAD
- 
+
+# Git bisect
+git bisect start
+git bisect good GOOD_REVISION_OR_TAG
+git bisect bad BAD_REVISION_OR_TAG # or don’t provide a revision to indicate the current revision
+git bisect run <cmd>
+# Bisect will now step through the commits in an automated fashion, marking commits good or bad depending on the exit code of <cmd>, until it find the culprit commit.
+git bisect reset # to return your repository to the state it started in
+
+
 #------#
 # Java #
 #------#

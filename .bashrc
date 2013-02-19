@@ -148,7 +148,7 @@ alias tF='tail -F'
 alias t5='tail -500'
 alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
 alias py='ipython'
-alias rmpyc='find . -name "*.pyc" | xargs rm -f'
+alias rmpyc='find -L . -name "*.pyc" | xargs rm -f'
 
 alias nav='nautilus $(pwd)/'
 alias pdf='evince'
@@ -163,6 +163,10 @@ fopen () { ( firefox file://$(pwd)/$1 ) }
 
 source ${BASHRC_DIR}/.bash_ssh_conf
 
+
+noalias () {            # which' without aliases
+    which $1 | tail -1
+}
 
 unset man; unalias man 2>/dev/null
 man () { $(which man) $@ || ( help $@ 2> /dev/null && help $@ | less ) }
@@ -192,7 +196,7 @@ is_file_open () { ( lsof | grep $(readlink -f "$1") ) }
 
 fqdn () { ( python -c "import socket ; print socket.getfqdn(\"$@\")" ) }
 
-findTxt () { ( find "$@" -type f -exec file {} \; | grep text | cut -d':' -f1 ) }
+findTxt () { ( find -L "$@" -type f -exec file {} \; | grep text | cut -d':' -f1 ) }
 
 notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
     for f in $(findTxt "$@"); do
@@ -205,6 +209,25 @@ tstp () {               # timestamp converter
     echo $@ | gawk '{print strftime("%c", $0)}'
     # Or date -d @$TIMESTAMP but neither work on OSX
 }
+
+resolve_alias () {      # handle pipes and nested aliases
+    local cmd=$1
+    local params
+    while alias $cmd >/dev/null 2>&1; do
+        local aliased=$(alias $cmd | sed "s/.*\([\'\"]\)\(.*\)\1/\2/")
+        cmd=$(echo $aliased | awk '{ print $1 }')
+        local end_of_cmd=$(echo $aliased | awk '{ $1 = ""; print }') # still contain delim=<space>
+        while echo $end_of_cmd | grep -q '|'; do
+            local intermediate_cmd=${end_of_cmd##*|}
+            end_of_cmd=${end_of_cmd#*|}
+            intermediate_cmd=$(resolve_alias $intermediate_cmd)
+            params="| $intermediate_cmd $params"
+        done
+        params="$end_of_cmd $params"
+    done
+    echo $cmd $params
+}
+#TEST: alias ec='echo' ; alias dog='cat' ; alias boo='ec BOO | dog'
 
 kill_cmd ()             # WIP - Kill every process starting with the pattern passed as a parameter
 {

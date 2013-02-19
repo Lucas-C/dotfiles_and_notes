@@ -1,4 +1,4 @@
-HID_CONF_FILES=".bash_dirs .bash_profile .bash_prompt .bash_screen .bash_ssh_conf .bashrc* .gitconfig .gitignore_* .inputrc .screenrc .vimrc* .zshrc"
+HID_CONF_FILES=".bash_dirs .bash_prompt .bash_screen .bash_ssh_conf .bashrc* .gitconfig .inputrc .screenrc .vimrc* .zshrc"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited
 
