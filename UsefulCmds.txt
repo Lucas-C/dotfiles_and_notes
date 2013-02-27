@@ -4,7 +4,14 @@ netstat
 # Checking ports
 netstat -nap
 nmap -sS -O 127.0.0.1 # Guess OS !!
-lsof -i -n -P 
+lsof -i -P -p <pid> # -n => no IP->hostname resolution
+
+## More LSOF
+# To see all files open in a directory structure:
+lsof +D /some/dir
+# To see all files jeff has open:
+sudo lsof -u jeff
+# Additional useful option : -r <t> : repeat the listing every t second
 
 #Shows Where a File/Directory Comes From (links, etc.)
 namei
@@ -129,8 +136,23 @@ VBoxManage list vms
 VBoxManage controlvm <name> poweroff
 
 # Get uid / groups infos
-id $USER # for primary group, use -ng flag or grep gid=
+id $USER # for primary group, use -ng flag
 adduser / moduser -a -G # DO NOT FORGET THE -a !!!
+
+# Add a Linuxsecondary group without logging out
+newgroup <new secondary group>
+newgroup <original primary group>
+
+# HTML: use protocol-relative URLs (starting with //) like so:
+<img src="//domain.com/img/logo.png">
+# This will cause the browser to automatically prepend the protocol that is currently being used. This trick also works in CSS.
+
+@@@@@@@@@@
+@ MAC OSX
+@@@@@@@@@@
+
+# File listed with '@' => extended attributes
+xattr -l <file>
 
 
 ############

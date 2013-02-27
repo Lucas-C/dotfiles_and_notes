@@ -113,6 +113,8 @@ nohup.out
 .classpath
 *.pyc
 *.o
+*.class
+*~
 EOF
 }
 
@@ -147,7 +149,7 @@ alias pg='ps -ef | grep -i' # using -l make it not portable on Mac
 alias tF='tail -F'
 alias t5='tail -500'
 alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
-alias py='ipython'
+alias py='python'
 alias rmpyc='find -L . -name "*.pyc" | xargs rm -f'
 
 alias nav='nautilus $(pwd)/'

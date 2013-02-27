@@ -42,7 +42,7 @@ ssh () {
 }
 
 visit () {              # ssh to a host after calling 'exportHidConf'. List visited hosts in ~/.visited
-    local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
+    local dst=$(fqdn $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     cd
     exportHidConf $dst || return 1
     cd $OLDPWD
