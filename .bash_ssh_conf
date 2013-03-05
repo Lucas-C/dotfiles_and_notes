@@ -1,4 +1,4 @@
-HID_CONF_FILES=".bash_dirs .bash_prompt .bash_screen .bash_ssh_conf .bashrc* .gitconfig .inputrc .screenrc .vimrc* .zshrc"
+HID_CONF_FILES=".bash_dirs .bash_profile .bash_prompt .bash_screen .bash_ssh_conf .bashrc* .gitconfig .inputrc .screenrc .vimrc* .zshrc"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited
 
@@ -38,11 +38,18 @@ ssh_setup () {
 unset ssh; unalias ssh 2>/dev/null
 ssh () {
     ssh_setup
-    $(which ssh) $@
+    IFS=' '
+    declare -a args
+    # Convert to array
+    read -ra args <<< "$@"
+    for index in "${!args[@]}"; do
+        args[index]=$(fqdn ${args[index]})
+    done
+    $(which ssh) ${args[*]}
 }
 
 visit () {              # ssh to a host after calling 'exportHidConf'. List visited hosts in ~/.visited
-    local dst=$(fqdn $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
+    local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     cd
     exportHidConf $dst || return 1
     cd $OLDPWD

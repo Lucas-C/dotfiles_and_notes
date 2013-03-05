@@ -147,6 +147,11 @@ newgroup <original primary group>
 <img src="//domain.com/img/logo.png">
 # This will cause the browser to automatically prepend the protocol that is currently being used. This trick also works in CSS.
 
+# Query DNS
+dig txt [+short] <hostname>
+host -t txt <hostname>
+
+
 @@@@@@@@@@
 @ MAC OSX
 @@@@@@@@@@
@@ -155,9 +160,9 @@ newgroup <original primary group>
 xattr -l <file>
 
 
-############
-# Scripting
-############
+##################
+# Shell scripting
+##################
 
 cat <<EOF
 EOF
@@ -207,9 +212,9 @@ svn status | grep '!M' | awk '{print $2}' | xargs svn rm #--force
 svn status --no-ignore
 
 
-#######
+#*****#
 # Git
-#######
+#*****#
 
 # Reflog
 git reflog –> To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
@@ -227,11 +232,27 @@ git bisect run <cmd>
 git bisect reset # to return your repository to the state it started in
 
 
-#------#
-# Java #
-#------#
+=======
+= Wiki
+=======
+
+#REDIRECT[[United States]]
+
+
+/////////
+// Java
+/////////
+
 // String / ByteString correct conversion :
 String asString = new String( byteString.getArray(), "UTF-8" );
 ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
 
 // Built-in parallelism the easy way : ExecutorService
+
+
+""""""""""""
+""" Python
+""""""""""""
+
+# HTTP server
+python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
