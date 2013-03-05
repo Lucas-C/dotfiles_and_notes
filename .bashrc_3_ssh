@@ -7,8 +7,9 @@ VISITED_HOSTS_LOG_FILE=~/.visited
 exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open
     #local keep_ssh_open_cmd ; is_true $2 && keep_ssh_open_cmd='/bin/bash -i' # --rcfile ~/.bash_profile
     for dst in $@; do
+        dst=$(fqdn $dst)
         scp $HID_CONF_FILES $dst:/tmp/ || return 1
-        local install_bazsh_cmd="
+        local install_bash_cmd="
 [ '/' = \"\$(pwd)\" ] && ( sudo mkdir /home/$USER && sudo chown $USER /home/$USER ) ;
 cd /tmp ;
 mv -f $HID_CONF_FILES \$(cd && pwd) ;
@@ -17,7 +18,7 @@ chmod -w $HID_CONF_FILES ;
 $keep_ssh_open_cmd
 "
         # WARNING: ssh does NOT behave the same when cmd is piped as stdin
-        ssh -t $dst "$install_bazsh_cmd" || return 1
+        ssh -t $dst "$install_bash_cmd" || return 1
     done
 }
 
@@ -38,18 +39,11 @@ ssh_setup () {
 unset ssh; unalias ssh 2>/dev/null
 ssh () {
     ssh_setup
-    IFS=' '
-    declare -a args
-    # Convert to array
-    read -ra args <<< "$@"
-    for index in "${!args[@]}"; do
-        args[index]=$(fqdn ${args[index]})
-    done
-    $(which ssh) ${args[*]}
+    $(which ssh) $@
 }
 
 visit () {              # ssh to a host after calling 'exportHidConf'. List visited hosts in ~/.visited
-    local dst=$1 ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
+    local dst=$(fqdn $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     cd
     exportHidConf $dst || return 1
     cd $OLDPWD

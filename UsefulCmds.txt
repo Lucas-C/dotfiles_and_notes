@@ -192,6 +192,13 @@ for arg in "$@"; do
     esac
 done
 
+# Convert to array
+IFS=' '
+declare -a argsArray
+read -ra argsArray <<< "$@"
+# Back to string
+echo "${args[*]}"
+
 # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 echo ${PWD//\//-}
 
