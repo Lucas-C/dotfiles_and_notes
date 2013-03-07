@@ -184,6 +184,12 @@ svn status | grep '!M' | awk '{print $2}' | xargs svn rm #--force
 # Display even ignored files
 svn status --no-ignore
 
+# List modifcations /commit
+svn diff --summarize -c <nb>
+
+# Checkout file
+svn up -r <rev> <file>
+
 
 #######
 # Git
