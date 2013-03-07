@@ -12,3 +12,4 @@ alias l='ls -BFG'
 unset touch
 alias f='open -a /Applications/Firefox.app'
 alias freeplane='open -a /Applications/Freeplane.app'
+alias eclipse='open -a /Applications/eclipse/Eclipse.app'
