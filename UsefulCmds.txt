@@ -151,6 +151,13 @@ newgroup <original primary group>
 dig txt [+short] <hostname>
 host -t txt <hostname>
 
+# Logrotate (to call in a cron job)
+# Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
+logrotate -s /var/log/logstatus /etc/logrotate.conf
+
+# setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
+# setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
+
 
 @@@@@@@@@@
 @ MAC OSX
@@ -204,6 +211,12 @@ echo ${PWD//\//-}
 
 # disable wildcard expansion
 set -f
+# list options values
+echo $-
+
+# Syslog
+logger -is -t SCRIPT_NAME -p user.warn "Message"
+
 
 #-----#
 # SVN #
