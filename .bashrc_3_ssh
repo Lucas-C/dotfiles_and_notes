@@ -6,20 +6,40 @@ VISITED_HOSTS_LOG_FILE=~/.visited
 # Should be run in $HOME. DO NOT use sshl in that cmd.
 exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open
     #local keep_ssh_open_cmd ; is_true $2 && keep_ssh_open_cmd='/bin/bash -i' # --rcfile ~/.bash_profile
-    for dst in $@; do
-        dst=$(fqdn $dst)
-        scp $HID_CONF_FILES $dst:/tmp/ || return 1
-        local install_bash_cmd="
+
+    exportHidConfCleanup () {
+        set +f
+        find /tmp/ -maxdepth 1 -name 'HidConf_*' -exec rm -rf {} \;
+    }
+    trap "e=$? ; exportHidConfCleanup ; exit $e" EXIT INT TERM HUP QUIT
+
+    local tmpDir=/tmp/HidConf_$(date +"%Y-%m-%d-%Hh_%Mm_%Ss")
+    mkdir $tmpDir
+    cd
+    cp $HID_CONF_FILES $tmpDir
+
+    local install_bash_cmd="
 [ '/' = \"\$(pwd)\" ] && ( sudo mkdir /home/$USER && sudo chown $USER /home/$USER ) ;
-cd /tmp ;
+rm -f $HID_CONF_FILES ;
+cd $tmpDir ;
 mv -f $HID_CONF_FILES \$(cd && pwd) ;
 cd ;
 chmod -w $HID_CONF_FILES ;
+rm -rf $tmpDir ;
 $keep_ssh_open_cmd
 "
+
+    set -f # disable wildcard expansion so that it's expanded remotely, not locally
+
+    for dst in $@; do
+        dst=$(fqdn $dst)
+        scp -r $tmpDir $dst:/tmp || return 1
         # WARNING: ssh does NOT behave the same when cmd is piped as stdin
         ssh -t $dst "$install_bash_cmd" || return 1
     done
+    
+    trap - EXIT INT TERM HUP QUIT
+    exportHidConfCleanup
 }
 
 ssh_setup () {

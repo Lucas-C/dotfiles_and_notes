@@ -177,7 +177,7 @@ exec >>$0.log.$(date +%Y-%m-%d-%H) 2>&1
 set - A B C
 
 # Garbage cleaner
-trap "e=$?;<CMDS>;exit $e" EXIT INT TERM
+trap "e=$?;<CMDS>;exit $e" EXIT INT TERM HUP QUIT
 
 # mktemp dir & default value
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0)"
@@ -201,6 +201,9 @@ echo "${args[*]}"
 
 # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 echo ${PWD//\//-}
+
+# disable wildcard expansion
+set -f
 
 #-----#
 # SVN #
@@ -263,3 +266,18 @@ ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
 
 # HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
+
+
+/******/
+// C++
+/******/
+
+// Basic exception
+throw runtime_error("invalid type");
+// Catching bad_alloc
+try {
+    obj = new Object;
+} catch(std::bad_alloc &e) {
+    std::cerr << "oom " << e.what() << std::endl;
+    throw;
+}

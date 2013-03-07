@@ -174,7 +174,7 @@ tstp () {               # timestamp converter
     # Or date -d @$TIMESTAMP but neither work on OSX
 }
 
-resolve_alias () {      # handle pipes and nested aliases
+alias_r () {      # recursively resolve an alias, handle pipes and nested aliases
     local cmd=$1
     local params
     while alias $cmd >/dev/null 2>&1; do
