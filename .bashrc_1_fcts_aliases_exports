@@ -28,10 +28,10 @@ alias l='ls -BF --color=always'
 alias la='l -A'
 alias ll='l -lhA'
 alias lk='ll -Sr'       # sort by size, biggest last
-alias lr='ll -lR'       # recursive ls
+alias lt='ll -t'        # sort by date, most recent first
 alias lc='ll -tc'       # sort by and show change time, most recent first
 alias lu='ll -tu'       # sort by and show access time, most recent first
-alias lt='ll -t'        # sort by date, most recent first
+alias lr='ll -lR'       # recursive ls
 lsp () {                # group files by their prefix
     ls -AB1 $@ | sed 's/\(.[^.]\+\).*/\1/' | sort | uniq -c
 }
@@ -42,18 +42,13 @@ lse () {                # group files by their extension
 #------
 # grep
 #------
-unset grep; unalias grep 2>/dev/null
-alias grep='grep -i --color=auto'
-alias grepc='grep -i --color=always'
-unset zgrep; unalias zgrep 2>/dev/null
-alias zgrep='zgrep -i --color=auto' # zgrep also works on plain text files, but '-r' isn't supported
-alias zgrepc='zgrep -i --color=always'
-rzgrep () {
+alias g='grep -i --color=always'
+alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
+zgr () {
     local pattern=$1
     shift
-    find -L $@ -type f | xargs zgrep $pattern
+    find -L $@ -type f | xargs zg $pattern
 }
-alias hgrep='history | grep'
 
 #-----
 # git
@@ -93,7 +88,7 @@ alias df='df -h'        # !! Won't work with sudo
 unset du; unalias du 2>/dev/null
 alias du='du -sh'       # !! Won't work with sudo
 unset make; unalias make 2>/dev/null
-alias make='make -j3 '
+alias make='make -j3'
 unset tkcon; unalias tkcon 2>/dev/null
 alias tkcon='tkcon -load Tk'
 
@@ -103,14 +98,12 @@ alias tkcon='tkcon -load Tk'
 alias e='$EDITOR'
 alias b='cd $OLDPWD'
 alias f='firefox'
-alias h='history'
-alias p='pwd'
-alias t='tree'
 
 #--------
 # Others
 #--------
-alias pg='ps -ef | grep -i' # using -l make it not portable on Mac
+alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args'
+alias pg='psf | grep -i'
 alias tF='tail -F'
 alias t5='tail -500'
 alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
