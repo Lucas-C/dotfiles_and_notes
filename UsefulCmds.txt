@@ -78,9 +78,6 @@ sar
 # How to grep IPs
 grep '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
 
-# List packet exchanges
-netstat
-
 curl
 #See: http://curl.haxx.se/docs/httpscripting.html
 
@@ -102,8 +99,11 @@ ifconfig eth0 192.168.0.1
 dig txt [+short] <hostname>
 host -t txt <hostname>
 
+# List packet exchanges
+netstat
+
 # Checking ports
-netstat -nap
+netstat -nap <port>
 nmap -sS -O 127.0.0.1 # Guess OS !!
 lsof -i -P -p <pid> # -n => no IP->hostname resolution
 
@@ -232,6 +232,9 @@ logger -is -t SCRIPT_NAME -p user.warn "Message"
 # Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
 logrotate -s /var/log/logstatus /etc/logrotate.conf
 
+# Control process priority (useful in cron job)
+nice / renice
+
 
 @@@@@@@@@@
 @ MAC OSX
@@ -310,6 +313,8 @@ git bisect run <cmd>
 # Bisect will now step through the commits in an automated fashion, marking commits good or bad depending on the exit code of <cmd>, until it find the culprit commit.
 git bisect reset # to return your repository to the state it started in
 
+# Rollback last pushed commit
+git revert HEAD
 
 =======
 = Wiki

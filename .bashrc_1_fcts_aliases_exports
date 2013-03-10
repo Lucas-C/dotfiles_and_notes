@@ -102,8 +102,8 @@ alias f='firefox'
 #--------
 # Others
 #--------
-alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args'
-alias pg='psf | grep -i'
+alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args 2>/dev/null'
+alias pg='psf | g'
 alias tF='tail -F'
 alias t5='tail -500'
 alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
