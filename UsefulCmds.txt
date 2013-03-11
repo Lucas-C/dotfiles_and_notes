@@ -21,6 +21,9 @@ ls docs
 !$ # select the last arg
 !!:n # selects the nth argument of the last command
 
+mesg
+write
+wall # broadcast message
 
 #=========
 ### DEBIAN
@@ -156,7 +159,10 @@ ffmpeg -i vid.mp4 -f avi -vcodec copy -acodec copy vid.avi
 sudo ldconfig
 
 # Follow program system calls
-strace
+strace -p <pid>
+
+# Message of the day
+/etc/motd
 
 # Launch command at a specified time or when load average is under 0.8
 echo <cmd> | at midnight
@@ -243,6 +249,8 @@ nice / renice
 # File listed with '@' => extended attributes
 xattr -l <file>
 
+# Add user to group
+sudo dseditgroup -o edit -a <USER> -t user <GROUP>
 
 :::::::::
 :: MySQL
@@ -326,6 +334,9 @@ git revert HEAD
 /////////
 // Java
 /////////
+
+jconsole
+// http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
 
 // String / ByteString correct conversion :
 String asString = new String( byteString.getArray(), "UTF-8" );

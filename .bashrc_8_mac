@@ -13,3 +13,5 @@ alias f='open -a /Applications/Firefox.app'
 alias freeplane='open -a /Applications/Freeplane.app'
 alias eclipse='open -a /Applications/eclipse/Eclipse.app'
 alias nav='open -a /System/Library/CoreServices/Finder.app'
+alias xcode='open -a /Applications/Xcode.app'
+

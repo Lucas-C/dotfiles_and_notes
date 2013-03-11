@@ -169,20 +169,17 @@ tstp () {               # timestamp converter
 
 alias_r () {      # recursively resolve an alias, handle pipes and nested aliases
     local cmd=$1
-    local params
+    local end_of_cmd 
     while alias $cmd >/dev/null 2>&1; do
         local aliased=$(alias $cmd | sed "s/.*\([\'\"]\)\(.*\)\1/\2/")
         cmd=$(echo $aliased | awk '{ print $1 }')
-        local end_of_cmd=$(echo $aliased | awk '{ $1 = ""; print }') # still contain delim=<space>
-        while echo $end_of_cmd | grep -q '|'; do
-            local intermediate_cmd=${end_of_cmd##*|}
-            end_of_cmd=${end_of_cmd#*|}
-            intermediate_cmd=$(resolve_alias $intermediate_cmd)
-            params="| $intermediate_cmd $params"
-        done
-        params="$end_of_cmd $params"
+        end_of_cmd="$(echo $aliased | awk '{ $1 = ""; print }') $end_of_cmd" # still contain delim=<space>
     done
-    echo $cmd $params
+    while echo $end_of_cmd | grep -q '|'; do
+        cmd="$cmd ${end_of_cmd%%|*} |"
+        end_of_cmd=$(alias_r ${end_of_cmd#*|})
+    done
+    echo $cmd $end_of_cmd
 }
 #TEST: alias ec='echo' ; alias dog='cat' ; alias boo='ec BOO | dog'
 
