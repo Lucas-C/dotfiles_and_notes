@@ -27,11 +27,11 @@ export LS_COLORS="ln=target" # Avoid mixing all symlinks in same color, and anyw
 alias l='ls -BF --color=always'
 alias la='l -A'
 alias ll='l -lhA'
-alias lk='ll -Sr'       # sort by size, biggest last
-alias lt='ll -t'        # sort by date, most recent first
-alias lc='ll -tc'       # sort by and show change time, most recent first
-alias lu='ll -tu'       # sort by and show access time, most recent first
-alias lr='ll -lR'       # recursive ls
+alias lk='ll -rS'       # sort by size, smallest first
+alias lt='ll -rt'       # sort by date, oldest first
+alias lc='ll -rtc'      # sort by and show change time, oldest first
+alias lu='ll -rtu'      # sort by and show access time, oldest first
+alias lr='ll -R'        # recursive ls
 lsp () {                # group files by their prefix
     ls -AB1 $@ | sed 's/\(.[^.]\+\).*/\1/' | sort | uniq -c
 }
@@ -182,6 +182,24 @@ alias_r () {      # recursively resolve an alias, handle pipes and nested aliase
     echo $cmd $end_of_cmd
 }
 #TEST: alias ec='echo' ; alias dog='cat' ; alias boo='ec BOO | dog'
+
+# As it's slower, I'm not using rsync rsync --archive --progress --human-readable --partial --remove-sent-files'
+# But the following script is 10 times slower than basic cp : to improve it, we would need a way to get read of most of strace output
+cp_p()                  # cp with progress bar
+{
+    strace -q -e write cp -- "${1}" "${2}" 2>&1 | awk '{
+        if (NR % int(total_size / 409600) == 0) {
+            percent = NR * 409600 / total_size
+            printf "%3d%% [", percent
+            for (i=0;i<=percent;i++)
+               printf "="
+            printf ">"
+            for (i=percent;i<100;i++)
+               printf " "
+            printf "]\r"
+        }
+    } END { print "" }' total_size=$(stat -c '%s' "${1}")
+}
 
 kill_cmd ()             # WIP - Kill every process starting with the pattern passed as a parameter
 {

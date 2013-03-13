@@ -69,6 +69,8 @@ sudo -K
 # Watch system stats
 watch -d 'cat /proc/meminfo'
 
+iostat
+
 # Checking Swap Space Size and Usage
 vmstat 2
 sar
@@ -159,7 +161,7 @@ ffmpeg -i vid.mp4 -f avi -vcodec copy -acodec copy vid.avi
 sudo ldconfig
 
 # Follow program system calls
-strace -p <pid>
+strace -c -p <pid> -e open,access,poll,select,connect,recvfrom,sendto
 
 # Message of the day
 /etc/motd
@@ -239,7 +241,7 @@ logger -is -t SCRIPT_NAME -p user.warn "Message"
 logrotate -s /var/log/logstatus /etc/logrotate.conf
 
 # Control process priority (useful in cron job)
-nice / renice
+nice / ionice / renice
 
 
 @@@@@@@@@@
@@ -338,6 +340,9 @@ git revert HEAD
 jconsole
 // http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
 
+// Object-type histogram on a running jvm
+jmap -histo:live <pid>
+
 // String / ByteString correct conversion :
 String asString = new String( byteString.getArray(), "UTF-8" );
 ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
@@ -351,6 +356,9 @@ ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
 
 # HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
+
+__slots__ # attribute
+# Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots." 
 
 
 /******/
