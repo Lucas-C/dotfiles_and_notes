@@ -153,7 +153,9 @@ is_file_open () { ( lsof | grep $(readlink -f "$1") ) }
 
 fqdn () { ( python -c "import socket ; print socket.getfqdn(\"$@\")" ) }
 
-findTxt () { ( find -L "$@" -type f -exec file {} \; | grep text | cut -d':' -f1 ) }
+findTxt () { # | xargs -I{} echo {}
+    find -L "$@" -type f -exec file {} \; | grep text | cut -d':' -f1
+}
 
 notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
     for f in $(findTxt "$@"); do

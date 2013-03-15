@@ -140,6 +140,14 @@ namei
 # Create fake file
 sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000
 
+# Bring back deleted file from limbo (ONLY if still in use in another process)
+lsof | grep myfile # get pid
+cp /proc/<pid>/fd/4 myfile.saved
+
+# http://www.cyberciti.biz/tips/linux-audit-files-to-see-who-made-changes-to-a-file.html
+auditctl -w <file> -p wax -k <tag>
+ausearch -k <tag> [-ts today -ui 506 -x cat]
+
 nm *.o
 
 readelf -Ws *.so
@@ -254,6 +262,10 @@ xattr -l <file>
 # Add user to group
 sudo dseditgroup -o edit -a <USER> -t user <GROUP>
 
+# FUN
+curl http://google.com/ | base64 | say
+
+
 :::::::::
 :: MySQL
 :::::::::
@@ -359,6 +371,25 @@ python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 
 __slots__ # attribute
 # Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots." 
+
+# get exec time
+python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
+
+# DO NOT use other default parameter values than None
+def foo(x = []):
+    x.append('do')
+    return x
+
+foo()
+foo()
+
+# __repr__ : unambigous, as possible 'eval'uable
+"MyClass(this=%r,that=%r)" % (self.this,self.that)
+
+# Funny loop construct
+for ...:
+    break
+else:
 
 
 /******/
