@@ -160,6 +160,8 @@ mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
 # .mp4 to .avi
 ffmpeg -i vid.mp4 -f avi -vcodec copy -acodec copy vid.avi
 
+rsync -avz --exclude=".*"
+
 
 #=============
 ### Various
@@ -212,7 +214,7 @@ cat <<EOF
 EOF
 
 # mktemp dir & default value
-tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0)"
+tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
 
 # Parsing *=* args (unsecure)
 # Push element in an array
@@ -343,6 +345,13 @@ git revert HEAD
 
 # List git commiters
 git log --format='%aN %aE' | sort -u
+
+
++++++
++ p4
++++++
+# status
+find . -type f -print0 | xargs -0 p4 fstat -T clientFile,action
 
 
 =======

@@ -14,10 +14,9 @@ exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true
     }
     trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportHidConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
-    local tmpDir=$(mktemp)_HidConf_$USER
-    mkdir $tmpDir
+    local tmpDir=$(mktemp -d /tmp/HidConf_$USER.XXXXXX)
     cp $HID_CONF_FILES $tmpDir
-    [ -e .history ] && cp .history $tmpDir
+    [ -e .bash_history ] && cp .bash_history $tmpDir
 
     local install_bash_cmd="
 rm -rf $HID_CONF_TMP_DIR ;
@@ -28,7 +27,7 @@ cd \$HOME ;
 rm -f $HID_CONF_FILES ;
 cd $HID_CONF_TMP_DIR ;
 mv -f $HID_CONF_FILES \$HOME ;
-[ -e .history -a ! -e ~/.history ] && mv .history \$HOME ;
+[ -e .bash_history -a ! -e ~/.bash_history ] && mv .bash_history \$HOME ;
 cd \$HOME ;
 chmod -w $HID_CONF_FILES ;
 $keep_ssh_open_cmd
