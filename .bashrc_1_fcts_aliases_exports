@@ -8,7 +8,7 @@ export PATH=/sbin:$PATH
 export PATH=/usr/bin:$PATH
 export PATH=/usr/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/bsin:$PATH
+export PATH=/usr/local/sbin:$PATH
 export PATH=$BASHRC_DIR/bin:$PATH
 
 ##########
@@ -204,10 +204,16 @@ cp_p()                  # cp with progress bar
     } END { print "" }' total_size=$(stat -c '%s' "${1}")
 }
 
+get_parent_pid ()
+{
+    local pid=$1 ; [ -z "$pid" ] && pid=$$
+    ps --no-headers --format ppid --pid $pid
+}
+
 kill_cmd ()             # WIP - Kill every process starting with the pattern passed as a parameter
 {
     while true; do
-        pid=$(ps -eo pid,args | egrep -e "[0-9]* /bin/bash $1" | grep -v grep | grep -o '[0-9]*')
+        local pid=$(ps -eo pid,args | egrep -e "[0-9]* /bin/bash $1" | grep -v grep | grep -o '[0-9]*')
         echo "Killing $(ps -eo pid,args | egrep -e "[0-9]* /bin/bash $1" | grep -v grep)"
         if [ -n "$pid" ]; then
             kill "$pid"

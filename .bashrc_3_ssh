@@ -1,41 +1,33 @@
-HID_CONF_FILES=".bash_dirs .bash_profile .bashrc* .gitconfig .inputrc .screenrc .vimrc* .zshrc"
-HID_CONF_TMP_DIR="/tmp/$USER"
+BASH_CONF_FILES=".bash_dirs .bash_profile .bashrc* .gitconfig .inputrc .screenrc .vimrc* .zshrc"
+BASH_CONF_TMP_DIR="/tmp/$USER"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited
 
 # Will create a remote $HOME dir if needed (and then only, will ask for pswd).
 # Should be run in $HOME. DO NOT use sshl in that cmd.
-exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open
+exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open
     #local keep_ssh_open_cmd ; is_true $2 && keep_ssh_open_cmd='/bin/bash -i' # --rcfile ~/.bash_profile
 
-    exportHidConfCleanup () {
-        set +f
-        rm -rf $tmpDir;
-    }
-    trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportHidConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
+    exportBashConfCleanup () { rm -rf $tmpDir ; }
+    trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportBashConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
-    local tmpDir=$(mktemp -d /tmp/HidConf_$USER.XXXXXX)
-    cp $HID_CONF_FILES $tmpDir
+    local tmpDir=$(mktemp -d /tmp/BashConf_$USER.XXXXXX)
+    cp $BASH_CONF_FILES $tmpDir
     [ -e .bash_history ] && cp .bash_history $tmpDir
 
     local install_bash_cmd="
-rm -rf $HID_CONF_TMP_DIR ;
-mv $tmpDir $HID_CONF_TMP_DIR ;
-[ '/' = \"\$(pwd)\" ] && ( sudo mkdir /home/$USER && sudo chown $USER /home/$USER ) ;
-cd \$HOME ;
-[ '/' = \"\$(pwd)\" ] && return 42 ;
-rm -f $HID_CONF_FILES ;
-cd $HID_CONF_TMP_DIR ;
-mv -f $HID_CONF_FILES \$HOME ;
+rm -rf $BASH_CONF_TMP_DIR ;
+mv $tmpDir $BASH_CONF_TMP_DIR ;
+[ ! -e \$HOME ] && sudo mkdir \$HOME && sudo chown $USER \$HOME ;
+cd $BASH_CONF_TMP_DIR ;
+mv -f $BASH_CONF_FILES \$HOME ;
 [ -e .bash_history -a ! -e ~/.bash_history ] && mv .bash_history \$HOME ;
 cd \$HOME ;
-chmod -w $HID_CONF_FILES ;
+chmod -w $BASH_CONF_FILES ;
 $keep_ssh_open_cmd
 "
 
     ssh_setup
-
-    set -f # disable wildcard expansion so that it's expanded remotely, not locally
 
     for dst in $@; do
         dst=$(fqdn $dst)
@@ -65,15 +57,15 @@ ssh () {
     $(which ssh) $@
 }
 
-visit () {              # ssh to a host after calling 'exportHidConf'. List visited hosts in ~/.visited
+visit () {              # ssh to a host after calling 'exportBashConf'. List visited hosts in ~/.visited
     local dst=$(fqdn $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     cd
-    if exportHidConf $dst; then
+    if exportBashConf $dst; then
         grep -q $dst $VISITED_HOSTS_LOG_FILE || echo $dst >> $VISITED_HOSTS_LOG_FILE
         ssh $dst
     else
-        echo "$(tput setaf 1)exportHidConf FAILED: $(tput sgr0) sudo rights probably missing on $dst, fallback to a /tmp \$HOME"
-        ssh -t $dst "HOME=$HID_CONF_TMP_DIR ; cd ; bash --rcfile .bashrc"
+        echo "$(tput setaf 1)exportBashConf FAILED: $(tput sgr0) sudo rights probably missing on $dst, fallback to a /tmp \$HOME"
+        ssh -t $dst "HOME=$BASH_CONF_TMP_DIR ; cd ; bash --rcfile .bashrc"
     fi
     cd $OLDPWD
 }

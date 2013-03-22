@@ -326,8 +326,8 @@ svn up -r <rev> <file>
 #*****#
 
 # Reflog
-git reflog –> To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
-git reset --hard HEAD@{3} -> To rewind the repo back to the state of HEAD@{3} in the reflog lists.
+git reflog # To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
+git reset --hard HEAD@{3} # To rewind the repo back to the state of HEAD@{3} in the reflog lists.
  
 # List versioned files
 git ls-tree --name-only HEAD
