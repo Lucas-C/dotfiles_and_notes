@@ -82,11 +82,11 @@ EOF
 # Redefs
 #--------
 unset diff; unalias diff 2>/dev/null
-alias diff='diff -b'    # !! Won't work with sudo
+alias diff='diff -b'
 unset df; unalias df 2>/dev/null
-alias df='df -h'        # !! Won't work with sudo
+alias df='df -h'
 unset du; unalias du 2>/dev/null
-alias du='du -sh'       # !! Won't work with sudo
+alias du='du -sh'
 unset make; unalias make 2>/dev/null
 alias make='make -j3'
 unset tkcon; unalias tkcon 2>/dev/null
@@ -102,6 +102,7 @@ alias f='firefox'
 #--------
 # Others
 #--------
+alias diffs='diff --side-by-side'
 alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args 2>/dev/null'
 alias pg='psf | g'
 alias tF='tail -F'
@@ -153,8 +154,8 @@ is_file_open () { ( lsof | grep $(readlink -f "$1") ) }
 
 fqdn () { ( python -c "import socket ; print socket.getfqdn(\"$@\")" ) }
 
-findTxt () { # | xargs -I{} echo {}
-    find -L "$@" -type f -exec file {} \; | grep text | cut -d':' -f1
+findTxt () { # | xargs -I{} grep -H PATTERN {}
+    find -L "$@" -type f -exec file {} \; | grep 'ASCII text' | sed 's/^\(.*\): [^/.]*ASCII text[^/.]*$/\1/' 
 }
 
 notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces

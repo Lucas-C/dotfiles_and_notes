@@ -14,4 +14,5 @@ alias freeplane='open -a /Applications/Freeplane.app'
 alias eclipse='open -a /Applications/eclipse/Eclipse.app'
 alias nav='open -a /System/Library/CoreServices/Finder.app'
 alias xcode='open -a /Applications/Xcode.app'
+alias sub='open -a /Applications/Sublime\ Text\ 2.app'
 

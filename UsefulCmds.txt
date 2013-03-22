@@ -105,7 +105,7 @@ dig txt [+short] <hostname>
 host -t txt <hostname>
 
 # List packet exchanges
-netstat
+netstat [--statistics --udp]
 
 # Checking ports
 netstat -nap <port>
@@ -131,8 +131,6 @@ ls | cut -d . -f 1 | sort | uniq -c
 
 # Sets intersec
 comm -12 #or uniq -d
-
-diff --side-by-side
 
 # Shows Where a File/Directory Comes From (links, etc.)
 namei
@@ -196,8 +194,8 @@ exec >>$0.log.$(date +%Y-%m-%d-%H) 2>&1
 # Set positional parameters $0 $1 ...
 set - A B C
 
-# Garbage cleaner
-trap "e=$?;<CMDS>;exit $e" EXIT INT TERM HUP QUIT
+# Garbage cleaner (self-sufficient: no need to untrap, or call the cleanup function at the end of the function its defined)
+trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; <cleanup-cmd> ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
 # Script file parent dir
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -240,6 +238,11 @@ echo ${PWD//\//-}
 set -f
 # list options values
 echo $-
+
+tput
+# setaf 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
+# Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
+# sgr0: reset
 
 # Syslog
 logger -is -t SCRIPT_NAME -p user.warn "Message"
@@ -337,6 +340,10 @@ git bisect reset # to return your repository to the state it started in
 
 # Rollback last pushed commit
 git revert HEAD
+
+# List git commiters
+git log --format='%aN %aE' | sort -u
+
 
 =======
 = Wiki

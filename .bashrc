@@ -28,7 +28,11 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-export BASHRC_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null )" 2>/dev/null )" && pwd)"
+if readlink -f 2>/dev/null; then
+    export BASHRC_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}" )" )" && pwd)"
+else
+    export BASHRC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
+fi
 
 # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'
 

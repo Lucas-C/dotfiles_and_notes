@@ -1,4 +1,5 @@
 HID_CONF_FILES=".bash_dirs .bash_profile .bashrc* .gitconfig .inputrc .screenrc .vimrc* .zshrc"
+HID_CONF_TMP_DIR="/tmp/$USER"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited
 
@@ -9,25 +10,27 @@ exportHidConf () {      # export $HID_CONF_FILES to a remote host $1. If is_true
 
     exportHidConfCleanup () {
         set +f
-        find /tmp/ -maxdepth 1 -name 'HidConf_*' -exec rm -rf {} \;
+        rm -rf $tmpDir;
     }
-    trap "e=$? ; exportHidConfCleanup ; exit $e" EXIT INT TERM HUP QUIT
+    trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportHidConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
-    local tmpDir=/tmp/HidConf_$(date +"%Y-%m-%d-%Hh_%Mm_%Ss")
+    local tmpDir=$(mktemp)_HidConf_$USER
     mkdir $tmpDir
-    cd
     cp $HID_CONF_FILES $tmpDir
     [ -e .history ] && cp .history $tmpDir
 
     local install_bash_cmd="
+rm -rf $HID_CONF_TMP_DIR ;
+mv $tmpDir $HID_CONF_TMP_DIR ;
 [ '/' = \"\$(pwd)\" ] && ( sudo mkdir /home/$USER && sudo chown $USER /home/$USER ) ;
+cd \$HOME ;
+[ '/' = \"\$(pwd)\" ] && return 42 ;
 rm -f $HID_CONF_FILES ;
-cd $tmpDir ;
+cd $HID_CONF_TMP_DIR ;
 mv -f $HID_CONF_FILES \$HOME ;
 [ -e .history -a ! -e ~/.history ] && mv .history \$HOME ;
-cd ;
+cd \$HOME ;
 chmod -w $HID_CONF_FILES ;
-rm -rf $tmpDir ;
 $keep_ssh_open_cmd
 "
 
@@ -41,9 +44,6 @@ $keep_ssh_open_cmd
         # WARNING: ssh does NOT behave the same when cmd is piped as stdin
         ssh -t $dst "$install_bash_cmd" || return 1
     done
-    
-    trap - EXIT INT TERM HUP QUIT
-    exportHidConfCleanup
 }
 
 ssh_setup () {
@@ -69,10 +69,14 @@ ssh () {
 visit () {              # ssh to a host after calling 'exportHidConf'. List visited hosts in ~/.visited
     local dst=$(fqdn $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     cd
-    exportHidConf $dst || return 1
+    if exportHidConf $dst; then
+        grep -q $dst $VISITED_HOSTS_LOG_FILE || echo $dst >> $VISITED_HOSTS_LOG_FILE
+        ssh $dst
+    else
+        echo "$(tput setaf 1)exportHidConf FAILED: $(tput sgr0) sudo rights probably missing on $dst, fallback to a /tmp \$HOME"
+        ssh -t $dst "HOME=$HID_CONF_TMP_DIR ; cd ; bash --rcfile .bashrc"
+    fi
     cd $OLDPWD
-    grep -q $dst $VISITED_HOSTS_LOG_FILE || echo $dst >> $VISITED_HOSTS_LOG_FILE
-    ssh $dst
 }
 
 rmRemoteHome () {       # remove remote /home/$USER
