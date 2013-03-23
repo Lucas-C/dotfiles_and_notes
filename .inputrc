@@ -8,4 +8,6 @@ set completion-ignore-case on
 # Ctrl+left/right arrows
 "\eO5C": forward-word
 "\eO5D": backward-word
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
 
