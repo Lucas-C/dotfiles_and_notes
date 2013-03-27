@@ -111,6 +111,9 @@ alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
 alias py='python'
 alias rmpyc='find -L . -name "*.pyc" | xargs rm -f'
 
+alias lower='tr "[:upper:]" "[:lower:]"'
+alias upper='tr "[:lower:]" "[:upper:]"'
+
 alias nav='nautilus $(pwd)/'
 alias pdf='evince'
 
@@ -129,10 +132,14 @@ noalias () {            # which' without aliases
 unset man; unalias man 2>/dev/null
 man () { $(which man) $@ || ( help $@ 2> /dev/null && help $@ | less ) }
 
+funiq () { # better than 'sort | uniq'
+    awk '{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'
+}
+
 unset touch; unalias touch 2>/dev/null
 touch () {              # touch [EPOCH] [+/-<modifier>] <files>
     local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
-    if [ "$(echo $1 | tr '[A-Z]' '[a-z]')" = "epoch" ]; then
+    if [ "$(echo $1 | lower = "epoch" ]; then
         yymm=7001
         dd=01
         HHMM=0000
@@ -154,7 +161,7 @@ is_file_open () { ( lsof | grep $(readlink -f "$1") ) }
 
 fqdn () { ( python -c "import socket ; print socket.getfqdn(\"$@\")" ) }
 
-findTxt () { # | xargs -I{} grep -H PATTERN {}
+findTxt () { # | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
     find -L "$@" -type f -exec file {} \; | grep 'ASCII text' | sed 's/^\(.*\): [^/.]*ASCII text[^/.]*$/\1/' 
 }
 
