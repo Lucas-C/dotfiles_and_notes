@@ -25,12 +25,9 @@ mesg
 write
 wall # broadcast message
 
-#=========
-### DEBIAN
-
-# Use 'apt-file' to see which package provides that file you're missing
-
-sudo dpkg -D1 -i *.deb
+# filter outpout : not lines 1-3 and last one
+type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
+# this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD ; ... }
 
 
 #=========
@@ -112,6 +109,9 @@ netstat -nap <port>
 nmap -sS -O 127.0.0.1 # Guess OS !!
 lsof -i -P -p <pid> # -n => no IP->hostname resolution
 
+# Keep ssh session open after executing commands
+ssh $host "$cmds ; /bin/bash -i"
+
 
 #=============
 ### FILES
@@ -168,6 +168,9 @@ rsync -avz --exclude=".*"
 
 sudo ldconfig
 
+# Use 'apt-file' to see which package provides that file you're missing
+sudo dpkg -D1 -i *.deb
+
 # Follow program system calls
 strace -c -p <pid> -e open,access,poll,select,connect,recvfrom,sendto
 
@@ -200,7 +203,9 @@ set - A B C
 mv $file ${file%.*}.bak
 
 # Garbage cleaner (self-sufficient: no need to untrap, or call the cleanup function at the end of the function its defined)
-trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; <cleanup-cmd> ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
+cleanup () { rm $file ; } # variables are be accesible as this will be called before leaving the function
+local file=$(mktemp)
+trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; cleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
 # Script file parent dir
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
