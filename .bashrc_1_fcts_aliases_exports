@@ -57,7 +57,7 @@ alias gll='git log origin/mainline..HEAD' # local commits only
 alias gri='git rebase --interactive origin/mainline'
 alias gpr='git pull --rebase'
 giti () {
-    cat >>.gitignore <<EOF
+    cat <<EOF
 
 # Universal
 nohup.out
