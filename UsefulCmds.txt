@@ -171,11 +171,15 @@ sudo ldconfig
 # Use 'apt-file' to see which package provides that file you're missing
 sudo dpkg -D1 -i *.deb
 
-# Follow program system calls
-strace -c -p <pid> -e open,access,poll,select,connect,recvfrom,sendto
+# Follow program system calls (!! -f => follow fork)
+strace -f -c -p <pid> -e open,access,poll,select,connect,recvfrom,sendto
 
 # Message of the day
 /etc/motd
+
+# Configure 'mail' command
+/etc/ssmtp/revaliases
+/etc/ssmtp/ssmtp.conf
 
 # Launch command at a specified time or when load average is under 0.8
 echo <cmd> | at midnight
