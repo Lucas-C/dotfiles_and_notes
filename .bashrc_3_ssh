@@ -3,11 +3,10 @@ BASH_CONF_TMP_DIR="/tmp/$USER"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited
 
-# Will create a remote $HOME dir if needed (and then only, will ask for pswd).
+# Will create a remote $HOME dir if needed 
+# If it fails, config files will still be kept int remote $BASH_CONF_TMP_DIR
 # Should be run in $HOME. DO NOT use sshl in that cmd.
-exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1. If is_true $2, keep ssh connection open
-    #local keep_ssh_open_cmd ; is_true $2 && keep_ssh_open_cmd='/bin/bash -i' # --rcfile ~/.bash_profile
-
+exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1, and .bash_history the 1st time
     exportBashConfCleanup () { rm -rf $tmpDir ; }
     trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportBashConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
@@ -16,18 +15,14 @@ exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1. If is_tr
     [ -e .bash_history ] && cp .bash_history $tmpDir
 
     local install_bash_cmd="
-rm -rf $BASH_CONF_TMP_DIR ;
-mv $tmpDir $BASH_CONF_TMP_DIR ;
-[ ! -e \$HOME ] && sudo mkdir \$HOME && sudo chown $USER \$HOME ;
-cd $BASH_CONF_TMP_DIR ;
-mv -f $BASH_CONF_FILES \$HOME ;
-[ -e .bash_history -a ! -e ~/.bash_history ] && mv .bash_history \$HOME ;
-cd \$HOME ;
-chmod -w $BASH_CONF_FILES ;
-$keep_ssh_open_cmd
+[ -e ~/.bash_history ] && rm $tmpDir/.bash_history ;
+[ -e $BASH_CONF_TMP_DIR ] || mkdir $BASH_CONF_TMP_DIR ;
+find $tmpDir -mindepth 1 -maxdepth 1 -exec chmod -w {} + -exec mv -f -t $BASH_CONF_TMP_DIR -- {} + ;
+rmdir $tmpDir ;
+( [ -e \$HOME ] || ( sudo mkdir \$HOME && sudo chown $USER \$HOME ) ) || exit 1 ;
+find $BASH_CONF_TMP_DIR -mindepth 1 -maxdepth 1 -exec mv -f -t \$HOME -- {} + ;
+rmdir $BASH_CONF_TMP_DIR
 "
-
-    ssh_setup
 
     for dst in $@; do
         dst=$(fqdn $dst)
@@ -55,6 +50,12 @@ unset ssh; unalias ssh 2>/dev/null
 ssh () {
     ssh_setup
     $(which ssh) $@
+}
+
+unset scp; unalias scp 2>/dev/null
+scp () {
+    ssh_setup
+    $(which scp) $@
 }
 
 visit () {              # ssh to a host after calling 'exportBashConf'. List visited hosts in ~/.visited

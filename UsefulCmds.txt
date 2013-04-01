@@ -25,12 +25,9 @@ mesg
 write
 wall # broadcast message
 
-#=========
-### DEBIAN
-
-# Use 'apt-file' to see which package provides that file you're missing
-
-sudo dpkg -D1 -i *.deb
+# filter outpout : not lines 1-3 and last one
+type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
+# this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD ; ... }
 
 
 #=========
@@ -112,6 +109,9 @@ netstat -nap <port>
 nmap -sS -O 127.0.0.1 # Guess OS !!
 lsof -i -P -p <pid> # -n => no IP->hostname resolution
 
+# Keep ssh session open after executing commands
+ssh $host "$cmds ; /bin/bash -i"
+
 
 #=============
 ### FILES
@@ -168,6 +168,9 @@ rsync -avz --exclude=".*"
 
 sudo ldconfig
 
+# Use 'apt-file' to see which package provides that file you're missing
+sudo dpkg -D1 -i *.deb
+
 # Follow program system calls
 strace -c -p <pid> -e open,access,poll,select,connect,recvfrom,sendto
 
@@ -196,8 +199,13 @@ exec >>$0.log.$(date +%Y-%m-%d-%H) 2>&1
 # Set positional parameters $0 $1 ...
 set - A B C
 
+# Change extension
+mv $file ${file%.*}.bak
+
 # Garbage cleaner (self-sufficient: no need to untrap, or call the cleanup function at the end of the function its defined)
-trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; <cleanup-cmd> ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
+cleanup () { rm $file ; } # variables are be accesible as this will be called before leaving the function
+local file=$(mktemp)
+trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; cleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
 # Script file parent dir
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -216,13 +224,23 @@ EOF
 # mktemp dir & default value
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
 
+# http://wiki.bash-hackers.org/howto/getopts_tutorial
+while getopts ":ab:" opt; do
+    case $opt in
+    a) echo "-a was triggered." >&2 ;;
+    b) echo "-b was triggered. Parameter: $OPTARG" >&2 ;;
+    \?) echo "Invalid option: -$OPTARG" >&2 ; exit 1 ;;
+    :) echo "Option -$OPTARG requires an argument." >&2 ; exit 1 ;;
+    esac
+done
+
 # Parsing *=* args (unsecure)
 # Push element in an array
 declare -a argFiles
 for arg in "$@"; do
     case $arg in
-        *=*) eval $arg;;
-        *) argFiles[${#argFiles[*]}]="$(readlink -f $arg)";;
+        *=*) eval $argi ;;
+        *) argFiles[${#argFiles[*]}]="$(readlink -f $arg)" ;;
     esac
 done
 
@@ -251,7 +269,7 @@ logger -is -t SCRIPT_NAME -p user.warn "Message"
 
 # Logrotate (to call in a cron job)
 # Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
-logrotate -s /var/log/logstatus /etc/logrotate.conf
+logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f]
 
 # Control process priority (useful in cron job)
 nice / ionice / renice

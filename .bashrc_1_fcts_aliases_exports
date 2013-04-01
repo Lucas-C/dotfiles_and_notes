@@ -1,6 +1,6 @@
-###########
-# EXPORTS
-###########
+#---------
+# Exports
+#---------
 export EDITOR=vim
 
 export PATH=/bin:$PATH
@@ -10,14 +10,6 @@ export PATH=/usr/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=$BASHRC_DIR/bin:$PATH
-
-##########
-# ALIASES
-##########
-pa () {
-    grep --color -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bash*
-    grep --color '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
-}
 
 #----
 # ls
@@ -65,7 +57,7 @@ alias gll='git log origin/mainline..HEAD' # local commits only
 alias gri='git rebase --interactive origin/mainline'
 alias gpr='git pull --rebase'
 giti () {
-    cat >>.gitignore <<EOF
+    cat <<EOF
 
 # Universal
 nohup.out
@@ -78,9 +70,9 @@ nohup.out
 EOF
 }
 
-#--------
-# Redefs
-#--------
+#---------------
+# Redefinitions
+#--------------
 unset diff; unalias diff 2>/dev/null
 alias diff='diff -b'
 unset df; unalias df 2>/dev/null
@@ -92,47 +84,10 @@ alias make='make -j3'
 unset tkcon; unalias tkcon 2>/dev/null
 alias tkcon='tkcon -load Tk'
 
-#------------
-# One-letter
-#------------
-alias e='$EDITOR'
-alias b='cd $OLDPWD'
-alias f='firefox'
-
-#--------
-# Others
-#--------
-alias diffs='diff --side-by-side'
-alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args 2>/dev/null'
-alias pg='psf | g'
-alias tF='tail -F'
-alias t5='tail -500'
-alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
-alias py='python'
-alias rmpyc='find -L . -name "*.pyc" | xargs rm -f'
-
-alias nav='nautilus $(pwd)/'
-alias pdf='evince'
-
-
-fopen () { ( firefox file://$(pwd)/$1 ) }
-
-
-############
-# FUNCTIONS
-############
-
-noalias () {            # which' without aliases
-    which $1 | tail -1
-}
-
-unset man; unalias man 2>/dev/null
-man () { $(which man) $@ || ( help $@ 2> /dev/null && help $@ | less ) }
-
 unset touch; unalias touch 2>/dev/null
 touch () {              # touch [EPOCH] [+/-<modifier>] <files>
     local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
-    if [ "$(echo $1 | tr '[A-Z]' '[a-z]')" = "epoch" ]; then
+    if [ "$(echo $1 | lower)" = "epoch" ]; then
         yymm=7001
         dd=01
         HHMM=0000
@@ -148,29 +103,26 @@ touch () {              # touch [EPOCH] [+/-<modifier>] <files>
     $(which touch) -t $stamp $@
 }
 
-is_true () { ! ( [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
+#------------
+# One-letter
+#------------
+alias e='$EDITOR'
+alias b='cd $OLDPWD'
+alias f='firefox'
 
-is_file_open () { ( lsof | grep $(readlink -f "$1") ) }
-
-fqdn () { ( python -c "import socket ; print socket.getfqdn(\"$@\")" ) }
-
-findTxt () { # | xargs -I{} grep -H PATTERN {}
-    find -L "$@" -type f -exec file {} \; | grep 'ASCII text' | sed 's/^\(.*\): [^/.]*ASCII text[^/.]*$/\1/' 
+#---------------
+# Alias control
+#---------------
+pa () {                 # print aliases
+    grep --color -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bashrc*
+    grep --color '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
 }
 
-notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
-    for f in $(findTxt "$@"); do
-        sed -i -e 's/[     ]*$//g' "$f"
-        sed -i -e 's/    /    /g' "$f"
-    done
+noalias () {            # 'which' without aliases
+    which $1 | tail -1
 }
 
-tstp () {               # timestamp converter
-    echo $@ | gawk '{print strftime("%c", $0)}'
-    # Or date -d @$TIMESTAMP but neither work on OSX
-}
-
-alias_r () {      # recursively resolve an alias, handle pipes and nested aliases
+alias_r () {            # recursively resolve an alias, handle pipes and nested aliases
     local cmd=$1
     local end_of_cmd 
     while alias $cmd >/dev/null 2>&1; do
@@ -185,6 +137,55 @@ alias_r () {      # recursively resolve an alias, handle pipes and nested aliase
     echo $cmd $end_of_cmd
 }
 #TEST: alias ec='echo' ; alias dog='cat' ; alias boo='ec BOO | dog'
+
+#--------
+# Others
+#--------
+alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args 2>/dev/null'
+alias pg='psf | g'
+
+alias tF='tail -F'
+alias t5='tail -500'
+
+alias py='python'
+alias rmpyc='find -L . -name "*.pyc" | xargs rm -f'
+
+alias lower='tr "[:upper:]" "[:lower:]"'
+alias upper='tr "[:lower:]" "[:upper:]"'
+
+alias funiq='awk {k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}' # faster than 'sort | uniq'
+alias diffs='diff --side-by-side'
+alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
+
+alias nav='nautilus $(pwd)/'
+alias pdf='evince'
+
+fopen () { ( firefox file://$(pwd)/$1 ) }
+
+unset man; unalias man 2>/dev/null
+man () { $(which man) $@ || ( help $@ 2> /dev/null && help $@ | less ) }
+
+is_true () { ! ( [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
+
+is_file_open () { ( lsof | grep $(readlink -f "$1") ) }
+
+fqdn () { ( python -c "import socket ; print socket.getfqdn(\"$@\")" ) }
+
+findTxt () {            # | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
+    find -L "$@" -type f -exec file {} \; | grep 'ASCII text' | sed 's/^\(.*\): [^/.]*ASCII text[^/.]*$/\1/' 
+}
+
+notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
+    for f in $(findTxt "$@"); do
+        sed -i -e 's/[     ]*$//g' "$f"
+        sed -i -e 's/    /    /g' "$f"
+    done
+}
+
+tstp () {               # timestamp converter
+    echo $@ | gawk '{print strftime("%c", $0)}'
+    # Or date -d @$TIMESTAMP but neither work on OSX
+}
 
 # As it's slower, I'm not using rsync rsync --archive --progress --human-readable --partial --remove-sent-files'
 # But the following script is 10 times slower than basic cp : to improve it, we would need a way to get read of most of strace output
