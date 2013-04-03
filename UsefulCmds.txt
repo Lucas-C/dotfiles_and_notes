@@ -27,16 +27,23 @@ wall # broadcast message
 
 # filter outpout : not lines 1-3 and last one
 type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
-# this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD ; ... }
+# this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD $@; ... }
 
 
 #=========
 ### SYSTEM
 
-lsb_release -a
-cat /etc/motd
+cat /proc/version
+cat /etc/*-release
 uname -a
 cat /etc/issue*
+lsb_release -a
+
+# System errors
+dmesg -s 500000 | grep -i "fail\|error\|oom"
+
+# Message of the day
+/etc/motd
 
 # Virtualbox
 sudo adduser $USER vboxusers # then logout
@@ -173,9 +180,6 @@ sudo dpkg -D1 -i *.deb
 
 # Follow program system calls (!! -f => follow fork)
 strace -f -c -p <pid> -e open,access,poll,select,connect,recvfrom,sendto
-
-# Message of the day
-/etc/motd
 
 # Configure 'mail' command
 /etc/ssmtp/revaliases

@@ -19,10 +19,10 @@
     p = pull
 
 # Better UI for common diff command: diff against upstream, use color & pager
-    d = !git diff --color origin/mainline | less -cR
+    d =!git diff --color origin/mainline | less -cR
 
 # Log using color, pager, and a graphical representation of branches/merges
-    l = !git log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color | less -cR
+    l =!git log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color | less -cR
 
 # see diffstat(1) for info about what this looks like
     diffstat = diff --stat -r
@@ -35,7 +35,11 @@
     rb = diff --no-color -U999999
 
 # git origin: show the "upstream" remote branch which the local branch is tracking
-    origin = !git for-each-ref --format='%(upstream:short)' $(git symbolic-ref HEAD)
+    origin =!git for-each-ref --format='%(upstream:short)' $(git symbolic-ref HEAD)
+
+    startfeature  = checkout -bi # Start a new feature on a new branch
+    refresh =!git fetch origin && git rebase origin/mainline # Occasionally update from remote mainline
+    finishfeature =!git fetch && git rebase origin/mainline && git checkout mainline && git merge –no-ff @{-1} # Update and Merge to local mainline
 
 [branch]
     autosetuprebase = always
