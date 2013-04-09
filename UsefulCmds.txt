@@ -202,7 +202,7 @@ echo 1 > /sys/bus/pci/rescan
 set -eux
 
 # Redirect logs
-exec >>$0.log.$(date +%Y-%m-%d-%H) 2>&1
+exec >>logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
 
 # Set positional parameters $0 $1 ...
 set - A B C
@@ -228,6 +228,10 @@ date "+%F %T,%N" | cut -c-23
 
 cat <<EOF
 EOF
+
+exec 8<>filename # Open file descriptors #8 for reading and writing
+echo BlaBlaBla
+exec 8>&- # Close file descriptor
 
 # mktemp dir & default value
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
@@ -432,6 +436,8 @@ foo()
 for ...:
     break
 else:
+
+# datetime.utc_now() better than time.time()
 
 
 /******/
