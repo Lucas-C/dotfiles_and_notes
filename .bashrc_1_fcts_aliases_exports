@@ -58,8 +58,7 @@ alias gri='git rebase --interactive origin/mainline'
 alias gpr='git pull --rebase'
 giti () {
     cat <<EOF
-
-# Universal
+.gitignore
 nohup.out
 .project
 .classpath
@@ -100,7 +99,7 @@ touch () {              # touch [EPOCH] [+/-<modifier>] <files>
     fi
     local stamp=$yymm$dd$HHMM
     (! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ]) && echo "Day modifier cannot be applied: $stamp" && return
-    $(which touch) -t $stamp $@
+    $(which touch) -t $stamp "$@"
 }
 
 #------------
@@ -160,16 +159,16 @@ alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
 alias nav='nautilus $(pwd)/'
 alias pdf='evince'
 
-fopen () { ( firefox file://$(pwd)/$1 ) }
+fopen () { firefox file://$(pwd)/$1 ; }
 
 unset man; unalias man 2>/dev/null
 man () { $(which man) $@ || ( help $@ 2> /dev/null && help $@ | less ) }
 
 is_true () { ! ( [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
 
-is_file_open () { ( lsof | grep $(readlink -f "$1") ) }
+is_file_open () { lsof | grep $(readlink -f "$1") ; }
 
-fqdn () { ( python -c "import socket ; print socket.getfqdn(\"$@\")" ) }
+fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
 
 findTxt () {            # | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
     find -L "$@" -type f -exec file {} \; | grep 'ASCII text' | sed 's/^\(.*\): [^/.]*ASCII text[^/.]*$/\1/' 

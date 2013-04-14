@@ -49,13 +49,13 @@ ssh_setup () {
 unset ssh; unalias ssh 2>/dev/null
 ssh () {
     ssh_setup
-    $(which ssh) $@
+    $(which ssh) "$@"
 }
 
 unset scp; unalias scp 2>/dev/null
 scp () {
     ssh_setup
-    $(which scp) $@
+    $(which scp) "$@"
 }
 
 visit () {              # ssh to a host after calling 'exportBashConf'. List visited hosts in ~/.visited

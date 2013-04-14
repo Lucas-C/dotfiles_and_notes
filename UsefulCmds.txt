@@ -27,16 +27,23 @@ wall # broadcast message
 
 # filter outpout : not lines 1-3 and last one
 type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
-# this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD ; ... }
+# this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD $@; ... }
 
 
 #=========
 ### SYSTEM
 
-lsb_release -a
-cat /etc/motd
+cat /proc/version
+cat /etc/*-release
 uname -a
 cat /etc/issue*
+lsb_release -a
+
+# System errors
+dmesg -s 500000 | grep -i "fail\|error\|oom"
+
+# Message of the day
+/etc/motd
 
 # Virtualbox
 sudo adduser $USER vboxusers # then logout
@@ -174,9 +181,6 @@ sudo dpkg -D1 -i *.deb
 # Follow program system calls (!! -f => follow fork)
 strace -f -c -p <pid> -e open,access,poll,select,connect,recvfrom,sendto
 
-# Message of the day
-/etc/motd
-
 # Configure 'mail' command
 /etc/ssmtp/revaliases
 /etc/ssmtp/ssmtp.conf
@@ -198,7 +202,7 @@ echo 1 > /sys/bus/pci/rescan
 set -eux
 
 # Redirect logs
-exec >>$0.log.$(date +%Y-%m-%d-%H) 2>&1
+exec >>logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
 
 # Set positional parameters $0 $1 ...
 set - A B C
@@ -224,6 +228,10 @@ date "+%F %T,%N" | cut -c-23
 
 cat <<EOF
 EOF
+
+exec 8<>filename # Open file descriptors #8 for reading and writing
+echo BlaBlaBla
+exec 8>&- # Close file descriptor
 
 # mktemp dir & default value
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
@@ -428,6 +436,8 @@ foo()
 for ...:
     break
 else:
+
+# datetime.utc_now() better than time.time()
 
 
 /******/
