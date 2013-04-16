@@ -15,7 +15,7 @@ exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1, and .bas
     [ -e .bash_history ] && cp .bash_history $tmpDir
 
     local install_bash_cmd="
-[ -e ~/.bash_history ] && rm $tmpDir/.bash_history ;
+[ -e ~/.bash_history ] && rm -f $tmpDir/.bash_history ;
 [ -e $BASH_CONF_TMP_DIR ] || mkdir $BASH_CONF_TMP_DIR ;
 find $tmpDir -mindepth 1 -maxdepth 1 -exec chmod -w {} + -exec mv -f -t $BASH_CONF_TMP_DIR -- {} + ;
 rmdir $tmpDir ;
