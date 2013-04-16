@@ -25,7 +25,7 @@ rmdir $BASH_CONF_TMP_DIR
 "
 
     for dst in $@; do
-        dst=$(fqdn $dst)
+        dst=$(fqdn $dst 2>/dev/null || echo $dst)
         scp -rC $tmpDir $dst:/tmp || return 1
         # WARNING: ssh does NOT behave the same when cmd is piped as stdin
         ssh -t $dst "$install_bash_cmd" || return 1
@@ -34,6 +34,7 @@ rmdir $BASH_CONF_TMP_DIR
 
 ssh_setup () {
     local agentConfFile=~/.ssh/.ssh-agent.sh
+    [ "$1" == "-f" ] && killall ssh-agent
     if ps -e | grep -q 'ssh-agent$'; then
         [ -r $agentConfFile ] && source $agentConfFile >/dev/null
         return
@@ -59,7 +60,7 @@ scp () {
 }
 
 visit () {              # ssh to a host after calling 'exportBashConf'. List visited hosts in ~/.visited
-    local dst=$(fqdn $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
+    local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     cd
     if exportBashConf $dst; then
         grep -q $dst $VISITED_HOSTS_LOG_FILE || echo $dst >> $VISITED_HOSTS_LOG_FILE

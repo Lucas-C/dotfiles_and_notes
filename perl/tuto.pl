@@ -179,27 +179,29 @@ if ($@) {
 my $fail_file = ".not_readable.txt";
 eval {
 	print "$fail_file is ".(-r $fail_file ? '' : 'un')."readable: ";
-	open(FIC,$fail_file) or die("OPEN $!");
+    # Better use 3-args 'open' form to avoid any strange filename impact
+    # + use a reference counted filehandle
+    open($fic,'<',$fail_file) or die("OPEN $!");
 	print("OPEN OK");
-	close(FIC);
+	close($fic);
 };
 print "Died $@" if ($@ =~ /^OPEN/ );
 
-open(FIC,"$this_file") or die("OPEN $!");
-open(FIC_PIPE,"|7z a -si $this_file.7z > /dev/null");
-while( <FIC> ) {
+open($fic,'<',"$this_file") or die("OPEN $!");
+open($fic_pipe,'|-',"7z a -si $this_file.7z > /dev/null");
+while( <$fic> ) {
   chomp $_;
   print "$. : $_" if ($. % 100 == 1);
-  print FIC_PIPE if m/^#.*/;
+  print $fic_pipe if m/^#.*/;
 }
-close(FIC_PIPE);
-close(FIC);
+close($fic_pipe);
+close($fic);
 
-open(FIC,"ipconfig|");
-while( <FIC> ) {
+open($fic,'<',"ipconfig|");
+while( <$fic> ) {
 	print $1 if m/(\d\d\d\.\d\d\d\.\d\d\d\.\d)/;
 }
-close(FIC);
+close($fic);
 
 ############################
 print "\n** DBM files **";
@@ -259,9 +261,9 @@ $r = { a => \$r, b => { 0 => 'valid', 1 => 'invalid' }, c => [ 0..9 ]};
 use Data::Dumper;
 print Dumper($r);
 
-open(FIC,"$this_file") or die("OPEN $!");
-print \*FIC;
-close(FIC);
+open($fic,'<',"$this_file") or die("OPEN $!");
+print \*$fic;
+close($fic);
 
 # With functions
 print "\\&foo: ".\&foo;

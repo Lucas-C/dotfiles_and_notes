@@ -162,16 +162,19 @@ alias pdf='evince'
 fopen () { firefox file://$(pwd)/$1 ; }
 
 unset man; unalias man 2>/dev/null
-man () { $(which man) $@ || ( help $@ 2> /dev/null && help $@ | less ) }
+man () { $(which man) $@ && return ; help $@ 2> /dev/null && help $@ | less ; }
 
-is_true () { ! ( [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ) }
+is_true () { ! [ -z "$1" ] && ! [[ "$1" =~ 0+ ]] && ! [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; }
 
 is_file_open () { lsof | grep $(readlink -f "$1") ; }
+
+hput () { eval "$1""$2"='$3' ; }
+hget () { eval echo '${'"$1$2"'#hash}' ; }
 
 fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
 
 findTxt () {            # | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
-    find -L "$@" -type f -exec file {} \; | grep 'ASCII text' | sed 's/^\(.*\): [^/.]*ASCII text[^/.]*$/\1/' 
+    find -L "$@" -type f -exec file {} \; | grep ': [^/.]\+text' | sed 's/^\(.*\): [^/.]\+text[^/.]*$/\1/' 
 }
 
 notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
