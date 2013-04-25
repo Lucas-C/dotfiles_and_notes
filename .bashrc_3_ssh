@@ -7,26 +7,26 @@ VISITED_HOSTS_LOG_FILE=~/.visited
 # If it fails, config files will still be kept int remote $BASH_CONF_TMP_DIR
 # Should be run in $HOME. DO NOT use sshl in that cmd.
 exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1, and .bash_history the 1st time
-    dst_host=$(echo $1 | cut -d ':' -f 1)
+    local dst_host=$(echo $1 | cut -d ':' -f 1)
     dst_host=$(fqdn $dst_host 2>/dev/null || echo $dst_host)
-    dst_dir=$(echo $1 | cut -d ':' -f 2)
-    [ -z "$dst_dir" ] && dst_dir="\$HOME"
+    local dst_dir="\$HOME/$(echo $1 | cut -d ':' -f 2)"
 
     exportBashConfCleanup () { rm -rf $tmpDir ; }
     trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportBashConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
     local tmpDir=$(mktemp -d /tmp/BashConf_$USER.XXXXXX)
-    cp $BASH_CONF_FILES $tmpDir
+    cp -r $BASH_CONF_FILES $tmpDir
     [ -e .bash_history ] && cp .bash_history $tmpDir
 
     local install_bash_cmd="
 [ -e ~/.bash_history ] && rm -f $tmpDir/.bash_history ;
-[ -e $BASH_CONF_TMP_DIR ] || mkdir $BASH_CONF_TMP_DIR ;
-find $tmpDir -mindepth 1 -maxdepth 1 -exec chmod -w {} + -exec mv -f -t $BASH_CONF_TMP_DIR -- {} + ;
-rmdir $tmpDir ;
-( [ -e $dst_dir ] || ( sudo mkdir $dst_dir && sudo chown $USER $dst_dir ) ) || exit 1 ;
-find $BASH_CONF_TMP_DIR -mindepth 1 -maxdepth 1 -exec mv -f -t $dst_dir -- {} + ;
-rmdir $BASH_CONF_TMP_DIR
+find $tmpDir -type f -exec chmod -w {} + ;
+[ -e $BASH_CONF_TMP_DIR ] || mkdir $BASH_CONF_TMP_DIR || exit 1 ;
+rsync -a $tmpDir/ $BASH_CONF_TMP_DIR
+rm -rf $tmpDir ;
+[ -e $dst_dir ] || ( sudo mkdir $dst_dir && sudo chown $USER $dst_dir ) || exit 1 ;
+rsync -a $BASH_CONF_TMP_DIR/ $dst_dir
+rm -rf $BASH_CONF_TMP_DIR
 "
 
     scp -rC $tmpDir $dst_host:/tmp || return 1
