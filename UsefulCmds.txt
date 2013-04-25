@@ -81,6 +81,9 @@ vmstat 2
 sar
 # + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
 
+# Frozen X server
+sudo service lightdm restart
+
 
 #=============
 ### NETWORKING
@@ -208,6 +211,10 @@ exec >>logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
 # Set positional parameters $0 $1 ...
 set - A B C
 
+# Create and set permissions
+install -o $USER -m 644 <file>
+install -d -m 777 <directory>
+
 # Change extension
 mv $file ${file%.*}.bak
 
@@ -304,6 +311,12 @@ sudo dseditgroup -o edit -a <USER> -t user <GROUP>
 
 # FUN
 curl http://google.com/ | base64 | say
+
+# C#
+NUNITLIB=/Library/Frameworks/Mono.framework/Versions/2.10.11/lib/mono/2.0/nunit.framework.dll
+gmcs -debug -t:library -r:$NUNITLIB *.cs
+nunit-console *.dll
+mono *.exe
 
 
 :::::::::
@@ -413,6 +426,8 @@ ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
 
 // Built-in parallelism the easy way : ExecutorService
 
+// Methods/attribute privacy only true at compile time : if one recompile a class into bytecode with all private, it will still work !
+
 
 /******/
 // C++
@@ -427,3 +442,4 @@ try {
     std::cerr << "oom " << e.what() << std::endl;
     throw;
 }
+

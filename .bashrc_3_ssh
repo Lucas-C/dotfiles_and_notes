@@ -7,6 +7,11 @@ VISITED_HOSTS_LOG_FILE=~/.visited
 # If it fails, config files will still be kept int remote $BASH_CONF_TMP_DIR
 # Should be run in $HOME. DO NOT use sshl in that cmd.
 exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1, and .bash_history the 1st time
+    dst_host=$(echo $1 | cut -d ':' -f 1)
+    dst_host=$(fqdn $dst_host 2>/dev/null || echo $dst_host)
+    dst_dir=$(echo $1 | cut -d ':' -f 2)
+    [ -z "$dst_dir" ] && dst_dir="\$HOME"
+
     exportBashConfCleanup () { rm -rf $tmpDir ; }
     trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportBashConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
@@ -19,17 +24,14 @@ exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1, and .bas
 [ -e $BASH_CONF_TMP_DIR ] || mkdir $BASH_CONF_TMP_DIR ;
 find $tmpDir -mindepth 1 -maxdepth 1 -exec chmod -w {} + -exec mv -f -t $BASH_CONF_TMP_DIR -- {} + ;
 rmdir $tmpDir ;
-( [ -e \$HOME ] || ( sudo mkdir \$HOME && sudo chown $USER \$HOME ) ) || exit 1 ;
-find $BASH_CONF_TMP_DIR -mindepth 1 -maxdepth 1 -exec mv -f -t \$HOME -- {} + ;
+( [ -e $dst_dir ] || ( sudo mkdir $dst_dir && sudo chown $USER $dst_dir ) ) || exit 1 ;
+find $BASH_CONF_TMP_DIR -mindepth 1 -maxdepth 1 -exec mv -f -t $dst_dir -- {} + ;
 rmdir $BASH_CONF_TMP_DIR
 "
 
-    for dst in $@; do
-        dst=$(fqdn $dst 2>/dev/null || echo $dst)
-        scp -rC $tmpDir $dst:/tmp || return 1
-        # WARNING: ssh does NOT behave the same when cmd is piped as stdin
-        ssh -t $dst "$install_bash_cmd" || return 1
-    done
+    scp -rC $tmpDir $dst_host:/tmp || return 1
+    # WARNING: ssh does NOT behave the same when cmd is piped as stdin
+    ssh -t $dst_host "$install_bash_cmd" || return 1
 }
 
 ssh_setup () {

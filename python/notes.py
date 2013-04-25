@@ -2,6 +2,9 @@
 "" Python
 """""""""""
 
+# AWESOME for scripting
+http://amoffat.github.io/sh/
+
 # HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 
@@ -15,6 +18,7 @@ python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
 def foo(x = []):
     x.append('do')
     return x
+# + initialization is static
 
 foo()
 foo()
