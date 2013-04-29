@@ -193,6 +193,12 @@ strace -f -c -p <pid> -e open,access,poll,select,connect,recvfrom,sendto
 echo <cmd> | at midnight
 echo <cmd> | batch
 
+# Audio/mike issues
+pulseaudio -D
+pavucontrol
+alsamixer
+gstreamer-properties
+
 # Rescan for memory card
 sudo su -l
 echo 1 > /sys/bus/pci/rescan

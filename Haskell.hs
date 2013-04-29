@@ -1,10 +1,15 @@
 {-
 FROM: http://learnyouahaskell.com
 ghci:
-    :l file.hs  -- load file
-    :r          -- reload
-    :t func     -- get type
+    :l file.hs                          -- load file
+    :r                                  -- reload
+    :t func                             -- get type
+    :m + Data.List Data.Map Data.Set    -- load modules
 -}
+
+import Data.List (nub) -- cf. Loading Modules, all imports MUST be done before code start
+import Data.List hiding (nub)
+import qualified Data.Map as M
 
 {-############
 # Starting Out
@@ -24,7 +29,7 @@ list = [1,2,3,4] ++ [9,10,11,12]
 
 woot = ['w','o'] ++ ['o','t'] -- that's string "woot", however ++ can be expensive
 
-cat = 'A':" SMALL CAT" -- "A SMALL CAT" => cheap insertion
+scat = 'A':" SMALL CAT" -- "A SMALL CAT" => cheap insertion
 
 -- [1,2,3] is actually just syntactic sugar for 1:2:3:[]
 
@@ -161,7 +166,6 @@ quicksort (x:xs) =
 # Higher order functions 
   ######################-}
 
-
 divideByTen :: (Floating a) => a -> a
 divideByTen = (/10)
 
@@ -196,8 +200,9 @@ collatz n
 numLongChains = length (filter (\xs -> length xs > 15) (map collatz [1..100]))
 
 -- foldl / foldr / foldl1 / foldr1
+-- strict versions (non-lazy) : foldl' & foldl1' from Data.List
 sum' :: (Num a) => [a] -> a
-sum' = foldl1 (+) 0
+sum' = foldl1 (+)
 
 elem' :: (Eq a) => a -> [a] -> Bool  
 elem' y ys = foldl (\acc x -> if x == y then True else acc) False ys 
@@ -210,4 +215,26 @@ app = map ($ 3) [(4+), (10*), (^2), sqrt]
 -- . == composition : (f . g . z) x == f( g( z(x) ) )
 
 
+{-###############
+# Loading modules 
+  ###############-}
+
+numUniques :: (Eq a) => [a] -> Int 
+numUniques = length . nub
+
+-- http://www.haskell.org/ghc/docs/latest/html/libraries/
+-- http://www.haskell.org/hoogle/
+
+sigle = intersperse '.' "MONKEY"
+spaced = intercalate " " ["hey","there","guys"] 
+tr = transpose [[0,0,0],[1,1,1],[2,2,2]]
+cat = concat ["c","a","t"]
+
+sup4 = and $ map (>4) [5,6,7,8]
+nosup4 = or $ map (>4) [1,2,3]
+inf4 = all (<4) [1,2,3]
+noinf4 = any (<4) [5,6,7,8]
+
+power2 = take 10 $ iterate (*2) 1
+appeal = splitAt 3 "heyman"
 
