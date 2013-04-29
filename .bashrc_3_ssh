@@ -5,33 +5,39 @@ VISITED_HOSTS_LOG_FILE=~/.visited
 
 # Will create a remote $HOME dir if needed 
 # If it fails, config files will still be kept int remote $BASH_CONF_TMP_DIR
-# Should be run in $HOME. DO NOT use sshl in that cmd.
+# DO NOT use sshl in that cmd.
 exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1, and .bash_history the 1st time
-    local dst_host=$(echo $1 | cut -d ':' -f 1)
-    dst_host=$(fqdn $dst_host 2>/dev/null || echo $dst_host)
-    local dst_dir="\$HOME/$(echo $1 | cut -d ':' -f 2)"
+    local prev_dir=$PWD
+    cd $BASHRC_DIR
 
-    exportBashConfCleanup () { rm -rf $tmpDir ; }
+    local tmp_dir=$(mktemp -d /tmp/BashConf_$USER.XXXXXX)
+    cp -r $BASH_CONF_FILES $tmp_dir
+    [ -e .bash_history ] && cp .bash_history $tmp_dir
+
+    exportBashConfCleanup () { rm -rf $tmp_dir ; cd $prev_dir ; }
     trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportBashConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
-    local tmpDir=$(mktemp -d /tmp/BashConf_$USER.XXXXXX)
-    cp -r $BASH_CONF_FILES $tmpDir
-    [ -e .bash_history ] && cp .bash_history $tmpDir
+    for dst in "$@"; do
+        local dst_host=$(echo $dst | cut -d ':' -f 1)
+        dst_host=$(fqdn $dst_host 2>/dev/null || echo $dst_host)
+        local dst_dir=$(echo $dst | cut -d ':' -f 2)
+        [[ $dst_dir =~ ^/ ]] || dst_dir="\$HOME/$dst_dir"
 
-    local install_bash_cmd="
-[ -e ~/.bash_history ] && rm -f $tmpDir/.bash_history ;
-find $tmpDir -type f -exec chmod -w {} + ;
+        local install_bash_cmd="
+[ -e ~/.bash_history ] && rm -f $tmp_dir/.bash_history ;
+find $tmp_dir -type f -exec chmod -w {} + ;
 [ -e $BASH_CONF_TMP_DIR ] || mkdir $BASH_CONF_TMP_DIR || exit 1 ;
-rsync -a $tmpDir/ $BASH_CONF_TMP_DIR
-rm -rf $tmpDir ;
+rsync -a $tmp_dir/ $BASH_CONF_TMP_DIR
+rm -rf $tmp_dir ;
 [ -e $dst_dir ] || ( sudo mkdir $dst_dir && sudo chown $USER $dst_dir ) || exit 1 ;
 rsync -a $BASH_CONF_TMP_DIR/ $dst_dir
 rm -rf $BASH_CONF_TMP_DIR
 "
 
-    scp -rC $tmpDir $dst_host:/tmp || return 1
-    # WARNING: ssh does NOT behave the same when cmd is piped as stdin
-    ssh -t $dst_host "$install_bash_cmd" || return 1
+        scp -rC $tmp_dir $dst_host:/tmp || return 1
+        # WARNING: ssh does NOT behave the same when cmd is piped as stdin
+        ssh -t $dst_host "$install_bash_cmd" || return 1
+    done
 }
 
 ssh_setup () {
@@ -63,7 +69,6 @@ scp () {
 
 visit () {              # ssh to a host after calling 'exportBashConf'. List visited hosts in ~/.visited
     local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
-    cd
     if exportBashConf $dst; then
         grep -q $dst $VISITED_HOSTS_LOG_FILE || echo $dst >> $VISITED_HOSTS_LOG_FILE
         ssh $dst
@@ -71,7 +76,6 @@ visit () {              # ssh to a host after calling 'exportBashConf'. List vis
         echo "$(tput setaf 1)exportBashConf FAILED: $(tput sgr0) sudo rights probably missing on $dst, fallback to a /tmp \$HOME"
         ssh -t $dst "HOME=$BASH_CONF_TMP_DIR ; cd ; bash --rcfile .bashrc"
     fi
-    cd $OLDPWD
 }
 
 rmRemoteHome () {       # remove remote /home/$USER

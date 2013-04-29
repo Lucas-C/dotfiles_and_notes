@@ -32,3 +32,18 @@ for ...:
 else:
 
 # datetime.utc_now() better than time.time()
+
+__all__ = ['bar', 'foo']
+# list of symbol to export from module. Default: all symbol not starting with _
+
+__call__
+# if a = A(), this is the method called when doing a()
+
+Foo = type('Foo', (object,), {'bar':True})
+# on-the-fly class creation
+
+# 'type' is the metaclass Python uses to create all classes behind the scenes
+# aka, the most common __class__.__class__ of an object
+# But you can specify your own __metaclass__ !
+
+# PyCharm : code inspection
