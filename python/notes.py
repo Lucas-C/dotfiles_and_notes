@@ -8,7 +8,7 @@ http://amoffat.github.io/sh/
 # HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 
-__slots__ # attribute
+__slots__ = ("attr1_name")  # attribute
 # Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots."
 
 # get exec time
@@ -31,7 +31,8 @@ for ...:
     break
 else:
 
-# datetime.utc_now() better than time.time()
+datetime.utcnow()
+# better than time.time()
 
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
@@ -47,3 +48,5 @@ Foo = type('Foo', (object,), {'bar':True})
 # But you can specify your own __metaclass__ !
 
 # PyCharm : code inspection
+
+# http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application

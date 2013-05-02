@@ -88,6 +88,9 @@ sudo service lightdm restart
 #=============
 ### NETWORKING
 
+ping <host/ip>
+traceroute <host/ip>
+
 # How to grep IPs
 grep '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
 
@@ -103,7 +106,7 @@ snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysDescr.0
 # The community string can be found in the 'Variables' tab in an AutoNOC device page
 
 # Dump all tcp transmission to a specific IP :
-sudo tcpdump host $IP
+sudo tcpdump host -X $IP
 
 # Attribute IP to interface
 ifconfig eth0 192.168.0.1
@@ -124,10 +127,20 @@ lsof -i -P -p <pid> # -n => no IP->hostname resolution
 ssh $host "$cmds ; /bin/bash -i"
 
 
+#cCcCcCc#
+# Cisco #
+#cCcCcCc#
+sh run
+sh int
+sh ip int [brief]
+sh ip rou 1.2.3.4
+sh version
+exit
+
+
 #=============
 ### FILES
 
-## More LSOF
 # To see all files open in a directory structure:
 lsof +D /some/dir
 # To see all files jeff has open:
@@ -145,6 +158,7 @@ comm -12 #or uniq -d
 
 # Shows Where a File/Directory Comes From (links, etc.)
 namei
+readlink -f
 
 # Create fake file
 sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000
@@ -267,7 +281,7 @@ declare -a argFiles
 for arg in "$@"; do
     case $arg in
         *=*) eval $argi ;;
-        *) argFiles[${#argFiles[*]}]="$(readlink -f $arg)" ;;
+        *) argFiles[${#argFiles[*]}]="$arg" ;;
     esac
 done
 

@@ -161,3 +161,6 @@ command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 map!  
 
 set mouse=a
+
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+"to show whitespaces: :set list
