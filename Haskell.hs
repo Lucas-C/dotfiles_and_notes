@@ -5,6 +5,8 @@ ghci:
     :r                                  -- reload
     :t func                             -- get type
     :m + Data.List Data.Map Data.Set    -- load modules
+	:cd e:\code
+	:module								-- "set the context for expression evaluation"
 -}
 
 import Data.List (nub) -- cf. Loading Modules, all imports MUST be done before code start
@@ -237,4 +239,7 @@ noinf4 = any (<4) [5,6,7,8]
 
 power2 = take 10 $ iterate (*2) 1
 appeal = splitAt 3 "heyman"
+magritte = dropWhile (/=' ') "This is a pipe"
+-- Also: break <predicate> <=> span (not . <predicate>)
 
+sorted = sort [2,4,1,3]

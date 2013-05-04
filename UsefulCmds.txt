@@ -187,6 +187,9 @@ ffmpeg -i vid.mp4 -f avi -vcodec copy -acodec copy vid.avi
 
 rsync -avz --exclude=".*"
 
+sha1sum
+md5sum
+
 
 #=============
 ### Various
@@ -466,3 +469,11 @@ try {
     throw;
 }
 
+// GCC optimization
+if(__builtin_expect(entity->extremely_unlikely_flag,0))
+    // code that is rarely run
+
+// POGO
+
+// Windows code analysis
+cl /analyze
