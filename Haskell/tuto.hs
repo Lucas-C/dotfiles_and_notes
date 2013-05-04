@@ -9,9 +9,15 @@ ghci:
 	:module								-- "set the context for expression evaluation"
 -}
 
-import Data.List (nub) -- cf. Loading Modules, all imports MUST be done before code start
-import Data.List hiding (nub)
-import qualified Data.Map as M
+-- All imports MUST be done before code start
+-- 2 first following forms preferred
+import qualified Data.Map as Map
+import qualified Data.Set as Set
+import Data.Function (on)
+import Data.List hiding (unzip7)
+import Data.List
+import Data.Char
+import Module.Mod
 
 {-############
 # Starting Out
@@ -46,7 +52,8 @@ l = last [5,4,3,2,1] -- 1 ; the remaining can be obtained with 'initl' ; to get 
 two = length [0,1]
 t3 = null []
 
-f2 = elem 0 [1,2,3] -- test if it's an element
+f2 = elem 0 [1,2,3] -- test if it's an elementi ; opposite: notElem
+-- also: elemIndex, elemIndices : return indices or Nothing
 
 alphabet = ['a'..'z'] -- range
 infinite = [0,1..] -- infinit range with step
@@ -68,7 +75,7 @@ length' xs = sum [1 | _ <- xs]
 -- ERROR: [(1, "a"), (8, "f", []), (4, "w")]
 -- Because list contains only elements of the same type, and the 2nd one here is a different kind of tuple than the 1st
 
-pairs = zip [1..] ["apple", "orange", "cherry", "mango"]
+pairs = zip [1..] ["apple", "orange", "cherry", "mango"] -- also: zip3, zip4...
 -- [(1,"apple"),(2,"orange"),(3,"cherry"),(4,"mango")]  
 
 -- Primitive types : Int, Integer -- unbounded, Float, Double, Bool, Char, String == [Char]
@@ -178,7 +185,8 @@ applyTwice :: (a -> a) -> a -> a
 applyTwice f x = f (f x)
 
 -- zipWith
-evenTo10 = zipWith (*) (replicate 5 2) [1..]
+eveni_to10 = zipWith (*) (replicate 5 2) [1..]
+-- also: zipWith3, zipWith4...
 
 -- flip
 pairs2 = flip zip [1,2,3,4,5] "hello"
@@ -190,7 +198,7 @@ onomatop = map (++ "!") ["BIFF", "BANG", "POW"]
 filtered = filter (`elem` ['A'..'Z']) "i lauGh At You BecAuse u r aLL the Same"
 
 -- takeWhile
-sumOddSquareSmallerThan x = sum (takeWhile (<x) (filter odd (map (^2) [1..])))
+sum_oddS_square_smaller_than x = sum (takeWhile (<x) (filter odd (map (^2) [1..])))
 
 collatz :: (Integral a) => a -> [a]
 collatz 1 = [1]
@@ -199,7 +207,7 @@ collatz n
     | odd n  =  n:collatz (n*3 + 1)
 
 -- lambdas
-numLongChains = length (filter (\xs -> length xs > 15) (map collatz [1..100]))
+num_long_chains = length (filter (\xs -> length xs > 15) (map collatz [1..100]))
 
 -- foldl / foldr / foldl1 / foldr1
 -- strict versions (non-lazy) : foldl' & foldl1' from Data.List
@@ -224,8 +232,11 @@ app = map ($ 3) [(4+), (10*), (^2), sqrt]
 numUniques :: (Eq a) => [a] -> Int 
 numUniques = length . nub
 
+-- http://learnyouahaskell.com/modules#loading-modules
 -- http://www.haskell.org/ghc/docs/latest/html/libraries/
 -- http://www.haskell.org/hoogle/
+
+-- # Data.List #
 
 sigle = intersperse '.' "MONKEY"
 spaced = intercalate " " ["hey","there","guys"] 
@@ -240,6 +251,74 @@ noinf4 = any (<4) [5,6,7,8]
 power2 = take 10 $ iterate (*2) 1
 appeal = splitAt 3 "heyman"
 magritte = dropWhile (/=' ') "This is a pipe"
+
+part = partition (>3) [1,3,5,6,3,2,1,0,3,7]
 -- Also: break <predicate> <=> span (not . <predicate>)
 
 sorted = sort [2,4,1,3]
+
+t4 = "pref" `isPrefixOf` "prefix"
+t5 = "ix" `isSuffixOf` "suffix"
+
+just4 = find (>4) [1,2,3,4,5,6]  
+-- also: findIndex, findIndices
+
+splitted_lines = lines "first line\nsecond line\nthird line" -- reverse: unlines
+
+del = delete 'h' "hey there ghang!" 
+
+set_diff = [1..10] \\ [2,5,9]
+set_union = [1..7] `union` [5..10]
+set_intersect = [1..7] `intersect` [5..10]
+
+insert_keeping_stuff_sorted = insert 4 [3,5,1,2,8,2]
+
+-- Generic equivalents:
+-- genericLength, genericTake, genericDrop, genericSplitAt, genericIndex, genericReplicate
+-- nubBy, deleteBy, unionBy, intersectBy, groupBy
+
+values = [-4.3, -2.4, -1.2, 0.4, 2.3, 5.9, 10.5, 29.1, 5.3, -2.4, -14.5, 2.9, 2.3]
+grouped_by_sign = groupBy ((==) `on` (> 0)) values
+
+-- # Data.Char #
+
+categories_examples = map generalCategory " \t\nA9?|"
+
+ascii_values = map ord ['a'..'z'] -- reverse: chr
+
+-- # Data.Map #
+
+dict = Map.fromList [("lucas", 42),("laetitia", 127)] -- reverse: toList
+
+m = Map.insert 3 100 Map.empty
+f4 = Map.null m
+toto = Map.size m
+answer = Map.lookup "lucas" dict
+
+-- map, filter
+-- keys, elems
+-- fromListWith, insertWith
+
+-- # Data.Set #
+
+text1 = "I just had an anime dream. Anime... Reality... Are they so different?"  
+text2 = "The old man left his garbage can out and now his trash is all over my lawn!" 
+
+set1 = Set.fromList text1
+set2 = Set.fromList text2
+
+i1_2 = Set.intersection set1 set2
+u1_2 = Set.union set1 set2
+d1_2 = Set.difference set1 set2
+
+-- null, size, member, empty, singleton, insert, delete
+-- map, filter
+
+setNub xs = Set.toList $ Set.fromList xs
+-- "setNub is generally faster than nub on big lists but nub preserves the ordering of the list's elements, while setNub does not."
+
+
+{-####################################
+# Making Our Own Types and Typeclasses 
+  ####################################-}
+
