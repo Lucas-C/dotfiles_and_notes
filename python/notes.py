@@ -50,3 +50,37 @@ Foo = type('Foo', (object,), {'bar':True})
 # PyCharm : code inspection
 
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
+
+def foo(n):
+    def inner(i):
+        inner.n += i
+        return inner.n
+    inner.n = n
+    return inner
+
+# GOTCHAS:
+#- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
+#- http://stackoverflow.com/questions/12182068/python-closure-function-losing-outer-variable-access
+
+# In Nose, TestCase and generators are not compatible : here is an alternative
+globals()[test_class_name] = type(test_class_name, (ApolloEnvironmentTest,TestCase), {"attr":attr})
+
+# decorator with args
+def my_decorator(decorator_args):
+    def tmp_decorator(orig_func):
+        new_func = orig_func
+        return new_func
+    return tmp_decorator
+
+
+d == dict(**d)
+
+class Dict(dict):
+    def __init__(self, **kwargs):
+        self.update(kwargs)
+    def __getattr__(self, name):
+        return self.get(name)
+    def __setattr__(self, name, value):
+        self[name] = value
+
+python -m cProfile myscript.py

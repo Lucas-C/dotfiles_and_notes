@@ -20,8 +20,11 @@ exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1, and .bas
     for dst in "$@"; do
         local dst_host=$(echo $dst | cut -d ':' -f 1)
         dst_host=$(fqdn $dst_host 2>/dev/null || echo $dst_host)
-        local dst_dir=$(echo $dst | cut -d ':' -f 2)
-        [[ $dst_dir =~ ^/ ]] || dst_dir="\$HOME/$dst_dir"
+        local dst_dir=\$HOME
+        if [[ $dst =~ : ]]; then
+            dst_dir=$(echo $dst | cut -d ':' -f 2)
+            [[ $dst_dir =~ ^/ ]] || dst_dir="\$HOME/$dst_dir"
+        fi
 
         local install_bash_cmd="
 [ -e ~/.bash_history ] && rm -f $tmp_dir/.bash_history ;
