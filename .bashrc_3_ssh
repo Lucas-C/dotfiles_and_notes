@@ -18,11 +18,11 @@ exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1, and .bas
     trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportBashConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
     for dst in "$@"; do
-        local dst_host=$(echo $dst | cut -d ':' -f 1)
+        local dst_host=${dst%:*}
         dst_host=$(fqdn $dst_host 2>/dev/null || echo $dst_host)
         local dst_dir=\$HOME
         if [[ $dst =~ : ]]; then
-            dst_dir=$(echo $dst | cut -d ':' -f 2)
+            dst_dir=${dst#*:}
             [[ $dst_dir =~ ^/ ]] || dst_dir="\$HOME/$dst_dir"
         fi
 

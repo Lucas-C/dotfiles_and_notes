@@ -22,8 +22,6 @@ export CODE_STRING=
 export USER_STYLE=$T_normal
 export HOST_COLOR='1;35'
 
-shopt -s histappend # this + 'history -a' in the prompt_command => shared Bash history between term sessions 
-
 prompt_command()
 {
     EXIT_CODE=$?
@@ -49,7 +47,7 @@ prompt_command()
         USER_STYLE=$T_normal
     fi
 
-    history -a        
+    history -a # this + 'shopt -s histappend' in .bashrc => shared Bash history between term sessions 
 }
 export PROMPT_COMMAND=prompt_command
 

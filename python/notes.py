@@ -84,3 +84,10 @@ class Dict(dict):
         self[name] = value
 
 python -m cProfile myscript.py
+
+@patch("module.CONSTANT", new_value)
+def foo(): ...
+
+code = "my code bla bla"
+compiled = compile(code)
+exec compiled 
