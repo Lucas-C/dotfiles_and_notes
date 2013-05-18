@@ -1,7 +1,7 @@
 module Module.Mod
-( foo 
-, bar  
-) where  
+( foo
+, bar
+) where
 
 
 foo :: t -> Maybe a

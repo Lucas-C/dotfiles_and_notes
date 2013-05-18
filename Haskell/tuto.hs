@@ -4,9 +4,11 @@ ghci:
     :l file.hs                          -- load file
     :r                                  -- reload
     :t func                             -- get type
+    :k                                  -- get kind (meta-type)
     :m + Data.List Data.Map Data.Set    -- load modules
 	:cd e:\code
 	:module								-- "set the context for expression evaluation"
+    :info <whatever>
 -}
 
 -- All imports MUST be done before code start
@@ -33,7 +35,7 @@ doubleUs x y = x*2 + y*2
 
 doubleSmallNumber' x = (if x > 100 then x else x*2) + 1 -- the ' denote a srict version of a function (not lazy)
 
-list = [1,2,3,4] ++ [9,10,11,12] 
+list = [1,2,3,4] ++ [9,10,11,12]
 
 woot = ['w','o'] ++ ['o','t'] -- that's string "woot", however ++ can be expensive
 
@@ -41,11 +43,11 @@ scat = 'A':" SMALL CAT" -- "A SMALL CAT" => cheap insertion
 
 -- [1,2,3] is actually just syntactic sugar for 1:2:3:[]
 
-b = "Steve Buscemi" !! 6  -- element access
+uppercaseB = "Steve Buscemi" !! 6  -- element access
 
 t1 = [3,2,1] > [2,1,0]
 t2 = [3,2] < [2,1,0]
-    
+
 h = head [5,4,3,2,1] -- 5 ; the remaining can be obtained with 'tail' ; to get N elements from the beginning : take N [...]
 l = last [5,4,3,2,1] -- 1 ; the remaining can be obtained with 'initl' ; to get N elements from the end : drop N [...]
 
@@ -76,7 +78,7 @@ length' xs = sum [1 | _ <- xs]
 -- Because list contains only elements of the same type, and the 2nd one here is a different kind of tuple than the 1st
 
 pairs = zip [1..] ["apple", "orange", "cherry", "mango"] -- also: zip3, zip4...
--- [(1,"apple"),(2,"orange"),(3,"cherry"),(4,"mango")]  
+-- [(1,"apple"),(2,"orange"),(3,"cherry"),(4,"mango")]
 
 -- Primitive types : Int, Integer -- unbounded, Float, Double, Bool, Char, String == [Char]
 
@@ -112,67 +114,67 @@ abcde = ['a'..'e']
 # Syntax in functions
   ###################-}
 
-sayMe :: (Integral a) => a -> String  
-sayMe 1 = "One!"  
-sayMe 2 = "Two!"  
-sayMe 3 = "Three!"  
+sayMe :: (Integral a) => a -> String
+sayMe 1 = "One!"
+sayMe 2 = "Two!"
+sayMe 3 = "Three!"
 sayMe x = "Not between 1 and 3"
 sayMe 4 = "Will never match"
 
-addVectors :: (Num a) => (a, a) -> (a, a) -> (a, a)  
-addVectors (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)  
+addVectors :: (Num a) => (a, a) -> (a, a) -> (a, a)
+addVectors (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)
 
 xs = [(1,3), (4,3), (2,4), (5,3), (5,6), (3,1)]
 sum_xs = [a+b | (a,b) <- xs]  -- pattern matching with list comprehensions
 
-head' :: [a] -> a  
-head' [] = error "Can't call head on an empty list, dummy!"  
+head' :: [a] -> a
+head' [] = error "Can't call head on an empty list, dummy!"
 head' (x:_) = x
 
 tell :: (Show a) => [a] -> String
-tell [] = "The list is empty"  
-tell (x:[]) = "The list has one element: " ++ show x  
-tell (x:y:[]) = "The list has two elements: " ++ show x ++ " and " ++ show y  
-tell (x:y:_) = "This list is long. The first two elements are: " ++ show x ++ " and " ++ show y 
+tell [] = "The list is empty"
+tell (x:[]) = "The list has one element: " ++ show x
+tell (x:y:[]) = "The list has two elements: " ++ show x ++ " and " ++ show y
+tell (x:y:_) = "This list is long. The first two elements are: " ++ show x ++ " and " ++ show y
 
-bmiTell :: (RealFloat a) => a -> a -> String  
-bmiTell weight height  
-    | bmi <= 18.5 = "You're underweight, you emo, you!"  
-    | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"  
-    | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"  
-    | otherwise   = "You're a whale, congratulations!"  
-    where bmi = weight / height ^ 2  
+bmiTell :: (RealFloat a) => a -> a -> String
+bmiTell weight height
+    | bmi <= 18.5 = "You're underweight, you emo, you!"
+    | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
+    | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"
+    | otherwise   = "You're a whale, congratulations!"
+    where bmi = weight / height ^ 2
 
-myCompare :: (Ord a) => a -> a -> Ordering  
-a `myCompare` b  
-    | a > b     = GT  
-    | a == b    = EQ  
-    | otherwise = LT  
+myCompare :: (Ord a) => a -> a -> Ordering
+a `myCompare` b
+    | a > b     = GT
+    | a == b    = EQ
+    | otherwise = LT
 
-six00 = (let (a,b,c) = (1,2,3) in a+b+c) * 100  
+six00 = (let (a,b,c) = (1,2,3) in a+b+c) * 100
 
-fatBMI xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2, bmi >= 25.0] 
+fatBMI xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2, bmi >= 25.0]
 
-describeList :: [a] -> String  
-describeList xs = "The list is " ++ case xs of [] -> "empty."  
-                                               [x] -> "a singleton list."   
-                                               xs -> "a longer list."  
+describeList :: [a] -> String
+describeList xs = "The list is " ++ case xs of [] -> "empty."
+                                               [x] -> "a singleton list."
+                                               xs -> "a longer list."
 
 
 {-#########
-# Recursion 
+# Recursion
   #########-}
 
-quicksort :: (Ord a) => [a] -> [a]  
-quicksort [] = []  
-quicksort (x:xs) =   
-    let smallerSorted = quicksort [a | a <- xs, a <= x] 
-        biggerSorted = quicksort [a | a <- xs, a > x]  
-    in  smallerSorted ++ [x] ++ biggerSorted  
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) =
+    let smallerSorted = quicksort [a | a <- xs, a <= x]
+        biggerSorted = quicksort [a | a <- xs, a > x]
+    in  smallerSorted ++ [x] ++ biggerSorted
 
 
 {-######################
-# Higher order functions 
+# Higher order functions
   ######################-}
 
 divideByTen :: (Floating a) => a -> a
@@ -181,7 +183,7 @@ divideByTen = (/10)
 isUpperAlphanum :: Char -> Bool
 isUpperAlphanum = (`elem` ['A'..'Z'])
 
-applyTwice :: (a -> a) -> a -> a 
+applyTwice :: (a -> a) -> a -> a
 applyTwice f x = f (f x)
 
 -- zipWith
@@ -192,7 +194,7 @@ eveni_to10 = zipWith (*) (replicate 5 2) [1..]
 pairs2 = flip zip [1,2,3,4,5] "hello"
 
 -- map
-onomatop = map (++ "!") ["BIFF", "BANG", "POW"] 
+onomatop = map (++ "!") ["BIFF", "BANG", "POW"]
 
 -- filter
 filtered = filter (`elem` ['A'..'Z']) "i lauGh At You BecAuse u r aLL the Same"
@@ -214,8 +216,8 @@ num_long_chains = length (filter (\xs -> length xs > 15) (map collatz [1..100]))
 sum' :: (Num a) => [a] -> a
 sum' = foldl1 (+)
 
-elem' :: (Eq a) => a -> [a] -> Bool  
-elem' y ys = foldl (\acc x -> if x == y then True else acc) False ys 
+elem' :: (Eq a) => a -> [a] -> Bool
+elem' y ys = foldl (\acc x -> if x == y then True else acc) False ys
 
 -- scanl / scanr / scanl1 / scanr1 : same bur return q list of the successive accumulators
 
@@ -226,10 +228,10 @@ app = map ($ 3) [(4+), (10*), (^2), sqrt]
 
 
 {-###############
-# Loading modules 
+# Loading modules
   ###############-}
 
-numUniques :: (Eq a) => [a] -> Int 
+numUniques :: (Eq a) => [a] -> Int
 numUniques = length . nub
 
 -- http://learnyouahaskell.com/modules#loading-modules
@@ -239,7 +241,7 @@ numUniques = length . nub
 -- # Data.List #
 
 sigle = intersperse '.' "MONKEY"
-spaced = intercalate " " ["hey","there","guys"] 
+spaced = intercalate " " ["hey","there","guys"]
 tr = transpose [[0,0,0],[1,1,1],[2,2,2]]
 cat = concat ["c","a","t"]
 
@@ -260,12 +262,12 @@ sorted = sort [2,4,1,3]
 t4 = "pref" `isPrefixOf` "prefix"
 t5 = "ix" `isSuffixOf` "suffix"
 
-just4 = find (>4) [1,2,3,4,5,6]  
+just4 = find (>4) [1,2,3,4,5,6]
 -- also: findIndex, findIndices
 
 splitted_lines = lines "first line\nsecond line\nthird line" -- reverse: unlines
 
-del = delete 'h' "hey there ghang!" 
+del = delete 'h' "hey there ghang!"
 
 set_diff = [1..10] \\ [2,5,9]
 set_union = [1..7] `union` [5..10]
@@ -301,8 +303,8 @@ answer = Map.lookup "lucas" dict
 
 -- # Data.Set #
 
-text1 = "I just had an anime dream. Anime... Reality... Are they so different?"  
-text2 = "The old man left his garbage can out and now his trash is all over my lawn!" 
+text1 = "I just had an anime dream. Anime... Reality... Are they so different?"
+text2 = "The old man left his garbage can out and now his trash is all over my lawn!"
 
 set1 = Set.fromList text1
 set2 = Set.fromList text2
@@ -319,6 +321,113 @@ setNub xs = Set.toList $ Set.fromList xs
 
 
 {-####################################
-# Making Our Own Types and Typeclasses 
+# Making Our Own Types and Typeclasses
   ####################################-}
 
+data Shape = Circle Float Float Float | Rectangle Float Float Float Float deriving (Show)
+-- Circle, Rectangle : value constructors
+
+surface :: Shape -> Float
+surface (Circle _ _ r) = pi * r ^ 2
+surface (Rectangle x1 y1 x2 y2) = (abs $ x2 - x1) * (abs $ y2 - y1)
+
+-- module Shapes
+-- ( Shape(..), --> the 2 dots indicate that ALL value constructors are exported, same as "Shape(Rectangle, Circle)" here
+
+data Person = Person { firstName :: String
+                     , lastName :: String
+                     , age :: Int
+                     , height :: Float
+                     , phoneNumber :: String
+                     , flavor :: String
+                     } deriving (Show)
+-- Haskell automatically create the functions on the right to consult the fields
+
+-- data Bool = False | True
+-- data Maybe a = Nothing | Just a  -- TYPE constructor
+
+-- deriving (Eq, Ord...)
+-- For Ord: the value which was made with a constructor that's defined first is considered smaller
+-- For Enum: all value constructors are nullary (take no parameters, i.e. fields)
+
+type Name = String -- type synonym
+type AssocList k v = [(k,v)] -- parametrized type synonym
+
+-- data Either a b = Left a | Right b deriving (Eq, Ord, Read, Show)
+
+
+-- Redifining lists !
+infixr 5 :-:  -- '5' is the 'fixity'
+-- "We can define functions to be automatically infix by making them comprised of only special characters."
+data List a = Empty | a :-: (List a) deriving (Show, Read, Eq, Ord)
+
+infixr 5 .++
+(.++) :: List a -> List a -> List a
+Empty .++ ys = ys
+(x :-: xs) .++ ys = x :-: (xs .++ ys)
+
+a = 3 :-: 4 :-: 5 :-: Empty
+b = 6 :-: 7 :-: Empty
+a_b = a .++ b
+
+
+-- Binary search tree
+data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Show, Read, Eq)
+
+singleton :: a -> Tree a
+singleton x = Node x EmptyTree EmptyTree
+
+treeInsert :: (Ord a) => a -> Tree a -> Tree a
+treeInsert x EmptyTree = singleton x
+treeInsert x (Node a left right)
+    | x == a = Node x left right
+    | x < a  = Node a (treeInsert x left) right
+    | x > a  = Node a left (treeInsert x right)
+
+treeElem :: (Ord a) => a -> Tree a -> Bool
+treeElem x EmptyTree = False
+treeElem x (Node a left right)
+    | x == a = True
+    | x < a  = treeElem x left
+    | x > a  = treeElem x right
+
+nums = [8,6,4,1,7,3,5]
+numsTree = foldr treeInsert EmptyTree nums
+
+-- TYPECLASSES
+-- class Eq a where
+--    (==) :: a -> a -> Bool
+--    (/=) :: a -> a -> Bool
+--    x == y = not (x /= y)
+--    x /= y = not (x == y)
+
+data TrafficLight = Red | Yellow | Green
+
+instance Eq TrafficLight where
+    Red == Red = True
+    Green == Green = True
+    Yellow == Yellow = True
+    _ == _ = False
+
+instance Show TrafficLight where
+    show Red = "Red light"
+    show Yellow = "Yellow light"
+    show Green = "Green light"
+
+
+-- class Functor f where
+--     fmap :: (a -> b) -> f a -> f b
+
+
+{-###############
+# Input & Output
+  ###############-}
+
+--$ ghc --make helloworld && ./helloworld
+--$ runhaskell helloworld.hs
+
+-- BEWARE 'return' : it just makes an I/O action out of a pure value
+
+-- putStr, putChar
+-- print (~ putStrLn . show)
+-- getChar

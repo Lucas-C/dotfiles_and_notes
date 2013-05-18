@@ -14,6 +14,9 @@ loadkeys fr
 * sorting : press "O" and select the column
 * display absolute path of commands : "c"
 
+# get process name
+pid -o comm= -p $PPID
+
 # replace chars from last command 
 ls docs
 ^docs^web^
