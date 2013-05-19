@@ -83,7 +83,13 @@ class Dict(dict):
     def __setattr__(self, name, value):
         self[name] = value
 
+# Built-in profiler
 python -m cProfile myscript.py
+# Visu:
+http://www.vrplumber.com/programming/runsnakerun/
+https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/
+# And also
+http://mg.pov.lt/objgraph/
 
 @patch("module.CONSTANT", new_value)
 def foo(): ...
