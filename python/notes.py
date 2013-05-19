@@ -1,17 +1,15 @@
 """""""""""
-"" Python
+"" Tricks
 """""""""""
 
 __slots__ = ("attr1_name")  # attribute
 # Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots."
 
-# DO NOT use other default parameter values than None
-# + initialization is static
-def foo(x = []):
-    x.append('do')
-    return x
-foo()
-foo()
+__all__ = ['bar', 'foo']
+# list of symbol to export from module. Default: all symbol not starting with _
+
+__call__
+# if a = A(), this is the method called when doing a()
 
 # __repr__ : unambigous, as possible 'eval'uable
 "MyClass(this=%r,that=%r)" % (self.this,self.that)
@@ -21,14 +19,20 @@ for ...:
     break
 else:
 
+code = "my code bla bla"
+compiled = compile(code)
+exec compiled 
+
+# DO NOT use other default parameter values than None
+# + initialization is static
+def foo(x = []):
+    x.append('do')
+    return x
+foo()
+foo()
+
 datetime.utcnow()
 # better than time.time()
-
-__all__ = ['bar', 'foo']
-# list of symbol to export from module. Default: all symbol not starting with _
-
-__call__
-# if a = A(), this is the method called when doing a()
 
 globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True})
 # on-the-fly class creation
@@ -37,6 +41,9 @@ globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True})
 # 'type' is the metaclass Python uses to create all classes behind the scenes
 # aka, the most common __class__.__class__ of an object
 # But you can specify your own __metaclass__ !
+
+@patch("module.CONSTANT", new_value)
+def foo(): ...
 
 # Functions attributes
 def foo(n):
@@ -64,12 +71,6 @@ class Dict(dict):
     def __setattr__(self, name, value):
         self[name] = value
 
-@patch("module.CONSTANT", new_value)
-def foo(): ...
-
-code = "my code bla bla"
-compiled = compile(code)
-exec compiled 
 
 # Signal-based handle on a program to debug
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
@@ -77,6 +78,11 @@ exec compiled
 # GOTCHAS:
 #- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
 #- http://stackoverflow.com/questions/12182068/python-closure-function-losing-outer-variable-access
+
+
+"""""""""""""""""
+"" Libs & tools
+"""""""""""""""""
 
 # HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
