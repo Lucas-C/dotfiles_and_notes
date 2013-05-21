@@ -9,6 +9,8 @@ defutf8 on
 
 altscreen on # To clear screen after using a full-terminal program
 
+shelltitle "$ |bash"
+
 bindkey -d ^af fit
 bindkey -d ^a^f fit
 bindkey -d ^as split

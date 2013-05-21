@@ -23,6 +23,9 @@ code = "my code bla bla"
 compiled = compile(code)
 exec compiled 
 
+# touch <file>
+with open('<file>', 'w+'): pass
+
 # DO NOT use other default parameter values than None
 # + initialization is static
 def foo(x = []):
@@ -42,8 +45,12 @@ globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True})
 # aka, the most common __class__.__class__ of an object
 # But you can specify your own __metaclass__ !
 
+@patch("module.open", create=True) # to patch builtins
 @patch("module.CONSTANT", new_value)
-def foo(): ...
+def foo_test(open_mock):
+    input_mock = MagicMock(spec=file)
+    open_mock.return_value = input_mock
+    input_mock.__enter__.return_value.readline.return_value = "ALWAYS SAME LINE"
 
 # Functions attributes
 def foo(n):

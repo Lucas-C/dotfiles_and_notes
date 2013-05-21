@@ -17,6 +17,7 @@
     mvbranch = branch -m
     unadd = reset HEAD
     p = pull
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 
 # Better UI for common diff command: diff against upstream, use color & pager
     d =!git diff --patience --color origin/mainline | less -cR

@@ -70,6 +70,11 @@ scp () {
     $(which scp) "$@"
 }
 
+ssh_with_tmp_home () {
+    local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
+    ssh -t $dst "HOME=$BASH_CONF_TMP_DIR ; cd ; bash --rcfile .bashrc"
+}
+
 visit () {              # ssh to a host after calling 'exportBashConf'. List visited hosts in ~/.visited
     local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     if exportBashConf $dst; then
@@ -77,7 +82,7 @@ visit () {              # ssh to a host after calling 'exportBashConf'. List vis
         ssh $dst
     else
         echo "$(tput setaf 1)exportBashConf FAILED: $(tput sgr0) sudo rights probably missing on $dst, fallback to a /tmp \$HOME"
-        ssh -t $dst "HOME=$BASH_CONF_TMP_DIR ; cd ; bash --rcfile .bashrc"
+        ssh_with_tmp_home $dst
     fi
 }
 
