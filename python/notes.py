@@ -14,6 +14,9 @@ __call__
 # __repr__ : unambigous, as possible 'eval'uable
 "MyClass(this=%r,that=%r)" % (self.this,self.that)
 
+# Get class parents
+o.__class__.__bases__
+
 # Funny loop construct
 for ...:
     break
@@ -33,6 +36,10 @@ def foo(x = []):
     return x
 foo()
 foo()
+
+it = count().next # itertools
+
+os.stat("filename").st_ino # get inode 
 
 datetime.utcnow()
 # better than time.time()
@@ -78,6 +85,11 @@ class Dict(dict):
     def __setattr__(self, name, value):
         self[name] = value
 
+# Immutable class
+class Immutable(namedtuple('Immutable', 'x y')):
+    def __new__(cls, x, y):
+        self = super(Immutable, cls).__new__(cls, x, y)
+        return self
 
 # Signal-based handle on a program to debug
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application

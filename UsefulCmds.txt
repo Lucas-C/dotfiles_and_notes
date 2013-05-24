@@ -16,6 +16,8 @@ loadkeys fr
 
 # get process name
 pid -o comm= -p $PPID
+# get process working directory
+pwdx <pid>
 
 # replace chars from last command 
 ls docs
@@ -174,6 +176,9 @@ comm -12 #or uniq -d
 # Shows Where a File/Directory Comes From (links, etc.)
 namei
 readlink -f
+
+# Forbid file deletion
+sudo chattr +i [-R] <file> # to check a file attributes : lsattr
 
 # Create fake file
 sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000
