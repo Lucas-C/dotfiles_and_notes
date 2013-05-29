@@ -191,14 +191,16 @@ tstp () {               # timestamp converter
 alias funiq='awk {k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}' # faster than 'sort | uniq'
 
 # FROM: http://unix.stackexchange.com/questions/13731/is-there-a-way-to-get-the-min-max-median-and-average-of-a-list-of-numbers-in
-stats () {
-    [ "$1" = "--no-header" ] || echo -e "SUM\t\tCOUNT\t\tAVG\t\tMEDIAN\t\tMIN\t\tMAX\t\tTP01\t\tTP10\t\tTP90\t\tTP99"
+stats () { # --no-header | awk '{print $3}'
+    [ "$1" = "--no-header" ] || printf "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s\n" \
+        1-SUM 2-COUNT 3-AVG 4-MIN 5-TP01 6-TP10 7-MEDIAN 8-TP90 9-TP99 10-MAX
     sort -n | awk 'BEGIN{c=0;sum=0;}\
-/^[^#]/{a[c++]=$1;sum+=$1;}\
-END{avg=sum/c;\
-if((c%2)==1){median=a[int(c/2)];}\
-else{median=(a[c/2]+a[c/2-1])/2;}\
-printf "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s\n",sum,c,avg,median,a[0],a[c-1],a[c/100-1],a[c/10-1],a[c*9/10-1],a[c*99/100-1]}'
+        /^[^#]/{a[c++]=$1;sum+=$1;}\
+        END{avg=sum/c;\
+        if((c%2)==1){median=a[int(c/2)];}\
+        else{median=(a[c/2]+a[c/2-1])/2;}\
+        printf "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s\n",\
+            sum,c,avg,a[0],a[c/100-1],a[c/10-1],median,a[c*9/10-1],a[c*99/100-1],a[c-1]}'
 }
 
 # As it's slower, I'm not using rsync rsync --archive --progress --human-readable --partial --remove-sent-files'
