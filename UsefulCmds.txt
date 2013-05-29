@@ -277,6 +277,9 @@ date "+%F %T,%N" | cut -c-23
 ( cmdpid=$BASHPID; (sleep 10; kill $cmdpid) & exec <CMD> )
 
 # Named pipes: https://en.wikipedia.org/wiki/Named_pipe
+python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo
+ulimit -a | grep pipe # max size
+fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
 
 cat <<EOF
 EOF
@@ -323,6 +326,7 @@ set -f
 # list options values
 echo $-
 
+printf "%-8s\n" "${value}" # 8 spaces output formatting
 tput
 # setaf 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
 # Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev

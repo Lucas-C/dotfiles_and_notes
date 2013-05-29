@@ -26,6 +26,10 @@ code = "my code bla bla"
 compiled = compile(code)
 exec compiled 
 
+# Get dissassembly:
+from dis import dis
+dis(myfunc)
+
 # touch <file>
 with open('<file>', 'w+'): pass
 
@@ -41,8 +45,13 @@ it = count().next # itertools
 
 os.stat("filename").st_ino # get inode 
 
+from __future__ import print_function
+[ print(i) for i in ... ]
+
 datetime.utcnow()
 # better than time.time()
+
+os.geteuid() == 0 # => run as root
 
 globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True})
 # on-the-fly class creation
@@ -90,6 +99,30 @@ class Immutable(namedtuple('Immutable', 'x y')):
     def __new__(cls, x, y):
         self = super(Immutable, cls).__new__(cls, x, y)
         return self
+
+except Exception, e: raise MyCustomException("DON'T FORGET TO DISPLAY ROOTCAUSE: {!r}".format(e))
+
+def launchWithTimeout(fn, timeout):
+    class SigTermException(Exception): pass
+
+    def signal_handler(signum, frame):
+        signal.signal(signal.SIGTERM, signal.SIG_DFL)
+        raise SigTermException
+
+    signal.signal(signal.SIGTERM, signal_handler) 
+
+    def send_sigterm(pid, timeout):
+        sleep(timeout)
+        os.kill(pid, signal.SIGTERM)
+
+    thread = Thread(target=send_sigterm, args=(os.getpid(), timeout))
+    thread.daemon = True
+    thread.start()
+
+    try:
+        fn()
+    except SigTermException:
+        pass
 
 # Signal-based handle on a program to debug
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
