@@ -201,8 +201,8 @@ stats () { # --no-header | awk '{print $3}'
         END{avg=sum/n;\
         if((n%2)==1){median=a[int(n/2)];}\
         else{median=(a[n/2]+a[n/2-1])/2;}\
-        variance=M2/(n-1);
-        std_dev=sqrt(variance)*n/(n-1);
+        unbiased_variance=M2/(n-1);
+        std_dev=sqrt(unbiased_variance);
         printf "%-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s\n",\
             sum,n,mean,std_dev,a[0],a[n/100-1],a[n/10-1],median,a[n*9/10-1],a[n*99/100-1],a[n-1]}'
 }
