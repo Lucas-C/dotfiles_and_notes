@@ -191,16 +191,20 @@ tstp () {               # timestamp converter
 alias funiq='awk {k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}' # faster than 'sort | uniq'
 
 # FROM: http://unix.stackexchange.com/questions/13731/is-there-a-way-to-get-the-min-max-median-and-average-of-a-list-of-numbers-in
+# One-pass stable variance algo: http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Online_algorithm
+
 stats () { # --no-header | awk '{print $3}'
-    [ "$1" = "--no-header" ] || printf "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s\n" \
-        1-SUM 2-COUNT 3-AVG 4-MIN 5-TP01 6-TP10 7-MEDIAN 8-TP90 9-TP99 10-MAX
-    sort -n | awk 'BEGIN{c=0;sum=0;}\
-        /^[^#]/{a[c++]=$1;sum+=$1;}\
-        END{avg=sum/c;\
-        if((c%2)==1){median=a[int(c/2)];}\
-        else{median=(a[c/2]+a[c/2-1])/2;}\
-        printf "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s\n",\
-            sum,c,avg,a[0],a[c/100-1],a[c/10-1],median,a[c*9/10-1],a[c*99/100-1],a[c-1]}'
+    [ "$1" = "--no-header" ] || printf "%-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s\n"\
+        1-SUM 2-COUNT 3-MEAN 4-STD_DEV 5-MIN 6-TP01 7-TP10 8-MEDIAN 9-TP90 10-TP99 11-MAX
+    sort -n | awk 'BEGIN{n=0;sum=0;mean=0;M2=0}\
+        /^[^#]/{a[n++]=$1;sum+=$1;delta=$1-mean;mean+=delta/n;M2+=delta*($1-mean)}\
+        END{avg=sum/n;\
+        if((n%2)==1){median=a[int(n/2)];}\
+        else{median=(a[n/2]+a[n/2-1])/2;}\
+        variance=M2/(n-1);
+        std_dev=sqrt(variance)*n/(n-1);
+        printf "%-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s\n",\
+            sum,n,mean,std_dev,a[0],a[n/100-1],a[n/10-1],median,a[n*9/10-1],a[n*99/100-1],a[n-1]}'
 }
 
 # As it's slower, I'm not using rsync rsync --archive --progress --human-readable --partial --remove-sent-files'
