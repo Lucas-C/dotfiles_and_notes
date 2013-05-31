@@ -18,8 +18,13 @@ loadkeys fr
 pid -o comm= -p $PPID
 # get process working directory
 pwdx <pid>
+get_parent_pid ()
+{
+    local pid=$1 ; [ -z "$pid" ] && pid=$$
+    ps --no-headers --format ppid --pid $pid
+}
 
-# replace chars from last command 
+# replace chars from last command
 ls docs
 ^docs^web^
 
@@ -59,7 +64,7 @@ mv $file ${file%.*}.bak
 cleanup () { rm $file ; } # variables will be accesible as this will be called before leaving the function
 local file=$(mktemp)
 trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; cleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
-# 'set -u' trapped warnings can trigger multiple cleanup : this function MUST be robust 
+# 'set -u' trapped warnings can trigger multiple cleanup : this function MUST be robust
 
 # Script file parent dir
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -70,10 +75,13 @@ date "+%F %T,%N" | cut -c-23
 # Abort <CMD> after a timeout
 ( cmdpid=$BASHPID; (sleep 10; kill $cmdpid) & exec <CMD> )
 
-# Named pipes: https://en.wikipedia.org/wiki/Named_pipe
-python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo
-ulimit -a | grep pipe # max size
-fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
+is_true () { ! [ -z "$1" ] && ! [[ "$1" =~ 0+ ]] && ! [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; }
+
+is_file_open () { lsof | grep $(readlink -f "$1") ; }
+
+# Associative array
+hput () { eval "$1""$2"='$3' ; }
+hget () { eval echo '${'"$1$2"'#hash}' ; }
 
 cat <<EOF
 EOF
@@ -269,6 +277,10 @@ lsof +D /some/dir
 sudo lsof -u jeff
 # Additional useful option : -r <t> : repeat the listing every t second
 
+# Shows Where a File/Directory Comes From (links, etc.)
+namei
+readlink -f
+
 # Find non-ASCII characters
 grep --color='auto' -P -n "[\x80-\xFF]" file.xml
 
@@ -277,10 +289,6 @@ ls | cut -d . -f 1 | sort | uniq -c
 
 # Sets intersec
 comm -12 #or uniq -d
-
-# Shows Where a File/Directory Comes From (links, etc.)
-namei
-readlink -f
 
 # Forbid file deletion
 sudo chattr +i [-R] <file> # to check a file attributes : lsattr
@@ -295,6 +303,12 @@ cp /proc/<pid>/fd/4 myfile.saved
 # http://www.cyberciti.biz/tips/linux-audit-files-to-see-who-made-changes-to-a-file.html
 auditctl -w <file> -p wax -k <tag>
 ausearch -k <tag> [-ts today -ui 506 -x cat]
+
+# Named pipes: https://en.wikipedia.org/wiki/Named_pipe
+mkfifo
+python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo
+ulimit -a | grep pipe # max size
+fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
 
 nm *.o
 
@@ -392,6 +406,12 @@ where
 # Notepad in browser
 data:text/html, <html contenteditable>
 
+
+//~~//~~//~~//~~//
+// JavaScript //
+//~~//~~//~~//
+# Evaluate to 'fail'
+(![]+[])[+[]]+(![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]];
 
 =======
 = Wiki

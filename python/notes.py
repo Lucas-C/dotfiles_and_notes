@@ -124,6 +124,21 @@ def launchWithTimeout(fn, timeout):
     except SigTermException:
         pass
 
+
+# http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
+def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
+# Example:
+def foo(x):
+    def bar():
+        return x
+    return bar
+b = foo()
+get_cell_value(b.func_closure[0])
+
+l = ['a,b', 'c,d']
+from itertools import chain
+s = frozenset(chain.from_iterable(e.split(',') for e in l))
+
 # Signal-based handle on a program to debug
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
 

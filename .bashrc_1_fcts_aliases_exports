@@ -69,39 +69,6 @@ nohup.out
 EOF
 }
 
-#---------------
-# Redefinitions
-#--------------
-unset diff; unalias diff 2>/dev/null
-alias diff='diff -b'
-unset df; unalias df 2>/dev/null
-alias df='df -h'
-unset du; unalias du 2>/dev/null
-alias du='du -sh'
-unset make; unalias make 2>/dev/null
-alias make='make -j3'
-unset tkcon; unalias tkcon 2>/dev/null
-alias tkcon='tkcon -load Tk'
-
-unset touch; unalias touch 2>/dev/null
-touch () {              # touch [EPOCH] [+/-<modifier>] <files>
-    local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
-    if [ "$(echo $1 | lower)" = "epoch" ]; then
-        yymm=7001
-        dd=01
-        HHMM=0000
-        shift
-    fi
-    if [[ $1 =~ ^[+-][0-9] ]]; then
-        dd=$(($dd$1))
-        [ ${#dd} -eq 1 ] && dd=0$dd
-        shift
-    fi
-    local stamp=$yymm$dd$HHMM
-    (! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ]) && echo "Day modifier cannot be applied: $stamp" && return
-    $(which touch) -t $stamp "$@"
-}
-
 #------------
 # One-letter
 #------------
@@ -123,7 +90,7 @@ noalias () {            # 'which' without aliases
 
 alias_r () {            # recursively resolve an alias, handle pipes and nested aliases
     local cmd=$1
-    local end_of_cmd 
+    local end_of_cmd
     while alias $cmd >/dev/null 2>&1; do
         local aliased=$(alias $cmd | sed "s/.*\([\'\"]\)\(.*\)\1/\2/")
         cmd=$(echo $aliased | awk '{ print $1 }')
@@ -137,56 +104,28 @@ alias_r () {            # recursively resolve an alias, handle pipes and nested 
 }
 #TEST: alias ec='echo' ; alias dog='cat' ; alias boo='ec BOO | dog'
 
-#--------
-# Others
-#--------
-alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args 2>/dev/null'
-alias pg='psf | g'
-
-alias tF='tail -F'
-alias t5='tail -500'
+#---------
+# Languages
+#----------
+unset make; unalias make 2>/dev/null
+alias make='make -j3'
+unset tkcon; unalias tkcon 2>/dev/null
+alias tkcon='tkcon -load Tk'
 
 alias py='python'
 alias rmpyc='find -L . -name "*.pyc" | xargs rm -f'
 
+# Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
+alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'
+
+#------------------
+# Stream processing
+#------------------
+alias tF='tail -F'
+alias t5='tail -500'
+
 alias lower='tr "[:upper:]" "[:lower:]"'
 alias upper='tr "[:lower:]" "[:upper:]"'
-
-alias diffs='diff --side-by-side'
-alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
-
-alias nav='nautilus $(pwd)/'
-alias pdf='evince'
-
-fopen () { firefox file://$(pwd)/$1 ; }
-
-unset man; unalias man 2>/dev/null
-man () { $(which man) $@ && return ; help $@ 2> /dev/null && help $@ | less ; }
-
-is_true () { ! [ -z "$1" ] && ! [[ "$1" =~ 0+ ]] && ! [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; }
-
-is_file_open () { lsof | grep $(readlink -f "$1") ; }
-
-hput () { eval "$1""$2"='$3' ; }
-hget () { eval echo '${'"$1$2"'#hash}' ; }
-
-fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
-
-findTxt () {            # | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
-    find -L "$@" -type f -exec file {} \; | grep ': [^/.]\+text' | sed 's/^\(.*\): [^/.]\+text[^/.]*$/\1/' 
-}
-
-notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
-    for f in $(findTxt "$@"); do
-        sed -i -e 's/[     ]*$//g' "$f"
-        sed -i -e 's/    /    /g' "$f"
-    done
-}
-
-tstp () {               # timestamp converter
-    echo $@ | gawk '{print strftime("%c", $0)}'
-    # Or date -d @$TIMESTAMP but neither work on OSX
-}
 
 alias funiq='awk {k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}' # faster than 'sort | uniq'
 
@@ -207,6 +146,67 @@ stats () { # --no-header | awk '{print $3}'
             sum,n,mean,std_dev,a[0],a[n/100-1],a[n/10-1],median,a[n*9/10-1],a[n*99/100-1],a[n-1]}'
 }
 
+#--------
+# Others
+#--------
+unset touch; unalias touch 2>/dev/null
+touch () {              # touch [EPOCH] [+/-<modifier>] <files>
+    local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
+    if [ "$(echo $1 | lower)" = "epoch" ]; then
+        yymm=7001
+        dd=01
+        HHMM=0000
+        shift
+    fi
+    if [[ $1 =~ ^[+-][0-9] ]]; then
+        dd=$(($dd$1))
+        [ ${#dd} -eq 1 ] && dd=0$dd
+        shift
+    fi
+    local stamp=$yymm$dd$HHMM
+    (! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ]) && echo "Day modifier cannot be applied: $stamp" && return
+    $(which touch) -t $stamp "$@"
+}
+
+unset man; unalias man 2>/dev/null
+man () { $(which man) $@ && return ; help $@ 2> /dev/null && help $@ | less ; }
+
+unset df; unalias df 2>/dev/null
+alias df='df -h'
+unset du; unalias du 2>/dev/null
+alias du='du -sh'
+unset diff; unalias diff 2>/dev/null
+alias diff='diff -b'
+
+alias diffs='diff --side-by-side'
+alias utf8='iconv -f ISO-8859-1 -t UTF-8 '
+
+alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args 2>/dev/null'
+alias pg='psf | g'
+
+alias nav='nautilus $(pwd)/'
+alias pdf='evince'
+
+fopen () { firefox file://$(pwd)/$1 ; }
+
+fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
+
+findTxt () {            # | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
+    find -L "${@:-.}" -type f -exec file {} \; | grep ': [^/.]\+text' | sed 's/^\(.*\): .*$/\1/'
+}
+
+notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
+    for f in $(findTxt "$@"); do
+        sed -i -e 's/[     ]*$//g' "$f"
+        sed -i -e 's/    /    /g' "$f"
+    done
+}
+
+tstp () {               # timestamp converter
+    echo $@ | gawk '{print strftime("%c", $0)}'
+    # Or date -d @$TIMESTAMP but neither work on OSX
+}
+
 # As it's slower, I'm not using rsync rsync --archive --progress --human-readable --partial --remove-sent-files'
 # But the following script is 10 times slower than basic cp : to improve it, we would need a way to get read of most of strace output
 cp_p()                  # cp with progress bar
@@ -225,12 +225,6 @@ cp_p()                  # cp with progress bar
     } END { print "" }' total_size=$(stat -c '%s' "${1}")
 }
 
-get_parent_pid ()
-{
-    local pid=$1 ; [ -z "$pid" ] && pid=$$
-    ps --no-headers --format ppid --pid $pid
-}
-
 kill_cmd ()             # WIP - Kill every process starting with the pattern passed as a parameter
 {
     while true; do
@@ -242,4 +236,4 @@ kill_cmd ()             # WIP - Kill every process starting with the pattern pas
             break
         fi
     done
-}
+

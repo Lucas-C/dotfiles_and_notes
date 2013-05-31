@@ -1,0 +1,11 @@
+StandUp:
+- What did you do yesterday?
+- What are you doing today?
+- What is blocking your progress?
+- What are your commitments for the week / progression / changes due to blockers or higher priorities
+
+Sprints
+
+Whiteboard sessions
+
+Code reviews
