@@ -236,4 +236,4 @@ kill_cmd ()             # WIP - Kill every process starting with the pattern pas
             break
         fi
     done
-
+}
