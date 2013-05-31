@@ -114,9 +114,8 @@ for arg in "$@"; do
 done
 
 # Convert to array
-IFS=' '
 declare -a argsArray
-read -ra argsArray <<< "$@"
+IFS=' ' read -ra argsArray #<<< "$@"
 # Back to string
 echo "${args[*]}"
 

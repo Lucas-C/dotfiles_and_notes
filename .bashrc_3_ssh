@@ -1,4 +1,4 @@
-BASH_CONF_FILES=".bash_dirs .bash_profile .bashrc* .gitconfig .inputrc .screenrc .vimrc* .zshrc"
+BASH_CONF_FILES=".bash_dirs .bash_profile .bashrc* .gdbinit .gitconfig .inputrc .screenrc .vimrc* .zshrc"
 BASH_CONF_TMP_DIR="/tmp/$USER"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited

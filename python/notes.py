@@ -170,3 +170,6 @@ https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/
 # And also
 http://mg.pov.lt/objgraph/
 
+# Sandbox, libs manager :
+virtualenv
+pip # or easyinstall
