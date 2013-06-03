@@ -261,6 +261,9 @@ lsof -i -P -p <pid> # -n => no IP->hostname resolution
 
 # Keep ssh session open after executing commands
 ssh $host "$cmds ; /bin/bash -i"
+# How to change your login on a specified acces: http://orgmode.org/worg/worg-git-ssh-key.php
+.ssh/config
+
 
 
 #cCcCcCc#
@@ -332,6 +335,20 @@ sudo service lightdm restart
 lshw -C disk
 # list UUIDs
 blkid
+
+# transformer un .rpm en .deb
+alien
+
+
+##~]]%/_°*|-----
+# Synthèse vocale
+espeak -s 180 -p 40 "Hey ! Look behind you"
+espeak -s 180 -p 40 -ven+12 "Hi ! My name is Colossus."
+espeak -s 150 -p 20 -vfr "Je vais te péter la gueule"
+espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mbrola/voices/fr1 - -.au | aplay
+#FROM:   http://doc.ubuntu-fr.org/synthese_vocale
+#        http://linux.byexamples.com/archives/303/text-to-speech-synthesizer/
+#        http://cookerspot.tuxfamily.org/wikka.php?wakka=SyntheseVocaleEspeak
 
 
 #=============
