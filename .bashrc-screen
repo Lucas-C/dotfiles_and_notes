@@ -8,14 +8,12 @@ function s() { # New screen window in same dir
 
 function set_screen_title() {
     if [ -n "$STY" ] && [ "$@" != "prompt_command" ] ; then
-        #screen -X title "$@" # Handled by 'shelltitle' in .screenrc now
+        # 'shelltitle' in .screenrc doesn't work well : tabs names stuck to calls to vim
+        screen -X title "$@"
         [ "$PWD" != "$HOME" ] && pwd > $LAST_DIR_SCREEN_TMP_FILE
     fi
 }
 
-
-# See http://aperiodic.net/screen/man:titles
-export PS1='\[\033k\033\\\]'$PS1
 
 if [ $TERM != "screen" ]; then
     if ! ps -eo comm | grep -q '^screen$'; then

@@ -147,114 +147,6 @@ nice / ionice / renice
 compgen -abck unit_test_
 
 
-#=========
-### SYSTEM
-
-cat /proc/version
-cat /etc/*-release
-uname -a
-cat /etc/issue*
-lsb_release -a
-
-# System errors
-dmesg -s 500000 | grep -i "fail\|error\|oom"
-
-# Message of the day
-/etc/motd
-
-# Virtualbox
-sudo adduser $USER vboxusers # then logout
-VBoxManage list vms
-VBoxManage controlvm <name> poweroff
-
-# Get uid / groups infos
-id $USER # for primary group, use -ng flag
-adduser / moduser -a -G # DO NOT FORGET THE -a !!!
-
-# Add a Linuxsecondary group without logging out
-newgroup <new secondary group>
-newgroup <original primary group>
-
-# List system users
-awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd
-
-# Sudo user
-sudo su -l
-
-# Remove sudo time stamp => no more sudo rights
-sudo -K
-
-# setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
-# setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
-
-# Watch system stats
-watch -d 'cat /proc/meminfo'
-
-iostat
-mpstat 5 # cpu usage stats every 5sec
-
-# Checking Swap Space Size and Usage
-vmstat 2
-sar
-# + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
-
-# Frozen X server
-sudo service lightdm restart
-
-
-#=============
-### NETWORKING
-
-ping <host/ip>
-traceroute <host/ip>
-
-# How to grep IPs
-grep '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
-
-curl
-#See: http://curl.haxx.se/docs/httpscripting.html
-
-# Iptables
-iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
-iptables -n -L -v
-
-snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysDescr.0
-# or sysUpTime, sysName
-# The community string can be found in the 'Variables' tab in an AutoNOC device page
-
-# Dump all tcp transmission to a specific IP :
-sudo tcpdump host -X $IP
-
-# Attribute IP to interface
-ifconfig eth0 192.168.0.1
-
-# Query DNS
-dig txt [+short] <hostname>
-host -t txt <hostname>
-
-# List packet exchanges
-netstat [--statistics --udp]
-
-# Checking ports
-netstat -nap <port>
-nmap -sS -O 127.0.0.1 # Guess OS !!
-lsof -i -P -p <pid> # -n => no IP->hostname resolution
-
-# Keep ssh session open after executing commands
-ssh $host "$cmds ; /bin/bash -i"
-
-
-#cCcCcCc#
-# Cisco #
-#cCcCcCc#
-sh run
-sh int
-sh ip int [brief]
-sh ip rou 1.2.3.4
-sh version
-exit
-
-
 #=============
 ### FILES
 
@@ -325,8 +217,121 @@ ffmpeg -i vid.mp4 -f avi -vcodec copy -acodec copy vid.avi
 
 rsync -avz --exclude=".*"
 
-sha1sum
+sha{1,224,256,384,512}sum
 md5sum
+
+
+#=============
+### NETWORKING
+
+ping <host/ip>
+traceroute <host/ip>
+
+# How to grep IPs
+grep '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
+
+curl
+#See: http://curl.haxx.se/docs/httpscripting.html
+
+# Iptables
+iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
+iptables -n -L -v
+
+snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysDescr.0
+# or sysUpTime, sysName
+# The community string can be found in the 'Variables' tab in an AutoNOC device page
+
+# Dump all tcp transmission to a specific IP :
+sudo tcpdump host -X $IP
+
+# Attribute IP to interface
+ifconfig eth0 192.168.0.1
+
+# Query DNS
+dig txt [+short] <hostname>
+host -t txt <hostname>
+
+# List packet exchanges
+netstat [--statistics --udp]
+
+# Checking ports
+netstat -nap <port>
+nmap -sS -O 127.0.0.1 # Guess OS !!
+lsof -i -P -p <pid> # -n => no IP->hostname resolution
+
+# Keep ssh session open after executing commands
+ssh $host "$cmds ; /bin/bash -i"
+
+
+#cCcCcCc#
+# Cisco #
+#cCcCcCc#
+sh run
+sh int
+sh ip int [brief]
+sh ip rou 1.2.3.4
+sh version
+exit
+
+
+#=========
+### SYSTEM
+
+cat /proc/version
+cat /etc/*-release
+uname -a
+cat /etc/issue*
+lsb_release -a
+
+# System errors
+dmesg -s 500000 | grep -i "fail\|error\|oom"
+
+# Message of the day
+/etc/motd
+
+# Virtualbox
+sudo adduser $USER vboxusers # then logout
+VBoxManage list vms
+VBoxManage controlvm <name> poweroff
+
+# Get uid / groups infos
+id $USER # for primary group, use -ng flag
+adduser / moduser -a -G # DO NOT FORGET THE -a !!!
+
+# Add a Linuxsecondary group without logging out
+newgroup <new secondary group>
+newgroup <original primary group>
+
+# List system users
+awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd
+
+# Sudo user
+sudo su -l
+
+# Remove sudo time stamp => no more sudo rights
+sudo -K
+
+# setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
+# setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
+
+# Watch system stats
+watch -d 'cat /proc/meminfo'
+
+iostat
+mpstat 5 # cpu usage stats every 5sec
+
+# Checking Swap Space Size and Usage
+vmstat 2
+sar
+# + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
+
+# Frozen X server
+sudo service lightdm restart
+
+# list disks
+lshw -C disk
+# list UUIDs
+blkid
 
 
 #=============
@@ -379,21 +384,6 @@ nunit-console *.dll
 mono *.exe
 
 
-:::::::::
-:: MySQL
-:::::::::
-
-# How to start a file to make it executable AND runnable with mysql < FILE.mysql :
-/*/cat <<NOEND | mysql #*/
-use ...;
-select
-    ...
-from
-    ...
-where
-    ...;
-
-
 <!---->
 <html/>
 <!---->
@@ -411,6 +401,7 @@ data:text/html, <html contenteditable>
 //~~//~~//~~//
 # Evaluate to 'fail'
 (![]+[])[+[]]+(![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]];
+
 
 =======
 = Wiki
@@ -431,3 +422,19 @@ Example:
 |}
 [[Category:Template|{{PAGENAME}}]]
 </noinclude>
+
+
+:::::::::
+:: MySQL
+:::::::::
+
+# How to start a file to make it executable AND runnable with mysql < FILE.mysql :
+/*/cat <<NOEND | mysql #*/
+use ...;
+select
+    ...
+from
+    ...
+where
+    ...;
+

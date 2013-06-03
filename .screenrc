@@ -34,3 +34,6 @@ bindkey -k k9 select 6
 
 # Cmds list: http://www.oreillynet.com/linux/cmd/cmd.csp?path=s/screen ; http://aperiodic.net/screen/commands:start
 # Tips : http://aperiodic.net/screen/faq#i_have_a_nested_screen_session_-_how_do_i_send_screen_commands_to_the_inner_screen
+
+# To get SHIFT+PAGEUP/PAGEDOWN xterm scrolling
+termcapinfo xterm|xterms|xs|rxvt ti@:te@
