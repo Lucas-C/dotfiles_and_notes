@@ -47,6 +47,9 @@ git revert HEAD
 # List git commiters
 git log --format='%aN %aE' | sort -u
 
+# Git log blame a regex
+git blame -L '/<regex>/',+1 <file>
+
 # Grep
 git grep <keyword> $(git rev-list <rev1>..<rev2>) [–function-context]
 

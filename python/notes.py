@@ -90,6 +90,7 @@ class Immutable(namedtuple('Immutable', 'x y')):
     def __new__(cls, x, y):
         self = super(Immutable, cls).__new__(cls, x, y)
         return self
+# Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
 
 try: pass
 except Exception, e: raise MyCustomException("DON'T FORGET TO DISPLAY ROOTCAUSE: {!r}".format(e))
@@ -122,6 +123,9 @@ def launchWithTimeout(fn, timeout):
 l = ['a,b', 'c,d']
 from itertools import chain
 s = frozenset(chain.from_iterable(e.split(',') for e in l))
+
+# Callable
+hasattr(obj, '__call__') # work for functions too
 
 
 """""""""""

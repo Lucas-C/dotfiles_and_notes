@@ -83,7 +83,7 @@ foo () {
 # Cons: cannot be nested, 'set -u' trapped warnings can trigger multiple cleanup : this function MUST be robust
 
 # Script file parent dir
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Standard logs date
 date "+%F %T,%N" | cut -c-23

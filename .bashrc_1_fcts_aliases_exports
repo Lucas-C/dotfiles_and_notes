@@ -141,12 +141,13 @@ stats () { # --no-header | awk '{print $3}'
         1-SUM 2-COUNT 3-MEAN 4-STD_DEV 5-MIN 6-TP01 7-TP10 8-MEDIAN 9-TP90 10-TP99 11-MAX
     sort -n | awk 'BEGIN{n=0;sum=0;mean=0;M2=0}\
         /^[^#]/{a[n++]=$1;sum+=$1;delta=$1-mean;mean+=delta/n;M2+=delta*($1-mean)}\
+        function tp(ratio){i=n*ratio-1;if(i<0){return a[0];}else{return a[int(i)];}}
         END{unbiased_variance=M2/(n-1);
         std_dev=sqrt(unbiased_variance);
         if((n%2)==1){median=a[int(n/2)];}\
         else{median=(a[n/2]+a[n/2-1])/2;}\
         printf "%-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s\n",\
-            sum,n,mean,std_dev,a[0],a[n/100-1],a[n/10-1],median,a[n*9/10-1],a[n*99/100-1],a[n-1]}'
+            sum,n,mean,std_dev,a[0],tp(.01),tp(.1),median,tp(.9),tp(.99),a[n-1]}'
 }
 
 #--------
