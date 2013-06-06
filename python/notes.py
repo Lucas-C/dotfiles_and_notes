@@ -2,6 +2,11 @@
 "" Tricks
 """""""""""
 
+r"Raw string literal: no need to double escape \{0}\{str}".format("zero", str="")
+u"Unicode string {obj.__class__} {obj!r}".format(obj=0)
+
+dict.iteritems > dict.items
+
 __slots__ = ("attr1_name")  # attribute
 # Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots."
 
@@ -14,33 +19,17 @@ __call__
 # __repr__ : unambigous, as possible 'eval'uable
 "MyClass(this=%r,that=%r)" % (self.this,self.that)
 
-inspect.getmembers(obj)
-# Get class parents
-o.__class__.__bases__
-
-# Funny loop construct
-for ...:
-    break
-else:
-
 code = "my code bla bla"
 compiled = compile(code)
 exec compiled 
 
-# Get dissassembly:
-from dis import dis
-dis(myfunc)
+with open('<file>', 'w+'): pass # touch <file>
 
-# touch <file>
-with open('<file>', 'w+'): pass
-
-# DO NOT use other default parameter values than None
-# + initialization is static
+# DO NOT use other default parameter values than None, + initialization is static
 def foo(x = []):
     x.append('do')
     return x
-foo()
-foo()
+foo();foo()
 
 it = count().next # itertools
 
@@ -78,6 +67,7 @@ def foo(n):
     return inner
 
 # Decorator with args
+@functools.wraps
 def my_decorator(decorator_args):
     def tmp_decorator(orig_func):
         new_func = orig_func
@@ -129,6 +119,32 @@ def launchWithTimeout(fn, timeout):
         pass
 
 
+l = ['a,b', 'c,d']
+from itertools import chain
+s = frozenset(chain.from_iterable(e.split(',') for e in l))
+
+
+"""""""""""
+"" Debug
+"""""""""""
+import pdb. pdb.set_trace()
+
+from pprint import pprint
+
+vars(obj)
+dir(obj)
+
+inspect.getmembers(obj)
+
+<module>.__file__
+
+# Get class parents
+o.__class__.__bases__
+
+# Get dissassembly:
+from dis import dis
+dis(myfunc)
+
 # http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
 def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
 # Example:
@@ -138,10 +154,6 @@ def foo(x):
     return bar
 b = foo()
 get_cell_value(b.func_closure[0])
-
-l = ['a,b', 'c,d']
-from itertools import chain
-s = frozenset(chain.from_iterable(e.split(',') for e in l))
 
 # Signal-based handle on a program to debug
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
