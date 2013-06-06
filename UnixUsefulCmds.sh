@@ -230,6 +230,8 @@ grep --color='auto' -P -n "[\x80-\xFF]" file.xml
 
 # shows non-printing characters as ascii escapes. 
 cat -v
+# echo non-ascii
+printf "\177" # octal
 
 
 #=============
