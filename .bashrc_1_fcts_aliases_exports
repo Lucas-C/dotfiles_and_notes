@@ -118,6 +118,7 @@ alias rmpyc='find -L . -name "*.pyc" | xargs rm -f'
 # Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
 alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'
 
+
 #------------------
 # Stream processing
 #------------------
@@ -126,6 +127,9 @@ alias t5='tail -500'
 
 alias lower='tr "[:upper:]" "[:lower:]"'
 alias upper='tr "[:lower:]" "[:upper:]"'
+
+urlencode () { perl -ne 'chomp; s/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg; print "$_\n"'; }
+utf8 () { iconv -f ISO-8859-1 -t UTF-8 $1 -o ${2:-$1} ; }
 
 alias funiq='awk {k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}' # faster than 'sort | uniq'
 
@@ -137,11 +141,10 @@ stats () { # --no-header | awk '{print $3}'
         1-SUM 2-COUNT 3-MEAN 4-STD_DEV 5-MIN 6-TP01 7-TP10 8-MEDIAN 9-TP90 10-TP99 11-MAX
     sort -n | awk 'BEGIN{n=0;sum=0;mean=0;M2=0}\
         /^[^#]/{a[n++]=$1;sum+=$1;delta=$1-mean;mean+=delta/n;M2+=delta*($1-mean)}\
-        END{avg=sum/n;\
+        END{unbiased_variance=M2/(n-1);
+        std_dev=sqrt(unbiased_variance);
         if((n%2)==1){median=a[int(n/2)];}\
         else{median=(a[n/2]+a[n/2-1])/2;}\
-        unbiased_variance=M2/(n-1);
-        std_dev=sqrt(unbiased_variance);
         printf "%-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s %-12s\n",\
             sum,n,mean,std_dev,a[0],a[n/100-1],a[n/10-1],median,a[n*9/10-1],a[n*99/100-1],a[n-1]}'
 }
@@ -176,10 +179,9 @@ alias df='df -h'
 unset du; unalias du 2>/dev/null
 alias du='du -sh'
 unset diff; unalias diff 2>/dev/null
-alias diff='diff -b'
+alias diff='echo "Try merge or diff3" && diff -b'
 
 alias diffs='diff --side-by-side'
-utf8 () { iconv -f ISO-8859-1 -t UTF-8 $1 -o ${2:-$1} ; }
 
 alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args 2>/dev/null'
 alias pg='psf | g'

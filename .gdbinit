@@ -1,6 +1,7 @@
 # -*- ksh -*-
 #
 # FROM: http://svn.python.org/projects/python/trunk/Misc/gdbinit
+# sudo chown root:root ~/.gdbinit
 # Attach gdb: gdb -p PID
 # Get the python stack trace: pystack
 

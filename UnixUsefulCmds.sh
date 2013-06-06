@@ -24,20 +24,21 @@ get_parent_pid ()
     ps --no-headers --format ppid --pid $pid
 }
 
+# detach process
+nohup <cmd>
+disown -h <pid>
+
 # replace chars from last command
 ls docs
 ^docs^web^
 
+<ALT>+. # insert preceding line's final parameter
 !$ # select the last arg
 !!:n # selects the nth argument of the last command
 
 mesg
 write
 wall # broadcast message
-
-# filter outpout : not lines 1-3 and last one
-type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
-# this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD $@; ... }
 
 
 ##################
@@ -46,6 +47,8 @@ type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
 
 # Standard warnings
 set -eux # -u won't exit in case of a pipe : echo $cmd | grep '.*'
+# Check syntax without executing
+bash -n <script>
 
 # Redirect logs
 exec >>logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
@@ -57,14 +60,27 @@ set - A B C
 install -o $USER -m 644 <file>
 install -d -m 777 <directory>
 
+: ${1?'Missing parameter'}
+: ${var:="default value"}
+
+# Floating point arithmetic
+echo "scale=3; 1/3" | bc [-l] # for the std math lib
+
 # Change extension
 mv $file ${file%.*}.bak
 
-# Garbage cleaner (self-sufficient: no need to untrap, or call the cleanup function at the end of the function its defined)
-cleanup () { rm $file ; } # variables will be accesible as this will be called before leaving the function
-local file=$(mktemp)
-trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; cleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
-# 'set -u' trapped warnings can trigger multiple cleanup : this function MUST be robust
+# Garbage cleaner
+garbage_cleaner () { # USAGE: eval $(garbage_cleaner cleanup_func)
+    echo trap "'"e=\$? \; trap - RETURN EXIT INT TERM HUP QUIT \; $@ \; \$\(exit \$e\)"'" RETURN EXIT INT TERM HUP QUIT
+}
+foo () {
+    cleanup () { echo CLEANUP ; rm $file ; } # variables will be accesible as this will be called before leaving the function
+    eval $(garbage_cleaner cleanup)
+    local file=$(mktemp)
+    sleep 5
+}
+# Pros: self-sufficient: no need to untrap, or call the cleanup function at the end of the function its defined
+# Cons: cannot be nested, 'set -u' trapped warnings can trigger multiple cleanup : this function MUST be robust
 
 # Script file parent dir
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -79,9 +95,20 @@ is_true () { ! [ -z "$1" ] && ! [[ "$1" =~ 0+ ]] && ! [[ "$1" =~ [Ff][Aa][Ll][Ss
 
 is_file_open () { lsof | grep $(readlink -f "$1") ; }
 
-# Associative array
-hput () { eval "$1""$2"='$3' ; }
-hget () { eval echo '${'"$1$2"'#hash}' ; }
+# Associative arrays (FROM: http://stackoverflow.com/questions/1494178/how-to-define-hash-tables-in-bash)
+# With built-in arrays and cksum-based hashing function
+hf () { local h=$(echo "$*" |cksum); echo "${h//[!0-9]}"; } # hashing function
+table[$(hf foo bar)]="x42"
+echo ${table[$(hf foo bar)]}
+echo ${table[@]}
+# With /dev/shm in-memory files (+persistent)
+hinit() { rm -rf "/dev/shm/hashmap.$1" ; mkdir -p "/dev/shm/hashmap.$1" ; }
+hput() { echo "$3" > "/dev/shm/hashmap.$1/$2" ; } # or printf to avoid \n
+hget() { cat "/dev/shm/hashmap.$1/$2" ; }
+hkeys() { ls -1 "/dev/shm/hashmap.$1" ; }
+hvalues() { cat "/dev/shm/hashmap.$1/*" ; }
+hcount() { hkeys $1 | wc -l ; }
+hdestroy() { rm -rf "/dev/shm/hashmap.$1" ; }
 
 cat <<EOF
 EOF
@@ -92,6 +119,8 @@ exec 8>&- # Close file descriptor
 
 # mktemp dir & default value
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
+# Use RAM for tmp files:
+/dev/shm
 
 # http://wiki.bash-hackers.org/howto/getopts_tutorial
 while getopts ":ab:" opt; do
@@ -114,24 +143,43 @@ for arg in "$@"; do
 done
 
 # Convert to array
-declare -a argsArray
-IFS=' ' read -ra argsArray #<<< "$@"
+declare -a array
+IFS=' ' read -ra array #<<< "$string"
 # Back to string
-echo "${args[*]}"
+string="${array[*]}"
 
 # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 echo ${PWD//\//-}
+
+# Powerful regex
+[[ "some string" =~ "$regex" ]]
+group1="${BASH_REMATCH[1]}"
 
 # disable wildcard expansion
 set -f
 # list options values
 echo $-
 
-printf "%-8s\n" "${value}" # 8 spaces output formatting
 tput
 # setaf 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
 # Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
 # sgr0: reset
+
+# ask a yes or no question, with a default of no.
+echo -n "Do you ...? [y/N]: "
+read answer
+if expr "$answer" : ' *[yY].*' > /dev/null; then 
+   echo OK
+else 
+   echo KO
+fi
+
+# Ask for a password without echoing the characters. The trapping ensures that an interrupt does not leave the echoing off.
+stty -echo
+trap "stty echo ; echo 'Interrupted' ; exit 1" 1 2 3 15
+echo -n "Enter password: "
+read password
+stty echo
 
 # Syslog
 logger -is -t SCRIPT_NAME -p user.warn "Message"
@@ -147,14 +195,48 @@ nice / ionice / renice
 compgen -abck unit_test_
 
 
+#################
+# Text filtering
+#################
+
+# filter outpout : not lines 1-3 and last one
+type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
+# this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD $@; ... }
+
+# Print lines starting with one containing FOO and ending with one containing BAR.
+sed -n '/FOO/,/BAR/p'
+
+# Replace newlines by a separator
+seq 1 10 | paste -s -d+ | bc
+# Break on world per line
+perl -pe 's/\s+/\n/g'
+# paste is also usefule to interlace files: paste <file1> <file2>
+
+printf "%-8s\n" "${value}" # 8 spaces output formatting
+
+# Print nth column
+awk [-F":"] '{ print $NF }'
+
+# Sets intersec
+comm -12 #or uniq -d
+
+# display input to stdout + append to end of <file>
+tee -a <file>
+
+# Find non-ASCII characters
+grep --color='auto' -P -n "[\x80-\xFF]" file.xml
+
+# fold breaks lines to proper width, and fmt will reformat lines into paragraphs 
+
+# shows non-printing characters as ascii escapes. 
+cat -v
+
+
 #=============
 ### FILES
 
 find
 # Tip: ! -regex 'pat\|tern' >>>way>more>efficient>>> \( -path ./pat -o -path ./tern \) -prune -o -print
-
-# display input to stdout + append to end of <file>
-tee -a <file>
 
 # append at the beginning of <file>
 sed -i "1i$content" <file>
@@ -172,14 +254,8 @@ sudo lsof -u jeff
 namei
 readlink -f
 
-# Find non-ASCII characters
-grep --color='auto' -P -n "[\x80-\xFF]" file.xml
-
 # Sum up kind of files without ext
 ls | cut -d . -f 1 | sort | uniq -c
-
-# Sets intersec
-comm -12 #or uniq -d
 
 # Forbid file deletion
 sudo chattr +i [-R] <file> # to check a file attributes : lsattr
@@ -331,6 +407,8 @@ sar
 # Frozen X server
 sudo service lightdm restart
 
+# list devices
+lspci -v
 # list disks
 lshw -C disk
 # list UUIDs
@@ -445,6 +523,13 @@ Example:
 :: MySQL
 :::::::::
 
+# List columns
+show columns from <table>;
+
+# Kill request
+SHOW PROCESSLIST;
+KILL <thread_to_be_killed>;
+
 # How to start a file to make it executable AND runnable with mysql < FILE.mysql :
 /*/cat <<NOEND | mysql #*/
 use ...;
@@ -453,5 +538,6 @@ select
 from
     ...
 where
+    ...
+order by
     ...;
-

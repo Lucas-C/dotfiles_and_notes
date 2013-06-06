@@ -1,3 +1,5 @@
+F7 in cmd.exe -> history
+
 where <cmd> :: 'which' equivalent
 powercfg -h off/on :: as admin, delete hiberfil.sys
 msinfo32 :: info composants

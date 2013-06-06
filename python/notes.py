@@ -14,6 +14,7 @@ __call__
 # __repr__ : unambigous, as possible 'eval'uable
 "MyClass(this=%r,that=%r)" % (self.this,self.that)
 
+inspect.getmembers(obj)
 # Get class parents
 o.__class__.__bases__
 
@@ -100,8 +101,11 @@ class Immutable(namedtuple('Immutable', 'x y')):
         self = super(Immutable, cls).__new__(cls, x, y)
         return self
 
+try: pass
 except Exception, e: raise MyCustomException("DON'T FORGET TO DISPLAY ROOTCAUSE: {!r}".format(e))
+# !!!WARNING!!! -> except OR finally clause, NOT both !
 
+# Better to use multiprocessing lib as Python can only have on thread because of the GIL
 def launchWithTimeout(fn, timeout):
     class SigTermException(Exception): pass
 
@@ -154,7 +158,14 @@ s = frozenset(chain.from_iterable(e.split(',') for e in l))
 # HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 
-# AWESOME for scripting
+# Serialization
+cPickle # binary format, generic, fast & lighweight
+json
+
+# Parsing
+pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
+
+# AWESOME for shell scripting
 http://amoffat.github.io/sh/
 
 # PyCharm : code inspection

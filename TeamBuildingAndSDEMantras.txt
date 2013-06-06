@@ -1,3 +1,13 @@
+CultureBuilding:
+- stand-ups
+- whiteboard sessions
+- team tenets as guidelines for priorities
+- clear team goals with deadlines
+- make decisions based on data
+- recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code
+- coding style reference, tools to enforce it, CRs
+- regular emails with tips
+
 StandUp:
 - What did you do yesterday?
 - What are you doing today?
@@ -6,6 +16,3 @@ StandUp:
 
 Sprints
 
-Whiteboard sessions
-
-Code reviews
