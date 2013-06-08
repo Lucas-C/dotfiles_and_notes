@@ -9,6 +9,13 @@ ghci:
 	:cd e:\code
 	:module								-- "set the context for expression evaluation"
     :info <whatever>
+
+Shell one-liners helpful tools:
+    hrunl () { ghc -e "interact(show.($*).lines)"; }
+    hrunw () { ghc -e "interact(show.($*).words)"; }
+    hrunwl () { ghc -e "interact(show.($*).map words.lines)"; }
+E.g:
+    find -maxdepth 1 -type f | xargs du | hrunwl "sum . map (read . head)"
 -}
 
 -- All imports MUST be done before code start
@@ -16,10 +23,15 @@ ghci:
 import qualified Data.Map as Map
 import qualified Data.Set as Set
 import Data.Function (on)
+import Control.Monad (forever, forM)
 import Data.List hiding (unzip7)
 import Data.List
 import Data.Char
 import Module.Mod
+import System.IO
+import System.Random -- need libghc-random-dev
+import qualified Data.ByteString as BS
+import qualified Data.ByteString.Lazy as BSL -- -> 64K chunks
 
 {-############
 # Starting Out
@@ -98,6 +110,7 @@ string = show 3
 
 -- Read
 rl = read "[1,2,3,4]" :: [Int] -- type annotation needed as there is no implicit conversion
+-- 'reads' more robust if input invalid
 
 -- Enum
 zero = succ (-1)
@@ -423,11 +436,67 @@ instance Show TrafficLight where
 # Input & Output
   ###############-}
 
---$ ghc --make helloworld && ./helloworld
---$ runhaskell helloworld.hs
+-- $ ghc --make helloworld && ./helloworld
+-- $ runhaskell helloworld.hs
 
 -- BEWARE 'return' : it just makes an I/O action out of a pure value
 
 -- putStr, putChar
 -- print (~ putStrLn . show)
 -- getChar
+
+listOfIO = map print nums
+printNums = do results <- sequence listOfIO ; return results
+
+-- 'mapM nums' is an equivalent as it maps a function that returns an I/O action over a list and then sequence it
+-- to discard result, use mapM_
+myMapM1 a b = sequence (map a b)
+myMapM2 f = sequence . map f
+
+getAndPrintLine = do s <- getLine ; putStrLn s
+echo = forever getAndPrintLine -- repeat IO action forever
+
+read2Lines = do reslist <- forM [1,2] (\i -> do e <- getLine ; return e) ; return reslist
+-- forM is like mapM with reversed parameters
+-- (\a -> do ... ) is a function that takes a number and returns an I/O action
+
+-- getCOntents: lazy I/O action that reads everything from the standard input until it encounters an end-of-file character
+-- interact: takes a function of type String -> String as a parameter and returns an I/O action that will take some input,
+--      run that function on it and then print out the function's result
+
+-- # Files IO #
+-- openFile :: FilePath -> IOMode -> IO Handle
+-- type FilePath = String
+-- data IOMode = ReadMode | WriteMode | AppendMode | ReadWriteMod
+-- hClose :: Handle -> IO ()
+
+printTestFile = do
+    withFile "test_file.txt" ReadMode (\handle -> do
+        contents <- hGetContents handle
+        putStr contents)
+
+-- hGetLine, hPutStr, hPutStrLn, hGetChar
+-- readFile, writeFile, appendFile
+-- hSetBuffering; hFlush
+-- openTempFile, renameFile, removeFile
+-- getArgs, getProgName
+
+-- # Randomness #
+-- random :: (RandomGen g, Random a) => g -> (a, g)
+r = random (mkStdGen 100) :: (Int, StdGen)
+r5 = take 5 $ randoms (mkStdGen 11) :: [Float]
+rPswd = take 10 $ randomRs ('a','z') (mkStdGen 42)
+getIOGen = do getStdGen -- !! Same generator returned if called twice in the same program invocation, use newStdGen 
+
+-- # Bytestrings #
+lc_letters = BSL.pack [97..122] -- reverse: unpack
+-- fromChunks / toChunks : conversion strict/lazy BS
+strict_bs = foldr BS.cons BS.empty [50..60]
+lazy_bs = foldr BSL.cons BSL.empty [50..60]
+lazy_bs_with_strict_cons = foldr BSL.cons' BSL.empty [50..60]
+-- Available functions: head, tail, init, null, length, map, reverse, foldl, foldr, concat, takeWhile, filter
+-- readFile
+
+-- # Exceptions #
+-- "Pure code can throw exceptions, but it they can only be caught in the I/O part"
+
