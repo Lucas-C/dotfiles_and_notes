@@ -1,11 +1,11 @@
 """""""""""
 "" Tricks
 """""""""""
+# In interpreter:
+_ # result of the last expression evaluated
 
 r"Raw string literal: no need to double escape \{0}\{str}".format("zero", str="")
 u"Unicode string {obj.__class__} {obj!r}".format(obj=0)
-
-dict.iteritems > dict.items
 
 __slots__ = ("attr1_name")  # attribute
 # Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots."
@@ -23,7 +23,18 @@ code = "my code bla bla"
 compiled = compile(code)
 exec compiled 
 
-with open('<file>', 'w+'): pass # touch <file>
+pattern = (
+"^"         # beginning of string
+"(?P<word>" # named group start
+r"\b\w+\b"  # a word between two word separators
+")"         # named group end
+)
+m = re.search(pattern, "Un. Deux. Trois.", re.DEBUG|re.DOTALL|re.MULTILINE)
+m.group('word')
+# You can also call a function every time something matches a regular expression
+re.sub('a|b|c', rep, string) # def rep(matchobj): ...
+
+with open('filea', 'w+') as filea, open('fileb', 'w+') as fileb: pass # touch <files>
 
 # DO NOT use other default parameter values than None, + initialization is static
 def foo(x = []):
@@ -32,6 +43,8 @@ def foo(x = []):
 foo();foo()
 
 it = count().next # itertools
+
+for index, item in enumerate(iterable): ...
 
 os.stat("filename").st_ino # get inode 
 
@@ -74,6 +87,22 @@ def my_decorator(decorator_args):
         return new_func
     return tmp_decorator
 
+# Descriptors
+class Property(object):
+    def __init__(self, fget):
+        self.fget = fget
+
+    def __get__(self, obj, type):
+        if obj is None:
+            return self
+        return self.fget(obj)
+
+a, b = b, a # swapping
+
+my_list[::-1] == reversed(my_list)
+
+dict.iteritems > dict.items
+dict.__missing__ # invoked for missing items
 
 d == dict(**d)
 
@@ -94,7 +123,8 @@ class Immutable(namedtuple('Immutable', 'x y')):
 
 try: pass
 except Exception, e: raise MyCustomException("DON'T FORGET TO DISPLAY ROOTCAUSE: {!r}".format(e))
-# !!!WARNING!!! -> except OR finally clause, NOT both !
+else: pass
+finally: pass
 
 # Better to use multiprocessing lib as Python can only have on thread because of the GIL
 def launchWithTimeout(fn, timeout):
@@ -170,7 +200,6 @@ get_cell_value(b.func_closure[0])
 """""""""""""""""
 "" Libs & tools
 """""""""""""""""
-
 # HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 
@@ -200,3 +229,18 @@ http://mg.pov.lt/objgraph/
 # Sandbox, libs manager :
 virtualenv
 pip # or easyinstall
+
+# To use 3rd party modules, do not edit PYTHONPATH env var, use *.pth files 
+
+
+""""""""
+"" Fun
+""""""""
+# Funny loop construct
+for ...:
+    break
+else:
+
+from __future__ import braces
+
+import this

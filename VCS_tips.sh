@@ -26,6 +26,9 @@ svn up -r <rev> <file>
 #*****#
 # http://blog.jacius.info/2008/6/22/git-tip-fix-a-mistake-in-a-previous-commit/
 
+# Git 'un-commit', as 'don't-change-any-files-but-cancel-last-commit'
+git reset HEAD^
+
 # Reflog
 git reflog # To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
 git reset --hard HEAD@{3} # To rewind the repo back to the state of HEAD@{3} in the reflog lists.

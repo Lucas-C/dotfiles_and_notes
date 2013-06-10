@@ -60,11 +60,15 @@ set - A B C
 install -o $USER -m 644 <file>
 install -d -m 777 <directory>
 
-: ${1?'Missing parameter'}
-: ${var:="default value"}
+: ${1:?'Missing or empty parameter'}
+local var=${1:-"default value"}
+: ${var:="new value set if empty"}
+
+# Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
+echo ${PWD//\//-}
 
 # Floating point arithmetic
-echo "scale=3; 1/3" | bc [-l] # for the std math lib
+echo "1/3" | bc -l # or specify "scale=X;" instead of flag
 
 # Change extension
 mv $file ${file%.*}.bak
@@ -147,9 +151,6 @@ declare -a array
 IFS=' ' read -ra array #<<< "$string"
 # Back to string
 string="${array[*]}"
-
-# Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
-echo ${PWD//\//-}
 
 # Powerful regex
 [[ "some string" =~ "$regex" ]]
@@ -363,6 +364,9 @@ cat /etc/*-release
 uname -a
 cat /etc/issue*
 lsb_release -a
+
+# People previous logged
+last [-f /var/log/wtmp.1]
 
 # System errors
 dmesg -s 500000 | grep -i "fail\|error\|oom"

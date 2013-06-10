@@ -35,6 +35,7 @@ import System.Random -- need libghc-random-dev
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Lazy as BSL -- -> 64K chunks
 import System.Environment
+import Control.Exception
 import System.IO.Error
 import Control.Applicative
 import Data.Monoid
@@ -568,7 +569,7 @@ newtype CharList = CharList { getCharList :: [Char] } deriving (Eq, Show)
 {-###################
 # A Fistful of Monads
   ###################-}
--- (>>=) :: (Monad m) => m a -> (a -> m b) -> m b
+-- 'bind': (>>=) :: (Monad m) => m a -> (a -> m b) -> m b
 -- If we have a fancy value and a function that takes a normal value
 -- but returns a fancy value, how do we feed that fancy value into the function?
 
@@ -619,3 +620,10 @@ instance Monoid (DiffList a) where
 -- # Rationals #
 frac = 1%3 + 5%4
 
+
+{-##################
+# Random other notes
+  ##################-}
+-- | Left-to-right Kleisli composition of monads.
+(>=>)       :: Monad m => (a -> m b) -> (b -> m c) -> (a -> m c)
+f >=> g     = \x -> f x >>= g

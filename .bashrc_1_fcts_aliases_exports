@@ -184,7 +184,7 @@ alias diff='echo "Try merge or diff3" && diff -b'
 
 alias diffs='diff --side-by-side'
 
-alias psf='ps -eo user,group,pid,ppid,tty,rss,start,time,nice,%cpu,psr,args 2>/dev/null'
+alias psf='ps -eo user,group,pid,ppid,tty,rss,start,etime,nice,%cpu,psr,args 2>/dev/null'
 alias pg='psf | g'
 
 alias nav='nautilus $(pwd)/'
