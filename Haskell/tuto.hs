@@ -10,6 +10,8 @@ ghci:
 	:module								-- "set the context for expression evaluation"
     :info <whatever>
 
+ghc-pkg list
+
 Shell one-liners helpful tools:
     hrunl () { ghc -e "interact(show.($*).lines)"; }
     hrunw () { ghc -e "interact(show.($*).words)"; }
@@ -32,6 +34,12 @@ import System.IO
 import System.Random -- need libghc-random-dev
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Lazy as BSL -- -> 64K chunks
+import System.Environment
+import System.IO.Error
+import Control.Applicative
+import Data.Monoid
+import Control.Monad
+import Data.Ratio
 
 {-############
 # Starting Out
@@ -486,7 +494,7 @@ printTestFile = do
 r = random (mkStdGen 100) :: (Int, StdGen)
 r5 = take 5 $ randoms (mkStdGen 11) :: [Float]
 rPswd = take 10 $ randomRs ('a','z') (mkStdGen 42)
-getIOGen = do getStdGen -- !! Same generator returned if called twice in the same program invocation, use newStdGen 
+getIOGen = do getStdGen -- !! Same generator returned if called twice in the same program invocation, use newStdGen
 
 -- # Bytestrings #
 lc_letters = BSL.pack [97..122] -- reverse: unpack
@@ -499,4 +507,115 @@ lazy_bs_with_strict_cons = foldr BSL.cons' BSL.empty [50..60]
 
 -- # Exceptions #
 -- "Pure code can throw exceptions, but it they can only be caught in the I/O part"
+-- catch :: IO a -> (IOError -> IO a) -> IO a
+contents = readDumbFile `catch` handler
+readDumbFile = do contents <- readFile "dumb_file.txt" ; putStrLn contents
+handler e
+    | isDoesNotExistError e =
+        case ioeGetFileName e of Just path -> putStrLn $ "Whoops! File does not exist at: " ++ path
+                                 Nothing -> putStrLn "Whoops! File does not exist at unknown location!"
+    | otherwise = ioError e
+-- Also: isAlreadyExistsError, isDoesNotExistError, isAlreadyInUseError, isFullError, isEOFError, isIllegalOperation, isPermissionError, isUserError
+
+
+{-##########################################
+# Functors, Applicative Functors and Monoids
+  ##########################################-}
+
+-- # Functors #
+revGetLine = do fmap reverse getLine
+-- Functor laws:
+--  - fmap id = id
+--  - fmap (f . g) = fmap f . fmap g
+
+-- # Applicative Functors #
+--   instance Applicative Maybe where
+--       pure = Just
+--       Nothing <*> _ = Nothing
+--       (Just f) <*> something = fmap f something
+
+j12 = Just (+3) <*> Just 9
+nope = Nothing <*> Just "woot"
+j8 = pure (+) <*> Just 3 <*> Just 5
+
+actor = (++) <$> Just "johntra" <*> Just "volta"
+list_comp = (*) <$> [2,5,10] <*> [8,10,11] -- [ x*y | x <- [2,5,10], y <- [8,10,11]]
+
+size8list = [(+),(*)] <*> [1,2] <*> [3,4]
+
+res508 = (+) <$> (+3) <*> (*100) $ 5
+
+zipl = getZipList $ (+) <$> ZipList [1,2,3] <*> ZipList [100,100..]
+
+-- Applicative Functors Laws
+--  - pure id <*> v = v
+--  - pure (.) <*> u <*> v <*> w = u <*> (v <*> w)
+--  - pure f <*> pure x = pure (f x)
+--  - u <*> pure y = pure ($ y) <*> u
+
+-- # newtype #
+newtype CharList = CharList { getCharList :: [Char] } deriving (Eq, Show)
+-- faster & lazier than 'data'
+
+-- # Monoids #
+-- mempty, mappend, mconcat
+-- Sum, Product
+-- Any, All
+
+-- import Data.Foldable
+
+
+{-###################
+# A Fistful of Monads
+  ###################-}
+-- (>>=) :: (Monad m) => m a -> (a -> m b) -> m b
+-- If we have a fancy value and a function that takes a normal value
+-- but returns a fancy value, how do we feed that fancy value into the function?
+
+-- '>>' acts as '>>= \_ ->' : its systematically return its right hand side
+-- 'fail'
+wopwop = do (x:xs) <- Just "" ; return x
+
+-- The MonadPlus type class is for monads that can also act as monoids
+
+weird_cond = guard (1 > 2) >> return "cool" :: Maybe String
+
+-- Monad laws:
+--  - return x >>= f is the same damn thing as f x
+--  - m >>= return is no different than just m
+--  - (m >>= f) >>= g is just like doing m >>= (\x -> f x >>= g)
+
+
+{-#####################
+# For a Few Monads More
+  #####################-}
+-- # Writer #
+
+-- # DiffList #
+newtype DiffList a = DiffList { getDiffList :: [a] -> [a] }
+
+toDiffList :: [a] -> DiffList a
+toDiffList xs = DiffList (xs++)
+
+fromDiffList :: DiffList a -> [a]
+fromDiffList (DiffList f) = f []
+
+instance Monoid (DiffList a) where
+    mempty = DiffList (\xs -> [] ++ xs)
+    (DiffList f) `mappend` (DiffList g) = DiffList (\xs -> f (g xs))
+
+-- # State monad #
+-- s -> (a,s) 
+
+-- # Monadic functions #
+-- liftM :: (Monad m) => (a -> b) -> m a -> m b -- Equivalent to 'fmap' 
+-- ap :: (Monad m) => m (a -> b) -> m a -> m b  -- Equivalent to '<*>'
+-- liftM2 :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c -- Equivalent to 'liftA2'
+
+-- join :: (Monad m) => m (m a) -> m a -- flaten nested monadic value
+-- filterM :: (Monad m) => (a -> m Bool) -> [a] -> m [a]
+-- foldM :: (Monad m) => (a -> b -> m a) -> a -> [b] -> m a
+
+-- # Rationals #
+frac = 1%3 + 5%4
 

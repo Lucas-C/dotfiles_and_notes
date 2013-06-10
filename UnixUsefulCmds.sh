@@ -525,6 +525,9 @@ Example:
 :: MySQL
 :::::::::
 
+# SqLite
+.tables # list tables
+
 # List columns
 show columns from <table>;
 
