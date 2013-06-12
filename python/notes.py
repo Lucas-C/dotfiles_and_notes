@@ -1,13 +1,12 @@
 """""""""""
 "" Tricks
 """""""""""
-# In interpreter:
-_ # result of the last expression evaluated
+_ # result of the last expression evaluated (in an interpreter only)
 
-r"Raw string literal: no need to double escape \{0}\{str}".format("zero", str="")
-u"Unicode string {obj.__class__} {obj!r}".format(obj=0)
+r'''Raw string literal: no need to double escape \{0}\{str}'''.format("zero", str="")
+u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0)
 
-__slots__ = ("attr1_name")  # attribute
+__slots__ = ("attr1_name")
 # Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots."
 
 __all__ = ['bar', 'foo']
@@ -51,13 +50,11 @@ os.stat("filename").st_ino # get inode
 from __future__ import print_function
 [ print(i) for i in ... ]
 
-datetime.utcnow()
-# better than time.time()
+datetime.utcnow() # better than time.time()
 
 os.geteuid() == 0 # => run as root
 
-globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True})
-# on-the-fly class creation
+globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class creation
 # Cool alternative for Nose tests, as TestCase and generators are not compatible
 
 # 'type' is the metaclass Python uses to create all classes behind the scenes
@@ -100,6 +97,10 @@ class Property(object):
 a, b = b, a # swapping
 
 my_list[::-1] == reversed(my_list)
+
+# Cool standard functions to work on lists
+zip, reduce, all, any, min, max, sum
+# generators > list-comprehensions
 
 dict.iteritems > dict.items
 dict.__missing__ # invoked for missing items
@@ -191,6 +192,12 @@ get_cell_value(b.func_closure[0])
 
 # Signal-based handle on a program to debug
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
+# Also:
+rom rfoo.utils import rconsole
+rconsole.spawn_server()
+$ rconsole
+# And also:
+http://eventlet.net/doc/modules/backdoor.html
 
 # GOTCHAS:
 #- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
@@ -200,6 +207,8 @@ get_cell_value(b.func_closure[0])
 """""""""""""""""
 "" Libs & tools
 """""""""""""""""
+reload(module)
+
 # HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 

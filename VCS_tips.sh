@@ -29,6 +29,12 @@ svn up -r <rev> <file>
 # Git 'un-commit', as 'don't-change-any-files-but-cancel-last-commit'
 git reset HEAD^
 
+# Git show changes currently 'added' (ready to be commited)
+git diff --cached HEAD
+
+# Stash with a name, then either pop or apply + drop
+git stash save "stash-name"
+
 # Reflog
 git reflog # To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
 git reset --hard HEAD@{3} # To rewind the repo back to the state of HEAD@{3} in the reflog lists.

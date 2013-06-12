@@ -18,10 +18,14 @@ loadkeys fr
 pid -o comm= -p $PPID
 # get process working directory
 pwdx <pid>
-get_parent_pid ()
+pid () { eval 'echo $$'; }
+ppid ()
 {
-    local pid=$1 ; [ -z "$pid" ] && pid=$$
-    ps --no-headers --format ppid --pid $pid
+    if [ -z "${1:-}" ]; then
+        eval 'echo $PPID'
+    else
+        ps --no-headers --format ppid --pid $1
+    fi
 }
 
 # detach process
@@ -93,7 +97,7 @@ EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 date "+%F %T,%N" | cut -c-23
 
 # Abort <CMD> after a timeout
-( cmdpid=$BASHPID; (sleep 10; kill $cmdpid) & exec <CMD> )
+bash -c '(sleep 10; kill -9 $$) & exec <CMD>'
 
 is_true () { ! [ -z "$1" ] && ! [[ "$1" =~ 0+ ]] && ! [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; }
 
@@ -420,6 +424,8 @@ lshw -C disk
 # list UUIDs
 blkid
 
+# list rpm
+rpm -qa *regex*
 # transformer un .rpm en .deb
 alien
 
@@ -483,25 +489,6 @@ NUNITLIB=/Library/Frameworks/Mono.framework/Versions/2.10.11/lib/mono/2.0/nunit.
 gmcs -debug -t:library -r:$NUNITLIB *.cs
 nunit-console *.dll
 mono *.exe
-
-
-<!---->
-<html/>
-<!---->
-
-# use protocol-relative URLs (starting with //) like so:
-<img src="//domain.com/img/logo.png">
-# This will cause the browser to automatically prepend the protocol that is currently being used. This trick also works in CSS.
-
-# Notepad in browser
-data:text/html, <html contenteditable>
-
-
-//~~//~~//~~//~~//
-// JavaScript //
-//~~//~~//~~//
-# Evaluate to 'fail'
-(![]+[])[+[]]+(![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]];
 
 
 =======
