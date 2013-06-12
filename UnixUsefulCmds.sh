@@ -18,14 +18,11 @@ loadkeys fr
 pid -o comm= -p $PPID
 # get process working directory
 pwdx <pid>
-pid () { eval 'echo $$'; }
+pid () { sh -c 'echo $PPID'; }
 ppid ()
 {
-    if [ -z "${1:-}" ]; then
-        eval 'echo $PPID'
-    else
-        ps --no-headers --format ppid --pid $1
-    fi
+    local pid=${1:-$(sh -c 'echo $PPID')}
+    ps --no-headers --format ppid --pid $pid
 }
 
 # detach process
@@ -97,7 +94,7 @@ EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 date "+%F %T,%N" | cut -c-23
 
 # Abort <CMD> after a timeout
-bash -c '(sleep 10; kill -9 $$) & exec <CMD>'
+sh -c '(sleep 10; kill -9 $$) & exec <CMD>'
 
 is_true () { ! [ -z "$1" ] && ! [[ "$1" =~ 0+ ]] && ! [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; }
 

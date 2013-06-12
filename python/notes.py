@@ -97,6 +97,7 @@ class Property(object):
 a, b = b, a # swapping
 
 my_list[::-1] == reversed(my_list)
+mylist.index(elem) # index lookup
 
 # Cool standard functions to work on lists
 zip, reduce, all, any, min, max, sum
@@ -124,32 +125,12 @@ class Immutable(namedtuple('Immutable', 'x y')):
 
 try: pass
 except Exception, e: raise MyCustomException("DON'T FORGET TO DISPLAY ROOTCAUSE: {!r}".format(e))
+# or just: e.args += ('More', 'infos')
+# also useful: type, value, traceback = sys.exc_info()
 else: pass
 finally: pass
 
-# Better to use multiprocessing lib as Python can only have on thread because of the GIL
-def launchWithTimeout(fn, timeout):
-    class SigTermException(Exception): pass
-
-    def signal_handler(signum, frame):
-        signal.signal(signal.SIGTERM, signal.SIG_DFL)
-        raise SigTermException
-
-    signal.signal(signal.SIGTERM, signal_handler) 
-
-    def send_sigterm(pid, timeout):
-        sleep(timeout)
-        os.kill(pid, signal.SIGTERM)
-
-    thread = Thread(target=send_sigterm, args=(os.getpid(), timeout))
-    thread.daemon = True
-    thread.start()
-
-    try:
-        fn()
-    except SigTermException:
-        pass
-
+multiprocessing > threading # as Python can only have on thread because of the GIL
 
 l = ['a,b', 'c,d']
 from itertools import chain
@@ -157,6 +138,13 @@ s = frozenset(chain.from_iterable(e.split(',') for e in l))
 
 # Callable
 hasattr(obj, '__call__') # work for functions too
+
+# Zip archive
+foo = zipfile.ZipFile('foo.zip', mode='w')
+for root, dirs, files in os.walk('/path/to/foo'):
+    for name in files:
+        file_to_zip = os.path.join(root, name)
+        foo.write(file_to_zip, compress_type=zipfile.ZIP_DEFLATED)
 
 
 """""""""""
