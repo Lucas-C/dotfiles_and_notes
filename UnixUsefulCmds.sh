@@ -22,8 +22,15 @@ pid () { sh -c 'echo $PPID'; }
 ppid ()
 {
     local pid=${1:-$(sh -c 'echo $PPID')}
-    ps --no-headers --format ppid --pid $pid
+    echo $(ps --no-headers --format ppid --pid $pid)
+} # echo $(ppid) ??
+# Abort a command after a timeout
+timeout () {
+    local t=${1:?'Missing timeout parameters'}
+    shift
+    (pid=$(sh -c 'echo $PPID') ; (sleep $t; kill -9 $pid 2>/dev/null) & exec "$@")
 }
+
 
 # detach process
 nohup <cmd>
@@ -92,9 +99,6 @@ EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Standard logs date
 date "+%F %T,%N" | cut -c-23
-
-# Abort <CMD> after a timeout
-sh -c '(sleep 10; kill -9 $$) & exec <CMD>'
 
 is_true () { ! [ -z "$1" ] && ! [[ "$1" =~ 0+ ]] && ! [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; }
 
