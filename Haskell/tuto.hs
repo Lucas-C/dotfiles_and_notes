@@ -1,6 +1,6 @@
 {-
 FROM: http://learnyouahaskell.com
-ghci:
+$ ghci:
     :l file.hs                          -- load file
     :r                                  -- reload
     :t func                             -- get type
@@ -10,14 +10,17 @@ ghci:
 	:module								-- "set the context for expression evaluation"
     :info <whatever>
 
-ghc-pkg list
+$ ghc-pkg list
+
+$ hoogle "Num a => [a] -> a"
+$ hlint
 
 Shell one-liners helpful tools:
     hrunl () { ghc -e "interact(show.($*).lines)"; }
     hrunw () { ghc -e "interact(show.($*).words)"; }
     hrunwl () { ghc -e "interact(show.($*).map words.lines)"; }
 E.g:
-    find -maxdepth 1 -type f | xargs du | hrunwl "sum . map (read . head)"
+    $ find -maxdepth 1 -type f | xargs du | hrunwl "sum . map (read . head)"
 -}
 
 -- All imports MUST be done before code start
@@ -627,3 +630,9 @@ frac = 1%3 + 5%4
 -- | Left-to-right Kleisli composition of monads.
 (>=>)       :: Monad m => (a -> m b) -> (b -> m c) -> (a -> m c)
 f >=> g     = \x -> f x >>= g
+
+-- (a ? b $ c)  ==  (if a then b else c)
+True ? x = const x
+False ? _ = id
+
+absurd = let 1=2 in print "[head explodes]"
