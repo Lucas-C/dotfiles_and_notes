@@ -24,12 +24,13 @@ jmap -histo:live <pid>
 String asString = new String( byteString.getArray(), "UTF-8" );
 ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
 
+assert *<condition>* : *<object>*
+
 // Built-in parallelism the easy way : ExecutorService
 
 // Methods/attribute privacy only true at compile time : if one recompile a class into bytecode with all private, it will still work !
 
 // Google Optional<> : Optional.of(...), Optional.absent(), opt.isPresent(), opt.get()
-
 // Google public String toString() { Objects.toStringHelper(getClass()).add("Attr", attr).add(...); }
 
 // Enum

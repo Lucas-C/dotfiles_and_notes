@@ -207,6 +207,23 @@ notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spac
     done
 }
 
+pid () { sh -c 'echo $PPID'; }
+ppid () # echo $(ppid) ??
+{
+    local pid=${1:-$(sh -c 'echo $PPID')}
+    echo $(ps --no-headers --format ppid --pid $pid)
+}
+
+timeout () { # USAGE: timeout <delay-in-seconds> <command>
+    local s=${1:?'Missing timeout parameters'}
+    shift
+    ( pid=$(sh -c 'echo $PPID')
+      ( sleep $s
+        kill -9 $pid 2>/dev/null
+      ) & exec "${@:?'Missing timeout command'}"
+    )
+}
+
 tstp () {               # timestamp converter
     echo $@ | gawk '{print strftime("%c", $0)}'
     # Or date -d @$TIMESTAMP but neither work on OSX

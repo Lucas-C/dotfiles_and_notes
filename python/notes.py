@@ -56,6 +56,8 @@ os.geteuid() == 0 # => run as root
 
 globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class creation
 # Cool alternative for Nose tests, as TestCase and generators are not compatible
+# !!WARNING!! 'type()' uses the current global __name__ as the __module__, unless it calls a metaclass constructor
+# -> http://stackoverflow.com/questions/14198979/python-inheritance-metaclasses-and-type-function
 
 # 'type' is the metaclass Python uses to create all classes behind the scenes
 # aka, the most common __class__.__class__ of an object

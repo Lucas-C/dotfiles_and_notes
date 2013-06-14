@@ -18,19 +18,6 @@ loadkeys fr
 pid -o comm= -p $PPID
 # get process working directory
 pwdx <pid>
-pid () { sh -c 'echo $PPID'; }
-ppid ()
-{
-    local pid=${1:-$(sh -c 'echo $PPID')}
-    echo $(ps --no-headers --format ppid --pid $pid)
-} # echo $(ppid) ??
-# Abort a command after a timeout
-timeout () {
-    local t=${1:?'Missing timeout parameters'}
-    shift
-    (pid=$(sh -c 'echo $PPID') ; (sleep $t; kill -9 $pid 2>/dev/null) & exec "$@")
-}
-
 
 # detach process
 nohup <cmd>
@@ -54,7 +41,9 @@ wall # broadcast message
 ##################
 
 # Standard warnings
-set -eux # -u won't exit in case of a pipe : echo $cmd | grep '.*'
+export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
+set -o pipefail
+set -eux
 # Check syntax without executing
 bash -n <script>
 
@@ -334,6 +323,8 @@ ifconfig eth0 192.168.0.1
 # Query DNS
 dig txt [+short] <hostname>
 host -t txt <hostname>
+# Reverse
+dig +short -x <IP>
 
 # List packet exchanges
 netstat [--statistics --udp]

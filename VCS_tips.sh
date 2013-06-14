@@ -62,6 +62,9 @@ git blame -L '/<regex>/',+1 <file>
 # Grep
 git grep <keyword> $(git rev-list <rev1>..<rev2>) [–function-context]
 
+# Commit only part of a file
+git add -p <file>
+
 
 +++++
 + p4

@@ -1,3 +1,7 @@
+"""
+USAGE: import ipdb
+"""
+
 def _set_trace():
     """
     Wrapper for IPython debugger.
@@ -12,5 +16,5 @@ def _set_trace():
         import pdb
         return pdb.set_trace
 
-set_trace = _set_trace()
-
+#set_trace = _set_trace()
+_set_trace()()
