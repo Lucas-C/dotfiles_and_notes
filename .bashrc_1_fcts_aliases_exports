@@ -75,7 +75,7 @@ EOF
 # One-letter
 #------------
 alias e='$EDITOR'
-alias b='cd $OLDPWD'
+alias b='cd "$OLDPWD"'
 alias f='firefox'
 
 #---------------

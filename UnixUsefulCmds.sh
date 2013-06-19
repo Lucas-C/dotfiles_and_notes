@@ -282,10 +282,22 @@ hexdump -c
 #Append at the end of stdout (or beginning with ^)
 echo ECHO | sed s/$/.ext/
 
+# Identify video
+mplayer -identify -vo null -ao null -frames 0 <video>
 # Convert .wmv to .avi
 mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
 # .mp4 to .avi
-ffmpeg -i vid.mp4 -f avi -vcodec copy -acodec copy vid.avi
+avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
+
+#ImageMagick
+display <img>
+convert img.png -resize 800x600 -auto-orienti -crop 50x100+10+20 img.jpg
+mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
+identify -v <img>
+import # screenshot
+animate -delay 5 *.png
+compare img1 img2
+composite # merge images
 
 rsync -avz --exclude=".*"
 
