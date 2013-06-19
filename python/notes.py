@@ -126,8 +126,9 @@ class Immutable(namedtuple('Immutable', 'x y')):
 # Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
 
 try: pass
-except Exception, e: raise MyCustomException("DON'T FORGET TO DISPLAY ROOTCAUSE: {!r}".format(e))
-# or just: e.args += ('More', 'infos')
+except Exception as e:
+    e.args += ('More', 'infos')
+    raise MyCustomException("DON'T FORGET TO DISPLAY ROOTCAUSE: {!r}".format(e))
 # also useful: type, value, traceback = sys.exc_info()
 else: pass
 finally: pass
@@ -216,6 +217,13 @@ http://amoffat.github.io/sh/
 
 # get exec time
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
+
+# Get memory usage
+from guppy import hpy
+h = hpy()
+h.heap()
+h.iso(...objects...).sp
+# Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
 
 # Built-in profiler
 python -m cProfile myscript.py

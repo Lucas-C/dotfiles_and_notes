@@ -1,4 +1,14 @@
-# Other solution: http://www.anattatechnologies.com/q/2012/05/timeout-command-in-python/
+"""
+A good solution should be robust to:
+  - executing functions that can be blocking when the timeout ends
+  - signal killing (KILL, TERM...)
+  - non-graceful death (e.g. via os._exit or if you cause a SegmentationFault or BusError)
+  - portability
+  - deadlocks => not trigger any (e.g. by killing the thread holding the GIL)
+The following is NONE of the above
+ALSO: http://eli.thegreenplace.net/2011/08/22/how-not-to-set-a-timeout-on-a-computation-in-python/
+Another similar solution: http://www.anattatechnologies.com/q/2012/05/timeout-command-in-python/
+"""
 from functools import wraps
 from os import getpid, kill
 from signal import getsignal, signal, SIG_DFL, SIG_IGN
@@ -15,6 +25,7 @@ def call_with_timeout(timeout, timeout_signal, fn, *args, **kwargs):
     A previously registered signal handler for the signal given will be be kept but will be inactive during the call.
     This can NOT be used outside the main thread.
     Can be nested, as long as signals are not reused.
+    Warning: the signal may not be caught, e.g. if the main thread is blocking at some point
 
     Example:
         call_with_timeout(10, signal.SIGUSR1, my_function, {'list':[]}, x=42)
@@ -29,9 +40,9 @@ def call_with_timeout(timeout, timeout_signal, fn, *args, **kwargs):
     if current_thread().name != 'MainThread':
         raise Exception("Module {} functions can not be called outside the main thread".format(__name__))
 
-    prev_hanlder = getsignal(timeout_signal)
-    if not prev_hanlder in (SIG_DFL, SIG_IGN):
-        raise Exception("A user-defined handler already exist for {}: {}".format(timeout_signal, prev_hanlder))
+    prev_handler = getsignal(timeout_signal)
+    if not prev_handler in (SIG_DFL, SIG_IGN):
+        raise Exception("A user-defined handler already exist for {}: {}".format(timeout_signal, prev_handler))
 
     global _signals_in_use
     if timeout_signal in _signals_in_use:
@@ -41,7 +52,7 @@ def call_with_timeout(timeout, timeout_signal, fn, *args, **kwargs):
     timeout_signal_exception = type('TimeoutException{!s}'.format(timeout_signal), (TimeoutException,), {})
 
     def signal_handler(signum, frame):
-        signal(timeout_signal, prev_hanlder)
+        signal(timeout_signal, prev_handler)
         global _signals_in_use
         if timeout_signal in _signals_in_use:
             raise timeout_signal_exception("Function {fn} called with args={args}, kwargs={kwargs} timed out after {timeout}s".format(

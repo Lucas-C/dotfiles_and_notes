@@ -41,9 +41,8 @@ wall # broadcast message
 ##################
 
 # Standard warnings
+set -o pipefail -o errexit -o nounset -o xtrace
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
-set -o pipefail
-set -eux
 # Check syntax without executing
 bash -n <script>
 
@@ -151,9 +150,9 @@ string="${array[*]}"
 group1="${BASH_REMATCH[1]}"
 
 # disable wildcard expansion
-set -f
+set -o noglob
 # list options values
-echo $-
+echo $- # Check the shell is interactive: [[ $- =~ i ]]
 
 tput
 # setaf 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
@@ -210,7 +209,7 @@ perl -pe 's/\s+/\n/g'
 printf "%-8s\n" "${value}" # 8 spaces output formatting
 
 # Print nth column
-awk [-F":"] '{ print $NF }'
+awk [-F":|="] '{ print $NF }'
 
 # Sets intersec
 comm -12 #or uniq -d
@@ -224,7 +223,7 @@ grep --color='auto' -P -n "[\x80-\xFF]" file.xml
 # fold breaks lines to proper width, and fmt will reformat lines into paragraphs 
 
 # shows non-printing characters as ascii escapes. 
-cat -v
+cat -vET
 # echo non-ascii
 printf "\177" # octal
 
@@ -315,7 +314,7 @@ snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysDescr.0
 # The community string can be found in the 'Variables' tab in an AutoNOC device page
 
 # Dump all tcp transmission to a specific IP :
-sudo tcpdump host -X $IP
+sudo tcpdump host -X $IP [ip proto icmp|udp|tcp]
 
 # Attribute IP to interface
 ifconfig eth0 192.168.0.1

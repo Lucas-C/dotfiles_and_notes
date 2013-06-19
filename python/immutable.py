@@ -8,6 +8,7 @@
 
     TODO:
         isinstance(freeze(o), o.__class__) # maybe using __subclasshook__ ?
+        freeze_class ? -> every instance, using 'mod = import(cls.__module__)'
 
     Original idea: http://code.activestate.com/recipes/576527-freeze-make-any-object-immutable/
 """

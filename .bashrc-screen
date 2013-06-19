@@ -17,6 +17,7 @@ function set_screen_title() {
 
 if [ $TERM != "screen" ]; then
     if ! ps -eo comm | grep -q '^screen$'; then
+        screen -wipe
         screen -c ${BASHRC_DIR:-$HOME}/.screenrc -d -m
     fi
     screen -A -x

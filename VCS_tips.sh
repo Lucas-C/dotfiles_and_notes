@@ -29,11 +29,19 @@ svn up -r <rev> <file>
 # Git 'un-commit', as 'don't-change-any-files-but-cancel-last-commit'
 git reset HEAD^
 
+# Rollback last pushed commit
+git revert HEAD
+
 # Git show changes currently 'added' (ready to be commited)
 git diff --cached HEAD
+# Git diff with same format as 'git status'
+git diff --stat
 
 # Stash with a name, then either pop or apply + drop
 git stash save "stash-name"
+
+# Commit only part of a file
+git add -p <file>
 
 # Reflog
 git reflog # To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
@@ -41,6 +49,9 @@ git reset --hard HEAD@{3} # To rewind the repo back to the state of HEAD@{3} in 
 
 # List versioned files
 git ls-tree --name-only HEAD
+
+# List git commiters
+git log --format='%aN %aE' | sort -u
 
 # Git bisect
 git bisect start
@@ -50,20 +61,11 @@ git bisect run <cmd>
 # Bisect will now step through the commits in an automated fashion, marking commits good or bad depending on the exit code of <cmd>, until it find the culprit commit.
 git bisect reset # to return your repository to the state it started in
 
-# Rollback last pushed commit
-git revert HEAD
-
-# List git commiters
-git log --format='%aN %aE' | sort -u
-
 # Git log blame a regex
 git blame -L '/<regex>/',+1 <file>
 
 # Grep
 git grep <keyword> $(git rev-list <rev1>..<rev2>) [–function-context]
-
-# Commit only part of a file
-git add -p <file>
 
 
 +++++

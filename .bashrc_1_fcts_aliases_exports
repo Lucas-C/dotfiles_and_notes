@@ -208,19 +208,24 @@ notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spac
 }
 
 pid () { sh -c 'echo $PPID'; }
-ppid () # echo $(ppid) ??
+ppid () {
 {
     local pid=${1:-$(sh -c 'echo $PPID')}
     echo $(ps --no-headers --format ppid --pid $pid)
 }
+# foo () { sh -c 'echo $PPID' ; local pid=$(sh -c 'echo $PPID'); echo $pid ; }
+# Same values if invoked in a shell or by executing a ./script
+# But differents if invoked in a $(cmd) or sourced.
 
-timeout () { # USAGE: timeout <delay-in-seconds> <command>
+
+timeout () {
+    [[ $1 =~ -h|--help ]] && echo "USAGE: timeout <delay-in-deconds> <cmd> ; <cmd> can start with 'exec' to avoid creating a new process" && return
     local s=${1:?'Missing timeout parameters'}
     shift
     ( pid=$(sh -c 'echo $PPID')
       ( sleep $s
         kill -9 $pid 2>/dev/null
-      ) & exec "${@:?'Missing timeout command'}"
+      ) & "${@:?'Missing timeout command'}"
     )
 }
 

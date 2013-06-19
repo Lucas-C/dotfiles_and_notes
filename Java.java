@@ -14,6 +14,9 @@ java -jar archive.jar # Maybe -cp .
 // To be sure you're using the correct Java : namei $(which java)
 */
 
+// Debugger
+jdb
+
 jconsole
 // http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
 
