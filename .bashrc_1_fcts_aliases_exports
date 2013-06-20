@@ -209,7 +209,6 @@ notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spac
 
 pid () { sh -c 'echo $PPID'; }
 ppid () {
-{
     local pid=${1:-$(sh -c 'echo $PPID')}
     echo $(ps --no-headers --format ppid --pid $pid)
 }
@@ -219,11 +218,12 @@ ppid () {
 
 
 timeout () {
-    [[ $1 =~ -h|--help ]] && echo "USAGE: timeout <delay-in-deconds> <cmd> ; <cmd> can start with 'exec' to avoid creating a new process" && return
-    local s=${1:?'Missing timeout parameters'}
-    shift
+    [ "${1:-}" = "-h" -o "${1:-}" = "--help" ] && printf "USAGE: timeout [--no-msg] <delay-in-deconds> <cmd>\n  <cmd> can start with 'exec' to avoid creating a new process\n" && return
+    local no_msg=false; [ "${1:-}" = "--no-msg" ] && no_msg=true && shift
+    local s=${1:?'Missing timeout parameters'} && shift
     ( pid=$(sh -c 'echo $PPID')
-      ( sleep $s
+      ( $no_msg || echo "Command launched with a ${s}s timeout. To let it live: kill $(sh -c 'echo $PPID')"
+        sleep $s
         kill -9 $pid 2>/dev/null
       ) & "${@:?'Missing timeout command'}"
     )
