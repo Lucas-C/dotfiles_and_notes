@@ -170,7 +170,7 @@ touch () {              # touch [EPOCH] [+/-<modifier>] <files>
         shift
     fi
     local stamp=$yymm$dd$HHMM
-    (! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ]) && echo "Day modifier cannot be applied: $stamp" && return
+    { ! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ] ; } && { echo "Day modifier cannot be applied: $stamp" ; return ; }
     $(which touch) -t $stamp "$@"
 }
 
@@ -216,11 +216,10 @@ ppid () {
 # Same values if invoked in a shell or by executing a ./script
 # But differents if invoked in a $(cmd) or sourced.
 
-
 timeout () {
-    [ "${1:-}" = "-h" -o "${1:-}" = "--help" ] && printf "USAGE: timeout [--no-msg] <delay-in-deconds> <cmd>\n  <cmd> can start with 'exec' to avoid creating a new process\n" && return
-    local no_msg=false; [ "${1:-}" = "--no-msg" ] && no_msg=true && shift
-    local s=${1:?'Missing timeout parameters'} && shift
+    [ "${1:-}" = "-h" -o "${1:-}" = "--help" ] && { printf "USAGE: timeout [--no-msg] <delay-in-deconds> <cmd>\n  <cmd> can start with 'exec' to avoid creating a new process\n" ; return ; }
+    local no_msg=false; [ "${1:-}" = "--no-msg" ] && { no_msg=true ; shift ; }
+    local s=${1:?'Missing timeout parameters'} ; shift
     ( pid=$(sh -c 'echo $PPID')
       ( $no_msg || echo "Command launched with a ${s}s timeout. To let it live: kill $(sh -c 'echo $PPID')"
         sleep $s

@@ -88,7 +88,7 @@ EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Standard logs date
 date "+%F %T,%N" | cut -c-23
 
-is_true () { ! [ -z "$1" ] && ! [[ "$1" =~ 0+ ]] && ! [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; }
+is_true () { ! { [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; } ; }
 
 is_file_open () { lsof | grep $(readlink -f "$1") ; }
 
