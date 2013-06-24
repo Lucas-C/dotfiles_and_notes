@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="d3.v3.min.js"></script>
+    </head>
+    <body>
+        <script>
+var jsonCircles = [ { "x_axis": 70, "y_axis": 70, "radius": 20, "color" : "purple"} ];
+var svgContainer = d3.select("body").append("svg").attr("width", 200).attr("height", 200);
+var circles = svgContainer.selectAll("circle").data(jsonCircles).enter().append("circle");
+var circleAttributes = circles
+    .attr("cx", function (d) { return d.x_axis; })
+    .attr("cy", function (d) { return d.y_axis; })
+    .attr("r", function (d) { return d.radius; })
+    .style("fill", function(d) { return d.color; });
+        </script>
+    </body>
+</html>
+<!--
+TODO:
+- input form
+- persist data between refreshes
+-->

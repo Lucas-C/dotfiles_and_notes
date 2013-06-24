@@ -80,7 +80,7 @@ foo () {
     sleep 5
 }
 # Pros: self-sufficient: no need to untrap, or call the cleanup function at the end of the function its defined
-# Cons: cannot be nested, 'set -u' trapped warnings can trigger multiple cleanup : this function MUST be robust
+# Cons: cannot be nested, 'set -o nounset' trapped warnings can trigger multiple cleanup : this function MUST be robust
 
 # Script file parent dir
 EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -219,6 +219,8 @@ tee -a <file>
 
 # Find non-ASCII characters
 grep --color='auto' -P -n "[\x80-\xFF]" file.xml
+# Grep 'a' but not 'b' -> PCRE
+grep -P '^((?!b).)*a((?!b).)*$' # awk '/a/ && !/b/'
 
 # fold breaks lines to proper width, and fmt will reformat lines into paragraphs 
 
@@ -518,9 +520,11 @@ Example:
 :::::::::
 :: MySQL
 :::::::::
+LIKE >faster> REGEXP
 
-# SqLite
-.tables # list tables
+# list tables
+show tables;
+.tables # SqLite
 
 # List columns
 show columns from <table>;
@@ -533,7 +537,7 @@ KILL <thread_to_be_killed>;
 /*/cat <<NOEND | mysql #*/
 use ...;
 select
-    ...
+    id, name
 from
     ...
 where

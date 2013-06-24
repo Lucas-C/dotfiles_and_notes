@@ -223,7 +223,7 @@ timeout () {
     ( pid=$(sh -c 'echo $PPID')
       ( $no_msg || echo "Command launched with a ${s}s timeout. To let it live: kill $(sh -c 'echo $PPID')"
         sleep $s
-        kill -9 $pid 2>/dev/null
+        kill -9 $pid 2>/dev/null || true
       ) & "${@:?'Missing timeout command'}"
     )
 }

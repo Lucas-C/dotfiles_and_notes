@@ -46,9 +46,11 @@ rm -rf $BASH_CONF_TMP_DIR
 ssh_setup () {
     local agentConfFile=~/.ssh/.ssh-agent.sh
     [ "$1" == "-f" ] && killall ssh-agent
-    if ps -e | grep -q 'ssh-agent$'; then
-        [ -r $agentConfFile ] && source $agentConfFile >/dev/null
-        return
+    if [ -r $agentConfFile ]; then
+        source $agentConfFile >/dev/null
+        if ps -eo args | grep -q 'ssh-agent$' && ps -eo pid | grep -q $SSH_AGENT_PID; then
+            return
+        fi
     fi
     ssh-agent >$agentConfFile
     source $agentConfFile >/dev/null
