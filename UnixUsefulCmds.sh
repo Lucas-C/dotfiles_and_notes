@@ -284,23 +284,6 @@ hexdump -c
 #Append at the end of stdout (or beginning with ^)
 echo ECHO | sed s/$/.ext/
 
-# Identify video
-mplayer -identify -vo null -ao null -frames 0 <video>
-# Convert .wmv to .avi
-mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
-# .mp4 to .avi
-avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
-
-#ImageMagick
-display <img>
-convert img.png -resize 800x600 -auto-orienti -crop 50x100+10+20 img.jpg
-mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
-identify -v <img>
-import # screenshot
-animate -delay 5 *.png
-compare img1 img2
-composite # merge images
-
 rsync -avz --exclude=".*"
 
 sha{1,224,256,384,512}sum
@@ -470,6 +453,28 @@ pulseaudio -D
 pavucontrol
 alsamixer
 gstreamer-properties
+
+# Identify video
+mplayer -identify -vo null -ao null -frames 0 <video>
+# Convert .wmv to .avi
+mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
+# .mp4 to .avi
+avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
+
+#ImageMagick
+# Compile IM with HDRI:
+# - http://www.imagemagick.org/script/install-source.php
+# - sudo aptitude install libmagickcore-dev liblcms2-dev libtiff4-dev libfreetype6-dev libjpeg8-dev liblqr-1-0-dev libglib2.0-dev libfontconfig-dev libxext-dev libz-dev libbz2-dev
+# - ./configure --enable-hdri
+# Scripts: http://www.fmwconcepts.com/imagemagick/
+display <img>
+convert img.png -resize 800x600 -auto-orienti -crop 50x100+10+20 img.jpg
+mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
+identify -v <img>
+import # screenshot
+animate -delay 5 *.png
+compare img1 img2
+composite # merge images
 
 # Rescan for memory card
 sudo su -l
