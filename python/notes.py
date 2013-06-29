@@ -171,6 +171,10 @@ o.__class__.__bases__
 from dis import dis
 dis(myfunc)
 
+# Returns a list of all objects tracked by the collector, excluding the list returned.
+import gc
+gc.get_objects()
+
 # http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
 def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
 # Example:

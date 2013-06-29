@@ -114,7 +114,7 @@ alias make='make -j3'
 unset tkcon; unalias tkcon 2>/dev/null
 alias tkcon='tkcon -load Tk'
 
-alias py='python'
+alias py='ipython --pdb'
 alias rmpyc='find -L . -name "*.pyc" | xargs rm -f'
 
 # Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
