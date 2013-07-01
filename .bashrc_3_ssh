@@ -48,16 +48,17 @@ ssh_setup () {
     [ "$1" == "-f" ] && killall ssh-agent
     if [ -r $agentConfFile ]; then
         source $agentConfFile >/dev/null
-        if ps -eo args | grep -q 'ssh-agent$' && ps -eo pid | grep -q $SSH_AGENT_PID; then
-            return
+        if ! ps -eo args | grep -q 'ssh-agent$' || [ -z "$SSH_AGENT_PID" ] || ! ps -eo pid | grep -q $SSH_AGENT_PID; then
+            ssh-agent >$agentConfFile
+            source $agentConfFile >/dev/null
         fi
     fi
-    ssh-agent >$agentConfFile
-    source $agentConfFile >/dev/null
-    for pub_file_key in ~/.ssh/*.pub; do
-        local priv_file_key=${pub_file_key%.pub}
-        [ -r $priv_file_key ] && ssh-add $priv_file_key
-    done
+    if ! ssh-add -l 2>&1 >/dev/null; then
+        for pub_file_key in ~/.ssh/*.pub; do
+            local priv_file_key=${pub_file_key%.pub}
+            [ -r $priv_file_key ] && ssh-add $priv_file_key
+        done
+    fi
 }
 
 unset ssh; unalias ssh 2>/dev/null

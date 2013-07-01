@@ -110,14 +110,6 @@ dict.__missing__ # invoked for missing items
 
 d == dict(**d)
 
-class Dict(dict):
-    def __init__(self, **kwargs):
-        self.update(kwargs)
-    def __getattr__(self, name):
-        return self.get(name)
-    def __setattr__(self, name, value):
-        self[name] = value
-
 # Immutable class
 class Immutable(namedtuple('Immutable', 'x y')):
     def __new__(cls, x, y):
@@ -153,7 +145,10 @@ for root, dirs, files in os.walk('/path/to/foo'):
 """""""""""
 "" Debug
 """""""""""
-import pdb. pdb.set_trace()
+# IPython tricks
+%pdb # Automatic pdb calling
+
+import pdbi; pdbi.set_trace() # or pdbi.sh()
 
 from pprint import pprint
 

@@ -1,6 +1,9 @@
 #========
 ### SHELL
 
+# Fork bomb
+: () { : | : & } ; :
+
 # Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
 
 # Fixing terminal frenzy
@@ -311,7 +314,7 @@ snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysDescr.0
 # The community string can be found in the 'Variables' tab in an AutoNOC device page
 
 # Dump all tcp transmission to a specific IP :
-sudo tcpdump host -X $IP [ip proto icmp|udp|tcp]
+sudo tcpdump -X host $IP [ip proto icmp|udp|tcp]
 
 # Attribute IP to interface
 ifconfig eth0 192.168.0.1
@@ -351,11 +354,12 @@ exit
 #=========
 ### SYSTEM
 
+cat /proc/cpuinfo # Number of cores, cache size & alignement...
 cat /proc/version
 cat /etc/*-release
+lsb_release -a
 uname -a
 cat /etc/issue*
-lsb_release -a
 
 # People previous logged
 last [-f /var/log/wtmp.1]
@@ -404,6 +408,7 @@ sar
 
 # Frozen X server
 sudo service lightdm restart
+killall gnome-panel
 
 # list devices
 lspci -v

@@ -217,7 +217,10 @@ ppid () {
 # But differents if invoked in a $(cmd) or sourced.
 
 timeout () {
-    [ "${1:-}" = "-h" -o "${1:-}" = "--help" ] && { printf "USAGE: timeout [--no-msg] <delay-in-deconds> <cmd>\n  <cmd> can start with 'exec' to avoid creating a new process\n" ; return ; }
+    if [ "${1:-}" = "-h" -o "${1:-}" = "--help" ]; then 
+        printf "USAGE: timeout [--no-msg] <delay-in-deconds> <cmd>\n  <cmd> can start with 'exec' to avoid creating a new process\n"
+        return
+    fi
     local no_msg=false; [ "${1:-}" = "--no-msg" ] && { no_msg=true ; shift ; }
     local s=${1:?'Missing timeout parameters'} ; shift
     ( pid=$(sh -c 'echo $PPID')

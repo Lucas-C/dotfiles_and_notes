@@ -18,3 +18,4 @@ alias js=/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resource
 
 unset touch
 
+alias psf='ps -eo user,group,pid,ppid,tty,rss,start,etime,nice,%cpu,psr,args 2>/dev/null'
