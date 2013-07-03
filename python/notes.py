@@ -151,6 +151,9 @@ for root, dirs, files in os.walk('/path/to/foo'):
 # IPython tricks
 %pdb # Automatic pdb calling
 
+# PDB tricks
+debug foo() # step into a function
+
 import pdbi; pdbi.set_trace() # or pdbi.sh()
 
 from pprint import pprint

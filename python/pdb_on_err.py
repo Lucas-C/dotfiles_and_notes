@@ -1,4 +1,6 @@
-#FROM: http://stackoverflow.com/questions/242485/starting-python-debugger-automatically-on-error
+# Call PDB when an exception is raised
+# USAGE: python -m pdb_on_err script.py arg1 arg2
+# FROM: http://stackoverflow.com/questions/242485/starting-python-debugger-automatically-on-error
 import sys
 
 def info(type, value, tb):
@@ -17,7 +19,7 @@ def info(type, value, tb):
 
 sys.excepthook = info
 
-if __name__ == '__main__': # so that it can used as 'python -m debug script.py arg1 arg2'
+if __name__ == '__main__':
     sys.argv = sys.argv[1:]
     execfile(sys.argv[0])
 
