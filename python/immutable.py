@@ -1,9 +1,13 @@
-#FROM: http://code.activestate.com/recipes/414283-frozen-dictionaries/
+# FROM: http://code.activestate.com/recipes/576540/
+make_dictproxy = lambda dictobj: type('',(),dictobj).__dict__
+# di = make_dictproxy({0:1})
+# PROS:
+#   d[0] = 42; assert(di[0] == 1)
+# CONS:
+#   not isinstance(di, dict)
+#   ugly __repr__/__str__
 
-#TODO:
-#   - recur_freeze_dls() # dict, list, set -> frozendict, tuple, frozenset + deepcopy if unknown
-#   - recur_unfreeze_dls()
-
+# FROM: http://code.activestate.com/recipes/414283-frozen-dictionaries/
 class frozendict(dict):
     def __new__(cls, *args, **kwargs):
         new = dict.__new__(cls)
