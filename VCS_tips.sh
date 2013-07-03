@@ -74,3 +74,7 @@ git grep <keyword> $(git rev-list <rev1>..<rev2>) [–function-context]
 # status
 find . -type f -print0 | xargs -0 p4 fstat -T clientFile,action
 
+# Display protections in place for a given user/path
+p4 protects
+# Groups a user belong to
+p4 groups -i $USER

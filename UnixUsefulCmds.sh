@@ -9,8 +9,12 @@
 # Fixing terminal frenzy
 echo <ctrl-v><ctrl-o>
 
+# Listen to keyboard events
+xev
 # Change keyboard to FR
 loadkeys fr
+# Numpad crazy (no '-')
+killall gnome-settings-daemon
 
 # 'top'
 * killing : Press "k", then pid, then signal (15, 9...)

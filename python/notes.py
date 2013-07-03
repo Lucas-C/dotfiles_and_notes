@@ -105,6 +105,9 @@ mylist.index(elem) # index lookup
 zip, reduce, all, any, min, max, sum
 # generators > list-comprehensions
 
+# Dict-comprehension
+{ e.k: e.v for e in elems }
+
 dict.iteritems > dict.items
 dict.__missing__ # invoked for missing items
 
