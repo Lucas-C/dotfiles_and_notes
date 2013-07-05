@@ -68,6 +68,26 @@ git blame -L '/<regex>/',+1 <file>
 git grep <keyword> $(git rev-list <rev1>..<rev2>) [–function-context]
 
 
+### Best-practice: work on feature branches rather than mainline
+# Create a new feature branch:
+git branch <branch name> --track origin/mainline
+# Commit feature branch and fast forward changes to mainline
+git co featureBranch
+git ci
+git co mainline
+git merge featureBranch
+# Then rebase the other feature branches
+git co anotherFeatureBranch
+git rebase mainline
+# Fast forward main to merge other branches in
+git co mainline
+git merge anotherFeatureBranch
+# Push from mainline
+git co mainline
+gri
+git push
+ 
+
 +++++
 + p4
 +++++

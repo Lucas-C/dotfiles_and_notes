@@ -207,6 +207,10 @@ notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spac
     done
 }
 
+ext-ip () { curl http://ipecho.net/plain; echo; }
+int-ips () { /sbin/ifconfig $1 | grep "inet[^0-9]" | sed 's/.*[^0-9]\([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\)[^0-9].*/\1/' | grep -v '127\.0\.0\.1'; }
+# Also: ip addr show eth0
+
 pid () { sh -c 'echo $PPID'; }
 ppid () {
     local pid=${1:-$(sh -c 'echo $PPID')}

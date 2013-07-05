@@ -14,16 +14,18 @@
     ci = commit
     ca = commit -a
     br = branch
+    p = pull
+
     mvbranch = branch -m
     unadd = reset HEAD
-    p = pull
+
+# colored logs, one per line
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+# Log using color, pager, and a graphical representation of branches/merges
+    l =!git log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color | less -cR
 
 # Better UI for common diff command: diff against upstream, use color & pager
     d =!git diff --patience --color origin/mainline | less -cR
-
-# Log using color, pager, and a graphical representation of branches/merges
-    l =!git log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color | less -cR
 
 # See diffstat(1) for info about what this looks like
     diffstat = diff --stat -r

@@ -105,6 +105,10 @@ mylist.index(elem) # index lookup
 zip, reduce, all, any, min, max, sum
 # generators > list-comprehensions
 
+# Is a dict / list ? -> http://docs.python.org/2/library/collections.html#collections-abstract-base-classes
+# isinstance(d, collections.Mapping) won't work if the class is not registered, so better check:
+hasattr(d, '__getitem__') and hasattr(d, 'keys')
+
 # Dict-comprehension
 { e.k: e.v for e in elems }
 
@@ -122,7 +126,7 @@ class Immutable(namedtuple('Immutable', 'x y')):
 
 try: pass
 except Exception as e:
-    e.args += ('More', 'infos')
+    e.args += tuple('More_infos')
     raise MyCustomException("DON'T FORGET TO DISPLAY ROOTCAUSE: {!r}".format(e))
 # also useful: type, value, traceback = sys.exc_info()
 else: pass
@@ -134,8 +138,7 @@ l = ['a,b', 'c,d']
 from itertools import chain
 s = frozenset(chain.from_iterable(e.split(',') for e in l))
 
-# Callable
-hasattr(obj, '__call__') # work for functions too
+hasattr(obj, '__call__') # isCallable ; work for functions too
 
 # Zip archive
 foo = zipfile.ZipFile('foo.zip', mode='w')
@@ -168,13 +171,9 @@ inspect.getmembers(obj)
 # Get class parents
 o.__class__.__bases__
 
-# Get dissassembly:
-from dis import dis
-dis(myfunc)
+from dis import dis; dis(myfunc) # get dissassembly
 
-# Returns a list of all objects tracked by the collector, excluding the list returned.
-import gc
-gc.get_objects()
+import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
 
 # http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
 def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()

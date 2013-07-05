@@ -3,7 +3,7 @@
 # FROM: http://stackoverflow.com/questions/242485/starting-python-debugger-automatically-on-error
 import sys
 
-def info(type, value, tb):
+def excepthook(type, value, tb):
     if hasattr(sys, 'ps1') or not sys.stderr.isatty():
     # we are in interactive mode or we don't have a tty-like
     # device, so we call the default hook
@@ -14,10 +14,9 @@ def info(type, value, tb):
         traceback.print_exception(type, value, tb)
         print
         # ...then start the debugger in post-mortem mode.
-        # pdb.pm() # deprecated
-        pdb.post_mortem(tb) # more "modern"
+        pdb.post_mortem(tb)
 
-sys.excepthook = info
+sys.excepthook = excepthook
 
 if __name__ == '__main__':
     sys.argv = sys.argv[1:]

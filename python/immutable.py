@@ -1,3 +1,5 @@
+# See: http://www.python.org/dev/peps/pep-0416/
+
 # FROM: http://code.activestate.com/recipes/576540/
 make_dictproxy = lambda dictobj: type('',(),dictobj).__dict__
 # di = make_dictproxy({0:1})
