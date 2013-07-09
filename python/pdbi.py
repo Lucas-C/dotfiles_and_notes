@@ -16,6 +16,7 @@ class pdbi(object):
             self.pdb = pdb
 
     def __getattr__(self, attr):
+        print attr
         return getattr(self.pdb, attr)
 
     def sh(self):

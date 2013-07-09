@@ -303,6 +303,20 @@ md5sum
 ping <host/ip>
 traceroute <host/ip>
 
+# Checking ports
+nmap <host> -sT -p <port>
+telnet <host> <port>
+nc <host> <port>
+wget <host>:<port>
+nmap -sS -O 127.0.0.1 # Guess OS !!
+
+# Locally
+netstat -nap <port>
+lsof -i -P -p <pid> # -n => no IP->hostname resolution
+
+# List packet exchanges
+netstat [--statistics --udp]
+
 # How to grep IPs
 grep '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
 
@@ -328,14 +342,6 @@ dig txt [+short] <hostname>
 host -t txt <hostname>
 # Reverse
 dig +short -x <IP>
-
-# List packet exchanges
-netstat [--statistics --udp]
-
-# Checking ports
-netstat -nap <port>
-nmap -sS -O 127.0.0.1 # Guess OS !!
-lsof -i -P -p <pid> # -n => no IP->hostname resolution
 
 # Keep ssh session open after executing commands
 ssh $host "$cmds ; /bin/bash -i"

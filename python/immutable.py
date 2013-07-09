@@ -1,15 +1,38 @@
-# See: http://www.python.org/dev/peps/pep-0416/
+# Not pythonic, see: http://www.python.org/dev/peps/pep-0416/
 
 # FROM: http://code.activestate.com/recipes/576540/
-make_dictproxy = lambda dictobj: type('',(),dictobj).__dict__
-# di = make_dictproxy({0:1})
 # PROS:
-#   d[0] = 42; assert(di[0] == 1)
+#   builtin
 # CONS:
+#   extra parasite keys : ['__dict__', '__module__', '__weakref__', '__doc__']
 #   not isinstance(di, dict)
-#   ugly __repr__/__str__
+"""
+make_dictproxy = lambda dictobj: type('',(),dictobj).__dict__
+"""
+
+# Based on an idea from ThibT: closure poweeer !
+# 'Whitelist' approach, real readonly as closure cannot be modified
+# Could be made hashable
+# CONS
+#   not isinstance(make_frozendict({}), dict)
+#   make_frozendict({}).__class__ != make_frozendict({}).__class__
+import collections
+def make_frozendict(original_dict):
+    dict_copy = original_dict.copy()
+    class frozendict(collections.Mapping):
+        def __getitem__(self, key):
+            return dict_copy[key]
+        def __iter__(self):
+            return iter(dict_copy)
+        def __len__(self):
+            return len(dict_copy)
+        def __repr__(self):
+            return "frozendict({!r})".format(dict_copy)
+    return frozendict()
 
 # FROM: http://code.activestate.com/recipes/414283-frozen-dictionaries/
+# 'Blacklist' approach
+"""
 class frozendict(dict):
     def __new__(cls, *args, **kwargs):
         new = dict.__new__(cls)
@@ -32,4 +55,4 @@ class frozendict(dict):
 
     def __repr__(self):
         return "frozendict({})".format(dict.__repr__(self))
-
+"""

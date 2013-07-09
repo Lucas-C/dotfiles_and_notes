@@ -14,3 +14,12 @@ var svgContainer = d3.select("body").append("svg").attr("width", 200).attr("heig
 
 .interpolate("<interpolation>")
 // linear, step-before, step-after, basis (B-spline), basis-open, basis-closed, bundle (B-spline straightened), cardinal (Cardinal spline), cardinal-open, cardinal-closed, monotone (cubic interpolation)
+
+var scale = d3.scale.linear() // Also: Power, Logarithmic, Quantize, Quantile, Ordinal
+                            .domain([d3.min(data), d3.max(data)])
+                            .range([0,100]);
+var scaledVal = scale(origVal)
+
+var xAxis = d3.svg.axis().scale(scale)
+var xAxisGroup = svgContainer.append("g").call(xAxis);
+
