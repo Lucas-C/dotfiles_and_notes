@@ -4,7 +4,6 @@
 ####################################
 
 export PATH=/usr/X11/bin:$PATH
-export PATH=/Users/$USER/bin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH # Macports
 
 alias l='ls -BFG'

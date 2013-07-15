@@ -5,6 +5,7 @@ export EDITOR=vim
 
 export HISTTIMEFORMAT="%F %T " # for 'history' formatting
 
+export PATH=
 export PATH=/bin:$PATH
 export PATH=/sbin:$PATH
 export PATH=/usr/bin:$PATH

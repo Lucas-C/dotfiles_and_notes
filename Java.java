@@ -29,6 +29,8 @@ ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
 
 assert *<condition>* : *<object>*
 
+"" == (new String("")).intern()
+
 // Built-in parallelism the easy way : ExecutorService
 
 // Methods/attribute privacy only true at compile time : if one recompile a class into bytecode with all private, it will still work !

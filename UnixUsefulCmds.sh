@@ -364,6 +364,8 @@ exit
 #=========
 ### SYSTEM
 
+stap # SystemTap
+
 cat /proc/cpuinfo # Number of cores, cache size & alignement...
 cat /proc/version
 cat /etc/*-release
@@ -542,6 +544,8 @@ Example:
 :::::::::
 :: MySQL
 :::::::::
+mysql -h <host> -u <user> -p [--ssl-ca=<file>.pem] # default port 3306
+
 LIKE >faster> REGEXP
 
 # list tables
