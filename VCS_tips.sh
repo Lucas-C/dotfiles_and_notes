@@ -98,3 +98,10 @@ find . -type f -print0 | xargs -0 p4 fstat -T clientFile,action
 p4 protects
 # Groups a user belong to
 p4 groups -i $USER
+
+# It will shelve (locally save changes) changes with id 7731531
+p4 shelve –c 7731531
+# to update the changes
+p4 shelve –f –c 7731531
+#
+p4 unshelve -s 7731531

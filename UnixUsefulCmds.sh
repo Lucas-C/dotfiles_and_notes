@@ -228,6 +228,8 @@ tee -a <file>
 grep --color='auto' -P -n "[\x80-\xFF]" file.xml
 # Grep 'a' but not 'b' -> PCRE
 grep -P '^((?!b).)*a((?!b).)*$' # awk '/a/ && !/b/'
+# Get only filenames where PATTERM is not present
+grep -L PATTEN <files>
 
 # fold breaks lines to proper width, and fmt will reformat lines into paragraphs 
 
@@ -291,7 +293,7 @@ hexdump -c
 #Append at the end of stdout (or beginning with ^)
 echo ECHO | sed s/$/.ext/
 
-rsync -avz --exclude=".*"
+rsync -avz --exclude=".*" --delete # the last option remove extra remote files
 
 sha{1,224,256,384,512}sum
 md5sum
@@ -430,9 +432,12 @@ lshw -C disk
 blkid
 
 # list rpm
-rpm -qa *regex*
+rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *regex*
 # transformer un .rpm en .deb
 alien
+
+# Reload /etc/inittab
+init q
 
 
 ##~]]%/_°*|-----
@@ -455,7 +460,8 @@ sudo ldconfig
 sudo dpkg -D1 -i *.deb
 
 # Follow program system calls (!! -f => follow fork)
-strace -f -c -p <pid> -e open,access,poll,select,connect,recvfrom,sendto
+strace -f -p <pid> -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
+# http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
 
 # Configure 'mail' command
 /etc/ssmtp/revaliases
@@ -501,6 +507,9 @@ echo 1 > /sys/bus/pci/rescan
 @@@@@@@@@@
 @ MAC OSX
 @@@@@@@@@@
+
+# Manual update
+sudo softwareupdate -i -a
 
 # File listed with '@' => extended attributes
 xattr -l <file>

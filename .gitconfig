@@ -20,6 +20,7 @@
     unadd = reset HEAD
 
 # colored logs, one per line
+    dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 # Log using color, pager, and a graphical representation of branches/merges
     l =!git log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color | less -cR
@@ -64,6 +65,7 @@
 [core]
     whitespace = -blank-at-eol,-blank-at-eof
     editor = vim
+    pager = less -FMRiX
 
 [user]
     name = Lucas Cimon

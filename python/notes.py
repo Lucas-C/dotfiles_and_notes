@@ -241,6 +241,10 @@ http://mg.pov.lt/objgraph/
 virtualenv
 pip # or easyinstall
 
+argparse > optparse
+group = parser.add_mutually_exclusive_group()
+group.add_argument(... type=argparse.FileType('r'))
+
 # To use 3rd party modules, do not edit PYTHONPATH env var, use *.pth files 
 
 
