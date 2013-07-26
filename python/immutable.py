@@ -1,4 +1,77 @@
-# Not pythonic, see: http://www.python.org/dev/peps/pep-0416/
+from collections import Mapping, namedtuple
+
+def issequence(obj):
+    return hasattr(obj, '__getitem__') and not isinstance(obj, basestring)
+
+def ismapping(obj):
+    return issequence(obj) and hasattr(obj, 'keys')
+
+def freeze(e):
+    """
+    dict -> namedtuple (!WARNING! keys can only be [a-zA-Z_]+)
+    list -> tuple
+    """
+    if ismapping(e):
+        copy = dict(e)
+        items = copy.iteritems()
+    elif issequence(e):
+        copy = list(e)
+        items = zip(xrange(0, len(copy)), copy)
+    else:
+        return e
+
+    for k,v in items:
+        copy[k] = freeze(v)
+
+    if ismapping(copy):
+        return _dict2NamedTuple(copy)
+    elif issequence(copy):
+        return tuple(copy)
+
+def unfreeze(e):
+    """
+    namedtuple -> dict
+    tuple -> list
+    """
+    if hasattr(e, '_asdict'):
+        new = e._asdict()
+        items = new.iteritems()
+    elif issequence(e):
+        new = list(e)
+        items = zip(xrange(0, len(new)), new)
+    else:
+        return e
+
+    for k,v in items:
+        new[k] = unfreeze(v)
+
+    return new
+
+def _dict2NamedTuple(d):
+    NTFromDict = namedtuple('_NTFromDict', d.keys())
+    return NTFromDict(**d)
+
+
+# !WARNING! frozendcit are not pythonic, see: http://www.python.org/dev/peps/pep-0416/
+
+# Based on an idea from ThibT: closure poweeer !
+# 'Whitelist' approach, real readonly as closure cannot be modified
+# Could be made hashable
+# CONS
+#   not isinstance(make_frozendict({}), dict)
+#   make_frozendict({}).__class__ != make_frozendict({}).__class__
+def make_frozendict(original_dict):
+    dict_copy = original_dict.copy()
+    class frozendict(Mapping):
+        def __getitem__(self, key):
+            return dict_copy[key]
+        def __iter__(self):
+            return iter(dict_copy)
+        def __len__(self):
+            return len(dict_copy)
+        def __repr__(self):
+            return "frozendict({!r})".format(dict_copy)
+    return frozendict()
 
 # FROM: http://code.activestate.com/recipes/576540/
 # PROS:
@@ -9,26 +82,6 @@
 """
 make_dictproxy = lambda dictobj: type('',(),dictobj).__dict__
 """
-
-# Based on an idea from ThibT: closure poweeer !
-# 'Whitelist' approach, real readonly as closure cannot be modified
-# Could be made hashable
-# CONS
-#   not isinstance(make_frozendict({}), dict)
-#   make_frozendict({}).__class__ != make_frozendict({}).__class__
-import collections
-def make_frozendict(original_dict):
-    dict_copy = original_dict.copy()
-    class frozendict(collections.Mapping):
-        def __getitem__(self, key):
-            return dict_copy[key]
-        def __iter__(self):
-            return iter(dict_copy)
-        def __len__(self):
-            return len(dict_copy)
-        def __repr__(self):
-            return "frozendict({!r})".format(dict_copy)
-    return frozendict()
 
 # FROM: http://code.activestate.com/recipes/414283-frozen-dictionaries/
 # 'Blacklist' approach
@@ -56,3 +109,4 @@ class frozendict(dict):
     def __repr__(self):
         return "frozendict({})".format(dict.__repr__(self))
 """
+

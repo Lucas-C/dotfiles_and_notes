@@ -112,8 +112,11 @@ hasattr(d, '__getitem__') and hasattr(d, 'keys')
 # Dict-comprehension
 { e.k: e.v for e in elems }
 
-dict.iteritems > dict.items
 dict.__missing__ # invoked for missing items
+
+# Loop & modify transparently standard DS 
+items = zip(xrange(0, len(ds)), ds) # lists, tuples & namedtuples
+items = d.iteritems() # dictis iteritems > items )
 
 d == dict(**d)
 
@@ -125,10 +128,8 @@ class Immutable(namedtuple('Immutable', 'x y')):
 # Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
 
 try: pass
-except Exception as e:
-    e.args += tuple('More_infos')
-    raise MyCustomException("DON'T FORGET TO DISPLAY ROOTCAUSE: {!r}".format(e))
-# also useful: type, value, traceback = sys.exc_info()
+except Exception as err:
+    # see chain_errors module
 else: pass
 finally: pass
 
