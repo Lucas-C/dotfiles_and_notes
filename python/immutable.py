@@ -6,44 +6,65 @@ def issequence(obj):
 def ismapping(obj):
     return issequence(obj) and hasattr(obj, 'keys')
 
-def freeze(e):
+def isset(obj):
+    return hasattr(obj, '__contains__') and not isinstance(obj, basestring)
+
+def get_primitive_types():
+    primitive_types = {t:getattr(types, t) for t in types.__dict__.keys() if t.endswith('Type') }
+    for str_type in types.StringTypes:
+        assert issubclass(str_type, basestring)
+    primitive_types['StringType'] = basestring
+    return primitive_types
+
+
+def recur_freeze_containers(mutable_obj, ignoredtypes=get_primitive_types().values()):
     """
-    dict -> namedtuple (!WARNING! keys can only be [a-zA-Z_]+)
+    dict -> namedtuple (!WARNING! keys can only be [a-zA-Z][a-zA-Z0-9_]*)
     list -> tuple
-    """
-    if ismapping(e):
-        copy = dict(e)
+    set -> frozenset
+   """
+    if ismapping(mutable_obj):
+        copy = dict(mutable_obj)
         items = copy.iteritems()
-    elif issequence(e):
-        copy = list(e)
+    elif issequence(mutable_obj):
+        copy = list(mutable_obj)
         items = zip(xrange(0, len(copy)), copy)
+    elif isset(mutable_obj):
+        return frozenset(mutable_obj)
+    elif isinstance(mutable_obj, ignoredtypes):
+        return mutable_obj 
     else:
-        return e
+        raise TypeError("Cannot freeze {} of unsupported data type {}".format(mutable_obj, type(mutable_obj)))
 
     for k,v in items:
-        copy[k] = freeze(v)
+        copy[k] = recur_freeze_containers(v, ignoredtypes)
 
     if ismapping(copy):
         return _dict2NamedTuple(copy)
     elif issequence(copy):
         return tuple(copy)
 
-def unfreeze(e):
+def recur_unfreeze_containers(frozen_obj, ignoredtypes=get_primitive_types().values()):
     """
     namedtuple -> dict
     tuple -> list
+    frozenset -> set
     """
-    if hasattr(e, '_asdict'):
-        new = e._asdict()
+    if hasattr(frozen_obj, '_asdict'):
+        new = frozen_obj._asdict()
         items = new.iteritems()
-    elif issequence(e):
-        new = list(e)
+    elif issequence(frozen_obj):
+        new = list(frozen_obj)
         items = zip(xrange(0, len(new)), new)
+    elif isset(frozen_obj):
+        return set(frozen_obj)
+    elif isinstance(frozen_obj, ignoredtypes):
+        return frozen_obj 
     else:
-        return e
+        raise TypeError("Cannot unfreeze {} of unsupported data type {}".format(frozen_obj, type(frozen_obj)))
 
     for k,v in items:
-        new[k] = unfreeze(v)
+        new[k] = recur_unfreeze_containers(v, ignoredtypes)
 
     return new
 

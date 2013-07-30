@@ -147,10 +147,11 @@ for arg in "$@"; do
 done
 
 # Convert to array
-declare -a array
-IFS=' ' read -ra array #<<< "$string"
+local argv=("$@")
 # Back to string
-string="${array[*]}"
+str="${argv[*]}"
+# Array slice
+echo ${argv[@]:1:2}
 
 # Powerful regex
 [[ "some string" =~ "$regex" ]]
@@ -424,20 +425,14 @@ sar
 sudo service lightdm restart
 killall gnome-panel
 
-# list devices
-lspci -v
-# list disks
-lshw -C disk
-# list UUIDs
-blkid
+lspci -v # list devices
+lshw -C disk # list disks
+blkid # list UUIDs
 
-# list rpm
-rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *regex*
-# transformer un .rpm en .deb
-alien
+rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *regex* # list rpm
+alien # transformer un .rpm en .deb
 
-# Reload /etc/inittab
-init q
+init q # Reload /etc/inittab
 
 
 ##~]]%/_°*|-----
