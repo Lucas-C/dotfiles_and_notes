@@ -27,7 +27,9 @@ jmap -histo:live <pid>
 String asString = new String( byteString.getArray(), "UTF-8" );
 ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
 
-assert *<condition>* : *<object>*
+Arrays.toString(myCollection.toArray()) // nice collection stringification
+
+assert *<condition>* : *<object>* // Don't forget to -enableassertions
 
 "" == (new String("")).intern()
 
@@ -78,19 +80,21 @@ static Settings parseCommandLineArguments(String[] args) {
 
 // Java exception handling (use only RuntimeExceptions !!)
 public static void main(String[] args) {
-    LOG.info("{} starting with args ", PROG_NAME, Array.toString(args));
+    LOG.info("{} starting with args ", PROG_NAME, Arrays.toString(args));
     try {
         run(args);
+    } catch (InvocationTargetException e) {
+        throw (RuntimeException)e.getTargetException();
     } catch (RuntimeException e) {
-        StringWriter stackTrace = mew StringWriter();
+        StringWriter stackTrace = new StringWriter();
         e.printStackTrace(new PrintWriter(stackTrace));
-        LOG.error(errors.toString());
+        LOG.error(stackTrace.toString());
         throw e;
     }
     LOG.info("{} exited sucessfully", PROG_NAME);
 }
 
-/* Useful standardsi runtime exceptions:
+/* Useful standard runtime exceptions:
  *  - IllegalArgumentException
  *  - NullPointerException
  *  - IllegalStateException => for class invariants

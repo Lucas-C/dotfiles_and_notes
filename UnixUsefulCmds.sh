@@ -159,6 +159,8 @@ group1="${BASH_REMATCH[1]}"
 
 # disable wildcard expansion
 set -o noglob
+# Extended bash globbing
+shopt -s extglob # http://www.linuxjournal.com/content/bash-extended-globbing
 # list options values
 echo $- # Check the shell is interactive: [[ $- =~ i ]]
 
@@ -484,11 +486,12 @@ avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
 # - http://www.imagemagick.org/script/install-source.php
 # - sudo aptitude install libmagickcore-dev liblcms2-dev libtiff4-dev libfreetype6-dev libjpeg8-dev liblqr-1-0-dev libglib2.0-dev libfontconfig-dev libxext-dev libz-dev libbz2-dev
 # - ./configure --enable-hdri
+# - identify -version # to check HDRI is enabled
 # Scripts: http://www.fmwconcepts.com/imagemagick/
 display <img>
-convert img.png -resize 800x600 -auto-orienti -crop 50x100+10+20 img.jpg
+convert img.png -adaptive-resize 800x600 -auto-orienti -crop 50x100+10+20 img.jpg
 mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
-identify -v <img>
+identify -v <img> # get PPI: -format "%w x %h %x x %y"
 import # screenshot
 animate -delay 5 *.png
 compare img1 img2

@@ -1,0 +1,100 @@
+%# -*- coding: utf-8 -*-
+
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}				% encodage UTF-8
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+
+\usepackage{amsmath,amssymb}
+\newcommand{\dsp}{\displaystyle}
+
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[colorlinks=true, urlcolor=MidnightBlue, linkcolor=Blue]{hyperref}
+
+\oddsidemargin 5mm
+\evensidemargin 5mm
+\textwidth 15cm
+\voffset -10mm
+
+\title{Solution de l'enigme des tiroirs \\ de Pierre COLMEZ}
+\author{Lucas CIMON}
+
+%===============
+\begin{document}
+%===============
+
+\maketitle
+
+%%%%%%%%%%%%%
+\section*{Enoncé}
+%%%%%%%%%%%%%
+
+Origine : polycopié "Eléments d'analyse et d'algèbre" de Pierre COLMEZ (Ecole Polytechnique).
+Ce cours peut être trouvé à cette \href{http://people.math.jussieu.fr/~colmez/poly-07.pdf}{url}.
+
+\textbf{Exercice 4.11.} — (difficile mais très surprenant) Le DGAE voulant tester le niveau de compréhension
+des X a décidé de les mettre à l’épreuve. Pour ce faire, il réunit les 500 membres de la promotion dans
+l’amphi Poincaré et leur tient ce langage : « J’ai disposé dans l’amphi Arago vos 500 noms dans des casiers
+numérotés de 1 à 500, à raison d’un par casier. Je vais vous appeler un par un, et demander à chacun
+d’entre vous d’ouvrir des casiers un par un à la recherche de son nom puis de les refermer sans changer
+le contenu et de regagner sa chambre sans possibilité de communiquer quoi que ce soit à ses camarades
+restés dans l’amphi Poincaré. Si tout le monde trouve son nom dans les 250 premiers casiers qu’il a
+ouverts, vous pouvez partir en vacances. Si l’un d’entre vous ne trouve pas son nom, on recommence le
+jour suivant (et je change le contenu des casiers bien évidemment). Voilà, vous avez deux heures pour
+concevoir une stratégie. » Désespoir des X qui se rendent compte que chacun a une chance sur deux de
+tomber sur son nom, et qu’au total ils ont une chance sur $2^{500}$ de partir en vacances au bout d’un jour,
+et donc qu’ils ne partiront pas en vacances. Pourtant au bout d’un certain temps, l’un de nos X déclare :
+« pas de panique, avec un peu de discipline, on a 9 chances sur 10 de partir en vacances avant la fin de
+la semaine ». Saurez-vous retrouver son raisonnement ?
+
+
+\newpage
+%%%%%%%%%%%%%
+\section*{Solution}
+%%%%%%%%%%%%%
+
+	\paragraph {}
+La première chose qui choque dans ce problème, c'est la très haute probabilité donnée en solution. Cependant, il s'agit là de la probabilité au terme d'une semaine d'essais. Cette valeur est bien plus raisonnable (du moins, en dessous du seuil psychologique des 50\%) lorsque l'on en déduit les chances de succès sur une journée : $1 - \sqrt[7]{1 - \frac{9}{10}}$. D'après l'énoncé, la solution du problème doit donc être approximativement de \textbf{28,03 \%} de probabilité de succès par jour.
+
+	\paragraph {}
+Dans la suite du raisonnement, on généralise le problème à un nombre de casiers-étudiants \textbf{n} pair quelconque.
+
+Nous n'allons pas démontrer quelle est la meilleure stratégie, mais qu'une stratégie particulière donne le résultat escompté. Cette stratégie, nommons-la "\textit{Suiveur}", est la suivante : chaque étudiant ouvre le tiroir correspondant à son numéro puis celui indiqué par le numéro trouvé à l'intérieur et ainsi de suite jusqu'à avoir trouvé le sien ou atteint les 250 essais.
+
+	\paragraph {}
+Notre approche pour démontrer les chances de succès de cette stratégie est de calculer le nombre de dispositions des tiroirs entraînant un échec. Ces permutations peuvent être caractérisées ainsi : elle contiennent un \textit{cycle} de taille supérieure à $\frac{n}{2}$. Il s'agit là de la clef du problème : en effet, si la distribution ne contient pas de tel cycle, chaque étudiant est assurée de trouver le papier indiquant le numéro de son casier de départ (donc le sien) avant le nombre d'essais maximum authorisé ($\frac{n}{2}$).
+
+	\paragraph {}
+Effectuons leur décompte : \textbf{NC}(\textit{p, n}) est le nombre de cycles de taille \textit{p} existant pour \textit{n} tiroirs. On a entres autres :
+
+$$ NC(n,n) = (n - 1)!$$
+$$ NC(n-1,n) = n ( n - 2)!$$
+$$ NC(n-2, n) = n (n - 1) (n - 3)!$$
+
+On peut démontrer la formule générale : $NC(p,n) = \frac{n!}{p}$.
+D'où :
+
+$$ NbPermInvalid(n) = \sum^n_{i = \frac{n}{2} + 1} NC(i,n) = \sum^n_{i = \frac{n}{2} + 1} \frac{n!}{i}$$
+$$= n! (\sum^n_{i = 1} \frac{1}{i} - \sum^\frac{n}{2}_{i = 1} \frac{1}{i}) \thicksim n! (ln(n) - ln(\frac{n}{2})) = n! ln(2)$$
+
+Donc la probabilité de succès est
+$$1 - \frac{NbPermInvalid(n)}{n!} \thicksim 1 - ln(2) \thicksim \textbf{30,69 \%}$$
+
+
+\newpage
+%%%%%%%%%%%%%
+\section*{Tests}
+%%%%%%%%%%%%%
+
+Pour tester mes idées de solution à ce problème, j'ai réalisé un programme en C afin de tester la proportion de succès d'une stratégie donnée, pour un \textbf{n} donné, sur toutes les permutations possibles des papiers dans les casiers.
+
+Le programme lui-même n'est pas digne d'intérêt (il n'utilise pas de parallélisation) mais permet d'obtenir d'intéressantes valeurs statistiques pour de petites valeurs de \textbf{n}.
+
+Pour la stratégie "\textit{Suiveur}" et $\textbf{n} = 10$, on optient 1285920 succès sur 10!, soit \textbf{35,4365 \%} de chances de réussite. Ce nombre diminue lorsque \textit{n} augmente.
+
+Les probabilités des autres stratégies que j'avais imaginé sont toujours inférieures à 1\%.
+
+%=============
+\end{document}
+%=============

@@ -220,6 +220,9 @@ http://amoffat.github.io/sh/
 
 # PyCharm : code inspection
 
+import bisect # binary search
+import heapq # min-heap
+
 # get exec time
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
 

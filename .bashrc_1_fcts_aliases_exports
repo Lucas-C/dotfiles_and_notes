@@ -190,7 +190,7 @@ alias diffs='diff --side-by-side'
 alias psf='ps -eo user,group,pid,ppid,tty,rss,start,etime,nice,stat,%cpu,psr,args --sort=start_time 2>/dev/null'
 alias pg='psf | g'
 
-alias nav='nautilus "$PWD/"'
+nav () { nautilus "${1:-$PWD}/"; }
 alias pdf='evince'
 
 fopen () { firefox file://$(pwd)/$1 ; }
