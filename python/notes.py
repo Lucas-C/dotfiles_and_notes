@@ -35,6 +35,12 @@ re.sub('a|b|c', rep, string) # def rep(matchobj): ...
 
 with open('filea', 'w+') as filea, open('fileb', 'w+') as fileb: pass # touch <files>
 
+# Temp files
+tempfile.gettempdir()
+tempfile.mkdtemp()
+tempfile.NamedTemporaryFile() # file automagically deleted on close()
+tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as siwe < X
+
 # DO NOT use other default parameter values than None, + initialization is static
 def foo(x = []):
     x.append('do')
@@ -51,6 +57,7 @@ from __future__ import print_function
 [ print(i) for i in ... ]
 
 datetime.utcnow() # better than time.time()
+import dateutil
 
 os.geteuid() == 0 # => run as root
 
@@ -148,6 +155,13 @@ for root, dirs, files in os.walk('/path/to/foo'):
         file_to_zip = os.path.join(root, name)
         foo.write(file_to_zip, compress_type=zipfile.ZIP_DEFLATED)
 
+# Environment variables
+PYTHONSTARTUP: un module à exécuter au démarrage de Python
+PYTHONPATH : une liste de dossiers séparés par ‘:’ qui va être ajouté à sys.path
+PYTHONHOME : choisir un autre dossier dans lequel chercher l’interpréteur Python.
+PYTHONCASEOK : ingorer la casse dans le nom des modules sous Windows
+PYTHONIOENCODING : forcer un encoding par défaut pour stdin/stdout/stderr
+PYTHONHASHSEED : changer la seed hash() (renforce la sécurité de la VM)
 
 """""""""""
 "" Debug
@@ -205,8 +219,21 @@ http://eventlet.net/doc/modules/backdoor.html
 """""""""""""""""
 reload(module)
 
+# DB - simple Object Relational Mapping
+import peewee # S&M
+
 # HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
+# HTML parsing
+import beautifulsoup
+# Micro framework web
+import bottle # S&M
+
+# remote SSH/SFTP connexion
+import paramiko
+
+import requests
+requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 
 # Serialization
 cPickle # binary format, generic, fast & lighweight
@@ -245,7 +272,7 @@ http://mg.pov.lt/objgraph/
 virtualenv
 pip # or easyinstall
 
-argparse > optparse
+argparse > optparse # or clize - S&M
 group = parser.add_mutually_exclusive_group()
 group.add_argument(... type=argparse.FileType('r'))
 
