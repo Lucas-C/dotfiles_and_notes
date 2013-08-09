@@ -428,7 +428,7 @@ sudo service lightdm restart
 killall gnome-panel
 
 lspci -v # list devices
-lshw -C disk # list disks
+lshw -C disk # list disks : ata, cdrom, dvdrom
 blkid # list UUIDs
 
 rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *regex* # list rpm
@@ -480,6 +480,9 @@ mplayer -identify -vo null -ao null -frames 0 <video>
 mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
 # .mp4 to .avi
 avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
+
+# Install libdvdcss
+sudo /usr/share/doc/libdvdread4/install-css.sh
 
 #ImageMagick
 # Compile IM with HDRI:

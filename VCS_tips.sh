@@ -11,6 +11,9 @@ svn propget -R svn:ignore .
 # Rm added then removed files
 svn status | grep '!M' | awk '{print $2}' | xargs svn rm #--force
 
+# Add all newly  files
+svn add $(svn status | grep "^\?" | awk '{print $2}')
+
 # Display even ignored files
 svn status --no-ignore
 

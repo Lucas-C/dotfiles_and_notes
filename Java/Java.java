@@ -27,11 +27,16 @@ jmap -histo:live <pid>
 String asString = new String( byteString.getArray(), "UTF-8" );
 ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
 
+import java.util.Arrays;
 Arrays.toString(myCollection.toArray()) // nice collection stringification
 
 assert *<condition>* : *<object>* // Don't forget to -enableassertions
 
 "" == (new String("")).intern()
+
+// Reflection
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 // Built-in parallelism the easy way : ExecutorService
 
