@@ -1,4 +1,5 @@
 from collections import Mapping, namedtuple
+import types
 
 def issequence(obj):
     return hasattr(obj, '__getitem__') and not isinstance(obj, basestring)
@@ -75,12 +76,24 @@ def _dict2NamedTuple(d):
 
 # !WARNING! frozendcit are not pythonic, see: http://www.python.org/dev/peps/pep-0416/
 
+# FROM: http://code.activestate.com/recipes/576540/
+# PROS:
+#   builtin
+# CONS:
+#   4 parasite keys : ['__dict__', '__module__', '__weakref__', '__doc__']
+#   not isinstance(di, dict)
+"""
+make_dictproxy = lambda dictobj: type('',(),dictobj).__dict__
+"""
+
 # Based on an idea from ThibT: closure poweeer !
-# 'Whitelist' approach, real readonly as closure cannot be modified
+# 'Whitelist' approach
 # Could be made hashable
 # CONS
 #   not isinstance(make_frozendict({}), dict)
 #   make_frozendict({}).__class__ != make_frozendict({}).__class__
+#   NOT REALLY read-only : get_cell_value(di.__getitem__.im_func.func_closure[0]) give access to the mutable dict
+"""
 def make_frozendict(original_dict):
     dict_copy = original_dict.copy()
     class frozendict(Mapping):
@@ -93,15 +106,6 @@ def make_frozendict(original_dict):
         def __repr__(self):
             return "frozendict({!r})".format(dict_copy)
     return frozendict()
-
-# FROM: http://code.activestate.com/recipes/576540/
-# PROS:
-#   builtin
-# CONS:
-#   extra parasite keys : ['__dict__', '__module__', '__weakref__', '__doc__']
-#   not isinstance(di, dict)
-"""
-make_dictproxy = lambda dictobj: type('',(),dictobj).__dict__
 """
 
 # FROM: http://code.activestate.com/recipes/414283-frozen-dictionaries/

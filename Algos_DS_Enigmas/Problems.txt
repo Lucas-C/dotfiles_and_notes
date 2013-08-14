@@ -1,0 +1,30 @@
+Q: How to efficiently (complexity + mem usage) insert data to keep it sorted when :
+    a) the total elements count is known ?
+    b) the total elements count is unknown ?
+(for unbounded continuous data types - e.g. floats - with potential duplicates)
+
+# Some leads
+http://stackoverflow.com/questions/7295091/which-search-data-structure-works-best-for-sorted-integer-data
+
+
+#---------
+# My ideas
+#---------
+- sorted linked list A
+    + additional LL with a predefined granularity (only one element on N in A) & a pointer to the matching element in A to provide faster access
+
+- Hash table approach, with buckets
+    n : number of elements
+    L : number of keys
+    m : maximum elements in a bucket
+    M : total maximum elements
+
+- Open questions
+    * how to estimate the insertion complexity if SOMETIMES it triggers a costly resize ?
+    * what initial hashing function ? (e.g. for storing int)
+    * is there an invariant after a resize ? (e.g. all buckets have the same size)
+    * when / how to resize ? How to avoid wasting memory ?
+
+- Alternatives
+    * linked-list / big chunk of data with unused space
+    * try to fill adjacent buckets (+ propagate ?) when one is full ?

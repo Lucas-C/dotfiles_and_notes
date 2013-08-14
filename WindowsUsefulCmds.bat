@@ -14,6 +14,9 @@ findstr /c:"[SR]" %windir%\logs\cbs\cbs.log >sfcdetails.txt :: to read CBS.Log
 :: Backup
 robocopy "C:\Source" "E:\Destination" /E /PURGE
 
+:: Variable substitution
+copy "C:\file.txt" "D:\%date:/=-%_file.txt.bak"
+
 F7 in cmd.exe -> history
 
 where <cmd> :: 'which' equivalent

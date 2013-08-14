@@ -353,6 +353,8 @@ ssh $host "$cmds ; /bin/bash -i"
 # How to change your login on a specified acces: http://orgmode.org/worg/worg-git-ssh-key.php
 .ssh/config
 
+# Find wireless driver
+lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 
 
 #cCcCcCc#
@@ -382,7 +384,7 @@ cat /etc/issue*
 last [-f /var/log/wtmp.1]
 
 # System errors
-dmesg -s 500000 | grep -i "fail\|error\|oom"
+dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
 
 # Message of the day
 /etc/motd
@@ -430,6 +432,7 @@ killall gnome-panel
 lspci -v # list devices
 lshw -C disk # list disks : ata, cdrom, dvdrom
 blkid # list UUIDs
+dmidecode
 
 rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *regex* # list rpm
 alien # transformer un .rpm en .deb

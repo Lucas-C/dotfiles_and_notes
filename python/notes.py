@@ -180,6 +180,7 @@ vars(obj)
 dir(obj)
 
 inspect.getmembers(obj)
+inspect.getargspec(foo_func) # get signature
 
 <module>.__file__
 
@@ -197,7 +198,7 @@ def foo(x):
     def bar():
         return x
     return bar
-b = foo()
+b = foo(42)
 get_cell_value(b.func_closure[0])
 
 # Signal-based handle on a program to debug
@@ -290,3 +291,13 @@ else:
 from __future__ import braces
 
 import this
+
+
+"""""""""""
+" Python 3
+"""""""""""
+@type_check
+def foo(x: between(3, 10), y: is_int) -> is_int:
+    return x * y
+# Function annotations, see the following SO question that point to PEP 3107 & 0362 (function signatures):
+# http://stackoverflow.com/questions/3038033/what-are-good-uses-for-python3s-function-annotations
