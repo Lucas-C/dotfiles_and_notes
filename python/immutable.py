@@ -81,28 +81,28 @@ def _dict2NamedTuple(d):
 #   Thibault Toledano for the original closure idea
 #   http://code.activestate.com/recipes/576540/
 # PROS
-#   really read-only as values in closures cannot be re-assigned (see below)
-#   use a builtin data structure
-#   dict(make_frozendict(a_dict)) == a_dict
-#   the object passed as a parameter doesn't need to be a dict, just to support dict "cast", and an additionnal copy will then be made
-#       e.g. make_frozendict(make_frozendict(a_dict))
+#   REALLY read-only, as values in closures cannot be re-assigned (see below) and it uses a builtin read-only data structure
+#   dict(freeze_dict(a_dict)) == a_dict
+#   the object passed as a parameter doesn't need to be a dict, just to support dict "cast" (an additionnal tmp copy will then be made)
+#       e.g. freeze_dict(freeze_dict(a_dict))
 # CONS
 #   4 blacklisted keys
-#   make_frozendict({}).__class__ != make_frozendict({}).__class__
-#   not isinstance(make_frozendict({}), dict)
+#   slight access cost overhead due to the wrapping class (but dictproxy is as fast as dict)
+#   freeze_dict({}).__class__ != freeze_dict({}).__class__
+#   not isinstance(freeze_dict({}), dict)
 # EXTENSIONS
 #   could be made hashable
 #   could implement items/iteritems more efficiently (collections.Mapping return (key, self[key]), which cost a lookup each time)
 
 _DICTPROXY_EXTRA_KEYS = tuple(type('',(),{}).__dict__.keys())
-def make_frozendict(original_dict):
+def freeze_dict(original_dict):
     if not isinstance(original_dict, dict):
         original_dict = dict(original_dict)
     for key in _DICTPROXY_EXTRA_KEYS:
         if key in original_dict:
             raise ValueError("frozendict cannot contain '{}' as a key (blacklisted keys : {})".format(key, _DICTPROXY_EXTRA_KEYS)) 
     dict_proxy = type('',(),original_dict).__dict__
-    class frozendict(Mapping):
+    class TmpFrozenDict(Mapping):
         def __getitem__(self, key):
             if key in _DICTPROXY_EXTRA_KEYS:
                 raise KeyError(key)
@@ -112,12 +112,42 @@ def make_frozendict(original_dict):
         def __len__(self):
             return len(dict_proxy) - len(_DICTPROXY_EXTRA_KEYS)
         def __repr__(self):
-            return "make_frozendict({!r})".format({k:self[k] for k in self})
-    return frozendict()
-
+            return "freeze_dict({!r})".format({k:self[k] for k in self})
+    return TmpFrozenDict()
 
 # Closure are not writable:
 #   foo.func_closure = None # TypeError: readonly attribute
 #   foo.func_closure[0] = None # TypeError: 'tuple' object does not support item assignment
 #   foo.func_closure[0].cell_contents = None # AttributeError: attribute 'cell_contents' of 'cell' objects is not writable
 
+
+# 'Blacklist' approach
+# FROM: http://code.activestate.com/recipes/414283-frozen-dictionaries/
+# PROS
+#   same memory usage as a dict
+#   isinstance(frozendict({}), dict)
+#   hashable
+# CONS
+#   not REALLY read-only, can be hacked
+class frozendict(dict):
+    def __new__(cls, *args, **kwargs):
+        new = dict.__new__(cls)
+        dict.__init__(new, *args, **kwargs)
+        new._cached_hash = hash(tuple(sorted(new.items())))
+        return new
+
+    def __init__(self, *args, **kwargs):
+        pass # could be used to modify the frozen dictionary ; ignored because it will be called once on initialization
+
+    def _blocked_attribute(obj):
+        raise AttributeError, "A frozendict cannot be modified."
+    _blocked_attribute = property(_blocked_attribute)
+
+    __delitem__ = __setitem__ = clear = _blocked_attribute
+    pop = popitem = setdefault = update = _blocked_attribute
+
+    def __hash__(self):
+        return self._cached_hash
+
+    def __repr__(self):
+        return "frozendict({})".format(dict.__repr__(self))

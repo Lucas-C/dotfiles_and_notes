@@ -6,17 +6,18 @@ _ # result of the last expression evaluated (in an interpreter only)
 r'''Raw string literal: no need to double escape \{0}\{str}'''.format("zero", str="")
 u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0)
 
-__slots__ = ("attr1_name")
-# Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots."
-
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
+
+__repr__ # unambigous, as possible 'eval'uable
+"MyClass(this=%r,that=%r)" % (self.this,self.that)
 
 __call__
 # if a = A(), this is the method called when doing a()
 
-# __repr__ : unambigous, as possible 'eval'uable
-"MyClass(this=%r,that=%r)" % (self.this,self.that)
+hasattr(obj, '__call__') # isCallable ; work for functions too
+
+a, b = b, a # swapping
 
 code = "my code bla bla"
 compiled = compile(code)
@@ -41,20 +42,20 @@ tempfile.mkdtemp()
 tempfile.NamedTemporaryFile() # file automagically deleted on close()
 tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as siwe < X
 
+os.stat("filename").st_ino # get inode 
+
+# Zip archive
+foo = zipfile.ZipFile('foo.zip', mode='w')
+for root, dirs, files in os.walk('/path/to/foo'):
+    for name in files:
+        file_to_zip = os.path.join(root, name)
+        foo.write(file_to_zip, compress_type=zipfile.ZIP_DEFLATED)
+
 # DO NOT use other default parameter values than None, + initialization is static
 def foo(x = []):
     x.append('do')
     return x
 foo();foo()
-
-it = count().next # itertools
-
-for index, item in enumerate(iterable): ...
-
-os.stat("filename").st_ino # get inode 
-
-from __future__ import print_function
-[ print(i) for i in ... ]
 
 datetime.utcnow() # better than time.time()
 import dateutil
@@ -103,30 +104,6 @@ class Property(object):
             return self
         return self.fget(obj)
 
-a, b = b, a # swapping
-
-my_list[::-1] == reversed(my_list)
-mylist.index(elem) # index lookup
-
-# Cool standard functions to work on lists
-zip, reduce, all, any, min, max, sum
-# generators > list-comprehensions
-
-# Is a dict / list ? -> http://docs.python.org/2/library/collections.html#collections-abstract-base-classes
-# isinstance(d, collections.Mapping) won't work if the class is not registered, so better check:
-hasattr(d, '__getitem__') and hasattr(d, 'keys')
-
-# Dict-comprehension
-{ e.k: e.v for e in elems }
-
-dict.__missing__ # invoked for missing items
-
-# Loop & modify transparently standard DS 
-items = zip(xrange(0, len(ds)), ds) # lists, tuples & namedtuples
-items = d.iteritems() # dictis iteritems > items )
-
-d == dict(**d)
-
 # Immutable class
 class Immutable(namedtuple('Immutable', 'x y')):
     def __new__(cls, x, y):
@@ -140,21 +117,6 @@ except Exception as err:
 else: pass
 finally: pass
 
-multiprocessing > threading # as Python can only have on thread because of the GIL
-
-l = ['a,b', 'c,d']
-from itertools import chain
-s = frozenset(chain.from_iterable(e.split(',') for e in l))
-
-hasattr(obj, '__call__') # isCallable ; work for functions too
-
-# Zip archive
-foo = zipfile.ZipFile('foo.zip', mode='w')
-for root, dirs, files in os.walk('/path/to/foo'):
-    for name in files:
-        file_to_zip = os.path.join(root, name)
-        foo.write(file_to_zip, compress_type=zipfile.ZIP_DEFLATED)
-
 # Environment variables
 PYTHONSTARTUP: un module à exécuter au démarrage de Python
 PYTHONPATH : une liste de dossiers séparés par ‘:’ qui va être ajouté à sys.path
@@ -162,6 +124,44 @@ PYTHONHOME : choisir un autre dossier dans lequel chercher l’interpréteur Pyt
 PYTHONCASEOK : ingorer la casse dans le nom des modules sous Windows
 PYTHONIOENCODING : forcer un encoding par défaut pour stdin/stdout/stderr
 PYTHONHASHSEED : changer la seed hash() (renforce la sécurité de la VM)
+
+l = ['a,b', 'c,d']
+from itertools import chain # also has iterator = count().next
+s = frozenset(chain.from_iterable(e.split(',') for e in l))
+
+my_list[::-1] == reversed(my_list)
+mylist.index(elem) # index lookup
+
+# Cool standard functions to work on lists
+zip, reduce, all, any, min, max, sum
+# generators > list-comprehensions
+
+# Is a dict / list ? -> http://docs.python.org/2/library/collections.html#collections-abstract-base-classes
+# isinstance(d, collections.Mapping) won't work if the class is not registered, so better check:
+hasattr(d, '__getitem__') and hasattr(d, 'keys')
+
+for index, item in enumerate(iterable): ...
+
+# Loop & modify transparently standard DS 
+items = zip(xrange(0, len(ds)), ds) # lists, tuples & namedtuples
+items = d.iteritems() # dicts ( iteritems > items )
+
+
+""""""""
+"" dict 
+""""""""
+# Extremely fast as long as < one million elems
+
+__slots__ = ("attr1_name")
+# Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots."
+
+# Dict-comprehension
+{ e.k: e.v for e in elems }
+
+dict.__missing__ # invoked for missing items
+
+d == dict(**d)
+
 
 """""""""""
 "" Debug
@@ -236,12 +236,17 @@ import paramiko
 import requests
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 
+multiprocessing > threading # as Python can only have on thread because of the GIL
+
 # Serialization
 cPickle # binary format, generic, fast & lighweight
 json
 
 # Parsing
 pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
+
+# Text analysis : noun phrase extraction, sentiment analysis, translation...
+https://github.com/sloria/TextBlob
 
 # AWESOME for shell scripting
 http://amoffat.github.io/sh/

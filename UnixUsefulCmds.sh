@@ -352,6 +352,8 @@ dig +short -x <IP>
 ssh $host "$cmds ; /bin/bash -i"
 # How to change your login on a specified acces: http://orgmode.org/worg/worg-git-ssh-key.php
 .ssh/config
+# Exit a hung SSH session
+[ENTER] ~.
 
 # Find wireless driver
 lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
@@ -574,12 +576,16 @@ KILL <thread_to_be_killed>;
 
 # How to start a file to make it executable AND runnable with mysql < FILE.mysql :
 /*/cat <<NOEND | mysql #*/
-use ...;
-select
+USE ...;
+WITH
+    subquery AS ( SELECT ... ),
+    ...
+SELECT
     id, name
-from
+FROM
+    subquery,
+    ... # "inline" SELECT are also allowed
+WHERE
     ...
-where
-    ...
-order by
+ORDER BY
     ...;
