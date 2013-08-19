@@ -57,7 +57,7 @@ alias gdc='git diff --cached'
 alias gdp='git diff -U999999999 --no-color origin/mainline..HEAD'
 alias gl='git log'
 alias gll='git log origin/mainline..HEAD' # local commits only
-alias gri='git rebase --interactive origin/mainline'
+alias gri='git rebase --interactive'
 alias gpr='git pull --rebase'
 
 #------------

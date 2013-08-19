@@ -8,15 +8,98 @@
 #------------
 
 #-------------------------
-# Code smells & heuristics
+# Code smells & heuristics (edited)
 #-------------------------
+My rule #1 : Follow standard conventions within a team [CC-G24]
 
-# Comments
+# Main "mantras"
+- Boy Scout Rule & Broken Window Theory
+- KISS & YAGNI : Keep It Simple, Stupid & You Aren't Gonna Need It
+- Duplication : DRY ! Once, and only once. [CC-G5]
+    switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
+    similar algorithm            -> template method / strategy pattern
 
-# Environment
+# Design principles (SE = software entity : class, module, function...) - where "Design" = Organisation of the software logic
+- Single Responsability Principle : every SE should have a single responsibility, and that responsibility should be entirely encapsulated by the SE
+- Law of Demeter : each SE should have only limited knowledge about other SEs. Write "shy code". Talk to friends; Don’t talk to strangers [CC-G36]
+- Open/Closed Principle : SE should be open for extension, but closed for modification
+- Common Closure Principle : any change to the software should only have a very local impact
 
-# General
+# Design smells
+- Too much information : hide you data, hide your utility functions, hide your constants & temporaries, concentrate on keeping small interfaces to keep coupling low [CC-G8]
+- Code at wrong level of abstraction : e.g. functions should descend only one level of abstraction [CC-G6] [CC-G34]
+- Base classes depending on their derivatives [CC-G7]
+- Logical dependencies are not physical : avoid assumptions on other modules behaviour, make it explicit + expose objects modifications (functional programing) [CC-G22] [CC-G31]
+- Artifical coupling / Misplaced responsability [CC-G13] [CC-G14] [CC-G17]
+    There is a place for everything : don't toss code in the most convenient place at hand, take the time to figure out where functions, constants, variables ought to be declared
+
+# Be rigorous and clean after yourself
+- Be consistent : be careful with the conventions you choose, and follow them strictly [CC-G11]
+- Structure over convention : e.g. base clase enforce interface whereas switch/case can contain anything [CC-G27]
+- Don't override safeties : e.g. turning off compiler warnings or some failing tests. Think about Chernobyl ! [CC-G4]
+- Remove dead code : unused function, impossible "if" condition, useless try/catch... [CC-F4] [CC-G9] [CC-G12]
+
+# Code intent should be obvious
+- Understand the algorithm first [G21]
+- Functions should do ONE thing : split long imperative code in short functions, and take good care of their naming [G30]
+- Don't be arbitrary, you must be able to justify any decision in your code [CC-G32]
+- Use explanatory variables [CC-G19]
+- Replace magic numbers with named constants + try to gather configuration [CC-G25]
+- Conditionals : encapsulate them instead of making and/or combinations inline, avoid double negation [CC-G28] [CC-29]
+- Obscured intent : in doubt, detail your motivation as comments [CC-G16]
+
+# Code formatting
+- Top-down code that reads like a narrative
+- Vertical separation : define things close to where they are used [CC-G10]
 
 # Names
+Take the time to choose descriptive names. Naming things is a great power, it comes with great responsabilities [CC-N1]
+- Don't pick names that communicate implementationi [CC-N2]
+- Use standard nomenclatures where possible [CC-N3]
+- Unambigous names [CC-N4]
+- Use long names for long scopes : 'i' is ok for small loops [CC-N5]
+- Names should describe side-effects [CC-N7]
+- Function names should say what they do : you can tell it from a call, without looking at the definition [CC-G20] Common smells:
+    Obvious behaviour is unimplemented [CC-G2]
+    Incorrect behaviour at the boundaries [CC-G3]
+
+# Functions smells
+- Too many arguments : best are no-arg, one arg, two arg and possibly 3 args. Avoid 4+ [CC-F1]
+- Output arguments [CC-F2]
+- Flag or selector arguments (boolean) [CC-F3] [CC-G15]
+
+# Comments smells
+- Inappropriate information : change history, author... [CC-C1]
+- Obsolete comment [CC-C2]
+- Redundant comment : e.g. useless Javadoc [CC-C3]
+- Poorly written comment : don't ramble, don't state the obvious, be brief [CC-C4]
+- Commented-out code [CC-C5]
+
+# Build system smells
+- Build requires more than one step [CC-E1]
+- Tests require more than one step [CC-E2]
+- Build is too long to complete
 
 # Tests
+- Insufficient tests : use a coverage tool ! [CC-T1] [CC-T2]
+- An ignored test is a question about an ambiguity [CC-T4]
+- Take special care to test boundary conditions [CC-T5]
+- Exhaustively test near bugs [CC-T6]
+- Tests should be fast [CC-T9]
+- Don't overuse Mocks
+- Use manual try/catch and not @Test(expected) on big tests
+
+# General
+- Favor immutable data structures
+
+- Do not take null lightly : C.A.R. Hoare "billion-dollar mistake". Alternatives:
+    NullObject & SpecialCase patterns
+    Empty collection
+    Raise an exception
+    Use a functional "Optional" construct
+
+- Use unchecked exceptions for error handling over return codes & checked exceptions
+
+- Avoid multiple languages in one source file [CC-G1]
+- Use the idioms of the programming language employed, aka "Don't write C code in Java"
+
