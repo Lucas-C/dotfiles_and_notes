@@ -19,6 +19,14 @@
     mvbranch = branch -m
     unadd = reset HEAD
 
+# Output the basic content of a .gitignore file
+    genignore = "!echo .gitignore,nohup.out,.project,.classpath,*.pyc,*.o,*.class,*~ | tr , \\\\n"
+
+# Get the full history of the changes affecting a given line, using a regular expression
+# USAGE: -L '/REGEX/,+1' -M FILE
+    rblame      = "!sh -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ == $commit ] && commit=$(git rev-parse HEAD); echo $line; done' dumb_param"
+    rblameshow  = "!sh -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ == $commit ] && commit=$(git rev-parse HEAD); git show $commit; done' dumb_param"
+
 # colored logs, one per line
     dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --

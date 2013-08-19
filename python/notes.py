@@ -19,10 +19,6 @@ hasattr(obj, '__call__') # isCallable ; work for functions too
 
 a, b = b, a # swapping
 
-code = "my code bla bla"
-compiled = compile(code)
-exec compiled 
-
 pattern = (
 "^"         # beginning of string
 "(?P<word>" # named group start
@@ -125,6 +121,13 @@ PYTHONCASEOK : ingorer la casse dans le nom des modules sous Windows
 PYTHONIOENCODING : forcer un encoding par défaut pour stdin/stdout/stderr
 PYTHONHASHSEED : changer la seed hash() (renforce la sécurité de la VM)
 
+
+""""""""""""""""""
+"" Data structures
+""""""""""""""""""
+import bisect # binary search
+import heapq # min-heap
+
 l = ['a,b', 'c,d']
 from itertools import chain # also has iterator = count().next
 s = frozenset(chain.from_iterable(e.split(',') for e in l))
@@ -172,8 +175,6 @@ d == dict(**d)
 # PDB tricks
 debug foo() # step into a function
 
-import pdbi; pdbi.set_trace() # or pdbi.sh()
-
 from pprint import pprint
 
 vars(obj)
@@ -184,12 +185,7 @@ inspect.getargspec(foo_func) # get signature
 
 <module>.__file__
 
-# Get class parents
-o.__class__.__bases__
-
-from dis import dis; dis(myfunc) # get dissassembly
-
-import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
+o.__class__.__bases__ # Get class parents
 
 # http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
 def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
@@ -200,6 +196,9 @@ def foo(x):
     return bar
 b = foo(42)
 get_cell_value(b.func_closure[0])
+# Closure GOTCHAS:
+#- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
+#- http://stackoverflow.com/questions/12182068/python-closure-function-losing-outer-variable-access
 
 # Signal-based handle on a program to debug
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
@@ -210,15 +209,43 @@ $ rconsole
 # And also:
 http://eventlet.net/doc/modules/backdoor.html
 
-# GOTCHAS:
-#- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
-#- http://stackoverflow.com/questions/12182068/python-closure-function-losing-outer-variable-access
+code = "my code bla bla"
+compiled = compile(code)
+exec compiled 
+
+from dis import dis; dis(myfunc) # get dissassembly
+uncompyle2 prog.pyc # bytecode -> python code
+
+import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
+# SUPER powerful to hack python code and sniff values
+
+# Built-in profiler
+python -m cProfile myscript.py
+# Visu:
+http://www.vrplumber.com/programming/runsnakerun/
+https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/
+# And also
+http://mg.pov.lt/objgraph/
+
+# get exec time
+python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
+
+# Get memory usage
+from guppy import hpy
+h = hpy()
+h.heap()
+h.iso(...objects...).sp
+# Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
 
 
 """""""""""""""""
 "" Libs & tools
 """""""""""""""""
 reload(module)
+
+argparse > optparse # or clize - S&M
+group = parser.add_mutually_exclusive_group()
+group.add_argument(... type=argparse.FileType('r'))
 
 # DB - simple Object Relational Mapping
 import peewee # S&M
@@ -253,34 +280,9 @@ http://amoffat.github.io/sh/
 
 # PyCharm : code inspection
 
-import bisect # binary search
-import heapq # min-heap
-
-# get exec time
-python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
-
-# Get memory usage
-from guppy import hpy
-h = hpy()
-h.heap()
-h.iso(...objects...).sp
-# Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
-
-# Built-in profiler
-python -m cProfile myscript.py
-# Visu:
-http://www.vrplumber.com/programming/runsnakerun/
-https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/
-# And also
-http://mg.pov.lt/objgraph/
-
 # Sandbox, libs manager :
 virtualenv
 pip # or easyinstall
-
-argparse > optparse # or clize - S&M
-group = parser.add_mutually_exclusive_group()
-group.add_argument(... type=argparse.FileType('r'))
 
 # To use 3rd party modules, do not edit PYTHONPATH env var, use *.pth files 
 

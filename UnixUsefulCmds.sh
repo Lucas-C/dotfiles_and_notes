@@ -4,6 +4,11 @@
 # Fork bomb
 : () { : | : & } ; :
 
+# LD_PRELOAD trick
+man ld.so
+gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
+LD_PRELOAD=./myfopen.so cat <file>
+
 # Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
 
 # Fixing terminal frenzy
@@ -13,7 +18,7 @@ echo <ctrl-v><ctrl-o>
 xev
 # Change keyboard to FR
 loadkeys fr
-# Numpad crazy (no '-')
+# Fix crazy numpad (no '-')
 killall gnome-settings-daemon
 
 # 'top'
@@ -573,6 +578,9 @@ show columns from <table>;
 # Kill request
 SHOW PROCESSLIST;
 KILL <thread_to_be_killed>;
+
+# Get tables informations
+SHOW TABLE STATUS;
 
 # How to start a file to make it executable AND runnable with mysql < FILE.mysql :
 /*/cat <<NOEND | mysql #*/

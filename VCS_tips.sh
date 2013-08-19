@@ -64,8 +64,8 @@ git bisect run <cmd>
 # Bisect will now step through the commits in an automated fashion, marking commits good or bad depending on the exit code of <cmd>, until it find the culprit commit.
 git bisect reset # to return your repository to the state it started in
 
-# Git log blame a regex
-git blame -L '/<regex>/',+1 <file>
+# Git log blame a regex -> see also 'rblame' alias
+git blame -L '/REGEX/',+1 FILE
 
 # Grep
 git grep <keyword> $(git rev-list <rev1>..<rev2>) [–function-context]

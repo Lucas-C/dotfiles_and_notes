@@ -59,18 +59,6 @@ alias gl='git log'
 alias gll='git log origin/mainline..HEAD' # local commits only
 alias gri='git rebase --interactive origin/mainline'
 alias gpr='git pull --rebase'
-giti () {
-    cat <<EOF
-.gitignore
-nohup.out
-.project
-.classpath
-*.pyc
-*.o
-*.class
-*~
-EOF
-}
 
 #------------
 # One-letter

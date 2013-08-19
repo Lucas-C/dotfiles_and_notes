@@ -1,0 +1,22 @@
+
+########
+## Notes from Robert C. Martin "Clen Code"
+########
+
+#------------
+# Concurrency
+#------------
+
+#-------------------------
+# Code smells & heuristics
+#-------------------------
+
+# Comments
+
+# Environment
+
+# General
+
+# Names
+
+# Tests

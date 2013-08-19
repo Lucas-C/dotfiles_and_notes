@@ -32,6 +32,8 @@ Arrays.toString(myCollection.toArray()) // nice collection stringification
 
 assert *<condition>* : *<object>* // Don't forget to -enableassertions
 
+synchronized method to handle concurrent access // more than one per class is a code smell !
+
 "" == (new String("")).intern()
 
 // Reflection

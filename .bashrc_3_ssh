@@ -1,20 +1,20 @@
-BASH_CONF_FILES=".bash_dirs .bash_profile .bashrc* .gdbinit .gitconfig .inputrc .screenrc .vimrc* .zshrc"
-BASH_CONF_TMP_DIR="/tmp/$USER"
+SSH_EXPORT_FILES=".bash_dirs .bash_profile .bashrc* .gdbinit .gitconfig .inputrc .screenrc .vimrc* .zshrc"
+SSH_EXPORT_TMP_DIR="/tmp/$USER"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited
 
 # Will create a remote $HOME dir if needed 
-# If it fails, config files will still be kept int remote $BASH_CONF_TMP_DIR
+# If it fails, config files will still be kept int remote $SSH_EXPORT_TMP_DIR
 # DO NOT use sshl in that cmd.
-exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1
+exportSshFiles () {      # export $SSH_EXPORT_FILES to a remote host $1
     local prev_dir=$PWD
     cd $BASHRC_DIR
 
     local tmp_dir=$(mktemp -d /tmp/BashConf_$USER.XXXXXX)
-    cp -r $BASH_CONF_FILES $tmp_dir
+    cp -r $SSH_EXPORT_FILES $tmp_dir
 
-    exportBashConfCleanup () { rm -rf $tmp_dir ; cd $prev_dir ; }
-    trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportBashConfCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
+    exportSshFilesCleanup () { rm -rf $tmp_dir ; cd $prev_dir ; }
+    trap 'e=$? ; trap - RETURN EXIT INT TERM HUP QUIT ; exportSshFilesCleanup ; $(exit $e)' RETURN EXIT INT TERM HUP QUIT
 
     for dst in "$@"; do
         local dst_host=${dst%:*}
@@ -27,12 +27,12 @@ exportBashConf () {      # export $BASH_CONF_FILES to a remote host $1
 
         local install_bash_cmd="
 find $tmp_dir -type f -exec chmod -w {} + ;
-[ -e $BASH_CONF_TMP_DIR ] || mkdir $BASH_CONF_TMP_DIR || exit 1 ;
-rsync -a $tmp_dir/ $BASH_CONF_TMP_DIR
+[ -e $SSH_EXPORT_TMP_DIR ] || mkdir $SSH_EXPORT_TMP_DIR || exit 1 ;
+rsync -a $tmp_dir/ $SSH_EXPORT_TMP_DIR
 rm -rf $tmp_dir ;
 [ -e $dst_dir ] || ( sudo mkdir $dst_dir && sudo chown $USER $dst_dir ) || exit 1 ;
-rsync -a $BASH_CONF_TMP_DIR/ $dst_dir
-rm -rf $BASH_CONF_TMP_DIR
+rsync -a $SSH_EXPORT_TMP_DIR/ $dst_dir
+rm -rf $SSH_EXPORT_TMP_DIR
 "
 
         scp -rC $tmp_dir $dst_host:/tmp || return 1
@@ -73,16 +73,16 @@ scp () {
 
 ssh_with_tmp_home () {
     local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
-    ssh -t $dst "HOME=$BASH_CONF_TMP_DIR ; cd ; bash --rcfile .bashrc"
+    ssh -t $dst "HOME=$SSH_EXPORT_TMP_DIR ; cd ; bash --rcfile .bashrc"
 }
 
-visit () {              # ssh to a host after calling 'exportBashConf'. List visited hosts in ~/.visited
+visit () {              # ssh to a host after calling 'exportSshFiles'. List visited hosts in ~/.visited
     local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
-    if exportBashConf $dst; then
+    if exportSshFiles $dst; then
         grep -q $dst $VISITED_HOSTS_LOG_FILE || echo $dst >> $VISITED_HOSTS_LOG_FILE
         ssh $dst
     else
-        echo "$(tput setaf 1)exportBashConf FAILED: $(tput sgr0) sudo rights probably missing on $dst, fallback to a /tmp \$HOME"
+        echo "$(tput setaf 1)exportSshFiles FAILED: $(tput sgr0) sudo rights probably missing on $dst, fallback to a /tmp \$HOME"
         ssh_with_tmp_home $dst
     fi
 }
