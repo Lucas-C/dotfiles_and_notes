@@ -30,7 +30,7 @@ for obj_count in (100000, 1000000):
     print  "Measuring dict lookup perfs"
     cProfile.run("lookup_dict(d, %i)"%obj_count)
     sl = init_classSlot(obj_count)
-    print  "Measuring 'Slot' class lookup perfs"
+    print  "Measuring '__slots__' based class lookup perfs"
     cProfile.run("lookup_classSlot(sl, %i)"%obj_count)
     dp = type('',(),d).__dict__ 
     print  "Measuring dictproxy lookup perfs"

@@ -1,5 +1,5 @@
 from collections import Mapping, namedtuple
-import types
+from types import StringTypes
 
 def issequence(obj):
     return hasattr(obj, '__getitem__') and not isinstance(obj, basestring)
@@ -12,7 +12,7 @@ def isset(obj):
 
 def get_primitive_types():
     primitive_types = {t:getattr(types, t) for t in types.__dict__.keys() if t.endswith('Type') }
-    for str_type in types.StringTypes:
+    for str_type in StringTypes:
         assert issubclass(str_type, basestring)
     primitive_types['StringType'] = basestring
     return primitive_types
@@ -86,7 +86,7 @@ def _dict2NamedTuple(d):
 #   the object passed as a parameter doesn't need to be a dict, just to support dict "cast" (an additionnal tmp copy will then be made)
 #       e.g. freeze_dict(freeze_dict(a_dict))
 # CONS
-#   4 blacklisted keys
+#   4 blacklisted keys that also are a memory overhead
 #   slight access cost overhead due to the wrapping class (but dictproxy is as fast as dict)
 #   freeze_dict({}).__class__ != freeze_dict({}).__class__
 #   not isinstance(freeze_dict({}), dict)

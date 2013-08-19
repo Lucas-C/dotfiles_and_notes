@@ -202,6 +202,17 @@ nice / ionice / renice
 
 # Get all commands prefixed by (useful for unit tests)
 compgen -abck unit_test_
+# Control readline auto-completion : http://linuxcommand.org/man_pages/complete1.html
+complete -f -X '!*.ext' command # exclude files using a filter
+complete -F _compfunc command
+_compfunc() {
+    local cmd="${1##*/}"
+    local word=${COMP_WORDS[COMP_CWORD]}
+    local line=${COMP_LINE}
+    local xpat='!*.foo'
+
+    COMPREPLY=($(compgen -f -X "$xpat" -- "${word}"))
+}
 
 
 #################
