@@ -10,6 +10,11 @@ exportSshFiles () {      # export $SSH_EXPORT_FILES to a remote host $1
     local prev_dir=$PWD
     cd $BASHRC_DIR
 
+    if [ "$1" = "--cleanup" ]; then
+        local del_flag="--delete"
+        shift
+    fi
+
     local tmp_dir=$(mktemp -d /tmp/BashConf_$USER.XXXXXX)
     cp -r $SSH_EXPORT_FILES $tmp_dir
 
@@ -28,14 +33,14 @@ exportSshFiles () {      # export $SSH_EXPORT_FILES to a remote host $1
         local install_bash_cmd="
 find $tmp_dir -type f -exec chmod -w {} + ;
 [ -e $SSH_EXPORT_TMP_DIR ] || mkdir $SSH_EXPORT_TMP_DIR || exit 1 ;
-rsync -a $tmp_dir/ $SSH_EXPORT_TMP_DIR
+rsync -a $del_flag $tmp_dir/ $SSH_EXPORT_TMP_DIR
 rm -rf $tmp_dir ;
 [ -e $dst_dir ] || ( sudo mkdir $dst_dir && sudo chown $USER $dst_dir ) || exit 1 ;
-rsync -a $SSH_EXPORT_TMP_DIR/ $dst_dir
+rsync -a $del_flag $SSH_EXPORT_TMP_DIR/ $dst_dir
 rm -rf $SSH_EXPORT_TMP_DIR
 "
 
-        scp -rC $tmp_dir $dst_host:/tmp || return 1
+        rsync -avz $del_flag $tmp_dir $dst_host:/tmp || return 1
         # WARNING: ssh does NOT behave the same when cmd is piped as stdin
         ssh -t $dst_host "$install_bash_cmd" || return 1
     done

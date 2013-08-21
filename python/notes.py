@@ -1,6 +1,9 @@
 """""""""""
 "" Tricks
 """""""""""
+# grep-like one-liners:
+python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).groups())+"\n" for line in sys.stdin])'
+
 _ # result of the last expression evaluated (in an interpreter only)
 
 r'''Raw string literal: no need to double escape \{0}\{str}'''.format("zero", str="")
@@ -23,9 +26,10 @@ pattern = (
 "^"         # beginning of string
 "(?P<word>" # named group start
 r"\b\w+\b"  # a word between two word separators
+"\.*?"        # non greedy wildcard
 ")"         # named group end
 )
-m = re.search(pattern, "Un. Deux. Trois.", re.DEBUG|re.DOTALL|re.MULTILINE)
+m = re.search(pattern, "Un... Deux... Trois...", re.DEBUG|re.DOTALL|re.MULTILINE)
 m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep, string) # def rep(matchobj): ...

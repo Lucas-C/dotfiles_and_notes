@@ -32,15 +32,11 @@ Arrays.toString(myCollection.toArray()) // nice collection stringification
 
 assert *<condition>* : *<object>* // Don't forget to -enableassertions
 
-synchronized method to handle concurrent access // more than one per class is a code smell !
-
 "" == (new String("")).intern()
 
 // Reflection
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-
-// Built-in parallelism the easy way : ExecutorService
 
 // Methods/attribute privacy only true at compile time : if one recompile a class into bytecode with all private, it will still work !
 

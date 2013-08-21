@@ -1,0 +1,40 @@
+# References:
+# [CC-\w\d+] : Clean Code - Robert C. Martin
+# [SDP] : Software Design Philosophy - John Ousterhout
+
+Basic definitions:
+- Bound ressources
+- Mutual exclusion
+- Starvation
+- Deadlock : can happen if mutual exclusion + lock&wait + no preemption + circular wait
+- Livelock
+
+Execution models:
+- Producer-Consumer
+- Readers-Writers
+- Dining Philosophers
+
+- When multi-threading, use monitor-style locking whenever possible [SDP]
+- Keep your concurrency-related code separate from other code. Get your non-threaded code working first. [CC-Chapt13]
+- Take data encapsulation at heart; severly limit the access of any data that may be shared [CC-Chapt13]
+    => Use copies of data / partition data in independent subsets
+- Server-based locking > client-based locking [CC-AppA]
+- Think about shut-down code early [CC-Chapt13]
+- Test your code with quick/slow test doubles, on different platform, with varying machine load, with random tuning parameters (iterations count, threads count...)... Also force failures. [CC-Chapt13]
+- If tests ever fail, track down the failure [CC-Chapt13]
+
+
+/********/
+// Java
+/*******/
+Built-in parallelism the easy way : ExecutorService
+
+synchronized method/code blocks to handle concurrent access :
+    Keep synchronized sections as small as possible
+    More than one per class is a code smell !
+
+Standard classes:
+    ConcurrentHashMap > HashMap
+    ReentrantLock : a lock that can be acquired in one method an released in another
+    Semaphore : classic implementation, with lock count
+    CountDownLatch : a lock that waits for a number of events before releasing all threads waiting on it

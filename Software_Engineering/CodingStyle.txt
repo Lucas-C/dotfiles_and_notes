@@ -1,15 +1,7 @@
+# References:
+# [CC-\w\d+] : Clean Code - Robert C. Martin
+# [SDP] : Software Design Philosophy - John Ousterhout
 
-########
-## Notes from Robert C. Martin "Clen Code"
-########
-
-#------------
-# Concurrency
-#------------
-
-#-------------------------
-# Code smells & heuristics (edited)
-#-------------------------
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
 # Main "mantras"
@@ -26,22 +18,24 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - Common Closure Principle : any change to the software should only have a very local impact
 
 # Design smells
-- Too much information : hide you data, hide your utility functions, hide your constants & temporaries, concentrate on keeping small interfaces to keep coupling low [CC-G8]
+- "Thin" classes. Ideally, a class should have a very simple interface that hides a lot of functionality and internal complexity. [SDP]
+    Too much information : hide you data, hide your utility functions, hide your constants & temporaries, concentrate on keeping small interfaces to keep coupling low [CC-G8]
 - Code at wrong level of abstraction : e.g. functions should descend only one level of abstraction [CC-G6] [CC-G34]
+- Classes designed around algorithms or time order (i.e. collect all the things that happen at one point in time into a single class) : design classes around INFORMATION [SDP]
+    "It is almost always incorrect to begin the decomposition of a system into modules on the basis of a flowchart. We propose instead that one begins with a list of difficult design decisions or design decisions which are likely to change." - On the criteria to be used in decomposing systems into modules, D. Parnas
 - Base classes depending on their derivatives [CC-G7]
 - Logical dependencies are not physical : avoid assumptions on other modules behaviour, make it explicit + expose objects modifications (functional programing) [CC-G22] [CC-G31]
 - Artifical coupling / Misplaced responsability [CC-G13] [CC-G14] [CC-G17]
     There is a place for everything : don't toss code in the most convenient place at hand, take the time to figure out where functions, constants, variables ought to be declared
 
 # Be rigorous and clean after yourself
-- Be consistent : be careful with the conventions you choose, and follow them strictly [CC-G11]
+- Be consistent : be careful with the conventions you choose, and follow them strictly. E.g. stick with one word per concept. [CC-G11]
 - Structure over convention : e.g. base clase enforce interface whereas switch/case can contain anything [CC-G27]
 - Don't override safeties : e.g. turning off compiler warnings or some failing tests. Think about Chernobyl ! [CC-G4]
 - Remove dead code : unused function, impossible "if" condition, useless try/catch... [CC-F4] [CC-G9] [CC-G12]
 
 # Code intent should be obvious
-- Understand the algorithm first [G21]
-- Functions should do ONE thing : split long imperative code in short functions, and take good care of their naming [G30]
+- Understand the algorithm first [CC-G21]
 - Don't be arbitrary, you must be able to justify any decision in your code [CC-G32]
 - Use explanatory variables [CC-G19]
 - Replace magic numbers with named constants + try to gather configuration [CC-G25]
@@ -49,11 +43,16 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - Obscured intent : in doubt, detail your motivation as comments [CC-G16]
 
 # Code formatting
-- Top-down code that reads like a narrative
+- Keep source files short !
+- Write top-down code that reads like a narrative [CC-Chapt2]
 - Vertical separation : define things close to where they are used [CC-G10]
+- Do not line up variable names in a set of declarations/assignement statements [CC-Chapt5]
 
 # Names
 Take the time to choose descriptive names. Naming things is a great power, it comes with great responsabilities [CC-N1]
+    Some good characteristics : intention-revealing, pronounceable, searchable. [CC-Chapt1]
+    Don't use Hungarian notation or member prefixes [CC-Chapt1]
+    Use noun/noun phrase naming for types, verb/verb phrases for methods, not only adjectives. Avoid words like Manager, Processor, Data or Info. [CC-Chapt1]
 - Don't pick names that communicate implementationi [CC-N2]
 - Use standard nomenclatures where possible [CC-N3]
 - Unambigous names [CC-N4]
@@ -64,6 +63,9 @@ Take the time to choose descriptive names. Naming things is a great power, it co
     Incorrect behaviour at the boundaries [CC-G3]
 
 # Functions smells
+- Too long [CC-Chapt2]
+- Do too many things : split long imperative code in short functions that do ONE thing, and take good care of their naming [CC-Chapt2] [CC-G30]
+- Has too many levels of abstraction [CC-Chapt2]
 - Too many arguments : best are no-arg, one arg, two arg and possibly 3 args. Avoid 4+ [CC-F1]
 - Output arguments [CC-F2]
 - Flag or selector arguments (boolean) [CC-F3] [CC-G15]
@@ -74,6 +76,17 @@ Take the time to choose descriptive names. Naming things is a great power, it co
 - Redundant comment : e.g. useless Javadoc [CC-C3]
 - Poorly written comment : don't ramble, don't state the obvious, be brief [CC-C4]
 - Commented-out code [CC-C5]
+Don't use comments when you can use a function/variable to expresse the intent [CC-Chapt4]
+
+# Error handling
+- Handle as many errors as possible locally, but export as few errors as possible [SDP]
+- Use unchecked exceptions over return codes & checked exceptions
+- Provide context with exceptions : chain them [CC-Chapt7]
+- DO NOT RETURN/PASS NULL : C.A.R. Hoare "billion-dollar mistake". Alternatives:
+    NullObject & SpecialCase patterns
+    Empty collection
+    Raise an exception
+    Use a functional "Optional" construct
 
 # Build system smells
 - Build requires more than one step [CC-E1]
@@ -81,24 +94,20 @@ Take the time to choose descriptive names. Naming things is a great power, it co
 - Build is too long to complete
 
 # Tests
-- Insufficient tests : use a coverage tool ! [CC-T1] [CC-T2]
-- An ignored test is a question about an ambiguity [CC-T4]
+- F.I.R.S.T tests : Fast Independent Repeatable Self-Validating Timely (written just before prod code) [CC-Chapt9]
+- One assert/concept per test [CC-Chapt9]
+- Insufficient tests : use a coverage tool ! [CC-T1] [CC-T2] An ignored test is a question about an ambiguity [CC-T4]
 - Take special care to test boundary conditions [CC-T5]
 - Exhaustively test near bugs [CC-T6]
-- Tests should be fast [CC-T9]
+- Write learning tests [CC-Chapt8]
 - Don't overuse Mocks
 - Use manual try/catch and not @Test(expected) on big tests
 
 # General
 - Favor immutable data structures
-
-- Do not take null lightly : C.A.R. Hoare "billion-dollar mistake". Alternatives:
-    NullObject & SpecialCase patterns
-    Empty collection
-    Raise an exception
-    Use a functional "Optional" construct
-
-- Use unchecked exceptions for error handling over return codes & checked exceptions
+- Data/Object anti-symetry : both have different use-cases [CC-Chapt6]
+    "Objects hide their data behind abstractions and expose functions that operate one data"
+    "Data structures expose their data and have no meaningful functions"
 
 - Avoid multiple languages in one source file [CC-G1]
 - Use the idioms of the programming language employed, aka "Don't write C code in Java"
