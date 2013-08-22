@@ -12,6 +12,9 @@ u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0)
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
 
+__slots__ = ("attr1_name")
+# Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots." It slightly slow down lookup time
+
 __repr__ # unambigous, as possible 'eval'uable
 "MyClass(this=%r,that=%r)" % (self.this,self.that)
 
@@ -114,6 +117,7 @@ class Immutable(namedtuple('Immutable', 'x y')):
 try: pass
 except Exception as err:
     # see chain_errors module
+    logging.exception("Additional infos") # Exception will be automagically logged
 else: pass
 finally: pass
 
@@ -159,11 +163,9 @@ items = d.iteritems() # dicts ( iteritems > items )
 """"""""
 # Extremely fast as long as < one million elems
 
-__slots__ = ("attr1_name")
-# Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots."
+collections.OrderedDict # remember insertion order
 
-# Dict-comprehension
-{ e.k: e.v for e in elems }
+{ e.k: e.v for e in elems } # Dict-comprehension
 
 dict.__missing__ # invoked for missing items
 

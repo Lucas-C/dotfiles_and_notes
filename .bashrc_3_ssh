@@ -76,6 +76,12 @@ scp () {
     $(which scp) "$@"
 }
 
+unset rsync; unalias rsync 2>/dev/null
+rsync () {
+    ssh_setup
+    $(which rsync) "$@"
+}
+
 ssh_with_tmp_home () {
     local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     ssh -t $dst "HOME=$SSH_EXPORT_TMP_DIR ; cd ; bash --rcfile .bashrc"

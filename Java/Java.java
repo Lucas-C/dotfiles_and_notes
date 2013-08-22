@@ -40,8 +40,10 @@ import java.lang.reflect.Method;
 
 // Methods/attribute privacy only true at compile time : if one recompile a class into bytecode with all private, it will still work !
 
-// Google Optional<> : Optional.of(...), Optional.absent(), opt.isPresent(), opt.get()
-// Google public String toString() { Objects.toStringHelper(getClass()).add("Attr", attr).add(...); }
+// Google Guava
+Optional<> : Optional.of(...), Optional.absent(), opt.isPresent(), opt.get()
+public String toString() { Objects.toStringHelper(getClass()).add("Attr", attr).add(...); }
+ImmutableSet<>
 
 // Enum
 static enum Action {
