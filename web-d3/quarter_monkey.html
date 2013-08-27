@@ -8,44 +8,80 @@
         <script>
 const SVG_WIDTH = 800, SVG_HEIGHT = 600;
 const RADIUS = 20;
-const INIT_HORIZ_SPACING = 50, VERTI_SPACING = 30;
-const FILL_COLOR = "cornflowerblue", STROKE_COLOR = "black", TEXT_COLOR = "black";
+const INIT_HORIZ_SPACING = 50, VERTI_OFFSET = 50, VERTI_SPACING = 150;
+const FILL_BASE_COLOR = "cornflowerblue", FILL_OVER_COLOR ="#CAE1FF", STROKE_COLOR = "black";
+const TEXT_COLOR = "black", TEXT_FONT_FAMILY = "sans-serif", TEXT_FONT_SIZE = "16px";
 const STARTING_RANGE = 10;
 
-// Initial data
-function range(start, end) { var array=[]; for (var i=0; i<STARTING_RANGE; ++i) { array.push(i); } return array; }
-var startingNumbers = range(0, STARTING_RANGE);
-var data = [
-    { "generation": 1, "number": n }
-        for each (n in startingNumbers)
-];
-
 // Handy functions
-function pos_x(d) { return SVG_WIDTH / 2 + (d.number - (STARTING_RANGE - 1) / 2) * (INIT_HORIZ_SPACING + RADIUS); }
-function pos_y(d) { return (d.generation + 0.5) * (VERTI_SPACING + RADIUS); }
+function range(start, end) { var array=[]; for (var i=start; i<end; ++i) { array.push(i); } return array; }
 
 // Rendering
-var svgContainer = d3.select("body").append("svg").attr("width", SVG_WIDTH).attr("height", SVG_HEIGHT);
-var circles = svgContainer.selectAll("circle").data(data).enter().append("circle")
-    .attr("cx", pos_x)
-    .attr("cy", pos_y)
-    .attr("r", RADIUS)
-    .style("fill", FILL_COLOR)
-    .style("stroke", STROKE_COLOR);
-var circleTexts = svgContainer.selectAll("text").data(data).enter().append("text")
-    .text(function(d) { return d.number; })
-    .attr("x", pos_x)
-    .attr("y", pos_y)
-    .attr("font-family", "sans-serif")
-    .attr("font-size", "16px")
-    .style("dominant-baseline", "middle")
-    .style("text-anchor", "middle")
-    .attr("fill", TEXT_COLOR);
+function create_display() {
+    d3.select("body").append("svg")
+        .attr("width", SVG_WIDTH)
+        .attr("height", SVG_HEIGHT);
+}
+
+function pos_x(d) { return SVG_WIDTH / 2 + (d.number - (STARTING_RANGE - 1) / 2) * (INIT_HORIZ_SPACING + RADIUS); }
+function pos_y(d) { return VERTI_OFFSET + RADIUS / 2 + d.generation * (VERTI_SPACING + RADIUS); }
+
+function update_display(data) {
+    var svgContainer = d3.select("body").select("svg");
+    var svgGroup = svgContainer.selectAll("g").data(data).enter().append("g");
+    svgGroup
+        .attr("transform", function(d) { return "translate(" + SVG_WIDTH / 2 + "," + pos_y(d) + ")"})
+        .transition().duration(1000)
+            .attr("transform", function(d) { return "translate(" + pos_x(d) + "," + pos_y(d) + ")"});
+    var circles = svgGroup.append("circle")
+        .attr("r", RADIUS)
+        .style("fill", FILL_BASE_COLOR)
+        .style("stroke", STROKE_COLOR)
+        .on("mouseover", function() { d3.select(this).style("fill", FILL_OVER_COLOR) })
+        .on("mouseout", function() { d3.select(this).style("fill", FILL_BASE_COLOR) })
+        .on("mousedown", onCircleClick);
+    var circleTexts = svgGroup.append("text")
+        .text(function(d) { return d.number; })
+        .attr("font-family", TEXT_FONT_FAMILY)
+        .attr("font-size", TEXT_FONT_SIZE)
+        .style("dominant-baseline", "middle")
+        .style("text-anchor", "middle")
+        .attr("fill", TEXT_COLOR);
+}
+
+// Tree building logic
+function onCircleClick() {
+    //alert(this.parentNode + " - " + d3.select(this))
+    Array.prototype.push.apply(data, [
+        { "generation": 1, "number": n }
+            for each (n in range(0, 7))
+    ]);
+    update_display(data);
+}
+
+// Initial data
+function create_data(range_max) {
+    var startNumbers = range(0, range_max);
+    var d = [
+        { "generation": 0, "number": n }
+            for each (n in startNumbers)
+    ];
+    return d;
+}
+
+create_display();
+data = create_data(STARTING_RANGE);
+update_display(data);
+/*
+TODO:
+- add last_generation + positionning infos to data
+- on-click child creation
+- link to children as splines
+- efficient primes caching
+- handle multiple nodes clicked -> resizing tree
+- persist data between refreshes
+*/
         </script>
     </body>
 </html>
-<!--
-TODO:
-- input form
-- persist data between refreshes
--->
+
