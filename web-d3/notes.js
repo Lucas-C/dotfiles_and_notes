@@ -26,3 +26,12 @@ generators
 <script language="javascript1.5">var js_version="1.5"</script>
 <script language="javascript1.6">var js_version="1.6"</script>
 
+// V8 : Open Source high perf JS engine written in C++. Features :
+// - Hidden classes
+// - Dynamic machine code generation
+// - Profiler : d8 --prof script.js
+
+// Redefining the Array constructor:
+function Array() { alert("hi"); }
+// this constructor is called whenever arrays are created:
+var a = [ 43 ];
