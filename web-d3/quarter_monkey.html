@@ -23,25 +23,29 @@ function create_display() {
         .attr("height", SVG_HEIGHT);
 }
 
-function pos_x(d) { return SVG_WIDTH / 2 + (d.number - (STARTING_RANGE - 1) / 2) * (INIT_HORIZ_SPACING + RADIUS); }
-function pos_y(d) { return VERTI_OFFSET + RADIUS / 2 + d.generation * (VERTI_SPACING + RADIUS); }
+function pos_x(node, node_index) { return SVG_WIDTH / 2 + (node_index - (STARTING_RANGE - 1) / 2) * (INIT_HORIZ_SPACING + RADIUS); }
+function pos_y(generation, generation_index) { return VERTI_OFFSET + RADIUS / 2 + generation_index * (VERTI_SPACING + RADIUS); }
 
 function update_display(data) {
     var svgContainer = d3.select("body").select("svg");
-    var svgGroup = svgContainer.selectAll("g").data(data).enter().append("g");
-    svgGroup
-        .attr("transform", function(d) { return "translate(" + SVG_WIDTH / 2 + "," + pos_y(d) + ")"})
+    var svgGenerations = svgContainer.selectAll("g").data(data.generations).enter().append("g");
+    svgGenerations
+        .attr("transform", function (g, g_index) { return "translate(0, " + pos_y(g, g_index) + ")"});
+    var svgPools = svgGenerations.selectAll("g").data(data.pools).enter().append("g");
+    var svgNodes = svgPools.selectAll("g").data(data.nodes).enter().append("g");
+    svgNodes
+        .attr("transform", "translate(" + SVG_WIDTH / 2 + ", 0)")
         .transition().duration(1000)
-            .attr("transform", function(d) { return "translate(" + pos_x(d) + "," + pos_y(d) + ")"});
-    var circles = svgGroup.append("circle")
+            .attr("transform", function(node, node_index) { return "translate(" + pos_x(node, node_index) + ", 0)"});
+    var circles = svgNodes.append("circle")
         .attr("r", RADIUS)
         .style("fill", FILL_BASE_COLOR)
         .style("stroke", STROKE_COLOR)
         .on("mouseover", function() { d3.select(this).style("fill", FILL_OVER_COLOR) })
         .on("mouseout", function() { d3.select(this).style("fill", FILL_BASE_COLOR) })
         .on("mousedown", onCircleClick);
-    var circleTexts = svgGroup.append("text")
-        .text(function(d) { return d.number; })
+    var circleTexts = svgNodes.append("text")
+        .text(function(node) { return node.number; })
         .attr("font-family", TEXT_FONT_FAMILY)
         .attr("font-size", TEXT_FONT_SIZE)
         .style("dominant-baseline", "middle")
@@ -51,10 +55,8 @@ function update_display(data) {
 
 // Tree building logic
 function onCircleClick() {
-    //alert(this.parentNode + " - " + d3.select(this))
-    Array.prototype.push.apply(data, [
-        { "generation": 1, "number": n }
-            for each (n in range(0, 7))
+    alert(this.parentNode + " - " + d3.select(this))
+    Array.prototype.push.apply(data.generations, [
     ]);
     update_display(data);
 }
@@ -62,10 +64,18 @@ function onCircleClick() {
 // Initial data
 function create_data(range_max) {
     var startNumbers = range(0, range_max);
-    var d = [
-        { "generation": 0, "number": n }
-            for each (n in startNumbers)
-    ];
+    var d =
+{
+    "generations": [
+        { "pools": [ 0 ] }
+    ],
+    "pools": [
+        { "generation": 0, "nodes": [ n for each (n in startNumbers) ] }
+    ],
+    "nodes": [
+        { "pool": 0, "number": n } for each (n in startNumbers)
+    ],
+};
     return d;
 }
 
@@ -74,7 +84,6 @@ data = create_data(STARTING_RANGE);
 update_display(data);
 /*
 TODO:
-- add last_generation + positionning infos to data
 - on-click child creation
 - link to children as splines
 - efficient primes caching
