@@ -23,3 +23,22 @@ var scaledVal = scale(origVal)
 var xAxis = d3.svg.axis().scale(scale)
 var xAxisGroup = svgContainer.append("g").call(xAxis);
 
+
+// d3.svg.area example
+var sunsetLine = d3.svg.area().
+  x(function(d) { return x(d.date); }).
+  y0(height).
+  y1(function(d) { return y(new Date(2011, 0, 1, d.sunset[0], d.sunset[1])); }).
+  interpolate("linear");
+
+lineGroup.append("svg:path").
+  attr("d", sunsetLine(data)).
+  attr("fill", "steelblue");
+
+// on mouseover example
+d3.select("#viz")
+    .on("mouseover", function(){d3.select(this).style("fill", "aliceblue");})
+    .on("mouseout", function(){d3.select(this).style("fill", "white");});
+
+// Loading data from a file
+d3.text("<file>", function(datasetText) { ... });

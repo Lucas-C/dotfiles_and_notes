@@ -75,6 +75,9 @@ local var=${1:-"default value"}
 # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 echo ${PWD//\//-}
 
+# List all defined variables
+( set -o posix; set )
+
 # Floating point arithmetic
 echo "1/3" | bc -l # or specify "scale=X;" instead of flag
 

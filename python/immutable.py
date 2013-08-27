@@ -1,7 +1,9 @@
 from collections import Mapping, namedtuple
 from typescheck import issequence, ismapping, isset, get_primitive_types
 
-def recur_freeze_containers(mutable_obj, ignoredtypes=get_primitive_types().values()):
+_PYTHON_PRIMITIVE_TYPES=tuple(get_primitive_types().values())
+
+def recur_freeze_containers(mutable_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
     """
     dict -> namedtuple (!WARNING! keys can only be [a-zA-Z][a-zA-Z0-9_]*)
     list -> tuple
@@ -28,7 +30,7 @@ def recur_freeze_containers(mutable_obj, ignoredtypes=get_primitive_types().valu
     elif issequence(copy):
         return tuple(copy)
 
-def recur_unfreeze_containers(frozen_obj, ignoredtypes=get_primitive_types().values()):
+def recur_unfreeze_containers(frozen_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
     """
     namedtuple -> dict
     tuple -> list
