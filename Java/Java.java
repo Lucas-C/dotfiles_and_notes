@@ -43,7 +43,8 @@ import java.lang.reflect.Method;
 // Google Guava
 Optional<> : Optional.of(...), Optional.absent(), opt.isPresent(), opt.get()
 public String toString() { Objects.toStringHelper(getClass()).add("Attr", attr).add(...); }
-ImmutableSet<>
+ImmutableSet<V>
+ImmutableMap.Builder<K,V>
 
 // Enum
 static enum Action {

@@ -354,6 +354,7 @@ iptables -n -L -v
 snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysDescr.0
 # or sysUpTime, sysName
 # The community string can be found in the 'Variables' tab in an AutoNOC device page
+# SNMP port : 161
 
 # Dump all tcp transmission to a specific IP :
 sudo tcpdump -X host $IP [ip proto icmp|udp|tcp]

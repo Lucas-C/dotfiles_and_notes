@@ -22,12 +22,12 @@ sys.excepthook = excepthook
 
 if __name__ == '__main__':
     sys.argv = sys.argv[1:]
-    c_flag_index = sys.argv.index('-c')
-    if c_flag_index >= 0:
+    try:
+        c_flag_index = sys.argv.index('-c')
         del sys.argv[c_flag_index]
         command = sys.argv[c_flag_index]
         del sys.argv[c_flag_index]
         exec(command)
-    else:
+    except ValueError:
         execfile(sys.argv[0])
 

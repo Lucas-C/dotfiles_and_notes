@@ -14,7 +14,18 @@ const TEXT_COLOR = "black", TEXT_FONT_FAMILY = "sans-serif", TEXT_FONT_SIZE = "1
 const STARTING_RANGE = 10;
 
 // Handy functions
-function range(start, end) { var array=[]; for (var i=start; i<end; ++i) { array.push(i); } return array; }
+function range(start, end) { var range_array=[]; for (var i=start; i<end; ++i) { range_array.push(i); } return range_array; }
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, nbr) { 
+      return typeof args[nbr] != 'undefined'
+        ? args[nbr]
+        : match
+      ;
+    });
+  };
+}
 
 // Rendering
 function create_display() {
@@ -23,20 +34,24 @@ function create_display() {
         .attr("height", SVG_HEIGHT);
 }
 
-function pos_x(node, node_index) { return SVG_WIDTH / 2 + (node_index - (STARTING_RANGE - 1) / 2) * (INIT_HORIZ_SPACING + RADIUS); }
-function pos_y(generation, generation_index) { return VERTI_OFFSET + RADIUS / 2 + generation_index * (VERTI_SPACING + RADIUS); }
+function generation_pos_y(gen, gen_index) { return VERTI_OFFSET + RADIUS / 2 + gen_index * (VERTI_SPACING + RADIUS); }
+function node_pos_x(node, node_index) { return SVG_WIDTH / 2 + (node_index - (STARTING_RANGE - 1) / 2) * (INIT_HORIZ_SPACING + RADIUS); }
 
 function update_display(data) {
     var svgContainer = d3.select("body").select("svg");
     var svgGenerations = svgContainer.selectAll("g").data(data.generations).enter().append("g");
     svgGenerations
-        .attr("transform", function (g, g_index) { return "translate(0, " + pos_y(g, g_index) + ")"});
+        .attr("id", function(gen, gen_index) { return gen_index})
+        .attr("transform", function (gen, gen_index) { return "translate(0, " + generation_pos_y(gen, gen_index) + ")"});
     var svgPools = svgGenerations.selectAll("g").data(data.pools).enter().append("g");
+    svgPools
+        .attr("id", function(pool, pool_index) { return pool_index})
     var svgNodes = svgPools.selectAll("g").data(data.nodes).enter().append("g");
     svgNodes
+        .attr("id", function(node, node_index) { return node_index})
         .attr("transform", "translate(" + SVG_WIDTH / 2 + ", 0)")
         .transition().duration(1000)
-            .attr("transform", function(node, node_index) { return "translate(" + pos_x(node, node_index) + ", 0)"});
+            .attr("transform", function(node, node_index) { return "translate(" + node_pos_x(node, node_index) + ", 0)"});
     var circles = svgNodes.append("circle")
         .attr("r", RADIUS)
         .style("fill", FILL_BASE_COLOR)
@@ -45,7 +60,7 @@ function update_display(data) {
         .on("mouseout", function() { d3.select(this).style("fill", FILL_BASE_COLOR) })
         .on("mousedown", onCircleClick);
     var circleTexts = svgNodes.append("text")
-        .text(function(node) { return node.number; })
+        .text(function(node) { return node.nbr; })
         .attr("font-family", TEXT_FONT_FAMILY)
         .attr("font-size", TEXT_FONT_SIZE)
         .style("dominant-baseline", "middle")
@@ -55,32 +70,69 @@ function update_display(data) {
 
 // Tree building logic
 function onCircleClick() {
-    alert(this.parentNode + " - " + d3.select(this))
-    Array.prototype.push.apply(data.generations, [
-    ]);
+    populate_data(data, d3.select(this.parentNode).attr("id"));
     update_display(data);
 }
 
+function populate_data(data, picked_node_id) {
+    var picked_node = data.nodes[picked_node_id];
+    if (picked_node.child_pool_id) {
+        return;
+    }
+    var picked_number = picked_node.nbr;
+    var new_numbers = compute_primes_starting_with(picked_number);
+    var generation_id = data.pools[picked_node.pool_id].generation_id;
+    var new_pool_id = insert_new_numbers(data, new_numbers, generation_id + 1);
+    picked_node.child_pool_id = new_pool_id;
+}
+function insert_new_numbers(data, new_numbers, new_generation_id) {
+    var new_pool_id = create_new_nodes_and_pool(data, new_numbers, new_generation_id);
+    create_or_update_new_generation(data, new_pool_id, new_generation_id);
+    return new_pool_id;
+}
+function create_new_nodes_and_pool(data, new_numbers, new_generation_id) {
+    var new_nodes_id = [];
+    var new_pool_id = data.pools.length;
+    for each (nbr in new_numbers)
+        new_nodes_id.push(data.nodes.push({ "pool_id":new_pool_id, "nbr":nbr }) - 1);
+    return data.pools.push({ "generation_id":new_generation_id, "nodes":new_nodes_id }) - 1;
+}
+function create_or_update_new_generation(data, new_pool_id, new_generation_id) {
+    if (new_generation_id == data.generations.length)
+        data.generations.push({ "pools": [] });
+    if (new_generation_id >= data.generations.length)
+        throw "Assertion failed: new_generation_id ({0}) >= data.generations.length ({0})".format(new_generation_id, data.generations.length);
+    data.generations[new_generation_id].pools.push(new_pool_id);
+}
+
+// Primality checking
+function compute_primes_starting_with(nbr) {
+    return [ nbr * 10 + 3, nbr * 10 + 7 ];
+}
+
+//Array.prototype.push.apply(data.generations, [
+//]);
+
 // Initial data
-function create_data(range_max) {
-    var startNumbers = range(0, range_max);
-    var d =
-{
-    "generations": [
-        { "pools": [ 0 ] }
-    ],
-    "pools": [
-        { "generation": 0, "nodes": [ n for each (n in startNumbers) ] }
-    ],
-    "nodes": [
-        { "pool": 0, "number": n } for each (n in startNumbers)
-    ],
-};
+function create_data(startNumbers) {
+    var startIndices = range(0, startNumbers.length);
+    var d = {
+        "generations": [
+            { "pools": [ 0 ] }
+        ],
+        "pools": [
+            { "generation_id": 0, "nodes": [ i for each (i in startIndices) ] }
+        ],
+        "nodes": [
+            { "pool_id": 0, "nbr": n } for each (n in startNumbers)
+        ],
+    };
     return d;
 }
 
 create_display();
-data = create_data(STARTING_RANGE);
+var startNumbers = range(0, STARTING_RANGE);
+var data = create_data(startNumbers);
 update_display(data);
 /*
 TODO:
