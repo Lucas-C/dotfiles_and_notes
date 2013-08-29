@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <script type="text/javascript" src="d3.v3.min.js"></script>
-    </head>
-    <body>
-        <script>
+<meta charset="UTF-8">
+<style>
+.node {
+    cursor: pointer;
+}
+.node circle {
+    fill: cornflowerblue;
+    stroke: black;
+}
+.node circle:hover {
+    fill: #CAE1FF;
+}
+.node text {
+    fill: black;
+    font: 16px sans-serif;
+    dominant-baseline: middle;
+    text-anchor: middle;
+}
+</style>
+<body>
+<script type="text/javascript" src="d3.v3.min.js"></script>
+<script>
 const SVG_WIDTH = 800, SVG_HEIGHT = 600;
 const RADIUS = 20;
 const INIT_HORIZ_SPACING = 50, VERTI_OFFSET = 50, VERTI_SPACING = 150;
-const FILL_BASE_COLOR = "cornflowerblue", FILL_OVER_COLOR ="#CAE1FF", STROKE_COLOR = "black";
-const TEXT_COLOR = "black", TEXT_FONT_FAMILY = "sans-serif", TEXT_FONT_SIZE = "16px";
 const STARTING_RANGE = 10;
 
 // Handy functions
@@ -39,33 +52,30 @@ function node_pos_x(node, node_index) { return SVG_WIDTH / 2 + (node_index - (ST
 
 function update_display(data) {
     var svgContainer = d3.select("body").select("svg");
-    var svgGenerations = svgContainer.selectAll("g").data(data.generations).enter().append("g");
+    var svgGenerations = svgContainer.selectAll(".generation").data(data.generations).enter().append("g");
     svgGenerations
+        .attr("class", "generation")
         .attr("id", function(gen, gen_index) { return gen_index})
         .attr("transform", function (gen, gen_index) { return "translate(0, " + generation_pos_y(gen, gen_index) + ")"});
-    var svgPools = svgGenerations.selectAll("g").data(data.pools).enter().append("g");
+    var svgPools = svgGenerations.selectAll(".pool").data(data.pools).enter().append("g");
+    // BROKEN here because every value in data.pools will be added to the new generation. How to fix it :
+    // - Use a real tree-like structure
+    // - Use the built-in tree layout
     svgPools
+        .attr("class", "pool")
         .attr("id", function(pool, pool_index) { return pool_index})
-    var svgNodes = svgPools.selectAll("g").data(data.nodes).enter().append("g");
+    var svgNodes = svgPools.selectAll(".node").data(data.nodes).enter().append("g");
     svgNodes
+        .attr("class", "node")
         .attr("id", function(node, node_index) { return node_index})
         .attr("transform", "translate(" + SVG_WIDTH / 2 + ", 0)")
         .transition().duration(1000)
             .attr("transform", function(node, node_index) { return "translate(" + node_pos_x(node, node_index) + ", 0)"});
     var circles = svgNodes.append("circle")
         .attr("r", RADIUS)
-        .style("fill", FILL_BASE_COLOR)
-        .style("stroke", STROKE_COLOR)
-        .on("mouseover", function() { d3.select(this).style("fill", FILL_OVER_COLOR) })
-        .on("mouseout", function() { d3.select(this).style("fill", FILL_BASE_COLOR) })
         .on("mousedown", onCircleClick);
     var circleTexts = svgNodes.append("text")
-        .text(function(node) { return node.nbr; })
-        .attr("font-family", TEXT_FONT_FAMILY)
-        .attr("font-size", TEXT_FONT_SIZE)
-        .style("dominant-baseline", "middle")
-        .style("text-anchor", "middle")
-        .attr("fill", TEXT_COLOR);
+        .text(function(node) { return node.nbr; });
 }
 
 // Tree building logic
@@ -140,9 +150,9 @@ TODO:
 - link to children as splines
 - efficient primes caching
 - handle multiple nodes clicked -> resizing tree
+- input form for initial number / number list
 - persist data between refreshes
 */
-        </script>
-    </body>
-</html>
+</script>
+</body>
 
