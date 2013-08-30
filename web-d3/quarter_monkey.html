@@ -39,6 +39,7 @@ if (!String.prototype.format) {
     });
   };
 }
+function log() { console.log(JSON.stringify(arguments)); }
 
 // Rendering
 function create_display() {
@@ -50,24 +51,35 @@ function create_display() {
 function generation_pos_y(gen, gen_index) { return VERTI_OFFSET + RADIUS / 2 + gen_index * (VERTI_SPACING + RADIUS); }
 function node_pos_x(node, node_index) { return SVG_WIDTH / 2 + (node_index - (STARTING_RANGE - 1) / 2) * (INIT_HORIZ_SPACING + RADIUS); }
 
-function update_display(data) {
+function update_display(tree) {
     var svgContainer = d3.select("body").select("svg");
-    var svgGenerations = svgContainer.selectAll(".generation").data(data.generations).enter().append("g");
+    var svgGenerations = svgContainer.selectAll(".generation").data(tree.generations).enter().append("g");
     svgGenerations
         .attr("class", "generation")
-        .attr("id", function(gen, gen_index) { return gen_index})
+        .attr("id", function(gen, gen_index) { return "g" + gen_index})
         .attr("transform", function (gen, gen_index) { return "translate(0, " + generation_pos_y(gen, gen_index) + ")"});
-    var svgPools = svgGenerations.selectAll(".pool").data(data.pools).enter().append("g");
-    // BROKEN here because every value in data.pools will be added to the new generation. How to fix it :
-    // - Use a real tree-like structure
-    // - Use the built-in tree layout
+    for (gen_id in range(0, tree.generations.length)) {
+        update_generation(tree, gen_id);
+    }
+}
+function update_generation(tree, gen_id) {
+    var pools = tree.generations[gen_id].pools;
+    var svgContainer = d3.select("body").select("svg");
+    var svgPools = svgContainer.select("#g" + gen_id).selectAll(".pool").data(pools).enter().append("g");
     svgPools
         .attr("class", "pool")
-        .attr("id", function(pool, pool_index) { return pool_index})
-    var svgNodes = svgPools.selectAll(".node").data(data.nodes).enter().append("g");
+        .attr("id", function(pool_id) { return "p" + pool_id })
+    for each (pool_id in pools) {
+        update_pool(tree, pool_id);
+    }
+}
+function update_pool(tree, pool_id) {
+    var nodes = tree.pools[pool_id].nodes;
+    var svgContainer = d3.select("body").select("svg");
+    var svgNodes = svgContainer.select("#p" + pool_id).selectAll(".node").data(nodes).enter().append("g");
     svgNodes
         .attr("class", "node")
-        .attr("id", function(node, node_index) { return node_index})
+        .attr("id", function(node_id) { return "n" + node_id})
         .attr("transform", "translate(" + SVG_WIDTH / 2 + ", 0)")
         .transition().duration(1000)
             .attr("transform", function(node, node_index) { return "translate(" + node_pos_x(node, node_index) + ", 0)"});
@@ -75,44 +87,44 @@ function update_display(data) {
         .attr("r", RADIUS)
         .on("mousedown", onCircleClick);
     var circleTexts = svgNodes.append("text")
-        .text(function(node) { return node.nbr; });
+        .text(function(node_id) { return tree.nodes[node_id].nbr; });
 }
 
 // Tree building logic
 function onCircleClick() {
-    populate_data(data, d3.select(this.parentNode).attr("id"));
-    update_display(data);
+    populate_tree(g_tree, d3.select(this.parentNode).attr("id").slice(1));
+    update_display(g_tree);
 }
 
-function populate_data(data, picked_node_id) {
-    var picked_node = data.nodes[picked_node_id];
+function populate_tree(tree, picked_node_id) {
+    var picked_node = tree.nodes[picked_node_id];
     if (picked_node.child_pool_id) {
         return;
     }
     var picked_number = picked_node.nbr;
     var new_numbers = compute_primes_starting_with(picked_number);
-    var generation_id = data.pools[picked_node.pool_id].generation_id;
-    var new_pool_id = insert_new_numbers(data, new_numbers, generation_id + 1);
+    var generation_id = tree.pools[picked_node.pool_id].generation_id;
+    var new_pool_id = insert_new_numbers(tree, new_numbers, generation_id + 1);
     picked_node.child_pool_id = new_pool_id;
 }
-function insert_new_numbers(data, new_numbers, new_generation_id) {
-    var new_pool_id = create_new_nodes_and_pool(data, new_numbers, new_generation_id);
-    create_or_update_new_generation(data, new_pool_id, new_generation_id);
+function insert_new_numbers(tree, new_numbers, new_generation_id) {
+    var new_pool_id = create_new_nodes_and_pool(tree, new_numbers, new_generation_id);
+    create_or_update_new_generation(tree, new_pool_id, new_generation_id);
     return new_pool_id;
 }
-function create_new_nodes_and_pool(data, new_numbers, new_generation_id) {
+function create_new_nodes_and_pool(tree, new_numbers, new_generation_id) {
     var new_nodes_id = [];
-    var new_pool_id = data.pools.length;
+    var new_pool_id = tree.pools.length;
     for each (nbr in new_numbers)
-        new_nodes_id.push(data.nodes.push({ "pool_id":new_pool_id, "nbr":nbr }) - 1);
-    return data.pools.push({ "generation_id":new_generation_id, "nodes":new_nodes_id }) - 1;
+        new_nodes_id.push(tree.nodes.push({ "pool_id":new_pool_id, "nbr":nbr }) - 1);
+    return tree.pools.push({ "generation_id":new_generation_id, "nodes":new_nodes_id }) - 1;
 }
-function create_or_update_new_generation(data, new_pool_id, new_generation_id) {
-    if (new_generation_id == data.generations.length)
-        data.generations.push({ "pools": [] });
-    if (new_generation_id >= data.generations.length)
-        throw "Assertion failed: new_generation_id ({0}) >= data.generations.length ({0})".format(new_generation_id, data.generations.length);
-    data.generations[new_generation_id].pools.push(new_pool_id);
+function create_or_update_new_generation(tree, new_pool_id, new_generation_id) {
+    if (new_generation_id == tree.generations.length)
+        tree.generations.push({ "pools": [] });
+    if (new_generation_id >= tree.generations.length)
+        throw "Assertion failed: new_generation_id ({0}) >= tree.generations.length ({0})".format(new_generation_id, tree.generations.length);
+    tree.generations[new_generation_id].pools.push(new_pool_id);
 }
 
 // Primality checking
@@ -120,8 +132,8 @@ function compute_primes_starting_with(nbr) {
     return [ nbr * 10 + 3, nbr * 10 + 7 ];
 }
 
-// Initial data
-function create_data(startNumbers) {
+// Initial tree
+function create_tree(startNumbers) {
     var startIndices = range(0, startNumbers.length);
     var d = {
         "generations": [
@@ -139,16 +151,17 @@ function create_data(startNumbers) {
 
 create_display();
 var startNumbers = range(0, STARTING_RANGE);
-var data = create_data(startNumbers);
-update_display(data);
+var g_tree = create_tree(startNumbers);
+update_display(g_tree);
 /*
 TODO:
 - on-click child creation
+// - Use the built-in tree layout
 - link to children as splines
 - efficient primes caching
 - handle multiple nodes clicked -> resizing tree
 - input form for initial number / number list
-- persist data between refreshes
+- persist tree between refreshes
 */
 </script>
 </body>
