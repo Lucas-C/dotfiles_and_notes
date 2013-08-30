@@ -1,19 +1,79 @@
-//~~//~~//~~//~~//
-// JavaScript //
-//~~//~~//~~//
-const MY_CONST = 0; // Not supported by IE
+const TEXT = <> // const not supported by IE
+multi
+lines
+text
+</>.toString();
+JSON.stringify(obj) // pretty stringifier
 
+// Concat of many strings
+[ 'aaa', 'bbb'... ].join('')
 // Concat array2 in array1
 Array.prototype.push.apply(array1, array2);
+// Remove element
+function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(element)) pos != -1 && array.splice(pos, 1);
 
++new Date() // milliseconds since epoch
+
+'abcd'.match(/a(.*)/) // regexp, also new RegExp("string", 'igm') where g: global, m:multi-line i: ignore case
+RegExp.$1 // 'bcd'
+
+for ( let i in function(){ return [1,2,3] }() ) ...
+
+function foo({ name:name, project:project}) { return [name, project] } // optional named args
+var [n, p] = foo({ name:'soubok' }) // unwrapping multiple return values
+
+// Watch propery changes
+var o = { foo:42 };
+o.watch('foo', function (id, oldval, newval) { ... });
+o.foo = "42";
+// Define getter
+o.__defineGetter__('x', function(){ return 7 } ) // one can even o.__lookupGetter__
+// default method called
+o.__noSuchMethod__ = function(meth_name){...}
+
+o.constructor === Object // true - Control typeof, instanceof
+
+foo.call(newThis, arg1, arg2) || foo.apply(newThis, argsArray) // change current "this" in afunction call
+
+with({ a:5 }) { function toto() { return a } } // local scope
+
+try { ... } catch ( err if err instanceof ReferenceError ) { ... } finally {}
+
+function Stack() { try { throw Error() } catch(ex) { return ex.stack } } // Display the current call stack
+foo.toSource(2) // get function code source, with comments !
+
+
+//~~//~~//~~//
+// Tricks //
+//~~//~~//
 // Evaluate to 'fail'
 (![]+[])[+[]]+(![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]];
+// Will define bar with value "undefined"
+if ( false ) { var bar = 42; }
 
-// Redefining the Array constructor:
+// Vulnerability : redefining the Array constructor:
 function Array() { alert("hi"); }
 // this constructor is called whenever arrays are created:
 var a = [ 43 ];
 
+// Closure pitfall
+var i = 42;
+function foo() { return i }
+i = "BOO";
+foo() // "BOO", use 'let' to fix that
+
+// Sharp variable
+var a = { titi:#1={}, toto:#1# };
+a.titi === a.toto; // is: true
+var a = { b:#1={ c:#1# } }
+// a.b.c.c.c.c.c.c...
+
+Print( 1000000000000000128 ); // prints 1000000000000000100
+
+
+//~\~\~\\
+// LIBS \\
+//~\~\~\~\\
 // Find out JS version
 <script language="javascript">var js_version="1.0"</script>
 <script language="javascript1.1">var js_version="1.1"</script>
@@ -34,6 +94,8 @@ http://underscorejs.org
 // Testing libs
 http://phantomjs.org
 http://qunitjs.com
+
+// E4X is an official JavaScript standard that adds direct support for XML
 
 // V8 : Open Source high perf JS engine written in C++. Features :
 // - Hidden classes

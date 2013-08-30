@@ -411,11 +411,6 @@ dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
 # Message of the day
 /etc/motd
 
-# Virtualbox
-sudo adduser $USER vboxusers # then logout
-VBoxManage list vms
-VBoxManage controlvm <name> poweroff
-
 # Get uid / groups infos
 id $USER # for primary group, use -ng flag
 adduser / moduser -a -G # DO NOT FORGET THE -a !!!
@@ -460,6 +455,16 @@ rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *
 alien # transformer un .rpm en .deb
 
 init q # Reload /etc/inittab
+
+
+#=\/=/\=\/=/\=\/=
+# Virtualbox
+#=\/=/\=\/=/\=\/=
+sudo adduser $USER vboxusers # then logout
+VBoxManage list vms
+VBoxManage controlvm <name> poweroff
+
+# Cool features : remote display (VRDS), shared folders & clipboard, seamless mode
 
 
 ##~]]%/_°*|-----
