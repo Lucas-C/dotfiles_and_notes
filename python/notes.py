@@ -8,6 +8,7 @@ _ # result of the last expression evaluated (in an interpreter only)
 
 r'''Raw string literal: no need to double escape \{0}\{str}'''.format("zero", str="")
 u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0)
+from __future__ import unicode_literals
 
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
@@ -235,6 +236,7 @@ http://mg.pov.lt/objgraph/
 
 # get exec time
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
+timeit.timeit("expr", setup="setup code", number=1000)
 
 # Get memory usage
 from guppy import hpy

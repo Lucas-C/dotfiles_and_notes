@@ -20,10 +20,11 @@
 </style>
 <body>
 <script type="text/javascript" src="d3.v3.min.js"></script>
-<script>
+<script language="javascript1.5">
 const SVG_WIDTH = 800, SVG_HEIGHT = 600;
-const RADIUS = 20, POOL_DENSITY_FACTOR = 0.5;
+const RADIUS = 20, NODE_MARGIN = 30;
 const VERTI_OFFSET = 50, VERTI_SPACING = 150;
+const DURATION = 1000;
 const STARTING_RANGE = 10;
 
 // Handy functions
@@ -51,34 +52,27 @@ function create_display() {
 function generation_pos_y(gen_index) {
     return VERTI_OFFSET + RADIUS / 2 + gen_index * (VERTI_SPACING + RADIUS)
 }
-function pool_horiz_size(pool_nodes_count, node_margin) {
-    return pool_nodes_count * (node_margin + RADIUS)
+function pool_horiz_size(pool_nodes_count) {
+    return pool_nodes_count * (NODE_MARGIN + RADIUS)
 }
-function node_pos_x(node_pool_index, nodes_count, node_margin) {
-    return (node_pool_index - (nodes_count - 1) / 2) * (node_margin + RADIUS)
+function node_pos_x(node_pool_index, nodes_count) {
+    return (node_pool_index - (nodes_count - 1) / 2) * (NODE_MARGIN + RADIUS)
 }
 
 function update_display(tree) {
     var svgContainer = d3.select("body").select("svg");
-    var svgGenerations = svgContainer.selectAll(".generation").data(tree.generations).enter().append("g");
-    svgGenerations
+    var svgGenerations = svgContainer.selectAll(".generation").data(tree.generations);
+    svgGenerations.enter().append("g")
         .attr("class", "generation")
         .attr("id", function(gen, gen_index) { return "g" + gen_index})
         .attr("transform", function (gen, gen_index) { return "translate(0, " + generation_pos_y(gen_index) + ")"});
-    for (gen_id in range(0, tree.generations.length)) {
+    range(0, tree.generations.length).map(function(gen_id) {
         update_generation(tree, gen_id);
-    }
+    });
 }
 function update_generation(tree, gen_id) {
     var pools = tree.generations[gen_id].pools;
-    var svgContainer = d3.select("body").select("svg");
-    var svgPools = svgContainer.select("#g" + gen_id).selectAll(".pool").data(pools).enter().append("g");
-    svgPools
-        .attr("class", "pool")
-        .attr("id", function(pool_id) { return "p" + pool_id })
-
-    var gen_nodes_count = [ tree.pools[pool_id].nodes.length for each (pool_id in pools) ].reduce(
-        function(v, cumul) { return cumul + v }, 0);
+    var gen_nodes_count = generation_nodes_count(tree, gen_id);
 //    log("gen_nodes_count:"+gen_nodes_count);
     var gen_horiz_spacing = SVG_WIDTH - gen_nodes_count * RADIUS;
 //    log("gen_horiz_spacing:"+gen_horiz_spacing);
@@ -86,43 +80,51 @@ function update_generation(tree, gen_id) {
         throw "No horizontal space left - Too many nodes : {0} - Generation #{1}".format(gen_nodes_count, gen_id)
     }
     // gen_horiz_spacing = SUM(pool_nodes_count) * node_margin + pools_count * pool_margin
-    // We split that space depending on the POOL_DENSITY_FACTOR
-    var pool_margin = ( gen_horiz_spacing * POOL_DENSITY_FACTOR ) / pools.length;
+    var pool_margin = ( gen_horiz_spacing - gen_nodes_count * NODE_MARGIN ) / pools.length;
 //    log("pool_margin:"+pool_margin);
-    var node_margin = ( gen_horiz_spacing - pool_margin * pools.length) / gen_nodes_count;
-//    log("node_margin:"+node_margin);
 
     var cumul_prev_pools_sizes = pool_margin / 2;
-    for each (pool_id in pools) {
+    pools.map(function (pool_id) {
         var pool_nodes_count = tree.pools[pool_id].nodes.length;
 //        log("pool_nodes_count:"+pool_nodes_count);
-        var pool_size = pool_horiz_size(pool_nodes_count, node_margin);
+        var pool_size = pool_horiz_size(pool_nodes_count);
 //        log("pool_size:"+pool_size);
         var pool_x_center = cumul_prev_pools_sizes + pool_size / 2;
 //        log("pxc:"+pool_x_center);
         cumul_prev_pools_sizes += pool_size + pool_margin;
-        update_pool(tree, pool_id, pool_x_center, node_margin);
-    }
+        update_pool(tree, pool_id, pool_x_center);
+    });
 }
-function update_pool(tree, pool_id, pool_x_center, node_margin) {
-    var nodes = tree.pools[pool_id].nodes;
+function update_pool(tree, pool_id, pool_x_center) {
+    var pool = tree.pools[pool_id];
     var svgContainer = d3.select("body").select("svg");
-    var svgPool = svgContainer.select("#p" + pool_id);
+    var svgPool = svgContainer.select("#g" + pool.generation_id).selectAll("#p" + pool_id).data([pool_id]);
+    svgPool.enter().append("g")
+        .attr("class", "pool")
+        .attr("id", "p" + pool_id)
+        .attr("transform", "translate(0, -" + VERTI_SPACING + ")"); // Ideally the x position would be the parent node position, but it's really too messy to find out
     svgPool
-        .attr("transform", "translate(" + pool_x_center + ", 0)");
-    var node_pool_index = 0;
-    var svgNodes = svgPool.selectAll(".node").data(nodes).enter().append("g");
-    svgNodes
+        .transition().duration(DURATION)
+            .attr("transform", "translate(" + pool_x_center + ", 0)");
+    var nodes = pool.nodes;
+    var svgNodes = svgPool.selectAll(".node").data(nodes);
+    svgNodes.enter().append("g")
         .attr("class", "node")
         .attr("id", function(node_id) { return "n" + node_id})
-        .attr("transform", "translate(" + SVG_WIDTH / 2 + ", 0)")
-        .transition().duration(1000)
-            .attr("transform", function(node, node_index) { return "translate(" + node_pos_x(node_pool_index++, nodes.length, node_margin) + ", 0)"});
+        .attr("transform", "translate(" + SVG_WIDTH / 2 + ", 0)");
+    svgNodes // entering + updating
+        .transition().duration(DURATION)
+            .attr("transform", function(node, node_pool_index) { return "translate(" + node_pos_x(node_pool_index, nodes.length) + ", 0)"});
     var circles = svgNodes.append("circle")
         .attr("r", RADIUS)
         .on("mousedown", onCircleClick);
     var circleTexts = svgNodes.append("text")
         .text(function(node_id) { return tree.nodes[node_id].nbr; });
+}
+function generation_nodes_count(tree, gen_id) {
+    return tree.generations[gen_id].pools.reduce(function(count, pool_id) {
+        return count + tree.pools[pool_id].nodes.length
+    }, 0);
 }
 
 // Tree building logic
@@ -141,6 +143,7 @@ function populate_tree(tree, picked_node_id) {
     var generation_id = tree.pools[picked_node.pool_id].generation_id;
     var new_pool_id = insert_new_numbers(tree, new_numbers, generation_id + 1);
     picked_node.child_pool_id = new_pool_id;
+    tree.pools[new_pool_id].parent_node_id = picked_node_id;
 }
 function insert_new_numbers(tree, new_numbers, new_generation_id) {
     var new_pool_id = create_new_nodes_and_pool(tree, new_numbers, new_generation_id);
@@ -150,8 +153,9 @@ function insert_new_numbers(tree, new_numbers, new_generation_id) {
 function create_new_nodes_and_pool(tree, new_numbers, new_generation_id) {
     var new_nodes_id = [];
     var new_pool_id = tree.pools.length;
-    for each (nbr in new_numbers)
+    new_numbers.map(function(nbr) {
         new_nodes_id.push(tree.nodes.push({ "pool_id":new_pool_id, "nbr":nbr }) - 1);
+    });
     return tree.pools.push({ "generation_id":new_generation_id, "nodes":new_nodes_id }) - 1;
 }
 function create_or_update_new_generation(tree, new_pool_id, new_generation_id) {
@@ -170,18 +174,22 @@ function compute_primes_starting_with(nbr) {
 // Initial tree
 function create_tree(startNumbers) {
     var startIndices = range(0, startNumbers.length);
-    var d = {
+    var tree = {
         "generations": [
             { "pools": [ 0 ] }
         ],
         "pools": [
-            { "generation_id": 0, "nodes": [ i for each (i in startIndices) ] }
+        { "generation_id": 0, "nodes": [] }
         ],
-        "nodes": [
-            { "pool_id": 0, "nbr": n } for each (n in startNumbers)
-        ],
+        "nodes": [],
     };
-    return d;
+    startIndices.map(function(i) {
+        tree.pools[0].nodes.push(i);
+    });
+    startNumbers.map(function(n) {
+       tree.nodes.push({ "pool_id": 0, "nbr": n });
+    });
+    return tree;
 }
 
 create_display();
@@ -191,7 +199,6 @@ update_display(g_tree);
 /*
 TODO:
 - Use the built-in tree layout
-- link to children as splines
 - efficient primes caching
 - input form for initial number / number list
 - persist tree between refreshes
