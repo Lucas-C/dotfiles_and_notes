@@ -9,7 +9,10 @@
     stroke: black;
 }
 .node circle:hover {
-    fill: #CAE1FF;
+    fill-opacity:0.5;
+}
+.node circle.dead_end {
+    fill: #FF4040;
 }
 .node text {
     fill: black;
@@ -17,191 +20,127 @@
     dominant-baseline: middle;
     text-anchor: middle;
 }
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
 </style>
 <body>
 <script type="text/javascript" src="d3.v3.min.js"></script>
 <script language="javascript1.5">
 const SVG_WIDTH = 800, SVG_HEIGHT = 600;
-const RADIUS = 20, NODE_MARGIN = 30;
-const VERTI_OFFSET = 50, VERTI_SPACING = 150;
-const DURATION = 1000;
+const RADIUS = 15, VERTI_SPACING = 150;
 const STARTING_RANGE = 10;
 
 // Handy functions
-function range(start, end) { var range_array=[]; for (var i=start; i<end; ++i) { range_array.push(i); } return range_array; }
 if (!String.prototype.format) {
-  String.prototype.format = function() {
-    var args = arguments;
-    return this.replace(/{(\d+)}/g, function(match, nbr) { 
-      return typeof args[nbr] != 'undefined'
-        ? args[nbr]
-        : match
-      ;
-    });
-  };
+    String.prototype.format = function() {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function(match, nbr) { 
+            return typeof args[nbr] != 'undefined' ? args[nbr] : match;
+        });
+    };
 }
-function log(o) { console.log(JSON.stringify(o)); return o }
+function range(start, end) { var range_array=[]; for (var i=start; i<end; ++i) { range_array.push(i); } return range_array; }
+function log(o) { console.log(JSON.stringify(o, function(key, val) { if (key == "parent") return "PARENT_REF"; else return val })); return o }
 
 // Rendering
 function create_display() {
     d3.select("body").append("svg")
         .attr("width", SVG_WIDTH)
-        .attr("height", SVG_HEIGHT);
+        .attr("height", SVG_HEIGHT)
+        .append("g")
+            .attr("id", "canvas")
+            .attr("transform", "translate(" + RADIUS + "," + RADIUS + ")");
+    var vis_tree = d3.layout.tree()
+        .size([SVG_WIDTH - 2 * RADIUS, SVG_HEIGHT - 2 * RADIUS])
+    return vis_tree;
 }
 
-function generation_pos_y(gen_index) {
-    return VERTI_OFFSET + RADIUS / 2 + gen_index * (VERTI_SPACING + RADIUS)
-}
-function pool_horiz_size(pool_nodes_count) {
-    return pool_nodes_count * (NODE_MARGIN + RADIUS)
-}
-function node_pos_x(node_pool_index, nodes_count) {
-    return (node_pool_index - (nodes_count - 1) / 2) * (NODE_MARGIN + RADIUS)
-}
+function update_display(tree, vis_tree) {
+    var svgContainer = d3.select("#canvas");
+    
+    var nodes = vis_tree.nodes(tree),
+        links = vis_tree.links(nodes);
 
-function update_display(tree) {
-    var svgContainer = d3.select("body").select("svg");
-    var svgGenerations = svgContainer.selectAll(".generation").data(tree.generations);
-    svgGenerations.enter().append("g")
-        .attr("class", "generation")
-        .attr("id", function(gen, gen_index) { return "g" + gen_index})
-        .attr("transform", function (gen, gen_index) { return "translate(0, " + generation_pos_y(gen_index) + ")"});
-    range(0, tree.generations.length).map(function(gen_id) {
-        update_generation(tree, gen_id);
-    });
-}
-function update_generation(tree, gen_id) {
-    var pools = tree.generations[gen_id].pools;
-    var gen_nodes_count = generation_nodes_count(tree, gen_id);
-//    log("gen_nodes_count:"+gen_nodes_count);
-    var gen_horiz_spacing = SVG_WIDTH - gen_nodes_count * RADIUS;
-//    log("gen_horiz_spacing:"+gen_horiz_spacing);
-    if (gen_horiz_spacing < 0) {
-        throw "No horizontal space left - Too many nodes : {0} - Generation #{1}".format(gen_nodes_count, gen_id)
-    }
-    // gen_horiz_spacing = SUM(pool_nodes_count) * node_margin + pools_count * pool_margin
-    var pool_margin = ( gen_horiz_spacing - gen_nodes_count * NODE_MARGIN ) / pools.length;
-//    log("pool_margin:"+pool_margin);
+    nodes.forEach(function(d) { d.y = d.depth * VERTI_SPACING; });
 
-    var cumul_prev_pools_sizes = pool_margin / 2;
-    pools.map(function (pool_id) {
-        var pool_nodes_count = tree.pools[pool_id].nodes.length;
-//        log("pool_nodes_count:"+pool_nodes_count);
-        var pool_size = pool_horiz_size(pool_nodes_count);
-//        log("pool_size:"+pool_size);
-        var pool_x_center = cumul_prev_pools_sizes + pool_size / 2;
-//        log("pxc:"+pool_x_center);
-        cumul_prev_pools_sizes += pool_size + pool_margin;
-        update_pool(tree, pool_id, pool_x_center);
-    });
-}
-function update_pool(tree, pool_id, pool_x_center) {
-    var pool = tree.pools[pool_id];
-    var svgContainer = d3.select("body").select("svg");
-    var svgPool = svgContainer.select("#g" + pool.generation_id).selectAll("#p" + pool_id).data([pool_id]);
-    svgPool.enter().append("g")
-        .attr("class", "pool")
-        .attr("id", "p" + pool_id)
-        .attr("transform", "translate(0, -" + VERTI_SPACING + ")"); // Ideally the x position would be the parent node position, but it's really too messy to find out
-    svgPool
-        .transition().duration(DURATION)
-            .attr("transform", "translate(" + pool_x_center + ", 0)");
-    var nodes = pool.nodes;
-    var svgNodes = svgPool.selectAll(".node").data(nodes);
-    svgNodes.enter().append("g")
+    var diagonal = d3.svg.diagonal()
+        .projection(function(d) { return [d.x, d.y] });
+
+    // The second parameter to ".data" here is a trick to keep the same nodes ordering
+    var svgNodes = svgContainer.selectAll(".node").data(nodes, function(d) { return d.id || (d.id = g_nodes_count++); });
+    var newSvgNodes = svgNodes.enter().append("g")
         .attr("class", "node")
-        .attr("id", function(node_id) { return "n" + node_id})
-        .attr("transform", "translate(" + SVG_WIDTH / 2 + ", 0)");
-    svgNodes // entering + updating
-        .transition().duration(DURATION)
-            .attr("transform", function(node, node_pool_index) { return "translate(" + node_pos_x(node_pool_index, nodes.length) + ", 0)"});
-    var circles = svgNodes.append("circle")
+    newSvgNodes.append("circle")
         .attr("r", RADIUS)
         .on("mousedown", onCircleClick);
-    var circleTexts = svgNodes.append("text")
-        .text(function(node_id) { return tree.nodes[node_id].nbr; });
-}
-function generation_nodes_count(tree, gen_id) {
-    return tree.generations[gen_id].pools.reduce(function(count, pool_id) {
-        return count + tree.pools[pool_id].nodes.length
-    }, 0);
+    svgNodes.selectAll("g circle") // entering + already there
+        .attr("class", function(node) { return node.dead_end ? "dead_end" : ""});
+    newSvgNodes.append("text")
+        .text(function(node) { return node.nbr });
+    svgNodes // entering + already there
+        .attr("transform", function(node) { return "translate(" + node.x + ", " + node.y + ")" });
+
+    var svgLinks = svgContainer.selectAll("path.link").data(links);
+    svgLinks.enter().insert("path", "g")
+        .attr("class", "link");
+    svgLinks // entering + already there
+        .attr("d", diagonal);
 }
 
 // Tree building logic
-function onCircleClick() {
-    populate_tree(g_tree, d3.select(this.parentNode).attr("id").slice(1));
-    update_display(g_tree);
+function onCircleClick(node) {
+    populate_tree(g_tree, node);
+    update_display(g_tree, g_vis_tree);
 }
 
-function populate_tree(tree, picked_node_id) {
-    var picked_node = tree.nodes[picked_node_id];
-    if (picked_node.child_pool_id) {
+function populate_tree(tree, picked_node) {
+    if (picked_node.children) {
         return;
     }
-    var picked_number = picked_node.nbr;
-    var new_numbers = compute_primes_starting_with(picked_number);
-    var generation_id = tree.pools[picked_node.pool_id].generation_id;
-    var new_pool_id = insert_new_numbers(tree, new_numbers, generation_id + 1);
-    picked_node.child_pool_id = new_pool_id;
-    tree.pools[new_pool_id].parent_node_id = picked_node_id;
-}
-function insert_new_numbers(tree, new_numbers, new_generation_id) {
-    var new_pool_id = create_new_nodes_and_pool(tree, new_numbers, new_generation_id);
-    create_or_update_new_generation(tree, new_pool_id, new_generation_id);
-    return new_pool_id;
-}
-function create_new_nodes_and_pool(tree, new_numbers, new_generation_id) {
-    var new_nodes_id = [];
-    var new_pool_id = tree.pools.length;
-    new_numbers.map(function(nbr) {
-        new_nodes_id.push(tree.nodes.push({ "pool_id":new_pool_id, "nbr":nbr }) - 1);
-    });
-    return tree.pools.push({ "generation_id":new_generation_id, "nodes":new_nodes_id }) - 1;
-}
-function create_or_update_new_generation(tree, new_pool_id, new_generation_id) {
-    if (new_generation_id == tree.generations.length)
-        tree.generations.push({ "pools": [] });
-    if (new_generation_id >= tree.generations.length)
-        throw "Assertion failed: new_generation_id ({0}) >= tree.generations.length ({0})".format(new_generation_id, tree.generations.length);
-    tree.generations[new_generation_id].pools.push(new_pool_id);
+    var new_numbers = compute_primes_starting_with(picked_node.nbr);
+    if (new_numbers) {
+        var new_nodes = new_numbers.reduce(function(arr, nbr) {
+            return arr.concat([{ "nbr":nbr }]);
+        }, []);
+        picked_node.children = new_nodes;
+    } else {
+        picked_node.dead_end = true;
+    }
 }
 
 // Primality checking
 function compute_primes_starting_with(nbr) {
-    return [ nbr * 10 + 3, nbr * 10 + 7 ];
+    if (nbr != 2)
+        return [ nbr * 10 + 3, nbr * 10 + 7 ];
 }
 
 // Initial tree
 function create_tree(startNumbers) {
-    var startIndices = range(0, startNumbers.length);
-    var tree = {
-        "generations": [
-            { "pools": [ 0 ] }
-        ],
-        "pools": [
-        { "generation_id": 0, "nodes": [] }
-        ],
-        "nodes": [],
-    };
-    startIndices.map(function(i) {
-        tree.pools[0].nodes.push(i);
-    });
+    var tree = { "children": [] };
     startNumbers.map(function(n) {
-       tree.nodes.push({ "pool_id": 0, "nbr": n });
+       tree.children.push({ "nbr": n });
     });
     return tree;
 }
 
-create_display();
+var g_nodes_count = 0;
+var g_vis_tree = create_display();
 var startNumbers = range(0, STARTING_RANGE);
 var g_tree = create_tree(startNumbers);
-update_display(g_tree);
+update_display(g_tree, g_vis_tree);
 /*
 TODO:
-- Use the built-in tree layout
+- add transitions
+- real primes
+- fullscreen D3
 - efficient primes caching
 - input form for initial number / number list
 - persist tree between refreshes
+CRITICISM:
+- D3 will add parasite fields to your data
 */
 </script>
 </body>
