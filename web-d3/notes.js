@@ -22,6 +22,10 @@ for ( let i in function(){ return [1,2,3] }() ) ...
 function foo({ name:name, project:project}) { return [name, project] } // optional named args
 var [n, p] = foo({ name:'soubok' }) // unwrapping multiple return values
 
+function toType(obj) {
+    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+}
+
 // Watch propery changes
 var o = { foo:42 };
 o.watch('foo', function (id, oldval, newval) { ... });
