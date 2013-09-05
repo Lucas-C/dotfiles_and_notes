@@ -27,8 +27,11 @@
 }
 </style>
 <body>
-<input type="text"/>
-<button>Expand all leaves</button>
+<div>
+    <input type="text"/>
+    <button>Expand all leaves</button>
+    Depth: <label/>
+</div>
 <br/>
 <svg/>
 <script type="text/javascript" src="d3.v3.min.js"></script>
@@ -94,6 +97,7 @@ function update_display(tree, vis_tree) {
     } else {
         nodes.forEach(function(d) { d.y = d.depth * SVG_HEIGHT / max_depth; }); 
     }
+    d3.select("label").text(max_depth);
 
     // The 2nd parameter to ".data" here is a trick to keep the same nodes ordering
     var svgNodes = svgContainer.selectAll(".node").data(nodes, function(d) { return d.id || (d.id = ++g_nodes_count); });
