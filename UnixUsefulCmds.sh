@@ -361,10 +361,15 @@ sudo tcpdump -X host $IP [ip proto icmp|udp|tcp]
 
 # Attribute IP to interface
 ifconfig eth0 192.168.0.1
+# On RedHat / CentOS / Fedora
+$EDITOR /etc/sysconfig/network-scripts/ifcfg-eth0
+$EDITOR /etc/sysconfig/network
+/etc/init.d/network restart 
 
 # Query DNS
 dig txt [+short] <hostname>
 host -t txt <hostname>
+nslookup
 # Reverse
 dig +short -x <IP>
 
@@ -489,6 +494,15 @@ sudo dpkg -D1 -i *.deb
 # Follow program system calls (!! -f => follow fork)
 strace -f -p <pid> -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
 # http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
+# Fix:
+kill -CONT <pid>
+# log system calls and library calls
+ltrace -ttS -s 65535 -o <logfile> -p <pid> 
+
+# get a core file for a running program 
+gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID 
+# get a stack trace for all threads 
+gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log 
 
 # Configure 'mail' command
 /etc/ssmtp/revaliases

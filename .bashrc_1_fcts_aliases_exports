@@ -17,7 +17,6 @@ export PATH=$BASHRC_DIR/bin:$PATH
 # ls
 #----
 unset ls; unalias ls 2>/dev/null
-export LS_COLORS="ln=target" # Avoid mixing all symlinks in same color, and anyway we alias ls with -F
 alias l='ls -BF --color=always'
 alias la='l -A'
 alias ll='l -lhA'

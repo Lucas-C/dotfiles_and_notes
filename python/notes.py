@@ -67,9 +67,11 @@ import dateutil
 os.geteuid() == 0 # => run as root
 
 globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class creation
-# Cool alternative for Nose tests, as TestCase and generators are not compatible
 # !!WARNING!! 'type()' uses the current global __name__ as the __module__, unless it calls a metaclass constructor
 # -> http://stackoverflow.com/questions/14198979/python-inheritance-metaclasses-and-type-function
+
+# It can be an alternative for Nose tests, as TestCase and generators are not compatible,
+# But TestCase.subTest should be preferred
 
 # 'type' is the metaclass Python uses to create all classes behind the scenes
 # aka, the most common __class__.__class__ of an object
@@ -136,6 +138,9 @@ PYTHONHASHSEED : changer la seed hash() (renforce la sécurité de la VM)
 """"""""""""""""""
 import bisect # binary search
 import heapq # min-heap
+
+tuple(obj) # !! PITFALL: fail for None, will parse any sequence like a basestring and won't work on single value
+tuple(obj) if issequence(obj) else (obj,) if obj else ()
 
 l = ['a,b', 'c,d']
 from itertools import chain # also has iterator = count().next
