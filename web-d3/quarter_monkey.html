@@ -27,12 +27,16 @@
 }
 </style>
 <body>
+<input type="text"/>
+<button>Expand all leaves</button>
+<br/>
+<svg/>
 <script type="text/javascript" src="d3.v3.min.js"></script>
 <script language="javascript1.5">
 const SVG_WIDTH = 800, SVG_HEIGHT = 600;
 const NODE_RADIUS = 15;
 const TRANSITION_DURATION = 1000;
-startingValue = 7;
+const DEFAULT_START_NBR = 7;
 
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.x, d.y] });
@@ -46,6 +50,7 @@ if (!String.prototype.format) {
         });
     };
 }
+function isNumber(n) { return !isNaN(parseFloat(n)) && isFinite(n) }
 function range(start, end) { var range_array=[]; for (var i=start; i<end; ++i) { range_array.push(i); } return range_array; }
 function log(o) { console.log(JSON.stringify(o, function(key, val) { if (key == "parent") return "PARENT_REF"; else return val })); return o }
 
@@ -53,7 +58,7 @@ function log(o) { console.log(JSON.stringify(o, function(key, val) { if (key == 
 var g_nodes_count = 0;
 
 function create_display() {
-    d3.select("body").append("svg")
+    d3.select("svg")
         .attr("width", SVG_WIDTH + 2 * NODE_RADIUS)
         .attr("height", SVG_HEIGHT + 2 * NODE_RADIUS)
         .append("g")
@@ -61,15 +66,23 @@ function create_display() {
             .attr("transform", "translate(" + NODE_RADIUS + "," + NODE_RADIUS + ")");
     var vis_tree = d3.layout.tree()
         .size([SVG_WIDTH, SVG_HEIGHT])
+    d3.select("input")
+        .property("value", DEFAULT_START_NBR)
+        .on("change", onInputChange);
+    d3.select("button")
+        .on("click", onButtonClick);
     return vis_tree;
 }
 
-function update_display(tree, vis_tree, parent_node) {
+function update_display(tree, vis_tree) {
     var svgContainer = d3.select("#canvas");
     
-    if (parent_node) {
-        var x0 = parent_node.x, y0 = parent_node.y;
-    }
+    var firstNode = true;
+    var origPos = {};
+    svgContainer.selectAll(".node").each(function(node) {
+        origPos[node.id] = {"x":node.x, "y":node.y};
+        firstNode = false;
+    });
 
     var nodes = vis_tree.nodes(tree),
         links = vis_tree.links(nodes);
@@ -83,7 +96,7 @@ function update_display(tree, vis_tree, parent_node) {
     }
 
     // The 2nd parameter to ".data" here is a trick to keep the same nodes ordering
-    var svgNodes = svgContainer.selectAll(".node").data(nodes, function(d) { return d.id || (d.id = g_nodes_count++); });
+    var svgNodes = svgContainer.selectAll(".node").data(nodes, function(d) { return d.id || (d.id = ++g_nodes_count); });
     var newSvgNodes = svgNodes.enter().append("g")
         .attr("class", "node");
     newSvgNodes.append("circle")
@@ -93,10 +106,10 @@ function update_display(tree, vis_tree, parent_node) {
         .attr("class", function(node) { return node.dead_end ? "dead_end" : ""});
     newSvgNodes.append("text")
         .text(function(node) { return node.nbr });
-    if (parent_node) {
+    if (!firstNode) {
         newSvgNodes
-            .attr("transform", function() { return "translate(" + x0 + ", " + y0 + ")" });
-        svgNodes = svgNodes.transition().duration(TRANSITION_DURATION)
+            .attr("transform", function(node) { return "translate(" + origPos[node.parent.id].x + ", " + origPos[node.parent.id].y + ")" });
+        svgNodes = svgNodes.transition().duration(TRANSITION_DURATION);
     }
     svgNodes // entering + already there
         .attr("transform", function(node) { return "translate(" + node.x + ", " + node.y + ")" });
@@ -105,45 +118,66 @@ function update_display(tree, vis_tree, parent_node) {
     var svgLinks = svgContainer.selectAll("path.link").data(links, function(d) { return d.target.id; });
     var newSvgLinks = svgLinks.enter().insert("path", "g")
         .attr("class", "link");
-    if (parent_node) {
+    if (!firstNode) {
         newSvgLinks
-            .attr("d", function() { var o = {x: x0, y: y0}; return diagonal({source: o, target: o}); });
-        svgLinks = svgLinks.transition().duration(TRANSITION_DURATION)
+            .attr("d", function(link) { var o = origPos[link.source.id]; return diagonal({source: o, target: o}); });
+        svgLinks = svgLinks.transition().duration(TRANSITION_DURATION);
     }
     svgLinks // entering + already there
         .attr("d", diagonal);
 }
 
 // Tree building logic
+function onInputChange() {
+    var input_value = d3.select("input").property("value");
+    if (!isNumber(input_value)) {
+        throw "Input value is not a number : {0}".format(input_value)
+    }
+    g_tree.nbr = input_value;
+    delete g_tree.children;
+    d3.selectAll("#canvas *").remove();
+    update_display(g_tree, g_vis_tree);
+}
+
 function onCircleClick(node) {
-    if (node.children) {
+    if (node.children || node.dead_end) {
         return;
     }
-    sanity_check(node.nbr);
     generate_node_children(node);
-    update_display(g_tree, g_vis_tree, node);
+    update_display(g_tree, g_vis_tree);
+}
+
+function onButtonClick() {
+    d3.selectAll(".node").each(function(node) {
+        if (!node.children && ! node.dead_end) {
+            generate_node_children(node);
+        }
+    });
+    update_display(g_tree, g_vis_tree);
+}
+
+function generate_node_children(node) {
+    sanity_check(node.nbr);
+    var new_numbers = compute_primes_starting_with(node.nbr);
+    if (new_numbers.length > 0) {
+        var new_nodes = new_numbers.reduce(function(arr, nbr) {
+            return arr.concat([{ "nbr":nbr }]);
+        }, []);
+        node.children = new_nodes;
+    } else {
+        node.dead_end = true;
+    }
 }
 
 function sanity_check(nbr) {
     // JS Integer max is 2^53
     if (Math.floor(Math.log(nbr)/Math.LN2) >= 50) {
-        alert("Probable integer overflow");
-    }
-}
-
-function generate_node_children(picked_node) {
-    var new_numbers = compute_primes_starting_with(picked_node.nbr);
-    if (new_numbers.length > 0) {
-        var new_nodes = new_numbers.reduce(function(arr, nbr) {
-            return arr.concat([{ "nbr":nbr }]);
-        }, []);
-        picked_node.children = new_nodes;
-    } else {
-        picked_node.dead_end = true;
+        throw "Probable integer overflow";
     }
 }
 
 // Primality checking
+// Source: http://www.javascripter.net/faq/numberisprime.htm
 function compute_primes_starting_with(nbr) {
     var primes = [];
     for (i=0, n=nbr*10; i<10; ++i, ++n) {
@@ -152,19 +186,17 @@ function compute_primes_starting_with(nbr) {
     }
     return primes;
 }
-// Source: http://www.javascripter.net/faq/numberisprime.htm
 function isPrime(n) {
     if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false; 
     if (n==leastFactor(n)) return true;
     return false;
 }
-
 // leastFactor(n)
 // returns the smallest prime that divides n
 //     NaN if n is NaN or Infinity
 //      0  if n=0
 //      1  if n=1, n=-1, or n is not an integer
- leastFactor() {
+function leastFactor() {
     if (isNaN(n) || !isFinite(n)) return NaN;  
     if (n==0) return 0;  
     if (n%1 || n*n<2) return 1;
@@ -191,12 +223,10 @@ function create_tree(startNumber) {
 }
 
 var g_vis_tree = create_display();
-var g_tree = create_tree(startingValue);
+var g_tree = create_tree(DEFAULT_START_NBR);
 update_display(g_tree, g_vis_tree);
 /*
 TODO:
-- input form for initial number / number list
-- 'populate all child nodes' button
 - fullscreen D3
 - persist tree between refreshes
 CRITICISM:

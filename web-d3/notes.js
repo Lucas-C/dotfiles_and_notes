@@ -25,6 +25,9 @@ var [n, p] = foo({ name:'soubok' }) // unwrapping multiple return values
 function toType(obj) {
     return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
 
 // Watch propery changes
 var o = { foo:42 };
