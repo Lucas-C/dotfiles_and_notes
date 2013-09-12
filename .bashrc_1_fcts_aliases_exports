@@ -118,7 +118,8 @@ alias lower='tr "[:upper:]" "[:lower:]"'
 alias upper='tr "[:lower:]" "[:upper:]"'
 
 urlencode () { perl -ne 'chomp; s/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg; print "$_\n"'; }
-utf8 () { iconv -f ISO-8859-1 -t UTF-8 $1 -o ${2:-$1} ; }
+utf8 () { iconv -f ISO-8859-1 -t UTF-8 $1 -o $2 ; }
+nocrlf () { sed -i 's/$//' $1; }
 
 alias funiq='awk {k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}' # faster than 'sort | uniq'
 

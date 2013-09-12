@@ -1,5 +1,5 @@
 from collections import Mapping, namedtuple
-from typescheck import issequence, ismapping, isset, get_primitive_types
+from typescheck import is_sequence, is_mapping, is_set, get_primitive_types
 
 _PYTHON_PRIMITIVE_TYPES=tuple(get_primitive_types().values())
 
@@ -9,13 +9,13 @@ def recur_freeze_containers(mutable_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
     list -> tuple
     set -> frozenset
    """
-    if ismapping(mutable_obj):
+    if is_mapping(mutable_obj):
         copy = dict(mutable_obj)
         items = copy.iteritems()
-    elif issequence(mutable_obj):
+    elif is_sequence(mutable_obj):
         copy = list(mutable_obj)
         items = zip(xrange(0, len(copy)), copy)
-    elif isset(mutable_obj):
+    elif is_set(mutable_obj):
         return frozenset(mutable_obj)
     elif isinstance(mutable_obj, ignoredtypes):
         return mutable_obj 
@@ -25,9 +25,9 @@ def recur_freeze_containers(mutable_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
     for k,v in items:
         copy[k] = recur_freeze_containers(v, ignoredtypes)
 
-    if ismapping(copy):
+    if is_mapping(copy):
         return _dict2NamedTuple(copy)
-    elif issequence(copy):
+    elif is_sequence(copy):
         return tuple(copy)
 
 def recur_unfreeze_containers(frozen_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
@@ -39,10 +39,10 @@ def recur_unfreeze_containers(frozen_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
     if hasattr(frozen_obj, '_asdict'):
         new = frozen_obj._asdict()
         items = new.iteritems()
-    elif issequence(frozen_obj):
+    elif is_sequence(frozen_obj):
         new = list(frozen_obj)
         items = zip(xrange(0, len(new)), new)
-    elif isset(frozen_obj):
+    elif is_set(frozen_obj):
         return set(frozen_obj)
     elif isinstance(frozen_obj, ignoredtypes):
         return frozen_obj 

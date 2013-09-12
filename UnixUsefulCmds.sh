@@ -26,6 +26,9 @@ killall gnome-settings-daemon
 * sorting : press "O" and select the column
 * display absolute path of commands : "c"
 
+man ascii # display ASCII table
+cal # quick calendar
+
 # get process name
 pid -o comm= -p $PPID
 # get process working directory
@@ -60,6 +63,10 @@ bash -n <script>
 
 # Redirect logs
 exec >>logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
+# Standard logs date
+date "+%F %T,%N" | cut -c-23
+# Seconds since EPOCH
+date -u +%s
 
 # Set positional parameters $0 $1 ...
 set - A B C
@@ -99,9 +106,6 @@ foo () {
 
 # Script file parent dir
 EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# Standard logs date
-date "+%F %T,%N" | cut -c-23
 
 is_true () { ! { [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; } ; }
 
@@ -217,6 +221,12 @@ _compfunc() {
     COMPREPLY=($(compgen -f -X "$xpat" -- "${word}"))
 }
 
+# control the resources available to the shell and to processes it starts
+ulimit -v # max virtual memory
+ulimit -s # max stack size
+ulimit -t # max of cpu time
+ulimit -u # max number of processes
+
 
 #################
 # Text filtering
@@ -300,10 +310,10 @@ cp /proc/<pid>/fd/4 myfile.saved
 auditctl -w <file> -p wax -k <tag>
 ausearch -k <tag> [-ts today -ui 506 -x cat]
 
-# Named pipes: https://en.wikipedia.org/wiki/Named_pipe
-mkfifo
+mkfifo # Named pipes: https://en.wikipedia.org/wiki/Named_pipe
 python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo
 ulimit -a | grep pipe # max size
+ulimit -p # change pipe size in 512-byte blocks
 fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
 
 nm *.o
@@ -578,7 +588,11 @@ mono *.exe
 
 #REDIRECT[[United States]]
 
+# To see child pages, try to delete the page !
+
 {{:Transclude_an_arbitrary_page}}
+
+x<sup>2</sup>, x<sub>2</sub>
 
 <includeonly>bgcolor="#1F78B4"|[https://{{{1}}} <span style="color:black">{{{1}}}</span>]</includeonly>
 <noinclude>

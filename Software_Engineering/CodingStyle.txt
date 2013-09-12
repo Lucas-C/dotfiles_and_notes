@@ -104,7 +104,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - Use manual try/catch and not @Test(expected) on big tests
 
 # General
-- Favor immutable data structures
+- Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
 - Favor idempotent operations, i.e. "that has no additional effect if it is called more than once with the same input parameters".
 
 - Data/Object anti-symetry : both have different use-cases [CC-Chapt6]

@@ -1,0 +1,53 @@
+
+const SVG_WIDTH = 800, SVG_HEIGHT = 600;
+const CENTER = { "x": 400, "y": 100 };
+const SHAPE_RADIUS = 100, NODE_RADIUS = 15;
+const NODE_COUNT = 150;
+
+function range(start, end) { var range_array=[]; for (var i=start; i<end; ++i) { range_array.push(i); } return range_array; }
+function log(o) { console.log(JSON.stringify(o, function(key, val) { if (key == "parent") return "PARENT_REF"; else return val })); return o }
+
+// See: http://pavpanchekha.com/blog/heart-polar-coordinates.html
+function polar_heart(t) {
+    return (Math.sin(t)*Math.sqrt(Math.abs(Math.cos(t)))) / (Math.sin(t) + 7/5) - 2*Math.sin(t) + 2
+}
+
+var svgContainer = d3.select("svg")
+    .attr("width", SVG_WIDTH + 2 * NODE_RADIUS)
+    .attr("height", SVG_HEIGHT + 2 * NODE_RADIUS)
+    .append("g")
+        .attr("id", "canvas")
+        .attr("transform", "translate(" + NODE_RADIUS + "," + NODE_RADIUS + ")");
+
+svgContainer.append("text")
+    .attr("id", "text1")
+    .attr("x", CENTER.x)
+    .attr("y", CENTER.y)
+    .text("Laëtitia BECHUS, vous avez un nouveau message")
+    .transition().delay(5000)
+        .remove();
+
+var coords = range(0, NODE_COUNT);
+var theta = 2 * Math.PI / coords.length;
+coords = coords.map(function(i) { return polar_heart(i * theta) });
+svgContainer.selectAll('circle').data(coords).enter().append("circle")
+    .attr("class", "node")
+    .attr("r", NODE_RADIUS)
+    .attr('cx', CENTER.x)
+    .attr('cy', -1000)
+    .transition().duration(5000)
+        .attr('cy', CENTER.y)
+        .transition().delay(5000).duration(5000)
+            .attr('cx', function(d, i) { x = CENTER.x + SHAPE_RADIUS * d * Math.cos(i * theta); return x })
+            .attr('cy', function(d, i) { y = CENTER.y + SHAPE_RADIUS * d * Math.sin(-i * theta); return y });
+
+svgContainer.append("text")
+    .attr("id", "text2")
+    .attr("x", CENTER.x)
+    .attr("y", CENTER.y + SHAPE_RADIUS)
+    .transition().delay(10000)
+        .text("JTKG")
+
+</script>
+</body>
+

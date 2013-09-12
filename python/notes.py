@@ -140,7 +140,13 @@ import bisect # binary search
 import heapq # min-heap
 
 tuple(obj) # !! PITFALL: fail for None, will parse any sequence like a basestring and won't work on single value
-tuple(obj) if issequence(obj) else (obj,) if obj else ()
+def to_tuple(t):
+    if not t:
+        return ()
+    elif is_sequence(t):
+        return tuple(t)
+    else:
+        return (t,)
 
 l = ['a,b', 'c,d']
 from itertools import chain # also has iterator = count().next
@@ -152,6 +158,8 @@ mylist.index(elem) # index lookup
 # Cool standard functions to work on lists
 zip, reduce, all, any, min, max, sum
 # generators > list-comprehensions
+def stop(): raise StopIteration
+list(e if e != "BREAK" else stop() for e in iterable)
 
 # Is a dict / list ? -> http://docs.python.org/2/library/collections.html#collections-abstract-base-classes
 # isinstance(d, collections.Mapping) won't work if the class is not registered, so better check:
@@ -171,11 +179,14 @@ items = d.iteritems() # dicts ( iteritems > items )
 
 collections.OrderedDict # remember insertion order
 
-{ e.k: e.v for e in elems } # Dict-comprehension
+from itertools import groupby
+{category: list(packages) for category, packages in groupby(pkg_list, get_category)} # Dict-comprehension
 
 dict.__missing__ # invoked for missing items
 
-d == dict(**d)
+assert d == dict(**d)
+
+dict(y, **x) # union of dicts, duplicates are resolved in favor of x
 
 
 """""""""""

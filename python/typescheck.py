@@ -1,12 +1,12 @@
 import types
 
-def issequence(obj):
+def is_sequence(obj):
     return hasattr(obj, '__getitem__') and not isinstance(obj, basestring)
 
-def ismapping(obj):
-    return issequence(obj) and hasattr(obj, 'keys')
+def is_mapping(obj):
+    return is_sequence(obj) and hasattr(obj, 'keys')
 
-def isset(obj):
+def is_set(obj):
     return hasattr(obj, '__contains__') and not isinstance(obj, basestring)
 
 def get_primitive_types():
