@@ -17,6 +17,8 @@ java -jar archive.jar # Maybe -cp .
 // Debugger
 jdb
 
+kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
+
 jconsole
 // http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
 

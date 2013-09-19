@@ -1,15 +1,26 @@
-#========
-### SHELL
+~°~°~°~°~°~°~°~°~°~°~
+### SHELL & misc  ###
+~°~°~°~°~°~°~°~°~°~°~
 
 # Fork bomb
 : () { : | : & } ; :
 
-# LD_PRELOAD trick
-man ld.so
-gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
-LD_PRELOAD=./myfopen.so cat <file>
-
 # Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
+
+# Useful key bindings
+<CTRL>+u : remove part of current line "a gaUche"
+<CTRL>+k : remove "Klosing" part of current line
+<CTRL>+w : remove previous "Word"
+
+# replace chars from last command
+ls docs
+^docs^web^
+:x
+<ALT>+. # insert preceding line's final parameter
+!$ # select the last arg
+!!:n # selects the nth argument of the last command
+
+time read # chrono
 
 # Fixing terminal frenzy
 echo <ctrl-v><ctrl-o>
@@ -21,13 +32,11 @@ loadkeys fr
 # Fix crazy numpad (no '-')
 killall gnome-settings-daemon
 
-# 'top'
+# 'top' < 'htop'
 * killing : Press "k", then pid, then signal (15, 9...)
 * sorting : press "O" and select the column
 * display absolute path of commands : "c"
-
-man ascii # display ASCII table
-cal # quick calendar
+pstree -p # hierarchy of processes
 
 # get process name
 pid -o comm= -p $PPID
@@ -38,21 +47,75 @@ pwdx <pid>
 nohup <cmd>
 disown -h <pid>
 
-# replace chars from last command
-ls docs
-^docs^web^
-
-<ALT>+. # insert preceding line's final parameter
-!$ # select the last arg
-!!:n # selects the nth argument of the last command
-
 mesg
 write
 wall # broadcast message
 
+man ascii # display ASCII table
+cal # quick calendar
+look # find English words (or lines in a file) beginning with a string
+
+sudo ldconfig
+
+# LD_PRELOAD trick
+man ld.so
+gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
+LD_PRELOAD=./myfopen.so cat <file>
+
+nm *.o # list symbols
+
+readelf -Ws *.so
+
+hexdump -c # aka 'hd', use 'bvi' for editing
+strings exec.bin # extract strings of length >= 4
+
+# Follow program system calls (!! -f => follow fork)
+strace -f -p <pid> -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
+# http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
+# Fix:
+kill -CONT <pid>
+# log system calls and library calls
+ltrace -ttS -s 65535 -o <logfile> -p <pid> 
+
+# get a core file for a running program 
+gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID 
+# get a stack trace for all threads 
+gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log 
+
+# Configure 'mail' command
+/etc/ssmtp/revaliases
+/etc/ssmtp/ssmtp.conf
+
+# Launch command at a specified time or when load average is under 0.8
+echo <cmd> | at midnight
+echo <cmd> | batch
+
+# Audio/mike issues
+pulseaudio -D
+pavucontrol
+alsamixer
+gstreamer-properties
+
+# Use 'apt-file' to see which package provides that file you're missing
+sudo dpkg -D1 -i *.deb
+
+# Identify video
+mplayer -identify -vo null -ao null -frames 0 <video>
+# Convert .wmv to .avi
+mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
+# .mp4 to .avi
+avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
+
+# Install libdvdcss
+sudo /usr/share/doc/libdvdread4/install-css.sh
+
+# Rescan for memory card
+sudo su -l
+echo 1 > /sys/bus/pci/rescan
+
 
 ##################
-# Bash scripting
+  Bash scripting
 ##################
 
 # Standard warnings
@@ -87,6 +150,7 @@ echo ${PWD//\//-}
 
 # Floating point arithmetic
 echo "1/3" | bc -l # or specify "scale=X;" instead of flag
+factor <really-long-int> # decompose in factors
 
 # Change extension
 mv $file ${file%.*}.bak
@@ -228,9 +292,23 @@ ulimit -t # max of cpu time
 ulimit -u # max number of processes
 
 
-#################
+++++++++++++++++++
 # Text filtering
-#################
+++++++++++++++++++
+
+grep -o # output only matching parts
+grep -C3 # output 3 lines of context, see also -B/-A
+grep -H/-h # output with/without filename
+grep -L PATTERN <files> # Get only filenames where PATTERN is not present
+grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/b/'
+grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
+
+# shows non-printing characters as ascii escapes. 
+cat -vET
+# echo non-ascii
+printf "\177" # octal
+
+printf "%-8s\n" "${value}" # 8 spaces output formatting
 
 # filter outpout : not lines 1-3 and last one
 type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
@@ -245,8 +323,6 @@ seq 1 10 | paste -s -d+ | bc
 perl -pe 's/\s+/\n/g'
 # paste is also usefule to interlace files: paste <file1> <file2>
 
-printf "%-8s\n" "${value}" # 8 spaces output formatting
-
 # Print nth column
 awk [-F":|="] '{ print $NF }'
 
@@ -256,26 +332,15 @@ comm -12 #or uniq -d
 # display input to stdout + append to end of <file>
 tee -a <file>
 
-# Find non-ASCII characters
-grep --color='auto' -P -n "[\x80-\xFF]" file.xml
-# Grep 'a' but not 'b' -> PCRE
-grep -P '^((?!b).)*a((?!b).)*$' # awk '/a/ && !/b/'
-# Get only filenames where PATTERM is not present
-grep -L PATTEN <files>
-
-# fold breaks lines to proper width, and fmt will reformat lines into paragraphs 
-
-# shows non-printing characters as ascii escapes. 
-cat -vET
-# echo non-ascii
-printf "\177" # octal
+fold # breaks lines to proper width
+fmt # reformat lines into paragraphs 
 
 
-#=============
-### FILES
+=#=#=#=#=#=
+   FILES
+#=#=#=#=#=#
 
-find
-# Tip: ! -regex 'pat\|tern' >>>way>more>efficient>>> \( -path ./pat -o -path ./tern \) -prune -o -print
+find # Tip: ! -regex 'pat\|tern' >>>way>more>efficient>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 
 # append at the beginning of <file>
 sed -i "1i$content" <file>
@@ -294,13 +359,13 @@ namei
 readlink -f
 
 # Sum up kind of files without ext
-ls | cut -d . -f 1 | sort | uniq -c
-
-# Forbid file deletion
-sudo chattr +i [-R] <file> # to check a file attributes : lsattr
+ls | cut -d . -f 1 | funiq
 
 # Create fake file
 sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000
+
+# Forbid file deletion
+sudo chattr +i [-R] <file> # to check a file attributes : lsattr
 
 # Bring back deleted file from limbo (ONLY if still in use in another process)
 lsof | grep myfile # get pid
@@ -316,12 +381,6 @@ ulimit -a | grep pipe # max size
 ulimit -p # change pipe size in 512-byte blocks
 fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
 
-nm *.o
-
-readelf -Ws *.so
-
-hexdump -c
-
 #Append at the end of stdout (or beginning with ^)
 echo ECHO | sed s/$/.ext/
 
@@ -331,11 +390,11 @@ sha{1,224,256,384,512}sum
 md5sum
 
 
-#=============
-### NETWORKING
+|°|°|°|°|°|°|°|°
+== NETWORKING
+|°|°|°|°|°|°|°|°
 
-ping <host/ip>
-traceroute <host/ip>
+mtr <host/ip> # > ping / traceroute
 
 # Checking ports
 nmap <host> -sT -p <port>
@@ -343,6 +402,7 @@ telnet <host> <port>
 nc <host> <port>
 wget <host>:<port>
 nmap -sS -O 127.0.0.1 # Guess OS !!
+ss
 
 # Locally
 netstat -nap <port>
@@ -350,12 +410,13 @@ lsof -i -P -p <pid> # -n => no IP->hostname resolution
 
 # List packet exchanges
 netstat [--statistics --udp]
+netstat -lntp # list processes listening
 
 # How to grep IPs
 grep '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
 
-curl
-#See: http://curl.haxx.se/docs/httpscripting.html
+curl #See: http://curl.haxx.se/docs/httpscripting.html
+lynx -dump -stdin # convert HTML to text
 
 # Iptables
 iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
@@ -393,10 +454,14 @@ ssh $host "$cmds ; /bin/bash -i"
 # Find wireless driver
 lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 
+# Non portable tools
+iptraf, ntop, rddtool
 
-#cCcCcCc#
+
+=cCcCcCc=
 # Cisco #
-#cCcCcCc#
+=cCcCcCc=
+
 sh run
 sh int
 sh ip int [brief]
@@ -405,8 +470,9 @@ sh version
 exit
 
 
-#=========
-### SYSTEM
+-%-%-%-%-%-
+ =SYSTEM=
+-%-%-%-%-%-
 
 stap # SystemTap
 
@@ -451,8 +517,10 @@ watch -d 'cat /proc/meminfo'
 
 iostat
 mpstat 5 # cpu usage stats every 5sec
+dstat
 
 # Checking Swap Space Size and Usage
+free
 vmstat 2
 sar
 # + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
@@ -472,9 +540,9 @@ alien # transformer un .rpm en .deb
 init q # Reload /etc/inittab
 
 
-#=\/=/\=\/=/\=\/=
-# Virtualbox
-#=\/=/\=\/=/\=\/=
+=\/=/\=\/=/\=\/=
+=  Virtualbox
+=\/=/\=\/=/\=\/=
 sudo adduser $USER vboxusers # then logout
 VBoxManage list vms
 VBoxManage controlvm <name> poweroff
@@ -482,63 +550,9 @@ VBoxManage controlvm <name> poweroff
 # Cool features : remote display (VRDS), shared folders & clipboard, seamless mode
 
 
-##~]]%/_°*|-----
-# Synthèse vocale
-espeak -s 180 -p 40 "Hey ! Look behind you"
-espeak -s 180 -p 40 -ven+12 "Hi ! My name is Colossus."
-espeak -s 150 -p 20 -vfr "Je vais te péter la gueule"
-espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mbrola/voices/fr1 - -.au | aplay
-#FROM:   http://doc.ubuntu-fr.org/synthese_vocale
-#        http://linux.byexamples.com/archives/303/text-to-speech-synthesizer/
-#        http://cookerspot.tuxfamily.org/wikka.php?wakka=SyntheseVocaleEspeak
-
-
-#=============
-### Various
-
-sudo ldconfig
-
-# Use 'apt-file' to see which package provides that file you're missing
-sudo dpkg -D1 -i *.deb
-
-# Follow program system calls (!! -f => follow fork)
-strace -f -p <pid> -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
-# http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
-# Fix:
-kill -CONT <pid>
-# log system calls and library calls
-ltrace -ttS -s 65535 -o <logfile> -p <pid> 
-
-# get a core file for a running program 
-gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID 
-# get a stack trace for all threads 
-gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log 
-
-# Configure 'mail' command
-/etc/ssmtp/revaliases
-/etc/ssmtp/ssmtp.conf
-
-# Launch command at a specified time or when load average is under 0.8
-echo <cmd> | at midnight
-echo <cmd> | batch
-
-# Audio/mike issues
-pulseaudio -D
-pavucontrol
-alsamixer
-gstreamer-properties
-
-# Identify video
-mplayer -identify -vo null -ao null -frames 0 <video>
-# Convert .wmv to .avi
-mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
-# .mp4 to .avi
-avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
-
-# Install libdvdcss
-sudo /usr/share/doc/libdvdread4/install-css.sh
-
-#ImageMagick
+]_]_]_]_]_]_]_]
+] ImageMagick
+]_]_]_]_]_]_]_]
 # Compile IM with HDRI:
 # - http://www.imagemagick.org/script/install-source.php
 # - sudo aptitude install libmagickcore-dev liblcms2-dev libtiff4-dev libfreetype6-dev libjpeg8-dev liblqr-1-0-dev libglib2.0-dev libfontconfig-dev libxext-dev libz-dev libbz2-dev
@@ -554,9 +568,17 @@ animate -delay 5 *.png
 compare img1 img2
 composite # merge images
 
-# Rescan for memory card
-sudo su -l
-echo 1 > /sys/bus/pci/rescan
+
+()()()()()()()()()()
+() Synthèse vocale
+()()()()()()()()()()
+espeak -s 180 -p 40 "Hey ! Look behind you"
+espeak -s 180 -p 40 -ven+12 "Hi ! My name is Colossus."
+espeak -s 150 -p 20 -vfr "Je vais te péter la gueule"
+espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mbrola/voices/fr1 - -.au | aplay
+#FROM:   http://doc.ubuntu-fr.org/synthese_vocale
+#        http://linux.byexamples.com/archives/303/text-to-speech-synthesizer/
+#        http://cookerspot.tuxfamily.org/wikka.php?wakka=SyntheseVocaleEspeak
 
 
 @@@@@@@@@@
@@ -609,10 +631,12 @@ Example:
 </noinclude>
 
 
-:::::::::
+::=::=::=::
 :: MySQL
-:::::::::
+::=::=::=::
 mysql -h <host> -u <user> -p [--ssl-ca=<file>.pem] # default port 3306
+
+mytop # watch mysql
 
 LIKE >faster> REGEXP
 
