@@ -20,7 +20,7 @@ def recur_freeze_containers(mutable_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
     elif isinstance(mutable_obj, ignoredtypes):
         return mutable_obj 
     else:
-        raise TypeError("Cannot freeze {} of unsupported data type {}".format(mutable_obj, type(mutable_obj)))
+        raise TypeError("Cannot freeze {!r} of unsupported data type {}".format(mutable_obj, type(mutable_obj)))
 
     for k,v in items:
         copy[k] = recur_freeze_containers(v, ignoredtypes)
@@ -47,7 +47,7 @@ def recur_unfreeze_containers(frozen_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
     elif isinstance(frozen_obj, ignoredtypes):
         return frozen_obj 
     else:
-        raise TypeError("Cannot unfreeze {} of unsupported data type {}".format(frozen_obj, type(frozen_obj)))
+        raise TypeError("Cannot unfreeze {!r} of unsupported data type {}".format(frozen_obj, type(frozen_obj)))
 
     for k,v in items:
         new[k] = recur_unfreeze_containers(v, ignoredtypes)

@@ -1,7 +1,3 @@
-if filereadable("~/.vimrc_ext")
-    source ~/.vimrc_ext
-endif
-
 set autochdir
 set autoindent            " always set autoindenting on
 set backspace=2           " allow backspacing over everything in insert mode
@@ -99,16 +95,6 @@ if has("unix")
 else
     nmap <Leader>,e :e <C-R>=expand("%:p:h") . "\\"<CR>
 endif
-
-
-"map commands
-"re-map rcsvers funtions
-map <F5> <Leader>rlog  " Display log buffer selector
-map <F6> <Leader>older " diff with an older version of the file
-map <F7> <Leader>newer " diff with a newer version of the file
-"firefox like tab switching
-map [6^ :tabnext<CR> " Switch to the next tab
-map [5^ :tabprev<CR> " Switch to the prev tab
 
 "Functions
 fu! CscopeAdd() " Add Cscope database named .cscope.out

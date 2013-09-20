@@ -11,7 +11,8 @@ alias f='open -a /Applications/Firefox.app'
 alias freeplane='open -a /Applications/Freeplane.app'
 alias eclipse='open -a /Applications/eclipse/Eclipse.app'
 nav () { open -a /System/Library/CoreServices/Finder.app ${1:-.}; }
-alias xcode='open -a /Applications/Xcode.app'
+alias st='open -a /Applications/Sublime\ Text.app'
+alias xcode='echo No, use Sublime Text && st' #'open -a /Applications/Xcode.app'
 alias sub='open -a /Applications/Sublime\ Text\ 2.app'
 alias js=/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc
 

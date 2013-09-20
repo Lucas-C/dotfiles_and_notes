@@ -30,7 +30,7 @@ pattern = (
 "^"         # beginning of string
 "(?P<word>" # named group start
 r"\b\w+\b"  # a word between two word separators
-"\.*?"        # non greedy wildcard
+"\.*?"      # non greedy wildcard
 ")"         # named group end
 )
 m = re.search(pattern, "Un... Deux... Trois...", re.DEBUG|re.DOTALL|re.MULTILINE)

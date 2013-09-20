@@ -200,7 +200,7 @@ exec 8>&- # Close file descriptor
 # mktemp dir & default value
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
 # Use RAM for tmp files:
-/dev/shm
+/dev/shm # monitor usage with ipcs -m
 
 # http://wiki.bash-hackers.org/howto/getopts_tutorial
 while getopts ":ab:" opt; do
@@ -322,6 +322,9 @@ seq 1 10 | paste -s -d+ | bc
 # Break on world per line
 perl -pe 's/\s+/\n/g'
 # paste is also usefule to interlace files: paste <file1> <file2>
+
+# Longest line of code
+perl -ne 'if (length > $w) { $w = length; print $ARGV.":".$_ };  END {print "$w\n"}' *.py
 
 # Print nth column
 awk [-F":|="] '{ print $NF }'
@@ -612,7 +615,7 @@ mono *.exe
 
 # To see child pages, try to delete the page !
 
-{{:Transclude_an_arbitrary_page}}
+{{:Transclude_an_arbitrary_page{{{with_template_param_subst|default_value}}}}}
 
 x<sup>2</sup>, x<sub>2</sub>
 
@@ -629,6 +632,8 @@ Example:
 |}
 [[Category:Template|{{PAGENAME}}]]
 </noinclude>
+
+http://en.wikipedia.org/wiki/Help:Magic_words
 
 
 ::=::=::=::
