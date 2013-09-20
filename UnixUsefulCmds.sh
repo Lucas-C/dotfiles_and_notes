@@ -302,6 +302,7 @@ grep -H/-h # output with/without filename
 grep -L PATTERN <files> # Get only filenames where PATTERN is not present
 grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/b/'
 grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
+LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
 
 # shows non-printing characters as ascii escapes. 
 cat -vET
