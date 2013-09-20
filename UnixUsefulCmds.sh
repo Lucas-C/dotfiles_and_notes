@@ -2,35 +2,22 @@
 ### SHELL & misc  ###
 ~°~°~°~°~°~°~°~°~°~°~
 
-# Fork bomb
-: () { : | : & } ; :
-
-# Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
-
 # Useful key bindings
 <CTRL>+u : remove part of current line "a gaUche"
 <CTRL>+k : remove "Klosing" part of current line
 <CTRL>+w : remove previous "Word"
 
-# replace chars from last command
-ls docs
-^docs^web^
-:x
+# replace word from 'last command'
+^command^user^
+
 <ALT>+. # insert preceding line's final parameter
 !$ # select the last arg
 !!:n # selects the nth argument of the last command
 
 time read # chrono
-
-# Fixing terminal frenzy
-echo <ctrl-v><ctrl-o>
-
-# Listen to keyboard events
-xev
-# Change keyboard to FR
-loadkeys fr
-# Fix crazy numpad (no '-')
-killall gnome-settings-daemon
+man ascii # display ASCII table
+cal # quick calendar
+look # find English words (or lines in a file) beginning with a string
 
 # 'top' < 'htop'
 * killing : Press "k", then pid, then signal (15, 9...)
@@ -38,42 +25,16 @@ killall gnome-settings-daemon
 * display absolute path of commands : "c"
 pstree -p # hierarchy of processes
 
-# get process name
-pid -o comm= -p $PPID
-# get process working directory
-pwdx <pid>
+pid -o comm= -p $PPID # get process name
+pwdx <pid> # get process working directory
 
-# detach process
-nohup <cmd>
-disown -h <pid>
-
-mesg
-write
-wall # broadcast message
-
-man ascii # display ASCII table
-cal # quick calendar
-look # find English words (or lines in a file) beginning with a string
-
-sudo ldconfig
-
-# LD_PRELOAD trick
-man ld.so
-gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
-LD_PRELOAD=./myfopen.so cat <file>
-
-nm *.o # list symbols
-
-readelf -Ws *.so
-
-hexdump -c # aka 'hd', use 'bvi' for editing
-strings exec.bin # extract strings of length >= 4
+nohup <cmd> # detach command
+disown -h <pid> # detach running process
 
 # Follow program system calls (!! -f => follow fork)
 strace -f -p <pid> -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
-# http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
-# Fix:
-kill -CONT <pid>
+# Bug: http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
+kill -CONT <pid> # Fix
 # log system calls and library calls
 ltrace -ttS -s 65535 -o <logfile> -p <pid> 
 
@@ -82,13 +43,31 @@ gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID
 # get a stack trace for all threads 
 gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log 
 
+hexdump -c # aka 'hd', use 'bvi' for editing
+strings exec.bin # extract strings of length >= 4
+
+nm *.o # list symbols
+readelf -Ws *.so
+
+sudo ldconfig
+
+# LD_PRELOAD trick
+man ld.so
+gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
+LD_PRELOAD=./myfopen.so cat <file>
+
+write / mesg # 2nd control write access
+wall # broadcast message
+
+xev # Listen to keyboard events
+loadkeys fr # Change keyboard to FR
+killall gnome-settings-daemon # Fix crazy numpad (no '-')
+
+echo <ctrl-v><ctrl-o> # Fixing terminal frenzy
+
 # Configure 'mail' command
 /etc/ssmtp/revaliases
 /etc/ssmtp/ssmtp.conf
-
-# Launch command at a specified time or when load average is under 0.8
-echo <cmd> | at midnight
-echo <cmd> | batch
 
 # Audio/mike issues
 pulseaudio -D
@@ -112,6 +91,10 @@ sudo /usr/share/doc/libdvdread4/install-css.sh
 # Rescan for memory card
 sudo su -l
 echo 1 > /sys/bus/pci/rescan
+
+: () { : | : & } ; : # Fork bomb
+
+# Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
 
 
 ##################
@@ -284,6 +267,10 @@ _compfunc() {
 
     COMPREPLY=($(compgen -f -X "$xpat" -- "${word}"))
 }
+
+# Launch command at a specified time or when load average is under 0.8
+echo <cmd> | at midnight
+echo <cmd> | batch
 
 # control the resources available to the shell and to processes it starts
 ulimit -v # max virtual memory
