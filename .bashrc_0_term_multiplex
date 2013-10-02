@@ -1,10 +1,7 @@
 [[ "$HOSTNAME" =~ "$USER" ]] || return
 
-LAST_DIR_TMP_FILE=~/.last-pwd.tmp
+if which tmux >/dev/null 2>&1; then # use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
 
-if which tmux >/dev/null 2>&1; then # use TMUX
-# Switch to tmux motivated by the "no flush" bug in screen (typically on grep | grep commands)
-    
 # CTRL+B c : new window
 # CTRL+B w : list windows
 # CTRL+B <nb> : switch to window <nb>
@@ -24,16 +21,17 @@ if [ $TERM != "screen" ]; then
     tmux a -t tmux_$USER
 fi
 
-else # use basic SCREEN
+elif which screen >/dev/null 2>&1; then # use basic SCREEN
 
 # screen -ls
 # screen -r
 # DOC: http://www.bangmoney.org/presentations/screen.html
 
-function s() { # New screen window in same dir
-    screen -X chdir $PWD
-    rm $LAST_DIR_SCREEN_TMP_FILE
-    screen
+function at_every_cmd() {
+    if [ -n "$STY" ] && [ "$@" != "prompt_command" ] ; then
+        # 'shelltitle' in .screenrc doesn't work well : tab names get stuck to vim calls
+        screen -X title "$@"
+    fi
 }
 
 if [ $TERM != "screen" ]; then
@@ -42,24 +40,11 @@ if [ $TERM != "screen" ]; then
         screen -c ${BASHRC_DIR:-$HOME}/.screenrc -d -m
     fi
     screen -A -x
-fi
-
-fi # end TMUX/SCREEN conditional
-
-function at_every_cmd() {
-    if [ -n "$STY" ] && [ "$@" != "prompt_command" ] ; then
-        [ "$PWD" != "$HOME" ] && pwd > $LAST_DIR_TMP_FILE
-        if ! which tmux >/dev/null 2>&1; then
-            # 'shelltitle' in .screenrc doesn't work well : tabs names stuck to calls to vim
-            screen -X title "$@"
-        fi
-    fi
-}
-
-if [ "$TERM" = "screen" ]; then
+else
     # HACKED thanks to http://code-and-hacks.blogspot.com/2010/04/setting-terminal-title-in-gnu-screen.html
     # and http://www.davidpashley.com/articles/xterm-titles-with-bash.html
     trap 'at_every_cmd "$BASH_COMMAND"' DEBUG
-    [ -f $LAST_DIR_TMP_FILE ] && cd $(cat $LAST_DIR_TMP_FILE)
 fi
+
+fi # end TMUX/SCREEN conditional
 

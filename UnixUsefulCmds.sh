@@ -109,6 +109,10 @@ export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 # Check syntax without executing
 bash -n <script>
 
+# Debug
+caller # returns "$line $filename"
+source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
+
 # Redirect logs
 exec >>logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
 # Standard logs date
@@ -246,7 +250,7 @@ echo -n "Enter password: "
 read password
 stty echo
 
-# Syslog
+# Syslog (port: 514)
 logger -is -t SCRIPT_NAME -p user.warn "Message"
 
 # Logrotate (to call in a cron job)

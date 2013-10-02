@@ -1,11 +1,4 @@
-# shortstatus - terse bash prompt uses text characteristics to show
-# ssh-agent status, writability of current directory and exit code of
-# last command, if nonzero. The prompt format is common; I got the idea
-# for showing the exit code from "Dan's Prompt"
-# http://www.dreaming.org/~giles/bashprompt/prompts/dan.html
-#
-# jeremy-bash@batray.net
-#
+# INSPIRATION: jeremy-bash@batray.net ; http://www.dreaming.org/~giles/bashprompt/prompts/dan.html
 
 export T_normal=0
 export T_bold=1
@@ -48,8 +41,12 @@ prompt_command()
     fi
 
     history -a # this + 'shopt -s histappend' in .bashrc => shared Bash history between term sessions 
+
+    [ $PWD != $HOME ] && pwd > ~/.last_dir
 }
 export PROMPT_COMMAND=prompt_command
+
+cd $(cat ~/.last_dir 2>/dev/null)
 
 if [ ${TERM:0:5} = xterm ]; then
     PS1='\[\e]0;\u@\h:\W\007\]'
