@@ -9,6 +9,7 @@ _ # result of the last expression evaluated (in an interpreter only)
 r'''Raw string literal: no need to double escape \{0}\{str}'''.format("zero", str="")
 u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0)
 from __future__ import unicode_literals
+intern(str) # internal representation
 
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
@@ -270,6 +271,8 @@ reload(module)
 argparse > optparse # or clize - S&M
 group = parser.add_mutually_exclusive_group()
 group.add_argument(... type=argparse.FileType('r'))
+
+from getpass import getpass # get password without echoing it
 
 # DB - simple Object Relational Mapping
 import peewee # S&M

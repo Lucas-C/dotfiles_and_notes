@@ -6,6 +6,7 @@
 <CTRL>+u : remove part of current line "a gaUche"
 <CTRL>+k : remove "Klosing" part of current line
 <CTRL>+w : remove previous "Word"
+<CTRL>+r : search bash history, powerful to use with cmd #tags
 
 # replace word from 'last command'
 ^command^user^
@@ -23,6 +24,7 @@ look # find English words (or lines in a file) beginning with a string
 * killing : Press "k", then pid, then signal (15, 9...)
 * sorting : press "O" and select the column
 * display absolute path of commands : "c"
+* display /cores stats : "1"
 pstree -p # hierarchy of processes
 
 pid -o comm= -p $PPID # get process name

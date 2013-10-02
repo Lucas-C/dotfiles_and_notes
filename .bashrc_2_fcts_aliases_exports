@@ -62,7 +62,7 @@ alias gpr='git pull --rebase'
 # One-letter
 #------------
 alias e='$EDITOR'
-alias b='cd "$OLDPWD"'
+alias b='cd -'
 alias f='firefox'
 
 #---------------
