@@ -13,10 +13,42 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=$BASHRC_DIR/bin:$PATH
 
+#---------------
+# Alias control
+#---------------
+pa () {                 # print aliases
+    grep --color -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bashrc*
+    grep --color '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
+}
+
+nofuncalias () {            # return the fullpath of the cmd as arg, ignoring homonym alias/functions, like which/type does
+    type -a "$@" | tail -n 1 | awk '{ print $NF }'
+}
+
+unfuncalias () {            # undefined any function/alias named as arg
+    unset "$@"; unalias "$@" 2>/dev/null
+}
+
+alias_r () {            # recursively resolve an alias, handle pipes and nested aliases
+    local cmd=$1
+    local end_of_cmd
+    while alias $cmd >/dev/null 2>&1; do
+        local aliased=$(alias $cmd | sed "s/.*\([\'\"]\)\(.*\)\1/\2/")
+        cmd=$(echo $aliased | awk '{ print $1 }')
+        end_of_cmd="$(echo $aliased | awk '{ $1 = ""; print }') $end_of_cmd" # still contain delim=<space>
+    done
+    while echo $end_of_cmd | grep -q '|'; do
+        cmd="$cmd ${end_of_cmd%%|*} |"
+        end_of_cmd=$(alias_r ${end_of_cmd#*|})
+    done
+    echo $cmd $end_of_cmd
+}
+#TEST: alias ec='echo' ; alias dog='cat' ; alias boo='ec BOO | dog'
+
 #----
 # ls
 #----
-unset ls; unalias ls 2>/dev/null
+unfuncalias ls
 alias l='ls -BF --color=always'
 alias la='l -A'
 alias ll='l -lhA'
@@ -65,40 +97,12 @@ alias e='$EDITOR'
 alias b='cd -'
 alias f='firefox'
 
-#---------------
-# Alias control
-#---------------
-pa () {                 # print aliases
-    grep --color -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bashrc*
-    grep --color '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
-}
-
-noalias () {            # 'which' without aliases
-    which $1 | tail -1
-}
-
-alias_r () {            # recursively resolve an alias, handle pipes and nested aliases
-    local cmd=$1
-    local end_of_cmd
-    while alias $cmd >/dev/null 2>&1; do
-        local aliased=$(alias $cmd | sed "s/.*\([\'\"]\)\(.*\)\1/\2/")
-        cmd=$(echo $aliased | awk '{ print $1 }')
-        end_of_cmd="$(echo $aliased | awk '{ $1 = ""; print }') $end_of_cmd" # still contain delim=<space>
-    done
-    while echo $end_of_cmd | grep -q '|'; do
-        cmd="$cmd ${end_of_cmd%%|*} |"
-        end_of_cmd=$(alias_r ${end_of_cmd#*|})
-    done
-    echo $cmd $end_of_cmd
-}
-#TEST: alias ec='echo' ; alias dog='cat' ; alias boo='ec BOO | dog'
-
 #---------
 # Languages
 #----------
-unset make; unalias make 2>/dev/null
+unfuncalias make
 alias make='make -j3'
-unset tkcon; unalias tkcon 2>/dev/null
+unfuncalias tkcon
 alias tkcon='tkcon -load Tk'
 
 alias py='ipython --pdb'
@@ -143,7 +147,7 @@ stats () { # --no-header | awk '{print $3}'
 #--------
 # Others
 #--------
-unset touch; unalias touch 2>/dev/null
+unfuncalias touch
 touch () {              # touch [EPOCH] [+/-<modifier>] <files>
     local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
     if [ "$(echo $1 | lower)" = "epoch" ]; then
@@ -159,17 +163,17 @@ touch () {              # touch [EPOCH] [+/-<modifier>] <files>
     fi
     local stamp=$yymm$dd$HHMM
     { ! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ] ; } && { echo "Day modifier cannot be applied: $stamp" ; return ; }
-    $(which touch) -t $stamp "$@"
+    $(nofuncalias touch) -t $stamp "$@"
 }
 
-unset man; unalias man 2>/dev/null
-man () { $(which man) $@ && return ; help $@ 2> /dev/null && help $@ | less ; }
+unfuncalias man
+man () { $(nofuncalias man) "$@" && return ; help "$@" 2> /dev/null && help "$@" | less ; }
 
-unset df; unalias df 2>/dev/null
+unfuncalias df
 alias df='df -h'
-unset du; unalias du 2>/dev/null
+unfuncalias du
 alias du='du -sh'
-unset diff; unalias diff 2>/dev/null
+unfuncalias diff
 alias diff='echo "Try merge or diff3" && diff -b'
 
 alias diffs='diff --side-by-side'

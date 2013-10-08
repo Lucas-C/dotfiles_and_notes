@@ -64,22 +64,22 @@ ssh_setup () {
     fi
 }
 
-unset ssh; unalias ssh 2>/dev/null
+unfuncalias ssh
 ssh () {
     ssh_setup
-    $(which ssh) "$@"
+    $(nofuncalias ssh) "$@"
 }
 
-unset scp; unalias scp 2>/dev/null
+unfuncalias scp
 scp () {
     ssh_setup
-    $(which scp) "$@"
+    $(nofuncalias scp) "$@"
 }
 
-unset rsync; unalias rsync 2>/dev/null
+unfuncalias rsync
 rsync () {
     ssh_setup
-    $(which rsync) "$@"
+    $(nofuncalias rsync) "$@"
 }
 
 ssh_with_tmp_home () {
