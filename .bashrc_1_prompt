@@ -42,7 +42,7 @@ prompt_command()
 
     history -a # this + 'shopt -s histappend' in .bashrc => shared Bash history between term sessions 
 
-    [ $PWD != $HOME ] && pwd > ~/.last_dir
+    [ $PWD != $HOME ] && [ $USER != "root" ] && pwd > ~/.last_dir
 }
 export PROMPT_COMMAND=prompt_command
 

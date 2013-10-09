@@ -33,8 +33,11 @@ synchronized method/code blocks to handle concurrent access :
     Keep synchronized sections as small as possible
     More than one per class is a code smell !
 
-Standard classes:
+Standard classes :
     ConcurrentHashMap > HashMap
     ReentrantLock : a lock that can be acquired in one method an released in another
     Semaphore : classic implementation, with lock count
     CountDownLatch : a lock that waits for a number of events before releasing all threads waiting on it
+Full list of already existing constructs :
+    http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/package-summary.html
+    http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/util/concurrent/package-summary.html

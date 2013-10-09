@@ -71,8 +71,9 @@ globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class
 # !!WARNING!! 'type()' uses the current global __name__ as the __module__, unless it calls a metaclass constructor
 # -> http://stackoverflow.com/questions/14198979/python-inheritance-metaclasses-and-type-function
 
-# It can be an alternative for Nose tests, as TestCase and generators are not compatible,
-# But TestCase.subTest should be preferred
+# It can be an alternative for Nose tests, as TestCase and generators are not compatible
+# Best alternatives to solve this : http://stackoverflow.com/questions/2798956/python-unittest-generate-multiple-tests-programmatically
+# TestCase.subTest is an alternative if data is not common to all test methods in the TestCase
 
 # 'type' is the metaclass Python uses to create all classes behind the scenes
 # aka, the most common __class__.__class__ of an object

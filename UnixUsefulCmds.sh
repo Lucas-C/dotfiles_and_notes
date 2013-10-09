@@ -355,6 +355,8 @@ sudo lsof -u jeff
 namei
 readlink -f
 
+killall -HUP <process name> # To tell a process to reload its file descriptors, e.g. when deleting a log file
+
 # Sum up kind of files without ext
 ls | cut -d . -f 1 | funiq
 

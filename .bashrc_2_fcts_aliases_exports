@@ -232,6 +232,17 @@ tstp () {               # timestamp converter
     # Or date -d @$TIMESTAMP but neither work on OSX
 }
 
+if [ -e /proc/uptime ]; then
+    dmesg_with_human_timestamps () {
+        $(nofuncalias dmesg) "$@" | perl -w -e 'use strict;
+            my ($uptime) = do { local @ARGV="/proc/uptime";<>}; ($uptime) = ($uptime =~ /^(\d+)\./);
+            foreach my $line (<>) {
+                printf( ($line=~/^\[\s*(\d+)\.\d+\](.+)/) ? ( "[%s]%s\n", scalar localtime(time - $uptime + $1), $2 ) : $line )
+            }'
+    }
+    alias dmesg=dmesg_with_human_timestamps
+fi
+
 # As it's slower, I'm not using rsync rsync --archive --progress --human-readable --partial --remove-sent-files'
 # But the following script is 10 times slower than basic cp : to improve it, we would need a way to get read of most of strace output
 cp_p()                  # cp with progress bar
