@@ -40,6 +40,10 @@ kill -CONT <pid> # Fix
 # log system calls and library calls
 ltrace -ttS -s 65535 -o <logfile> -p <pid> 
 
+pmap -x <pid> # get memory usage
+valgrind --tool=massif <cmd> # get memory usage with details & graph
+valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
+
 # get a core file for a running program 
 gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID 
 # get a stack trace for all threads 
@@ -487,6 +491,8 @@ last [-f /var/log/wtmp.1]
 
 # System errors
 dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
+# Enable dmesg timestamps
+echo 1 > /sys/module/printk/parameters/printk_time 
 
 # Message of the day
 /etc/motd
