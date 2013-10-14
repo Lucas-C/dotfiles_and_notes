@@ -40,6 +40,7 @@ kill -CONT <pid> # Fix
 # log system calls and library calls
 ltrace -ttS -s 65535 -o <logfile> -p <pid> 
 
+cat /proc/<pid>/smaps # get resources infos
 pmap -x <pid> # get memory usage
 valgrind --tool=massif <cmd> # get memory usage with details & graph
 valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
@@ -190,6 +191,7 @@ exec 8<>filename # Open file descriptors #8 for reading and writing
 echo BlaBlaBla
 exec 8>&- # Close file descriptor
 
+/var/tmp is better than /tmp # as filling it is less system impacting
 # mktemp dir & default value
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
 # Use RAM for tmp files:
@@ -416,8 +418,7 @@ lsof -i -P -p <pid> # -n => no IP->hostname resolution
 netstat [--statistics --udp]
 netstat -lntp # list processes listening
 
-# How to grep IPs
-grep '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
+grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 
 curl #See: http://curl.haxx.se/docs/httpscripting.html
 lynx -dump -stdin # convert HTML to text

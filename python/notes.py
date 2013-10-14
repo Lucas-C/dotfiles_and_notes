@@ -194,6 +194,8 @@ dict(y, **x) # union of dicts, duplicates are resolved in favor of x
 """""""""""
 "" Debug
 """""""""""
+import nose # -m nose.core --nologcapture --pdb --verbose --nocapture /path/to/test_file:TestCase.test_function
+
 # IPython tricks
 %pdb # Automatic pdb calling
 

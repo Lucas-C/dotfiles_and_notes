@@ -3,6 +3,8 @@
 #   python -m pdb_on_err script.py arg1 arg2
 #   python -m pdb_on_err -c 'import sys; print sys.argv[0]' 0
 # FROM: http://stackoverflow.com/questions/242485/starting-python-debugger-automatically-on-error
+from imp import find_module
+from os import path
 import sys
 import traceback, pdbi
 
@@ -18,14 +20,29 @@ def excepthook(type, value, tb):
 
 sys.excepthook = excepthook
 
-if __name__ == '__main__':
-    sys.argv = sys.argv[1:]
-    try:
-        c_flag_index = sys.argv.index('-c')
-        del sys.argv[c_flag_index]
-        command = sys.argv[c_flag_index]
-        del sys.argv[c_flag_index]
-        exec(command)
-    except ValueError:
-        execfile(sys.argv[0])
 
+def next_arg_is(flag):
+    try:
+        c_flag_index = sys.argv.index(flag)
+        del sys.argv[c_flag_index]
+        arg = sys.argv[c_flag_index]
+        del sys.argv[c_flag_index]
+        return arg
+    except ValueError:
+        pass
+
+def main():
+    sys.argv = sys.argv[1:]
+    cmdstr = next_arg_is('-c')
+    if cmdstr:
+        exec(cmdstr)
+        return
+    modname = next_arg_is('-m')
+    if modname:
+        filename = find_module(modname)[1]
+    else:
+        filename = sys.argv[0]
+    execfile(filename, {'__name__':'__main__', '__file__':filename})
+
+if __name__ == '__main__':
+    main()
