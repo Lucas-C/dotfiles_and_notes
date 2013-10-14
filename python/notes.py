@@ -128,7 +128,7 @@ finally: pass
 
 # Environment variables
 PYTHONSTARTUP: un module à exécuter au démarrage de Python
-PYTHONPATH : une liste de dossiers séparés par ‘:’ qui va être ajouté à sys.path
+PYTHONPATH : une liste de dossiers séparés par ‘:’ qui va être ajouté à sys.path # use *.pth files instead for 3rd party modules
 PYTHONHOME : choisir un autre dossier dans lequel chercher l’interpréteur Python.
 PYTHONCASEOK : ingorer la casse dans le nom des modules sous Windows
 PYTHONIOENCODING : forcer un encoding par défaut pour stdin/stdout/stderr
@@ -264,10 +264,40 @@ h.iso(...objects...).sp
 # Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
 
 
-"""""""""""""""""
-"" Libs & tools
-"""""""""""""""""
+"""""""""""""""""""""""""""""
+"" Libs & tools for SCIENCE !
+"""""""""""""""""""""""""""""
+nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
+
+scipy
+    numpy # n-dimensional arrays
+    sympy # symbolic mathematics
+    pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
+    maptplotlib # 2d plotting
+
+rpy2 # acces to R
+
+
+"""""""""""""""""""""
+"" Other libs & tools
+"""""""""""""""""""""
 reload(module)
+
+# Pypy: can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler
+
+virtualenv # sandbox
+pip # or easyinstall : libs manager
+
+json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
+
+multiprocessing > threading # as Python can only have on thread because of the GIL
+numbapro # for CUDA
+
+pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
+
+pycharm # code inspection
+
+http://amoffat.github.io/sh/ # AWESOME for shell scripting
 
 argparse > optparse # or clize - S&M
 group = parser.add_mutually_exclusive_group()
@@ -275,44 +305,18 @@ group.add_argument(... type=argparse.FileType('r'))
 
 from getpass import getpass # get password without echoing it
 
-# DB - simple Object Relational Mapping
-import peewee # S&M
+peewee # DB - simple Object Relational Mapping, S&M
 
-# HTTP server
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
-# HTML parsing
-import beautifulsoup
-# Micro framework web
-import bottle # S&M
+beautifulsoup # HTML parsing
+import bottle # Micro framework web, S&M
 
-# remote SSH/SFTP connexion
-import paramiko
+import paramiko # remote SSH/SFTP connexion
 
 import requests
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 
-multiprocessing > threading # as Python can only have on thread because of the GIL
-
-# Serialization
-cPickle # binary format, generic, fast & lighweight
-json
-
-# Parsing
-pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
-
-# Text analysis : noun phrase extraction, sentiment analysis, translation...
-https://github.com/sloria/TextBlob
-
-# AWESOME for shell scripting
-http://amoffat.github.io/sh/
-
-# PyCharm : code inspection
-
-# Sandbox, libs manager :
-virtualenv
-pip # or easyinstall
-
-# To use 3rd party modules, do not edit PYTHONPATH env var, use *.pth files 
+mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 
 
 """"""""

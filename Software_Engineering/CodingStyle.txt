@@ -70,6 +70,7 @@ Take the time to choose descriptive names. Naming things is a great power, it co
 - Too many arguments : best are no-arg, one arg, two arg and possibly 3 args. Avoid 4+ [CC-F1]
 - Output arguments [CC-F2]
 - Flag or selector arguments (boolean) [CC-F3] [CC-G15]
+- A () { B; C; D; } is better than A () { B } B () { C } C () { D } [Brandon Rhodes]
 
 # Comments smells
 - Inappropriate information : change history, author... [CC-C1]
@@ -115,3 +116,13 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - Avoid multiple languages in one source file [CC-G1]
 - Use the idioms of the programming language employed, aka "Don't write C code in Java"
 
+
+# Fun facts
+- OCTDD : Obsessive Compulsive Test Driven Development
+- Doug McIlroy replacement for Donald Knuth's 10+ pages of Pascal illustrating literate programming: 6 lines of shell
+tr -cs A-Za-z '\n' |
+tr A-Z a-z |
+sort |
+uniq -c |
+sort -rn |
+sed ${1}q

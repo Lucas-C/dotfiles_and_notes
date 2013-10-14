@@ -69,7 +69,7 @@ xev # Listen to keyboard events
 loadkeys fr # Change keyboard to FR
 killall gnome-settings-daemon # Fix crazy numpad (no '-')
 
-echo <ctrl-v><ctrl-o> # Fixing terminal frenzy
+echo <ctrl-v><ctrl-o> # or 'reset', fix terminal frenzy
 
 # Configure 'mail' command
 /etc/ssmtp/revaliases
@@ -403,9 +403,10 @@ mtr <host/ip> # > ping / traceroute
 nmap <host> -sT -p <port>
 telnet <host> <port>
 nc <host> <port>
-wget <host>:<port>
 nmap -sS -O 127.0.0.1 # Guess OS !!
 ss
+
+wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com
 
 # Locally
 netstat -nap <port>
@@ -459,6 +460,7 @@ lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 
 # Non portable tools
 iptraf, ntop, rddtool
+mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 
 
 =cCcCcCc=

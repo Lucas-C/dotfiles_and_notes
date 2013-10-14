@@ -2,6 +2,8 @@
 # [CC-\w\d+] : Clean Code - Robert C. Martin
 # [SDP] : Software Design Philosophy - John Ousterhout
 
+!! Asynchron != Parallele != Concurrent
+
 Basic definitions:
 - Bound ressources
 - Mutual exclusion

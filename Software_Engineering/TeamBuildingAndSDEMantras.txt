@@ -19,3 +19,5 @@ Sprints
 Hack time
 2-pizza team
 coaching recruits
+
+"The bearing of a child takes nine months, no matter how many women are assigned. Adding manpower to a late software project makes it later." Fred Brooks - "The Mythical Man-Month"
