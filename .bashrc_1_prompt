@@ -42,11 +42,11 @@ prompt_command()
 
     history -a # this + 'shopt -s histappend' in .bashrc => shared Bash history between term sessions 
 
-    [ $PWD != $HOME ] && [ $USER != "root" ] && pwd > ~/.last_dir
+    [ "$PWD" != "$HOME" ] && [ "$USER" != "root" ] && pwd > ~/.last_dir
 }
 export PROMPT_COMMAND=prompt_command
 
-cd $(cat ~/.last_dir 2>/dev/null)
+cd "$(cat ~/.last_dir 2>/dev/null)"
 
 if [ ${TERM:0:5} = xterm ]; then
     PS1='\[\e]0;\u@\h:\W\007\]'

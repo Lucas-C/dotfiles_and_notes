@@ -112,12 +112,13 @@ class Property(object):
             return self
         return self.fget(obj)
 
-# Immutable class
-class Immutable(namedtuple('Immutable', 'x y')):
-    def __new__(cls, x, y):
-        self = super(Immutable, cls).__new__(cls, x, y)
-        return self
+class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')): pass # Immutable class
 # Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
+
+# For multiple inheritance with namedtuple, combine fields + use specific inheritance order:
+class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), Immut2DPoint): pass
+
+# !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
 
 try: pass
 except Exception as err:
@@ -182,7 +183,7 @@ items = d.iteritems() # dicts ( iteritems > items )
 collections.OrderedDict # remember insertion order
 
 from itertools import groupby
-{category: list(packages) for category, packages in groupby(pkg_list, get_category)} # Dict-comprehension
+{category: list(packages) for category, packages in groupby(pkg_list, get_category)} # Dict-comprehension, limited: see SO/18664274
 
 dict.__missing__ # invoked for missing items
 
@@ -194,7 +195,7 @@ dict(y, **x) # union of dicts, duplicates are resolved in favor of x
 """""""""""
 "" Debug
 """""""""""
-import nose # -m nose.core --nologcapture --pdb --verbose --nocapture /path/to/test_file:TestCase.test_function
+import nose # -m nose.core --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
 
 # IPython tricks
 %pdb # Automatic pdb calling

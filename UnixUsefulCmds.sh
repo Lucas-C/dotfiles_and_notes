@@ -482,6 +482,8 @@ exit
 
 stap # SystemTap
 
+sysctl
+
 cat /proc/cpuinfo # Number of cores, cache size & alignement...
 cat /proc/version
 cat /etc/*-release
@@ -593,17 +595,21 @@ espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mb
 @ MAC OSX
 @@@@@@@@@@
 
-# Manual update
-sudo softwareupdate -i -a
+pmset -g # power management settings 
 
-# File listed with '@' => extended attributes
-xattr -l <file>
+pbpaste | pbcopy
 
-# Add user to group
-sudo dseditgroup -o edit -a <USER> -t user <GROUP>
+textutil -convert txt # or -info : convert / get infos on files
 
-# FUN
-curl http://google.com/ | base64 | say
+sudo softwareupdate -i -a # Manual software update
+
+Finder > Applications > Utilities > Disk Utility # Repair permissions
+
+xattr -l <file> # File listed with '@' => extended attributes
+
+sudo dseditgroup -o edit -a <USER> -t user <GROUP> # Add user to group
+
+curl http://google.com/ | base64 | say # FUN
 
 # C#
 NUNITLIB=/Library/Frameworks/Mono.framework/Versions/2.10.11/lib/mono/2.0/nunit.framework.dll
