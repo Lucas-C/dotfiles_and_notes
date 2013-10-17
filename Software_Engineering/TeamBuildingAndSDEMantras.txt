@@ -16,6 +16,8 @@ StandUp:
 
 Sprints
 
+Start from a POC / MVP
+
 Hack time
 2-pizza team
 coaching recruits

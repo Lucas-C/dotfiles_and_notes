@@ -595,21 +595,31 @@ espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mb
 @ MAC OSX
 @@@@@@@@@@
 
+curl http://google.com/ | base64 | say # FUN
+
+sudo softwareupdate -i -a # Manual software update
+
+Finder > Applications > Utilities > Disk Utility # Repair permissions
+
 pmset -g # power management settings 
 
 pbpaste | pbcopy
 
 textutil -convert txt # or -info : convert / get infos on files
 
-sudo softwareupdate -i -a # Manual software update
-
-Finder > Applications > Utilities > Disk Utility # Repair permissions
-
 xattr -l <file> # File listed with '@' => extended attributes
 
 sudo dseditgroup -o edit -a <USER> -t user <GROUP> # Add user to group
 
-curl http://google.com/ | base64 | say # FUN
+# DTrace scripts: man -k dtrace
+iosnoop # or better hfsslower.d from the DTrace book, available online
+execsnoop # trace processes created
+opensnoop -ve # trace open files, also maclife.d from DTrace book to trace files creation/deletion
+dtruss -d # strace
+soconnect_mac.d # trace TCP connections, from DTrace book
+errinfo # trace system call fail
+bitesize.d # trace I/O
+iotop
 
 # C#
 NUNITLIB=/Library/Frameworks/Mono.framework/Versions/2.10.11/lib/mono/2.0/nunit.framework.dll

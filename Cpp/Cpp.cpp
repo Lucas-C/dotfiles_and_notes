@@ -8,6 +8,8 @@ try {
     throw;
 }
 
+mmap // File in memomry mapping, to optimize paging operations
+
 // Parameter passing optimization: http://www.drdobbs.com/cpp/some-optimizations-are-more-important-th/240159684
 string rev(string&& s) { reverse(s.begin(), s.end()); return s; }
 // -> compiler will choose this one if the argument is an rvalue, which will reverse that rvalue in place

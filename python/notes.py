@@ -72,8 +72,9 @@ globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class
 # -> http://stackoverflow.com/questions/14198979/python-inheritance-metaclasses-and-type-function
 
 # It can be an alternative for Nose tests, as TestCase and generators are not compatible
-# Best alternatives to solve this : http://stackoverflow.com/questions/2798956/python-unittest-generate-multiple-tests-programmatically
+# Better is to simply create in a loop child classes of a parent TestCase that simply redefine the setUp method
 # TestCase.subTest is an alternative if data is not common to all test methods in the TestCase
+# Even more alternatives : http://stackoverflow.com/questions/2798956/python-unittest-generate-multiple-tests-programmatically
 
 # 'type' is the metaclass Python uses to create all classes behind the scenes
 # aka, the most common __class__.__class__ of an object
@@ -183,7 +184,8 @@ items = d.iteritems() # dicts ( iteritems > items )
 collections.OrderedDict # remember insertion order
 
 from itertools import groupby
-{category: list(packages) for category, packages in groupby(pkg_list, get_category)} # Dict-comprehension, limited: see SO/18664274
+{category: list(packages) for category, packages in groupby(pkg_list, get_category)} # dict-comprehension, limited: see SO/18664274
+{e for e in elems} # set-comprehension
 
 dict.__missing__ # invoked for missing items
 
@@ -195,7 +197,8 @@ dict(y, **x) # union of dicts, duplicates are resolved in favor of x
 """""""""""
 "" Debug
 """""""""""
-import nose # -m nose.core --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
+import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
+nosetest # -vv --collect-only # for debug
 
 # IPython tricks
 %pdb # Automatic pdb calling
