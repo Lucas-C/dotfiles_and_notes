@@ -62,7 +62,7 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 "set cscopeprg=~/bin/cscope  "set cscope bin path
 
 "Set colorscheme.  This is a black background colorscheme
-colorscheme darkblue
+colorscheme default " darkblue
 
 " viminfo options
 " read/write a .viminfo file, don't store more than

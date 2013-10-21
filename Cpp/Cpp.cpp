@@ -1,3 +1,11 @@
+// Use ‘const’ as much as possible.
+const int *p;           // pointer to const int
+int * const p;          // const pointer to int
+const int * const p;    // const pointer to const int
+// Don’t use:
+int const *p;
+
+
 // Basic exception
 throw runtime_error("invalid type");
 // Catching bad_alloc

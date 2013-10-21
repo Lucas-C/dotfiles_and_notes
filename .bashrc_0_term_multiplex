@@ -12,7 +12,7 @@ if type tmux >/dev/null 2>&1; then # use TMUX > SCREEN, because of its "no flush
 # CTRL+B ! : extract pane in a new window
 
 # CTRL+B d : detach
-# CTRL+B PageUp : enter copy mode
+# CTRL+B PageUp : enter copy mode + move up
 
 if [ $TERM != "screen" ]; then
     if ! ps -eo comm | grep -q '^tmux$'; then

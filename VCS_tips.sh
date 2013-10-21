@@ -76,6 +76,11 @@ git grep <keyword> $(git rev-list <rev1>..<rev2>) [–function-context]
 # Incorporate a repo in another repo
 git submodule add URL DIRNAME # http://git-scm.com/book/en/Git-Tools-Submodules
 
+# Adding vX.Y tags to commits
+# - can be signed with GPG with -s
+# - must be manually pushed or 'git push --tags'
+git tag
+
 
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:
