@@ -41,6 +41,7 @@ re.sub('a|b|c', rep, string) # def rep(matchobj): ...
 
 with open('filea', 'w+') as filea, open('fileb', 'w+') as fileb: pass # touch <files>
 
+StringIO # fake file
 # Temp files
 tempfile.gettempdir()
 tempfile.mkdtemp()
@@ -301,7 +302,8 @@ numbapro # for CUDA
 
 pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
 
-pycharm # code inspection
+pycharm, pylint # code inspection
+pyreverse # UML diagrams
 
 http://amoffat.github.io/sh/ # AWESOME for shell scripting
 

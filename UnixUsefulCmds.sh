@@ -23,8 +23,13 @@ look # find English words (or lines in a file) beginning with a string
 # 'top' < 'htop'
 * killing : Press "k", then pid, then signal (15, 9...)
 * sorting : press "O" and select the column
-* display absolute path of commands : "c"
+* display full command path of processes : "c"
 * display /cores stats : "1"
+VIRT: how much memory the program is able to access at the present moment
+RES: resident size, how much actual physical memory a process is consuming (heap memory that is currently in RAM) + (non heap memory in RAM) + (thread stack memory * number of threads) + (direct/mapped buffer memory)
+DATA is the amount of VIRT used that isn't shared and that isn't code-text; i.e., it is the virtual stack and heap of the process
+SHR: how much of the VIRT size is actually sharable memory or libraries
+SWAP: bogus
 pstree -p # hierarchy of processes
 
 pid -o comm= -p $PPID # get process name
@@ -319,7 +324,7 @@ sed -n '/FOO/,/BAR/p'
 
 # Replace newlines by a separator
 seq 1 10 | paste -s -d+ | bc
-# Break on world per line
+# Break on word per line
 perl -pe 's/\s+/\n/g'
 # paste is also usefule to interlace files: paste <file1> <file2>
 
@@ -530,7 +535,7 @@ mpstat 5 # cpu usage stats every 5sec
 dstat
 
 # Checking Swap Space Size and Usage
-free
+free -m # how much free ram I really have ? -> look at the row that says "-/+ buffers/cache"
 vmstat 2
 sar
 # + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
