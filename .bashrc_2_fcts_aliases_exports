@@ -26,7 +26,7 @@ nofuncalias () {            # return the fullpath of the cmd as arg, ignoring ho
 }
 
 unfuncalias () {            # undefined any function/alias named as arg
-    unset "$@"; unalias "$@" 2>/dev/null
+    unset -f "$@"; unalias "$@" 2>/dev/null
 }
 
 alias_r () {            # recursively resolve an alias, handle pipes and nested aliases

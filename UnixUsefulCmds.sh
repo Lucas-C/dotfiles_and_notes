@@ -643,6 +643,7 @@ mono *.exe
 
 {{:Transclude_an_arbitrary_page{{{with_template_param_subst|default_value}}}}}
 
+{{ {{{|safesubst:}}}lc:THIS LOWERCASE TEXT}} # uc for UPPERCASE
 x<sup>2</sup>, x<sub>2</sub>
 
 <includeonly>bgcolor="#1F78B4"|[https://{{{1}}} <span style="color:black">{{{1}}}</span>]</includeonly>
