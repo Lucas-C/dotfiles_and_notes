@@ -1,0 +1,20 @@
+## Coding best-practices
+### Content:
+- team best-practices : code-review, design-review, coding style reference
+- language-specific best practices
+- main "mantras"
+- design principles
+- code smells
+- naming
+
+### Medium:
+- pas CM, alternatives ?
+
+
+### Eval:
+1/3 coding test : code review by 2 other students & me
+1/3 knowledge restitution AFTER ct review : repeated mistakes count double
+1/3 original idea of tool / best practice:
+    1/3 originality / innovation
+    1/3 efficiency (metrics ?) / usability
+    1/3 additional content : implementation, survey, benchmarks, algos, taught me something ?
