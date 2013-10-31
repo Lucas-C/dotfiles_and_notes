@@ -432,8 +432,7 @@ lynx -dump -stdin # convert HTML to text
 iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
 iptables -n -L -v
 
-snmpget -v2c -c '<community_string>' <device> SNMPv2-MIB::sysDescr.0
-# or sysUpTime, sysName
+snmpget -v2c -c '<community_string>' <device> sysDescr.0 # or sysUpTime.0, sysName.0
 # The community string can be found in the 'Variables' tab in an AutoNOC device page
 # SNMP port : 161
 

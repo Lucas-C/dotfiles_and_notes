@@ -25,6 +25,9 @@ __call__
 
 hasattr(obj, '__call__') # isCallable ; work for functions too
 
+def foo(self): return 42
+obj.method = types.MethodType( foo, obj ) # binding functions into methods
+
 a, b = b, a # swapping
 
 pattern = (
@@ -193,6 +196,10 @@ dict.__missing__ # invoked for missing items
 assert d == dict(**d)
 
 dict(y, **x) # union of dicts, duplicates are resolved in favor of x
+
+class Bunch(dict): # http://code.activestate.com/recipes/52308
+    __getattr__ = dict.__getitem__
+    __setattr__ = dict.__setitem__
 
 
 """""""""""
