@@ -406,25 +406,33 @@ md5sum
 
 mtr <host/ip> # > ping / traceroute
 
-# Checking ports
-nmap <host> -sT -p <port>
-telnet <host> <port>
-nc <host> <port>
-nmap -sS -O 127.0.0.1 # Guess OS !!
-ss
+socat > nc/netcat > telnet
+socat - udp4-listen:5000,fork # create server redirecting listening on port 5000 output to terminal
+echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
 
-wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com
+# Port scanning
+nmap <host> -p <port> --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping, only scanning
+nmap -sS -O 127.0.0.1 # Guess OS !!
 
 # Locally
-netstat -nap <port>
-lsof -i -P -p <pid> # -n => no IP->hostname resolution
+lsof -i -P -p <pid> # -i => list all Internet network files ; -P => no conversion of port numbers to port names for network files ; -n => no IP->hostname resolution
 
-# List packet exchanges
-netstat [--statistics --udp]
-netstat -lntp # list processes listening
+ss -nap # -a => list both listening and non-listening sockets/ports ; -n => no DNS resolution for addresses, use IPs ; -p => get pid & name of process owning the socket
+ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
+
+# Even if 'ss' is the replacement for deprecated 'netstat', the following has no equivalent
+netstat --statistics [--udp] # global network statistics
+
+ip n[eighbour] # ARP or NDISC cache entries - replace deprecated 'arp'
+ip a[ddr] [show|add <ip>] dev eth0 # replace deprecated 'ifconfig'
+ip link set eth0 [up|down] # enable/disable the[interface specified
+ip tunnel # replace deprecated 'iptunnel'
+ip route # host routing tables - replace deprecated 'route'
+iw # details about wireless interfaces - replace deprecated 'iwconfig'
 
 grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 
+wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspire web page
 curl #See: http://curl.haxx.se/docs/httpscripting.html
 lynx -dump -stdin # convert HTML to text
 
@@ -439,8 +447,6 @@ snmpget -v2c -c '<community_string>' <device> sysDescr.0 # or sysUpTime.0, sysNa
 # Dump all tcp transmission to a specific IP :
 sudo tcpdump -X host $IP [ip proto icmp|udp|tcp]
 
-# Attribute IP to interface
-ifconfig eth0 192.168.0.1
 # On RedHat / CentOS / Fedora
 $EDITOR /etc/sysconfig/network-scripts/ifcfg-eth0
 $EDITOR /etc/sysconfig/network

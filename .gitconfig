@@ -25,8 +25,8 @@
 # Get the full history of the changes affecting a given line, using a regular expression
 # !WARNING! git blame only returns the 1st REGEX match, if multiple matches exist the recursion may 'jump' to follow another line 
 # USAGE: git rblame -M -n -L '/REGEX/,+1' FILE
-    rblame      = "!sh -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); echo $line; done' dumb_param"
-    rblameshow  = "!sh -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); git show $commit; done' dumb_param"
+    rblame      = "!bash -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); echo $line; done' dumb_param"
+    rblameshow  = "!bash -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); git show $commit; done' dumb_param"
 
 # colored logs, one per line
     dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order

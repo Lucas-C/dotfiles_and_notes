@@ -189,14 +189,14 @@ fopen () { firefox file://$(pwd)/$1 ; }
 
 fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
 
-findTxt () {            # | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
+findTxt () {            # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
     find -L "${@:-.}" -type f -exec file {} \; | grep ': [^/.]\+text' | sed 's/^\(.*\): .*$/\1/'
 }
 
 notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
     for f in $(findTxt "$@"); do
-        sed -i -e 's/[     ]*$//g' "$f"
-        sed -i -e 's/    /    /g' "$f"
+        sed -i -e 's/[\t ]*$//g' "$f"
+        sed -i -e 's/\t/    /g' "$f"
     done
 }
 

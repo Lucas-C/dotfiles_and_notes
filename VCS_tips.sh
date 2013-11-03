@@ -2,26 +2,21 @@
 # SVN #
 #-----#
 
-# Svn ignore
-svn propedit svn:ignore DIR # then specify PATTERNS
+svn propedit svn:ignore DIR # then specify PATTERNS # svn ignore
 
-# Get all svn props
-svn propget -R svn:ignore .
+svn propget -R svn:ignore . # Get all svn props
 
-# Rm added then removed files
-svn status | grep '!M' | awk '{print $2}' | xargs svn rm #--force
+svn status | grep '!M' | awk '{print $2}' | xargs svn rm #--force # Rm added then removed files
 
-# Add all newly  files
-svn add $(svn status | grep "^\?" | awk '{print $2}')
+svn add $(svn status | grep "^\?" | awk '{print $2}') # Add all newly files
 
-# Display even ignored files
-svn status --no-ignore
+svn status --no-ignore # Display even ignored files
 
-# List modifcations /commit
-svn diff --summarize -c <nb>
+svn diff --summarize -c <nb> # List modifcations /commit
 
-# Checkout file
-svn up -r <rev> <file>
+svn up -r <rev> <file> # Checkout file
+
+svn diff | diffstat # sum-up a diff
 
 
 #*****#
