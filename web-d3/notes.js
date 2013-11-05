@@ -49,6 +49,7 @@ try { ... } catch ( err if err instanceof ReferenceError ) { ... } finally {}
 function Stack() { try { throw Error() } catch(ex) { return ex.stack } } // Display the current call stack
 foo.toSource(2) // get function code source, with comments !
 
+requestAnimationFrame > setInterval OR setTimeout // For smart animating, recommended by Mozilla
 
 //~~//~~//~~//
 // Tricks //

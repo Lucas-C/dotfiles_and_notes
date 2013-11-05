@@ -387,9 +387,13 @@ ausearch -k <tag> [-ts today -ui 506 -x cat]
 
 mkfifo # Named pipes: https://en.wikipedia.org/wiki/Named_pipe
 python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo
-ulimit -a | grep pipe # max size
-ulimit -p # change pipe size in 512-byte blocks
+ulimit -p # should get max pipe size, but WRONG : defined in pipe_fs_i.h
 fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
+
+man mq_overview # POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code
+beanstalk # Better alternative queuing system, with lots of existing tools & libs in various labguages
+ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ # Message queue using AMPQ
+Celery/Kombu # Framework to use any of the above ones
 
 #Append at the end of stdout (or beginning with ^)
 echo ECHO | sed s/$/.ext/
