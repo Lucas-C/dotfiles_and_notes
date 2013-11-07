@@ -1,4 +1,4 @@
-## Coding best-practices
+## Best-practices
 ### Content:
 - team best-practices : code-review, design-review, coding style reference
 - language-specific best practices
@@ -18,3 +18,4 @@
     1/3 originality / innovation
     1/3 efficiency (metrics ?) / usability
     1/3 additional content : implementation, survey, benchmarks, algos, taught me something ?
+

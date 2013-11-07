@@ -122,9 +122,13 @@ alias lower='tr "[:upper:]" "[:lower:]"'
 alias upper='tr "[:lower:]" "[:upper:]"'
 
 urlencode () { perl -ne 'chomp; s/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg; print "$_\n"'; }
-utf8 () { iconv -f ISO-8859-1 -t UTF-8 $1 -o $2 ; }
+iconv_help () {
+    echo iconv -f ISO-8859-1 -t UTF-8 $1 -o ${2:-utf8_$1}
+    echo iconv -t 'ASCII//TRANSLIT//IGNORE' $1 -o ${2:-ascii_$1}
+}
+alias utf8=iconv_help
 nocrlf () { sed -i 's/$//' $1; }
-alias json_fmt='python -mjson.tool'
+alias json_fmt='python -mjson.tool' # don't work well with non ascii
 
 alias funiq="awk '"'{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'"'" # faster than 'sort | uniq -c'
 

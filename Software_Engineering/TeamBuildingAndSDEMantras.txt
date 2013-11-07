@@ -1,3 +1,13 @@
+Job selection questions:
+- holidays, working hours (flexible ?)
+- clear role / responsabilities
+- opportunity for growth ?
+- attitude /open source ?
+- dev:
+    - platform : OS, network size / local, global auth system...
+    - build automation : repos, build system...
+    - ok to use any dev tools ? IDE, github config...
+
 CultureBuilding:
 - stand-ups
 - whiteboard sessions
