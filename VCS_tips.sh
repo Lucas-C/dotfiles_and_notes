@@ -76,6 +76,13 @@ git submodule add URL DIRNAME # http://git-scm.com/book/en/Git-Tools-Submodules
 # - must be manually pushed or 'git push --tags'
 git tag
 
+# Branch infos
+git branch -av
+git remote show origin
+# Set remote branch to track
+git branch -u origin/master
+# Delete branch
+git branch -d $branch_name
 
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:

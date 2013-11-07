@@ -242,7 +242,7 @@ get_cell_value(b.func_closure[0])
 # Signal-based handle on a program to debug
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
 # Also:
-rom rfoo.utils import rconsole
+from rfoo.utils import rconsole
 rconsole.spawn_server()
 $ rconsole
 # And also:
@@ -259,12 +259,13 @@ import gc; gc.get_objects() # Returns a list of all objects tracked by the garba
 # SUPER powerful to hack python code and sniff values
 
 # Built-in profiler
-python -m cProfile myscript.py
+python -m cProfile myscript.py # -o output.pstats # cProfile.Profile().dump_stats(filename)
 # Visu:
-http://www.vrplumber.com/programming/runsnakerun/
-https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/
+gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
+pyprof2calltree # use kcachegrind
 # And also
-http://mg.pov.lt/objgraph/
+https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
+http://mg.pov.lt/objgraph # explore Python object graphs
 
 # get exec time
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
@@ -322,9 +323,18 @@ from getpass import getpass # get password without echoing it
 
 peewee # DB - simple Object Relational Mapping, S&M
 
-python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 beautifulsoup # HTML parsing
 import bottle # Micro framework web, S&M
+python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
+# Basic request parsing:
+import re, SimpleHTTPServer, SocketServer
+class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        request_match = re.search('param1=([^&]+)', self.path)
+        if request_match:
+            self.path = param1_match.group(1) + '.json'
+        return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
+SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 
 import paramiko # remote SSH/SFTP connexion
 

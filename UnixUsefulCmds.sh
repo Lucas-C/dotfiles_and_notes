@@ -57,6 +57,7 @@ gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtra
 
 hexdump -c # aka 'hd', use 'bvi' for editing
 strings exec.bin # extract strings of length >= 4
+objdump
 
 nm *.o # list symbols
 readelf -Ws *.so
@@ -105,6 +106,8 @@ sudo su -l
 echo 1 > /sys/bus/pci/rescan
 
 : () { : | : & } ; : # Fork bomb
+
+perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with a REGEX !
 
 # Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
 
@@ -565,6 +568,7 @@ blkid # list UUIDs
 dmidecode
 
 rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *regex* # list rpm
+rpmbuild file.spec
 alien # transformer un .rpm en .deb
 
 init q # Reload /etc/inittab
