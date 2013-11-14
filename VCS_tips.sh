@@ -24,7 +24,7 @@ svn diff | diffstat # sum-up a diff
 #*****#
 # http://blog.jacius.info/2008/6/22/git-tip-fix-a-mistake-in-a-previous-commit/
 
-# Git 'un-commit', as 'don't-change-any-files-but-cancel-last-commit'
+# Git 'uncommit', as 'don't-change-any-files-but-cancel-last-commit'
 git reset HEAD^
 
 # Rollback last pushed commit

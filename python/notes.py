@@ -207,6 +207,7 @@ class Bunch(dict): # http://code.activestate.com/recipes/52308
 """""""""""
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
 nosetest # -vv --collect-only # for debug
+self.assertRaisesRegexp
 
 # IPython tricks
 %pdb # Automatic pdb calling
@@ -277,6 +278,7 @@ h = hpy()
 h.heap()
 h.iso(...objects...).sp
 # Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
+# And: https://pympler.readthedocs.org/en/latest/related.html
 
 
 """""""""""""""""""""""""""""
@@ -315,7 +317,7 @@ pyreverse # UML diagrams
 
 http://amoffat.github.io/sh/ # AWESOME for shell scripting
 
-argparse > optparse # or clize - S&M
+argparse > optparse # or docopt or clize - S&M
 group = parser.add_mutually_exclusive_group()
 group.add_argument(... type=argparse.FileType('r'))
 
@@ -324,7 +326,8 @@ from getpass import getpass # get password without echoing it
 peewee # DB - simple Object Relational Mapping, S&M
 
 beautifulsoup # HTML parsing
-import bottle # Micro framework web, S&M
+bottle # Micro framework web, S&M
+HTTPretty # Testing HTTP requests without any server, acting at socket-level
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
 import re, SimpleHTTPServer, SocketServer
@@ -336,7 +339,7 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 
-import paramiko # remote SSH/SFTP connexion
+paramiko # remote SSH/SFTP connexion
 
 import requests
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})

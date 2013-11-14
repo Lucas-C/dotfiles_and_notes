@@ -32,6 +32,9 @@ StandUp:
 - What is blocking your progress?
 - What are your commitments for the week / progression / changes due to blockers or higher priorities
 
+Interviewing:
+- STAR -> Probe -> Chalenge
+
 Sprints
 
 Start from a POC / MVP

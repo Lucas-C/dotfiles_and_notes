@@ -14,20 +14,20 @@ java -jar archive.jar # Maybe -cp .
 // To be sure you're using the correct Java : namei $(which java)
 */
 
-// Debugger
-jdb
-
+findbugs, error-prone // code checking tools
+jdb // debugger
+jconsole // http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
+jprofiler (non free), visualVM // profilers
+jmap -histo:live <pid> // Object-type histogram on a running jvm
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
-
-jconsole
-// http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
-
-// Object-type histogram on a running jvm
-jmap -histo:live <pid>
 
 // String / ByteString correct conversion :
 String asString = new String( byteString.getArray(), "UTF-8" );
 ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
+
+Cloneable interface // Somehow broken because it does not have a 'clone()' method and Object.clone() is protected - Do not implement it
+
+java.util.AbstractSequentialList, AbstractList // Skeleton implementations for list classes
 
 import java.util.Arrays;
 Arrays.toString(myCollection.toArray()) // nice collection stringification

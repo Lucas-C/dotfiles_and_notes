@@ -16,6 +16,9 @@
     br = branch
     p = pull
 
+    wdiff = diff --word-diff
+    wshow = show --word-diff
+
     mvbranch = branch -m
     unadd = reset HEAD
 

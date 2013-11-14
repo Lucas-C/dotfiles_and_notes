@@ -122,6 +122,7 @@ alias lower='tr "[:upper:]" "[:lower:]"'
 alias upper='tr "[:lower:]" "[:upper:]"'
 
 urlencode () { perl -ne 'chomp; s/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg; print "$_\n"'; }
+urldecode () { sed -e's/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g' | xargs echo -e; } # don't handle '+'->' ' in a query
 iconv_help () {
     echo iconv -f ISO-8859-1 -t UTF-8 $1 -o ${2:-utf8_$1}
     echo iconv -t 'ASCII//TRANSLIT//IGNORE' $1 -o ${2:-ascii_$1}
