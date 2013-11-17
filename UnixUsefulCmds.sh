@@ -105,6 +105,9 @@ sudo /usr/share/doc/libdvdread4/install-css.sh
 sudo su -l
 echo 1 > /sys/bus/pci/rescan
 
+/dev/mem # Physical memory, useful to strings | grep pswd. Ubuntu limit this to 1Mb
+dd if=/dev/fmem of=/tmp/fmem_dump.dd bs=1MB count=10 # don't forget 'count'
+
 : () { : | : & } ; : # Fork bomb
 
 perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with a REGEX !

@@ -359,6 +359,8 @@ from __future__ import braces
 
 import this
 
+a='a=%s;print a%%`a`';print a%`a` # Quine
+
 
 """""""""""
 " Python 3
