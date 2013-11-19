@@ -1,4 +1,4 @@
-#!perl5.8
+#!/usr/bin/env perl5.8
 # Read–eval–print loop for Perl
 # Can benefit being called with http://utopia.knoware.nl/~hlub/uck/rlwrap/
  

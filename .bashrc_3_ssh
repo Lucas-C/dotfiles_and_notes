@@ -23,7 +23,6 @@ exportSshFiles () {      # export $SSH_EXPORT_FILES to a remote host $1
 
     for dst in "$@"; do
         local dst_host=${dst%:*}
-        dst_host=$(fqdn $dst_host 2>/dev/null || echo $dst_host)
         local dst_dir=\$HOME
         if [[ $dst =~ : ]]; then
             dst_dir=${dst#*:}
@@ -46,22 +45,27 @@ rm -rf $SSH_EXPORT_TMP_DIR
     done
 }
 
-ssh_setup () {
+ssh_setup () { # '-f' force a new ssh-agent creation
+    [ "$1" == "-f" ] && ssh-add -D 2>/dev/null
+
+    # There are 2 goals here:
+    # - it's a ok-ish test to determine if ssh port forwarding is used, in which case we do NOT want to 'source' any ssh-agent config
+    # - if ssh-agent already has some identities, this function is useless most of the time
+    ssh-add -l 2>&1 >/dev/null && return
+
     local agentConfFile=~/.ssh/.ssh-agent.sh
-    [ "$1" == "-f" ] && killall ssh-agent
     if [ -r $agentConfFile ]; then
         source $agentConfFile >/dev/null
-        if ! ps -eo args | grep -q 'ssh-agent$' || [ -z "$SSH_AGENT_PID" ] || ! ps -eo pid | grep -q $SSH_AGENT_PID; then
-            ssh-agent >$agentConfFile
-            source $agentConfFile >/dev/null
-        fi
     fi
-    if ! ssh-add -l 2>&1 >/dev/null; then
-        for pub_file_key in ~/.ssh/*.pub; do
-            local priv_file_key=${pub_file_key%.pub}
-            [ -r $priv_file_key ] && ssh-add $priv_file_key
-        done
+    if [ "$1" == "-f" ] || ! ps -eo args | grep -q 'ssh-agent$' || [ -z "$SSH_AGENT_PID" ] || ! ps -eo pid | grep -q $SSH_AGENT_PID; then
+        killall ssh-agent
+        ssh-agent >$agentConfFile
+        source $agentConfFile >/dev/null
     fi
+    for pub_file_key in $(ls ~/.ssh/*.pub 2>/dev/null); do
+        local priv_file_key=${pub_file_key%.pub}
+        [ -r $priv_file_key ] && ssh-add $priv_file_key
+    done
 }
 
 unfuncalias ssh

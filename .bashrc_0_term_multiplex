@@ -1,6 +1,5 @@
-( ps -p $PPID -o comm= | grep -Eq 'tilda|su|screen|ssh|tmux' || uname | grep -Eq 'CYGWIN|Darwin' ) && return
-
-if type tmux >/dev/null 2>&1; then # use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
+if [ -e ~/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
+type tmux >/dev/null || return 
 
 # CTRL+B c : new window
 # CTRL+B w : list windows
@@ -21,7 +20,8 @@ if [ $TERM != "screen" ]; then
     tmux a -t tmux_$USER
 fi
 
-elif type screen >/dev/null 2>&1; then # use basic SCREEN
+elif [ -e ~/.use_screen ]; then ## use basic SCREEN
+type screen >/dev/null || return 
 
 # screen -ls
 # screen -r
@@ -46,5 +46,5 @@ else
     trap 'at_every_cmd "$BASH_COMMAND"' DEBUG
 fi
 
-fi # end TMUX/SCREEN conditional
+fi ## end TMUX/SCREEN conditional
 

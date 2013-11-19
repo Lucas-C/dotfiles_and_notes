@@ -1,3 +1,5 @@
+debugger // breakpoint for debugger
+
 javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
 
 const TEXT = <> // const not supported by IE
