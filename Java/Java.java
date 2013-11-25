@@ -14,6 +14,7 @@ java -jar archive.jar # Maybe -cp .
 // To be sure you're using the correct Java : namei $(which java)
 */
 
+java -cp junit.jar:. org.junit.runner.JUnitCore path.to.pkg.AllTests// JUnit
 findbugs, error-prone // code checking tools
 jdb // debugger
 jconsole // http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html

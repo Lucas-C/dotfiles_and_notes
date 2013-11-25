@@ -345,7 +345,7 @@ import requests
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
-
+socket.inet_aton # validate IP, !! '192.168' is valid
 
 """"""""
 "" Fun
