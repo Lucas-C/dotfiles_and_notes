@@ -143,9 +143,12 @@ set - A B C
 install -o $USER -m 644 <file>
 install -d -m 777 <directory>
 
+for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.cumulonim.biz/BashPitfalls.html
+
 : ${1:?'Missing or empty parameter'}
-local var=${1:-"default value"}
 : ${var:="new value set if empty"}
+local var=${1:-"default value"}
+# !! 'local' is a command, and its return code will shadow the one of the cmd in the right part of an assignment
 
 # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 echo ${PWD//\//-}
@@ -172,6 +175,7 @@ foo () {
 }
 # Pros: self-sufficient: no need to untrap, or call the cleanup function at the end of the function its defined
 # Cons: cannot be nested, 'set -o nounset' trapped warnings can trigger multiple cleanup : this function MUST be robust
+# BIG CON: 'nounset' trigger an EXIT, and there is no way to make a distinction between a normal & error EXIT ($? doesn't work)
 
 # Script file parent dir
 EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -354,7 +358,8 @@ fmt # reformat lines into paragraphs
    FILES
 #=#=#=#=#=#
 
-find # Tip: ! -regex 'pat\|tern' >>>way>more>efficient>>> \( -path ./pat -o -path ./tern \) -prune -o -print
+find / -size +100M -ls # find big/largest files - One can safely ignore /proc/kcore
+find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 
 # append at the beginning of <file>
 sed -i "1i$content" <file>
@@ -442,7 +447,6 @@ iw # details about wireless interfaces - replace deprecated 'iwconfig'
 
 grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 
-curl #See: http://curl.haxx.se/docs/httpscripting.html
 lynx -dump -stdin # convert HTML to text
 wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspire web page
   -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
@@ -451,6 +455,7 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspir
   -A --accept acclist -R --reject rejlist : comma-separated list of filename suffixes or patterns to accept or reject
   -l --level=depth : default = 5
   -c --continue : continue getting a partially-downloaded file
+curl #See: http://curl.haxx.se/docs/httpscripting.html
 
 # Iptables
 iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
