@@ -7,7 +7,7 @@ multi
 lines
 text
 </>.toString();
-JSON.stringify(obj) // pretty stringifier
+JSON.stringify(obj) // pretty stringifier, an equivalent lib to this builtin is json.js
 
 // Concat of many strings
 [ 'aaa', 'bbb'... ].join('')
