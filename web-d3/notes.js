@@ -43,6 +43,8 @@ o.__defineGetter__('x', function(){ return 7 } ) // one can even o.__lookupGette
 o.__noSuchMethod__ = function(meth_name){...}
 
 o.constructor === Object // true - Control typeof, instanceof
+// => 'instanceof' does not work on primitive values (it returns 'false')
+// Also, beware: typeof null === "object"
 
 foo.call(newThis, arg1, arg2) || foo.apply(newThis, argsArray) // change current "this" in afunction call
 
@@ -60,8 +62,15 @@ requestAnimationFrame > setInterval OR setTimeout // For smart animating, recomm
 //~~//~~//
 // Evaluate to 'fail'
 (![]+[])[+[]]+(![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]];
-// Will define bar with value "undefined"
-if ( false ) { var bar = 42; }
+
+(0 === -0) && (0 === +0) // positive/negative zeros just equal 0
+
+if (new Boolean(false)) // not 'false' because this is an object wrapper !
+// The only false values are NaN, false, 0, null, undefined, and ''. 
+// One can use 'Boolean' without 'new' to properly convert any value to its matching boolean value
+// That's because calling primitive wrapper constructors without new returns primitive values
+
+if ( false ) { var bar = 42; } // Will define bar with value "undefined" (only if using 'var')
 
 // Vulnerability : redefining the Array constructor:
 function Array() { alert("hi"); }

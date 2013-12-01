@@ -102,6 +102,11 @@ public static void main(String[] args) {
     }
     LOG.info("{} exited sucessfully", PROG_NAME);
 }
+// Print stack trace outside a 'catch'
+for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
+    System.out.println(ste);
+}
+
 
 /* Useful standard runtime exceptions:
  *  - IllegalArgumentException

@@ -1,0 +1,47 @@
+Trois militaires viennent boire un verre à la terrasse d'un bistrot, et demandent l'addition.
+Le garçon de café encaisse 30F, et les porte à son patron. Celui-ci, qui désire faire la promotion
+de son établissement auprès du régiment voisin, décide une petite ristourne et demande au garçon
+de leur rendre 5 francs. Mais le garçon de café, qui ne partage pas la même sympathie que son patron
+à l'égard des militaires, et qui de toute façon, a beaucoup de mal à répartir 5 francs
+entre trois personnes, décide de n'en rendre que trois et de garder deux francs pour lui. Au bilan,
+chaque militaire a payé dix francs, mais s'est vu rendre un franc. Chacun a donc déboursé 9F,
+ce qui fait un total de 27F. Si l'on ajoute les 2 francs que le garçon a gardé pour lui, cela monte à 29F.
+  Mais où est passé le trentième franc ?
+
+Comment rendre cette égalité vraie le plus simplement possible ?
+  XI+I=X
+
+"Quel est la bonne porte d'après ton collègue ?"
+
+1
+11
+21
+1211
+111221
+312211
+
+ Qu'il y a t'il deux fois dans un an et trois fois dans une année ?
+
+ Vous êtes dans une pièce vide, fermée et sans fenêtre. Il y a trois interrupteurs sur le mur.
+Un seul commande l'ampoule éteinte qui est dans la pièce d'à côté.
+Votre but est de déterminer quel est le bon interrupteur. Seulement,
+vous n'avez droit qu'à une manipulation avant d'aller dans l'autre pièce pour énoncer votre verdict.
+  Comment faire pour trouver le bon interrupteur à coup sûr ?
+
+  Un puissant Cheik vient de mourir. A la lecture de son testament, le notaire qui s'est rendu sur place
+annonce que le défunt lègue ses 17 chameaux à distribuer comme suit entre ses 3 fils :
+le premier doit en recevoir la moitié, le second le tiers et le dernier le neuvième. Mais bien évidemment,
+le notaire se retrouve fort embarrassé devant cette curieuse demande de répartition.
+  Comment peut-il procéder ?
+
+(Le notaire peut ajouter son chameau à l'héritage sans aucun engagement : Il y aura alors 18 chameaux à donner aux 3 fils, et la distribution s'effectue sans problème. A la fin de l'opération, on remarque qu'il reste un chameau que le notaire peut reprendre.)
+
+
+Can you place six X¿s on this naughts and crosses board without making three-in-a-row in any direction ? (no trick)
+   |   |
+___|___|___
+   |   |
+___|___|___
+   |   |
+   |   |
+

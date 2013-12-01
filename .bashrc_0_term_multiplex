@@ -1,17 +1,20 @@
 if [ -e ~/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
 type tmux >/dev/null || return 
 
-# CTRL+B c : new window
-# CTRL+B w : list windows
-# CTRL+B <nb> : switch to window <nb>
+# CTRL+A c : new window # !! release CTRL-A first
+# CTRL+A w : list windows
+# CTRL+A <nb> : switch to window <nb>
 
-# CTRL+B " : split horizontally
-# CTRL+B % : split vertically
-# CTRL+B arrows : move between panes
-# CTRL+B ! : extract pane in a new window
+# CTRL+A " : split horizontally
+# CTRL+A % : split vertically
+# CTRL+A arrows : move between panes
+# CTRL+A ! : extract pane in a new window
 
-# CTRL+B d : detach
-# CTRL+B PageUp : enter copy mode + move up
+# CTRL+A d : detach
+# CTRL+A PageUp : enter copy mode + move up
+
+# tmux show-options -g
+# tmux list-keys
 
 if [ $TERM != "screen" ]; then
     if ! ps -eo comm | grep -q '^tmux$'; then

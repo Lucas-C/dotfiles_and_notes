@@ -88,7 +88,8 @@ pavucontrol
 alsamixer
 gstreamer-properties
 
-# Use 'apt-file' to see which package provides that file you're missing
+apt-file # see which package provides that file you're missing
+apt-key fingerprint # display imported keys fingerprints
 sudo dpkg -D1 -i *.deb
 
 # Identify video
