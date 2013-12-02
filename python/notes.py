@@ -232,10 +232,11 @@ def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_
 # Example:
 def foo(x):
     def bar():
-        return x
+        return x + 'STR_CONST'
     return bar
 b = foo(42)
 get_cell_value(b.func_closure[0])
+b.func_code.co_consts
 # Closure GOTCHAS:
 #- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
 #- http://stackoverflow.com/questions/12182068/python-closure-function-losing-outer-variable-access
@@ -311,6 +312,7 @@ multiprocessing > threading # as Python can only have on thread because of the G
 numbapro # for CUDA
 
 pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
+dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshare.net/dakerfp/functional-pattern-matching
 
 pycharm, pylint # code inspection
 pyreverse # UML diagrams

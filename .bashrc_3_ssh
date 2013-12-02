@@ -58,6 +58,7 @@ ssh_setup () { # '-f' force a new ssh-agent creation
         source $agentConfFile >/dev/null
     fi
     if [ "$1" == "-f" ] || ! ps -eo args | grep -q 'ssh-agent$' || [ -z "$SSH_AGENT_PID" ] || ! ps -eo pid | grep -q $SSH_AGENT_PID; then
+        echo "Creating new ssh-agent"
         killall ssh-agent
         ssh-agent >$agentConfFile
         source $agentConfFile >/dev/null

@@ -140,7 +140,7 @@ else
 end
 
 "http://vim.wikia.com/wiki/Toggle_auto-indenting_for_code_paste
-"set pastetoggle=<C-> # Ctrl+?
+set pastetoggle=<F2>
 
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 

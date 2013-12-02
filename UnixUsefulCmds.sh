@@ -161,9 +161,6 @@ echo ${PWD//\//-}
 echo "1/3" | bc -l # or specify "scale=X;" instead of flag
 factor <really-long-int> # decompose in factors
 
-# Change extension
-mv $file ${file%.*}.bak
-
 # Garbage cleaner
 garbage_cleaner () { # USAGE: eval $(garbage_cleaner cleanup_func)
     echo trap "'"e=\$? \; trap - RETURN EXIT INT TERM HUP QUIT \; $@ \; \$\(exit \$e\)"'" RETURN EXIT INT TERM HUP QUIT
@@ -274,9 +271,12 @@ stty echo
 
 # Syslog (port: 514)
 logger -is -t SCRIPT_NAME -p user.warn "Message"
+echo "<15>My logline" | nc -u -w 0 127.0.0.1 514 # <15> means 'user.debug', see RFC3164
 
-# Logrotate (to call in a cron job)
-# Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
+# Change extension
+mv $file ${file%.*}.bak
+mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
+# Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
 logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f]
 
 # Control process priority (useful in cron job)
@@ -424,7 +424,9 @@ mtr <host/ip> # > ping / traceroute
 
 socat > nc/netcat > telnet
 socat - udp4-listen:5000,fork # create server redirecting listening on port 5000 output to terminal
+nc -l -u -k -w 0 5000
 echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
+echo hello | nc -u -w 0 127.0.0.1 5000
 
 # Port scanning
 nmap <host> -p <port> --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping, only scanning
@@ -487,6 +489,7 @@ ssh $host "$cmds ; /bin/bash -i"
 .ssh/config
 # Exit a hung SSH session
 [ENTER] ~.
+openssl s_client # bare SSL client cmd
 
 # Find wireless driver
 lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
