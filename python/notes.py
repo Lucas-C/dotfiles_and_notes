@@ -66,6 +66,9 @@ def foo(x = []):
     return x
 foo();foo()
 
+def bar(**kwargs): # != def bar(foo=None, **kwargs):
+    foo = kwargs.pop('foo')
+
 datetime.utcnow() # better than time.time()
 import dateutil
 
@@ -352,7 +355,7 @@ socket.inet_aton # validate IP, !! '192.168' is valid
 """"""""
 "" Fun
 """"""""
-# Funny loop construct
+# Funny loop construct (exist also: try/except/else)
 for ...:
     break
 else:
@@ -372,3 +375,6 @@ def foo(x: between(3, 10), y: is_int) -> is_int:
     return x * y
 # Function annotations, see the following SO question that point to PEP 3107 & 0362 (function signatures):
 # http://stackoverflow.com/questions/3038033/what-are-good-uses-for-python3s-function-annotations
+
+b'I am an immutable basic byte array of type "bytes"'
+bytearray(b"I am mutable")

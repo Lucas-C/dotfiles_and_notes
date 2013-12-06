@@ -273,14 +273,13 @@ stty echo
 logger -is -t SCRIPT_NAME -p user.warn "Message"
 echo "<15>My logline" | nc -u -w 0 127.0.0.1 514 # <15> means 'user.debug', see RFC3164
 
-# Change extension
-mv $file ${file%.*}.bak
+mv $file ${file%.*}.bak # Change extension
 mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
-# Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
-logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f]
+logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
 
-# Control process priority (useful in cron job)
-nice / ionice / renice
+nice / ionice / renice # Control process priority (useful in cron job) 
+
+flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 
 # Get all commands prefixed by (useful for unit tests)
 compgen -abck unit_test_
@@ -490,6 +489,8 @@ ssh $host "$cmds ; /bin/bash -i"
 # Exit a hung SSH session
 [ENTER] ~.
 openssl s_client # bare SSL client cmd
+openssl x509 -text -noout -in <cert.pem> # get certs details
+keytool -printcert -file <cert.pem> # get certs details
 
 # Find wireless driver
 lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
@@ -556,6 +557,7 @@ sudo -K
 
 # setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
 # setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
+umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
 # Watch system stats
 watch -d 'cat /proc/meminfo'

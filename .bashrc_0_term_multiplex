@@ -13,15 +13,18 @@ type tmux >/dev/null || return
 # CTRL+A d : detach
 # CTRL+A PageUp : enter copy mode + move up
 
+# CTRL+A : move-window -t <number>
+
 # tmux show-options -g
 # tmux list-keys
 
-if [ $TERM != "screen" ]; then
-    if ! ps -eo comm | grep -q '^tmux$'; then
-        tmux new -s tmux_$USER
-    fi
-    tmux a -t tmux_$USER
+if [[ $(ps -p $PPID -o comm=) =~ tmux ]]; then # Alreay running in TMUX
+    return
 fi
+if ! ps -eo comm | grep -q '^tmux$'; then # Is there any TMUX process ?
+    tmux new -d -s tmux_$USER
+fi
+tmux attach -t tmux_$USER
 
 elif [ -e ~/.use_screen ]; then ## use basic SCREEN
 type screen >/dev/null || return 
