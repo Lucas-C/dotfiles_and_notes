@@ -317,7 +317,7 @@ numbapro # for CUDA
 pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
 dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshare.net/dakerfp/functional-pattern-matching
 
-pycharm, pylint # code inspection
+pylama # include pyflakes, pylint, PEP-checking - Also: Flake8
 pyreverse # UML diagrams
 
 http://amoffat.github.io/sh/ # AWESOME for shell scripting

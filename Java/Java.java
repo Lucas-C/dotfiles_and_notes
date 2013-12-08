@@ -66,6 +66,8 @@ static enum Action {
                 + "Available values are: " + Arrays.toString(Action.values()));
     }
 }
+EnumSet.range() .allOf() .clone() .removeAll() .size()
+
 Client client = injector.getInstance(params.action.client);
 Method action = Client.class.getMethod(params.action.toString().toLowerCase());
 action.invoke(client);

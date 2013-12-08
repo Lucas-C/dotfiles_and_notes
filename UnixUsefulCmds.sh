@@ -520,12 +520,17 @@ stap # SystemTap
 
 sysctl
 
-cat /proc/cpuinfo # Number of cores, cache size & alignement...
-cat /proc/version
 cat /etc/*-release
 lsb_release -a
 uname -a
 cat /etc/issue*
+
+/proc/version
+/proc/cpuinfo # Number of cores, cache size & alignement...
+/proc/loadavg :
+- first 3 fields : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1, 5, and 15 minutes
+- 4th field : number of currently executing kernel scheduling entities (processes, threads) / number of existing kernel scheduling entities
+- 5th field : PID of last process created
 
 # People previous logged
 last [-f /var/log/wtmp.1]

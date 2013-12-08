@@ -1,3 +1,5 @@
+ps -p $PPID -o comm= | grep -Eq 'tilda|su' && return
+
 if [ -e ~/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
 type tmux >/dev/null || return 
 
