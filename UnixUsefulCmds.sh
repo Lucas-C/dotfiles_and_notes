@@ -123,11 +123,10 @@ perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testi
 # Standard warnings
 set -o pipefail -o errexit -o nounset -o xtrace
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
-# Check syntax without executing
-bash -n <script>
 
-# Debug
-caller # returns "$line $filename"
+bash -n <script> # Check syntax without executing
+bash --debugger <script>
+parent_func=$(caller 0 | cut -d' ' -f2) # "$line $subroutine $filename"
 source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
 
 # Redirect logs
@@ -160,20 +159,6 @@ echo ${PWD//\//-}
 # Floating point arithmetic
 echo "1/3" | bc -l # or specify "scale=X;" instead of flag
 factor <really-long-int> # decompose in factors
-
-# Garbage cleaner
-garbage_cleaner () { # USAGE: eval $(garbage_cleaner cleanup_func)
-    echo trap "'"e=\$? \; trap - RETURN EXIT INT TERM HUP QUIT \; $@ \; \$\(exit \$e\)"'" RETURN EXIT INT TERM HUP QUIT
-}
-foo () {
-    cleanup () { echo CLEANUP ; rm $file ; } # variables will be accesible as this will be called before leaving the function
-    eval $(garbage_cleaner cleanup)
-    local file=$(mktemp)
-    sleep 5
-}
-# Pros: self-sufficient: no need to untrap, or call the cleanup function at the end of the function its defined
-# Cons: cannot be nested, 'set -o nounset' trapped warnings can trigger multiple cleanup : this function MUST be robust
-# BIG CON: 'nounset' trigger an EXIT, and there is no way to make a distinction between a normal & error EXIT ($? doesn't work)
 
 # Script file parent dir
 EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
