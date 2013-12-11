@@ -406,7 +406,7 @@ md5sum
 
 mtr <host/ip> # > ping / traceroute
 
-socat > nc/netcat > telnet
+socat > nc (netcat) > telnet
 socat - udp4-listen:5000,fork # create server redirecting listening on port 5000 output to terminal
 nc -l -u -k -w 0 5000
 echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
@@ -466,6 +466,15 @@ host -t txt <hostname>
 nslookup
 # Reverse
 dig +short -x <IP>
+# Caching
+/etc/resolv.conf # manual / basic
+bind / dnsmasq / lwresd / nscd (broken: ignore TTL) # daemon
+getent ahostsv4 www.google.com # whole query through NSS
+rndc # display various DNS cache control commands
+rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ; lwresd <port> can be figured out with lsof/nmap
+# View queries bypassing lwresd
+/usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
+    $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
 # Keep ssh session open after executing commands
 ssh $host "$cmds ; /bin/bash -i"
@@ -530,7 +539,7 @@ echo 1 > /sys/module/printk/parameters/printk_time
 
 # Get uid / groups infos
 id $USER # for primary group, use -ng flag
-adduser / moduser -a -G # DO NOT FORGET THE -a !!!
+adduser / usermod -a -G # DO NOT FORGET THE -a !!!
 
 # Add a Linuxsecondary group without logging out
 newgroup <new secondary group>
@@ -659,6 +668,7 @@ mono *.exe
 =======
 = Wiki
 =======
+<!-- Comment -->
 
 #REDIRECT[[United States]]
 

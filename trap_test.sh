@@ -5,6 +5,7 @@
 #- implement a trap stack, based on calling function name (using 'caller')
 #- add checks to the lib to verify consistent usage, i.e. not other calls to 'trap' are made before/in-between
 #- make the lib 'set -eux' proof
+#- do extra script checking if sourced with the script name as a parameter $(readlink -f $0) : grep '[A-Za-z0-9]exec '
 
 # Garbage cleaner proto
 garbage_cleaner () { # USAGE: eval $(garbage_cleaner cleanup_func)
@@ -27,6 +28,7 @@ trap 'e=$? ; trap - ILL ; echo "ILL - ERR_CODE:$e"; $(exit $e)' ILL
 trap 'e=$? ; trap - TRAP ; echo "TRAP - ERR_CODE:$e"; $(exit $e)' TRAP
 trap 'e=$? ; trap - ABRT ; echo "ABRT - ERR_CODE:$e"; $(exit $e)' ABRT
 trap 'e=$? ; trap - KILL ; echo "KILL - ERR_CODE:$e"; $(exit $e)' KILL
+trap 'e=$? ; trap - CONT ; echo "CONT - ERR_CODE:$e"; $(exit $e)' CONT
 trap 'e=$? ; trap - STOP ; echo "STOP - ERR_CODE:$e"; $(exit $e)' STOP
 #trap 'e=$? ; trap - DEBUG ; echo "DEBUG - ERR_CODE:$e"; $(exit $e)' DEBUG
 trap 'e=$? ; trap - ERR ; echo "ERR - ERR_CODE:$e"; $(exit $e)' ERR
@@ -46,25 +48,28 @@ main () {
     case $signal in
         LIST) kill -l;
             echo -e 'NSIG) DEBUG (can be equal to SIGRTMAX)\nNSIG+1) ERROR\nNSIG+2) RETURN';
-            echo -e 'EXTRAS: EXIT TERM (EXEC)';;
+            echo 'EXTRAS: EXIT TERM (EXEC)';
+            echo 'For details: locate signal.h';;
         HUP) kill -HUP $$;;
         INT) kill -INT $$;; # raised by CTRL+C => raise an ERR
         QUIT) kill -QUIT $$;;
         ILL) kill -ILL $$;;
         TRAP) kill -TRAP $$;;
         ABRT) kill -ABRT $$;;
-        KILL) echo "Trap won't be caught"; kill -9 $$;;
-        STOP) echo "Trap won't be caught + job in background"; kill -STOP $$;;
+        KILL) echo "This won't be caught by the matching trap"; kill -9 $$;;
+        CONT) echo "'Resumes the process (all threads in the group) from TASK_STOPPED state and also clears any pending/queued stop signals. This happens regardless of blocking, catching, or ignoring SIGCONT.'";
+            kill -CONT $$;;
+        STOP) echo "This won't be caught by the matching trap + process will be put in background"; kill -STOP $$;;
         DEBUG) :;;
         ERR) false;;
-        RETURN) echo > empty; source empty; rm empty;; # DOES NOT WORK !
+        RETURN) echo -e 'foo () { return 12; }\nfoo' > return12 ; source return12 ; rm return12;; # DOES NOT WORK !
         EXIT) exit 11;;
         TERM) kill $$;;
-        EXEC) echo "There will be no end-trap"; exec printf '';;
+        EXEC) echo "This won't be caught by any trap"; exec printf '';;
         *) ;;
     esac
 }
 
-#[ "x${@}x" = xRETURNx  ] && { echo 'return 12' > return12 ; source return12 ; rm return12; } # SHOULD WORK but ERR_CODE is 0
-[ "x${@}x" = xRETURNx  ] && { echo -e 'foo () { return 12; }\nfoo' > return12 ; source return12 ; rm return12; } # also raise an ERR12
+[ "x${@}x" = xRETURNx  ] && { echo -e 'foo () { return 12; }\nfoo' > return12 ; source return12 ; rm return12; } # also raise en ERR12 with bash 3.2
+#[ "x${@}x" = xRETURNx  ] && { echo 'return 12' > return12 ; source return12 ; rm return12; } # SHOULD also work but ERR_CODE is 0
 main "$@"

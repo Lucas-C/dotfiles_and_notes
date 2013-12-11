@@ -332,6 +332,7 @@ peewee # DB - simple Object Relational Mapping, S&M
 
 beautifulsoup # HTML parsing
 bottle # Micro framework web, S&M
+pywebsocket
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
