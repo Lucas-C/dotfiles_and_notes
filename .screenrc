@@ -1,3 +1,7 @@
+# screen -ls
+# screen -r
+# DOC: http://www.bangmoney.org/presentations/screen.html
+
 #change the hardstatus settings to give an window list at the bottom of the
 #screen, with the time and date and with the current window highlighted
 hardstatus alwayslastline

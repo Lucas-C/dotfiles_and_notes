@@ -28,6 +28,8 @@ trap 'e=$? ; trap - ILL ; echo "ILL - ERR_CODE:$e"; $(exit $e)' ILL
 trap 'e=$? ; trap - TRAP ; echo "TRAP - ERR_CODE:$e"; $(exit $e)' TRAP
 trap 'e=$? ; trap - ABRT ; echo "ABRT - ERR_CODE:$e"; $(exit $e)' ABRT
 trap 'e=$? ; trap - KILL ; echo "KILL - ERR_CODE:$e"; $(exit $e)' KILL
+# There is no much point in catching Bash segfault. This won't catch e.g. a C program segfault (see commented tests below)
+# trap 'e=$? ; trap - SEGV ; echo "SEGV - ERR_CODE:$e"; $(exit $e)' SEGV
 trap 'e=$? ; trap - CONT ; echo "CONT - ERR_CODE:$e"; $(exit $e)' CONT
 trap 'e=$? ; trap - STOP ; echo "STOP - ERR_CODE:$e"; $(exit $e)' STOP
 #trap 'e=$? ; trap - DEBUG ; echo "DEBUG - ERR_CODE:$e"; $(exit $e)' DEBUG
@@ -57,11 +59,13 @@ main () {
         TRAP) kill -TRAP $$;;
         ABRT) kill -ABRT $$;;
         KILL) echo "This won't be caught by the matching trap"; kill -9 $$;;
+#        SEGV) echo 'int main(){ int*p = 0; return *p; }' > segfault.c; gcc segfault.c; ./a.out;;
+#        SEGV) echo -e '#include <csignal>\nint main() { raise(SIGSEGV); }' > segfault.cpp; g++ segfault.cpp; ./a.out;;
         CONT) echo "'Resumes the process (all threads in the group) from TASK_STOPPED state and also clears any pending/queued stop signals. This happens regardless of blocking, catching, or ignoring SIGCONT.'";
             kill -CONT $$;;
         STOP) echo "This won't be caught by the matching trap + process will be put in background"; kill -STOP $$;;
         DEBUG) :;;
-        ERR) false;;
+        ERR) $(exit 255);;
         RETURN) echo -e 'foo () { return 12; }\nfoo' > return12 ; source return12 ; rm return12;; # DOES NOT WORK !
         EXIT) exit 11;;
         TERM) kill $$;;

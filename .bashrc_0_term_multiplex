@@ -1,58 +1,23 @@
 ps -p $PPID -o comm= | grep -Eq 'tilda|su' && return
 
 if [ -e ~/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
-type tmux >/dev/null || return 
-
-# CTRL+A c : new window # !! release CTRL-A first
-# CTRL+A w : list windows
-# CTRL+A <nb> : switch to window <nb>
-
-# CTRL+A " : split horizontally
-# CTRL+A % : split vertically
-# CTRL+A arrows : move between panes
-# CTRL+A ! : extract pane in a new window
-
-# CTRL+A d : detach
-# CTRL+A PageUp : enter copy mode + move up
-
-# CTRL+A : move-window -t <number>
-
-# tmux show-options -g
-# tmux list-keys
-
-if [[ $(ps -p $PPID -o comm=) =~ tmux ]]; then # Alreay running in TMUX
-    return
-fi
-if ! ps -eo comm | grep -q '^tmux$'; then # Is there any TMUX process ?
-    tmux new -d -s tmux_$USER
-fi
-tmux attach -t tmux_$USER
-
-elif [ -e ~/.use_screen ]; then ## use basic SCREEN
-type screen >/dev/null || return 
-
-# screen -ls
-# screen -r
-# DOC: http://www.bangmoney.org/presentations/screen.html
-
-function at_every_cmd() {
-    if [ -n "$STY" ] && [ "$@" != "prompt_command" ] ; then
-        # 'shelltitle' in .screenrc doesn't work well : tab names get stuck to vim calls
-        screen -X title "$@"
+    type tmux >/dev/null || return 
+    if [[ $(ps -p $PPID -o comm=) =~ tmux ]]; then # Alreay running in TMUX
+        return
     fi
-}
-
-if [ $TERM != "screen" ]; then
+    if ! ps -eo comm | grep -q '^tmux$'; then
+        tmux new -d -s tmux_$USER
+    fi
+    tmux attach -t tmux_$USER
+elif [ -e ~/.use_screen ]; then
+    type screen >/dev/null || return 
+    if [[ $(ps -p $PPID -o comm=) =~ screen ]]; then # Alreay running in SCREEN
+        return
+    fi
     if ! ps -eo comm | grep -q '^screen$'; then
         screen -wipe
         screen -c ${BASHRC_DIR:-$HOME}/.screenrc -d -m
     fi
     screen -A -x
-else
-    # HACKED thanks to http://code-and-hacks.blogspot.com/2010/04/setting-terminal-title-in-gnu-screen.html
-    # and http://www.davidpashley.com/articles/xterm-titles-with-bash.html
-    trap 'at_every_cmd "$BASH_COMMAND"' DEBUG
 fi
-
-fi ## end TMUX/SCREEN conditional
 

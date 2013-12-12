@@ -470,7 +470,7 @@ dig +short -x <IP>
 /etc/resolv.conf # manual / basic
 bind / dnsmasq / lwresd / nscd (broken: ignore TTL) # daemon
 getent ahostsv4 www.google.com # whole query through NSS
-rndc # display various DNS cache control commands
+rndc # display various DNS cache control commands, part of Bind9 tools suite
 rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ; lwresd <port> can be figured out with lsof/nmap
 # View queries bypassing lwresd
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
@@ -697,27 +697,23 @@ http://en.wikipedia.org/wiki/Help:Magic_words
 
 
 ::=::=::=::
-:: MySQL
+:: MySQL / SQLite
 ::=::=::=::
-mysql -h <host> -u <user> -p [--ssl-ca=<file>.pem] # default port 3306
-
-mytop # watch mysql
-
 LIKE >faster> REGEXP
 
-# list tables
+sqlite3 places.sqlite "select a.url, b.title from moz_places a, moz_bookmarks b where a.id=b.fk;" # no cmd => interactive
+.help
+.tables
+.schema moz_places
+
+mysql -h <host> -u <user> -p [--ssl-ca=<file>.pem] # default port 3306
+mytop # watch mysql
+
 show tables;
-.tables # SqLite
-
-# List columns
+show table status;
 show columns from <table>;
-
-# Kill request
-SHOW PROCESSLIST;
-KILL <thread_to_be_killed>;
-
-# Get tables informations
-SHOW TABLE STATUS;
+show processlist;
+kill <thread_to_be_killed>;
 
 # How to start a file to make it executable AND runnable with mysql < FILE.mysql :
 /*/cat <<NOEND | mysql #*/
