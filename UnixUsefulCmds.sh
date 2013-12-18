@@ -129,6 +129,9 @@ bash --debugger <script>
 parent_func=$(caller 0 | cut -d' ' -f2) # "$line $subroutine $filename"
 source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
 
+# Set positional parameters $0 $1 ...
+set - A B C
+
 # Redirect logs
 exec >>logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
 # Standard logs date
@@ -136,8 +139,11 @@ date "+%F %T,%N" | cut -c-23
 # Seconds since EPOCH
 date -u +%s
 
-# Set positional parameters $0 $1 ...
-set - A B C
+# Simulating 'pipefail', from gzip:zgrep source code
+r=$(
+    exec 4>&1
+    (eval "$cmd1" 4>&-; echo $? >&4) | sed "$cmd2" 4>&-
+) && exit $r
 
 # Create and set permissions
 install -o $USER -m 644 <file>
@@ -396,6 +402,8 @@ echo ECHO | sed s/$/.ext/
 
 rsync -avz --exclude=".*" --delete # the last option remove extra remote files
 
+tar -J... # instead of -z, .xz compression format support
+
 sha{1,224,256,384,512}sum
 md5sum
 
@@ -460,10 +468,9 @@ $EDITOR /etc/sysconfig/network-scripts/ifcfg-eth0
 $EDITOR /etc/sysconfig/network
 /etc/init.d/network restart 
 
-# Query DNS
+# Query DNS cmds > deprecated 'nslookup'
 dig txt [+short] <hostname>
 host -t txt <hostname>
-nslookup
 # Reverse
 dig +short -x <IP>
 # Caching
@@ -580,6 +587,7 @@ lshw -C disk # list disks : ata, cdrom, dvdrom
 blkid # list UUIDs
 dmidecode
 
+rpm -qif $(which zgrep) # Find what package a command belong to
 rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *regex* # list rpm
 rpmbuild file.spec
 alien # transformer un .rpm en .deb
@@ -638,6 +646,7 @@ sudo softwareupdate -i -a # Manual software update
 
 Finder > Applications > Utilities > Disk Utility # Repair permissions
 
+system_profiler # list system components, ports...
 pmset -g # power management settings 
 
 pbpaste | pbcopy

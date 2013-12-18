@@ -3,8 +3,8 @@
 [ $(uname -s) = Darwin ] || return 0
 ####################################
 
-export PATH=/usr/X11/bin:$PATH
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH # Macports
+PATH=/usr/X11/bin:$PATH
+PATH=/opt/local/bin:/opt/local/sbin:$PATH # Macports
 
 alias l='ls -BFG'
 alias f='open -a /Applications/Firefox.app'

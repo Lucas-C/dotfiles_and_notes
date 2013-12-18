@@ -6,12 +6,12 @@ export EDITOR=vim
 export HISTTIMEFORMAT="%F %T " # for 'history' formatting
 
 export PATH=/bin
-export PATH=/sbin:$PATH
-export PATH=/usr/bin:$PATH
-export PATH=/usr/sbin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=$BASHRC_DIR/bin:$PATH
+PATH=/sbin:$PATH
+PATH=/usr/bin:$PATH
+PATH=/usr/sbin:$PATH
+PATH=/usr/local/bin:$PATH
+PATH=/usr/local/sbin:$PATH
+PATH=$BASHRC_DIR/bin:$PATH
 
 #---------------
 # Alias control
@@ -22,7 +22,7 @@ pa () {                 # print aliases
 }
 
 nofuncalias () {            # return the fullpath of the cmd as arg, ignoring homonym alias/functions, like which/type does
-    type -a "$@" | tail -n 1 | awk '{ print $NF }'
+    type -a "$@" | sed -e '/is a function/,/^[}]/d' -e '/is aliased/d' | head -n 1 | sed 's/^.* is //'
 }
 
 unfuncalias () {            # undefined any function/alias named as arg

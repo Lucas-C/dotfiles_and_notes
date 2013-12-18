@@ -48,15 +48,16 @@ rm -rf $SSH_EXPORT_TMP_DIR
 ssh_setup () { # '-f' force a new ssh-agent creation
     [ "$1" == "-f" ] && ssh-add -D 2>/dev/null
 
-    # There are 2 goals here:
-    # - it's a ok-ish test to determine if ssh port forwarding is used, in which case we do NOT want to 'source' any ssh-agent config
-    # - if ssh-agent already has some identities, this function is useless most of the time
+    # This is a test to determine if ssh port forwarding is used, in which case we do NOT want to 'source' any ssh-agent config
     ssh-add -l 2>&1 >/dev/null && return
 
     local agentConfFile=~/.ssh/.ssh-agent.sh
     if [ -r $agentConfFile ]; then
         source $agentConfFile >/dev/null
     fi
+    # If ssh-agent already has some identities, adding keys is probably useless
+    ssh-add -l 2>&1 >/dev/null && return
+
     if [ "$1" == "-f" ] || ! ps -eo args | grep -q 'ssh-agent$' || [ -z "$SSH_AGENT_PID" ] || ! ps -eo pid | grep -q $SSH_AGENT_PID; then
         echo "Creating new ssh-agent"
         killall ssh-agent
@@ -69,21 +70,23 @@ ssh_setup () { # '-f' force a new ssh-agent creation
     done
 }
 
+alias pre_ssh=ssh_setup
+
 unfuncalias ssh
 ssh () {
-    ssh_setup
+    pre_ssh
     $(nofuncalias ssh) "$@"
 }
 
 unfuncalias scp
 scp () {
-    ssh_setup
+    pre_ssh
     $(nofuncalias scp) "$@"
 }
 
 unfuncalias rsync
 rsync () {
-    ssh_setup
+    pre_ssh
     $(nofuncalias rsync) "$@"
 }
 

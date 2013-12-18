@@ -329,6 +329,7 @@ group.add_argument(... type=argparse.FileType('r'))
 from getpass import getpass # get password without echoing it
 
 peewee # DB - simple Object Relational Mapping, S&M
+sqlite3 # std DB, persistent in a file || can be created in RAM
 
 beautifulsoup # HTML parsing
 bottle # Micro framework web, S&M
