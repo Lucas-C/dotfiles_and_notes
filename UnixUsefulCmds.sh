@@ -76,6 +76,10 @@ xev # Listen to keyboard events
 loadkeys fr # Change keyboard to FR
 killall gnome-settings-daemon # Fix crazy numpad (no '-')
 
+xkill # kill window by clicking
+xprop # get window infos by cliking
+xdpyinfo / xwininfo -children -id $ID # get X11 windows infos
+
 echo <ctrl-v><ctrl-o> # or 'reset', fix terminal frenzy
 
 # Configure 'mail' command

@@ -11,7 +11,7 @@ Job selection questions:
 Joining a new team:
 - talk to a colleague each day and question him on what he does, but try to not bother them for half of the day
 - take notes in a file, complete/fix the existing docs & draw diagrams
-- auickly get a short-term goal to focus on & follow the 'minimal info' loop:
+- quickly get a short-term goal to focus on & follow the 'minimal info' loop:
     * Acquire as little information as possible
     * Acquire information as efficiently as possible
     * Use the information you acquire as effectively as possible
@@ -44,3 +44,6 @@ Hack time
 coaching recruits
 
 "The bearing of a child takes nine months, no matter how many women are assigned. Adding manpower to a late software project makes it later." Fred Brooks - "The Mythical Man-Month"
+
+"Programmers always confuse Halloween with Christmas because Oct 31 == Dec 25"
+

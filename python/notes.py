@@ -37,7 +37,7 @@ r"\b\w+\b"  # a word between two word separators
 "\.*?"      # non greedy wildcard
 ")"         # named group end
 )
-m = re.search(pattern, "Un... Deux... Trois...", re.DEBUG|re.DOTALL|re.MULTILINE)
+m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DEBUG -> print parse tree
 m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep, string) # def rep(matchobj): ...
@@ -214,6 +214,7 @@ self.assertRaisesRegexp
 
 # IPython tricks
 %pdb # Automatic pdb calling
+ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 
 # PDB tricks
 debug foo() # step into a function
@@ -331,7 +332,7 @@ from getpass import getpass # get password without echoing it
 peewee # DB - simple Object Relational Mapping, S&M
 sqlite3 # std DB, persistent in a file || can be created in RAM
 
-beautifulsoup # HTML parsing
+beautifulsoup # HTML parsing, use v>=3.2
 bottle # Micro framework web, S&M
 pywebsocket
 HTTPretty # Testing HTTP requests without any server, acting at socket-level

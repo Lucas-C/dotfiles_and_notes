@@ -22,7 +22,8 @@ pa () {                 # print aliases
 }
 
 nofuncalias () {            # return the fullpath of the cmd as arg, ignoring homonym alias/functions, like which/type does
-    type -a "$@" | sed -e '/is a function/,/^[}]/d' -e '/is aliased/d' | head -n 1 | sed 's/^.* is //'
+    local cmd="$@"
+    type -a "$cmd" | sed -e "/$cmd "'.* f[ou]nction/,/^[}]/d' -e "/$cmd "'.* alias/d' | head -n 1 | sed 's~^[^/]\+/~/~'
 }
 
 unfuncalias () {            # undefined any function/alias named as arg
@@ -196,7 +197,7 @@ fopen () { firefox file://$(pwd)/$1 ; }
 fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
 
 findTxt () {            # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
-    find -L "${@:-.}" -type f -exec file {} \; | grep ': [^/.]\+text' | sed 's/^\(.*\): .*$/\1/'
+    find -L "${@:-.}" -type f -exec file {} \; | grep ': [^.]\+text' | sed 's/^\(.*\): .*$/\1/'
 }
 
 notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
