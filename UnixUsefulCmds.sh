@@ -318,6 +318,8 @@ cat -vET
 # echo non-ascii
 printf "\177" # octal
 
+make 2>&1 | colout -t cmake | colout -t g++ # from nojhan github: "Color Up Arbitrary Command Output"
+
 printf "%-8s\n" "${value}" # 8 spaces output formatting
 
 # filter outpout : not lines 1-3 and last one

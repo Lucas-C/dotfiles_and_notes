@@ -35,3 +35,6 @@ cacls file /G username:F
 del file
 
 :: Default .dll owner : NT SERVICE\TrustedInstaller
+
+:: Loupe
+Magnify.exe

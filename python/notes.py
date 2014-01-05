@@ -132,6 +132,7 @@ try: pass
 except Exception as err:
     # see chain_errors module
     logging.exception("Additional infos") # Exception will be automagically logged
+	import traceback; traceback.print_exc()
 else: pass
 finally: pass
 
@@ -211,6 +212,7 @@ class Bunch(dict): # http://code.activestate.com/recipes/52308
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
 nosetest # -vv --collect-only # for debug
 self.assertRaisesRegexp
+import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 
 # IPython tricks
 %pdb # Automatic pdb calling
@@ -226,6 +228,7 @@ dir(obj)
 
 inspect.getmembers(obj)
 inspect.getargspec(foo_func) # get signature
+frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
 
 <module>.__file__
 
@@ -311,9 +314,12 @@ virtualenv # sandbox
 pip # or easyinstall : libs manager
 
 json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
+zlib.compress(string)
 
 multiprocessing > threading # as Python can only have on thread because of the GIL
 numbapro # for CUDA
+
+import celery # distributed task queue ; alternative : pyres. Or for cron-like jobs: dagobah/schedule
 
 pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
 dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshare.net/dakerfp/functional-pattern-matching
@@ -328,14 +334,21 @@ group = parser.add_mutually_exclusive_group()
 group.add_argument(... type=argparse.FileType('r'))
 
 from getpass import getpass # get password without echoing it
+import uuid # generate unique ID’s
 
 peewee # DB - simple Object Relational Mapping, S&M
 sqlite3 # std DB, persistent in a file || can be created in RAM
 
 beautifulsoup # HTML parsing, use v>=3.2
-bottle # Micro framework web, S&M
 pywebsocket
+paramiko # remote SSH/SFTP connexion
+import boom # like Siege or Funkload : web-app stress testing
+
+import requests # replacement for urllib2. Lib to mock it: responses
+requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
+
+bottle # Micro framework web, S&M
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
 import re, SimpleHTTPServer, SocketServer
@@ -346,11 +359,6 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             self.path = param1_match.group(1) + '.json'
         return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
-
-paramiko # remote SSH/SFTP connexion
-
-import requests
-requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 socket.inet_aton # validate IP, !! '192.168' is valid
