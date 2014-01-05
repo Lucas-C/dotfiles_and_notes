@@ -8,10 +8,15 @@ Compatible for Ubuntu, Red Hat, OSX and Cygwin.
 ### INSTALLATION
 
 Clone the repository and create symlinks from your $HOME to :
+
 * .bashrc
+
 * .gitconfig
+
 * .inputrc
+
 * .vimrc
+
 * .tmux.conf
 
 To launch **screen**, you need to source .bash-screen.

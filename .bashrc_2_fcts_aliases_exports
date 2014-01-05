@@ -2,6 +2,7 @@
 # Exports
 #---------
 export EDITOR=vim
+vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' $code/Vim.md | pandoc -s -f markdown -t man | man -l -; }
 
 export HISTTIMEFORMAT="%F %T " # for 'history' formatting
 
@@ -175,7 +176,18 @@ touch () {              # touch [EPOCH] [+/-<modifier>] <files>
 }
 
 unfuncalias man
-man () { $(nofuncalias man) "$@" && return ; help "$@" 2> /dev/null && help "$@" | less ; }
+man () { # colored manual with 'help' as a fallback
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+            $(nofuncalias man) "$@" && return
+    help "$@" >/dev/null 2>&1 && help "$@" | less
+}
 
 unfuncalias df
 alias df='df -h'

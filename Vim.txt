@@ -1,3 +1,0 @@
-:w new_filename # save as file and keep working on original
-
-vim -r file.swp # restore file

@@ -123,3 +123,6 @@ http://qunitjs.com
 // - Dynamic machine code generation
 // - Profiler : d8 --prof script.js
 
+// Languages that compile to JS:
+CoffeeScript
+Python // RapydScript

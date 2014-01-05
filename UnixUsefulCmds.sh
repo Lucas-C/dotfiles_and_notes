@@ -92,10 +92,6 @@ pavucontrol
 alsamixer
 gstreamer-properties
 
-apt-file # see which package provides that file you're missing
-apt-key fingerprint # display imported keys fingerprints
-sudo dpkg -D1 -i *.deb
-
 # Identify video
 mplayer -identify -vo null -ao null -frames 0 <video>
 # Convert .wmv to .avi
@@ -350,6 +346,11 @@ tee -a <file>
 fold # breaks lines to proper width
 fmt # reformat lines into paragraphs 
 
+zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html
+txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
+pandoc -s -f markdown -t man foo.md | man -l - # md2man : man pandoc_markdown
+markdown foo.md | lynx -stdin # alternative using HTML an an intermediate instead of groff
+
 
 =#=#=#=#=#=
    FILES
@@ -523,8 +524,6 @@ exit
  =SYSTEM=
 -%-%-%-%-%-
 
-stap # SystemTap
-
 sysctl
 
 cat /etc/*-release
@@ -539,13 +538,31 @@ cat /etc/issue*
 - 4th field : number of currently executing kernel scheduling entities (processes, threads) / number of existing kernel scheduling entities
 - 5th field : PID of last process created
 
-# People previous logged
-last [-f /var/log/wtmp.1]
+stap # SystemTap
+perf # need a version of linux-tools-* mathcing the kernel
+    top -G
+    stat -e cycles,instructions,cache-misses,dTLB-load-misses -p $PID
+
+# Watch system stats
+watch -d 'cat /proc/meminfo'
 
 # System errors
 dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
 # Enable dmesg timestamps
 echo 1 > /sys/module/printk/parameters/printk_time 
+
+iostat
+mpstat 5 # cpu usage stats every 5sec
+dstat
+
+# Checking Swap Space Size and Usage
+free -m # how much free ram I really have ? -> look at the row that says "-/+ buffers/cache"
+vmstat 2
+sar
+# + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
+
+# People previous logged
+last [-f /var/log/wtmp.1]
 
 # Message of the day
 /etc/motd
@@ -561,39 +578,32 @@ newgroup <original primary group>
 # List system users
 awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd
 
-# Sudo user
-sudo su -l
-
-# Remove sudo time stamp => no more sudo rights
-sudo -K
+sudo su -l # login as user root
+sudo -K # Remove sudo time stamp => no more sudo rights
 
 # setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
 # setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
 umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
-# Watch system stats
-watch -d 'cat /proc/meminfo'
-
-iostat
-mpstat 5 # cpu usage stats every 5sec
-dstat
-
-# Checking Swap Space Size and Usage
-free -m # how much free ram I really have ? -> look at the row that says "-/+ buffers/cache"
-vmstat 2
-sar
-# + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
-
 # Frozen X server
 sudo service lightdm restart
 killall gnome-panel
+
+rm ~/.config/user-dirs.locale # can fix broken locale
 
 lspci -v # list devices
 lshw -C disk # list disks : ata, cdrom, dvdrom
 blkid # list UUIDs
 dmidecode
 
-rpm -qif $(which zgrep) # Find what package a command belong to
+# Find what package a command belong to:
+apt-file search /path/to/anyfile
+dpkg -S /path/to/cmd
+rpm -qif $(which cmd)
+
+apt-key fingerprint # display imported keys fingerprints
+sudo dpkg -D1 -i *.deb
+
 rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *regex* # list rpm
 rpmbuild file.spec
 alien # transformer un .rpm en .deb
