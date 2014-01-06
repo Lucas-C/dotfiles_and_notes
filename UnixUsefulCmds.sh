@@ -20,6 +20,9 @@ man ascii # display ASCII table
 cal # quick calendar
 look # find English words (or lines in a file) beginning with a string
 
+write / mesg # 2nd control write access
+wall # broadcast message
+
 # 'top' < 'htop'
 * killing : Press "k", then pid, then signal (15, 9...)
 * sorting : press "O" and select the column
@@ -37,6 +40,10 @@ pwdx <pid> # get process working directory
 
 nohup <cmd> # detach command
 disown -h <pid> # detach running process
+
+xkill # kill window by clicking
+xprop # get window infos by cliking
+xdpyinfo / xwininfo -children -id $ID # get X11 windows infos
 
 # Follow program system calls (!! -f => follow fork)
 strace -f -p <pid> -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
@@ -58,62 +65,19 @@ gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtra
 hexdump -c # aka 'hd', use 'bvi' for editing
 strings exec.bin # extract strings of length >= 4
 objdump
-
+/dev/mem # Physical memory, useful to strings | grep pswd. Ubuntu limit this to 1Mb
+dd if=/dev/fmem of=/tmp/fmem_dump.dd bs=1MB count=10 # don't forget 'count'
 nm *.o # list symbols
 readelf -Ws *.so
-
-sudo ldconfig
 
 # LD_PRELOAD trick
 man ld.so
 gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
 LD_PRELOAD=./myfopen.so cat <file>
 
-write / mesg # 2nd control write access
-wall # broadcast message
-
-xev # Listen to keyboard events
-loadkeys fr # Change keyboard to FR
-killall gnome-settings-daemon # Fix crazy numpad (no '-')
-
-xkill # kill window by clicking
-xprop # get window infos by cliking
-xdpyinfo / xwininfo -children -id $ID # get X11 windows infos
-
-echo <ctrl-v><ctrl-o> # or 'reset', fix terminal frenzy
-
-# Configure 'mail' command
-/etc/ssmtp/revaliases
-/etc/ssmtp/ssmtp.conf
-
-# Audio/mike issues
-pulseaudio -D
-pavucontrol
-alsamixer
-gstreamer-properties
-
-# Identify video
-mplayer -identify -vo null -ao null -frames 0 <video>
-# Convert .wmv to .avi
-mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
-# .mp4 to .avi
-avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
-
-# Install libdvdcss
-sudo /usr/share/doc/libdvdread4/install-css.sh
-
-# Rescan for memory card
-sudo su -l
-echo 1 > /sys/bus/pci/rescan
-
-/dev/mem # Physical memory, useful to strings | grep pswd. Ubuntu limit this to 1Mb
-dd if=/dev/fmem of=/tmp/fmem_dump.dd bs=1MB count=10 # don't forget 'count'
-
 : () { : | : & } ; : # Fork bomb
 
 perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with a REGEX !
-
-# Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
 
 
 ##################
@@ -414,6 +378,10 @@ tar -J... # instead of -z, .xz compression format support
 sha{1,224,256,384,512}sum
 md5sum
 
+# setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
+# setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
+umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
+
 
 |°|°|°|°|°|°|°|°
 == NETWORKING
@@ -469,6 +437,10 @@ snmpget -v2c -c '<community_string>' <device> sysDescr.0 # or sysUpTime.0, sysNa
 
 # Dump all tcp transmission to a specific IP :
 sudo tcpdump -X host $IP [ip proto icmp|udp|tcp]
+
+# Configure 'mail' command
+/etc/ssmtp/revaliases
+/etc/ssmtp/ssmtp.conf
 
 # On RedHat / CentOS / Fedora
 $EDITOR /etc/sysconfig/network-scripts/ifcfg-eth0
@@ -581,16 +553,6 @@ awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd
 sudo su -l # login as user root
 sudo -K # Remove sudo time stamp => no more sudo rights
 
-# setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
-# setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
-umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
-
-# Frozen X server
-sudo service lightdm restart
-killall gnome-panel
-
-rm ~/.config/user-dirs.locale # can fix broken locale
-
 lspci -v # list devices
 lshw -C disk # list disks : ata, cdrom, dvdrom
 blkid # list UUIDs
@@ -609,6 +571,45 @@ rpmbuild file.spec
 alien # transformer un .rpm en .deb
 
 init q # Reload /etc/inittab
+
+
+##################
+~= Issues Fixes =~
+##################
+echo <ctrl-v><ctrl-o> # or 'reset', fix terminal frenzy
+
+sudo ldconfig
+
+# Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
+
+killall gnome-settings-daemon # Fix crazy numpad (no '-')
+# Frozen X server
+sudo service lightdm restart
+killall gnome-panel
+
+xev # Listen to keyboard events
+loadkeys fr # Change keyboard to FR
+install myspell-fr # LibreOffice SpellCheck
+rm ~/.config/user-dirs.locale # can fix broken locale
+
+# Audio/mike issues
+pulseaudio -D
+pavucontrol
+alsamixer
+gstreamer-properties
+
+# Identify video
+mplayer -identify -vo null -ao null -frames 0 <video>
+# Convert .wmv to .avi
+mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
+# .mp4 to .avi
+avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
+
+sudo /usr/share/doc/libdvdread4/install-css.sh # Install libdvdcss
+
+# Rescan for memory card
+sudo su -l
+echo 1 > /sys/bus/pci/rescan
 
 
 =\/=/\=\/=/\=\/=
