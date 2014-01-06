@@ -1,8 +1,10 @@
 #---------
 # Exports
 #---------
+export DISPLAY=:0 # for xclip
+
 export EDITOR=vim
-vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' $code/Vim.md | pandoc -s -f markdown -t man | man -l -; }
+vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${code:-~}/Vim.md | pandoc -s -f markdown -t man | man -l -; }
 
 export HISTTIMEFORMAT="%F %T " # for 'history' formatting
 
@@ -24,7 +26,7 @@ pa () {                 # print aliases
 
 nofuncalias () {            # return the fullpath of the cmd as arg, ignoring homonym alias/functions, like which/type does
     local cmd="$@"
-    type -a "$cmd" | sed -e "/$cmd "'.* f[ou]nction/,/^[}]/d' -e "/$cmd "'.* alias/d' | head -n 1 | sed 's~^[^/]\+/~/~'
+    type -a "$cmd" | sed -e "/$cmd "'.* f[ou]nction/,/^[}]/d' -e "/$cmd "'.* alias/d' | head -n 1 | sed 's/^[^/]*//'
 }
 
 unfuncalias () {            # undefined any function/alias named as arg

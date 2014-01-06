@@ -219,6 +219,7 @@ self.assertRaisesRegexp
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 
 # IPython tricks
+%history # dump it
 %pdb # Automatic pdb calling
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 
