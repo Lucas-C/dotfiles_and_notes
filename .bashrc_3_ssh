@@ -70,7 +70,7 @@ ssh_setup () { # '-f' force a new ssh-agent creation
     done
 }
 
-alias pre_ssh=ssh_setup
+pre_ssh () { ssh_setup; }
 
 unfuncalias ssh
 ssh () {

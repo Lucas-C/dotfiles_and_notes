@@ -15,6 +15,8 @@
 !$ # select the last arg
 !!:n # selects the nth argument of the last command
 
+xclip # copy & paste clipboard
+
 time read # chrono
 man ascii # display ASCII table
 cal # quick calendar
@@ -69,6 +71,7 @@ objdump
 dd if=/dev/fmem of=/tmp/fmem_dump.dd bs=1MB count=10 # don't forget 'count'
 nm *.o # list symbols
 readelf -Ws *.so
+ldd <exec> # list dynamically linked libs
 
 # LD_PRELOAD trick
 man ld.so
@@ -92,6 +95,13 @@ bash -n <script> # Check syntax without executing
 bash --debugger <script>
 parent_func=$(caller 0 | cut -d' ' -f2) # "$line $subroutine $filename"
 source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
+
+# !! aliases used in functions definitions are immediately substituted,
+# NOT resolved dynamically !
+alias foo='echo A'
+bar () { foo; }
+alias foo='echo B'
+bar # echo A
 
 # Set positional parameters $0 $1 ...
 set - A B C
@@ -666,7 +676,7 @@ Finder > Applications > Utilities > Disk Utility # Repair permissions
 system_profiler # list system components, ports...
 pmset -g # power management settings 
 
-pbpaste | pbcopy
+pbpaste | pbcopy # clipboard
 
 textutil -convert txt # or -info : convert / get infos on files
 
