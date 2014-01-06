@@ -69,6 +69,8 @@ foo();foo()
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
     foo = kwargs.pop('foo')
 
+decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
+
 datetime.utcnow() # better than time.time()
 import dateutil
 
@@ -119,6 +121,8 @@ class Property(object):
         if obj is None:
             return self
         return self.fget(obj)
+
+buffer & memoryview
 
 class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')): pass # Immutable class
 # Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
@@ -389,3 +393,13 @@ def foo(x: between(3, 10), y: is_int) -> is_int:
 
 b'I am an immutable basic byte array of type "bytes"'
 bytearray(b"I am mutable")
+
+nonlocal
+
+first, *rest = range(5) # extended iterable unpacking
+
+with concurrent.futures.ProcessPoolExecutor() as executor:
+    list(executor.map(big_calculation, arguments)) # faster than without 'executor'
+
+def foo(a, b, *, keyword=None): pass # keywords-only functions arguments
+
