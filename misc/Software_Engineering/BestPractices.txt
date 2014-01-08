@@ -4,6 +4,7 @@
 [97TEPSK] 97 Things Every Programmer Should Know : http://programmer.97things.oreilly.com/wiki/index.php/Contributions_Appearing_in_the_Book
 [DOM] : http://googletesting.blogspot.com/2013/05/testing-on-toilet-dont-overuse-mocks.html
 [KYTD] : http://googletesting.blogspot.com/2013/07/testing-on-toilet-know-your-test-doubles.html
+[CRoTDD] : http://svenpet.com/2014/01/07/better-code-reviews/
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -113,6 +114,11 @@ Don't use comments when you can use a function/variable to expresse the intent [
 * A stub has no logic, and only returns what you tell it to return
 * A mock has expectations about the way it should be called, and a test should fail if it’s not called that way. Mocks are used to test interactions between objects.
 * A fake doesn’t use a mocking framework: it’s a lightweight implementation of an API that behaves like the real implementation, but isn't suitable for production.
+
+# Code review > TDD [CRoTDD]
+TDD: automated, easy to follow, autonomously done
+CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building)
+Do it well: use tools; make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
 
 # General
 - Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()

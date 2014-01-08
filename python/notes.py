@@ -188,9 +188,9 @@ items = zip(xrange(0, len(ds)), ds) # lists, tuples & namedtuples
 items = d.iteritems() # dicts ( iteritems > items )
 
 
-""""""""
-"" dict 
-""""""""
+"""""""""""""
+"" dict & set 
+"""""""""""""
 # Extremely fast as long as < one million elems
 
 collections.OrderedDict # remember insertion order
@@ -198,6 +198,8 @@ collections.OrderedDict # remember insertion order
 from itertools import groupby
 {category: list(packages) for category, packages in groupby(pkg_list, get_category)} # dict-comprehension, limited: see SO/18664274
 {e for e in elems} # set-comprehension
+
+set operators : | & - ^
 
 dict.__missing__ # invoked for missing items
 
@@ -321,8 +323,10 @@ pip # or easyinstall : libs manager
 json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
 zlib.compress(string)
 
-multiprocessing > threading # as Python can only have on thread because of the GIL
+multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
 numbapro # for CUDA
+greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
+# concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 
 import celery # distributed task queue ; alternative : pyres. Or for cron-like jobs: dagobah/schedule
 

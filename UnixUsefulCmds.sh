@@ -275,6 +275,7 @@ ulimit -u # max number of processes
 # Text filtering
 ++++++++++++++++++
 
+grep -I # ignore binary files
 grep -o # output only matching parts
 grep -C3 # output 3 lines of context, see also -B/-A
 grep -H/-h # output with/without filename
@@ -305,6 +306,9 @@ seq 1 10 | paste -s -d+ | bc
 perl -pe 's/\s+/\n/g'
 # paste is also usefule to interlace files: paste <file1> <file2>
 
+# Append at the end of stdout (or beginning with ^)
+echo ECHO | sed s/$/.ext/
+
 # Longest line of code
 perl -ne 'if (length > $w) { $w = length; print $ARGV.":".$_ };  END {print "$w\n"}' *.py
 
@@ -330,14 +334,15 @@ markdown foo.md | lynx -stdin # alternative using HTML an an intermediate instea
    FILES
 #=#=#=#=#=#
 
+ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
+
 find / -size +100M -ls # find big/largest files - One can safely ignore /proc/kcore
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 
 # append at the beginning of <file>
 sed -i "1i$content" <file>
 
-# Replace whitespaces by underscores
-rename \  _ *
+rename \  _ * # Replace whitespaces by underscores
 
 # To see all files open in a directory structure:
 lsof +D /some/dir
@@ -345,17 +350,15 @@ lsof +D /some/dir
 sudo lsof -u jeff
 # Additional useful option : -r <t> : repeat the listing every t second
 
-# Shows Where a File/Directory Comes From (links, etc.)
-namei
-readlink -f
+namei / readlink -f # Shows Where a File/Directory Comes From (links, etc.)
 
 killall -HUP <process name> # To tell a process to reload its file descriptors, e.g. when deleting a log file
 
-# Sum up kind of files without ext
-ls | cut -d . -f 1 | funiq
+sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000 # Create fake file
 
-# Create fake file
-sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000
+# setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
+# setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
+umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
 # Forbid file deletion
 sudo chattr +i [-R] <file> # to check a file attributes : lsattr
@@ -368,6 +371,19 @@ cp /proc/<pid>/fd/4 myfile.saved
 auditctl -w <file> -p wax -k <tag>
 ausearch -k <tag> [-ts today -ui 506 -x cat]
 
+rsync -avz --exclude=".*" --delete # the last option remove extra remote files
+
+tar -J... # instead of -z, .xz compression format support
+
+sha{1,224,256,384,512}sum
+md5sum
+
+
+&*&*&*&*&*&*&*&*&*&*&*&*
+* Queueing, caching... *
+&*&*&*&*&*&*&*&*&*&*&*&*
+memcached
+
 mkfifo # Named pipes: https://en.wikipedia.org/wiki/Named_pipe
 python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo
 ulimit -p # should get max pipe size, but WRONG : defined in pipe_fs_i.h
@@ -378,19 +394,6 @@ beanstalk # Better alternative queuing system, with lots of existing tools & lib
 ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ # Message queue using AMPQ
 Celery/Kombu # Framework to use any of the above ones
 
-#Append at the end of stdout (or beginning with ^)
-echo ECHO | sed s/$/.ext/
-
-rsync -avz --exclude=".*" --delete # the last option remove extra remote files
-
-tar -J... # instead of -z, .xz compression format support
-
-sha{1,224,256,384,512}sum
-md5sum
-
-# setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
-# setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
-umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
 
 |°|°|°|°|°|°|°|°
