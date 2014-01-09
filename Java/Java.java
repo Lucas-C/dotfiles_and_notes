@@ -21,6 +21,8 @@ JD // Java decompiler
 jconsole // http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
 jprofiler (non free), visualVM // profilers
 jmap -histo:live <pid> // Object-type histogram on a running jvm
+JLine // console input handling like BSD editline / GNU readline
+
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
 
 // String / ByteString correct conversion :

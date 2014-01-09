@@ -15,6 +15,10 @@ export CODE_STRING=
 export USER_STYLE=$T_normal
 export HOST_COLOR='1;35'
 
+set_term_window_name () {
+    [ "$TERM" = screen ] && printf "\033k$@\033\\" #  Tmux & Screen
+}
+
 prompt_command()
 {
     EXIT_CODE=$?
@@ -42,7 +46,7 @@ prompt_command()
 
     history -a # this + 'shopt -s histappend' in .bashrc => shared Bash history between term sessions 
 
-    [ "$TERM" = screen ] && printf "\033k$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')\033\\" # set window name for Tmux & Screen
+    set_term_window_name "$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')"
 
     [ "$PWD" != "$HOME" ] && pwd > ${HOME:-/tmp}/.last_dir
 }

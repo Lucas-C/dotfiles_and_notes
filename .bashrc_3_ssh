@@ -74,33 +74,17 @@ ssh_setup () { # '-f' force a new ssh-agent creation
 }
 
 ssh_forward () {
-    ssh -A -t "$@" "echo unset SSH_AGENT_PID \&\& export SSH_AUTH_SOCK=\$SSH_AUTH_SOCK > \$HOME/$SSH_AGENT_CONFIG_FILE_REL; exec bash"
+    ssh -A -t "$@" "echo unset SSH_AGENT_PID \&\& export SSH_AUTH_SOCK=\$SSH_AUTH_SOCK > \$HOME/$SSH_AGENT_CONFIG_FILE_REL; bash -i; rm \$HOME/$SSH_AGENT_CONFIG_FILE_REL"
 }
 
 pre_ssh () { ssh_setup; }
 
 unfuncalias ssh
-ssh () {
-    pre_ssh
-    $(nofuncalias ssh) "$@"
-}
-
+ssh () { pre_ssh; [ "$#" -eq 1 ] && set_term_window_name "$1"; $(nofuncalias ssh) "$@"; }
 unfuncalias scp
-scp () {
-    pre_ssh
-    $(nofuncalias scp) "$@"
-}
-
+scp () { pre_ssh; $(nofuncalias scp) "$@"; }
 unfuncalias rsync
-rsync () {
-    pre_ssh
-    $(nofuncalias rsync) "$@"
-}
-
-ssh_with_tmp_home () {
-    local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
-    ssh -t $dst "HOME=$SSH_EXPORT_TMP_DIR ; cd ; bash --rcfile .bashrc"
-}
+rsync () { pre_ssh; $(nofuncalias rsync) "$@"; }
 
 visit () {              # ssh to a host after calling 'exportSshFiles'. List visited hosts in ~/.visited
     local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
@@ -111,6 +95,11 @@ visit () {              # ssh to a host after calling 'exportSshFiles'. List vis
         echo "$(tput setaf 1)exportSshFiles FAILED: $(tput sgr0) sudo rights probably missing on $dst, fallback to a /tmp \$HOME"
         ssh_with_tmp_home $dst
     fi
+}
+
+ssh_with_tmp_home () {
+    local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
+    ssh -t $dst "HOME=$SSH_EXPORT_TMP_DIR ; cd ; bash --rcfile .bashrc"
 }
 
 rmRemoteHome () {       # remove remote /home/$USER

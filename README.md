@@ -19,7 +19,7 @@ Clone the repository and create symlinks from your $HOME to :
 
 * .tmux.conf
 
-To launch **screen**, you need to source .bash-screen.
+To use **screen**, create a *~/.use_screen* file. Similarly, you can create *~/.use_tmux*.
 
 As an alternative setup, you can source the versioned .bashrc from your own ~/.bashrc :
 

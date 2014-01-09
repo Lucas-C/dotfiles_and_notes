@@ -148,6 +148,8 @@ PYTHONCASEOK : ingorer la casse dans le nom des modules sous Windows
 PYTHONIOENCODING : forcer un encoding par défaut pour stdin/stdout/stderr
 PYTHONHASHSEED : changer la seed hash() (renforce la sécurité de la VM)
 
+zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py
+
 
 """"""""""""""""""
 "" Data structures

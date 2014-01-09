@@ -324,7 +324,7 @@ tee -a <file>
 fold # breaks lines to proper width
 fmt # reformat lines into paragraphs 
 
-zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html
+zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
 pandoc -s -f markdown -t man foo.md | man -l - # md2man : man pandoc_markdown
 markdown foo.md | lynx -stdin # alternative using HTML an an intermediate instead of groff
@@ -459,6 +459,7 @@ sudo tcpdump -X host $IP [ip proto icmp|udp|tcp]
 $EDITOR /etc/sysconfig/network-scripts/ifcfg-eth0
 $EDITOR /etc/sysconfig/network
 /etc/init.d/network restart 
+ifup, ifdown # bring a network interface up
 
 # Query DNS cmds > deprecated 'nslookup'
 dig txt [+short] <hostname>
@@ -483,6 +484,7 @@ ssh $host "$cmds ; /bin/bash -i"
 [ENTER] ~.
 openssl s_client # bare SSL client cmd
 openssl x509 -text -noout -in <cert.pem> # get certs details
+openssl x509 -inform der -in cert.cer -out cert.pem # convert .cer to .pem
 keytool -printcert -file <cert.pem> # get certs details
 
 # Find wireless driver
@@ -491,6 +493,8 @@ lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 # Non portable tools
 iptraf, ntop, rddtool
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
+
+cidr <ip>/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
 
 
 =cCcCcCc=

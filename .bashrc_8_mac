@@ -20,9 +20,9 @@ alias st='open -a /Applications/Sublime\ Text.app'
 alias xcode='echo No, use Sublime Text && st' #'open -a /Applications/Xcode.app'
 word () { open -a "$(echo /Applications/Microsoft\ Office*/Microsoft\ Word.app | tail -n 1)" "$@"; }
 
+unfuncalias touch
+
 slocate() { # Spotlight search
     mdfind "kMDItemDisplayName == '$@'wc";
 }
-
-unfuncalias touch
 
