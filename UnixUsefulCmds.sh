@@ -463,7 +463,7 @@ ifup, ifdown # bring a network interface up
 
 # Query DNS cmds > deprecated 'nslookup'
 dig txt [+short] <hostname>
-host -t txt <hostname>
+host -t txt <hostname> # -a (all records) -v
 # Reverse
 dig +short -x <IP>
 # Caching
@@ -711,6 +711,8 @@ mono *.exe
 =======
 = Wiki
 =======
+dig +short txt <keyword>.wp.dg.cx # Wikipedia query over DNS
+
 <!-- Comment -->
 
 #REDIRECT[[United States]]

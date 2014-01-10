@@ -133,7 +133,7 @@ iconv_help () {
     echo iconv -t 'ASCII//TRANSLIT//IGNORE' $file -o ${2:-$file.ascii}
 }
 alias utf8=iconv_help
-nocrlf () { sed -i 's/$//' $1; }
+nocrlf () { perl -lne 's/\r//g; print' "$@"; } # also: dos2unix
 alias json_fmt='python -mjson.tool' # don't work well with non ascii
 
 alias funiq="awk '"'{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'"'" # faster than 'sort | uniq -c'
@@ -189,6 +189,17 @@ man () { # colored manual with 'help' as a fallback
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
             $(nofuncalias man) "$@" && return
     help "$@" >/dev/null 2>&1 && help "$@" | less
+}
+
+unfuncalias cd
+cd () { # zsh-like, USAGE: cd $old-path-chars $new-path-chars
+    if [ -n "$2" ]; then
+        builtin cd "${PWD/$1/$2}"
+    elif [ -n "$1" ]; then
+        builtin cd "$1"
+    else
+        builtin cd
+    fi
 }
 
 unfuncalias df

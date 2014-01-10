@@ -44,6 +44,12 @@ re.sub('a|b|c', rep, string) # def rep(matchobj): ...
 
 with open('filea', 'w+') as filea, open('fileb', 'w+') as fileb: pass # touch <files>
 
+@contextlib.contextmanager
+def foobar():
+    # __enter__ code
+    yield
+    # __exit__ code
+
 StringIO # fake file
 # Temp files
 tempfile.gettempdir()
@@ -372,7 +378,7 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
-socket.inet_aton # validate IP, !! '192.168' is valid
+socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 
 """"""""
 "" Fun
