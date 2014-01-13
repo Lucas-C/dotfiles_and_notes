@@ -431,6 +431,7 @@ iw # details about wireless interfaces - replace deprecated 'iwconfig'
 grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 
 lynx -dump -stdin # convert HTML to text
+# Web scrapping
 wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspire web page
   -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
   -k --convert-links : convert the links in the document to make them suitable for local viewing
@@ -438,7 +439,11 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspir
   -A --accept acclist -R --reject rejlist : comma-separated list of filename suffixes or patterns to accept or reject
   -l --level=depth : default = 5
   -c --continue : continue getting a partially-downloaded file
-curl #See: http://curl.haxx.se/docs/httpscripting.html
+curl # http://curl.haxx.se/docs/httpscripting.html
+# With full rendering:
+httrack
+PhantomJS
+Scrapbook # FF extension
 
 # Iptables
 iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
@@ -464,6 +469,7 @@ ifup, ifdown # bring a network interface up
 # Query DNS cmds > deprecated 'nslookup'
 dig txt [+short] <hostname>
 host -t txt <hostname> # -a (all records) -v
+avahi-resolve -n $USER.local # Multicast DNS == mDNS - from avahi-tools pkg
 # Reverse
 dig +short -x <IP>
 # Caching
@@ -577,6 +583,7 @@ dmidecode
 
 # Find what package a command belong to:
 apt-file search /path/to/anyfile
+yume provides <cmd>
 dpkg -S /path/to/cmd
 rpm -qif $(which cmd)
 
@@ -628,6 +635,8 @@ sudo /usr/share/doc/libdvdread4/install-css.sh # Install libdvdcss
 sudo su -l
 echo 1 > /sys/bus/pci/rescan
 
+~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
+
 
 =\/=/\=\/=/\=\/=
 =  Virtualbox
@@ -675,6 +684,8 @@ espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mb
 @@@@@@@@@@
 
 curl http://google.com/ | base64 | say # FUN
+
+dns-sd -Q $USER.local # mDNS query
 
 sudo softwareupdate -i -a # Manual software update
 
@@ -746,7 +757,7 @@ http://en.wikipedia.org/wiki/Help:Magic_words
 ::=::=::=::
 LIKE >faster> REGEXP
 
-sqlite3 places.sqlite "select a.url, b.title from moz_places a, moz_bookmarks b where a.id=b.fk;" # no cmd => interactive
+sqlite3 places.sqlite "select a.url, b.title from moz_places a, moz_bookmarks b where a.id=b.fk;" # no cmd => interactive - FIREFOX
 .help
 .tables
 .schema moz_places

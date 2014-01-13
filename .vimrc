@@ -160,3 +160,6 @@ elseif os == 'Linux'
     nmap <F3> :r!xclip -o<CR>
     imap <F3> <esc>:r!xclip -o<CR>i
 end
+
+"clojure
+au BufRead,BufNewFile *.clj set filetype=clojure

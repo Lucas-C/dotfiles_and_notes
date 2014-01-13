@@ -24,11 +24,7 @@ pa () {                 # print aliases
     grep --color '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
 }
 
-nofuncalias () {            # return the fullpath of the cmd as arg, ignoring homonym alias/functions, like which/type does
-    local cmd="$@"
-    type -a "$cmd" | sed -e "/$cmd "'.* f[ou]nction/,/^[}]/d' -e "/$cmd "'.* alias/d' | head -n 1 | sed 's/^[^/]*//'
-}
-
+alias nofuncalias='type -P'
 unfuncalias () {            # undefined any function/alias named as arg
     unset -f "$@"; unalias "$@" 2>/dev/null
 }

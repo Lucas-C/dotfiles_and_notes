@@ -1,3 +1,7 @@
+/* FIREFOX Web Console */
+$$("#articleContent ul li").length
+
+
 debugger // breakpoint for debugger
 
 javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
@@ -113,7 +117,6 @@ generators
 http://underscorejs.org
 
 // Testing libs
-http://phantomjs.org
 http://qunitjs.com
 
 // E4X is an official JavaScript standard that adds direct support for XML
