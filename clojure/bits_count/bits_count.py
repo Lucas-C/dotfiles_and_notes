@@ -1,5 +1,7 @@
 #!/apollo/bin/env -e SDETools python2.7
 
+# !! Precedence of '&' and '+' operators are inversed between C & Python
+
 # !! In Python, even if both are of type 'int', -1 != 0xffffffff
 # Anyway Python use BigInts and makes no difference whatsoever beyween int & long (they disappear in v3)
 

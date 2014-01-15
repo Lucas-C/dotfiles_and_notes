@@ -21,6 +21,8 @@ To run it:
 Clojure version
 ---------------
 
+'12 operations' bit count, for 32b & 64b words.
+
 ### Quickstart
 
 Leiningen installation
@@ -28,6 +30,7 @@ Leiningen installation
     wget --no-check-certificate https://raw.github.com/technomancy/leiningen/stable/bin/lein
     sudo chmod a+x lein
     mv lein /usr/local/bin
+    export LEIN_JVM_OPTS= # if using Java 1.6
 
 Then go for it !
 
@@ -40,3 +43,8 @@ Then go for it !
 - Clojure cheatsheet : http://clojure.org/cheatsheet
 - Clojure docs : http://clojuredocs.org/clojure_core/1.3.0
 - Leiningen tuto : https://github.com/technomancy/leiningen/blob/stable/doc/TUTORIAL.md
+- Vim colors : https://github.com/guns/vim-clojure-static
+
+### TODO
+* implement a look-up table
+

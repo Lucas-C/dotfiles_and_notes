@@ -195,8 +195,8 @@ for arg in "$@"; do
     esac
 done
 
-# Convert to array
-local argv=("$@")
+local argv=("$@") # Convert to array
+${argv[@]:(-1)} # last element
 # Back to string
 str="${argv[*]}"
 # Array slice
@@ -338,6 +338,7 @@ ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
 find / -size +100M -ls # find big/largest files - One can safely ignore /proc/kcore
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
+find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
 
 # append at the beginning of <file>
 sed -i "1i$content" <file>
@@ -702,6 +703,8 @@ xattr -l <file> # File listed with '@' => extended attributes
 
 sudo dseditgroup -o edit -a <USER> -t user <GROUP> # Add user to group
 
+find $(ls | grep -Ev 'Library|Documents|Downloads|httrack|phantomjs|vitavermis') \( ! -path '*/.*' \) -type f -print0 | xargs -0 stat -f '%m %N' | sort -k 1nr | while read timestamp file; do echo $(date -jf "%s" $timestamp "+%F") $file; done | less # illustrate how to replace find -printf + timestamp conversion + find non-hidden files only ; GOAL: list files by modification date
+
 # DTrace scripts: man -k dtrace
 iosnoop # or better hfsslower.d from the DTrace book, available online
 execsnoop # trace processes created
@@ -717,6 +720,14 @@ NUNITLIB=/Library/Frameworks/Mono.framework/Versions/2.10.11/lib/mono/2.0/nunit.
 gmcs -debug -t:library -r:$NUNITLIB *.cs
 nunit-console *.dll
 mono *.exe
+
+# AppleScript
+#!/usr/bin/osascript
+on log(msg)
+  set log_line to (do shell script "date  +'%Y-%m-%d %H:%M:%S'" as string) & " " & msg
+  do shell script "echo " & quoted form of log_line
+end log
+log "HELLO WORLD !"
 
 
 =======

@@ -174,7 +174,7 @@ touch () {              # touch [EPOCH] [+/-<modifier>] <files>
 }
 
 unfuncalias man
-man () { # colored manual with 'help' as a fallback
+man () {               # colored manual with 'help' as a fallback
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
         LESS_TERMCAP_md=$(printf "\e[1;31m") \
@@ -188,7 +188,7 @@ man () { # colored manual with 'help' as a fallback
 }
 
 unfuncalias cd
-cd () { # zsh-like, USAGE: cd $old-path-chars $new-path-chars
+cd () {                 # zsh-like, USAGE: cd $old-path-chars $new-path-chars
     if [ -n "$2" ]; then
         builtin cd "${PWD/$1/$2}"
     elif [ -n "$1" ]; then
@@ -196,6 +196,30 @@ cd () { # zsh-like, USAGE: cd $old-path-chars $new-path-chars
     else
         builtin cd
     fi
+}
+
+unfuncalias cp
+cp () {                 # 'cp' with progress status
+    if [ $(du -m "$1" | cut -f1) -gt 100 ]; then
+        rsync --archive --partial --progress --human-readable --backup --backup-dir=/var/tmp/rsync --ignore-times --rsh=/dev/null -- "$@"
+    else
+        $(nofuncalias cp) "$@"
+    fi
+}
+cp_p()                  # slower and less portable
+{
+    strace -q -e write cp -- "${1}" "${2}" 2>&1 | awk '{
+        if (NR % int(total_size / 409600) == 0) {
+            percent = NR * 409600 / total_size
+            printf "%3d%% [", percent
+            for (i=0;i<=percent;i++)
+               printf "="
+            printf ">"
+            for (i=percent;i<100;i++)
+               printf " "
+            printf "]\r"
+        }
+    } END { print "" }' total_size=$(stat -c '%s' "${1}")
 }
 
 unfuncalias df
@@ -268,33 +292,14 @@ tstp () {               # timestamp converter
 }
 
 if [ -e /proc/uptime ]; then
-    dmesg_with_human_timestamps () {
+    dmesg () {
         $(nofuncalias dmesg) "$@" | perl -w -e 'use strict;
             my ($uptime) = do { local @ARGV="/proc/uptime";<>}; ($uptime) = ($uptime =~ /^(\d+)\./);
             foreach my $line (<>) {
                 printf( ($line=~/^\[\s*(\d+)\.\d+\](.+)/) ? ( "[%s]%s\n", scalar localtime(time - $uptime + $1), $2 ) : $line )
             }'
     }
-    alias dmesg=dmesg_with_human_timestamps
 fi
-
-# As it's slower, I'm not using rsync rsync --archive --progress --human-readable --partial --remove-sent-files'
-# But the following script is 10 times slower than basic cp : to improve it, we would need a way to get read of most of strace output
-cp_p()                  # cp with progress bar
-{
-    strace -q -e write cp -- "${1}" "${2}" 2>&1 | awk '{
-        if (NR % int(total_size / 409600) == 0) {
-            percent = NR * 409600 / total_size
-            printf "%3d%% [", percent
-            for (i=0;i<=percent;i++)
-               printf "="
-            printf ">"
-            for (i=percent;i<100;i++)
-               printf " "
-            printf "]\r"
-        }
-    } END { print "" }' total_size=$(stat -c '%s' "${1}")
-}
 
 kill_cmd ()             # WIP - Kill every process starting with the pattern passed as a parameter
 {

@@ -9,8 +9,7 @@
 ; I just found a relation between same so that it is possible
 ; to generate them based on a int/long size in bits
 (defn mask4 [size]
-  (if (= size 8)
-    1
+  (if (= size 8) 1
     (+ 1 (bit-shift-left (mask4 (- size 8)) 8))))
 (defn mask3 [size]
   (* 15 (mask4 size)))
