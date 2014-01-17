@@ -96,6 +96,15 @@ bash --debugger <script>
 parent_func=$(caller 0 | cut -d' ' -f2) # "$line $subroutine $filename"
 source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
 
+# Script file parent dir
+EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Redirect logs
+exec >>$EXEC_DIR/logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
+# Standard logs date
+date "+%F %T,%N" | cut -c-23
+# Seconds since EPOCH
+date -u +%s
+
 # !! aliases used in functions definitions are immediately substituted,
 # NOT resolved dynamically !
 alias foo='echo A'
@@ -106,46 +115,40 @@ bar # echo A
 # Set positional parameters $0 $1 ...
 set - A B C
 
-# Redirect logs
-exec >>logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
-# Standard logs date
-date "+%F %T,%N" | cut -c-23
-# Seconds since EPOCH
-date -u +%s
-
-# Simulating 'pipefail', from gzip:zgrep source code
-r=$(
-    exec 4>&1
-    (eval "$cmd1" 4>&-; echo $? >&4) | sed "$cmd2" 4>&-
-) && exit $r
-
-# Create and set permissions
-install -o $USER -m 644 <file>
-install -d -m 777 <directory>
-
-for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.cumulonim.biz/BashPitfalls.html
-
 : ${1:?'Missing or empty parameter'}
 : ${var:="new value set if empty"}
 local var=${1:-"default value"}
 # !! 'local' is a command, and its return code will shadow the one of the cmd in the right part of an assignment
 
-# Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
-echo ${PWD//\//-}
+echo ${PWD//\//-} # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 
-# List all defined variables
-( set -o posix; set )
+readonly CONST=42 # works with arrays & functions too
 
-# Floating point arithmetic
-echo "1/3" | bc -l # or specify "scale=X;" instead of flag
-factor <really-long-int> # decompose in factors
+local argv=("$@") # Convert to array
+${argv[@]:(-1)} # last element
+unset argv[0] # remove element, WITHOUT-INDEX-SHIFTING
+# Back to string
+str="${argv[*]}"
+# Array slice
+echo ${argv[@]:1:2}
 
-# Script file parent dir
-EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-is_true () { ! { [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; } ; }
-
-is_file_open () { lsof | grep $(readlink -f "$1") ; }
+# Parsing *=* args (unsecure) by pushing elements in an array
+declare -a argFiles
+for arg in "$@"; do
+    case $arg in
+        *=*) eval $argi ;;
+        *) argFiles[${#argFiles[*]}]="$arg" ;;
+    esac
+done
+# http://wiki.bash-hackers.org/howto/getopts_tutorial
+while getopts ":ab:" opt; do
+    case $opt in
+    a) echo "-a was triggered." >&2 ;;
+    b) echo "-b was triggered. Parameter: $OPTARG" >&2 ;;
+    \?) echo "Invalid option: -$OPTARG" >&2 ; exit 1 ;;
+    :) echo "Option -$OPTARG requires an argument." >&2 ; exit 1 ;;
+    esac
+done
 
 # Associative arrays (FROM: http://stackoverflow.com/questions/1494178/how-to-define-hash-tables-in-bash)
 # With built-in arrays and cksum-based hashing function
@@ -162,6 +165,30 @@ hvalues() { cat "/dev/shm/hashmap.$1/*" ; }
 hcount() { hkeys $1 | wc -l ; }
 hdestroy() { rm -rf "/dev/shm/hashmap.$1" ; }
 
+# Powerful regex
+[[ "some string" =~ "$regex" ]]
+group1="${BASH_REMATCH[1]}"
+
+# Simulating 'pipefail', from gzip:zgrep source code
+r=$(
+    exec 4>&1
+    (eval "$cmd1" 4>&-; echo $? >&4) | sed "$cmd2" 4>&-
+) && exit $r
+
+# Create and set permissions
+install -o $USER -m 644 <file>
+install -d -m 777 <directory>
+
+for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.cumulonim.biz/BashPitfalls.html
+
+# Floating point arithmetic
+echo "1/3" | bc -l # or specify "scale=X;" instead of flag
+factor <really-long-int> # decompose in factors
+
+is_true () { ! { [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; } ; }
+
+is_file_open () { lsof | grep $(readlink -f "$1") ; }
+
 cat <<EOF
 EOF
 
@@ -174,44 +201,6 @@ exec 8>&- # Close file descriptor
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
 # Use RAM for tmp files:
 /dev/shm # monitor usage with ipcs -m
-
-# http://wiki.bash-hackers.org/howto/getopts_tutorial
-while getopts ":ab:" opt; do
-    case $opt in
-    a) echo "-a was triggered." >&2 ;;
-    b) echo "-b was triggered. Parameter: $OPTARG" >&2 ;;
-    \?) echo "Invalid option: -$OPTARG" >&2 ; exit 1 ;;
-    :) echo "Option -$OPTARG requires an argument." >&2 ; exit 1 ;;
-    esac
-done
-
-# Parsing *=* args (unsecure)
-# Push element in an array
-declare -a argFiles
-for arg in "$@"; do
-    case $arg in
-        *=*) eval $argi ;;
-        *) argFiles[${#argFiles[*]}]="$arg" ;;
-    esac
-done
-
-local argv=("$@") # Convert to array
-${argv[@]:(-1)} # last element
-# Back to string
-str="${argv[*]}"
-# Array slice
-echo ${argv[@]:1:2}
-
-# Powerful regex
-[[ "some string" =~ "$regex" ]]
-group1="${BASH_REMATCH[1]}"
-
-# disable wildcard expansion
-set -o noglob
-# Extended bash globbing
-shopt -s extglob # http://www.linuxjournal.com/content/bash-extended-globbing
-# list options values
-echo $- # Check the shell is interactive: [[ $- =~ i ]]
 
 tput
 # setaf 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
@@ -234,18 +223,14 @@ echo -n "Enter password: "
 read password
 stty echo
 
-# Syslog (port: 514)
-logger -is -t SCRIPT_NAME -p user.warn "Message"
-echo "<15>My logline" | nc -u -w 0 127.0.0.1 514 # <15> means 'user.debug', see RFC3164
+# disable wildcard expansion
+set -o noglob
+# Extended bash globbing
+shopt -s extglob # http://www.linuxjournal.com/content/bash-extended-globbing
+# list options values
+echo $- # Check the shell is interactive: [[ $- =~ i ]]
 
-mv $file ${file%.*}.bak # Change extension
-mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
-logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
-
-nice / ionice / renice # Control process priority (useful in cron job) 
-
-flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
-
+( set -o posix; set ) # List all defined variables
 # Get all commands prefixed by (useful for unit tests)
 compgen -abck unit_test_
 # Control readline auto-completion : http://linuxcommand.org/man_pages/complete1.html
@@ -259,11 +244,23 @@ _compfunc() {
 
     COMPREPLY=($(compgen -f -X "$xpat" -- "${word}"))
 }
+hash # frequently used commands cache
+
+# Syslog (port: 514)
+logger -is -t SCRIPT_NAME -p user.warn "Message"
+echo "<15>My logline" | nc -u -w 0 127.0.0.1 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity
+
+mv $file ${file%.*}.bak # Change extension
+mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
+logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
+
+flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 
 # Launch command at a specified time or when load average is under 0.8
 echo <cmd> | at midnight
 echo <cmd> | batch
 
+nice / ionice / renice # Control process priority (useful in cron job) 
 # control the resources available to the shell and to processes it starts
 ulimit -v # max virtual memory
 ulimit -s # max stack size
@@ -300,6 +297,9 @@ type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
 # Print lines starting with one containing FOO and ending with one containing BAR.
 sed -n '/FOO/,/BAR/p'
 
+# Print nth column
+awk [-F":|="] '{ print $NF }'
+
 # Replace newlines by a separator
 seq 1 10 | paste -s -d+ | bc
 # Break on word per line
@@ -311,9 +311,6 @@ echo ECHO | sed s/$/.ext/
 
 # Longest line of code
 perl -ne 'if (length > $w) { $w = length; print $ARGV.":".$_ };  END {print "$w\n"}' *.py
-
-# Print nth column
-awk [-F":|="] '{ print $NF }'
 
 # Sets intersec
 comm -12 #or uniq -d
@@ -380,9 +377,11 @@ sha{1,224,256,384,512}sum
 md5sum
 
 
-&*&*&*&*&*&*&*&*&*&*&*&*
-* Queueing, caching... *
-&*&*&*&*&*&*&*&*&*&*&*&*
+&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*
+* Parallellism, queueing, caching... *
+&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*
+xargs -P 0 # or GNU parallel
+
 memcached
 
 mkfifo # Named pipes: https://en.wikipedia.org/wiki/Named_pipe
@@ -410,8 +409,10 @@ echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
 echo hello | nc -u -w 0 127.0.0.1 5000
 
 # Port scanning
+nmap -sS -O 127.0.0.1 # Guess OS !! Also try -A
 nmap <host> -p <port> --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping, only scanning
-nmap -sS -O 127.0.0.1 # Guess OS !!
+nmap 192.168.1.* # Or 192.168.1.0/24, scan entire subnet
+nmap -DdecoyIP1,decoyIP2 ... # cloak you scan
 
 # Locally
 lsof -i -P -p <pid> # -i => list all Internet network files ; -P => no conversion of port numbers to port names for network files ; -n => no IP->hostname resolution

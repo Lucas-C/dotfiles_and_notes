@@ -1,4 +1,4 @@
-#!/apollo/bin/env -e SDETools python2.7
+#!/usr/bin/python
 
 # !! Precedence of '&' and '+' operators are inversed between C & Python
 
