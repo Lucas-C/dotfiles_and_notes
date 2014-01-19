@@ -54,7 +54,22 @@ string rev(string&& s) { reverse(s.begin(), s.end()); return s; }
 string rev(const string& s) { string t = s; reverse(t.begin(), t.end()); return t; }
 // -> compiler will choose this one if the argument might be used again later, which will safely copy the string's characters
 
+// NVWA:
+  * boolarray.h
+  * class_level_lock.h
+  * cont_ptr_utils.h
+  * debug_new.h
+  * fast_mutex.h
+  * fixed_mem_pool.h
+  * mem_pool_base.h
+  * object_level_lock.h
+  * pctimer.h
+  * set_assign.h
+  * static_mem_pool.h
+
 // POGO
+
+// MinGW: http://lynix.digitalpulsesoftware.com/2010/06/gcc-4-4-0-sous-windows-avec-mingw/
 
 // Windows code analysis
 cl /analyze

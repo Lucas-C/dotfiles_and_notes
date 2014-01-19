@@ -46,7 +46,7 @@ git reflog # To list all actions done on the git repo ( not only the commits, bu
 git reset --hard HEAD@{3} # To rewind the repo back to the state of HEAD@{3} in the reflog lists.
 
 # List versioned files
-git ls-tree -r --name-only HEAD
+git ls-files # git ls-tree -r --name-only HEAD
 
 # List git commiters
 git log --format='%aN %aE' | sort -u
