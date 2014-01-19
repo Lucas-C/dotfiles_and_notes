@@ -198,25 +198,63 @@ cd () {                 # zsh-like, USAGE: cd $old-path-chars $new-path-chars
     fi
 }
 
-unfuncalias cp
-cp () {                 # 'cp' with progress status
-    local argv=("$@")
-    while [[ ${argv[0]} =~ -[^t] ]]; do
-        unset argv[0]
-        argv=( "${argv[@]}" ) # re-packing
+_get_cp_mv_src_args () {
+    while [[ "$1" =~ -[^t] ]]; do
+        shift
     done
-    if [ "${argv[0]}" = "-t" ]; then
-        unset argv[0]; unset argv[1] # removing -t <dst>
-        argv=( "${argv[@]}" )
+    if [ "$1" = "-t" ]; then
+        shift; shift # removing -t <dst>
+        echo "$@"
     else
+        local argv=("$@")
         unset argv[${#argv[@]}-1] # removing last element: <dst>
-        argv=( "${argv[@]}" )
+        echo "${argv[@]}"
     fi
-    if [ $(du -cm "${argv[@]}" | tail -n 1 | cut -f1) -gt 100 ]; then
-        rsync --archive --partial --progress --human-readable --backup --backup-dir=/var/tmp/rsync --ignore-times --rsh=/dev/null -- "$@"
+}
+
+_get_cp_mv_dst_arg () {
+    while [[ "$1" =~ -[^t] ]]; do
+        shift
+    done
+    if [ "$1" = "-t" ]; then
+        echo "$2"
     else
-        $(nofuncalias cp) "$@"
+        local argv=("$@")
+        echo "${argv[-1]}"
     fi
+}
+
+rsync_mv () {       # 'mv' using rsync with progress status for src files >100Mo & different partitions
+    local src_args=$(_get_cp_mv_src_args "$@")
+    [ -z "$src_args" ] && return 1
+    local src_args_size=$(du -cm "$src_args" | tail -n 1 | cut -f1)
+    [ ${src_args_size:-0} -gt 100 ] || return 2
+    local src_args_partitions=$(df "$src_args" | sed -n '1!p' | awk '{print $1}')
+
+    local dst_arg=$(_get_cp_mv_dst_arg "$@")
+    [ -z "$dst_arg" ] && return 3
+    local dst_arg_partition=$(df $(dirname "$dst_arg") | sed -n '1!p' | awk '{print $1}')
+
+    local non_common_partitions=$(comm -23 <(echo "$src_args_partitions" | sort) <(echo "$dst_arg_partition" | sort))
+    [ -z "$non_common_partitions" ] && return 4
+
+    rsync --partial --progress --human-readable --ignore-times --rsh=/dev/null "$@" && rm -rf "$src_args" 
+}
+unfuncalias mv
+mv () {
+    rsync_mv "$@" || $(nofuncalias mv) "$@"
+}
+
+rsync_cp () {
+    local src_args=$(_get_cp_mv_src_args "$@")
+    [ -z "$src_args" ] && return 1
+    local src_args_size=$(du -cm "$src_args" | tail -n 1 | cut -f1)
+    [ ${src_args_size:-0} -gt 100 ] || return 2
+    rsync --archive --partial --progress --human-readable --backup --backup-dir=/var/tmp/rsync --ignore-times --rsh=/dev/null -- "$@"
+}
+unfuncalias cp
+cp () {                 # 'cp' using rsync with progress status for src files >100Mo only
+    rsync_cp "$@" || $(nofuncalias cp) "$@"
 }
 cp_p()                  # slower and less portable
 {

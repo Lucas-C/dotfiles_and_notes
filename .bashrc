@@ -5,7 +5,9 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-if ! [[ $- =~ i ]]; then # if shell is not interactive, exit, as printing anything at this point will break 'scp'
+# if shell is not interactive, exit, as printing anything at this point will break 'scp'
+# also check that [[ =~ ]] is available
+if ! [[ $- =~ i ]]; then
     return
 fi
 

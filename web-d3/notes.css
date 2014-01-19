@@ -1,0 +1,6 @@
+/* Responsive design tables */
+table, tbody { display: block; }
+tr { display: table; }
+td { display: table-row; }
+
+.transparent { zoom: 1; filter: alpha(opacity=50); opacity: 0.5; } /* CSS Transparency Settings for All Browsers */

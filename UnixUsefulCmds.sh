@@ -248,13 +248,14 @@ hash # frequently used commands cache
 
 # Syslog (port: 514)
 logger -is -t SCRIPT_NAME -p user.warn "Message"
-echo "<15>My logline" | nc -u -w 0 127.0.0.1 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity
+echo "<15>My logline" | nc -u -w 1 127.0.0.1 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity
 
 mv $file ${file%.*}.bak # Change extension
 mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
 logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
 
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
+lockfile-create/remove/check # file locks manipulation
 
 # Launch command at a specified time or when load average is under 0.8
 echo <cmd> | at midnight
@@ -568,7 +569,7 @@ last [-f /var/log/wtmp.1]
 id $USER # for primary group, use -ng flag
 adduser / usermod -a -G # DO NOT FORGET THE -a !!!
 
-# Add a Linuxsecondary group without logging out
+# Add a Linux secondary group without logging out
 newgroup <new secondary group>
 newgroup <original primary group>
 
