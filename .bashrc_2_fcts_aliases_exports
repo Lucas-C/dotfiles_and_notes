@@ -224,11 +224,19 @@ _get_cp_mv_dst_arg () {
     fi
 }
 
-rsync_mv () {       # 'mv' using rsync with progress status for src files >100Mo & different partitions
-    local src_args=$(_get_cp_mv_src_args "$@")
+_is_massive_cp_mv_src () { # 'massive' means >1000 files OR >100Mo
+    local src_args="$@"
     [ -z "$src_args" ] && return 1
+    local files_count_max_1000=$(find "$@" -type f | head -n 1000 | wc -l)
+    [ ${files_count_max_1000:-0} -eq 1000 ] && return 0
     local src_args_size=$(du -cm "$src_args" | tail -n 1 | cut -f1)
-    [ ${src_args_size:-0} -gt 100 ] || return 2
+    [ ${src_args_size:-0} -gt 100 ] && return 0
+    return 1
+}
+
+rsync_massive_mv_tip () {       # 'mv' suggesting 'rsync' for 'massive' src files & different partitions
+    local src_args=$(_get_cp_mv_src_args "$@")
+    _is_massive_cp_mv_src "$src_args" || return 2
     local src_args_partitions=$(df "$src_args" | sed -n '1!p' | awk '{print $1}')
 
     local dst_arg=$(_get_cp_mv_dst_arg "$@")
@@ -238,25 +246,34 @@ rsync_mv () {       # 'mv' using rsync with progress status for src files >100Mo
     local non_common_partitions=$(comm -23 <(echo "$src_args_partitions" | sort) <(echo "$dst_arg_partition" | sort))
     [ -z "$non_common_partitions" ] && return 4
 
-    rsync --partial --progress --human-readable --ignore-times --rsh=/dev/null "$@" && rm -rf "$src_args" 
+    cat <<EOF
+You're about to move a MASSIVE amount of files to another partition.
+To first copy files and follow this task progress, I suggest using:
+rsync -r --partial --progress --human-readable --ignore-times --rsh=/dev/null $@
+If you want to ignore my advice, simply run:
+$(nofuncalias mv) $@
+EOF
 }
 unfuncalias mv
 mv () {
-    rsync_mv "$@" || $(nofuncalias mv) "$@"
+    rsync_massive_mv_tip "$@" || $(nofuncalias mv) "$@"
 }
 
-rsync_cp () {
+rsync_massive_cp_tip () {
     local src_args=$(_get_cp_mv_src_args "$@")
-    [ -z "$src_args" ] && return 1
-    local src_args_size=$(du -cm "$src_args" | tail -n 1 | cut -f1)
-    [ ${src_args_size:-0} -gt 100 ] || return 2
-    rsync --archive --partial --progress --human-readable --backup --backup-dir=/var/tmp/rsync --ignore-times --rsh=/dev/null -- "$@"
+    _is_massive_cp_mv_src "$src_args" || return 1
+    cat <<EOF
+You're about to copy a MASSIVE amount of files. To follow this task progress, I suggest using:
+rsync --partial --progress --human-readable --ignore-times --rsh=/dev/null $@
+If you want to ignore my advice, simply run:
+$(nofuncalias cp) $@
+EOF
 }
 unfuncalias cp
-cp () {                 # 'cp' using rsync with progress status for src files >100Mo only
-    rsync_cp "$@" || $(nofuncalias cp) "$@"
+cp () {                 # 'cp' suggesting 'rsync' to follow progress for 'massive' src files
+    rsync_massive_cp_tip "$@" || $(nofuncalias cp) "$@"
 }
-cp_p()                  # slower and less portable
+cp_p()                  # 'cp' showing progress, but slower than rsync and less portable
 {
     strace -q -e write cp -- "${1}" "${2}" 2>&1 | awk '{
         if (NR % int(total_size / 409600) == 0) {

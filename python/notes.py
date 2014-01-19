@@ -42,7 +42,7 @@ m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep, string) # def rep(matchobj): ...
 
-with open('filea', 'w+') as filea, open('fileb', 'w+') as fileb: pass # touch <files>
+with open('filea', 'r+') as inf, io.open('fileb', 'w', encoding='utf-8') as outf: pass # touch 'fileb'
 
 @contextlib.contextmanager
 def foobar():
@@ -315,6 +315,8 @@ scipy
     pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
     maptplotlib # 2d plotting
 
+joblib # memoize computations by keeping cache files on disk
+
 rpy2 # acces to R
 
 
@@ -332,9 +334,12 @@ json, cPickle # for serialization, the 2nd is a binary format, generic, fast & l
 zlib.compress(string)
 
 multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
+from multiprocessing.dummy import Pool as ThreadPool
+pool = ThreadPool(4); results = pool.map(foo, args); pool.close(); pool.join()
 numbapro # for CUDA
 greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
+asyncio # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 
 import celery # distributed task queue ; alternative : pyres. Or for cron-like jobs: dagobah/schedule
 
@@ -411,8 +416,16 @@ nonlocal
 
 first, *rest = range(5) # extended iterable unpacking
 
-with concurrent.futures.ProcessPoolExecutor() as executor:
-    list(executor.map(big_calculation, arguments)) # faster than without 'executor'
+with concurrent.futures.ProcessPoolExecutor() as executor: # Asynchronous
+    processed_args = list(executor.map(big_calculation, args)) # faster than without 'executor'
+    futures_url = {executor.submit(other_big_calc, arg) for arg in processed_args}
+    for future in as_completed(futures):
+        url = futures[future]
+        if future.exception():
+            raise future.exception()
+        yield future.result()
+
+    for arg in arguments:
 
 def foo(a, b, *, keyword=None): pass # keywords-only functions arguments
 

@@ -234,6 +234,7 @@ echo $- # Check the shell is interactive: [[ $- =~ i ]]
 # Get all commands prefixed by (useful for unit tests)
 compgen -abck unit_test_
 # Control readline auto-completion : http://linuxcommand.org/man_pages/complete1.html
+# can be enable by '-e' flag of 'read'
 complete -f -X '!*.ext' command # exclude files using a filter
 complete -F _compfunc command
 _compfunc() {

@@ -14,6 +14,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - Duplication : DRY ! Once, and only once. [CC-G5]
     switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
     similar algorithm            -> template method / strategy pattern
+- "Premature optimization is the root of all evil"
 
 # Design principles (SE = software entity : class, module, function...) - where "Design" = Organisation of the software logic
 - Single Responsability Principle : every SE should have a single responsibility, and that responsibility should be entirely encapsulated by the SE
