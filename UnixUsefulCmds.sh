@@ -121,16 +121,16 @@ local var=${1:-"default value"}
 # !! 'local' is a command, and its return code will shadow the one of the cmd in the right part of an assignment
 
 echo ${PWD//\//-} # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
+${var%?} # Remove the final character of var
 
 readonly CONST=42 # works with arrays & functions too
 
 local argv=("$@") # Convert to array
 ${argv[@]:(-1)} # last element
+echo ${argv[@]:1:2} # Array slice
 unset argv[0] # remove element, WITHOUT-INDEX-SHIFTING
-# Back to string
-str="${argv[*]}"
-# Array slice
-echo ${argv[@]:1:2}
+str="${argv[*]}" # Back to string
+IFS=$'\n'; echo "${argv[*]}" # or, for filenames, newline-separated
 
 # Parsing *=* args (unsecure) by pushing elements in an array
 declare -a argFiles
@@ -489,7 +489,11 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
 # Keep ssh session open after executing commands
 ssh $host "$cmds ; /bin/bash -i"
 # How to change your login on a specified acces: http://orgmode.org/worg/worg-git-ssh-key.php
-.ssh/config
+knockd # port knocking server
+# SSH daemon config to allow UNIX user/pswd auth:
+/etc/ssh/sshd_config # PasswordAuthentication yes, UsePAM yes OR AllowGroups sshusers
+/etc/pam.d/* # use pam_unix.so
+sudo service restart ssh
 # Exit a hung SSH session
 [ENTER] ~.
 openssl s_client # bare SSL client cmd
@@ -569,6 +573,7 @@ last [-f /var/log/wtmp.1]
 # Get uid / groups infos
 id $USER # for primary group, use -ng flag
 adduser / usermod -a -G # DO NOT FORGET THE -a !!!
+useradd -m -G sudo,sshusers -p $(openssl passwd ******)
 
 # Add a Linux secondary group without logging out
 newgroup <new secondary group>
