@@ -358,6 +358,7 @@ sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000 # Create f
 
 # setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
 # setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
+setcap # man capabilities
 umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
 # Forbid file deletion
@@ -371,7 +372,11 @@ cp /proc/<pid>/fd/4 myfile.saved
 auditctl -w <file> -p wax -k <tag>
 ausearch -k <tag> [-ts today -ui 506 -x cat]
 
-rsync -avz --exclude=".*" --delete # the last option remove extra remote files
+rsync -v --compress --exclude=".*" $src $dst
+--archive # recursive + preserve mtime, permissions...
+--delete # remove extra remote files
+--append # resume interrupted rsync/cp
+--backup --backup-dir=/var/tmp/rsync # keep a copy of the dst file
 
 tar -J... # instead of -z, .xz compression format support
 
@@ -406,9 +411,9 @@ mtr <host/ip> # > ping / traceroute
 
 socat > nc (netcat) > telnet
 socat - udp4-listen:5000,fork # create server redirecting listening on port 5000 output to terminal
-nc -l -u -k -w 0 5000
+nc -l -u -k -w 1 5000
 echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
-echo hello | nc -u -w 0 127.0.0.1 5000
+echo hello | nc -u -w 1 127.0.0.1 5000
 
 # Port scanning
 nmap -sS -O 127.0.0.1 # Guess OS !! Also try -A

@@ -23,6 +23,18 @@ jprofiler (non free), visualVM // profilers
 jmap -histo:live <pid> // Object-type histogram on a running jvm
 JLine // console input handling like BSD editline / GNU readline
 
+jps, jcmd, jstat // Std perf monitoring tools: http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.html
+
+// 1. Make JVM accept JMX connections
+-Dcom.sun.management.jmxremote.port=9876 // can be any port
+-Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false // turning this off for simplicity
+// 2. connect to $host & set up a SOCKS proxy listening on port 43210 (can be anyone)
+ssh -D 43210 -N $host
+// 3. run Jconsole remotely
+jconsole -J-DsocksProxyHost=localhost -J-DsocksProxyPort=43210
+// 4. Use the following JMX url
+service:jmx:rmi:///jndi/rmi://$host:9876/jmxrmi
+
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
 
 // String / ByteString correct conversion :

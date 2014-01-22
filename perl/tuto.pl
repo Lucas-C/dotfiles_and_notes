@@ -175,6 +175,7 @@ if ($@) {
 } else {
 	print "Normal behaviour";
 }
+# Various failure modes: die, carp, cluck, croak, confess - http://www.tutorialspoint.com/perl/perl_error_handeling.htm
 
 my $fail_file = ".not_readable.txt";
 eval {
