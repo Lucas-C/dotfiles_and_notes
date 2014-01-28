@@ -123,6 +123,9 @@ local var=${1:-"default value"}
 echo ${PWD//\//-} # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 ${var%?} # Remove the final character of var
 
+for pair in $whatever; do key=${pair%:*}; value=${pair#*:}; ...
+for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.cumulonim.biz/BashPitfalls.html
+
 readonly CONST=42 # works with arrays & functions too
 
 local argv=("$@") # Convert to array
@@ -178,8 +181,6 @@ r=$(
 # Create and set permissions
 install -o $USER -m 644 <file>
 install -d -m 777 <directory>
-
-for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.cumulonim.biz/BashPitfalls.html
 
 # Floating point arithmetic
 echo "1/3" | bc -l # or specify "scale=X;" instead of flag
@@ -551,17 +552,17 @@ perf # need a version of linux-tools-* mathcing the kernel
     top -G
     stat -e cycles,instructions,cache-misses,dTLB-load-misses -p $PID
 
-# Watch system stats
-watch -d 'cat /proc/meminfo'
+watch -d 'cat /proc/meminfo' # Watch system stats
 
 # System errors
 dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
 # Enable dmesg timestamps
 echo 1 > /sys/module/printk/parameters/printk_time 
 
-iostat
+iostat # + iotop, non portable
 mpstat 5 # cpu usage stats every 5sec
 dstat
+glances # non portable
 
 # Checking Swap Space Size and Usage
 free -m # how much free ram I really have ? -> look at the row that says "-/+ buffers/cache"
@@ -600,6 +601,7 @@ apt-file search /path/to/anyfile
 yume provides <cmd>
 dpkg -S /path/to/cmd
 rpm -qif $(which cmd)
+rpm -Uvh pkg.rpm # upgrade RPM
 
 apt-key fingerprint # display imported keys fingerprints
 sudo dpkg -D1 -i *.deb
@@ -772,6 +774,8 @@ Example:
 |}
 [[Category:Template|{{PAGENAME}}]]
 </noinclude>
+
+{{!}}, {{=}} # escape pipe & equal signs
 
 http://en.wikipedia.org/wiki/Help:Magic_words
 

@@ -35,6 +35,8 @@ jconsole -J-DsocksProxyHost=localhost -J-DsocksProxyPort=43210
 // 4. Use the following JMX url
 service:jmx:rmi:///jndi/rmi://$host:9876/jmxrmi
 
+JDBC // Java Database Connectivity : API that defines how a client may access a relational database
+
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
 
 // String / ByteString correct conversion :

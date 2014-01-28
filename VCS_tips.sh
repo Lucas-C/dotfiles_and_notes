@@ -83,6 +83,8 @@ git remote show origin
 git branch -u origin/master
 # Delete branch
 git branch -d $branch_name
+# Rename branch
+git branch -m old_name new_name
 
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:

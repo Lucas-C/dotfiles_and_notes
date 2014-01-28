@@ -199,7 +199,7 @@ cd () {                 # zsh-like, USAGE: cd $old-path-chars $new-path-chars
 }
 
 _get_cp_mv_src_args () {
-    while [[ "$1" =~ -[^t] ]]; do
+    while [[ "$1" =~ ^-[^t] ]]; do
         shift
     done
     if [ "$1" = "-t" ]; then
