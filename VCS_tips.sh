@@ -24,6 +24,9 @@ svn diff | diffstat # sum-up a diff
 #*****#
 # http://blog.jacius.info/2008/6/22/git-tip-fix-a-mistake-in-a-previous-commit/
 
+# use HTTPS protocol instead of git one (e.g. to bypass a firefall)
+git config --global url."https://".insteadOf git://
+
 # Git 'uncommit', as 'don't-change-any-files-but-cancel-last-commit'
 git reset HEAD^
 
