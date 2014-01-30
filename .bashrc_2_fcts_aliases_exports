@@ -293,7 +293,7 @@ alias df='df -h'
 unfuncalias du
 alias du='du -sh'
 unfuncalias diff
-alias diff='echo "Try merge or diff3 or opendiff on OSX" && diff -b'
+alias diff='echo "ALT: vimdiff (add color) / diff3 / opendiff (OSX)" && diff -b'
 
 alias diffs='diff --side-by-side'
 

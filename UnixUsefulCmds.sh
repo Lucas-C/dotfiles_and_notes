@@ -188,7 +188,7 @@ install -o $USER -m 644 $file
 install -d -m 777 $directory
 
 # Floating point arithmetic
-echo "1/3" | bc -l # or specify "scale=X;" instead of flag
+echo "$((RANDOM%6+1)) + 1/3" | bc -l # or specify "scale=X;" instead of flag
 factor $really_long_int # decompose in factors
 
 is_true () { ! { [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; } ; }
@@ -208,10 +208,10 @@ tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
 # Use RAM for tmp files:
 /dev/shm # monitor usage with ipcs -m
 
-tput
-# setaf 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
+tput setaf [1-7] / tput sgr0 # enable colored terminal output / reset it
+# 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
 # Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
-# sgr0: reset
+for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\n"; done # display all 256 colours
 
 select value in choice1 choice2; do break; done # multiple choices 
 # ask a yes or no question, with a default of no.
@@ -643,6 +643,8 @@ sudo su -l
 echo 1 > /sys/bus/pci/rescan
 
 ~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
+
+xhost local:root # Xlib: connection to ":0.0" refused by server
 
 
 =\/=/\=\/=/\=\/=

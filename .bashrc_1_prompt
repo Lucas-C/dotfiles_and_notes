@@ -46,7 +46,11 @@ prompt_command()
 
     history -a # this + 'shopt -s histappend' in .bashrc => shared Bash history between term sessions 
 
-    set_term_window_name "$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')"
+    if [ -e ~/.use_tmux ]; then
+        set_term_window_name "#[fg=colour$((RANDOM%230+1))]$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')#[default]"
+    else
+        set_term_window_name "$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')"
+    fi
 
     [ "$PWD" != "$HOME" ] && pwd > ${HOME:-/tmp}/.last_dir
 }
