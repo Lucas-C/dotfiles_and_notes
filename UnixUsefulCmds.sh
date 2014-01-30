@@ -52,15 +52,16 @@ xprop # get window infos by cliking
 xdpyinfo / xwininfo -children -id $ID # get X11 windows infos
 
 # Follow program system calls (!! -f => follow fork)
-strace -f -p <pid> -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
+strace -f -p $pid -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
+strace -f -e trace=network -s 10000 $cmd # capture network traffic
 # Bug: http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
-kill -CONT <pid> # Fix
+kill -CONT $pid # Fix
 # log system calls and library calls
-ltrace -ttS -s 65535 -o <logfile> -p <pid> 
+ltrace -ttS -s 65535 -o $logfile -p $pid
 
-cat /proc/<pid>/smaps # get resources infos
-pmap -x <pid> # get memory usage
-valgrind --tool=massif <cmd> # get memory usage with details & graph
+cat /proc/pid/smaps # get resources infos
+pmap -x $pid # get memory usage
+valgrind --tool=massif $cmd # get memory usage with details & graph
 valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
 
 # get a core file for a running program 
@@ -75,12 +76,12 @@ objdump
 dd if=/dev/fmem of=/tmp/fmem_dump.dd bs=1MB count=10 # don't forget 'count'
 nm *.o # list symbols
 readelf -Ws *.so
-ldd <exec> # list dynamically linked libs
+ldd $executable # list dynamically linked libs
 
 # LD_PRELOAD trick
 man ld.so
 gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
-LD_PRELOAD=./myfopen.so cat <file>
+LD_PRELOAD=./myfopen.so cat $file
 
 : () { : | : & } ; : # Fork bomb
 
@@ -95,8 +96,8 @@ perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testi
 set -o pipefail -o errexit -o nounset -o xtrace
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 
-bash -n <script> # Check syntax without executing
-bash --debugger <script>
+bash -n $script # Check syntax without executing
+bash --debugger $script
 parent_func=$(caller 0 | cut -d' ' -f2) # "$line $subroutine $filename"
 source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
 
@@ -183,12 +184,12 @@ r=$(
 ) && exit $r
 
 # Create and set permissions
-install -o $USER -m 644 <file>
-install -d -m 777 <directory>
+install -o $USER -m 644 $file
+install -d -m 777 $directory
 
 # Floating point arithmetic
 echo "1/3" | bc -l # or specify "scale=X;" instead of flag
-factor <really-long-int> # decompose in factors
+factor $really_long_int # decompose in factors
 
 is_true () { ! { [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; } ; }
 
@@ -266,8 +267,8 @@ flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for c
 lockfile-create/remove/check # file locks manipulation
 
 # Launch command at a specified time or when load average is under 0.8
-echo <cmd> | at midnight
-echo <cmd> | batch
+echo $cmd | at midnight
+echo $cmd | batch
 
 nice / ionice / renice # Control process priority (useful in cron job) 
 # control the resources available to the shell and to processes it starts
@@ -285,50 +286,36 @@ grep -I # ignore binary files
 grep -o # output only matching parts
 grep -C3 # output 3 lines of context, see also -B/-A
 grep -H/-h # output with/without filename
-grep -L PATTERN <files> # Get only filenames where PATTERN is not present
+grep -L $pattern $files # Get only filenames where PATTERN is not present
 grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/b/'
 grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
 LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
+sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
 
-# shows non-printing characters as ascii escapes. 
-cat -vET
-# echo non-ascii
-printf "\177" # octal
+cat -vET # shows non-printing characters as ascii escapes. 
+printf "\177" # (octal here) echo non-ascii
 
 make 2>&1 | colout -t cmake | colout -t g++ # from nojhan github: "Color Up Arbitrary Command Output"
-
-printf "%-8s\n" "${value}" # 8 spaces output formatting
 
 # filter outpout : not lines 1-3 and last one
 type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
 # this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD $@; ... }
 
-# Print lines starting with one containing FOO and ending with one containing BAR.
-sed -n '/FOO/,/BAR/p'
+perl -ne 'if (length > $w) { $w = length; print $ARGV.":".$_ };  END {print "$w\n"}' *.py # Longest line of code
 
-# Print nth column
-awk [-F":|="] '{ print $NF }'
+comm -12 #or uniq -d - Sets intersec
 
-# Replace newlines by a separator
-seq 1 10 | paste -s -d+ | bc
-# Break on word per line
-perl -pe 's/\s+/\n/g'
-# paste is also usefule to interlace files: paste <file1> <file2>
+tee -a $file # display input to stdout + append to end of $file
+echo ECHO | sed s/$/.ext/ # Append at the end of stdout (or beginning with ^)
+sed -i "1i$content" $file # append at the beginning of $file
 
-# Append at the end of stdout (or beginning with ^)
-echo ECHO | sed s/$/.ext/
-
-# Longest line of code
-perl -ne 'if (length > $w) { $w = length; print $ARGV.":".$_ };  END {print "$w\n"}' *.py
-
-# Sets intersec
-comm -12 #or uniq -d
-
-# display input to stdout + append to end of <file>
-tee -a <file>
-
+seq 1 10 | paste -s -d+ | bc # Replace newlines by a separator
+perl -pe 's/\s+/\n/g' # Break on word per line
+# paste is also useful to interlace files: paste $file1 $file2
+awk [-F":|="] '{ print $NF }' # Print last column
 fold # breaks lines to proper width
 fmt # reformat lines into paragraphs 
+printf "%-8s\n" "${value}" # 8 spaces output formatting
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
@@ -345,9 +332,6 @@ ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 find / -size +100M -ls -xdev # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
-
-# append at the beginning of <file>
-sed -i "1i$content" <file>
 
 rename \  _ * # Replace whitespaces by underscores
 
