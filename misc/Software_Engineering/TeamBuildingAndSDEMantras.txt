@@ -1,3 +1,5 @@
+TODO: break this in bits
+
 Job selection questions:
 - holidays, working hours (flexible ?)
 - clear role / responsabilities
@@ -36,6 +38,9 @@ StandUp:
 Interviewing:
 - STAR -> Probe -> Chalenge
 
+Tasks management:
+- simply use a pad !
+
 Sprints
 
 Start from a POC / MVP
@@ -43,6 +48,10 @@ Start from a POC / MVP
 Hack time
 2-pizza team
 coaching recruits
+
+Ops:
+- zero config: hard to document, hard to update, hard to set up, its persistent state can overlaps with other data
+- emails are evil: no guarantee it will be actioned + no guarantee anyone is subscribed + sense of false security as it works from time to time
 
 Career management:
 - value end-to-end ownership

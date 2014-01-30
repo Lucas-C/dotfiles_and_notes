@@ -78,7 +78,13 @@ def bar(**kwargs): # != def bar(foo=None, **kwargs):
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 
 datetime.utcnow() # better than time.time()
-import dateutil
+import pytz # pytz.utc, pytz.all_timezones
+from dateutil import parser # !! ALWAYS pass a Callable as tzinfos so that it won't use the system timezone (time.tzname)
+def _tzinfos_pytz_pst_func(tzname, tzoffset):
+    tzdata = pytz.timezone('America/Los_Angeles') if tzname == 'PST' else pytz.timezone(tzname)
+    if tzoffset:
+        tzdata += timedelta(seconds=tzoffset)
+    return tzdata
 
 os.geteuid() == 0 # => run as root
 
@@ -145,6 +151,13 @@ except Exception as err:
 	import traceback; traceback.print_exc()
 else: pass
 finally: pass
+
+from distutils.command.build import build
+class custom_build(build):
+    def run(self):
+        build.run(self)
+        ... # custom init
+cmdclass['build'] = custom_build
 
 # Environment variables
 PYTHONSTARTUP: un module à exécuter au démarrage de Python
@@ -236,7 +249,8 @@ import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueEr
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 
 # PDB tricks
-debug foo() # step into a function
+debug foo() # step into a function with pdb
+import pdb; foo(42); pdb.pm() # enter debugger post-mortem
 
 from pprint import pprint
 
@@ -413,6 +427,8 @@ def foo(x: between(3, 10), y: is_int) -> is_int:
 
 b'I am an immutable basic byte array of type "bytes"'
 bytearray(b"I am mutable")
+
+from __future__ import print_function, with_statement, generators...
 
 nonlocal
 

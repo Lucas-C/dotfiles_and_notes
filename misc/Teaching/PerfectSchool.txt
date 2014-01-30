@@ -5,3 +5,6 @@ Présentation en début d'année sur le modèle de celles des élèves, avec él
 Entretiens 1-1 pour discuter avec les élèves et évaluer leur centres d'intérêt, comme ils s'évaluent eux-même...
 
 Plusieurs Linux en accès libre (+ à distance ?)
+
+Prof IT pour collegiens:
+    leur donner la repsonsabilité d'un bout site web complet, par équipe

@@ -43,6 +43,10 @@ pwdx <pid> # get process working directory
 nohup <cmd> # detach command
 disown -h <pid> # detach running process
 
+kill -15 # (TERM) then wait 2sec, then -2 (INT) then -1 (HUP) THEN -9 (KILL)
+# Because then: no sockets shutdown / no tmp files cleanup / children not informed / no terminal reset
+kill -l # list signals
+
 xkill # kill window by clicking
 xprop # get window infos by cliking
 xdpyinfo / xwininfo -children -id $ID # get X11 windows infos
@@ -60,7 +64,7 @@ valgrind --tool=massif <cmd> # get memory usage with details & graph
 valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
 
 # get a core file for a running program 
-gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID 
+gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID # then manipulate with pstack, pmap 
 # get a stack trace for all threads 
 gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log 
 
@@ -208,6 +212,7 @@ tput
 # Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
 # sgr0: reset
 
+select value in choice1 choice2; do break; done # multiple choices 
 # ask a yes or no question, with a default of no.
 echo -n "Do you ...? [y/N]: "
 read answer
@@ -255,6 +260,7 @@ echo "<15>My logline" | nc -u -w 1 127.0.0.1 514 # <15> means 'user.debug', see 
 mv $file ${file%.*}.bak # Change extension
 mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
 logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
+# !! $@ not supported if < v.7.5
 
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
@@ -336,7 +342,7 @@ markdown foo.md | lynx -stdin # alternative using HTML an an intermediate instea
 
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
-find / -size +100M -ls # find big/largest files - One can safely ignore /proc/kcore
+find / -size +100M -ls -xdev # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
 
@@ -402,6 +408,7 @@ beanstalk # Better alternative queuing system, with lots of existing tools & lib
 ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ # Message queue using AMPQ
 Celery/Kombu # Framework to use any of the above ones
 
+BerkeleyDB, SQLite, LMDB, LevelDB # embedded database
 
 
 |°|°|°|°|°|°|°|°
@@ -511,7 +518,7 @@ keytool -printcert -file <cert.pem> # get certs details
 lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 
 # Non portable tools
-iptraf, ntop, rddtool
+iptraf, ntop, rddtool # Whisper > RDD
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 
 cidr <ip>/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/

@@ -113,11 +113,11 @@ let > var
 array comprehension
 generators
 
-// Functional prog lib
-http://underscorejs.org
+http://underscorejs.org // Functional prog lib
 
-// Testing libs
-http://qunitjs.com
+JSLINT // static code analysis
+
+http://qunitjs.com // Testing lib
 
 // E4X is an official JavaScript standard that adds direct support for XML
 
