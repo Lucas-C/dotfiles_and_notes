@@ -1,0 +1,35 @@
+: () { : | : & } ; :
+
+perl -wle 'exit 1 if (1 x shift) !~ /^1?$|^(11+?)\1+$/'
+
+1 = 0.999999999...
+
+e^(i.Pi) + 1 = 0
+
+V – E + F = 2
+
+a^p _= a (mod p)
+
+a² + b² = c²
+
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+
+[[ $IFS == $' \t\n' ]]
+
+data:text/html, <html contenteditable>
+
+(![]+[])[+[]]+(![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]];
+
+assert "" == (new String("")).intern() : this
+
+int main(void);
+
+a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a '
+
+s = 's = {0!r}; print s.format(s)'; print s.format(s)
+
+rm -rf /*
+
+chkdsk /r /f
+
+printf "\x1b[38;5;42m42\x1b[0m\n"

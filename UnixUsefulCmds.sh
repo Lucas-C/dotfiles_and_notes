@@ -85,7 +85,9 @@ LD_PRELOAD=./myfopen.so cat $file
 
 : () { : | : & } ; : # Fork bomb
 
-perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with a REGEX !
+perl -wle 'exit 1 if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with a REGEX !
+
+a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a '
 
 
 ##################
@@ -210,8 +212,9 @@ tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
 
 tput setaf [1-7] / tput sgr0 # enable colored terminal output / reset it
 # 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
+# But colors can be set like this: tput initc 2 500 900 100 # RGB values between 0 & 1000
 # Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
-for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\n"; done # display all 256 colours
+for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"; done # display all 256 colours
 
 select value in choice1 choice2; do break; done # multiple choices 
 # ask a yes or no question, with a default of no.
@@ -390,7 +393,7 @@ fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys
 man mq_overview # POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code
 beanstalk # Better alternative queuing system, with lots of existing tools & libs in various labguages
 ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ # Message queue using AMPQ
-Celery/Kombu # Framework to use any of the above ones
+Celery/Kombu # Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
 
 BerkeleyDB, SQLite, LMDB, LevelDB # embedded database
 

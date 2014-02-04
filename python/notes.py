@@ -377,7 +377,9 @@ import uuid # generate unique ID’s
 peewee # DB - simple Object Relational Mapping, S&M
 sqlite3 # std DB, persistent in a file || can be created in RAM
 
+jinja2 # HTML templating system
 beautifulsoup # HTML parsing, use v>=3.2
+
 pywebsocket
 paramiko # remote SSH/SFTP connexion
 import boom # like Siege or Funkload : web-app stress testing
