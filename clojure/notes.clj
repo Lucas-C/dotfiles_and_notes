@@ -9,7 +9,7 @@
 (use 'clojure.tools.trace)
 (trace ...)
 
-;;debugging parts of expressions
+;; debugging parts of expressions
 (defmacro dbg[x] `(let [x# ~x] (println "dbg:" '~x "=" x#) x#))
 
 (def hex #(format "%x" %1))
@@ -26,3 +26,18 @@
 (= (bit-not 0) -1) ; true
 (= (hex (int -1)) (hex 0xffffffff)) ; true
 (= (int -1) 0xffffffff) ; false
+
+(-> "a b c d"
+  .toUpperCase
+  (.replace "A" "X")
+  (.split " ")
+  first)
+;; is the same as:
+(first (.split (.replace (.toUpperCase "a b c d")
+                         "A"
+                         "X")
+               " "))
+;; AND
+(-> person :employer :address :city)
+;; is the same as:
+(((person :employer) :address) :city)

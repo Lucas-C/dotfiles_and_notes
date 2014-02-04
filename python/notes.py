@@ -309,7 +309,7 @@ http://mg.pov.lt/objgraph # explore Python object graphs
 
 # get exec time
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
-timeit.timeit("expr", setup="setup code", number=1000)
+timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000) 
 
 # Get memory usage
 from guppy import hpy

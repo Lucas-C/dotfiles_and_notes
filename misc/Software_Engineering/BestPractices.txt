@@ -52,6 +52,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - Write top-down code that reads like a narrative [CC-Chapt2]
 - Vertical separation : define things close to where they are used [CC-G10]
 - Do not line up variable names in a set of declarations/assignement statements [CC-Chapt5]
+- keep lines length short (~80char) because it keeps the code readable + one can view multiple files at the same time, side by side (+ it is the Python pep std)
 
 # Names
 Take the time to choose descriptive names. Naming things is a great power, it comes with great responsabilities [CC-N1]

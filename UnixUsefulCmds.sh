@@ -55,9 +55,8 @@ xdpyinfo / xwininfo -children -id $ID # get X11 windows infos
 strace -f -p $pid -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
 strace -f -e trace=network -s 10000 $cmd # capture network traffic
 # Bug: http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
-kill -CONT $pid # Fix
-# log system calls and library calls
-ltrace -ttS -s 65535 -o $logfile -p $pid
+kill -CONT $pid # strace bug fix
+ltrace -ttS -s 65535 -o $logfile -p $pid # log system calls and library calls
 
 cat /proc/pid/smaps # get resources infos
 pmap -x $pid # get memory usage
@@ -282,7 +281,7 @@ ulimit -u # max number of processes
 
 
 ++++++++++++++++++
-# Text filtering
+# Text stream filtering
 ++++++++++++++++++
 
 grep -I # ignore binary files
@@ -648,6 +647,8 @@ echo 1 > /sys/bus/pci/rescan
 ~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
 
 xhost local:root # Xlib: connection to ":0.0" refused by server
+
+grep -a # when grep returns "Binary file (standard input) matches"
 
 
 =\/=/\=\/=/\=\/=
