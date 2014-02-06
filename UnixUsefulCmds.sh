@@ -438,49 +438,18 @@ ip tunnel list # list ssh stunnels replace deprecated 'iptunnel'
 ip route # host routing tables - replace deprecated 'route'
 iw # details about wireless interfaces - replace deprecated 'iwconfig'
 
-iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
-iptables -n -L -v
-
-snmpget -v2c -c '<community_string>' <device> sysDescr.0 # or sysUpTime.0, sysName.0
-# The community string can be found in the 'Variables' tab in an AutoNOC device page
-# SNMP port : 161
-
-# Dump all tcp transmission to a specific IP :
-sudo tcpdump -X -i $interface host $IP [ip proto icmp|udp|tcp]
-
-grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
-
-lynx -dump -stdin # convert HTML to text
-# Web scrapping
-wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspire web page
-  -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
-  -k --convert-links : convert the links in the document to make them suitable for local viewing
-  --no-parent : do not ever ascend to the parent directory when retrieving recursively
-  -A --accept acclist -R --reject rejlist : comma-separated list of filename suffixes or patterns to accept or reject
-  -l --level=depth : default = 5
-  -c --continue : continue getting a partially-downloaded file
-curl # http://curl.haxx.se/docs/httpscripting.html
-# With full rendering:
-httrack
-PhantomJS
-Scrapbook # FF extension
-
-# Configure 'mail' command
-/etc/ssmtp/revaliases
-/etc/ssmtp/ssmtp.conf
-
 # On RedHat / CentOS / Fedora
 $EDITOR /etc/sysconfig/network-scripts/ifcfg-eth0
 $EDITOR /etc/sysconfig/network
 /etc/init.d/network restart
 ifup, ifdown # bring a network interface up
 
+ls /var/lib/dhc* # check what DHCP client is used
 # Query DNS cmds > deprecated 'nslookup'
-dig txt [+short] <hostname>
-host -t txt <hostname> # -a (all records) -v
+host [-t txt] <hostname> # -a (all records) -v
+dig +short txt <dns_server>
+dig +short -x <IP> # Reverse DNS
 avahi-resolve -n $USER.local # Multicast DNS == mDNS - from avahi-tools pkg
-# Reverse
-dig +short -x <IP>
 # Caching
 /etc/resolv.conf # manual / basic
 bind / dnsmasq / lwresd / nscd (broken: ignore TTL) # daemon
@@ -506,6 +475,18 @@ openssl x509 -text -noout -in <cert.pem> # get certs details
 openssl x509 -inform der -in cert.cer -out cert.pem # convert .cer to .pem
 keytool -printcert -file <cert.pem> # get certs details
 
+iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
+iptables -n -L -v
+
+snmpget -v2c -c '<community_string>' <device> sysDescr.0 # or sysUpTime.0, sysName.0
+# The community string can be found in the 'Variables' tab in an AutoNOC device page
+# SNMP port : 161
+
+# Dump all tcp transmission to a specific IP :
+sudo tcpdump -X -i $interface host $IP [ip proto icmp|udp|tcp]
+
+grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
+
 # Find wireless driver
 lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 
@@ -514,6 +495,25 @@ iptraf, ntop, rddtool # Whisper > RDD
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 
 cidr <ip>/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
+
+# Configure 'mail' command
+/etc/ssmtp/revaliases
+/etc/ssmtp/ssmtp.conf
+
+lynx -dump -stdin # convert HTML to text
+# Web scrapping
+wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspire web page
+  -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
+  -k --convert-links : convert the links in the document to make them suitable for local viewing
+  --no-parent : do not ever ascend to the parent directory when retrieving recursively
+  -A --accept acclist -R --reject rejlist : comma-separated list of filename suffixes or patterns to accept or reject
+  -l --level=depth : default = 5
+  -c --continue : continue getting a partially-downloaded file
+curl # http://curl.haxx.se/docs/httpscripting.html
+# With full rendering:
+httrack
+PhantomJS
+Scrapbook # FF extension
 
 
 =cCcCcCc=

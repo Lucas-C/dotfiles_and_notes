@@ -23,6 +23,8 @@ jprofiler (non free), visualVM // profilers
 jmap -histo:live <pid> // Object-type histogram on a running jvm
 JLine // console input handling like BSD editline / GNU readline
 
+OpenJDK JMH // Benchmark tool
+
 sudo update-alternatives --config java
 
 jps, jcmd, jstat // Std perf monitoring tools: http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.html
