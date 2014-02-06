@@ -113,6 +113,8 @@ let > var
 array comprehension
 generators
 
+hex_md5('string') // crypt/md5.js
+
 http://underscorejs.org // Functional prog lib
 
 JSLINT // static code analysis

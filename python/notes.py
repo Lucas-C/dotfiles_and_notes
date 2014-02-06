@@ -148,7 +148,7 @@ try: pass
 except Exception as err:
     # see chain_errors module
     logging.exception("Additional infos") # Exception will be automagically logged
-	import traceback; traceback.print_exc()
+	import traceback; traceback.print_exc() # or .extract_stack()
 else: pass
 finally: pass
 
@@ -348,6 +348,7 @@ pip # or easyinstall : libs manager
 
 json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
 zlib.compress(string)
+hashlib.md5('string').hexdigest()
 
 multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
 from multiprocessing.dummy import Pool as ThreadPool
@@ -378,7 +379,7 @@ peewee # DB - simple Object Relational Mapping, S&M
 sqlite3 # std DB, persistent in a file || can be created in RAM
 
 jinja2 # HTML templating system
-beautifulsoup # HTML parsing, use v>=3.2
+lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
 
 pywebsocket
 paramiko # remote SSH/SFTP connexion

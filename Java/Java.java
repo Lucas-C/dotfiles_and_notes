@@ -68,6 +68,8 @@ public String toString() { Objects.toStringHelper(getClass()).add("Attr", attr).
 ImmutableSet<V>
 ImmutableMap.Builder<K,V>
 
+Argo // JSON parsing
+
 // Enum
 static enum Action {
     PUT(ClientPut.class),

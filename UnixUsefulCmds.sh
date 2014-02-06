@@ -63,10 +63,10 @@ pmap -x $pid # get memory usage
 valgrind --tool=massif $cmd # get memory usage with details & graph
 valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
 
-# get a core file for a running program 
-gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID # then manipulate with pstack, pmap 
-# get a stack trace for all threads 
-gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log 
+# get a core file for a running program
+gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID # then manipulate with pstack, pmap
+# get a stack trace for all threads
+gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log
 
 hexdump -c # aka 'hd', use 'bvi' for editing
 strings exec.bin # extract strings of length >= 4
@@ -99,17 +99,20 @@ export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 
 bash -n $script # Check syntax without executing
 bash --debugger $script
+
 parent_func=$(caller 0 | cut -d' ' -f2) # "$line $subroutine $filename"
 source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
 
-# Script file parent dir
-EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# Redirect logs
-exec >>$EXEC_DIR/logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1
-# Standard logs date
-date "+%F %T,%N" | cut -c-23
-# Seconds since EPOCH
-date -u +%s
+EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # Script file parent dir
+exec >>$EXEC_DIR/logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1 # Redirect logs
+date "+%F %T,%N" | cut -c-23 # Standard logs date
+date -u +%s # Seconds since EPOCH
+date -d @$seconds_since_epoch "+%F" # under OSX: date -jf "%s" $secs "+%F"
+
+# Open problem
+argv_count() { local argv=("$@"); echo ${#argv[@]}; }
+bar() { local argv=("$@"); echo bar_count:${#argv[@]} >&2; echo "${argv[@]}"; }
+foo () { echo 'ENTERING foo; arguments count:' >&2; argv_count "$@"; echo 'Test with quotes' >&2; argv_count "$(bar "$@")"; echo 'Test without quotes' >&2; argv_count $(bar "$@"); }; foo a\ b c\ d
 
 # !! aliases used in functions definitions are immediately substituted,
 # NOT resolved dynamically !
@@ -135,10 +138,11 @@ for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.
 readonly CONST=42 # works with arrays & functions too
 
 local argv=("$@") # Convert to array
+str="${argv[@]}" # Back to string
+${#argv[@]} != ${#argv} # array size VS char-length of 1st elem
 ${argv[@]:(-1)} # last element
 echo ${argv[@]:1:2} # Array slice
 unset argv[0] # remove element, WITHOUT-INDEX-SHIFTING
-str="${argv[*]}" # Back to string
 IFS=$'\n'; echo "${argv[*]}" # or, for filenames, newline-separated
 
 # Parsing *=* args (unsecure) by pushing elements in an array
@@ -214,14 +218,15 @@ tput setaf [1-7] / tput sgr0 # enable colored terminal output / reset it
 # But colors can be set like this: tput initc 2 500 900 100 # RGB values between 0 & 1000
 # Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
 for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"; done # display all 256 colours
+tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top right corner
 
-select value in choice1 choice2; do break; done # multiple choices 
+select value in choice1 choice2; do break; done # multiple choices
 # ask a yes or no question, with a default of no.
 echo -n "Do you ...? [y/N]: "
 read answer
-if expr "$answer" : ' *[yY].*' > /dev/null; then 
+if expr "$answer" : ' *[yY].*' > /dev/null; then
    echo OK
-else 
+else
    echo KO
 fi
 
@@ -272,7 +277,7 @@ lockfile-create/remove/check # file locks manipulation
 echo $cmd | at midnight
 echo $cmd | batch
 
-nice / ionice / renice # Control process priority (useful in cron job) 
+nice / ionice / renice # Control process priority (useful in cron job)
 # control the resources available to the shell and to processes it starts
 ulimit -v # max virtual memory
 ulimit -s # max stack size
@@ -284,6 +289,7 @@ ulimit -u # max number of processes
 # Text stream filtering
 ++++++++++++++++++
 
+grep '\<word\>' # match word-boundaries
 grep -I # ignore binary files
 grep -o # output only matching parts
 grep -C3 # output 3 lines of context, see also -B/-A
@@ -294,7 +300,7 @@ grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
 LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
 sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
 
-cat -vET # shows non-printing characters as ascii escapes. 
+cat -vET # shows non-printing characters as ascii escapes.
 printf "\177" # (octal here) echo non-ascii
 
 make 2>&1 | colout -t cmake | colout -t g++ # from nojhan github: "Color Up Arbitrary Command Output"
@@ -316,7 +322,7 @@ perl -pe 's/\s+/\n/g' # Break on word per line
 # paste is also useful to interlace files: paste $file1 $file2
 awk [-F":|="] '{ print $NF }' # Print last column
 fold # breaks lines to proper width
-fmt # reformat lines into paragraphs 
+fmt # reformat lines into paragraphs
 printf "%-8s\n" "${value}" # 8 spaces output formatting
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
@@ -417,6 +423,7 @@ nmap -DdecoyIP1,decoyIP2 ... # cloak you scan
 
 # Locally
 lsof -i -P -p <pid> # -i => list all Internet network files ; -P => no conversion of port numbers to port names for network files ; -n => no IP->hostname resolution
+lsof -i -n | grep ssh # list SSH connections/tunnels
 
 ss -nap # -a => list both listening and non-listening sockets/ports ; -n => no DNS resolution for addresses, use IPs ; -p => get pid & name of process owning the socket
 ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
@@ -427,9 +434,19 @@ netstat --statistics [--udp] # global network statistics
 ip n[eighbour] # ARP or NDISC cache entries - replace deprecated 'arp'
 ip a[ddr] [show|add <ip>] dev eth0 # replace deprecated 'ifconfig'
 ip link set eth0 [up|down] # enable/disable the[interface specified
-ip tunnel # replace deprecated 'iptunnel'
+ip tunnel list # list ssh stunnels replace deprecated 'iptunnel'
 ip route # host routing tables - replace deprecated 'route'
 iw # details about wireless interfaces - replace deprecated 'iwconfig'
+
+iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
+iptables -n -L -v
+
+snmpget -v2c -c '<community_string>' <device> sysDescr.0 # or sysUpTime.0, sysName.0
+# The community string can be found in the 'Variables' tab in an AutoNOC device page
+# SNMP port : 161
+
+# Dump all tcp transmission to a specific IP :
+sudo tcpdump -X -i $interface host $IP [ip proto icmp|udp|tcp]
 
 grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 
@@ -448,17 +465,6 @@ httrack
 PhantomJS
 Scrapbook # FF extension
 
-# Iptables
-iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
-iptables -n -L -v
-
-snmpget -v2c -c '<community_string>' <device> sysDescr.0 # or sysUpTime.0, sysName.0
-# The community string can be found in the 'Variables' tab in an AutoNOC device page
-# SNMP port : 161
-
-# Dump all tcp transmission to a specific IP :
-sudo tcpdump -X host $IP [ip proto icmp|udp|tcp]
-
 # Configure 'mail' command
 /etc/ssmtp/revaliases
 /etc/ssmtp/ssmtp.conf
@@ -466,7 +472,7 @@ sudo tcpdump -X host $IP [ip proto icmp|udp|tcp]
 # On RedHat / CentOS / Fedora
 $EDITOR /etc/sysconfig/network-scripts/ifcfg-eth0
 $EDITOR /etc/sysconfig/network
-/etc/init.d/network restart 
+/etc/init.d/network restart
 ifup, ifdown # bring a network interface up
 
 # Query DNS cmds > deprecated 'nslookup'
@@ -550,7 +556,7 @@ watch -d 'cat /proc/meminfo' # Watch system stats
 # System errors
 dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
 # Enable dmesg timestamps
-echo 1 > /sys/module/printk/parameters/printk_time 
+echo 1 > /sys/module/printk/parameters/printk_time
 
 iostat # + iotop, non portable
 mpstat 5 # cpu usage stats every 5sec
@@ -705,7 +711,7 @@ sudo softwareupdate -i -a # Manual software update
 Finder > Applications > Utilities > Disk Utility # Repair permissions
 
 system_profiler # list system components, ports...
-pmset -g # power management settings 
+pmset -g # power management settings
 
 pbpaste | pbcopy # clipboard
 
