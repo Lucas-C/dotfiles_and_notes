@@ -208,7 +208,7 @@ _get_cp_mv_src_args () {
     else
         local argv=("$@")
         unset argv[${#argv[@]}-1] # removing last element: <dst>
-        IFS=$'\n'; echo "${argv[*]}"
+        for arg in "${argv[@]}"; do echo "$arg"; done
     fi
 }
 

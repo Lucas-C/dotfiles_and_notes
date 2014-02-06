@@ -109,11 +109,6 @@ date "+%F %T,%N" | cut -c-23 # Standard logs date
 date -u +%s # Seconds since EPOCH
 date -d @$seconds_since_epoch "+%F" # under OSX: date -jf "%s" $secs "+%F"
 
-# Open problem
-argv_count() { local argv=("$@"); echo ${#argv[@]}; }
-bar() { local argv=("$@"); echo bar_count:${#argv[@]} >&2; echo "${argv[@]}"; }
-foo () { echo 'ENTERING foo; arguments count:' >&2; argv_count "$@"; echo 'Test with quotes' >&2; argv_count "$(bar "$@")"; echo 'Test without quotes' >&2; argv_count $(bar "$@"); }; foo a\ b c\ d
-
 # !! aliases used in functions definitions are immediately substituted,
 # NOT resolved dynamically !
 alias foo='echo A'
@@ -137,6 +132,7 @@ for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.
 
 readonly CONST=42 # works with arrays & functions too
 
+identity () { for arg in "$@"; do echo "$arg"; done; } # NOT simply "$@" - identity "$(identity a\ b c\ d)"
 local argv=("$@") # Convert to array
 str="${argv[@]}" # Back to string
 ${#argv[@]} != ${#argv} # array size VS char-length of 1st elem
