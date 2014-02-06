@@ -1,4 +1,4 @@
-TODO: break this in bits
+TODO: break this into bits
 
 Job selection questions:
 - holidays, working hours (flexible ?)
@@ -25,9 +25,8 @@ CultureBuilding:
 - clear team goals with deadlines
 - make decisions based on data
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code
-- coding style reference, tools to enforce it, CRs
+- coding style reference, tools to enforce it, code reviews
 - regular emails with tips
-- code reviews
 
 StandUp:
 - What did you do yesterday?

@@ -235,7 +235,7 @@ _is_massive_cp_mv_src () { # 'massive' means >1000 files OR >100Mo
 
 rsync_massive_mv_tip () {       # 'mv' suggesting 'rsync' for 'massive' src files & different partitions
     local src_args=$(_get_cp_mv_src_args "$@")
-    _is_massive_cp_mv_src $src_args || return 2
+    _is_massive_cp_mv_src "$src_args" || return 2
     local src_args_partitions=$(df $src_args | sed -n '1!p' | awk '{print $1}')
 
     local dst_arg=$(_get_cp_mv_dst_arg "$@")
@@ -260,7 +260,7 @@ mv () {
 
 rsync_massive_cp_tip () {
     local src_args=$(_get_cp_mv_src_args "$@")
-    _is_massive_cp_mv_src $src_args || return 1
+    _is_massive_cp_mv_src "$src_args" || return 1
     cat <<EOF
 You're about to copy a MASSIVE amount of files. To follow this task progress, I suggest using:
 rsync --partial --progress --human-readable --ignore-times --rsh=/dev/null $@

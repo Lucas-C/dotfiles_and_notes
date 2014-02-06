@@ -7,6 +7,9 @@ https://class.coursera.org/votingfairdiv-001
 ~ + be able to properly explain current system flaws & alternatives benefits
 ~~~~~~~
 
+Additional notes:
+- http://www.votedevaleur.org/co/votedevaleur.html
+
 
 # Week 0
 ========
@@ -112,12 +115,208 @@ Borda scores:
 
 ### 1-3 - Preferences (6:46) == video 0-2
 
-### 1-4 -
+
+### 1-4 - The Condorcet Paradox (14:55)
+
+N(X P Y) = |{i|XPiY}|
+X >=M Y iff N(X P Y) >= N(Y P X)
+# >=M is the "group majority relation" or "Condorcer relation"
+
+Condorcet winer X: there is no Y such that Y >=M X
+Condorcet looser X: there is no Y such that X >=M Y
+
+Condorcet paradox: >=M is a non-transitive ordering
+
+Example of Condorcet cycle: A >=M B >=M C >=M A
+
+#voters   Voter1  Voter2  Voter3
+---------------------------------
+            A       C       B
+            B       A       C
+            C       B       A
+
+Example: split $999 in 3 organizations A, B, C
+Motion 1: [$333,$333,$333]
+Motion 2: [$499,$499,$1] # A & B ok
+Motion 3: [$700, $0, $300] # A & C ok
+# Reminds of the "pirates splitting treasure" problem
+
+
+### Advanced Lecture: How Likely is the Condorcet Paradox? (14:49)
+
+n voters and m candidates
+
+# probability of a Condorcet cycle:
+           "number of preferences profiles generating a Cc"
+Pr(m,n) = --------------------------------------------------
+               "total number of preferences profiles"
+
+total = (m!)^n
+
+... (numerator is problably a count of cycles in a graph)
+
+A Cc looks really likely, assuming a random vote
+=> but in reality, the assumption of an "impartial culture" is wrong, and this is a worst case scenario
+
+
+### 1-5: Condorcet Consistent Voting Methods (11:47)
+
+Majority graph: one vertex per candidate, arrows indicate head-to-head winners
+
+Copeland's rule: the win/loss record for candidate X is WL(X) = |{Y|X >=M Y}| - |{Y|Y >=M X}|.
+The Copeland winner is the candidate that maximizes WL.
+
+Black's Rule: the winner Condorcet winner if it exists, else Borda Count winner
+
+Dodgson's Rule: for each candidate, determine the fewest number of pairwise swaps needed to make that candidate the Condorcet winner. The winner is the candidate with the fewest swaps.
+# It has many flaws: http://dss.in.tum.de/files/brandt-research/dodgson.pdf
+
+Young method: elect candidates that minimize the number of voters to be removed before they become Condorcet winners
+
+
+### 1-6: Approval Voting (13:41)
+
+Approval Voting: each voter selects a subset of candidates. The candidate with the most approvals wins.
+
+https://www.youtube.com/watch?v=db6Syys2fmE
+
+Orthogonal informations compared to ranking voting system : they can be deduced from each other.
+
+More flexible than "choose the top N candidates"
+
+Examples of real-life elections that used it:
+http://www.nyu.edu/gsas/dept/politics/faculty/brams/theory_to_practice.pdf
+-> 6 interesting benefits are listed
+
+
+### 1-7: Combining Preference and Approval (9:12)
+
+
+### 1-8: Voting by Grading (14:22)
+
+Questions:
+- what grading language (A-F, 0-10, *-****)
+- how should we aggregate the grades (avg, median...)
+- should there be a "no opinion" option ?
+
+Score Voting / Range voting: the candidate with the largest average grade is declared the winner
+http://www.electology.org/score-voting
+
+Majority Voting: the candidate with the largest median grade is declared the winner
+Tie-break ? One solution: pick 2nd median grade, then 3rd median...
+
+Dis&Approval voting
+
+
+### 1-Quizz
+
+A majority candidate is a candidate that is ranked first by more than half of the voters. A voting methods satisfies majority criterion provided it elects the majority candidate (if one exists).
+
+Q6) Every Condorcet consistent voting method satisfies the majority criterion ?
+-> True, because a majority candidate beats every other candidate in head-to-head elelections
+
+Q7) If a voting method satisfies the majority criterion, then it is Condorcet consistent.
+-> False
+
+Q8) Does the Coombs method satisfy the majority criterion?
+-> No, e.g.
+
+ 25  26  30  19
+----------------
+ A   A   ?   ?
+ ?   ?   ?   ?
+ ?   ?   ?   ?
+ B   C   A   D
+
+Q9) Can approval voting elect a Condorcet Loser?
+-> Yes, e.g.
+
+ 30  30  40
+------------
+ B   B   C
+ *   A   A
+ C   *   *
+ A   C   B
+
+Q10) Can Score Voting elect a Condorcet Loser?
+-> Yes, e.g.
+
+voters  45  55
+---------------
+  A  |  10  1    <- grades per candidate
+  B  |  1   2    <- grades per candidate
+
+Q11) Let P be a relation on X. A cycle is a sequence of elements A1,A2,…,An∈X such that A1PA2P⋯PAnPA1. A relation is acyclic if it does not have a cycle. True or False: If there is a Condorcet winner, then the majority relation is acyclic.
+-> False, there can be a cycle between other candidates than the Condorcet winner
+
+Q12) A voting method satisfies the top condition provided a candidate can never be among the winners unless it is ranked first by at least one voter. Select all the voting methods that satisfy the top condition.
+- Borda Count : NO, e.g. [E12A]
+- The Hare System : YES
+- Coombs Rule : NO, e.g. [E12B]
+
+[E12A]: A is the Borda winner
+ 1  1  1
+---------
+ B  C  D
+ A  A  A
+ C  D  B
+ D  B  C
+
+[E12B]
+ 4  2  4
+---------
+ C  B  B
+ A  C  A
+ B  A  C
 
 
 # Readings
 ----------
 http://rangevoting.org/CompChart.html
 http://www.electology.org/electoral-system-summary
+http://www.rangevoting.org/CondorcetCycles.html
 
 ### Eric Pacuit, Voting Methods, Stanford Encyclopedia of Philosophy, 2011 (especially sections 1,  2 and 3.1)
+
+
+
+# Week 2
+========
+
+### 2-1: Choosing how to Choose (9:15)
+
+Criterias:
+- is it easy to use ? (+ is-it even legal ?)
+- does it really matter ? I.e. won't all methods produce the same result ?
+- information required ? (single choice / measure "intensity")
+- axiomatics:
+  * Condorcet condition
+  * Unanimity: if everyone rank A > B, B should not win
+  * Anonymity
+  * Monotonicity: a candidate receiving more support shouldn't make her worse off
+  * Independence: the winner should not depend on "irrelevant" spoiler candidates
+  * Universal Domain: voters are free to rank the candidates in anyway they want
+
+
+### 2-2a: Condorcet's Other Paradox (7:48)
+
+ 2  1  1
+---------
+ A  C  C
+ B  B  A
+ C  A  B
+
+Condorcet winner is C, but no scoring system can be used so that C becomes the Borda winner.
+
+
+### 2-2b: Should we always elect a Condorcet winner? (9:31)
+
+ 47  43  5   5
+---------------
+ A   B   C   C
+ C   C   A   B
+ B   A   B   A
+
+  C, really ?
+
+ http://rangevoting.org/FishburnAntiC.html
