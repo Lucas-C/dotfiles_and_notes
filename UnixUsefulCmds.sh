@@ -132,9 +132,23 @@ for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.
 
 readonly CONST=42 # works with arrays & functions too
 
-identity () { for arg in "$@"; do echo "$arg"; done; } # NOT simply "$@" - identity "$(identity a\ b c\ d)"
+# Q: Can we find a function 'identity' that satisfies the following 2 properties ?
+identity () { for arg in "$@"; do echo "$arg"; done; }
+identity "$(identity a\ b c\ d)"
+# a b
+# c d # expected output: OK
+argv_count () { echo "argv_count($@):$#" >&2; }
+argv_count $(identity a\ b c\ d)
+# 4 # NOT 2 : KO
+# ANSWER: looks like NO, because $() mangle the output in one string
+
+# Q: How to store the output of a command in a variable without spawning a subshell ? http://stackoverflow.com/questions/21632126
+foo () { echo "$BASH_SUBSHELL $BASHPID"; }
+mapfile -t bar_output < <(foo) # STILL creates a new process + only available since bash 4
+
 local argv=("$@") # Convert to array
-str="${argv[@]}" # Back to string
+"${argv[*]}" # expands to a single word with the value of each array member separated by the first character of the IFS variable
+"${name[@]}" # expands each element of name to a separate word
 ${#argv[@]} != ${#argv} # array size VS char-length of 1st elem
 ${argv[@]:(-1)} # last element
 echo ${argv[@]:1:2} # Array slice
@@ -142,7 +156,7 @@ unset argv[0] # remove element, WITHOUT-INDEX-SHIFTING
 IFS=$'\n'; echo "${argv[*]}" # or, for filenames, newline-separated
 
 # Parsing *=* args (unsecure) by pushing elements in an array
-declare -a argFiles
+declare -a argFiles # optional
 for arg in "$@"; do
     case $arg in
         *=*) eval $argi ;;
@@ -294,10 +308,16 @@ grep -L $pattern $files # Get only filenames where PATTERN is not present
 grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/b/'
 grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
 LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
+
 sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
+sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN
+
+tr -c '[:alnum:]' _
 
 cat -vET # shows non-printing characters as ascii escapes.
-printf "\177" # (octal here) echo non-ascii
+printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalent, BUT:
+# echo $'A\0B' -> A
+# printf 'A\0B\n' -> AB
 
 make 2>&1 | colout -t cmake | colout -t g++ # from nojhan github: "Color Up Arbitrary Command Output"
 
