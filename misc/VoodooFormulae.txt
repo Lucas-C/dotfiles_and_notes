@@ -37,3 +37,5 @@ printf "\x1b[38;5;42m42\x1b[0m\n"
 e^(pi.sqrt(163))
 
 sum_{i=1}^\inf = -1/12
+
+https://en.wikipedia.org/wiki/Table_of_mathematical_symbols#External_links

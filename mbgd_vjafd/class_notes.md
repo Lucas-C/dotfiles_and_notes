@@ -319,4 +319,73 @@ Condorcet winner is C, but no scoring system can be used so that C becomes the B
 
   C, really ?
 
- http://rangevoting.org/FishburnAntiC.html
+http://rangevoting.org/FishburnAntiC.html
+
+
+### 2-3: Failures of Monotonicity (15:03)
+
+More-is-Less Paradox : Plurality with Runoff
+
+ 6  5  4  2
+------------
+ A  C  B  B  <- swap
+ B  A  C  A  <- swap
+ C  B  A  C
+
+original result: A wins (2nd column votes are reported to A)
+post-swap result: C wins (3rd column votes are reported to C)
+
+
+No-Show Paradox : Plurality with Runoff (Coombs rule is also sensitive to this paradox)
+
+ 4  3  1  3
+------------
+ A  B  C  C
+ B  C  A  B
+ C  A  B  A
+ ^
+ | alt: 2 voters don't show up at the election
+
+original result: C wins (2nd column votes are reported to C)
+missing voters result: B wins (1sr column votes a reported to B)
+BUT B is ranked over C in the missing voters ballot !
+
+Reverse the point ov view (2 more identical voters), and this is called the Twin Paradox.
+
+Theorem (H. Moulin) : if there are 4 or more candidates, then every Condorcet consistent voting method is susceptible to the No-Show paradox.
+
+
+### 2-4: Multiple Districts Paradox (12:46)
+
+If a candidate C is the winner in several disjoint electorates, it is possible that, 'ceteris paribus', C will not be elected if the electorates are combined into a single electorate.
+
+Examples: Plurality With Runoff, Majority Judgement
+
+# Simpson's Paradox
+
+A University is hiring in Philosophy & Mathematics. 13 men and 13 women apply for jobs.
+
+              Men   Women
+Mathematics   1/5    2/8    Success rate is better for women
+Philosophy    6/8    4/5    Success rate is better for women
+University    7/13   6/13   Success rate is better for men
+
+
+### 2-5: Spoiler Candidates and Failures of Independence (9:15)
+
+A candidtae is a **spoiler** if that candidate has little chance of winning, but C's presence in the election draws votes away from candidates that are similar to them, causing a dissimilar candidate to win.
+
+Example: Plurality Rule, Borda Count
+
+Independence of Irrelevant Alternatives: if the voters un two different elec rank 1 and B in exactly the same way, then A and B should be ranked the same way in both elections
+
+
+### 2-6: Failures of Unanimity (9:46)
+
+If everyone agrees that another candidate is ranked higher than candidate A, then candidate A should not win.
+
+-> Strong Pareto: if there are some people that rank X above Y while all others are indifferent between X and Y, then society ranks X above Y.
+
+Example: Approval Voting (depending on tie rule)
+
+New voting system: successive elimination: serie of rounds where in each of them the candidate with the less votes is eliminated

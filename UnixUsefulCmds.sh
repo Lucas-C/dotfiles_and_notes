@@ -132,7 +132,7 @@ for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.
 
 readonly CONST=42 # works with arrays & functions too
 
-# Q: Can we find a function 'identity' that satisfies the following 2 properties ?
+# Q: Can we find a function 'identity' that satisfies the following 2 properties ? stackoverflow.com/q/21635301
 identity () { for arg in "$@"; do echo "$arg"; done; }
 identity "$(identity a\ b c\ d)"
 # a b
@@ -140,11 +140,13 @@ identity "$(identity a\ b c\ d)"
 argv_count () { echo "argv_count($@):$#" >&2; }
 argv_count $(identity a\ b c\ d)
 # 4 # NOT 2 : KO
-# ANSWER: looks like NO, because $() mangle the output in one string
+# ANSWER: NO, because $() mangle the output in one string
+# => use | over $() for list of strings containing spaces
 
-# Q: How to store the output of a command in a variable without spawning a subshell ? http://stackoverflow.com/questions/21632126
-foo () { echo "$BASH_SUBSHELL $BASHPID"; }
+# Q: How to store the output of a command in a variable without spawning a subshell ? stackoverflow.com/q/21632126
+bar () { echo "$BASH_SUBSHELL $BASHPID"; }
 mapfile -t bar_output < <(foo) # STILL creates a new process + only available since bash 4
+# -> use a non-blocking FIFO !
 
 local argv=("$@") # Convert to array
 "${argv[*]}" # expands to a single word with the value of each array member separated by the first character of the IFS variable
@@ -173,8 +175,8 @@ while getopts ":ab:" opt; do
     esac
 done
 
-# Associative arrays (FROM: http://stackoverflow.com/questions/1494178/how-to-define-hash-tables-in-bash)
-# With built-in arrays and cksum-based hashing function
+declare -A hash_table # Associative arrays
+# Or, with built-in arrays and cksum-based hashing function (FROM: http://stackoverflow.com/questions/1494178/how-to-define-hash-tables-in-bash)
 hf () { local h=$(echo "$*" |cksum); echo "${h//[!0-9]}"; } # hashing function
 table[$(hf foo bar)]="x42"
 echo ${table[$(hf foo bar)]}
@@ -218,10 +220,8 @@ echo BlaBlaBla
 exec 8>&- # Close file descriptor
 
 /var/tmp is better than /tmp # as filling it is less system impacting
-# mktemp dir & default value
-tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)"
-# Use RAM for tmp files:
-/dev/shm # monitor usage with ipcs -m
+tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)" # mktemp dir & default value
+/dev/shmi # Use RAM for tmp files - monitor usage with ipcs -m
 
 tput setaf [1-7] / tput sgr0 # enable colored terminal output / reset it
 # 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
@@ -407,6 +407,7 @@ xargs -P 0 # or GNU parallel
 memcached
 
 mkfifo # Named pipes: https://en.wikipedia.org/wiki/Named_pipe
+exec 3<> /tmp/myfifo # Über trick: dummy FD => non-blocking FIFO
 python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo
 ulimit -p # should get max pipe size, but WRONG : defined in pipe_fs_i.h
 fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
@@ -530,6 +531,7 @@ curl # http://curl.haxx.se/docs/httpscripting.html
 httrack
 PhantomJS
 Scrapbook # FF extension
+Scrapy # python crawling lib
 
 
 =cCcCcCc=
