@@ -477,16 +477,15 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
-# Keep ssh session open after executing commands
-ssh $host "$cmds ; /bin/bash -i"
+sudo service restart ssh
+ssh $host "$cmds ; /bin/bash -i" # Keep ssh session open after executing commands
+ssh -f $host -L 2034:$host:34 -N # port forwarding
+[ENTER] ~. # Exit a hung SSH session
 # How to change your login on a specified acces: http://orgmode.org/worg/worg-git-ssh-key.php
-knockd # port knocking server
 # SSH daemon config to allow UNIX user/pswd auth:
 /etc/ssh/sshd_config # PasswordAuthentication yes, UsePAM yes OR AllowGroups sshusers
 /etc/pam.d/* # use pam_unix.so
-sudo service restart ssh
-# Exit a hung SSH session
-[ENTER] ~.
+knockd # port knocking server
 openssl s_client # bare SSL client cmd
 openssl x509 -text -noout -in <cert.pem> # get certs details
 openssl x509 -inform der -in cert.cer -out cert.pem # convert .cer to .pem
@@ -797,6 +796,12 @@ Example:
 </noinclude>
 
 {{!}}, {{=}} # escape pipe & equal signs
+
+<nowiki>https://my.url/app/</nowiki>{{MyTemplate}} # URL with template
+
+{{#if:{{{variable_foo|}}} # conditionals - use {{{1|}}} for positional params
+|foo is set to '''{{{variable_foo}}}'''
+|foo is ''blank''}}
 
 http://en.wikipedia.org/wiki/Help:Magic_words
 

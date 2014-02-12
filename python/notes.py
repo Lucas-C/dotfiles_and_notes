@@ -327,7 +327,7 @@ nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, tra
 
 scipy
     numpy # n-dimensional arrays
-    sympy # symbolic mathematics
+    sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
     maptplotlib # 2d plotting
 
@@ -376,7 +376,9 @@ from getpass import getpass # get password without echoing it
 import uuid # generate unique ID’s
 
 peewee # DB - simple Object Relational Mapping, S&M
+SQLAlchemy
 sqlite3 # std DB, persistent in a file || can be created in RAM
+shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
 
 jinja2 # HTML templating system
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
@@ -403,6 +405,7 @@ SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
+
 
 """"""""
 "" Fun

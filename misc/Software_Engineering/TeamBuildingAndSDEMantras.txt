@@ -40,6 +40,12 @@ Interviewing:
 Tasks management:
 - simply use a pad !
 
+Documentation:
+- wiki are great !
+    * store meeting notes, tasks list, team & members pages, build processes, design docs, ops docs, dashboards, software architecture diagrams...
+    * get a leader whose goal is to motivate & educate others
+    * include the wiki as part of task processes : sprints, ops, deployments...
+
 Sprints
 
 Start from a POC / MVP
