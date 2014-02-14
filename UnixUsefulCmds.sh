@@ -201,7 +201,7 @@ r=$(
 ) && exit $r
 
 # Create and set permissions
-install -o $USER -m 644 $file
+install -o echo ${SUDO_USER:-$USER} -m 644 $file
 install -d -m 777 $directory
 
 # Floating point arithmetic
@@ -736,7 +736,7 @@ textutil -convert txt # or -info : convert / get infos on files
 
 xattr -l <file> # File listed with '@' => extended attributes
 
-sudo dseditgroup -o edit -a <USER> -t user <GROUP> # Add user to group
+sudo dseditgroup -o edit -a $USER -t user $GROUP # Add user to group
 
 find $(ls | grep -Ev 'Library|Documents|Downloads|httrack|phantomjs|vitavermis') \( ! -path '*/.*' \) -type f -print0 | xargs -0 stat -f '%m %N' | sort -k 1nr | while read timestamp file; do echo $(date -jf "%s" $timestamp "+%F") $file; done | less # illustrate how to replace find -printf + timestamp conversion + find non-hidden files only ; GOAL: list files by modification date
 
@@ -803,6 +803,17 @@ Example:
 |foo is set to '''{{{variable_foo}}}'''
 |foo is ''blank''}}
 
+Multi-Line <pre></pre> within list (* or #) : use  &#10; (Line Feed) or &#13; (Carriage Return) for newlines
+
+---- # horizontal separator
+
+<pre&lt;noinclude&gt;&lt;/noinclude&gt;>
+Include {{templates}} in pre blocks
+</pre&lt;noinclude&gt;&lt;/noinclude&gt;>
+{{#tag:pre|
+alt{{ernative}}
+}}
+
 http://en.wikipedia.org/wiki/Help:Magic_words
 
 
@@ -816,7 +827,7 @@ sqlite3 places.sqlite "select a.url, b.title from moz_places a, moz_bookmarks b 
 .tables
 .schema moz_places
 
-mysql -h <host> -u <user> -p [--ssl-ca=<file>.pem] # default port 3306
+mysql -h $HOST -u $USER -p [--ssl-ca=<file>.pem] # default port 3306
 mytop # watch mysql
 
 show tables;

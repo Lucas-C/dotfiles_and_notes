@@ -2,3 +2,7 @@ Quicksort: stable, constant space usage, worst case O(n^2) if pivot is smallest/
 Merge sort : stable, O(n) space on arrays / constant space on linked lists, worst case O(n*log(n)), ok if data on disk
 
 Trie / directed acyclic graph can be + efficient than binary search trees / hash tables
+
+Test set membership:
+- Bloom filters
+- Use prime numbers to represent set elements : http://www.stdlib.net/~colmmacc/2010/09/02/prime-and-proper/

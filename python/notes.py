@@ -9,7 +9,7 @@ _ # result of the last expression evaluated (in an interpreter only)
 r'''Raw string literal: no need to double escape \{0}\{str}'''.format("zero", str="")
 u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0)
 from __future__ import unicode_literals
-intern(str) # internal representation
+intern(str) # internal representation - useful for enums/atoms
 
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
@@ -44,6 +44,9 @@ re.sub('a|b|c', rep, string) # def rep(matchobj): ...
 
 with open('filea', 'r+') as inf, io.open('fileb', 'w', encoding='utf-8') as outf: pass # touch 'fileb'
 
+def CtxtMgr(object):
+    def __enter__(self): pass
+    def __exit__(self, eType, eValue, eTrace): pass
 @contextlib.contextmanager
 def foobar():
     # __enter__ code
@@ -144,7 +147,7 @@ class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), 
 
 # !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
 
-try: pass
+try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err:
     # see chain_errors module
     logging.exception("Additional infos") # Exception will be automagically logged
@@ -197,6 +200,11 @@ zip, reduce, all, any, min, max, sum
 # generators > list-comprehensions
 def stop(): raise StopIteration
 list(e if e != "BREAK" else stop() for e in iterable)
+class CustomGenerator(object): # minimal generator protocol
+    def __iter__(self):
+        yield stuff
+        #OR
+        return self # then must implement 'next(self)' (__next__ in Python3)
 
 # Is a dict / list ? -> http://docs.python.org/2/library/collections.html#collections-abstract-base-classes
 # isinstance(d, collections.Mapping) won't work if the class is not registered, so better check:
@@ -235,13 +243,14 @@ class Bunch(dict): # http://code.activestate.com/recipes/52308
 json.dumps(d, sort_keys=True, indent=4) # pretty formatting
 
 
-"""""""""""
-"" Debug
-"""""""""""
+"""""""""""""""""
+"" Test & Debug
+"""""""""""""""""
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
 nosetest # -vv --collect-only # for debug
 self.assertRaisesRegexp
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
+import doctest # include tests as part of the documentation
 
 # IPython tricks
 %history # dump it

@@ -112,6 +112,11 @@ git push
 +++++
 + p4
 +++++
+p4 info | grep 'Client root'
+p4 client -o
+p4 depots
+p4 opened -C $USER # assuming that $USER is a client
+
 # status
 find . -type f -print0 | xargs -0 p4 fstat -T clientFile,action
 
