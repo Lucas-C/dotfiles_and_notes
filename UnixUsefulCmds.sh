@@ -69,7 +69,7 @@ gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID # then manipulate with 
 gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log
 
 hexdump -c # aka 'hd', use 'bvi' for editing
-strings exec.bin # extract strings of length >= 4
+strings -n $min_length exec.bin # extract strings of length >= 4
 objdump
 /dev/mem # Physical memory, useful to strings | grep pswd. Ubuntu limit this to 1Mb
 dd if=/dev/fmem of=/tmp/fmem_dump.dd bs=1MB count=10 # don't forget 'count'
@@ -529,8 +529,8 @@ curl # http://curl.haxx.se/docs/httpscripting.html
 # With full rendering:
 httrack
 PhantomJS
-Scrapbook # FF extension
-Scrapy # python crawling lib
+Scrapbook, iMacros # FF extensions
+Scrapy, RoboBrowser, FlexGet # python crawling libs
 
 
 =cCcCcCc=

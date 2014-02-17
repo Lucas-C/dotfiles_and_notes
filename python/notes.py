@@ -355,10 +355,6 @@ reload(module)
 virtualenv # sandbox
 pip # or easyinstall : libs manager
 
-json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
-zlib.compress(string)
-hashlib.md5('string').hexdigest()
-
 multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
 from multiprocessing.dummy import Pool as ThreadPool
 pool = ThreadPool(4); results = pool.map(foo, args); pool.close(); pool.join()
@@ -367,7 +363,10 @@ greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 asyncio # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 
+asynchat, irc
+
 import celery # distributed task queue ; alternative : pyres. Or for cron-like jobs: dagobah/schedule
+import zeromq # other concurrency framework
 
 pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
 dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshare.net/dakerfp/functional-pattern-matching
@@ -388,6 +387,11 @@ peewee # DB - simple Object Relational Mapping, S&M
 SQLAlchemy
 sqlite3 # std DB, persistent in a file || can be created in RAM
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
+
+json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
+# + PyCloud make it possible to pickle functions dependencies
+zlib.compress(string)
+hashlib.md5('string').hexdigest()
 
 jinja2 # HTML templating system
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
@@ -414,6 +418,7 @@ SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
+wifi # wrapper around iwlist and /etc/network/interfaces
 
 
 """"""""

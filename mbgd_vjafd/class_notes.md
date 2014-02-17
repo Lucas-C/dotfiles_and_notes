@@ -389,3 +389,31 @@ If everyone agrees that another candidate is ranked higher than candidate A, the
 Example: Approval Voting (depending on tie rule)
 
 New voting system: successive elimination: serie of rounds where in each of them the candidate with the less votes is eliminated
+
+
+### 2-7a: Optimal Decisions or Finding a Compromise? (14:27)
+
+It depends if we consider that differences in rankings arise:
+- because of erroneous judgements -> how to get the "good" ones ?
+- because of differences in values -> how to find a compromise ?
+
+-> need notion of distances between rankings
+
+Kemeny distance: |disagreement on ranking pairs of candidates|
+
+Mean: minimize sum of the squares distances
+Median: minimize sum of the absolute distances
+
+
+### 2-7b: Electing vs. Ranking (9:11)
+
+Kemeny's rule associates a score to each possible linear ordering over the set of candidates:
+- a voter contribute to k points to a ranking if his input agrees in k pair-by-pair comparisons
+- the Kemeny score of a ranking is the sum of its points over all voters
+- the Kemeny ranking is the ranking that maximizes the Kemeny score
+
+Two ways to generate an ordering from a voting method:
+- "direct" ordering based on the candidates scores
+- "recursive" ordering : winner is ranked 1st, then removed from the election scenario, and we iterate
+
+There is a fundamental incompatibility between electing & ranking.

@@ -12,6 +12,9 @@ robocopy "C:\Source" "E:\Destination" /E /PURGE
 :: Variable substitution
 copy "C:\file.txt" "D:\%date:/=-%_file.txt.bak"
 
+:: Sysinternals Process Utilities
+handle, pskill, pslist...
+
 :: Usual cleanup steps
 - create a restoration point
 - CCCleaner
