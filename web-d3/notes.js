@@ -6,6 +6,19 @@ debugger // breakpoint for debugger
 
 javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
 
+
+(function(exports) {
+    var private_name = 'protected_by_closure';
+    var MyClass = function(name) {
+        this.name = name;
+    };
+    exports.MyClass = MyClass; // exports == module 'this'
+    User.prototype.toString = function() { // protoype => shared between all instances of that class
+        return this.name + ' ' + this.private_name;
+    };
+})(this); // IIFE pattern: Immediately Invoked Function Expression
+
+
 const TEXT = <> // const not supported by IE
 multi
 lines

@@ -62,6 +62,26 @@ tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as lon
 
 os.stat("filename").st_ino # get inode 
 
+subprocess.check_output(['do', 'stuff'], stderr=STDOUT)
+proc = Popen(cmd, stdout=PIPE)
+while proc.returncode is None:
+    for log_line in proc.stdout:
+        yield log_line.strip()
+    proc.poll()
+# more efficient than using select.poll:
+data_read = b''
+poll = select.poll()
+poll.register(proc.stdout)
+while True:
+    rlist = poll.poll()
+    assert len(rlist) == 1
+    fd, event = rlist[0]
+    data_read += os.read(fd, BUFFER_SIZE)
+    lines_read = data_read.split('\n')
+    data_read = lines_read.pop(-1)
+    for line in lines_read:
+        yield line
+
 # Zip archive
 foo = zipfile.ZipFile('foo.zip', mode='w')
 for root, dirs, files in os.walk('/path/to/foo'):
@@ -375,6 +395,7 @@ pylama # include pyflakes, pylint, PEP-checking - Also: Flake8
 pyreverse # UML diagrams
 
 http://amoffat.github.io/sh/ # AWESOME for shell scripting
+shlex.split('--f "a b"') # tokenize parameters properly
 
 argparse > optparse # or docopt or clize - S&M
 group = parser.add_mutually_exclusive_group()
@@ -449,6 +470,7 @@ b'I am an immutable basic byte array of type "bytes"'
 bytearray(b"I am mutable")
 
 from __future__ import print_function, with_statement, generators...
+print('string', file=sys.stderr, end='')
 
 nonlocal
 

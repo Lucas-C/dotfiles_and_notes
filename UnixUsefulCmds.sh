@@ -82,6 +82,14 @@ man ld.so
 gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
 LD_PRELOAD=./myfopen.so cat $file
 
+# Youtube playlist query - Start from 1, max paging 50, max playlist size 200
+playlist=FLF8xTv55ZmwikWWmWLPEAZQ
+rm yt_playlist_$playlist
+for i in {1..4}; do
+    index=$(( (i-1)*50 + 1 ))
+    curl -s "https://gdata.youtube.com/feeds/api/playlists/$playlist?start-index=$index&amp;max-results=50&amp;v=2" >> yt_playlist_$playlist
+done
+
 : () { : | : & } ; : # Fork bomb
 
 perl -wle 'exit 1 if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with a REGEX !
@@ -301,6 +309,7 @@ ulimit -u # max number of processes
 
 grep '\<word\>' # match word-boundaries
 grep -I # ignore binary files
+grep -R --include='*.py' --exclude='/build/'
 grep -o # output only matching parts
 grep -C3 # output 3 lines of context, see also -B/-A
 grep -H/-h # output with/without filename
@@ -379,6 +388,8 @@ umask # Control the permissions a process will give by default to files it creat
 # Forbid file deletion
 sudo chattr +i [-R] <file> # to check a file attributes : lsattr
 
+debugfs -R "stat <$(ls -i $file | awk '{print $1}')>" $(df $file | tail -n 1 | awk '{print $1}') # Get $file creation time ('crtime') on ext4 filesystems
+
 # Bring back deleted file from limbo (ONLY if still in use in another process)
 lsof | grep myfile # get pid
 cp /proc/<pid>/fd/4 myfile.saved
@@ -454,6 +465,8 @@ ip link set eth0 [up|down] # enable/disable the[interface specified
 ip tunnel list # list ssh stunnels replace deprecated 'iptunnel'
 ip route # host routing tables - replace deprecated 'route'
 iw # details about wireless interfaces - replace deprecated 'iwconfig'
+MACADDR=$(ip address show eth0 | grep link/ether | awk '{print $2 }') # can be used to get a unique machine id number instead of using $RANDOM:
+echo $((  16#$(echo $MACADDR | sed 's/://g') % 10000 )) # use base16 - ALT: use md5sum
 
 # On RedHat / CentOS / Fedora
 $EDITOR /etc/sysconfig/network-scripts/ifcfg-eth0
