@@ -417,3 +417,141 @@ Two ways to generate an ordering from a voting method:
 - "recursive" ordering : winner is ranked 1st, then removed from the election scenario, and we iterate
 
 There is a fundamental incompatibility between electing & ranking.
+
+
+
+# Week 3
+========
+
+### 3-1: Classifying Voting Methods (8:31)
+
+Main kinds:
+- positional scoring rules
+- generalized scoring rules
+- staged procedures
+- Condorcet-guarantee methods
+
+Principles:
+- Condorcet: elect the C-winner whenever it exists
+- Monotonicity: more support should never hurt a candidate
+- Participation: it should never be in a voter's best interests not to vote
+- Multiple-Districts: if a candidate wins in each district, then that candidate should also win when the districts are merged.
+- Independence: the group's ranking of A and B should only depend ont the voter's ranking of A and Black
+- Pareto: never elect a candidate that is dominated
+Extras:
+- Anonimity
+- Neutrality
+- Universal Domain : voters are free to rank the candidates in any way they want
+
+Observations:
+- Condorcet winner may not exist
+- No positional scoring method satisfies the Condorcet Principle
+- Condorcet & Participation principles cannot be jointly satisfied
+
+
+### 3-2a: The Social Choice Model (8:56)
+
+* N is finite set of voters {1,2,3...,n}
+* X is a set of alternatives (candidates)
+* A relation on X is a linear order if it is transitive, irreflexive and complete (hence, acyclic)
+* L(X) is the set of all linear orders over the set XPiY
+* O(X) is the set of all reflexive, transitive and complete relations over the set X
+* a profile for the set of voters N is a sequence of linear orders over X denoted R = (R1, ..., R2)
+* L(X)^n is the set of all profiles for n voters (similarly for O(X)^n)
+* For a profile R in O(X)^n, let N_R(A P B) = {i | A P_i B} be the set of voters that rank A above B (similarly for "indifference" N_R(A I B) and N_R(B P I))
+
+Social Welfare Function: F: D -> L(X) where D in L(X)^n
+
+Social Choice Function : SWF where we don't care about the final ranking, only the winners
+
+
+### 3-2b: Anonymity, Neutrality and Unanimity (7:45)
+
+Anonimity: outcome does not depend on the names of the voters
+-> For all permutations, for all profiles R in D, F(R) = F(permut(R))
+
+Neutrality: the outcome does not depend on the names of the candidates
+-> F(R^perm) = F(R)^perm
+
+Pareto (Unanimity): never elect a candidate that is dominated
+-> if N_R(A P B) = N, then A F(R) B
+
+
+### 3-3: Characterizing Majority Rule (16:53)
+
+When there are only 2 options, can we argue that majority rule is the "best" procedure ?
+
+Unanimity: if v = (v1, ..., vn) with for all i in N, vi = x then F(v) = x (for x in {1,0,-1})
+Anonymity: F(v1, ..., vn) = F(v_perm(1), ..., v_perm(n))
+Neutrality: F(-v) = -F(v)
+Monotonicity (Positive Responsiveness): if F(v) >= 0 and v <karp< v' then F(v') = 1, where v <karp< means for all i in N vi <= vi' and there is some i with vi < vi'
+
+May's Theroem (1952): A social decision method F satisfies unanimity, neutrality, anonymity and monotonicity iff F is majority rule.
+
+
+### 3-4a: Characterizing Voting Methods (9:42)
+
+Let's model F as a function on |N
+
+
+### 3-4b: Five Characterization Results (17:44)
+
+1- Positional scoring rules
+Let be m the number of candidates, {s1, ..., sm} a set of scores
+Npi(j, A) = {i | i ranks A in the jth position}
+Score_pi(A) = Sum[j=1,m] sj * |Npi(j,A)|
+F is a scoring function if F(pi) = {A | Score(A) >= Score(B) for all B in X}
+
+Theorem[Young]: a social choice correspondence F satisfies anonymity, neutrality, consistency and overwhelming majority iff F is a scoring rule
+
+2- Borda count is a scoring rule with sj = m - j
+
+Theorem[Young]: a social choice correspondence F satisfies anonymity, neutrality, consistency, cancellation and faithfulness iff F is Borda Count.
+
+3- Approval voting
+
+Theorem[Fishburn]: a social choice correspondence F satisfies anonymity, consistency*, cancellation* and faithfulness* iff F is Approval Voting.
+
+4- Plurality rule
+...(1996)
+
+5- Range voting
+...(2013)
+
+
+### 3-5: Distance-Based Characterizations of Voting Methods (10:36)
+
+If a profile R is not a consensus profile, then find the closest consensus profile, according to some notion of distance.
+
+Theorem[Nitzan]: The Borda Count winner is the candidate that is the top choice in the closest profile with unanimous top choice, where the distance is measured using the Kemeny distance
+
+cf. 3-5_BordaCountWinner_is_ClosestTopChoiceWithKemenyDist.png
+
+
+### 3-6: Arrow's Theorem (9:42)
+
+Dictator: society prefers A over B whenever d strictly prefers A over B.
+
+IIA: ( A Ri B <=> A Ri' B ) => ( A F(Ri) B <=> A F(R') B )
+
+Theorem[Arrow, 1951] Suppose that there are at least 3 candidates and finitely many voters. Any social welfare function that satisfies universal domain (voters are free to choose any preference they want), independence of irrelevant alternatives and unanimity is a dictatorship.
+
+
+### 3-7: Variants of Arrow's Theorem (14:35)
+
+### 3-Quizz takeaways
+The number of functions from a finite set A to a finite set B is |B|^|A|.
+
+2 candidates, 2 voters:
+- there are 3^6 = 729 social welfare functions that satisfy anonymity
+- there are 3^2 = 9 social welfare functions that satisfy anonymity and  neutrality
+- there are 3 social welfare functions that satisfy anonymity, neutrality and unanimity
+
+Pareto: For any profile P∈O(X)n, if all voters rank A above B, then B∉F(P)
+=>
+Unanimity: For any profile P∈O(X)n, if for all voters i, top(Pi)=A, then F(P)={A} (recall that for an ordering P, top(P) is the candidate ranked first.)
+=>
+Non-Imposition: For any candidate A∈X, there is some profile P∈O(X)n such that F(P)={A}
+
+Simple majority means if you get at least half the votes you win, NOT if you get the more votes you win
+
