@@ -26,16 +26,17 @@ write / mesg # 2nd control write access
 wall # broadcast message
 
 # 'top' < 'htop'
+* display full command path of processes : "c"
 * killing : Press "k", then pid, then signal (15, 9...)
 * sorting : press "O" and select the column
-* display full command path of processes : "c"
 * display /cores stats : "1"
+* colors : 'Z'; then save config: 'W'
 VIRT: how much memory the program is able to access at the present moment
 RES: resident size, how much actual physical memory a process is consuming (heap memory that is currently in RAM) + (non heap memory in RAM) + (thread stack memory * number of threads) + (direct/mapped buffer memory)
 DATA is the amount of VIRT used that isn't shared and that isn't code-text; i.e., it is the virtual stack and heap of the process
 SHR: how much of the VIRT size is actually sharable memory or libraries
 SWAP: bogus
-pstree -p # hierarchy of processes
+pstree -p [$OPT_PID] # hierarchy of processes
 
 pid -o comm= -p $PPID # get process name
 pwdx <pid> # get process working directory
@@ -405,6 +406,7 @@ rsync -v --compress --exclude=".*" $src $dst
 --backup --backup-dir=/var/tmp/rsync # keep a copy of the dst file
 
 tar -J... # instead of -z, .xz compression format support
+pigz # paralell gzip
 
 sha{1,224,256,384,512}sum
 md5sum
@@ -571,7 +573,7 @@ cat /etc/issue*
 
 /proc/version
 /proc/cpuinfo # Number of cores, cache size & alignement...
-/proc/loadavg :
+/proc/loadavg : # graph in TTY: tload
 - first 3 fields : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1, 5, and 15 minutes
 - 4th field : number of currently executing kernel scheduling entities (processes, threads) / number of existing kernel scheduling entities
 - 5th field : PID of last process created
@@ -590,8 +592,7 @@ echo 1 > /sys/module/printk/parameters/printk_time
 
 iostat # + iotop, non portable
 mpstat 5 # cpu usage stats every 5sec
-dstat
-glances # non portable
+dstat, glances # non portables
 
 # Checking Swap Space Size and Usage
 free -m # how much free ram I really have ? -> look at the row that says "-/+ buffers/cache"

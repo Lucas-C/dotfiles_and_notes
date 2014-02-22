@@ -149,7 +149,7 @@ stats () { # --no-header | awk '{print $3}'
         else{median=(a[n/2]+a[n/2-1])/2;}\
         printf "%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n",\
             sum,n,mean,std_dev,a[0],tp(.01),tp(.1),median,tp(.9),tp(.99),a[n-1]}'
-}
+} # TODO: add 'MAD' 
 
 #--------
 # Others
@@ -296,6 +296,8 @@ unfuncalias diff
 alias diff='echo "ALT: vimdiff (add color) / diff3 / opendiff (OSX)" && diff -b'
 unfuncalias less
 type view >/dev/null 2>&1 && alias less=view
+unfuncalias pstree
+alias pstree='pstree -p'
 
 alias diffs='diff --side-by-side'
 

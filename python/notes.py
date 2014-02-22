@@ -42,7 +42,7 @@ m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep, string) # def rep(matchobj): ...
 
-with open('filea', 'r+') as inf, io.open('fileb', 'w', encoding='utf-8') as outf: pass # touch 'fileb'
+with open('filea', 'rb+', buffering=0) as inf, io.open('fileb', 'wU', encoding='utf-8') as outf: pass # touch 'fileb'
 
 def CtxtMgr(object):
     def __enter__(self): pass
@@ -58,29 +58,16 @@ StringIO # fake file
 tempfile.gettempdir()
 tempfile.mkdtemp()
 tempfile.NamedTemporaryFile() # file automagically deleted on close()
-tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as siwe < X
+tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
 
 os.stat("filename").st_ino # get inode 
 
 subprocess.check_output(['do', 'stuff'], stderr=STDOUT)
-proc = Popen(cmd, stdout=PIPE)
-while proc.returncode is None:
-    for log_line in proc.stdout:
-        yield log_line.strip()
-    proc.poll()
-# more efficient than using select.poll:
-data_read = b''
-poll = select.poll()
-poll.register(proc.stdout)
-while True:
-    rlist = poll.poll()
-    assert len(rlist) == 1
-    fd, event = rlist[0]
-    data_read += os.read(fd, BUFFER_SIZE)
-    lines_read = data_read.split('\n')
-    data_read = lines_read.pop(-1)
-    for line in lines_read:
-        yield line
+# AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
+def _make_file_read_nonblocking(f):
+    fd = f.fileno()
+    flags = fcntl.fcntl(fd, fcntl.F_GETFL)
+    fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
 
 # Zip archive
 foo = zipfile.ZipFile('foo.zip', mode='w')
@@ -98,6 +85,7 @@ foo();foo()
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
     foo = kwargs.pop('foo')
 
+float("inf") # infinite !
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 
 datetime.utcnow() # better than time.time()
@@ -167,6 +155,7 @@ class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), 
 
 # !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
 
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s")
 try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err:
     # see chain_errors module
@@ -308,9 +297,12 @@ b.func_code.co_consts
 #- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
 #- http://stackoverflow.com/questions/12182068/python-closure-function-losing-outer-variable-access
 
-# Signal-based handle on a program to debug
+pids = subprocess.check_output(['pgrep', '-f', 'process_pattern']).splitlines() # more portable ? -> psutil
+for pid in pids:
+    os.kill(int(pid), signal.SIGTERM)
+
 # http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
-# Also:
+# -> Signal-based handle on a program to debug. Also:
 from rfoo.utils import rconsole
 rconsole.spawn_server()
 $ rconsole
@@ -376,8 +368,12 @@ virtualenv # sandbox
 pip # or easyinstall : libs manager
 
 multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
+threading.Thread().deamon = True # The entire Python program exits when no alive non-daemon threads are left.
+threading.Event # for threads communication, including stopping: Thread.run(self): while not self.stop_event: ...
+# Kill a thread ? -> http://stackoverflow.com/a/325528/636849
 from multiprocessing.dummy import Pool as ThreadPool
 pool = ThreadPool(4); results = pool.map(foo, args); pool.close(); pool.join()
+
 numbapro # for CUDA
 greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
