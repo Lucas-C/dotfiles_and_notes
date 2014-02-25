@@ -29,6 +29,8 @@ sudo update-alternatives --config java
 
 jps, jcmd, jstat // Std perf monitoring tools: http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.html
 
+JSP (JavaServer Pages) is an alternative to PHP
+
 // 1. Make JVM accept JMX connections
 -Dcom.sun.management.jmxremote.port=9876 // can be any port
 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false // turning this off for simplicity

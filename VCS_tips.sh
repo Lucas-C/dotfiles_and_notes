@@ -31,7 +31,7 @@ git config --global url."https://".insteadOf git://
 git reset HEAD^
 
 # Rollback last pushed commit
-git revert HEAD
+git revert HEAD..HEAD^^
 
 # Git show changes currently 'added' (ready to be commited)
 git diff --cached HEAD

@@ -282,7 +282,7 @@ hash # frequently used commands cache
 
 # Syslog (port: 514)
 logger -is -t SCRIPT_NAME -p user.warn "Message"
-echo "<15>My logline" | nc -u -w 1 127.0.0.1 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity
+echo "<15>My logline" | nc -u -w 1 127.0.0.1 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13
 
 mv $file ${file%.*}.bak # Change extension
 mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros

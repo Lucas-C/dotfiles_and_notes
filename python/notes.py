@@ -6,7 +6,7 @@ python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).g
 
 _ # result of the last expression evaluated (in an interpreter only)
 
-r'''Raw string literal: no need to double escape \{0}\{str}'''.format("zero", str="")
+r'''Raw string literal: no need to double escape \{0}\{one:.5f}'''.format("zero", one=1)
 u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0)
 from __future__ import unicode_literals
 intern(str) # internal representation - useful for enums/atoms
