@@ -7,8 +7,12 @@ https://class.coursera.org/votingfairdiv-001
 ~ + be able to properly explain current system flaws & alternatives benefits
 ~~~~~~~
 
-Additional notes:
+Additional readings:
 - http://www.votedevaleur.org/co/votedevaleur.html
+
+Voting systems / paradoxes matrix:
+- https://en.wikipedia.org/wiki/Voting_system#Compliance_of_selected_systems_.28table.29
+- http://eprints.lse.ac.uk/27685/ (include : http://oi57.tinypic.com/2lu2tlh.jpg)
 
 
 # Week 0
@@ -537,7 +541,11 @@ IIA: ( A Ri B <=> A Ri' B ) => ( A F(Ri) B <=> A F(R') B )
 Theorem[Arrow, 1951] Suppose that there are at least 3 candidates and finitely many voters. Any social welfare function that satisfies universal domain (voters are free to choose any preference they want), independence of irrelevant alternatives and unanimity is a dictatorship.
 
 
+### Advanced Lecture: Proof of Arrow's Theorem (30:49)
+
+
 ### 3-7: Variants of Arrow's Theorem (14:35)
+
 
 ### 3-Quizz takeaways
 The number of functions from a finite set A to a finite set B is |B|^|A|.
@@ -555,3 +563,73 @@ Non-Imposition: For any candidate A∈X, there is some profile P∈O(X)n such th
 
 Simple majority means if you get at least half the votes you win, NOT if you get the more votes you win
 
+
+
+# Week 4
+========
+
+### 4-1: Topics in Social Choice Theory (2:36)
+
+List of Advanced Readings
+This week: domain restrictions, strategic voting, Sen's liberal paradox
+
+
+### 4-2 Domain Restrictions: Single Peakedness (13:42)
+
+- retrict the **domain** pf permissible preferences
+- restrict the **distribution** of preferences
+
+"...Maximal disagreement..."
+(Q) Could we use a measure of agreement ? So that no candidate/ordering is choosen if there is not enough agreement
+
+Single Peakedness [Duncan Black]: the preferences of group members are said to be single-peaked if the alternatives under consideration can be represented as points on a line and each of the utility functions representing preferences over these alternatives has a maximum at some point on the line and slopes away from this maximum on either side.
+
+Theorem: if there is an odd number of voters that display single-peaked preferences, then a Condorcet winner exists.
+
+
+### 4-3 Sen's Value Restriction (14:29)
+
+Triplewise value-restriction: for every triple of dictinct candidates A, B, C there exists an xi in {A,B,C} and r in {1,2,3} such that no voter ranks xi has her rth preference among A, B, C
+
+Theorem (Sen, 1966) For every profile satisfying triplewise value-restriction, pairwise majority voting generates a transitive group preference ordering
+
+
+### 4-4: Strategic Voting (7:02)
+
+- setting the agenda
+- misrepresenting preferences
+
+
+### 4-5a- Defining Strategic Voting (7:40)
+
+Outcome preference for non-singletons:
+- weekly dominated
+- optimist preference
+- pessimist preference
+- higher expected utility
+
+
+### 4-5b: Examples of Manipulation (12:24)
+
+Borda count is single-winner manipulable
+Plurality is weak dominance manipulable, but is never single-winner manipulable
+Condorcet rule is manipulable by optimists/pessimists, but is never weak cominance manipulable
+The Pareto rule is expected utility manipulable, but never manipulable by optimists or pessimists.
+
+Near-unanimity rule: everybody but one (or all) rank a candidate at the top -> it is elected; else: draw.
+
+
+### 4-6: The Gibbard-Satterthwaite Theorem (8:47)
+
+Suppose that X has at least 3 elements. Any resolute social choice function F : L(X)^n -> X that is Pareto and strategy-proof (not manipulable) must be a dictatorship.
+
+Duggan-Schwartz theorem: Suppose that X has at least 3 elements. Any social choice function F : O(X)^n -> (rho(X) - 0) that is non-imposed and cannot be manipulated by an optimist or pessimist has a nominator : i such that for all profiles R, Top(Ri) is in F(R)
+
+
+### 4-7: Sen's Liberal Paradox (10:14)
+
+Liberalism: for all voters i in N, there exists two alternatives Ai and Bi such that for all profiles R in L(X), if Ai Ri Bi, then B is not in F(R). That is, i decisive over Ai and Bi.
+
+Minimal Liberalism: there are two distincts i and j such that there are alternatives Ai, Bi, Aj and Bj such that i is decisive over Ai and Bi and j is decisive over Aj and Bj.
+
+Sen's Impossibility Theorem: Suppose that X contains at least three elements. No social choice function F: L(X)^n ->  (rho(X) - 0) satisfies universal domain and both minimal liberalism and the Pareto doncdition.

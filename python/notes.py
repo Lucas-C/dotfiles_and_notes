@@ -127,7 +127,7 @@ def foo(n):
     inner.n = n
     return inner
 
-# Decorator with args
+# Decorator with args (deep dive on them on http://blog.dscpl.com.au)
 @functools.wraps
 def my_decorator(decorator_args):
     def tmp_decorator(orig_func):
@@ -295,19 +295,17 @@ get_cell_value(b.func_closure[0])
 b.func_code.co_consts
 # Closure GOTCHAS:
 #- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
-#- http://stackoverflow.com/questions/12182068/python-closure-function-losing-outer-variable-access
+#- http://stackoverflow.com/q/12182176
 
 pids = subprocess.check_output(['pgrep', '-f', 'process_pattern']).splitlines() # more portable ? -> psutil
 for pid in pids:
     os.kill(int(pid), signal.SIGTERM)
-
-# http://stackoverflow.com/questions/132058/showing-the-stack-trace-from-a-running-python-application
-# -> Signal-based handle on a program to debug. Also:
+# Pitfalls of signals: http://thisismiller.github.io/blog/CPython-Signal-Handling/
+# Signal-based handle on a program to debug: http://stackoverflow.com/a/133384/636849
 from rfoo.utils import rconsole
 rconsole.spawn_server()
 $ rconsole
-# And also:
-http://eventlet.net/doc/modules/backdoor.html
+# And also: http://eventlet.net/doc/modules/backdoor.html
 
 code = "my code bla bla"
 compiled = compile(code)
@@ -436,6 +434,8 @@ SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 wifi # wrapper around iwlist and /etc/network/interfaces
+
+pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-python
 
 
 """"""""
