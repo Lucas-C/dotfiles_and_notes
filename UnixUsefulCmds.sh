@@ -319,6 +319,8 @@ grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/
 grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
 LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
 
+pdftotext $file.pdf - | grep # from xpdf-utils
+
 sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
 sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN
 

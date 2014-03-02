@@ -1,4 +1,5 @@
 Making Better Group Decisions: Voting, Judgement Aggregation and Fair Division
+Eric Pacuit
 https://class.coursera.org/votingfairdiv-001
 
 ~~~~~~~
@@ -466,7 +467,7 @@ Observations:
 
 Social Welfare Function: F: D -> L(X) where D in L(X)^n
 
-Social Choice Function : SWF where we don't care about the final ranking, only the winners
+Social Choice Function : SWF: D -> rho(X) -0, we don't care about the final ranking, only the winners
 
 
 ### 3-2b: Anonymity, Neutrality and Unanimity (7:45)
@@ -619,6 +620,14 @@ The Pareto rule is expected utility manipulable, but never manipulable by optimi
 Near-unanimity rule: everybody but one (or all) rank a candidate at the top -> it is elected; else: draw.
 
 
+### Advanced Lecture: Lifting a Preference Relation (19:09)
+
+How do you compare F(R) and F(R ) when they are not singletons?
+
+Given a preference ordering _< over a set of objects X, we want to lift this to an ordering _<^ over a subset rho(X) of X.
+Given _<, what reasonable properties can we infer on _<^.
+
+
 ### 4-6: The Gibbard-Satterthwaite Theorem (8:47)
 
 Suppose that X has at least 3 elements. Any resolute social choice function F : L(X)^n -> X that is Pareto and strategy-proof (not manipulable) must be a dictatorship.
@@ -632,4 +641,144 @@ Liberalism: for all voters i in N, there exists two alternatives Ai and Bi such 
 
 Minimal Liberalism: there are two distincts i and j such that there are alternatives Ai, Bi, Aj and Bj such that i is decisive over Ai and Bi and j is decisive over Aj and Bj.
 
-Sen's Impossibility Theorem: Suppose that X contains at least three elements. No social choice function F: L(X)^n ->  (rho(X) - 0) satisfies universal domain and both minimal liberalism and the Pareto doncdition.
+Sen's Impossibility Theorem: Suppose that X contains at least three elements. No social choice function F: L(X)^n ->  (rho(X) - 0) satisfies universal domain and both minimal liberalism and the Pareto condition.
+
+
+
+# Week 5
+========
+
+### 5-1: From Preferences to Judgements (4:13)
+
+- group decision with combinatorial structure
+- group decision where there is only **one** correct decision and the goal is to find it
+- the issues considered are *interconnected*
+
+
+### 5-2: Anscombe's Paradox (6:26)
+
+        | Issue1 | Issue2 | Issue3
+-----------------------------------
+voter1  |  Yes   |  Yes   |  No
+voter2  |  No    |  No    |  No
+voter3  |  No    |  Yes   |  Yes
+voter4  |  Yes   |  No    |  Yes
+voter5  |  Yes   |  No    |  Yes
+MAJORITY|  YES   |  NO    |  YES
+
+A majority of voters do not support the majority outcome on a majority of issues !
+
+Avoiding the paradox: the 3/4 rule:
+for each proposal, if the set of voters that agree with the outcome of voting on that proposal is at least three-fourths (whatever the decision method employed), then the set of voters who disagree with the majority of the outcome cannot comprise a majority.
+
+The Ostrogorski paradox:
+
+Candidate A: Issue1=Yes, Issue2=No, Issue3=Yes (majority vote)
+Candidate B: Issue1=No, Issue2=Yes, Issue3=No
+
+B gets elected if voters vote for them accordingly to their opinions on issues 1-3 !
+
+
+### 5-3: Multiple Elections Paradox (6:33)
+
+ YYY YYN YNY YNN NYY NYN NNY NNN
+---------------------------------
+  1   1   1   3   1   3   3   0
+
+Outcome by majority rule:
+Proposition1: N (7-6)
+Proposition2: N (7-6)
+Proposition3: N (7-6)
+
+But there is no support for NNN !!
+
+ YYYN  YYNY YNYY NYYY NNNN
+---------------------------
+  2     2    2    2    3
+
+Result: YYYY !!
+
+
+### 5-4: The Condorcet Jury Theorem (15:58)
+
+A jury need to determine if a defendant is guily or innocent (proposition A).
+Each voter i has a probability pi of crorrectly identifying wether A is true or False
+Suppose that everyone is "competent" : pi > 0.5
+
+What is the probability that at least m voters are correct ?
+\sum_{h=m}^n C(h,n)*p^h*(1-p)^(n-h)
+
+Theorem: Supose Independence & Competence. As the group size increases, the probability that majority opinion is correct increases and converges to one.
+
+
+### 5-5: Paradoxes of Judgement Aggregation (7:51)
+
+        |   p   | p=>q  |   q
+-----------------------------------
+expert1 | True  | True  | True
+expert2 | True  | False | False
+expert3 | False | True  | False
+MAJORITY| TRUE  | TRUE  | FALSE
+
+Every expert followed the rules of logic, but the end result does not.
+
+Another example:
+p : a valid contract was in place
+q : there was a breach of contract
+r the court is required to find the defendant liable
+
+  |  p  |  q  | (p&q)<->r |  r
+--------------------------------
+1 | yes | yes |    yes    | yes
+2 | yes | no  |    yes    | no
+3 | no  | yes |    yes    | no
+M | YES | YES |    YES    | NO
+
+What should be the verdict ?
+
+
+### 5-6a: The Judgement Aggregation Model (10:15)
+
+Rationality assumptions:
+- Ai is logically consistent
+- Ai is complete : for each p in the agenda X, either p is in Ai or !p is in Ai
+
+An aggregation function is a map from profiles to judgement sets.
+
+Univeral Domain: the domain of F is the set of all possible profiles of consistent and complete judgement sets
+
+Collective Rationality: F generates consistent and complete collective judgement sets.
+
+
+### 5-6b: Properties of Aggregation Methods (7:30)
+
+- anonymity
+- unanimity
+- monotonicity
+- systematicity (gather independence + neutrality):
+For any p,q in X and all (A1,...,An) and (A1*,...,An*) in the domain of F,
+if [for all i in N, p in Ai <=> q in Ai*],
+then [p in F(A1,...,An) <=> q in F(A1*,...,An*)]
+
+Theorem[List & Pettit]: if X included in {a,b,a&b}, there exists no aggregation rule satisfying universal domain, collective rationality, systematicity and anonymity.
+
+
+### 5-7: Impossibility Theorem(s) (9:13)
+
+Def: A set Y is minimally inconsistent if it is inconsistent and every proper subset X included in Y is consistent.
+
+Theorem[Dietrich & List, 2007]: iff an agenda is non-simple and even-number negatable, every aggregation rule satisfying universal domain, collective rationality, systematicity and unanimity is a dictatorship (or inverse dictatorship).
+
+Theorem[Nehring & Puppe, 2002]: iff an agenda is non-simple, every aggregation rule satisfying universal domain, collective rationality, systematicity, unanimity and monotonicity is a dictatorship (or inverse dictatorship).
+
+Theorem[Dietrich & List, 2007]: iff an agenda is totally blocked and even-number negatable, every aggregation rule satisfying universal domain, collective rationality, independence and unanimity is a dactatorship.
+
+Theorem[Nehring & Puppe, 2002,2010]: iff an agenda is totally blocked, every aggregation rule satisfying universal domain, collective rationality, independence, unanimity and monotonicity is a dactatorship.
+
+
+### 5-Quizz takeaways
+
+Even number of voters may imply non completeness :
+p∉Fmaj(A) and ¬p∉Fmaj(A).
+
+
