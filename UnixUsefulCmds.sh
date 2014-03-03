@@ -282,7 +282,7 @@ hash # frequently used commands cache
 
 # Syslog (port: 514)
 logger -is -t SCRIPT_NAME -p user.warn "Message"
-echo "<15>My logline" | nc -u -w 1 127.0.0.1 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13
+echo "<15>My logline" | nc -u -w 1 127.0.0.1 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13 <-> user.notice
 
 mv $file ${file%.*}.bak # Change extension
 mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
@@ -326,6 +326,7 @@ sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN
 
 tr -c '[:alnum:]' _
 
+view > less > more > cat # Beware the useless use of cat !
 cat -vET # shows non-printing characters as ascii escapes.
 printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalent, BUT:
 # echo $'A\0B' -> A
@@ -348,10 +349,11 @@ sed -i "1i$content" $file # append at the beginning of $file
 seq 1 10 | paste -s -d+ | bc # Replace newlines by a separator
 perl -pe 's/\s+/\n/g' # Break on word per line
 # paste is also useful to interlace files: paste $file1 $file2
-awk [-F":|="] '{ print $NF }' # Print last column
+awk [-F":|="] '{ print $NF }' # Print last column. Opposite: awk '{$NF=""; print $0}'
 fold # breaks lines to proper width
 fmt # reformat lines into paragraphs
 printf "%-8s\n" "${value}" # 8 spaces output formatting
+printf "%s" ${string:0:3} # 3 first characters of $string
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
@@ -365,7 +367,7 @@ markdown foo.md | lynx -stdin # alternative using HTML an an intermediate instea
 
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
-find / -size +100M -ls -xdev # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore
+find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
 
@@ -422,8 +424,8 @@ xargs -P 0 # or GNU parallel
 memcached
 
 mkfifo # Named pipes: https://en.wikipedia.org/wiki/Named_pipe
-exec 3<> /tmp/myfifo # Über trick: dummy FD => non-blocking FIFO
-python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo
+exec 3<> /tmp/myfifo # Über trick: dummy FD => non-blocking named-pipe
+python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo -> NOT RELIABLE, e.g. always return 0 with non-blocking named-pipe
 ulimit -p # should get max pipe size, but WRONG : defined in pipe_fs_i.h
 fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
 
@@ -433,6 +435,10 @@ ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ # Message queue using AMPQ
 Celery/Kombu # Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
 
 BerkeleyDB, SQLite, LMDB, LevelDB # embedded database
+
+redis-cli ping
+redis-cli -h HOST -p PORT -n DATABASE_NUMBER llen QUEUE_NAME
+redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*
 
 
 |°|°|°|°|°|°|°|°
@@ -451,7 +457,7 @@ echo hello | nc -u -w 1 127.0.0.1 5000
 nmap -sS -O 127.0.0.1 # Guess OS !! Also try -A
 nmap <host> -p <port> --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping, only scanning
 nmap 192.168.1.* # Or 192.168.1.0/24, scan entire subnet
-nmap -DdecoyIP1,decoyIP2 ... # cloak you scan
+nmap -DdecoyIP1,decoyIP2 ... # cloak your scan
 
 # Locally
 lsof -i -P -p <pid> # -i => list all Internet network files ; -P => no conversion of port numbers to port names for network files ; -n => no IP->hostname resolution
@@ -554,12 +560,21 @@ Scrapy, RoboBrowser, FlexGet # python crawling libs
 # Cisco #
 =cCcCcCc=
 
+enable # unlock more comnmands
+show version
+exit
+
+show logging [buffered]
+
 sh run
 sh int
 sh ip int [brief]
 sh ip rou 1.2.3.4
-sh version
-exit
+
+# for Fastpath, e.g. QuantaLB:
+show logging hosts
+show logging buffered
+traceroute $regional_syslog_ip
 
 
 -%-%-%-%-%-
@@ -815,7 +830,7 @@ Example:
 
 <nowiki>https://my.url/app/</nowiki>{{MyTemplate}} # URL with template
 
-{{#if:{{{variable_foo|}}} # conditionals - use {{{1|}}} for positional params
+{{#if:{{{variable_foo|}}} # http://www.mediawiki.org/wiki/Help:Extension:ParserFunctions - use {{{1|}}} for positional params
 |foo is set to '''{{{variable_foo}}}'''
 |foo is ''blank''}}
 

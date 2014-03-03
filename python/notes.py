@@ -62,7 +62,9 @@ tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as lon
 
 os.stat("filename").st_ino # get inode 
 
-subprocess.check_output(['do', 'stuff'], stderr=STDOUT)
+from distutils import spawn
+cmd_path = spawn.find_executable('cmd') # shutil.which in Python3
+subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=STDOUT)
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
 def _make_file_read_nonblocking(f):
     fd = f.fileno()
@@ -156,6 +158,7 @@ class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), 
 # !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s")
+logging.handlers.[Timed]RotatingFileHandler # logrotate in Python
 try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err:
     # see chain_errors module
@@ -262,6 +265,7 @@ import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueEr
 import doctest # include tests as part of the documentation
 
 # IPython tricks
+!cmd # shell command
 %history # dump it
 %pdb # Automatic pdb calling
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
@@ -348,7 +352,9 @@ scipy
     numpy # n-dimensional arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
-    maptplotlib # 2d plotting
+    matplotlib < prettyplotlib # 2d plotting
+
+networkx # networks & graphs manipulation
 
 joblib # memoize computations by keeping cache files on disk
 
@@ -395,6 +401,8 @@ argparse > optparse # or docopt or clize - S&M
 group = parser.add_mutually_exclusive_group()
 group.add_argument(... type=argparse.FileType('r'))
 
+pyreadline
+
 from getpass import getpass # get password without echoing it
 import uuid # generate unique ID’s
 
@@ -408,7 +416,7 @@ json, cPickle # for serialization, the 2nd is a binary format, generic, fast & l
 zlib.compress(string)
 hashlib.md5('string').hexdigest()
 
-jinja2 # HTML templating system
+templite, jinja2 # HTML templating system
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
 
 pywebsocket
@@ -419,7 +427,7 @@ import requests # replacement for urllib2. Lib to mock it: responses
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 
-bottle # Micro framework web, S&M
+bottle, pyramid, flask # Frameworks web
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
 import re, SimpleHTTPServer, SocketServer
@@ -436,6 +444,10 @@ socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 wifi # wrapper around iwlist and /etc/network/interfaces
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-python
+
+pillow > pil # Python Image Library
+pyglet # windowing and multimedia lib
+AAlib # ASCII rendering
 
 
 """"""""

@@ -294,8 +294,6 @@ unfuncalias du
 alias du='du -sh'
 unfuncalias diff
 alias diff='echo "ALT: vimdiff (add color) / diff3 / opendiff (OSX)" && diff -b'
-unfuncalias less
-type view >/dev/null 2>&1 && alias less=view
 unfuncalias pstree
 alias pstree='pstree -p'
 

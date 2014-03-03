@@ -1,3 +1,8 @@
+;;;;;;;;
+; LIBS
+;;;;;;;;
+Datomic ; time-based elastic ACID DB
+
 ;;;;;;;;;
 ; DEBUG
 ;;;;;;;;;
