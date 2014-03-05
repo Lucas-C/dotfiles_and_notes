@@ -16,10 +16,11 @@
 !!:n # selects the nth argument of the last command
 
 xclip # copy & paste clipboard
+ranger # text-based file manager written in Python with vi key bindings
 
 time read # chrono
 man ascii # display ASCII table
-cal # quick calendar
+cal # quick calendar - Also: calcurse, wyrd
 look # find English words (or lines in a file) beginning with a string
 
 write / mesg # 2nd control write access
@@ -90,6 +91,8 @@ for i in {1..4}; do
     index=$(( (i-1)*50 + 1 ))
     curl -s "https://gdata.youtube.com/feeds/api/playlists/$playlist?start-index=$index&amp;max-results=50&amp;v=2" >> yt_playlist_$playlist
 done
+
+ttyrec, ipbt, ttygif # record & playback terminal sessions 
 
 : () { : | : & } ; : # Fork bomb
 
@@ -214,7 +217,7 @@ install -o echo ${SUDO_USER:-$USER} -m 644 $file
 install -d -m 777 $directory
 
 # Floating point arithmetic
-echo "$((RANDOM%6+1)) + 1/3" | bc -l # or specify "scale=X;" instead of flag
+echo "$((RANDOM%6+1)) + 1/3" | bc -l # or specify "scale=X;" instead of flag - Also: qalc
 factor $really_long_int # decompose in factors
 
 is_true () { ! { [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][Ee] ]] ; } ; }
@@ -326,7 +329,7 @@ sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN
 
 tr -c '[:alnum:]' _
 
-view > less > more > cat # Beware the useless use of cat !
+view > less > more > cat # Beware the useless use of cat ! - Also: multitail
 cat -vET # shows non-printing characters as ascii escapes.
 printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalent, BUT:
 # echo $'A\0B' -> A
@@ -339,6 +342,7 @@ type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
 # this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD $@; ... }
 
 perl -ne 'if (length > $w) { $w = length; print $ARGV.":".$_ };  END {print "$w\n"}' *.py # Longest line of code
+cloc # count lines of code
 
 comm -12 #or uniq -d - Sets intersec
 
@@ -518,7 +522,6 @@ iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
 iptables -n -L -v
 
 snmpget -v2c -c '<community_string>' <device> sysDescr.0 # or sysUpTime.0, sysName.0
-# The community string can be found in the 'Variables' tab in an AutoNOC device page
 # SNMP port : 161
 
 # Dump all tcp transmission to a specific IP :
@@ -530,17 +533,16 @@ grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 
 # Non portable tools
-iptraf, ntop, rddtool # Whisper > RDD
+slurm, iptraf, ntop, iftop, nethogs, rddtool # Whisper > RDD
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 
-cidr <ip>/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
+ipcalc < cidr $ip/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
 
 # Configure 'mail' command
 /etc/ssmtp/revaliases
 /etc/ssmtp/ssmtp.conf
 
 lynx -dump -stdin # convert HTML to text
-# Web scrapping
 wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspire web page
   -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
   -k --convert-links : convert the links in the document to make them suitable for local viewing
@@ -549,7 +551,7 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspir
   -l --level=depth : default = 5
   -c --continue : continue getting a partially-downloaded file
 curl # http://curl.haxx.se/docs/httpscripting.html
-# With full rendering:
+# Web scrapping:
 httrack
 PhantomJS
 Scrapbook, iMacros # FF extensions
@@ -581,6 +583,7 @@ traceroute $regional_syslog_ip
  =SYSTEM=
 -%-%-%-%-%-
 
+powertop # diagnose issues with power consumption 
 sysctl
 
 cat /etc/*-release
@@ -663,11 +666,11 @@ init q # Reload /etc/inittab
 ##################
 ~= Issues Fixes =~
 ##################
+# Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
+
 echo <ctrl-v><ctrl-o> # or 'reset', fix terminal frenzy
 
 sudo ldconfig
-
-# Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
 
 killall gnome-settings-daemon # Fix crazy numpad (no '-')
 # Frozen X server
