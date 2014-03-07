@@ -12,9 +12,9 @@ svn add $(svn status | grep "^\?" | awk '{print $2}') # Add all newly files
 
 svn status --no-ignore # Display even ignored files
 
-svn diff --summarize -c <nb> # List modifcations /commit
+svn diff --summarize -c $nb # List modifcations /commit
 
-svn up -r <rev> <file> # Checkout file
+svn up -r $rev $file # Checkout file
 
 svn diff | diffstat # sum-up a diff
 
@@ -42,7 +42,7 @@ git diff --stat
 git stash save "stash-name"
 
 # Commit only part of a file
-git add -p <file>
+git add -p $file
 
 # Reflog
 git reflog # To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
@@ -58,8 +58,8 @@ git log --format='%aN %aE' | sort -u
 git bisect start
 git bisect good GOOD_REVISION_OR_TAG
 git bisect bad BAD_REVISION_OR_TAG # or don’t provide a revision to indicate the current revision
-git bisect run <cmd>
-# Bisect will now step through the commits in an automated fashion, marking commits good or bad depending on the exit code of <cmd>, until it find the culprit commit.
+git bisect run $cmd
+# Bisect will now step through the commits in an automated fashion, marking commits good or bad depending on the exit code of $cmd, until it find the culprit commit.
 git bisect reset # to return your repository to the state it started in
 
 # Git log blame a REGEX
@@ -68,8 +68,7 @@ git blame -L '/REGEX/',+1 FILE
 # To get only the additions / deletions (ignore the small changes) :
 git log --pickaxe-all --pickaxe-regex -S'REGEX' -- FILE
 
-# Grep
-git grep <keyword> $(git rev-list <rev1>..<rev2>) [–function-context]
+git grep $keyword $(git rev-list $rev1..$rev2) [–function-context]
 
 # Incorporate a repo in another repo
 git submodule add URL DIRNAME # http://git-scm.com/book/en/Git-Tools-Submodules
@@ -91,7 +90,7 @@ git branch -m old_name new_name
 
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:
-git branch <branch name> --track origin/mainline
+git branch $branch_name --track origin/mainline
 # Commit feature branch and fast forward changes to mainline
 git co featureBranch
 git ci

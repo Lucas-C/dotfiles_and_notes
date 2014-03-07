@@ -40,10 +40,10 @@ SWAP: bogus
 pstree -p [$OPT_PID] # hierarchy of processes
 
 pid -o comm= -p $PPID # get process name
-pwdx <pid> # get process working directory
+pwdx $pid # get process working directory
 
-nohup <cmd> # detach command
-disown -h <pid> # detach running process
+nohup $cmd # detach command
+disown -h $pid # detach running process
 
 kill -15 # (TERM) then wait 2sec, then -2 (INT) then -1 (HUP) THEN -9 (KILL)
 # Because then: no sockets shutdown / no tmp files cleanup / children not informed / no terminal reset
@@ -167,7 +167,6 @@ ${#argv[@]} != ${#argv} # array size VS char-length of 1st elem
 ${argv[@]:(-1)} # last element
 echo ${argv[@]:1:2} # Array slice
 unset argv[0] # remove element, WITHOUT-INDEX-SHIFTING
-IFS=$'\n'; echo "${argv[*]}" # or, for filenames, newline-separated
 
 # Parsing *=* args (unsecure) by pushing elements in an array
 declare -a argFiles # optional
@@ -321,11 +320,9 @@ grep -L $pattern $files # Get only filenames where PATTERN is not present
 grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/b/'
 grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
 LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
+sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
 
 pdftotext $file.pdf - | grep # from xpdf-utils
-
-sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
-sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN
 
 tr -c '[:alnum:]' _
 
@@ -344,20 +341,23 @@ type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
 perl -ne 'if (length > $w) { $w = length; print $ARGV.":".$_ };  END {print "$w\n"}' *.py # Longest line of code
 cloc # count lines of code
 
-comm -12 #or uniq -d - Sets intersec
+comm -12 #or uniq -d - Sets intersec - See also: "Set Operations in the Unix Shell"
+join # join lines of two files on a common field
 
 tee -a $file # display input to stdout + append to end of $file
 echo ECHO | sed s/$/.ext/ # Append at the end of stdout (or beginning with ^)
 sed -i "1i$content" $file # append at the beginning of $file
 
-seq 1 10 | paste -s -d+ | bc # Replace newlines by a separator
-perl -pe 's/\s+/\n/g' # Break on word per line
+sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN
+seq 1 10 | paste -s -d+ | bc # Replace newlines by a separator, aka 'join' - Also, for arrays: OLD_IFS=$IFS; IFS=+; echo "${argv[*]}"; IFS=$OLD_IFS
 # paste is also useful to interlace files: paste $file1 $file2
+
+perl -pe 's/\s+/\n/g' # Break on word per line
 awk [-F":|="] '{ print $NF }' # Print last column. Opposite: awk '{$NF=""; print $0}'
 fold # breaks lines to proper width
 fmt # reformat lines into paragraphs
 printf "%-8s\n" "${value}" # 8 spaces output formatting
-printf "%s" ${string:0:3} # 3 first characters of $string
+| xargs -n 1 sh -c 'echo ${0:0:3}' # 3 first characters of $string
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
@@ -381,11 +381,11 @@ rename \  _ * # Replace whitespaces by underscores
 lsof +D /some/dir
 # To see all files jeff has open:
 sudo lsof -u jeff
-# Additional useful option : -r <t> : repeat the listing every t second
+# Additional useful option : -r $t : repeat the listing every $t second
 
 namei / readlink -f # Shows Where a File/Directory Comes From (links, etc.)
 
-killall -HUP <process name> # To tell a process to reload its file descriptors, e.g. when deleting a log file
+killall -HUP $process_name # To tell a process to reload its file descriptors, e.g. when deleting a log file
 
 sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000 # Create fake file
 
@@ -395,17 +395,17 @@ setcap # man capabilities
 umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
 # Forbid file deletion
-sudo chattr +i [-R] <file> # to check a file attributes : lsattr
+sudo chattr +i [-R] $file # to check a file attributes : lsattr
 
 debugfs -R "stat <$(ls -i $file | awk '{print $1}')>" $(df $file | tail -n 1 | awk '{print $1}') # Get $file creation time ('crtime') on ext4 filesystems
 
 # Bring back deleted file from limbo (ONLY if still in use in another process)
 lsof | grep myfile # get pid
-cp /proc/<pid>/fd/4 myfile.saved
+cp /proc/$pid/fd/4 myfile.saved
 
 # http://www.cyberciti.biz/tips/linux-audit-files-to-see-who-made-changes-to-a-file.html
-auditctl -w <file> -p wax -k <tag>
-ausearch -k <tag> [-ts today -ui 506 -x cat]
+auditctl -w $file -p wax -k $tag
+ausearch -k $tag [-ts today -ui 506 -x cat]
 
 rsync -v --compress --exclude=".*" $src $dst
 --archive # recursive + preserve mtime, permissions...
@@ -429,7 +429,7 @@ memcached
 
 mkfifo # Named pipes: https://en.wikipedia.org/wiki/Named_pipe
 exec 3<> /tmp/myfifo # Über trick: dummy FD => non-blocking named-pipe
-python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" <file> # readble bytes in a fifo -> NOT RELIABLE, e.g. always return 0 with non-blocking named-pipe
+python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" $fifo # readble bytes in a fifo -> NOT RELIABLE, e.g. always return 0 with non-blocking named-pipe
 ulimit -p # should get max pipe size, but WRONG : defined in pipe_fs_i.h
 fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
 
@@ -449,7 +449,8 @@ redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*
 == NETWORKING
 |°|°|°|°|°|°|°|°
 
-mtr <host/ip> # > ping / traceroute
+mtr $host > ping / traceroute
+paris-traceroute > traceroute
 
 socat > nc (netcat) > telnet
 socat - udp4-listen:5000,fork # create server redirecting listening on port 5000 output to terminal
@@ -459,12 +460,12 @@ echo hello | nc -u -w 1 127.0.0.1 5000
 
 # Port scanning
 nmap -sS -O 127.0.0.1 # Guess OS !! Also try -A
-nmap <host> -p <port> --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping, only scanning
+nmap $host -p $port --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping, only scanning
 nmap 192.168.1.* # Or 192.168.1.0/24, scan entire subnet
 nmap -DdecoyIP1,decoyIP2 ... # cloak your scan
 
 # Locally
-lsof -i -P -p <pid> # -i => list all Internet network files ; -P => no conversion of port numbers to port names for network files ; -n => no IP->hostname resolution
+lsof -i -P -p $pid # -i => list all Internet network files ; -P => no conversion of port numbers to port names for network files ; -n => no IP->hostname resolution
 lsof -i -n | grep ssh # list SSH connections/tunnels
 
 ss -nap # -a => list both listening and non-listening sockets/ports ; -n => no DNS resolution for addresses, use IPs ; -p => get pid & name of process owning the socket
@@ -474,7 +475,7 @@ ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
 netstat --statistics [--udp] # global network statistics
 
 ip n[eighbour] # ARP or NDISC cache entries - replace deprecated 'arp'
-ip a[ddr] [show|add <ip>] dev eth0 # replace deprecated 'ifconfig'
+ip a[ddr] [show|add $ip] dev eth0 # replace deprecated 'ifconfig'
 ip link set eth0 [up|down] # enable/disable the[interface specified
 ip tunnel list # list ssh stunnels replace deprecated 'iptunnel'
 ip route # host routing tables - replace deprecated 'route'
@@ -490,16 +491,16 @@ ifup, ifdown # bring a network interface up
 
 ls /var/lib/dhc* # check what DHCP client is used
 # Query DNS cmds > deprecated 'nslookup'
-host [-t txt] <hostname> # -a (all records) -v
-dig +short txt <dns_server>
-dig +short -x <IP> # Reverse DNS
+host [-t txt] $hostname # -a (all records) -v
+dig +short txt $dns_server
+dig +short -x $ip # Reverse DNS
 avahi-resolve -n $USER.local # Multicast DNS == mDNS - from avahi-tools pkg
 # Caching
 /etc/resolv.conf # manual / basic
 bind / dnsmasq / lwresd / nscd (broken: ignore TTL) # daemon
 getent ahostsv4 www.google.com # whole query through NSS
 rndc # display various DNS cache control commands, part of Bind9 tools suite
-rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ; lwresd <port> can be figured out with lsof/nmap
+rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ; lwresd $port can be figured out with lsof/nmap
 # View queries bypassing lwresd
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
@@ -514,14 +515,14 @@ ssh -f $host -L 2034:$host:34 -N # port forwarding
 /etc/pam.d/* # use pam_unix.so
 knockd # port knocking server
 openssl s_client # bare SSL client cmd
-openssl x509 -text -noout -in <cert.pem> # get certs details
-openssl x509 -inform der -in cert.cer -out cert.pem # convert .cer to .pem
-keytool -printcert -file <cert.pem> # get certs details
+openssl x509 -text -noout -in $cert.pem # get certs details
+openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
+keytool -printcert -file $cert.pem # get certs details
 
-iptables -A INPUT -s <IP_OR_HOSTNAME> -j DROP
+iptables -A INPUT -s $host -j DROP
 iptables -n -L -v
 
-snmpget -v2c -c '<community_string>' <device> sysDescr.0 # or sysUpTime.0, sysName.0
+snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName.0
 # SNMP port : 161
 
 # Dump all tcp transmission to a specific IP :
@@ -632,8 +633,8 @@ adduser / usermod -a -G # DO NOT FORGET THE -a !!!
 useradd -m -G sudo,sshusers -p $(openssl passwd ******)
 
 # Add a Linux secondary group without logging out
-newgroup <new secondary group>
-newgroup <original primary group>
+newgroup $new_secondary_group
+newgroup $original_primary_group
 
 # List system users
 awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd
@@ -648,7 +649,7 @@ dmidecode
 
 # Find what package a command belong to:
 apt-file search /path/to/anyfile
-yume provides <cmd>
+yum provides $cmd
 dpkg -S /path/to/cmd
 rpm -qif $(which cmd)
 rpm -Uvh pkg.rpm # upgrade RPM
@@ -688,12 +689,9 @@ pavucontrol
 alsamixer
 gstreamer-properties
 
-# Identify video
-mplayer -identify -vo null -ao null -frames 0 <video>
-# Convert .wmv to .avi
-mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame
-# .mp4 to .avi
-avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi
+mplayer -identify -vo null -ao null -frames 0 $file # Identify video
+mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
+avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi
 
 sudo /usr/share/doc/libdvdread4/install-css.sh # Install libdvdcss
 
@@ -713,7 +711,7 @@ grep -a # when grep returns "Binary file (standard input) matches"
 =\/=/\=\/=/\=\/=
 sudo adduser $USER vboxusers # then logout
 VBoxManage list vms
-VBoxManage controlvm <name> poweroff
+VBoxManage controlvm $name poweroff
 
 # Cool features : remote display (VRDS), shared folders & clipboard, seamless mode
 
@@ -727,10 +725,10 @@ VBoxManage controlvm <name> poweroff
 # - ./configure --enable-hdri
 # - identify -version # to check HDRI is enabled
 # Scripts: http://www.fmwconcepts.com/imagemagick/
-display <img>
+display $img_file
 convert img.png -adaptive-resize 800x600 -auto-orienti -crop 50x100+10+20 img.jpg
 mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
-identify -v <img> # get PPI: -format "%w x %h %x x %y"
+identify -v $img_file # get PPI: -format "%w x %h %x x %y"
 import # screenshot
 animate -delay 5 *.png
 compare img1 img2
@@ -768,7 +766,7 @@ pbpaste | pbcopy # clipboard
 
 textutil -convert txt # or -info : convert / get infos on files
 
-xattr -l <file> # File listed with '@' => extended attributes
+xattr -l $file # File listed with '@' => extended attributes
 
 sudo dseditgroup -o edit -a $USER -t user $GROUP # Add user to group
 
@@ -802,7 +800,7 @@ log "HELLO WORLD !"
 =======
 = Wiki
 =======
-dig +short txt <keyword>.wp.dg.cx # Wikipedia query over DNS
+dig +short txt $keyword.wp.dg.cx # Wikipedia query over DNS
 
 <!-- Comment -->
 
@@ -861,14 +859,14 @@ sqlite3 places.sqlite "select a.url, b.title from moz_places a, moz_bookmarks b 
 .tables
 .schema moz_places
 
-mysql -h $HOST -u $USER -p [--ssl-ca=<file>.pem] # default port 3306
+mysql -h $HOST -u $USER -p [--ssl-ca=$file.pem] # default port 3306
 mytop # watch mysql
 
 show tables;
 show table status;
-show columns from <table>;
+show columns from $table;
 show processlist;
-kill <thread_to_be_killed>;
+kill $thread_to_be_killed;
 
 # How to start a file to make it executable AND runnable with mysql < FILE.mysql :
 /*/cat <<NOEND | mysql #*/
