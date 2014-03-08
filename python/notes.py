@@ -268,6 +268,7 @@ import doctest # include tests as part of the documentation
 !cmd # shell command
 %history # dump it
 %pdb # Automatic pdb calling
+%timeit do_something()
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 
 # PDB tricks
@@ -321,17 +322,14 @@ uncompyle2 prog.pyc # bytecode -> python code
 import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
 # SUPER powerful to hack python code and sniff values
 
-# Built-in profiler
-python -m cProfile myscript.py # -o output.pstats # cProfile.Profile().dump_stats(filename)
-# Visu:
+python -m cProfile myscript.py -o output.pstats # cProfile.Profile().dump_stats(filename)
 gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
+kernprof.py --line-by-line myscript.py # line_profiler
 pyprof2calltree # use kcachegrind
-# And also
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
 http://mg.pov.lt/objgraph # explore Python object graphs
 
-# get exec time
-python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # or 'map(hex, xs)'
+python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
 timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000) 
 
 # Get memory usage
@@ -381,7 +379,7 @@ pool = ThreadPool(4); results = pool.map(foo, args); pool.close(); pool.join()
 numbapro # for CUDA
 greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
-asyncio # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
+@asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 
 autobanh # meteor.js in Python
 asynchat, irc
@@ -403,6 +401,7 @@ group = parser.add_mutually_exclusive_group()
 group.add_argument(... type=argparse.FileType('r'))
 
 pyreadline
+tqdm # KISS progress bar
 
 from getpass import getpass # get password without echoing it
 import uuid # generate unique ID’s
@@ -422,9 +421,9 @@ lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
 
 pywebsocket
 paramiko # remote SSH/SFTP connexion
-import boom # like Siege or Funkload : web-app stress testing
+boom # like Siege or Funkload : web-app stress testing
 
-import requests # replacement for urllib2. Lib to mock it: responses
+requests # replacement for urllib2. Lib to mock it: responses - Also: aiohttp for asyncio-based equivalent
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 
@@ -446,6 +445,7 @@ wifi # wrapper around iwlist and /etc/network/interfaces
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-python
 
+SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
 pillow > pil # Python Image Library
 pyglet # windowing and multimedia lib
 AAlib # ASCII rendering

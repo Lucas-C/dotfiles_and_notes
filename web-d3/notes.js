@@ -1,10 +1,9 @@
-/* FIREFOX Web Console */
+// In Firefox Web Console
+javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
+
 $$("#articleContent ul li").length
 
-
 debugger // breakpoint for debugger
-
-javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
 
 
 (function(exports) {
