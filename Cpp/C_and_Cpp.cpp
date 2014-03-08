@@ -1,4 +1,5 @@
 gcc -g3 -D_DEBUG -Wall -Wextra -pedantic-errors -Wfloat-equal -Wconversion -Wshadow -Weffc++ # -pg -fstack-protector
+gcc -dM -E </dev/null // dump the list of predefined macros; e.g. unix & linux
 
 // Use ‘const’ as much as possible.
 const int *p;           // pointer to const int
@@ -14,6 +15,9 @@ if(__builtin_expect(entity->extremely_unlikely_flag,0))
 #include "errno.h"
 if (errno == EACCES) // or e.g. when an 'open' function return NULL
     perror("Acces to STUFF forbidden : ")
+
+alloca > malloc
+stdlib 'realloc' : change the size of an already allocated memory block
 
 mmap // File in memomry mapping, to optimize paging operations
 
@@ -98,7 +102,7 @@ string rev(const string& s) { string t = s; reverse(t.begin(), t.end()); retur
   * set_assign.h
   * static_mem_pool.h
 
-// POGO
+// POGO: Profile Guided Optimizations
 
 // MinGW: http://lynix.digitalpulsesoftware.com/2010/06/gcc-4-4-0-sous-windows-avec-mingw/
 
