@@ -40,6 +40,8 @@ git diff --stat
 
 # Stash with a name, then either pop or apply + drop
 git stash save "stash-name"
+# Checking all stashes have been commited
+git stash list | awk -F' ' '{for (i = 6; i <= NF; i++) printf "%s ",$i; print ""}' | while read msg; do echo "CHECKING: $msg"; git lg | grep "$msg"; done
 
 # Commit only part of a file
 git add -p $file

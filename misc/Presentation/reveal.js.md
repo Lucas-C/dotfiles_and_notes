@@ -12,46 +12,30 @@ HTML section to include:
         theme: 'night',
         transition: 'none',
 
-Press 's' open speaker-notes pop-up window.
-Note: Coucou !
 
 
+## Features
 
-## External 1.1
+<ul>
+    <li class="fragment">Press 's' to open speaker-notes pop-up window</li>
+    <li class="fragment">Press ESC to enter the slide overview</li>
+    <li class="fragment">Press 'b' to fade out to blac screen</li>
+    <li class="fragment">Change the background on a slide: <code>data-background="#007777"</code></li>
+    <li class="fragment">[PDF export](https://github.com/hakimel/reveal.js#pdf-export "PDF export description on Github")</li>
+    <li class="fragment">[Online visual editor](http://slid.es)</em></li>
+</ul>
+
+Note: Coucou ! This will only be displayed in the speaker window
+
+
+## Down to the rabbit hole...
 
 With *bold*, **italics** and ~~striked~~ text.
 
-[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
-
 ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
-Note: This will only appear in the speaker notes window.
 
 
-## External 1.2
+## Back to start
 
-Content 1.2
-
-
-
-## External 2
-
-Content 2.1
-
-<p class="fragment">Step through fragments</p>
-<ol>
-    <li class="fragment"><code>any type</code></li>
-    <li class="fragment"><em>of view</em></li>
-    <li class="fragment"><strong>fragments</strong></li>
-</ol>
-
-
-
-## External 3.1
-
-Content 3.1
-
-
-## External 3.2
-
-Content 3.2
+<a href="#/">Click me !</a>

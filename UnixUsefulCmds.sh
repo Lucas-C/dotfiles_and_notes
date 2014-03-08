@@ -262,8 +262,7 @@ stty echo
 set -o noglob
 # Extended bash globbing
 shopt -s extglob # http://www.linuxjournal.com/content/bash-extended-globbing
-# list options values
-echo $- # Check the shell is interactive: [[ $- =~ i ]]
+shopt [-o] # list options values. Alt: $- E.g. check if shell is interactive: [[ $- =~ i ]]
 
 ( set -o posix; set ) # List all defined variables
 # Get all commands prefixed by (useful for unit tests)
@@ -310,6 +309,7 @@ ulimit -u # max number of processes
 # Text stream filtering
 ++++++++++++++++++
 
+grep -q # silent, !! FAIL with SIGPIPE if 'pipefail' is used: http://stackoverflow.com/a/19120674/636849
 grep '\<word\>' # match word-boundaries
 grep -I # ignore binary files
 grep -R --include='*.py' --exclude='/build/'
@@ -353,7 +353,7 @@ seq 1 10 | paste -s -d+ | bc # Replace newlines by a separator, aka 'join' - Als
 # paste is also useful to interlace files: paste $file1 $file2
 
 perl -pe 's/\s+/\n/g' # Break on word per line
-awk [-F":|="] '{ print $NF }' # Print last column. Opposite: awk '{$NF=""; print $0}'
+awk [-F":|="] '{ print $NF }' # Print last column. Opposite: awk '{$NF=""; print $0}'. Only last elems: awk -F' ' '{for (i = 3; i <= NF; i++) printf "%s ",$i; print ""}'
 fold # breaks lines to proper width
 fmt # reformat lines into paragraphs
 printf "%-8s\n" "${value}" # 8 spaces output formatting
@@ -855,7 +855,7 @@ http://en.wikipedia.org/wiki/Help:Magic_words
 ::=::=::=::
 LIKE >faster> REGEXP
 
-sqlite3 places.sqlite "select a.url, b.title from moz_places a, moz_bookmarks b where a.id=b.fk;" # no cmd => interactive - FIREFOX
+sqlite3 places.sqlite "select a.url, b.title from moz_places a, moz_bookmarks b where a.id=b.fk;" # no cmd => interactive - Firefox
 .help
 .tables
 .schema moz_places
