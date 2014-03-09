@@ -204,7 +204,7 @@ _get_cp_mv_src_args () {
     done
     if [ "$1" = "-t" ]; then
         shift; shift # removing -t <dst>
-        echo "$@"
+        for arg in "$@"; do echo "$arg"; done
     else
         local argv=("$@")
         unset argv[${#argv[@]}-1] # removing last element: <dst>
@@ -224,7 +224,7 @@ _get_cp_mv_dst_arg () {
     fi
 }
 
-_is_massive_cp_mv_src () { # 'massive' means >1000 files OR >100Mo
+_is_massive_cp_mv_src () {      # 'massive' means >1000 files OR >100Mo
     [ -z "$1" ] && return 1
     local files_count_max_1000=$(_get_cp_mv_src_args "$@" | while read file; do find "$file" -type f; done | head -n 1000 | wc -l)
     [ ${files_count_max_1000:-0} -eq 1000 ] && return 0
@@ -234,7 +234,7 @@ _is_massive_cp_mv_src () { # 'massive' means >1000 files OR >100Mo
 }
 
 rsync_massive_mv_tip () {       # 'mv' suggesting 'rsync' for 'massive' src files & different partitions
-    _get_cp_mv_src_args "$@" || return 1
+    _get_cp_mv_src_args "$@" >/dev/null || return 1
     _is_massive_cp_mv_src "$@" || return 2
     local src_args_partitions=$(_get_cp_mv_src_args "$@" | xargs df -P | sort | uniq | sed '$d' | awk '{print $1}')
 

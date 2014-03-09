@@ -372,6 +372,7 @@ markdown foo.md | lynx -stdin # alternative using HTML an an intermediate instea
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
 find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore
+find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
 
@@ -689,7 +690,7 @@ pavucontrol
 alsamixer
 gstreamer-properties
 
-mplayer -identify -vo null -ao null -frames 0 $file # Identify video
+mplayer -identify -vo null -ao null -frames 0 $file | grep "Video stream found" # Identify video
 mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
 avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi
 

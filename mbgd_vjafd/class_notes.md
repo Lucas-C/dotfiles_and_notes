@@ -782,3 +782,128 @@ Even number of voters may imply non completeness :
 p∉Fmaj(A) and ¬p∉Fmaj(A).
 
 
+
+# Week 6
+========
+
+### 6-1: Introduction to Fair Division (11:02)
+
+Divisible or indivisible ? Either
+- a set of indivisible objects
+- several divisible objects
+- a single heterogeneous object
+
+Individual utilities of the goods :
+- Ordinal (only ordering matter: 1, 2, 3) ?
+- Cardinal (intensity of preferences matter: 1, 2, 10) ?
+
+How to maximize social welfare ?
+- utilitarian: maximize Sum(u_i)
+- egalitarian: maximize min_i{u_i}
+- Nash: maximize Prod(u_i)
+
+
+### 6-2: Fairness Criteria (8:26)
+
+G is a set of goods to be distributed amon n individuals
+
+An **allocation** is a function A : N -> rho(G) assigning goods to individuals.
+(in general, we don't need to distribute all the goods, i.e. Union_{i in N} A(i) = G)
+
+For each i in N, u_i is i's utility function on bundles of goods. Then, the utility of an allocation is u_i(A) = u_i(A(i)).
+
+A profile of utilities for an allocation A is a tuple (u_1(A(1)), ..., u_n(A(n))), where N = {1, ..., N} is the set of individuals.
+
+
+A Pareto dominates A' provided for all i in N, u_i(A(i)) >= u_i(A'(i)) and there is a j in N such that u_j(A(j)) > U_j(A'(j))
+A is Pareto efficient if is not Pareto dominated.
+
+An allocation is envy-free provided there is no individual i such that u_i(A(j)) > u_i(A(i)) for some j.
+
+!! Value of a bundle can be != than sum of individual values
+E.g. a first condition can be monotonicity:
+  C inclued in D => u_i(C) included in u_i(D)
+
+An allocation A is proportional provided for all i:
+  u_i(A) >= i_i(G)/n
+
+A is equitable provided for all i,j:
+  u_i(A(i)) = u_j(A(j))
+
+
+### 6-3: Incompatibility of Envy Freeness and Efficiency (7:33)
+
+SOMETIMES, you can't get both
+
+
+### 6-4: Avoid Envy or Help the Worst Off? (14:40)
+
+Ann:  1 > 2 > 3 > 4 > 5 > 6
+Bob:  5 > 6 > 2 > 1 > 4 > 3
+Cath: 3 > 6 > 5 > 4 > 1 > 2
+
+All efficient allocations:
+A1: (12, 56, 34)
+A2: (12, 45, 36)
+A3: (14, 25, 36) [unique envy-free division]
+
+Preferences:
+Ann:  A1 = A2 > A3
+Bob:  A1 > A3 > A2
+Cath: A2 = A3 > A1
+
+Voting for the preferences ?
+=> A1 Condorcet winner
+=> A1 & A2 wins following approval voting
+
+!! => A3 would never win !
+
+If add a Borda-count-like utility:
+Utility: 6   5   4   3   2   1
+Voter:   1 > 2 > 3 > 4 > 5 > 6
+
+Total utilities:
+A1: (12, 56, 34) : 31
+A2: (12, 45, 36) : 30
+A3: (14, 25, 36) : 30
+
+(Lexicographic) Maximin utilities:
+A1: (12, 56, 34) : (5,5,3) -> WIN
+A2: (12, 45, 36) : (5,2,5)
+A3: (14, 25, 36) : (3,4,5)
+
+=> (Lexicographic) Maximin will not select the unique envy-free division
+
+
+### 6-5: Adjusted Winner (8:04)
+
+http://www.nyu.edu/projects/adjustedwinner/
+http://fairoutcomes.com/
+
+Exercice:
+Bob: 10 + 50p
+Ann: 50 + (1-p)45
+Hence 10 + 50p = 95 - 45p <=> 95p = 85 <=> p = 17/19 = 54.74
+
+Observations:
+- for 2 party disputes, proportionality & envy-freeness are equivalent
+- AW only produces equitable allocations
+- AW produces allocations in which at most one good is split
+
+
+### 6-6: Manipulating the Adjusted Winner Outcome (7:07)
+
+Yes, it is possible
+
+However, while honesty may not always be the best policy, it is the only safe one, i.e. the only one which will guarantee 50%.
+
+
+### Quizz takeaways
+
+If an allocation of goods to 2 people is proportional, then it is envy-free. EVEN if the parties utilities are NOT additive.
+
+
+
+Week 7
+======
+
