@@ -42,11 +42,27 @@ for ( let i in function(){ return [1,2,3] }() ) ...
 function foo({ name:name, project:project}) { return [name, project] } // optional named args
 var [n, p] = foo({ name:'soubok' }) // unwrapping multiple return values
 
+// Handy functions
 function toType(obj) {
     return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
 function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
+}
+function range(start, end) {
+    var range_array=[];
+    for (var i=start; i<end; ++i) {
+        range_array.push(i);
+    }
+    return range_array;
+}
+if (!String.prototype.format) {
+    String.prototype.format = function() {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function(match, nbr) {
+            return typeof args[nbr] != 'undefined' ? args[nbr] : match;
+        });
+    };
 }
 
 // Watch propery changes
@@ -127,9 +143,9 @@ generators
 
 hex_md5('string') // crypt/md5.js
 
-http://underscorejs.org // Functional prog lib
+underscorejs.org // Functional prog lib
 
-JSLINT // static code analysis
+JSHint, JSLint // static code analysis
 
 http://qunitjs.com // Testing lib
 

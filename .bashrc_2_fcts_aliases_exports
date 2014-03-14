@@ -132,7 +132,7 @@ alias utf8=iconv_help
 nocrlf () { perl -lne 's/\r//g; print' "$@"; } # also: dos2unix
 alias json_fmt='python -mjson.tool' # don't work well with non ascii
 
-alias funiq="awk '"'{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'"'" # faster than 'sort | uniq -c'
+alias funiq="awk '"'{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'"'" # faster than 'sort | uniq -c' BUT output is not sorted. Also, it's very easy to swap the output columns
 
 # FROM: http://unix.stackexchange.com/questions/13731/is-there-a-way-to-get-the-min-max-median-and-average-of-a-list-of-numbers-in
 # One-pass stable variance algo: http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Online_algorithm

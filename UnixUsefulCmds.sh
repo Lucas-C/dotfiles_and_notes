@@ -527,7 +527,7 @@ snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName
 # SNMP port : 161
 
 # Dump all tcp transmission to a specific IP :
-sudo tcpdump -X -i $interface host $IP [ip proto icmp|udp|tcp]
+sudo tcpdump -i $interface host $IP [ip proto icmp|udp|tcp] -A -s 0 # last flag remove the limit on the captured packet size | Use -X for hex-dump | -n to disable dns resolution
 
 grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 
@@ -663,6 +663,8 @@ rpmbuild file.spec
 alien # transformer un .rpm en .deb
 
 init q # Reload /etc/inittab
+
+shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck
 
 
 ##################

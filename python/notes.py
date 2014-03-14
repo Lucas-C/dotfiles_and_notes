@@ -252,7 +252,7 @@ class Bunch(dict): # http://code.activestate.com/recipes/52308
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
 
-json.dumps(d, sort_keys=True, indent=4) # pretty formatting
+json.dumps(d, sort_keys=True, indent=4) # pretty formatting - Also: -mjson.tool
 
 
 """""""""""""""""
@@ -418,6 +418,7 @@ hashlib.md5('string').hexdigest()
 
 templite, jinja2 # HTML templating system
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
+BeautifulSoup('html string').prettify() # newlines+tabs formatted dump
 
 pywebsocket
 paramiko # remote SSH/SFTP connexion
