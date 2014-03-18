@@ -47,7 +47,7 @@ function toType(obj) {
     return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
 function isNumber(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
+    return !isNaN(parseFloat(n)) && isFinite(n); // For 'ParseInt', ALWAYS specify the base !
 }
 function range(start, end) {
     var range_array=[];
@@ -74,9 +74,12 @@ o.__defineGetter__('x', function(){ return 7 } ) // one can even o.__lookupGette
 // default method called
 o.__noSuchMethod__ = function(meth_name){...}
 
+//!! NEVER USE '==' !   Still:
 o.constructor === Object // true - Control typeof, instanceof
 // => 'instanceof' does not work on primitive values (it returns 'false')
 // Also, beware: typeof null === "object"
+var a = { "abc" : 1 }
+a[[[["abc"]]]] === a["abc"] // true
 
 foo.call(newThis, arg1, arg2) || foo.apply(newThis, argsArray) // change current "this" in afunction call
 
@@ -89,11 +92,18 @@ foo.toSource(2) // get function code source, with comments !
 
 requestAnimationFrame > setInterval OR setTimeout // For smart animating, recommended by Mozilla
 
+
 //~~//~~//~~//
 // Tricks //
 //~~//~~//
 // Evaluate to 'fail'
 (![]+[])[+[]]+(![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]];
+
+{} + [] // 0
+[] + {} // [object Object]
+
+'5' + 3 // 53
+'5' - 3 // 2
 
 (0 === -0) && (0 === +0) // positive/negative zeros just equal 0
 
@@ -123,10 +133,14 @@ var a = { b:#1={ c:#1# } }
 
 Print( 1000000000000000128 ); // prints 1000000000000000100
 
+new, with // NEVER use them ! They're reserved keywords
+
 
 //~\~\~\\
 // LIBS \\
 //~\~\~\~\\
+"use strict";
+
 // Find out JS version
 <script language="javascript">var js_version="1.0"</script>
 <script language="javascript1.1">var js_version="1.1"</script>
@@ -144,6 +158,11 @@ generators
 hex_md5('string') // crypt/md5.js
 
 underscorejs.org // Functional prog lib
+
+var fs = require("fs"); // Node.js
+fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
+    console.log(line);
+});
 
 JSHint, JSLint // static code analysis
 

@@ -704,6 +704,7 @@ echo 1 > /sys/bus/pci/rescan
 
 ~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
 about:cache # Firefox cache infos: location, size, number of entries
+$ff_profile_dir/.parentlock # fix "Firefox is already running but is not responding" error
 
 xhost local:root # Xlib: connection to ":0.0" refused by server
 

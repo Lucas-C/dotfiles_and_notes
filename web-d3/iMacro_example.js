@@ -1,4 +1,5 @@
-﻿// Docs: http://wiki.imacros.net/iMacros_for_Firefox#Javascript_Scripting_Interface
+// USAGE: firefox imacros://run/?m=script.js
+// Docs: http://wiki.imacros.net/iMacros_for_Firefox#Javascript_Scripting_Interface
 // It has a very useful 'recording' mode
 
 const IMACRO = 'CODE:SET !ERRORIGNORE YES\n\

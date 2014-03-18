@@ -127,6 +127,7 @@ iconv_help () {
     local file=${1:-<file>}
     echo iconv -f ISO-8859-1 -t UTF-8 $file -o ${2:-$file.utf8}
     echo iconv -t 'ASCII//TRANSLIT//IGNORE' $file -o ${2:-$file.ascii}
+    echo tail --bytes=+4 UTF8WithBom.txt \> UTF8WithoutBom.txt
 }
 alias utf8=iconv_help
 nocrlf () { perl -lne 's/\r//g; print' "$@"; } # also: dos2unix
