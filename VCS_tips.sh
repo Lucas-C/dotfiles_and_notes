@@ -64,12 +64,8 @@ git bisect run $cmd
 # Bisect will now step through the commits in an automated fashion, marking commits good or bad depending on the exit code of $cmd, until it find the culprit commit.
 git bisect reset # to return your repository to the state it started in
 
-# Git log blame a REGEX
-git blame -L '/REGEX/',+1 FILE
-# To get an history of the changes on a line, use the 'rblame' alias
-# To get only the additions / deletions (ignore the small changes) :
-git log --pickaxe-all --pickaxe-regex -S'REGEX' -- FILE
-
+git blame -L '/REGEX/',+1 FILE # 'rblame' to get an history of the changes on a line
+git log --pickaxe-all --pickaxe-regex -S$regex $file # To get only the additions / deletions (ignore the small changes)
 git grep $keyword $(git rev-list $rev1..$rev2) [–function-context]
 
 # Incorporate a repo in another repo

@@ -114,6 +114,8 @@ globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class
 # aka, the most common __class__.__class__ of an object
 # But you can specify your own __metaclass__ !
 
+obj_mock.side_effect = Exception('Foo42')
+
 @patch("module.open", create=True) # to patch builtins
 @patch("module.CONSTANT", new_value)
 def foo_test(open_mock):
@@ -470,6 +472,9 @@ a='a=%s;print a%%`a`';print a%`a` # Quine
 """""""""""
 " Python 3
 """""""""""
+from __future__ import print_function, with_statement, generators...
+print('string', file=sys.stderr, end='')
+
 @type_check
 def foo(x: between(3, 10), y: is_int) -> is_int:
     return x * y
@@ -478,9 +483,6 @@ def foo(x: between(3, 10), y: is_int) -> is_int:
 
 b'I am an immutable basic byte array of type "bytes"'
 bytearray(b"I am mutable")
-
-from __future__ import print_function, with_statement, generators...
-print('string', file=sys.stderr, end='')
 
 nonlocal
 
@@ -495,7 +497,23 @@ with concurrent.futures.ProcessPoolExecutor() as executor: # Asynchronous
             raise future.exception()
         yield future.result()
 
-    for arg in arguments:
+yield from iterator # delegate
 
 def foo(a, b, *, keyword=None): pass # keywords-only functions arguments
 
+class MyClass: pass # no need to inherits from object
+
+class Metaaa(metaclass=MyClass): pass # no more __metaclass__ attribute
+
+super() # new simpler syntax !
+
+obj.__qualname__
+
+python -X faulthandler script.py # stacktrace
+import tracemalloc 
+
+from enum import Enum, IntEnum
+
+from functools import singledispatch
+
+import statistics
