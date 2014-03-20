@@ -309,6 +309,8 @@ ulimit -u # max number of processes
 # Text stream filtering
 ++++++++++++++++++
 
+>| # '>' that overrides 'set -o noclobber'
+
 grep -q # silent, !! FAIL with SIGPIPE if 'pipefail' is used: http://stackoverflow.com/a/19120674/636849
 grep '\<word\>' # match word-boundaries
 grep -I # ignore binary files

@@ -124,7 +124,7 @@ alias upper='tr "[:lower:]" "[:upper:]"'
 urlencode () { perl -ne 'chomp; s/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg; print "$_\n"'; }
 urldecode () { sed -e's/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g' | xargs echo -e; } # don't handle '+'->' ' in a query
 iconv_help () {
-    local file=${1:-<file>}
+    local file=${1:-\$file}
     echo iconv -f ISO-8859-1 -t UTF-8 $file -o ${2:-$file.utf8}
     echo iconv -t 'ASCII//TRANSLIT//IGNORE' $file -o ${2:-$file.ascii}
     echo tail --bytes=+4 UTF8WithBom.txt \> UTF8WithoutBom.txt
@@ -156,7 +156,7 @@ stats () { # --no-header | awk '{print $3}'
 # Others
 #--------
 unfuncalias touch
-touch () {              # touch [EPOCH] [+/-<modifier>] <files>
+touch () {              # touch [EPOCH] [+/-$modifier] $files
     local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
     if [ "$(echo $1 | lower)" = "epoch" ]; then
         yymm=7001
@@ -188,50 +188,8 @@ man () {               # colored manual with 'help' as a fallback
     help "$@" >/dev/null 2>&1 && help "$@" | less
 }
 
-unfuncalias cd
-cd () {                 # zsh-like, USAGE: cd $old-path-snippet $new-path-subst
-    if [ -n "$2" ]; then
-        builtin cd "${PWD/$1/$2}"
-    elif [ -n "$1" ]; then
-        builtin cd "$1"
-    else
-        builtin cd
-    fi
-}
-
-_get_cp_mv_src_args () {
-    while [[ "$1" =~ ^-[^t] ]]; do
-        shift
-    done
-    if [ "$1" = "-t" ]; then
-        shift; shift # removing -t <dst>
-        for arg in "$@"; do echo "$arg"; done
-    else
-        local argv=("$@")
-        unset argv[${#argv[@]}-1] # removing last element: <dst>
-        for arg in "${argv[@]}"; do echo "$arg"; done
-    fi
-}
-
-_get_cp_mv_dst_arg () {
-    while [[ "$1" =~ -[^t] ]]; do
-        shift
-    done
-    if [ "$1" = "-t" ]; then
-        echo "$2"
-    else
-        local argv=("$@")
-        echo "${argv[-1]}"
-    fi
-}
-
-_is_massive_cp_mv_src () {      # 'massive' means >1000 files OR >100Mo
-    [ -z "$1" ] && return 1
-    local files_count_max_1000=$(_get_cp_mv_src_args "$@" | while read file; do find "$file" -type f; done | head -n 1000 | wc -l)
-    [ ${files_count_max_1000:-0} -eq 1000 ] && return 0
-    local src_args_size=$(_get_cp_mv_src_args "$@" | while read file; do du -sm "$file" | cut -f1; done | awk '{s+=$1} END {print s}')
-    [ ${src_args_size:-0} -gt 100 ] && return 0
-    return 1
+mv () {
+    rsync_massive_mv_tip "$@" || $(nofuncalias mv) "$@"
 }
 
 rsync_massive_mv_tip () {       # 'mv' suggesting 'rsync' for 'massive' src files & different partitions
@@ -253,9 +211,9 @@ If you want to ignore my advice, simply run:
 $(nofuncalias mv) $@
 EOF
 }
-unfuncalias mv
-mv () {
-    rsync_massive_mv_tip "$@" || $(nofuncalias mv) "$@"
+
+cp () {                 # 'cp' suggesting 'rsync' to follow progress for 'massive' src files
+    rsync_massive_cp_tip "$@" || $(nofuncalias cp) "$@"
 }
 
 rsync_massive_cp_tip () {
@@ -267,10 +225,42 @@ If you want to ignore my advice, simply run:
 $(nofuncalias cp) $@
 EOF
 }
-unfuncalias cp
-cp () {                 # 'cp' suggesting 'rsync' to follow progress for 'massive' src files
-    rsync_massive_cp_tip "$@" || $(nofuncalias cp) "$@"
+
+_is_massive_cp_mv_src () {      # 'massive' means >1000 files OR >100Mo
+    [ -z "$1" ] && return 1
+    local files_count_max_1000=$(_get_cp_mv_src_args "$@" | while read file; do find "$file" -type f; done | head -n 1000 | wc -l)
+    [ ${files_count_max_1000:-0} -eq 1000 ] && return 0
+    local src_args_size=$(_get_cp_mv_src_args "$@" | while read file; do du -sm "$file" | cut -f1; done | awk '{s+=$1} END {print s}')
+    [ ${src_args_size:-0} -gt 100 ] && return 0
+    return 1
 }
+
+_get_cp_mv_src_args () {
+    while [[ "$1" =~ ^-[^t] ]]; do
+        shift
+    done
+    if [ "$1" = "-t" ]; then
+        shift; shift # removing -t $dst
+        for arg in "$@"; do echo "$arg"; done
+    else
+        local argv=("$@")
+        unset argv[${#argv[@]}-1] # removing last element: $dst
+        for arg in "${argv[@]}"; do echo "$arg"; done
+    fi
+}
+
+_get_cp_mv_dst_arg () {
+    while [[ "$1" =~ -[^t] ]]; do
+        shift
+    done
+    if [ "$1" = "-t" ]; then
+        echo "$2"
+    else
+        local argv=("$@")
+        echo "${argv[-1]}"
+    fi
+}
+
 cp_p()                  # 'cp' showing progress, but slower than rsync and less portable
 {
     strace -q -e write cp -- "${1}" "${2}" 2>&1 | awk '{
@@ -336,9 +326,9 @@ ppid () {
 # Same values if invoked in a shell or by executing a ./script
 # But differents if invoked in a $(cmd) or sourced.
 
-timeout () {
+timeout () {            # Alternative to coreutils 'timeout'
     if [ "${1:-}" = "-h" -o "${1:-}" = "--help" ]; then 
-        printf "USAGE: timeout [--no-msg] <delay-in-deconds> <cmd>\n  <cmd> can start with 'exec' to avoid creating a new process\n"
+        printf "USAGE: timeout [--no-msg] \$delay_in_seconds \$cmd\n  \$cmd can start with 'exec' to avoid creating a new process\n"
         return
     fi
     local no_msg=false; [ "${1:-}" = "--no-msg" ] && { no_msg=true ; shift ; }

@@ -15,9 +15,8 @@ export CODE_STRING=
 export USER_STYLE=$T_normal
 export HOST_COLOR='1;35'
 
-set_term_window_name () {
-    [ "$TERM" = screen ] && printf "\033k$@\033\\" #  Tmux & Screen
-}
+CURRENT_PWD_DIR=$BASHRC_DIR/.current_pwd
+mkdir -p $CURRENT_PWD_DIR
 
 prompt_command()
 {
@@ -44,19 +43,58 @@ prompt_command()
         USER_STYLE=$T_normal
     fi
 
-    history -a # this + 'shopt -s histappend' in .bashrc => shared Bash history between term sessions 
+    history -a # flush history => shared between term sessions 
 
-    if [ -e ~/.use_tmux ]; then
-        set_term_window_name "#[fg=colour$((RANDOM%230+1))]$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')#[default]"
-    else
-        set_term_window_name "$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')"
-    fi
-
-    [ "$PWD" != "$HOME" ] && pwd > ${HOME:-/tmp}/.last_dir
+    [ "$TERM" = screen ] && [ -e $BASHRC_DIR/.use_tmux ] && tmux list-windows | awk -F: '{print $1}' > $CURRENT_PWD_DIR/tmux_live_windows
 }
 export PROMPT_COMMAND=prompt_command
 
-cd "$(cat ${HOME:-/tmp}/.last_dir 2>/dev/null)"
+cd () {                 # zsh-like, USAGE: cd $old-path-snippet $new-path-subst
+    if [ -n "$2" ]; then
+        builtin cd "${PWD/$1/$2}"
+    elif [ -n "$1" ]; then
+        builtin cd "$1"
+    else
+        builtin cd
+    fi
+    local e=$?
+    if [ "$TERM" = screen ] && [ -e $BASHRC_DIR/.use_tmux ]; then
+        _set_term_window_name "#[fg=colour$((RANDOM%230+1))]$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')#[default]"
+        local tmux_window=$(tmux display -pt $TMUX_PANE '#I')
+        pwd > $CURRENT_PWD_DIR/tmux_window_${tmux_window}_pwd
+    else
+        _set_term_window_name "$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')"
+    fi
+    [ "$PWD" != "$HOME" ] && pwd > $CURRENT_PWD_DIR/last_pwd
+    return $e
+}
+
+_set_term_window_name () {  # Valid for Tmux AND Screen
+    [ "$TERM" = screen ] && printf "\033k$@\033\\"
+}
+
+_tmux_restore_windows () {
+    [ "$TERM" = screen ] || return 1
+    [ -e $BASHRC_DIR/.use_tmux ] || return 2
+    local tmux_window=$(tmux display -pt $TMUX_PANE '#I')
+    [ -e $BASHRC_DIR/.tmux_window_${tmux_window}_needs_to_be_restored ] || return 3
+    if [ $tmux_window -eq 0 ]; then
+        local is_first_window=true
+        while read window_id; do
+            if $is_first_window; then
+                [ $window_id -ne 0 ] && tmux move-window -t $window_id
+                is_first_window=false
+            else
+                touch $BASHRC_DIR/.tmux_window_${window_id}_needs_to_be_restored
+                tmux new-window -t $window_id
+            fi
+        done < $CURRENT_PWD_DIR/tmux_live_windows
+    fi
+    cd $(cat $CURRENT_PWD_DIR/tmux_window_${tmux_window}_pwd)
+    rm $BASHRC_DIR/.tmux_window_${tmux_window}_needs_to_be_restored
+}
+
+_tmux_restore_windows || builtin cd "$(cat $CURRENT_PWD_DIR/last_pwd 2>/dev/null)"
 
 if [ ${TERM:0:5} = xterm ]; then
     PS1='\[\e]0;\u@\h:\W\007\]'
@@ -65,3 +103,4 @@ else
 fi
 PS1=$PS1'\[\e[${USER_STYLE}m\]\u\[\e[${T_normal}m\]@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]:\[\e[${DIRCOLOR}m\]\W\[\e[${CODE_COLOR}m\]$CODE_STRING\[\e[${T_normal}m\]\$ '
 export PS1
+# PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'

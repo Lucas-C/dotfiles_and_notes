@@ -366,7 +366,8 @@ rpy2 # acces to R
 """""""""""""""""""""
 reload(module)
 
-# Pypy: can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler
+Pypy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler
+Jython / Py4J # intercommunicate with Java
 
 virtualenv # sandbox
 pip # or easyinstall : libs manager

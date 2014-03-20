@@ -907,3 +907,81 @@ If an allocation of goods to 2 people is proportional, then it is envy-free. EVE
 Week 7
 ======
 
+### 7-1: The Cake-Cutting Problem (12:50)
+
+Each player i has a continuous value measure vi(x)
+
+A division (S1, ..., Sn) is
+- fair (proportional): for each i, vi(Si) >= 1/n
+- envy-free: for each i,j, vi(Si) >= vi(Sj)
+- equitable: for each i,j, vi(Si) = vj(Sj)
+- efficient: there is no other division (T1, ..., Tn) such that vi(Ti) >= vi(Si) for all i and there is some j such that vj(Tj) > vj(Sj)
+
+
+### 7-2: Cut and Choose (6:04)
+
+
+### 7-3: Equitability and Envy Freeness (15:42)
+
+The Surplus Procedure
+
+Theorem: The Surplus Procedure (with the proportional equitability cut-point c) is strategy-proof, whereas any procedure that makes e the cut-point is strategy-vulnerable.
+
+
+### 7-4: Proportional Procedures (11:43)
+
+Banach-Knaster Procedure:
+- the first person cuts a piec which he claims is his fair share
+- the, the piece goes around being inspected, in turn, by the other persons: anyone who thinks the piece is not too large just passes it. Anyone who thinks it is too big may reduce it, putting some back into the main part
+- then the last person who reduced the piece takes it (or the first if none reduced it)
+- iterates over the remainin participant
+
+=> proportional, but not envy-free
+
+Dubins-Spanier Moving-Knife Procedure:
+(for 3 players)
+A referee holds a knife a the left edge of the cake and slowly moves it accross the cake.
+At any time, any one of the three layers (A, B or C) can call "cut" and then receive the piece to the left of the knife.
+
+=> proportional, but not envy-free
+
+Steinhauss Procedure:
+- player 1 divide the cake into three equal pieces (according to her valuation)
+- player 2: are there 2 pieces worth more than 1/3 ?
+-> YES: players choose the pieces in order 3,2,1
+-> NO: label 2 pieces as "bad"
+- player 3: are there 2 pieces worth more than 1/3 ?
+-> YES: players choose the pieces in order 2,3,1
+-> NO: label 2 pieces as "bad"
+- player 1 chooses a piece labeled "bad" by both 2&3. Then players 2&3 cut and choose to divide the remainder.
+
+=> proportional, but not envy-free + requires at most 3 cuts
+
+
+### 7-5: The Stromquist Procedure (7:07)
+
+referee              A B C
+   |                 | | |
+   v                 v v v
+--------------------------------------> Knifes move
+
+The first agent to call "stop" receives the piece to the left of the referee's knife.
+
+The rightand part is cut byt the middle one of the three agent knifes:
+- if neither of the two agents hold the middle knife, they each obtain the piece a which their knife is pointing
+- if one of them does hold the middle knife, then the other one gets the piece at which her knife is pointing
+
+=> envy-free division
+
+
+### 7-6: The Selfridge-Conway Procedure (8:47)
+
+=> envy-free but not paredo-efficient & not equitable
+
+
+
+Takeways
+========
+
+- Adjusted Winner is a useful algotithm for 2 party disputes that produces an equitable allocation
+- Stromquist method is very funny. Could we make a game out of it ?
