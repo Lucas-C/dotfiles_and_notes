@@ -59,17 +59,17 @@ cd () {                 # zsh-like, USAGE: cd $old-path-snippet $new-path-subst
     fi
     local e=$?
     if [ "$TERM" = screen ] && [ -e $BASHRC_DIR/.use_tmux ]; then
-        _set_term_window_name "#[fg=colour$((RANDOM%230+1))]$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')#[default]"
+        set_term_window_name "#[fg=colour$((RANDOM%230+1))]$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')#[default]"
         local tmux_window=$(tmux display -pt $TMUX_PANE '#I')
         pwd > $CURRENT_PWD_DIR/tmux_window_${tmux_window}_pwd
     else
-        _set_term_window_name "$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')"
+        set_term_window_name "$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')"
     fi
     [ "$PWD" != "$HOME" ] && pwd > $CURRENT_PWD_DIR/last_pwd
     return $e
 }
 
-_set_term_window_name () {  # Valid for Tmux AND Screen
+set_term_window_name () {  # Valid for Tmux AND Screen
     [ "$TERM" = screen ] && printf "\033k$@\033\\"
 }
 

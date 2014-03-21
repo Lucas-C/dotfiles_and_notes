@@ -325,10 +325,10 @@ LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (si
 sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
 
 pdftotext $file.pdf - | grep # from xpdf-utils
+gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: http://compress.smallpdf.com
 
 tr -c '[:alnum:]' _
 
-view > less > more > cat # Beware the useless use of cat ! - Also: multitail
 cat -vET # shows non-printing characters as ascii escapes.
 printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalent, BUT:
 # echo $'A\0B' -> A
@@ -665,6 +665,7 @@ rpmbuild file.spec
 alien # transformer un .rpm en .deb
 
 init q # Reload /etc/inittab
+chkconfig, service # control & check /etc/init.d scripts
 
 shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck
 

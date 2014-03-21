@@ -61,6 +61,7 @@ tempfile.NamedTemporaryFile() # file automagically deleted on close()
 tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
 
 os.stat("filename").st_ino # get inode 
+.st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 
 from distutils import spawn
 cmd_path = spawn.find_executable('cmd') # shutil.which in Python3
@@ -237,6 +238,7 @@ items = d.iteritems() # dicts ( iteritems > items )
 # Extremely fast as long as < one million elems
 
 collections.OrderedDict # remember insertion order
+OrderedDict(sorted(d.iteritems(), key=lambda (k,v): (v,k))) # sort a dict by its values
 
 from itertools import groupby
 {category: list(packages) for category, packages in groupby(pkg_list, get_category)} # dict-comprehension, limited: see SO/18664274
@@ -250,7 +252,7 @@ assert d == dict(**d)
 
 dict(y, **x) # union of dicts, duplicates are resolved in favor of x
 
-class Bunch(dict): # http://code.activestate.com/recipes/52308
+class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
 
@@ -340,7 +342,7 @@ h = hpy()
 h.heap()
 h.iso(...objects...).sp
 # Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
-# And: https://pympler.readthedocs.org/en/latest/related.html
+# And: https://pympler.readthedocs.org/en/latest/related.html - asizeof is the simplest one
 
 
 """""""""""""""""""""""""""""
@@ -387,8 +389,10 @@ greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other
 autobanh # meteor.js in Python
 asynchat, irc
 
-import celery # distributed task queue ; alternative : pyres. Or for cron-like jobs: dagobah/schedule
-import zeromq # other concurrency framework
+celery # distributed task queue ; alternative : pyres. Or for cron-like jobs: dagobah/schedule
+zeromq # other concurrency framework
+
+mrjob, luigi # Hadoop / AWS map-reduce jobs
 
 pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
 dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshare.net/dakerfp/functional-pattern-matching

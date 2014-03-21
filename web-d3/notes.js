@@ -176,5 +176,5 @@ http://qunitjs.com // Testing lib
 // - Profiler : d8 --prof script.js
 
 // Languages that compile to JS:
-CoffeeScript
+CoffeeScript, TypeScript
 Python // RapydScript
