@@ -1,4 +1,5 @@
 #!/usr/bin/python2.7
+from math import factorial
 import string
 from itertools import combinations
 
@@ -68,5 +69,6 @@ def count_intransitive_orderings(candidates_count):
 if __name__ == '__main__':
     for candidates_count in xrange(3,8):
         intransitive_orderings_count, orderings_count = count_intransitive_orderings(candidates_count)
+        assert intransitive_orderings_count == orderings_count - factorial(candidates_count) 
         intransitive_orderings_proportion = float(intransitive_orderings_count) / orderings_count
         print(candidates_count, intransitive_orderings_count, intransitive_orderings_proportion)
