@@ -115,14 +115,15 @@ globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class
 # aka, the most common __class__.__class__ of an object
 # But you can specify your own __metaclass__ !
 
-obj_mock.side_effect = Exception('Foo42')
-
+dir(__builtins__) # special module, and functions can be reassigned !
 @patch("module.open", create=True) # to patch builtins
 @patch("module.CONSTANT", new_value)
 def foo_test(open_mock):
     input_mock = MagicMock(spec=file)
     open_mock.return_value = input_mock
     input_mock.__enter__.return_value.readline.return_value = "ALWAYS SAME LINE"
+
+obj_mock.side_effect = Exception('Foo42')
 
 # Functions attributes
 def foo(n):
@@ -269,15 +270,19 @@ import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueEr
 import doctest # include tests as part of the documentation
 
 # IPython tricks
+cd /a/path
 !cmd # shell command
 %history # dump it
 %pdb # Automatic pdb calling
 %timeit do_something()
+%debug # post_mortem
+%bg # run in the background
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 
 # PDB tricks
 debug foo() # step into a function with pdb
 import pdb; foo(42); pdb.pm() # enter debugger post-mortem
+ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
 
 from pprint import pprint
 
@@ -354,7 +359,7 @@ scipy
     numpy # n-dimensional arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
-    matplotlib < prettyplotlib # 2d plotting
+    matplotlib, prettyplotlib, mpld3 # 2d plotting
 
 networkx # networks & graphs manipulation
 

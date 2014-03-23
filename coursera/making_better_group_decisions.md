@@ -104,8 +104,9 @@ Borda scores:
 - Plurality Vote: each voter select one candidate
 - Borda Count: each voter ranks the candidate on a linear scale starting from 0
 - Plurality with Runoff (France): candidates ranking + runoff between top 2 candidates. Sometimes, no runoff if very high initial %vote
-- Hare Rule: candidate ranking -> delete candidates with fewest top-vote + iterate
 - Coombs Rule: candidate ranking -> delete candidates with most bottom-vote + iterate
+(+If at any time one candidate is ranked first (among non-eliminated candidates) by an absolute majority of the voters, that candidate wins)
+- Hare Rule: candidate ranking -> delete candidates with fewest top-vote + iterate
 
 #voters      7    5    4    3
 -------------------------------
@@ -341,7 +342,7 @@ original result: A wins (2nd column votes are reported to A)
 post-swap result: C wins (3rd column votes are reported to C)
 
 
-No-Show Paradox : Plurality with Runoff (Coombs rule is also sensitive to this paradox)
+No-Show Paradox (aka participation criterion) : Plurality with Runoff (Coombs rule is also sensitive to this paradox)
 
  4  3  1  3
 ------------
@@ -360,7 +361,10 @@ Reverse the point ov view (2 more identical voters), and this is called the Twin
 Theorem (H. Moulin) : if there are 4 or more candidates, then every Condorcet consistent voting method is susceptible to the No-Show paradox.
 
 
+
 ### 2-4: Multiple Districts Paradox (12:46)
+
+Aka consistency / separability / convexity criterion
 
 If a candidate C is the winner in several disjoint electorates, it is possible that, 'ceteris paribus', C will not be elected if the electorates are combined into a single electorate.
 
@@ -382,7 +386,7 @@ A candidtae is a **spoiler** if that candidate has little chance of winning, but
 
 Example: Plurality Rule, Borda Count
 
-Independence of Irrelevant Alternatives: if the voters un two different elec rank 1 and B in exactly the same way, then A and B should be ranked the same way in both elections
+Independence of Irrelevant Alternatives: if the voters in two different elections rank A and B in exactly the same way, then A and B should be ranked the same way in both elections
 
 
 ### 2-6: Failures of Unanimity (9:46)
@@ -489,7 +493,7 @@ When there are only 2 options, can we argue that majority rule is the "best" pro
 Unanimity: if v = (v1, ..., vn) with for all i in N, vi = x then F(v) = x (for x in {1,0,-1})
 Anonymity: F(v1, ..., vn) = F(v_perm(1), ..., v_perm(n))
 Neutrality: F(-v) = -F(v)
-Monotonicity (Positive Responsiveness): if F(v) >= 0 and v <karp< v' then F(v') = 1, where v <karp< means for all i in N vi <= vi' and there is some i with vi < vi'
+Monotonicity (Positive Responsiveness): if F(v) >= 0 and v \<karp< v' then F(v') = 1, where v \<karp< means for all i in N vi <= vi' and there is some i with vi < vi'
 
 May's Theroem (1952): A social decision method F satisfies unanimity, neutrality, anonymity and monotonicity iff F is majority rule.
 
@@ -976,7 +980,7 @@ The rightand part is cut byt the middle one of the three agent knifes:
 
 ### 7-6: The Selfridge-Conway Procedure (8:47)
 
-=> envy-free but not paredo-efficient & not equitable
+=> envy-free but not Pareto-efficient & not equitable
 
 
 
@@ -985,3 +989,11 @@ Takeways
 
 - Adjusted Winner is a useful algotithm for 2 party disputes that produces an equitable allocation
 - Stromquist method is very funny. Could we make a game out of it ?
+
+
+
+Final Quizz
+===========
+
+Other voting system criterias:
+- later-no-harm criterion

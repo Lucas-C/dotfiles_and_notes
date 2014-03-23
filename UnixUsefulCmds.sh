@@ -15,7 +15,7 @@
 !$ # select the last arg
 !!:n # selects the nth argument of the last command
 
-xclip # copy & paste clipboard
+xclip [-selection clipboard] # copy & paste clipboard
 ranger # text-based file manager written in Python with vi key bindings
 
 time read # chrono
@@ -447,6 +447,8 @@ redis-cli ping
 redis-cli -h HOST -p PORT -n DATABASE_NUMBER llen QUEUE_NAME
 redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*
 
+RRDtool (the ancestor) and its followers: RRDCached, Graphite Whisper, OpenTSDB, reconnoiter, chriso/gauged # storage layer for numeric data series over time
+
 
 |°|°|°|°|°|°|°|°
 == NETWORKING
@@ -537,7 +539,7 @@ grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 
 # Non portable tools
-slurm, iptraf, ntop, iftop, nethogs, rddtool # Whisper > RDD
+slurm, iptraf, ntop, iftop, nethogs
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 
 ipcalc < cidr $ip/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
@@ -644,6 +646,7 @@ awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd
 
 sudo su -l # login as user root
 sudo -K # Remove sudo time stamp => no more sudo rights
+fakeroot # runs a command in an environment wherein it appears to have root privileges for file manipulation
 
 lspci -v # list devices
 lshw -C disk # list disks : ata, cdrom, dvdrom

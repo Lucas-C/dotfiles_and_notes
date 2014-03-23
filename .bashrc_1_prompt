@@ -47,9 +47,8 @@ prompt_command()
 
     [ "$TERM" = screen ] && [ -e $BASHRC_DIR/.use_tmux ] && tmux list-windows | awk -F: '{print $1}' > $CURRENT_PWD_DIR/tmux_live_windows
 }
-export PROMPT_COMMAND=prompt_command
 
-cd () {                 # zsh-like, USAGE: cd $old-path-snippet $new-path-subst
+cd () {                 # zsh-like, USAGE: cd $path | cd $old_path_snippet $new_path_subst
     if [ -n "$2" ]; then
         builtin cd "${PWD/$1/$2}"
     elif [ -n "$1" ]; then
@@ -95,6 +94,8 @@ _tmux_restore_windows () {
 }
 
 _tmux_restore_windows || builtin cd "$(cat $CURRENT_PWD_DIR/last_pwd 2>/dev/null)"
+
+export PROMPT_COMMAND=prompt_command
 
 if [ ${TERM:0:5} = xterm ]; then
     PS1='\[\e]0;\u@\h:\W\007\]'
