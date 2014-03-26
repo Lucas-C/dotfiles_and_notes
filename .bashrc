@@ -42,6 +42,8 @@ else
     export BASHRC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
 fi
 
+mkdir -p ~/.vim/undodir
+
 #------
 # Dirs
 #------

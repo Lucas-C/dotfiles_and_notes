@@ -32,6 +32,7 @@ Preffix by *:r* to paste the output.\
 - *:r* __!__*ls*
 - *:r* __!__*pwd*
 - *:r* __!__*wc* __%__ (current file)
+- *:cd* /path
 
 
 It can also be done after visually selecting some text : it is then piped to the cmd and replace the original content.\
@@ -40,8 +41,11 @@ It can also be done after visually selecting some text : it is then piped to the
 
 Formatting
 ==========
-- *:=G* : indent file
+- __\<leader>__cc : comment toggle selection
+- *guu*/*gUU*/*~* : lowercase line / uppercase linei / invert case of selection
 - __\<select\>__+__{tabs count}__*>* : indent
+- *=* : auto (re)indent selection
+- *=G* : auto (re)indent whole file
 
 Substitution
 ============
@@ -52,15 +56,17 @@ Navigation
 - *:*__{line number}__ : goto line
 - */* __regex__ : search pattern
 - *n*/*N* : next/previous
+- *\** : launch search with __regex__ = word under cursor
 
 Insertion
 =========
+- __TAB__ : autocomplete
 - __F2__ : 'set paste' mode
 - *o*/*O* : insert mode on newline after/before current line
 
 Copy-paste
 ==========
-1. *v* : visual selection
+1. *v* : visual selection (or __CTRL__+V for vertical selection)
 2. *y*/*d* : copy (yank)/copy & delete
 3. *p*/*P* : paste after/before
 - *dd* : copy & delete line
@@ -85,10 +91,15 @@ Config
 
 Display
 =======
+- **^M** : those are Windows newline
+- *ga* : display ascii decimal, hex & octal value of character under cursor
 - *:set list* : show special characters
-- **^M** : Windows newline
+- *:Ex* : file explorer (also __\<leader>__nn for NERDTree)
+- *:ls* : list buffers (also __\<leader>__be for bufexplorer)
 
 More tips
 =========
 - *vimtutor*
+- *ggg?G* : rot13 whole file
+- :help!  - :help 42  - :help bar  -  :help holy-grail  -  :Ni! 
 

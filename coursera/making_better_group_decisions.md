@@ -626,10 +626,10 @@ Near-unanimity rule: everybody but one (or all) rank a candidate at the top -> i
 
 ### Advanced Lecture: Lifting a Preference Relation (19:09)
 
-How do you compare F(R) and F(R ) when they are not singletons?
+How do you compare F(R) and F(R') when they are not singletons?
 
 Given a preference ordering _< over a set of objects X, we want to lift this to an ordering _<^ over a subset rho(X) of X.
-Given _<, what reasonable properties can we infer on _<^.
+Given _<, what reasonable properties can we infer on _<^ ?
 
 
 ### 4-6: The Gibbard-Satterthwaite Theorem (8:47)
@@ -924,6 +924,8 @@ A division (S1, ..., Sn) is
 
 ### 7-2: Cut and Choose (6:04)
 
+envy-free, efficient but not necessarily equitable
+
 
 ### 7-3: Equitability and Envy Freeness (15:42)
 
@@ -992,8 +994,20 @@ Takeways
 
 
 
-Final Quizz
-===========
+Final Quiz
+==========
 
-Other voting system criterias:
-- later-no-harm criterion
+Another voting system criterias: later-no-harm criterion
+
+
+
+Final Advanced Lecture Quiz Takeaways
+=====================================
+
+Adjusted Winner can be adapted for unequal entitlements, e.g. 40% to Ann and 60% to Bob
+
+An additional proportional but non-envy free & non equitable cake-cutting method :
+1- Ann divides the cake into two pieces of equal value in her opinion
+2- Bob takes the largest (in his opinion) of the two pieces and Ann takes the remaining piece
+3- Ann and Bob divide their pieces into three equal pieces. So, there are now 6 pieces of cake.
+4- Carol chooses one piece from Ann's three pieces and one piece from Bob's three pieces. Ann keeps her remaining two pieces and Bob keeps his remaining two pieces.
