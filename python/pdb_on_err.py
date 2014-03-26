@@ -6,7 +6,12 @@
 from imp import find_module
 from os import path
 import sys
-import traceback, pdb
+import traceback
+try:
+    from IPython.core.debugger import Pdb
+    pdb = Pdb()
+else:
+    import pdb
 
 def excepthook(type, value, tb):
     # do nothing if we are in interactive mode or we don't have a tty-like device
