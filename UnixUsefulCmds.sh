@@ -212,7 +212,7 @@ r=$(
 ) && exit $r
 
 # Create and set permissions
-install -o echo ${SUDO_USER:-$USER} -m 644 $file
+install -o ${SUDO_USER:-$USER} -m 644 $file
 install -d -m 777 $directory
 
 # Floating point arithmetic

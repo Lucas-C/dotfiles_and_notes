@@ -193,7 +193,12 @@ zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py
 "" Data structures
 """"""""""""""""""
 import bisect # binary search
-import heapq # min-heap
+import heapq # min-heap: .nlargest .nsmallest
+
+collections.deque # double-ended queue, with optional maximum length
+
+collections.Counter([...]).most_common(1)
+unique_id_map = collections.defaultdict(itertools.count().next) # will always return the same unique int when called on an object: unique_id_map['a'] == unique_id_map['a'] != unique_id_map['b']
 
 tuple(obj) # !! PITFALL: fail for None, will parse any sequence like a basestring and won't work on single value
 def to_tuple(t):
@@ -210,6 +215,12 @@ s = frozenset(chain.from_iterable(e.split(',') for e in l))
 
 my_list[::-1] == reversed(my_list)
 mylist.index(elem) # index lookup
+
+group_adjacent = lambda a, k: zip(*(a[i::k] for i in range(k))) # [(1, 2, 3), (4, 5, 6)]
+
+def n_grams(a, n): # sliding window: [(1, 2, 3), (2, 3, 4), (3, 4, 5), (4, 5, 6)]
+    z = [iter(a[i:]) for i in range(n)]
+    return zip(*z)
 
 # Cool standard functions to work on lists
 zip, reduce, all, any, min, max, sum
@@ -284,13 +295,14 @@ debug foo() # step into a function with pdb
 import pdb; foo(42); pdb.pm() # enter debugger post-mortem
 ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
 
-from pprint import pprint
+from pprint import pprint # indent=4
 
 vars(obj)
 dir(obj)
 
 inspect.getmembers(obj)
 inspect.getargspec(foo_func) # get signature
+inspect.getfile(my_module)
 frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
 
 <module>.__file__
@@ -354,6 +366,7 @@ h.iso(...objects...).sp
 "" Libs & tools for SCIENCE !
 """""""""""""""""""""""""""""
 nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
+topia.termextract
 
 scipy
     numpy # n-dimensional arrays
@@ -407,6 +420,17 @@ pyreverse # UML diagrams
 
 http://amoffat.github.io/sh/ # AWESOME for shell scripting
 shlex.split('--f "a b"') # tokenize parameters properly
+
+def function_with_docstring(foo): # sphinx
+    """Do this and that, similar to :func:`a_function_name`
+    Used in module :mod:`amodulename`
+    :param foo: Something
+    :type count: :class:`MyClass`
+    :returns: True if users are happy
+    :rtype: boolean
+    :raises: KeyError
+    """
+    return False
 
 argparse > optparse # or docopt or clize - S&M
 group = parser.add_mutually_exclusive_group()

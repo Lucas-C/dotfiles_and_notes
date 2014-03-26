@@ -89,9 +89,11 @@ set mouse=a
 "Bind <F3> to paste the clipboard
 let os=substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
+    let mapleader = "\\"
     nmap <F3> :r!pbpaste<CR>
     imap <F3> <esc>:r!pbpaste<CR>i
 elseif os == 'Linux'
+    let mapleader = "<"
     nmap <F3> :r!xclip -o<CR>
     imap <F3> <esc>:r!xclip -o<CR>i
 end
@@ -114,40 +116,37 @@ autocmd BufEnter,BufFilePost * call SetTitle()
 set undodir=~/.vim/undodir
 set undofile
 
-let mapeader = "<"
-let g:mapleader = "<"
 
+" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+" vim +PluginInstall +qall
+if isdirectory($HOME."/.vim/bundle/vundle")
+    filetype off                "required
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+    Plugin 'gmarik/vundle'
 
-"""Vundle START
-filetype off                "required
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Plugin 'gmarik/vundle'
+    Plugin 'vim-scripts/LargeFile'
+    let g:LargeFile = 100       "Large files are those with size > 100Mo
+    set lazyredraw              "Don't redraw while executing macros (good performance config)
 
-Plugin 'vim-scripts/LargeFile'
-let g:LargeFile = 100       "Large files are those with size > 100Mo
-set lazyredraw              "Don't redraw while executing macros (good performance config)
+    Bundle 'scrooloose/nerdcommenter'
+    map <leader>cc <plug>NERDCommenterToggle 
+    map <leader>c <plug>NERDCommenterComment
 
-Bundle 'scrooloose/nerdcommenter'
-map <leader>cc <plug>NERDCommenterToggle 
-map <leader>c <plug>NERDCommenterComment
+    Bundle 'jlanzarotta/bufexplorer'
+    Bundle 'scrooloose/nerdtree'
+    map <leader>nn :NERDTreeToggle<cr>
 
-Bundle 'jlanzarotta/bufexplorer'
-Bundle 'scrooloose/nerdtree'
-map <leader>nn :NERDTreeToggle<cr>
+    Bundle 'guns/vim-clojure-static'
+    Bundle 'JuliaLang/julia-vim'
+    Bundle 'plasticboy/vim-markdown'
+    let g:vim_markdown_initial_foldlevel=1
 
-Bundle 'guns/vim-clojure-static'
-Bundle 'JuliaLang/julia-vim'
-Bundle 'plasticboy/vim-markdown'
-let g:vim_markdown_initial_foldlevel=1
-
-"Tab-completion; use <tab>+<space> for real tabs, and <tab><tab> to cancel completion
-Bundle 'ervandew/supertab'
-let g:SuperTabDefaultCompletionType = "context"
-"To force to omni: "<C-X><C-O>"
-set omnifunc=syntaxcomplete#Complete
-
-""" Vundle END
-filetype plugin on
-filetype indent on
+    "Tab-completion; use <tab>+<space> for real tabs, and <tab><tab> to cancel completion
+    Bundle 'ervandew/supertab'
+    let g:SuperTabDefaultCompletionType = "context"
+    "To force to omni: "<C-X><C-O>"
+    set omnifunc=syntaxcomplete#Complete
+endif """ Vundle END
+filetype plugin indent on
 

@@ -88,6 +88,7 @@ Commands
 Config
 ======
 - *:verbose set* __var__*?* : get config value
+- *echo* os : get variable value
 
 Display
 =======
