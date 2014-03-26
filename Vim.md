@@ -60,7 +60,7 @@ Navigation
 
 Insertion
 =========
-- __TAB__ : autocomplete
+- __TAB__ : autocomplete ; use __TAB__+__SPACE__ for real tabs, and __TAB__+__TAB__ to cancel completion
 - __F2__ : 'set paste' mode
 - *o*/*O* : insert mode on newline after/before current line
 

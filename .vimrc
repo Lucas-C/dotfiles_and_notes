@@ -120,6 +120,7 @@ set undodir=~/.vim/undodir
 set undofile
 
 
+"""PLUGINS
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 " vim +PluginInstall +qall
 if isdirectory($HOME."/.vim/bundle/vundle")
@@ -145,11 +146,10 @@ if isdirectory($HOME."/.vim/bundle/vundle")
     Bundle 'plasticboy/vim-markdown'
     let g:vim_markdown_initial_foldlevel=1
 
-    "Tab-completion; use <tab>+<space> for real tabs, and <tab><tab> to cancel completion
     Bundle 'ervandew/supertab'
     let g:SuperTabDefaultCompletionType = "context"
     "To force to omni: "<C-X><C-O>"
     set omnifunc=syntaxcomplete#Complete
-endif """ Vundle END
+endif " Vundle END
 filetype plugin indent on
 

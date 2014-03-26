@@ -7,6 +7,7 @@
     ui = true
 
 [alias]
+    new-workdir = !~/.git-new-workdir.sh
 
 # Some obvious short-form aliases
     st = status
