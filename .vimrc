@@ -86,16 +86,19 @@ map!  
 
 set mouse=a
 
+let mapleader = "\\"
+
 "Bind <F3> to paste the clipboard
 let os=substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
-    let mapleader = "\\"
     nmap <F3> :r!pbpaste<CR>
     imap <F3> <esc>:r!pbpaste<CR>i
 elseif os == 'Linux'
-    let mapleader = "<"
     nmap <F3> :r!xclip -o<CR>
     imap <F3> <esc>:r!xclip -o<CR>i
+    if system("setxkbmap -print") =~ "fr(UnicodeExpert)"
+        let mapleader = "<"
+    endif
 end
 
 "When editing a file, make screen display the name of the file you are editing
