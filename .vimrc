@@ -116,9 +116,11 @@ autocmd BufEnter,BufFilePost * call SetTitle()
 
 "set spell                  "Enable vim 7.0+ spell checker
 
-set undodir=~/.vim/undodir
-set undofile
-
+try
+    set undodir=~/.vim/undodir
+    set undofile
+catch
+endtry
 
 """PLUGINS
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
