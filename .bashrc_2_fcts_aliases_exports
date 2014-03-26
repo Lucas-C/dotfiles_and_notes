@@ -297,8 +297,10 @@ fopen () { firefox file://$(pwd)/$1 ; }
 fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
 
 findTxt () {            # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
-    find -L "${@:-.}" -type f -exec file {} \; | grep ': [^.]\+text' | sed 's/^\(.*\): .*$/\1/'
+    find -L "${@:-.}" -type f -exec file {} \; | grep text | sed 's/^\(.*\): .*$/\1/'
 }
+# Tests:
+# - VALID: file.py: a adhoc-python2.7 script text executable
 
 notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
     for f in $(findTxt "$@"); do
