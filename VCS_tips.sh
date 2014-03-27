@@ -24,6 +24,9 @@ svn diff | diffstat # sum-up a diff
 #*****#
 # http://blog.jacius.info/2008/6/22/git-tip-fix-a-mistake-in-a-previous-commit/
 
+curl 'https://raw.githubusercontent.com/eacousineau/util/master/git-new-workdir.sh' > .git-new-workdir.sh
+curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > .bashrc_git_completion
+
 # use HTTPS protocol instead of git one (e.g. to bypass a firefall)
 git config --global url."https://".insteadOf git://
 
