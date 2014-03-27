@@ -42,7 +42,7 @@ It can also be done after visually selecting some text : it is then piped to the
 Formatting
 ==========
 - __\<leader>__cc : comment toggle selection
-- *guu*/*gUU*/*~* : lowercase line / uppercase linei / invert case of selection
+- *guu*/*gUU*/*~* : lowercase line / uppercase line / invert case of selection
 - __\<select\>__+__{tabs count}__*>* : indent
 - *=* : auto (re)indent selection
 - *=G* : auto (re)indent whole file
@@ -93,14 +93,15 @@ Config
 Display
 =======
 - **^M** : those are Windows newline
-- *ga* : display ascii decimal, hex & octal value of character under cursor
 - *:set list* : show special characters
+- *ga* : display ascii decimal, hex & octal value of character under cursor
 - *:Ex* : file explorer (also __\<leader>__nn for NERDTree)
 - *:ls* : list buffers (also __\<leader>__be for bufexplorer)
 
 More tips
 =========
 - *vimtutor*
+- *:set spell* : enable vim 7.0+ spell checker
 - *ggg?G* : rot13 whole file
 - :help!  - :help 42  - :help bar  -  :help holy-grail  -  :Ni! 
 

@@ -1,18 +1,13 @@
 """UI
-set number
-syntax on                 "Turn on syntax highlighting
 colorscheme default " darkblue
-set guifont=Courier\ 10\ Pitch\ 10
-set guioptions-=m         " Remove menu from the gui
-set guioptions-=T         " Remove toolbar
+set number
+syntax on                 " syntax highlighting
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " prefix tabs with a > and trails with ~
 
 "Creates a group ExtraWhitespace
 hi ExtraWhitespace ctermbg=red guibg=red
 "Highlight trailing whitespaces
 autocmd Syntax * syn match ExtraWhitespace /\s\+\%#\@<!$/
-
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " prefix tabs with a > and trails with ~
-"to show whitespaces: :set list
 
 """Status line
 set laststatus=2          " always have status bar
@@ -78,13 +73,13 @@ else
     set directory=/tmp
 end
 
-set pastetoggle=<F2>         "http://vim.wikia.com/wiki/Toggle_auto-indenting_for_code_paste
-
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 map!  
 
 set mouse=a
+
+set pastetoggle=<F2>         "http://vim.wikia.com/wiki/Toggle_auto-indenting_for_code_paste
 
 let mapleader = "\\"
 
@@ -114,13 +109,12 @@ endfunction
 " Run it every time we change buffers
 autocmd BufEnter,BufFilePost * call SetTitle()
 
-"set spell                  "Enable vim 7.0+ spell checker
-
 try
     set undodir=~/.vim/undodir
     set undofile
 catch
 endtry
+
 
 """PLUGINS
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
