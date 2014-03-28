@@ -83,7 +83,7 @@ Commands
 - *:*__[UP]__ : commands history
 - *:u* : undo
 - __[CTRL]+[R]__ : redo
-- *:.* : repeat
+- *:.* : repeat last change - *@:* : repeat last command-line change
 
 Config
 ======
@@ -100,8 +100,10 @@ Display
 
 More tips
 =========
-- *vimtutor*
+- git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+- vim +PluginInstall +qall
 - *:set spell* : enable vim 7.0+ spell checker
+- *vimtutor*
 - *ggg?G* : rot13 whole file
 - :help!  - :help 42  - :help bar  -  :help holy-grail  -  :Ni! 
 

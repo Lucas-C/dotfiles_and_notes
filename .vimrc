@@ -117,8 +117,6 @@ endtry
 
 
 """PLUGINS
-" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-" vim +PluginInstall +qall
 if isdirectory($HOME."/.vim/bundle/vundle")
     filetype off                "required
     set rtp+=~/.vim/bundle/vundle/
@@ -130,8 +128,8 @@ if isdirectory($HOME."/.vim/bundle/vundle")
     set lazyredraw              "Don't redraw while executing macros (good performance config)
 
     Bundle 'scrooloose/nerdcommenter'
-    map <leader>cc <plug>NERDCommenterToggle 
-    map <leader>c <plug>NERDCommenterComment
+    map <leader>cc <plug>NERDCommenterAlignLeft
+    map <leader>cb <plug>NERDCommenterComment
 
     Bundle 'jlanzarotta/bufexplorer'
     Bundle 'scrooloose/nerdtree'
@@ -141,6 +139,13 @@ if isdirectory($HOME."/.vim/bundle/vundle")
     Bundle 'JuliaLang/julia-vim'
     Bundle 'plasticboy/vim-markdown'
     let g:vim_markdown_initial_foldlevel=1
+    Bundle 'scrooloose/syntastic'
+
+    " require vim compiled with +python
+    "Bundle 'klen/python-mode'
+
+    " annotations for git changes
+    Bundle 'airblade/vim-gitgutter'
 
     Bundle 'ervandew/supertab'
     let g:SuperTabDefaultCompletionType = "context"

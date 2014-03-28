@@ -197,7 +197,7 @@ import heapq # min-heap: .nlargest .nsmallest
 
 collections.deque # double-ended queue, with optional maximum length
 
-collections.Counter([...]).most_common(1)
+collections.Counter([...]).most_common(1) # dict subclass for integer values
 unique_id_map = collections.defaultdict(itertools.count().next) # will always return the same unique int when called on an object: unique_id_map['a'] == unique_id_map['a'] != unique_id_map['b']
 
 tuple(obj) # !! PITFALL: fail for None, will parse any sequence like a basestring and won't work on single value
@@ -270,13 +270,22 @@ class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/r
 
 json.dumps(d, sort_keys=True, indent=4) # pretty formatting - Also: -mjson.tool
 
+# Tricky gotcha
+d = {'a':42}
+print type(d.keys()[0]) # str
+class A(str): pass
+a = A('a')
+d[a] = 42
+print d # {'a':42}
+print type(d.keys()[0]) # str
+
 
 """""""""""""""""
 "" Test & Debug
 """""""""""""""""
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
 nosetest # -vv --collect-only # for debug
-self.assertRaisesRegexp
+self.assertRaisesRegexp / assertDictContainsSubset
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 import doctest # include tests as part of the documentation
 
@@ -293,6 +302,7 @@ ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 # PDB tricks
 debug foo() # step into a function with pdb
 import pdb; foo(42); pdb.pm() # enter debugger post-mortem
+from IPython.core.debugger import Pdb; Pdb().set_trace()
 ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
 
 from pprint import pprint # indent=4

@@ -130,7 +130,7 @@ iconv_help () {
     echo tail --bytes=+4 UTF8WithBom.txt \> UTF8WithoutBom.txt
 }
 alias utf8=iconv_help
-nocrlf () { perl -lne 's/\r//g; print' "$@"; } # also: dos2unix
+nocrlf () { perl -pe 's/\r//g' "$@"; } # also: dos2unix
 alias json_fmt='python -mjson.tool' # don't work well with non ascii
 
 alias funiq="awk '"'{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'"'" # faster than 'sort | uniq -c' BUT output is not sorted. Also, it's very easy to swap the output columns
@@ -282,11 +282,11 @@ alias df='df -hT'
 unfuncalias du
 alias du='du -sh'
 unfuncalias diff
-alias diff='echo "ALT: vimdiff (add color) / diff3 / opendiff (OSX) / diff --side-by-side -r --exclude=.git" && diff -b'
+alias diff='echo "ALT: vimdiff (add color) / diff3 / opendiff (OSX) / diff --side-by-side -r --exclude=.git / sdiff -B -b -s # for %stats" && diff -b'
 unfuncalias pstree
 alias pstree='pstree -p'
 
-alias psf='ps -eo user,group,pid,ppid,tty,rss,start,etime,nice,stat,%cpu,psr,args --sort=start_time 2>/dev/null'
+alias psf='ps -eo user,pid,%cpu,%mem,ppid,tty,stat,rss,etime,start,nice,psr,args --sort=start_time 2>/dev/null'
 alias pg='psf | g'
 
 nav () { nautilus "${1:-$PWD}/"; }
@@ -311,6 +311,18 @@ notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spac
 
 ext-ip () { curl http://ipecho.net/plain; echo; }
 int-ips () { /sbin/ifconfig $1 | grep "inet[^0-9]" | sed 's/.*[^0-9]\([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\)[^0-9].*/\1/' | grep -v '127\.0\.0\.1'; }
+
+function memmost(){     # args: [proc_count=10] - Courtesy of fsquillace@
+    local ps_out=$(psf)
+    echo "$ps_out" | head -n 1
+    echo "$ps_out" | sort -nr -k 4 | head -n ${1:-10}
+}
+
+function cpumost(){     # args: [proc_count=10] - Courtesy of fsquillace@
+    local ps_out=$(psf)
+    echo "$ps_out" | head -n 1
+    echo "$ps_out" | sort -nr -k 3 | head -n ${1:-10}
+}
 
 mtr_proto () {
     local host=$1

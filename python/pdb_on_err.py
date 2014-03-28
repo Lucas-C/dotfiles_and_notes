@@ -2,16 +2,12 @@
 # USAGE:
 #   python -m pdb_on_err script.py arg1 arg2
 #   python -m pdb_on_err -c 'import sys; print sys.argv[0]' 0
+#   import pdb_on_err # in a script.py
 # FROM: http://stackoverflow.com/questions/242485/starting-python-debugger-automatically-on-error
 from imp import find_module
 from os import path
 import sys
-import traceback
-try:
-    from IPython.core.debugger import Pdb
-    pdb = Pdb()
-else:
-    import pdb
+import pdb, traceback
 
 def excepthook(type, value, tb):
     # do nothing if we are in interactive mode or we don't have a tty-like device

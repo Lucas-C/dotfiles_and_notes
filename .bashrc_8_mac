@@ -7,7 +7,7 @@ PATH=/usr/X11/bin:$PATH
 PATH=/opt/local/bin:/opt/local/sbin:$PATH # Macports
 
 alias l='ls -BFG'
-alias psf='ps -eo user,group,pid,ppid,tty,rss,start,etime,nice,stat,%cpu,psr,args 2>/dev/null'
+alias psf='ps -eo user,pid,%cpu,%mem,ppid,tty,stat,rss,etime,start,nice,psr,args 2>/dev/null'
 
 alias f='open -a /Applications/Firefox.app'
 alias pdf='open -a /Applications/Preview.app'
