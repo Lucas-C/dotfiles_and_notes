@@ -40,7 +40,7 @@ r"\b\w+\b"  # a word between two word separators
 m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DEBUG -> print parse tree
 m.group('word')
 # You can also call a function every time something matches a regular expression
-re.sub('a|b|c', rep, string) # def rep(matchobj): ...
+re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions
 
 with open('filea', 'rb+', buffering=0) as inf, io.open('fileb', 'wU', encoding='utf-8') as outf: pass # touch 'fileb'
 
@@ -443,11 +443,13 @@ def function_with_docstring(foo): # sphinx
     return False
 
 argparse > optparse # or docopt or clize - S&M
-group = parser.add_mutually_exclusive_group()
+group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument(... type=argparse.FileType('r'))
 
 pyreadline
 tqdm # KISS progress bar
+
+@retry # https://github.com/rholder/retrying
 
 from getpass import getpass # get password without echoing it
 import uuid # generate unique ID’s

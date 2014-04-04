@@ -323,6 +323,7 @@ grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/
 grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
 LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
 sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
+perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
 
 pdftotext $file.pdf - | grep # from xpdf-utils
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: http://compress.smallpdf.com
@@ -418,6 +419,7 @@ rsync -v --compress --exclude=".*" $src $dst
 
 tar -J... # instead of -z, .xz compression format support
 pigz # paralell gzip
+yum install p7zip # for .7z files
 
 sha{1,224,256,384,512}sum
 md5sum
@@ -529,6 +531,7 @@ iptables -n -L -v
 
 snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName.0
 # SNMP port : 161
+# LAG == Link Aggregation
 
 # Dump all tcp transmission to a specific IP :
 sudo tcpdump -i $interface host $IP [ip proto icmp|udp|tcp] -A -s 0 # last flag remove the limit on the captured packet size | Use -X for hex-dump | -n to disable dns resolution

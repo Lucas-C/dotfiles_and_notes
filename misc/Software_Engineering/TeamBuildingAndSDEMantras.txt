@@ -79,3 +79,4 @@ Career management:
 
 "Programmers always confuse Halloween with Christmas because Oct 31 == Dec 25"
 
+"La Cathédrale et le Bazar" - Essai on Open Source & Proprietary Software

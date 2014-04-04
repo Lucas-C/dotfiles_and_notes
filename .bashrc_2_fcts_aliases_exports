@@ -282,7 +282,7 @@ alias df='df -hT'
 unfuncalias du
 alias du='du -sh'
 unfuncalias diff
-alias diff='echo "ALT: vimdiff (add color) / diff3 / opendiff (OSX) / diff --side-by-side -r --exclude=.git / sdiff -B -b -s # for %stats" && diff -b'
+alias diff='echo "ALT: vimdiff (add color + support side-by-side naturally) / diff3 / opendiff (OSX) / diff --side-by-side -r --exclude=.git / sdiff -B -b -s # for %stats" && diff -b'
 unfuncalias pstree
 alias pstree='pstree -p'
 

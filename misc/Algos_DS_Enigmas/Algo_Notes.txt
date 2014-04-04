@@ -6,3 +6,6 @@ Trie / directed acyclic graph can be + efficient than binary search trees / hash
 Test set membership:
 - Bloom filters
 - Use prime numbers to represent set elements : http://www.stdlib.net/~colmmacc/2010/09/02/prime-and-proper/
+
+Hashing:
+- 'fuzzy' hashing that gaves same result for inputs that have homologies : http://www.forensicswiki.org/wiki/Context_Triggered_Piecewise_Hashing
