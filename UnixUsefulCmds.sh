@@ -283,7 +283,7 @@ hash # frequently used commands cache
 
 # Syslog (port: 514)
 logger -is -t SCRIPT_NAME -p user.warn "Message"
-echo "<15>My logline" | nc -u -w 1 127.0.0.1 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13 <-> user.notice
+echo "<15>My logline" | nc -u -w 1 $HOSTNAME 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13 <-> user.notice
 
 mv $file ${file%.*}.bak # Change extension
 mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
@@ -655,6 +655,7 @@ lspci -v # list devices
 lshw -C disk # list disks : ata, cdrom, dvdrom
 blkid # list UUIDs
 dmidecode
+/sbin/mdadm --examine --scan --verbose # need root - RAID config
 
 # Find what package a command belong to:
 apt-file search /path/to/anyfile

@@ -143,6 +143,7 @@ if isdirectory($HOME."/.vim/bundle/vundle")
 
     " require vim compiled with +python
     "Bundle 'klen/python-mode'
+    "Bundle 'emgram769/vim-multiuser'
 
     " annotations for git changes
     Bundle 'airblade/vim-gitgutter'

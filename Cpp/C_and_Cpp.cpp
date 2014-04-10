@@ -104,6 +104,8 @@ string rev(const string& s) { string t = s; reverse(t.begin(), t.end()); retur
 
 // POGO: Profile Guided Optimizations
 
+// Logging: g2log > glog > log4c (!! memory eater)
+
 // MinGW: http://lynix.digitalpulsesoftware.com/2010/06/gcc-4-4-0-sous-windows-avec-mingw/
 
 cl /analyze // Visual Studio code analysis

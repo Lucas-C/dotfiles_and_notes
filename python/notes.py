@@ -60,6 +60,7 @@ tempfile.mkdtemp()
 tempfile.NamedTemporaryFile() # file automagically deleted on close()
 tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
 
+glob, fnmatch # manipulate unix-like file patterns
 os.stat("filename").st_ino # get inode 
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 
@@ -87,9 +88,6 @@ foo();foo()
 
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
     foo = kwargs.pop('foo')
-
-float("inf") # infinite !
-decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 
 datetime.utcnow() # better than time.time()
 import pytz # pytz.utc, pytz.all_timezones
@@ -215,6 +213,7 @@ s = frozenset(chain.from_iterable(e.split(',') for e in l))
 
 my_list[::-1] == reversed(my_list)
 mylist.index(elem) # index lookup
+array # > list for large data sets, but imply all elements have same basic type (char, int...)
 
 group_adjacent = lambda a, k: zip(*(a[i::k] for i in range(k))) # [(1, 2, 3), (4, 5, 6)]
 
@@ -283,9 +282,11 @@ print type(d.keys()[0]) # str
 """""""""""""""""
 "" Test & Debug
 """""""""""""""""
+faulthandler.enable() # dump stacktrace on SIGSEGV, SIGABRT... signals ; python2 -X faulthandler script.py
+
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
 nosetest # -vv --collect-only # for debug
-self.assertRaisesRegexp / assertDictContainsSubset
+self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 import doctest # include tests as part of the documentation
 
@@ -304,6 +305,7 @@ debug foo() # step into a function with pdb
 import pdb; foo(42); pdb.pm() # enter debugger post-mortem
 from IPython.core.debugger import Pdb; Pdb().set_trace()
 ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
+google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
 
 from pprint import pprint # indent=4
 
@@ -370,6 +372,7 @@ h.heap()
 h.iso(...objects...).sp
 # Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
 # And: https://pympler.readthedocs.org/en/latest/related.html - asizeof is the simplest one
+import tracemalloc # Python3
 
 
 """""""""""""""""""""""""""""
@@ -377,6 +380,12 @@ h.iso(...objects...).sp
 """""""""""""""""""""""""""""
 nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
 topia.termextract
+difflib # compare sequences
+
+decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
+float("inf") # infinite !
+fractions
+statistics # Python 3
 
 scipy
     numpy # n-dimensional arrays
@@ -389,6 +398,8 @@ networkx # networks & graphs manipulation
 joblib # memoize computations by keeping cache files on disk
 
 rpy2 # acces to R
+
+from cryptography.fernet import Fernet # symmetric encryption
 
 
 """""""""""""""""""""
@@ -417,7 +428,8 @@ greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other
 autobanh # meteor.js in Python
 asynchat, irc
 
-celery # distributed task queue ; alternative : pyres. Or for cron-like jobs: dagobah/schedule
+celery # distributed task queue ; alt: pyres
+sched # event scheduler ; alt: dagobah/schedule
 zeromq # other concurrency framework
 
 mrjob, luigi # Hadoop / AWS map-reduce jobs
@@ -447,6 +459,7 @@ group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument(... type=argparse.FileType('r'))
 
 pyreadline
+colorama # cross-platform colored terminal text
 tqdm # KISS progress bar
 
 @retry # https://github.com/rholder/retrying
@@ -459,13 +472,18 @@ SQLAlchemy
 sqlite3 # std DB, persistent in a file || can be created in RAM
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
 
-json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
+ConfigParser # std configuration files format
+csv, json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
 # + PyCloud make it possible to pickle functions dependencies
-zlib.compress(string)
-hashlib.md5('string').hexdigest()
+bz2, gzip, tarfile, zipfile, zlib.compress(string)
+hmac, hashlib.md5('string').hexdigest()
 
 templite, jinja2 # HTML templating system
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
+from lxml import etree
+tree = etree.parse(some_file_like_object)
+etree.tostring(tree)
+root = tree.getroot()
 BeautifulSoup('html string').prettify() # newlines+tabs formatted dump
 
 pywebsocket
@@ -489,8 +507,11 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
-socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
+ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 wifi # wrapper around iwlist and /etc/network/interfaces
+tn = telnetlib.Telnet('example.com')
+tn.read_until("login: ")
+tn.write(user + "\n")
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-python
 
@@ -498,6 +519,13 @@ SimpleCV # powerful computer vision tools : find image edge, keypoints, morpholo
 pillow > pil # Python Image Library
 pyglet # windowing and multimedia lib
 AAlib # ASCII rendering
+
+ctypes.cdll.LoadLibrary("libc.so.6")
+libc = ctypes.CDLL("libc.so.6")
+libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
+
+struct # pack/unpack binary formats
+binascii.hexkify # display binary has hexadecimal
 
 
 """"""""
@@ -555,11 +583,6 @@ super() # new simpler syntax !
 
 obj.__qualname__
 
-python -X faulthandler script.py # stacktrace
-import tracemalloc 
-
 from enum import Enum, IntEnum
 
 from functools import singledispatch
-
-import statistics

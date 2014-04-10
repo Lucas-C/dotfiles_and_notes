@@ -81,6 +81,7 @@ scp () { pre_ssh; $(nofuncalias scp) "$@"; }
 unfuncalias rsync
 rsync () { pre_ssh; $(nofuncalias rsync) "$@"; }
 
+# TODO: re-order .visited
 visit () {              # ssh to a host after calling 'exportSshFiles'. List visited hosts in ~/.visited
     local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     if exportSshFiles $dst; then

@@ -1,5 +1,6 @@
 """
 A good solution should be robust to:
+  - nesting
   - executing functions that can be blocking when the timeout ends
   - signal killing (KILL, TERM...)
   - non-graceful death (e.g. via os._exit or if you cause a SegmentationFault or BusError)
@@ -8,6 +9,7 @@ A good solution should be robust to:
 The following is NONE of the above
 ALSO: http://eli.thegreenplace.net/2011/08/22/how-not-to-set-a-timeout-on-a-computation-in-python/
 Another similar solution: http://www.anattatechnologies.com/q/2012/05/timeout-command-in-python/
+And another elegant one: http://stackoverflow.com/a/8465202/636849
 """
 from functools import wraps
 from os import getpid, kill
