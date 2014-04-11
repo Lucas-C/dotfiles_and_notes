@@ -1,5 +1,14 @@
 # INSPIRATION: jeremy-bash@batray.net ; http://www.dreaming.org/~giles/bashprompt/prompts/dan.html
 
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
 export T_normal=0
 export T_bold=1
 export T_underline=4

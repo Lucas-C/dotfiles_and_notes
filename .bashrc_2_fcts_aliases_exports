@@ -5,10 +5,17 @@ export DISPLAY=:0 # for xclip
 
 export LANG=C # makes many string-parsing tools faster: grep, sed...
 
+export HISTCONTROL=ignoreboth # ignoredups and ignorespace
+shopt -s histappend # append to the history file, don't overwrite it
+HISTSIZE=10000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
+export HISTTIMEFORMAT="%F %T "
+
 export EDITOR=vim
+mkdir -p ~/.vim/undodir
 vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${code:-~}/Vim.md | pandoc -s -f markdown -t man | man -l -; }
 
-export HISTTIMEFORMAT="%F %T " # for 'history' formatting
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 export PATH=/bin
 PATH=/sbin:$PATH

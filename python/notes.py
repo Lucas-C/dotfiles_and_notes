@@ -20,13 +20,7 @@ __slots__ = ("attr1_name")
 __repr__ # unambigous, as possible 'eval'uable
 "MyClass(this=%r,that=%r)" % (self.this,self.that)
 
-__call__
-# if a = A(), this is the method called when doing a()
-
 hasattr(obj, '__call__') # isCallable ; work for functions too
-
-def foo(self): return 42
-obj.method = types.MethodType( foo, obj ) # binding functions into methods
 
 a, b = b, a # swapping
 
@@ -68,17 +62,6 @@ from distutils import spawn
 cmd_path = spawn.find_executable('cmd') # shutil.which in Python3
 subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=STDOUT)
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
-def _make_file_read_nonblocking(f):
-    fd = f.fileno()
-    flags = fcntl.fcntl(fd, fcntl.F_GETFL)
-    fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
-
-# Zip archive
-foo = zipfile.ZipFile('foo.zip', mode='w')
-for root, dirs, files in os.walk('/path/to/foo'):
-    for name in files:
-        file_to_zip = os.path.join(root, name)
-        foo.write(file_to_zip, compress_type=zipfile.ZIP_DEFLATED)
 
 # DO NOT use other default parameter values than None, + initialization is static
 def foo(x = []):
@@ -121,13 +104,11 @@ def foo_test(open_mock):
 
 obj_mock.side_effect = Exception('Foo42')
 
-# Functions attributes
-def foo(n):
-    def inner(i):
-        inner.n += i
-        return inner.n
-    inner.n = n
-    return inner
+def incr(i):
+    incr.counter += i
+    return incr.counter
+inner.counter = 0 # Function attribute
+obj.method = types.MethodType(function, obj) # binding functions into methods
 
 # Decorator with args (deep dive on them on http://blog.dscpl.com.au)
 @functools.wraps
@@ -421,6 +402,10 @@ from multiprocessing.dummy import Pool as ThreadPool
 pool = ThreadPool(4); results = pool.map(foo, args); pool.close(); pool.join()
 
 select # efficient I/O
+def _make_file_read_nonblocking(f):
+    fd = f.fileno()
+    flags = fcntl.fcntl(fd, fcntl.F_GETFL)
+    fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
 greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
@@ -480,8 +465,12 @@ ConfigParser # std configuration files format
 csv, json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
 # + PyCloud make it possible to pickle functions dependencies
 
-bz2, gzip, tarfile, zipfile, zlib.compress(string)
 hmac, hashlib.md5('string').hexdigest()
+bz2, gzip, tarfile, zlib.compress(string)
+archive = zipfile.ZipFile('foo.zip', mode='w')
+for root, dirs, files in os.walk('/path/to/foo'):
+    for name in files:
+        archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
 
 templite, jinja2 # HTML templating system
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
