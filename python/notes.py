@@ -54,14 +54,14 @@ def foobar():
     # __exit__ code
 
 StringIO # fake file
-# Temp files
+
 tempfile.gettempdir()
 tempfile.mkdtemp()
 tempfile.NamedTemporaryFile() # file automagically deleted on close()
 tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
 
 glob, fnmatch # manipulate unix-like file patterns
-os.stat("filename").st_ino # get inode 
+os.stat("filename").st_ino # get inode
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 
 from distutils import spawn
@@ -97,8 +97,6 @@ def _tzinfos_pytz_pst_func(tzname, tzoffset):
     if tzoffset:
         tzdata += timedelta(seconds=tzoffset)
     return tzdata
-
-os.geteuid() == 0 # => run as root
 
 globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class creation
 # !!WARNING!! 'type()' uses the current global __name__ as the __module__, unless it calls a metaclass constructor
@@ -165,7 +163,7 @@ try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err:
     # see chain_errors module
     logging.exception("Additional infos") # Exception will be automagically logged
-	import traceback; traceback.print_exc() # or .extract_stack()
+    import traceback; traceback.print_exc() # or .extract_stack()
 else: pass
 finally: pass
 
@@ -178,13 +176,13 @@ cmdclass['build'] = custom_build
 
 # Environment variables
 PYTHONSTARTUP: un module à exécuter au démarrage de Python
-PYTHONPATH : une liste de dossiers séparés par ‘:’ qui va être ajouté à sys.path # use *.pth files instead for 3rd party modules
+PYTHONPATH : une liste de dossiers séparés par ‘:’ qui va être ajouté à sys.path # use *.pth files instead for 3rd party modules - See also: import site
 PYTHONHOME : choisir un autre dossier dans lequel chercher l’interpréteur Python.
 PYTHONCASEOK : ingorer la casse dans le nom des modules sous Windows
 PYTHONIOENCODING : forcer un encoding par défaut pour stdin/stdout/stderr
 PYTHONHASHSEED : changer la seed hash() (renforce la sécurité de la VM)
 
-zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py
+zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil
 
 
 """"""""""""""""""
@@ -238,13 +236,13 @@ hasattr(d, '__getitem__') and hasattr(d, 'keys')
 
 for index, item in enumerate(iterable): ...
 
-# Loop & modify transparently standard DS 
+# Loop & modify transparently standard DS
 items = zip(xrange(0, len(ds)), ds) # lists, tuples & namedtuples
 items = d.iteritems() # dicts ( iteritems > items )
 
 
 """""""""""""
-"" dict & set 
+"" dict & set
 """""""""""""
 # Extremely fast as long as < one million elems
 
@@ -347,7 +345,7 @@ $ rconsole
 
 code = "my code bla bla"
 compiled = compile(code)
-exec compiled 
+exec compiled
 
 from dis import dis; dis(myfunc) # get dissassembly
 uncompyle2 prog.pyc # bytecode -> python code
@@ -363,7 +361,7 @@ https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like 
 http://mg.pov.lt/objgraph # explore Python object graphs
 
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
-timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000) 
+timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000)
 
 # Get memory usage
 from guppy import hpy
@@ -393,8 +391,10 @@ scipy
     pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
     matplotlib, prettyplotlib, mpld3 # 2d plotting
 
+SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
 networkx # networks & graphs manipulation
 
+mmap
 joblib # memoize computations by keeping cache files on disk
 
 rpy2 # acces to R
@@ -420,13 +420,15 @@ threading.Event # for threads communication, including stopping: Thread.run(self
 from multiprocessing.dummy import Pool as ThreadPool
 pool = ThreadPool(4); results = pool.map(foo, args); pool.close(); pool.join()
 
-numbapro # for CUDA
+select # efficient I/O
 greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
+numbapro # for CUDA
 
 autobanh # meteor.js in Python
 asynchat, irc
+mailbox, imaplib, smtpd, smptplib
 
 celery # distributed task queue ; alt: pyres
 sched # event scheduler ; alt: dagobah/schedule
@@ -458,23 +460,26 @@ argparse > optparse # or docopt or clize - S&M
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument(... type=argparse.FileType('r'))
 
-pyreadline
+from getpass import getpass # get password without echoing it
+pyreadline, readline, rlcompleter
 colorama # cross-platform colored terminal text
 tqdm # KISS progress bar
 
 @retry # https://github.com/rholder/retrying
 
-from getpass import getpass # get password without echoing it
 import uuid # generate unique ID’s
 
-peewee # DB - simple Object Relational Mapping, S&M
-SQLAlchemy
+resource # limit a process resources: SPU time, heap size, stack size...
+
+peewee, SQLAlchemy # ORM DB
+anydbm: dbhash else gdbm else dbm else dumbdbm
 sqlite3 # std DB, persistent in a file || can be created in RAM
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
 
 ConfigParser # std configuration files format
 csv, json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
 # + PyCloud make it possible to pickle functions dependencies
+
 bz2, gzip, tarfile, zipfile, zlib.compress(string)
 hmac, hashlib.md5('string').hexdigest()
 
@@ -486,15 +491,12 @@ etree.tostring(tree)
 root = tree.getroot()
 BeautifulSoup('html string').prettify() # newlines+tabs formatted dump
 
-pywebsocket
-paramiko # remote SSH/SFTP connexion
-boom # like Siege or Funkload : web-app stress testing
-
+urlparse
 requests # replacement for urllib2. Lib to mock it: responses - Also: aiohttp for asyncio-based equivalent
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 
-bottle, pyramid, flask # Frameworks web
+bottle, pyramid, flask # Web frameworks
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
 import re, SimpleHTTPServer, SocketServer
@@ -506,6 +508,10 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 
+pywebsocket
+paramiko # remote SSH/SFTP connexion
+boom # like Siege or Funkload : web-app stress testing
+
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 wifi # wrapper around iwlist and /etc/network/interfaces
@@ -515,10 +521,12 @@ tn.write(user + "\n")
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-python
 
-SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
-pillow > pil # Python Image Library
+EasyDialogs, optparse_gui, EasyGui
 pyglet # windowing and multimedia lib
+pillow > pil # Python Image Library
 AAlib # ASCII rendering
+
+platform # python version, OS / machine / proc info...
 
 ctypes.cdll.LoadLibrary("libc.so.6")
 libc = ctypes.CDLL("libc.so.6")
