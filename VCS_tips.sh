@@ -27,39 +27,31 @@ svn diff | diffstat # sum-up a diff
 curl 'https://raw.githubusercontent.com/eacousineau/util/master/git-new-workdir.sh' > .git-new-workdir.sh
 curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > .bashrc_git_completion
 
-# use HTTPS protocol instead of git one (e.g. to bypass a firefall)
+# use HTTPS protocol instead of git one (e.g. to bypass a firefall):
 git config --global url."https://".insteadOf git://
 
-# Git 'uncommit', as 'don't-change-any-files-but-cancel-last-commit'
-git reset HEAD^
+git reset HEAD^ # Git 'uncommit', as 'don't-change-any-files-but-cancel-last-commit'
 
-# Rollback last pushed commit
-git revert HEAD..HEAD^^
+git show HEAD^:$file > $file.old # checkout an old version of a file under a different name
 
-# Git show changes currently 'added' (ready to be commited)
-git diff --cached HEAD
-# Git diff with same format as 'git status'
-git diff --stat
+git revert HEAD..HEAD^^ # Rollback last pushed commit
 
-# Stash with a name, then either pop or apply + drop
-git stash save "stash-name"
-# Checking all stashes have been commited
+git diff --cached HEAD # Git show changes currently 'added' (ready to be commited)
+git diff --stat # Git diff with same format as 'git status'
+
+git stash save "stash-name" # Stash with a name, then either pop or apply + drop
+# Checking that all stashes have been commited:
 git stash list | awk -F' ' '{for (i = 6; i <= NF; i++) printf "%s ",$i; print ""}' | while read msg; do echo "CHECKING: $msg"; git lg | grep "$msg"; done
 
-# Commit only part of a file
-git add -p $file
+git add -p $file # Commit only part of a file
 
-# Reflog
 git reflog # To list all actions done on the git repo ( not only the commits, but all commands that were run, including rebases )
 git reset --hard HEAD@{3} # To rewind the repo back to the state of HEAD@{3} in the reflog lists.
 
-# List versioned files
-git ls-files # git ls-tree -r --name-only HEAD
+git ls-files # list versioned files. Alt: git ls-tree -r --name-only HEAD
 
-# List git commiters
-git log --format='%aN %aE' | sort -u
+git log --format='%aN %aE' | sort -u # List git commiters
 
-# Git bisect
 git bisect start
 git bisect good GOOD_REVISION_OR_TAG
 git bisect bad BAD_REVISION_OR_TAG # or don’t provide a revision to indicate the current revision
@@ -71,23 +63,18 @@ git blame -L '/REGEX/',+1 FILE # 'rblame' to get an history of the changes on a 
 git log --pickaxe-all --pickaxe-regex -S$regex $file # To get only the additions / deletions (ignore the small changes)
 git grep $keyword $(git rev-list $rev1..$rev2) [–function-context]
 
-# Incorporate a repo in another repo
-git submodule add URL DIRNAME # http://git-scm.com/book/en/Git-Tools-Submodules
+git submodule add URL DIRNAME # Incorporate a repo in another repo - http://git-scm.com/book/en/Git-Tools-Submodules
 
-# Adding vX.Y tags to commits
+git tag # Add vX.Y tags to commits
 # - can be signed with GPG with -s
 # - must be manually pushed or 'git push --tags'
-git tag
 
-# Branch infos
+git branch -u origin/master # Set remote branch to track
+git branch -d $branch_name # Delete branch
+git branch -m old_name new_name # Rename branch
+# Show branch info:
 git branch -av
 git remote show origin
-# Set remote branch to track
-git branch -u origin/master
-# Delete branch
-git branch -d $branch_name
-# Rename branch
-git branch -m old_name new_name
 
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:
@@ -107,7 +94,7 @@ git merge anotherFeatureBranch
 git co mainline
 gri
 git push
- 
+
 
 +++++
 + p4
