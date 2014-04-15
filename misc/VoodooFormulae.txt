@@ -12,7 +12,7 @@ a^p _= a (mod p)
 
 a² + b² = c²
 
-x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} # Newton-Raphson method
 
 [[ $IFS == $' \t\n' ]]
 
@@ -41,3 +41,6 @@ sum_{i=1}^\inf = -1/12
 127.0.0.1
 192.168.0.1
 8.8.8.8
+
+i^2 = j^2 = k^2 = ijk = -1 # Hamilton quaternion
+

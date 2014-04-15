@@ -353,6 +353,11 @@ h.iso(...objects...).sp
 # And: https://pympler.readthedocs.org/en/latest/related.html - asizeof is the simplest one
 import tracemalloc # Python3
 
+def get_refcount(obj):
+    """Valid for CPython implementation only"""
+    return ctypes.c_size_t.from_address(id(obj))
+# FUN FACT: the references to the 'int' [-5 ; 256] are shared
+
 
 """""""""""""""""""""""""""""
 "" Libs & tools for SCIENCE !
@@ -413,11 +418,11 @@ numbapro # for CUDA
 
 autobanh # meteor.js in Python
 asynchat, irc
-mailbox, imaplib, smtpd, smptplib
+mailr, mailbox, imaplib, smtpd, smptplib
 
 celery # distributed task queue ; alt: pyres
 sched # event scheduler ; alt: dagobah/schedule
-zeromq # other concurrency framework
+zeromq, aiozmq  # distributed app / msg passing framework
 
 mrjob, luigi # Hadoop / AWS map-reduce jobs
 
@@ -481,7 +486,7 @@ root = tree.getroot()
 BeautifulSoup('html string').prettify() # newlines+tabs formatted dump
 
 urlparse
-requests # replacement for urllib2. Lib to mock it: responses - Also: aiohttp for asyncio-based equivalent
+requests # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 
@@ -509,6 +514,8 @@ tn.read_until("login: ")
 tn.write(user + "\n")
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-python
+
+deap # genetic programming
 
 EasyDialogs, optparse_gui, EasyGui
 pyglet # windowing and multimedia lib

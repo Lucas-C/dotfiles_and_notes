@@ -1011,3 +1011,20 @@ An additional proportional but non-envy free & non equitable cake-cutting method
 2- Bob takes the largest (in his opinion) of the two pieces and Ann takes the remaining piece
 3- Ann and Bob divide their pieces into three equal pieces. So, there are now 6 pieces of cake.
 4- Carol chooses one piece from Ann's three pieces and one piece from Bob's three pieces. Ann keeps her remaining two pieces and Bob keeps his remaining two pieces.
+
+
+
+Related notions
+===============
+
+Consensus algorithms:
+* https://en.wikipedia.org/wiki/Paxos_algorithm
+* https://en.wikipedia.org/wiki/Chandra-Toueg_consensus_algorithm
+* http://raftconsensus.github.io/
+
+
+
+Final takeaways
+===============
+
+
