@@ -58,14 +58,24 @@ prompt_command()
 }
 
 cd () {                 # zsh-like, USAGE: cd $path | cd $old_path_snippet $new_path_subst
-    if [ -n "$2" ]; then
-        builtin cd "${PWD/$1/$2}"
-    elif [ -n "$1" ]; then
+    local error_code
+    if [ -z "$1" ]; then
+        builtin cd
+    elif [ -z "$2" ]; then
         builtin cd "$1"
     else
-        builtin cd
+        local stringified_path="$@"
+        local subsituted_path="${PWD/$1/$2}"
+        if [ -d "$stringified_path" ]; then
+            builtin cd "$stringified_path"
+        elif [ -d "$subsituted_path" ]; then
+            builtin cd "$subsituted_path"
+        else
+            builtin cd "$@"
+        fi
     fi
-    local e=$?
+    error_code=$?
+    [ $error_code -ne 0 ] && return $error_code
     if [ "$TERM" = screen ] && [ -e $BASHRC_DIR/.use_tmux ]; then
         set_term_window_name "#[fg=colour$((RANDOM%230+1))]$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')#[default]"
         local tmux_window=$(tmux display -pt $TMUX_PANE '#I')
@@ -74,7 +84,7 @@ cd () {                 # zsh-like, USAGE: cd $path | cd $old_path_snippet $new_
         set_term_window_name "$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')"
     fi
     [ "$PWD" != "$HOME" ] && pwd > $CURRENT_PWD_DIR/last_pwd
-    return $e
+    return 0
 }
 alias ..="cd .."
 alias ...="cd ../.."

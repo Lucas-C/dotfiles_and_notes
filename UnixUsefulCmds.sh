@@ -392,6 +392,7 @@ namei / readlink -f # Shows Where a File/Directory Comes From (links, etc.)
 killall -HUP $process_name # To tell a process to reload its file descriptors, e.g. when deleting a log file
 
 sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000 # Create fake file
+truncate -s $size_in_bytes $file # from coreutils
 
 # setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
 # setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID

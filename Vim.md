@@ -50,6 +50,7 @@ Formatting
 Substitution
 ============
 - *:%s/*__regex__*/*__replacement__*/g* : global find & replace
+- *:%g/*__regex__*/d* : delete all lines matching the pattern
 
 Navigation
 ==========

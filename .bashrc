@@ -14,7 +14,7 @@ set -o pipefail
 if readlink -f ${BASH_SOURCE[0]} >/dev/null 2>&1; then
     export BASHRC_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}" )" )"
 else
-    export BASHRC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
+    export BASHRC_DIR="$(builtin cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
 fi
 
 ########################

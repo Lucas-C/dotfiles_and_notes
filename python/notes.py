@@ -337,6 +337,7 @@ import gc; gc.get_objects() # Returns a list of all objects tracked by the garba
 
 python -m cProfile myscript.py -o output.pstats # cProfile.Profile().dump_stats(filename)
 gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
+pycallgraph graphviz -- ./mypythonscript.py
 kernprof.py --line-by-line myscript.py # line_profiler
 pyprof2calltree # use kcachegrind
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
