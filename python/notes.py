@@ -246,7 +246,8 @@ class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/r
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
 
-json.dumps(d, sort_keys=True, indent=4) # pretty formatting - Also: -mjson.tool
+def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
+json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Also: -mjson.tool
 
 # Tricky gotcha
 d = {'a':42}

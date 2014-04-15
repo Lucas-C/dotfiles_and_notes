@@ -7,7 +7,7 @@ export LANG=C # makes many string-parsing tools faster: grep, sed...
 
 export HISTCONTROL=ignoreboth # ignoredups and ignorespace
 shopt -s histappend # append to the history file, don't overwrite it
-HISTSIZE=10000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
+export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
 export HISTTIMEFORMAT="%F %T "
 
 export EDITOR=vim
@@ -161,27 +161,19 @@ stats () { # --no-header | awk '{print $3}'
             sum,n,mean,std_dev,a[0],tp(.01),tp(.1),median,tp(.9),tp(.99),a[n-1]}'
 } # TODO: add 'MAD' 
 
-#--------
-# Others
-#--------
-unfuncalias touch
-touch () {              # touch [EPOCH] [+/-$modifier] $files
-    local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
-    if [ "$(echo $1 | lower)" = "epoch" ]; then
-        yymm=7001
-        dd=01
-        HHMM=0000
-        shift
-    fi
-    if [[ $1 =~ ^[+-][0-9] ]]; then
-        dd=$(($dd$1))
-        [ ${#dd} -eq 1 ] && dd=0$dd
-        shift
-    fi
-    local stamp=$yymm$dd$HHMM
-    { ! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ] ; } && { echo "Day modifier cannot be applied: $stamp" ; return ; }
-    $(nofuncalias touch) -t $stamp "$@"
-}
+
+#-------------------
+# Command overrides
+#-------------------
+if [ -e /proc/uptime ]; then
+    dmesg () {
+        $(nofuncalias dmesg) "$@" | perl -w -e 'use strict;
+            my ($uptime) = do { local @ARGV="/proc/uptime";<>}; ($uptime) = ($uptime =~ /^(\d+)\./);
+            foreach my $line (<>) {
+                printf( ($line=~/^\[\s*(\d+)\.\d+\](.+)/) ? ( "[%s]%s\n", scalar localtime(time - $uptime + $1), $2 ) : $line )
+            }'
+    }
+fi
 
 unfuncalias man
 man () {               # colored manual with 'help' as a fallback
@@ -286,6 +278,25 @@ cp_p()                  # 'cp' showing progress, but slower than rsync and less 
     } END { print "" }' total_size=$(stat -c '%s' "${1}")
 }
 
+unfuncalias touch
+touch () {              # touch [EPOCH] [+/-$modifier] $files
+    local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
+    if [ "$(echo $1 | lower)" = "epoch" ]; then
+        yymm=7001
+        dd=01
+        HHMM=0000
+        shift
+    fi
+    if [[ $1 =~ ^[+-][0-9] ]]; then
+        dd=$(($dd$1))
+        [ ${#dd} -eq 1 ] && dd=0$dd
+        shift
+    fi
+    local stamp=$yymm$dd$HHMM
+    { ! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ] ; } && { echo "Day modifier cannot be applied: $stamp" ; return ; }
+    $(nofuncalias touch) -t $stamp "$@"
+}
+
 unfuncalias df
 alias df='df -hT'
 unfuncalias du
@@ -295,13 +306,16 @@ alias diff='echo "ALT: vimdiff (add color + support side-by-side naturally) / di
 unfuncalias pstree
 alias pstree='pstree -p'
 
+
+#-------
+# Other
+#-------
+
 alias psf='ps -eo user,pid,%cpu,%mem,ppid,tty,stat,rss,etime,start,nice,psr,args --sort=start_time 2>/dev/null'
 alias pg='psf | g'
 
 nav () { nautilus "${1:-$PWD}/"; }
 alias pdf='evince'
-
-fopen () { firefox file://$(pwd)/$1 ; }
 
 fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
 
@@ -368,16 +382,6 @@ tstp () {               # timestamp converter
     echo $@ | gawk '{print strftime("%c", $0)}'
     # Or date -d @$TIMESTAMP but neither work on OSX
 }
-
-if [ -e /proc/uptime ]; then
-    dmesg () {
-        $(nofuncalias dmesg) "$@" | perl -w -e 'use strict;
-            my ($uptime) = do { local @ARGV="/proc/uptime";<>}; ($uptime) = ($uptime =~ /^(\d+)\./);
-            foreach my $line (<>) {
-                printf( ($line=~/^\[\s*(\d+)\.\d+\](.+)/) ? ( "[%s]%s\n", scalar localtime(time - $uptime + $1), $2 ) : $line )
-            }'
-    }
-fi
 
 kill_cmd ()             # WIP - Kill every process starting with the pattern passed as a parameter
 {

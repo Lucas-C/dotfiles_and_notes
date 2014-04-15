@@ -1,3 +1,8 @@
+# Readline config file
+# bind -p # Equivalent to dump-functions
+# bind -s # Equivalent to dump-macros
+# bind -v # Equivalent to dump-variables
+
 set input-meta on
 set output-meta on
 set convert-meta off
