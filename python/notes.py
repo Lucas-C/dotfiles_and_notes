@@ -36,6 +36,7 @@ m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions
 
+str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters
 with open('filea', 'rb+', buffering=0) as inf, io.open('fileb', 'wU', encoding='utf-8') as outf: pass # touch 'fileb'
 
 def CtxtMgr(object):
@@ -62,12 +63,6 @@ from distutils import spawn
 cmd_path = spawn.find_executable('cmd') # shutil.which in Python3
 subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=STDOUT)
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
-
-# DO NOT use other default parameter values than None, + initialization is static
-def foo(x = []):
-    x.append('do')
-    return x
-foo();foo()
 
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
     foo = kwargs.pop('foo')
@@ -136,8 +131,6 @@ class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')): pass # Immutable class
 # For multiple inheritance with namedtuple, combine fields + use specific inheritance order:
 class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), Immut2DPoint): pass
 
-# !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
-
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s")
 logging.handlers.[Timed]RotatingFileHandler # logrotate in Python
 try: Ellipsis # like 'pass' but as an object, not a statement
@@ -176,15 +169,6 @@ collections.deque # double-ended queue, with optional maximum length
 
 collections.Counter([...]).most_common(1) # dict subclass for integer values
 unique_id_map = collections.defaultdict(itertools.count().next) # will always return the same unique int when called on an object: unique_id_map['a'] == unique_id_map['a'] != unique_id_map['b']
-
-tuple(obj) # !! PITFALL: fail for None, will parse any sequence like a basestring and won't work on single value
-def to_tuple(t):
-    if not t:
-        return ()
-    elif is_sequence(t):
-        return tuple(t)
-    else:
-        return (t,)
 
 l = ['a,b', 'c,d']
 from itertools import chain # also has iterator = count().next
@@ -249,7 +233,27 @@ class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/r
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Also: -mjson.tool
 
-# Tricky gotcha
+
+"""""""""""
+"" Gotchas
+"""""""""""
+# !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
+
+# DO NOT use other default parameter values than None, + initialization is static
+def foo(x = []):
+    x.append('do')
+    return x
+foo();foo()
+
+tuple(obj) # !! PITFALL: fail for None, will parse any sequence like a basestring and won't work on single value
+def to_tuple(t):
+    if not t:
+        return ()
+    elif is_sequence(t):
+        return tuple(t)
+    else:
+        return (t,)
+
 d = {'a':42}
 print type(d.keys()[0]) # str
 class A(str): pass
@@ -257,6 +261,11 @@ a = A('a')
 d[a] = 42
 print d # {'a':42}
 print type(d.keys()[0]) # str
+
+def create_multipliers():
+    return [lambda x : i * x for i in range(2)]
+for multiplier in create_multipliers():
+    print multiplier(3) # Late Binding Closure : prints 6 twice
 
 
 """""""""""""""""
@@ -381,6 +390,9 @@ scipy
 
 SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
 networkx # networks & graphs manipulation
+
+deap # genetic programming
+cvxopt # convex optimization
 
 mmap
 joblib # memoize computations by keeping cache files on disk
@@ -516,8 +528,6 @@ tn.read_until("login: ")
 tn.write(user + "\n")
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-python
-
-deap # genetic programming
 
 EasyDialogs, optparse_gui, EasyGui
 pyglet # windowing and multimedia lib

@@ -378,6 +378,7 @@ find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING ot
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
+find . -mtime +730 -exec rm -f {} \;
 
 rename \  _ * # Replace whitespaces by underscores
 
