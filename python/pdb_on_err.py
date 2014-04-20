@@ -1,4 +1,6 @@
 # Call PDB when an exception is raised
+# It tries to use 'gotcha/ipdb' if available, to benefit from IPython PDB
+# Neither of them will work INSIDE IPython as it also redefines sys.excepthook
 # USAGE:
 #   python -m pdb_on_err script.py arg1 arg2
 #   python -m pdb_on_err -c 'import sys; print sys.argv[0]' 0
@@ -18,9 +20,6 @@ def excepthook(type, value, tb):
         # ...then start the debugger in post-mortem mode.
         pdb.post_mortem(tb)
     sys.__excepthook__(type, value, tb)
-
-sys.excepthook = excepthook
-
 
 def next_arg_is(flag):
     try:
@@ -46,4 +45,10 @@ def main():
     execfile(filename, {'__name__':'__main__', '__file__':filename})
 
 if __name__ == '__main__':
-    main()
+    try:
+        from ipdb import launch_ipdb_on_exception
+        with launch_ipdb_on_exception():
+            main()
+    except ImportError:
+        sys.excepthook = excepthook
+        main()

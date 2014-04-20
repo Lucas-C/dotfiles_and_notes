@@ -37,8 +37,8 @@ m.group('word')
 re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions
 
 with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as UTF8
-    for word in open_file.readlines():
-        yield to_unicode(w.rstrip())
+    for line in open_file.readlines():
+        yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
 with io.open('my_file', 'wU', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
 str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters
 
