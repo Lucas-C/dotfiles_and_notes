@@ -387,6 +387,7 @@ lsof +D /some/dir
 # To see all files jeff has open:
 sudo lsof -u jeff
 # Additional useful option : -r $t : repeat the listing every $t second
+fuser $dir # identify processes using files or sockets
 
 namei / readlink -f # Shows Where a File/Directory Comes From (links, etc.)
 

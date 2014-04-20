@@ -1,3 +1,10 @@
+if has("multi_byte")
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
+
 """UI
 colorscheme default " darkblue
 set number
