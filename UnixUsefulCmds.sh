@@ -871,10 +871,11 @@ http://en.wikipedia.org/wiki/Help:Magic_words
 ::=::=::=::
 LIKE >faster> REGEXP
 
-sqlite3 places.sqlite "select a.url, b.title from moz_places a, moz_bookmarks b where a.id=b.fk;" # no cmd => interactive - Firefox
+sqlite3 places.sqlite "select b.title, b.type, b.parent, a.url from moz_places a, moz_bookmarks b where a.id=b.fk;" # type: 1: bookmark/folder, 2: tag ; no cmd => interactive - Firefox
 .help
 .tables
 .schema moz_places
+pragma table_info(moz_places)
 
 mysql -h $HOST -u $USER -p [--ssl-ca=$file.pem] # default port 3306
 mytop # watch mysql

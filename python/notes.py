@@ -36,8 +36,11 @@ m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions
 
+with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as UTF8
+    for word in open_file.readlines():
+        yield to_unicode(w.rstrip())
+with io.open('my_file', 'wU', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
 str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters
-with open('filea', 'rb+', buffering=0) as inf, io.open('fileb', 'wU', encoding='utf-8') as outf: pass # touch 'fileb'
 
 def CtxtMgr(object):
     def __enter__(self): pass
@@ -376,6 +379,7 @@ def get_refcount(obj):
 nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
 topia.termextract
 difflib # compare sequences
+sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && sudo pip install sumy && sudo python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB
 
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 float("inf") # infinite !
@@ -387,6 +391,7 @@ scipy
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
     matplotlib, prettyplotlib, mpld3 # 2d plotting
+    python-graph-core
 
 SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
 networkx # networks & graphs manipulation
@@ -414,10 +419,11 @@ virtualenv # sandbox
 pip # or easyinstall : libs manager
 
 multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
+SimPy # Process Interaction
 threading.Thread().deamon = True # The entire Python program exits when no alive non-daemon threads are left.
 threading.Event # for threads communication, including stopping: Thread.run(self): while not self.stop_event: ...
 # Kill a thread ? -> http://stackoverflow.com/a/325528/636849
-from multiprocessing.dummy import Pool as ThreadPool
+from multiprocessing.dummy import Pool as ThreadPool # Threads using multiprocessing API
 pool = ThreadPool(4); results = pool.map(foo, args); pool.close(); pool.join()
 
 select # efficient I/O

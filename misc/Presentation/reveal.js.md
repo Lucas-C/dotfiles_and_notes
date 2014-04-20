@@ -35,6 +35,10 @@ With *bold*, **italics** and ~~striked~~ text.
 ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
 
+## Multimedia era
+
+<video data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
+
 
 ## Back to start
 

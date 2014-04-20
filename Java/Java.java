@@ -16,6 +16,7 @@ java -jar archive.jar # Maybe -cp .
 
 java -cp junit.jar:. org.junit.runner.JUnitCore path.to.pkg.AllTests// JUnit
 findbugs, error-prone // code checking tools
+cobertura // code coverage
 jdb // debugger
 JD // Java decompiler
 jconsole // http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
