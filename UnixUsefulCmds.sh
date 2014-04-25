@@ -39,6 +39,7 @@ SHR: how much of the VIRT size is actually sharable memory or libraries
 SWAP: bogus
 pstree -p [$OPT_PID] # hierarchy of processes
 
+pidof $process_name
 pid -o comm= -p $PPID # get process name
 pwdx $pid # get process working directory
 
@@ -96,8 +97,8 @@ a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a '
 ##################
   Bash scripting
 ##################
+zenity # GUI: error windows, selection dialog, progress bars...
 
-# Standard warnings
 set -o pipefail -o errexit -o nounset -o xtrace
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 
@@ -226,11 +227,10 @@ exec 8>&- # Close file descriptor
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)" # mktemp dir & default value
 /dev/shmi # Use RAM for tmp files - monitor usage with ipcs -m
 
-tput setaf [1-7] / tput sgr0 # enable colored terminal output / reset it
-# 1:red, 2:green, 3:yellow, 4:blue, 5:purple, 6:cyan, 7:white
-# But colors can be set like this: tput initc 2 500 900 100 # RGB values between 0 & 1000
-# Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
 for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"; done # display all 256 colours
+for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # enable colored terminal output
+# + colors can be set like this: tput initc 2 500 900 100 # RGB values between 0 & 1000
+# Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
 tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top right corner
 
 select value in choice1 choice2; do break; done # multiple choices
@@ -273,7 +273,7 @@ _compfunc() {
 }
 hash # frequently used commands cache
 
-# Syslog (port: 514)
+syslogd -m 0 -r -SS # port: 514
 logger -is -t SCRIPT_NAME -p user.warn "Message"
 echo "<15>My logline" | nc -u -w 1 $HOSTNAME 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13 <-> user.notice
 
@@ -315,6 +315,7 @@ grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/
 grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
 LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
 sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
+perl -ne '/(error|warn)(?!negative-look-ahead-string-to-not-match-just-after)/i'
 perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
 
 pdftotext $file.pdf - | grep # from xpdf-utils
@@ -343,7 +344,7 @@ tee -a $file # display input to stdout + append to end of $file
 echo ECHO | sed s/$/.ext/ # Append at the end of stdout (or beginning with ^)
 sed -i "1i$content" $file # append at the beginning of $file
 
-sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN
+sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN - How it works : N means 'pattern_space+=\n+nextline' and we use branching to :a - Alt: just '1!N; s/...//'
 seq 1 10 | paste -s -d+ | bc # Replace newlines by a separator, aka 'join' - Also, for arrays: OLD_IFS=$IFS; IFS=+; echo "${argv[*]}"; IFS=$OLD_IFS
 # paste is also useful to interlace files: paste $file1 $file2
 
@@ -396,6 +397,7 @@ umask # Control the permissions a process will give by default to files it creat
 # Forbid file deletion
 sudo chattr +i [-R] $file # to check a file attributes : lsattr
 
+tune2fs # control extX file system parameters, e.g. reclaim disk space reserved to root 
 debugfs -R "stat <$(ls -i $file | awk '{print $1}')>" $(df $file | tail -n 1 | awk '{print $1}') # Get $file creation time ('crtime') on ext4 filesystems
 
 # Bring back deleted file from limbo (ONLY if still in use in another process)
@@ -498,7 +500,7 @@ dig +short txt $dns_server
 dig +short -x $ip # Reverse DNS
 avahi-resolve -n $USER.local # Multicast DNS == mDNS - from avahi-tools pkg
 # Caching
-/etc/resolv.conf # manual / basic
+/etc/hosts /etc/resolv.conf /etc/dhcp*/*.conf # manual / basic
 bind / dnsmasq / lwresd / nscd (broken: ignore TTL) # daemon
 getent ahostsv4 www.google.com # whole query through NSS
 rndc # display various DNS cache control commands, part of Bind9 tools suite
@@ -511,6 +513,7 @@ sudo service restart ssh
 ssh $host "$cmds ; /bin/bash -i" # Keep ssh session open after executing commands
 ssh -f $host -L 2034:$host:34 -N # port forwarding
 [ENTER] ~. # Exit a hung SSH session
+# It is possible to force a user (based on its pub key) to only run one command one a host (e.g. tail -f) using ~/.ssh/authorized_keys : cf. tmux example
 # How to change your login on a specified acces: http://orgmode.org/worg/worg-git-ssh-key.php
 # SSH daemon config to allow UNIX user/pswd auth:
 /etc/ssh/sshd_config # PasswordAuthentication yes, UsePAM yes OR AllowGroups sshusers
@@ -658,6 +661,8 @@ yum provides $cmd
 dpkg -S /path/to/cmd
 rpm -qif $(which cmd)
 rpm -Uvh pkg.rpm # upgrade RPM
+apt-cache rdepends $pkg # list dependencies
+rpm -q --whatrequires $pkg # list dependencies
 
 apt-key fingerprint # display imported keys fingerprints
 sudo dpkg -D1 -i *.deb
@@ -701,6 +706,9 @@ mplayer -identify -vo null -ao null -frames 0 $file | grep "Video stream found" 
 mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
 avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi
 
+# Xlib: connection to ":0.0" refused by server.
+xhost +local:local
+
 sudo /usr/share/doc/libdvdread4/install-css.sh # Install libdvdcss
 
 # Rescan for memory card
@@ -739,7 +747,7 @@ display $img_file
 convert img.png -adaptive-resize 800x600 -auto-orienti -crop 50x100+10+20 img.jpg
 mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
 identify -v $img_file # get PPI: -format "%w x %h %x x %y"
-import # screenshot
+import -display :0.0 -window root screenshot.png
 animate -delay 5 *.png
 compare img1 img2
 composite # merge images

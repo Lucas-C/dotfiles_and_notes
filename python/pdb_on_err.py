@@ -50,5 +50,7 @@ if __name__ == '__main__':
         with launch_ipdb_on_exception():
             main()
     except ImportError:
+        if hasattr(sys, 'ps1'):
+            delattr(sys, 'ps1')
         sys.excepthook = excepthook
         main()

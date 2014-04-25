@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """""""""""
 "" Tricks
 """""""""""
@@ -8,7 +9,14 @@ _ # result of the last expression evaluated (in an interpreter only)
 
 r'''Raw string literal: no need to double escape \{0}\{one:.5f}'''.format("zero", one=1)
 u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0)
-from __future__ import unicode_literals
+from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII
+unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
+chardet.detect(str) # Mozilla encoding detection
+str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters - Also: str.decode('utf8')
+with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as UTF8
+    for line in open_file.readlines():
+        yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
+with io.open('my_file', 'wU', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
 intern(str) # internal representation - useful for enums/atoms
 
 __all__ = ['bar', 'foo']
@@ -35,12 +43,6 @@ m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DE
 m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions
-
-with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as UTF8
-    for line in open_file.readlines():
-        yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
-with io.open('my_file', 'wU', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
-str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters
 
 def CtxtMgr(object):
     def __enter__(self): pass
@@ -93,6 +95,7 @@ globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class
 # But you can specify your own __metaclass__ !
 
 dir(__builtins__) # special module, and functions can be reassigned !
+@patch("that_context_mgr", MagicMock(__enter__ = lambda *args: MyReturnedObject()))
 @patch("module.open", create=True) # to patch builtins
 @patch("module.CONSTANT", new_value)
 def foo_test(open_mock):
@@ -152,12 +155,12 @@ class custom_build(build):
 cmdclass['build'] = custom_build
 
 # Environment variables
-PYTHONSTARTUP: un module à exécuter au démarrage de Python
-PYTHONPATH : une liste de dossiers séparés par ‘:’ qui va être ajouté à sys.path # use *.pth files instead for 3rd party modules - See also: import site
-PYTHONHOME : choisir un autre dossier dans lequel chercher l’interpréteur Python.
-PYTHONCASEOK : ingorer la casse dans le nom des modules sous Windows
-PYTHONIOENCODING : forcer un encoding par défaut pour stdin/stdout/stderr
-PYTHONHASHSEED : changer la seed hash() (renforce la sécurité de la VM)
+PYTHONSTARTUP: module to execute when Python starts
+PYTHONPATH : directories to add to sys.path # use *.pth files instead for 3rd party modules - See also: import site
+PYTHONHOME : Python interpreter directory
+PYTHONCASEOK : case insensitive module names (usefule under Windows)
+PYTHONIOENCODING : force default encoding for stdin/stdout/stderr
+PYTHONHASHSEED : change seed hash() (=> more secure VM)
 
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil
 
@@ -213,6 +216,9 @@ items = d.iteritems() # dicts ( iteritems > items )
 "" dict & set
 """""""""""""
 # Extremely fast as long as < one million elems
+
+d.setdefault('key', []).append(42) # add element to list, create it if needed
+collections.defaultdict
 
 collections.OrderedDict # remember insertion order
 OrderedDict(sorted(d.iteritems(), key=lambda (k,v): (v,k))) # sort a dict by its values
@@ -276,6 +282,7 @@ for multiplier in create_multipliers():
 """""""""""""""""
 faulthandler.enable() # dump stacktrace on SIGSEGV, SIGABRT... signals ; python2 -X faulthandler script.py
 
+import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code...
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
 nosetest # -vv --collect-only # for debug
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
@@ -477,7 +484,7 @@ tqdm # KISS progress bar
 
 @retry # https://github.com/rholder/retrying
 
-import uuid # generate unique ID’s
+import uuid # generate unique IDs
 
 resource # limit a process resources: SPU time, heap size, stack size...
 
