@@ -84,14 +84,6 @@ man ld.so
 gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
 LD_PRELOAD=./myfopen.so cat $file
 
-# Youtube playlist query - Start from 1, max paging 50, max playlist size 200
-playlist=FLF8xTv55ZmwikWWmWLPEAZQ
-rm yt_playlist_$playlist
-for i in {1..4}; do
-    index=$(( (i-1)*50 + 1 ))
-    curl -s "https://gdata.youtube.com/feeds/api/playlists/$playlist?start-index=$index&amp;max-results=50&amp;v=2" >> yt_playlist_$playlist
-done
-
 ttyrec, ipbt, ttygif # record & playback terminal sessions 
 
 : () { : | : & } ; : # Fork bomb
@@ -813,6 +805,24 @@ on log(msg)
   do shell script "echo " & quoted form of log_line
 end log
 log "HELLO WORLD !"
+
+
+$$$$$$$$$$$$$$$
+$ Google APIs $
+$$$$$$$$$$$$$$$
+
+# Youtube playlist query - Start from 1, max paging 50, max playlist size 200
+playlist=FLF8xTv55ZmwikWWmWLPEAZQ
+rm yt_playlist_$playlist
+for i in {1..4}; do
+    index=$(( (i-1)*50 + 1 ))
+    curl -s "https://gdata.youtube.com/feeds/api/playlists/$playlist?start-index=$index&amp;max-results=50&amp;v=2" >> yt_playlist_$playlist
+done
+
+# Snippet-search
+cse_id=003799500572498885021:6zbuscnifvi
+curl -s "https://www.googleapis.com/customsearch/v1?key=${api_key}&cx=${cse_id}&fields=items(snippet)&q=define%20${term}"
+# DOCS: https://developers.google.com/custom-search/json-api/v1/using_rest https://developers.google.com/custom-search/json-api/v1/performance#partial
 
 
 =======
