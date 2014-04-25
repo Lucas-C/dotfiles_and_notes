@@ -170,7 +170,8 @@ http://qunitjs.com // Testing lib
 
 // E4X is an official JavaScript standard that adds direct support for XML
 
-// V8 : Open Source high perf JS engine written in C++. Features :
+Google Closure Compiler, Library & Linter
+Google V8 // Open Source high perf JS engine written in C++. Features :
 // - Hidden classes
 // - Dynamic machine code generation
 // - Profiler : d8 --prof script.js
