@@ -159,6 +159,7 @@ hex_md5('string') // crypt/md5.js
 
 underscorejs.org // Functional prog lib
 
+npm install // Node Packaged Modules
 var fs = require("fs"); // Node.js
 fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
     console.log(line);
