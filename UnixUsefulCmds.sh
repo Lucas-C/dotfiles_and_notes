@@ -439,6 +439,7 @@ man mq_overview # POSIX queues - not fully implemented : can't read/write on the
 beanstalk # Better alternative queuing system, with lots of existing tools & libs in various labguages
 ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ # Message queue using AMPQ
 Celery/Kombu # Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
+Nameko # python framework for building service orientated software
 
 BerkeleyDB, SQLite, LMDB, LevelDB # embedded database
 
@@ -687,8 +688,7 @@ echo <ctrl-v><ctrl-o> # or 'reset', fix terminal frenzy
 sudo ldconfig
 
 killall gnome-settings-daemon # Fix crazy numpad (no '-')
-# Frozen X server
-sudo service lightdm restart
+sudo service lightdm restart # restart Gnome session / useful in case of a frozen X server
 killall gnome-panel
 
 xev # Listen to keyboard events
@@ -818,6 +818,12 @@ log "HELLO WORLD !"
 $$$$$$$$$$$$$$$
 $ Google APIs $
 $$$$$$$$$$$$$$$
+# Search tips&tricks
+site:$base_url "exact match" OR "a * saved is a * earned" -term # basics
+cache:$url
+define:$term
+related:$url
+link:$url # Search for pages that link to a URL
 
 # Youtube playlist query - Start from 1, max paging 50, max playlist size 200
 playlist=FLF8xTv55ZmwikWWmWLPEAZQ
@@ -886,7 +892,7 @@ http://en.wikipedia.org/wiki/Help:Magic_words
 
 
 ::=::=::=::
-:: MySQL / SQLite
+:: MySQL==MariaDB / SQLite
 ::=::=::=::
 LIKE >faster> REGEXP
 
