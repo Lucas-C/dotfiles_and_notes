@@ -531,7 +531,6 @@ SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 
 pywebsocket
 paramiko # remote SSH/SFTP connexion
-boom # like Siege or Funkload : web-app stress testing
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
