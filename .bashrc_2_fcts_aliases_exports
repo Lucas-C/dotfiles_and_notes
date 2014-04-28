@@ -17,6 +17,48 @@ vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${code:-~}/Vim.md | pando
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+diff_alt () {
+    echo <<EOF
+ALT: \
+vimdiff (add color + support side-by-side naturally) /\ 
+diff3 / \
+opendiff (OSX) / \
+diff --side-by-side -r --exclude=.git / \
+sdiff -B -b -s # for %stats
+EOF
+}
+
+alias diff='diff_alt && diff -b'
+less () { less -iM "$@"; }
+alias make='make -j3'
+if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
+    alias cl='grc -es --colour=auto'
+    alias tail='cl tail'
+    alias diff='cl diff'
+    alias make='cl make -j3'
+    alias gcc='cl gcc'
+    alias g++='cl g++'
+    alias as='cl as'
+    alias ld='cl ld'
+    alias netstat='cl netstat'
+    alias ping='cl ping'
+    alias traceroute='cl traceroute'v
+    alias diff='diff_alt && cl diff -b'
+    less () {
+        if [ $# -ne 0 ]; then
+            grc -es cat "$@" | /bin/less -iMR
+        elif [ -t 0 ]; then # nothing in stdin
+            /bin/less
+            return 1
+        else
+            grcat conf.log | /bin/less -iMR
+        fi
+    }
+fi
+
+alias tF='tail -F'
+alias t5='tail -500'
+
 export PATH=/bin
 PATH=/sbin:$PATH
 PATH=/usr/bin:$PATH
@@ -57,7 +99,6 @@ alias_r () {            # recursively resolve an alias, handle pipes and nested 
 #----
 # ls
 #----
-unfuncalias ls
 alias l='ls -BF --color=always'
 alias la='l -A'
 alias ll='l -lhA'
@@ -109,11 +150,7 @@ alias f='firefox'
 #---------
 # Languages
 #----------
-unfuncalias make
-alias make='make -j3'
-unfuncalias tkcon
 alias tkcon='tkcon -load Tk'
-
 alias py='ipython --pdb'
 rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
 
@@ -124,9 +161,6 @@ alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'
 #------------------
 # Stream processing
 #------------------
-alias tF='tail -F'
-alias t5='tail -500'
-
 alias lower='tr "[:upper:]" "[:lower:]"'
 alias upper='tr "[:lower:]" "[:upper:]"'
 
@@ -167,7 +201,7 @@ stats () { # --no-header | awk '{print $3}'
 #-------------------
 if [ -e /proc/uptime ]; then
     dmesg () {
-        $(nofuncalias dmesg) "$@" | perl -w -e 'use strict;
+        /bin/dmesg "$@" | perl -w -e 'use strict;
             my ($uptime) = do { local @ARGV="/proc/uptime";<>}; ($uptime) = ($uptime =~ /^(\d+)\./);
             foreach my $line (<>) {
                 printf( ($line=~/^\[\s*(\d+)\.\d+\](.+)/) ? ( "[%s]%s\n", scalar localtime(time - $uptime + $1), $2 ) : $line )
@@ -175,7 +209,6 @@ if [ -e /proc/uptime ]; then
     }
 fi
 
-unfuncalias man
 man () {               # colored manual with 'help' as a fallback
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -185,12 +218,12 @@ man () {               # colored manual with 'help' as a fallback
         LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
         LESS_TERMCAP_ue=$(printf "\e[0m") \
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
-            $(nofuncalias man) "$@" && return
+            /usr/bin/man "$@" && return
     help "$@" >/dev/null 2>&1 && help "$@" | less
 }
 
 mv () {
-    rsync_massive_mv_tip "$@" || $(nofuncalias mv) "$@"
+    rsync_massive_mv_tip "$@" || /bin/mv "$@"
 }
 
 rsync_massive_mv_tip () {       # 'mv' suggesting 'rsync' for 'massive' src files & different partitions
@@ -209,12 +242,12 @@ You're about to move a MASSIVE amount of files to another partition.
 To first copy files and follow this task progress, I suggest using:
 rsync -r --partial --progress --human-readable --ignore-times --rsh=/dev/null $@
 If you want to ignore my advice, simply run:
-$(nofuncalias mv) $@
+/bin/mv $@
 EOF
 }
 
 cp () {                 # 'cp' suggesting 'rsync' to follow progress for 'massive' src files
-    rsync_massive_cp_tip "$@" || $(nofuncalias cp) "$@"
+    rsync_massive_cp_tip "$@" || /bin/cp "$@"
 }
 
 rsync_massive_cp_tip () {
@@ -223,7 +256,7 @@ rsync_massive_cp_tip () {
 You're about to copy a MASSIVE amount of files. To follow this task progress, I suggest using:
 rsync --partial --progress --human-readable --ignore-times --rsh=/dev/null $@
 If you want to ignore my advice, simply run:
-$(nofuncalias cp) $@
+/bin/cp $@
 EOF
 }
 
@@ -278,7 +311,6 @@ cp_p()                  # 'cp' showing progress, but slower than rsync and less 
     } END { print "" }' total_size=$(stat -c '%s' "${1}")
 }
 
-unfuncalias touch
 touch () {              # touch [EPOCH] [+/-$modifier] $files
     local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
     if [ "$(echo $1 | lower)" = "epoch" ]; then
@@ -294,16 +326,11 @@ touch () {              # touch [EPOCH] [+/-$modifier] $files
     fi
     local stamp=$yymm$dd$HHMM
     { ! [[ $dd =~ ^[0-3][0-9]$ ]] || [ "$dd" -eq 0 ] || [ "$dd" -gt 31 ] ; } && { echo "Day modifier cannot be applied: $stamp" ; return ; }
-    $(nofuncalias touch) -t $stamp "$@"
+    /bin/touch -t $stamp "$@"
 }
 
-unfuncalias df
 alias df='df -hT'
-unfuncalias du
 alias du='du -sh'
-unfuncalias diff
-alias diff='echo "ALT: vimdiff (add color + support side-by-side naturally) / diff3 / opendiff (OSX) / diff --side-by-side -r --exclude=.git / sdiff -B -b -s # for %stats" && diff -b'
-unfuncalias pstree
 alias pstree='pstree -p'
 
 
