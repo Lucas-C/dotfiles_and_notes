@@ -6,6 +6,8 @@ where <cmd> :: 'which' equivalent
 powercfg -h off/on :: as admin, delete hiberfil.sys
 msinfo32 :: info composants
 
+schtasks :: task scheduler
+
 :: Backup
 robocopy "C:\Source" "E:\Destination" /E /PURGE
 
@@ -41,3 +43,23 @@ del file
 
 :: Loupe
 Magnify.exe
+
+
+::::::::::
+:: Batch
+:: :::::::
+@echo off
+title Whatever :: sets the terminal window title
+cls :: clear console screan
+set file=%1 :: set variable to be the first cmd-line argument
+if exist %file del %file
+:label
+goto:label
+echo %i >> %file
+:: Loop variables have 2 restrictions: they are one-letters only and their % must be doubled in .bat files
+for /l %%x in (1, 1, 100) do echo %%x
+for /r %%f in (file_A file_B) do if exist "%%f" echo %%f :: paths are relative to the local dir
+for /f "delims=" %%l in (%file%) do set /a counter+=1 :: /a => evaluate numeric expression
+for /f "tokens=1,* delims=:" %%i in ('findstr /n /r . file.txt') do if %%i geq 10 if %%i leq 20 echo %%j
+
+
