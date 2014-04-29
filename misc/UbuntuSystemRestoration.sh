@@ -66,3 +66,4 @@ gsettings set com.canonical.desktop.interface scrollbar-mode normal # >= v13
 sudo sed -i 's/enabled=1/enabled=0/' /etc/default/apport # Disable System Crash Reports
 
 sudo aptitude install gufw # firewall
+sudo aptitude install grc pandoc

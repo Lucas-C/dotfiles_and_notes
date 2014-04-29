@@ -29,13 +29,13 @@ vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${code:-~}/Vim.md | pando
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 diff_alt () {
-    echo <<EOF
+    cat <<EOF
 ALT: \
-vimdiff (add color + support side-by-side naturally) /\ 
-diff3 / \
-opendiff (OSX) / \
 diff --side-by-side -r --exclude=.git / \
-sdiff -B -b -s # for %stats
+sdiff -B -b -s # for %stats / \
+vimdiff (add color + support side-by-side naturally) / \
+diff3 / \
+opendiff (OSX)
 EOF
 }
 
@@ -44,8 +44,6 @@ less () { less -iM "$@"; }
 alias make='make -j3'
 if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias cl='grc -es --colour=auto'
-    alias tail='cl tail'
-    alias diff='cl diff'
     alias make='cl make -j3'
     alias gcc='cl gcc'
     alias g++='cl g++'
@@ -55,6 +53,7 @@ if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias ping='cl ping'
     alias traceroute='cl traceroute'v
     alias diff='diff_alt && cl diff -b'
+    alias tail='cl tail'
     less () {
         if [ $# -ne 0 ]; then
             grc -es cat "$@" | /bin/less -iMR
