@@ -1,6 +1,14 @@
 #---------
 # Exports
 #---------
+export PATH=/bin
+PATH=/sbin:$PATH
+PATH=/usr/bin:$PATH
+PATH=/usr/sbin:$PATH
+PATH=/usr/local/bin:$PATH
+PATH=/usr/local/sbin:$PATH
+PATH=$BASHRC_DIR/bin:$PATH
+
 export DISPLAY=:0 # for xclip
 
 export LANG=C # makes many string-parsing tools faster: grep, sed...
@@ -10,6 +18,9 @@ shopt -s histappend # append to the history file, don't overwrite it
 export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
 export HISTTIMEFORMAT="%F %T "
 
+#---------------
+# Text display
+#---------------
 export EDITOR=vim
 mkdir -p ~/.vim/undodir
 vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${code:-~}/Vim.md | pandoc -s -f markdown -t man | man -l -; }
@@ -58,14 +69,6 @@ fi
 
 alias tF='tail -F'
 alias t5='tail -500'
-
-export PATH=/bin
-PATH=/sbin:$PATH
-PATH=/usr/bin:$PATH
-PATH=/usr/sbin:$PATH
-PATH=/usr/local/bin:$PATH
-PATH=/usr/local/sbin:$PATH
-PATH=$BASHRC_DIR/bin:$PATH
 
 #---------------
 # Alias control
@@ -199,6 +202,10 @@ stats () { # --no-header | awk '{print $3}'
 #-------------------
 # Command overrides
 #-------------------
+alias df='df -hT'
+alias du='du -sh'
+alias pstree='pstree -p'
+
 if [ -e /proc/uptime ]; then
     dmesg () {
         /bin/dmesg "$@" | perl -w -e 'use strict;
@@ -329,10 +336,6 @@ touch () {              # touch [EPOCH] [+/-$modifier] $files
     /bin/touch -t $stamp "$@"
 }
 
-alias df='df -hT'
-alias du='du -sh'
-alias pstree='pstree -p'
-
 
 #-------
 # Other
@@ -344,23 +347,29 @@ alias pg='psf | g'
 nav () { nautilus "${1:-$PWD}/"; }
 alias pdf='evince'
 
-fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
-
 findTxt () {            # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
     find -L "${@:-.}" -type f -exec file {} \; | grep text | sed 's/^\(.*\): .*$/\1/'
 }
 # Tests:
 # - VALID: file.py: a adhoc-python2.7 script text executable
 
-notabs () {             # Replace tabs by 4 spaces & remove trailing ones & spaces
+notabs () {             # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces
     for f in $(findTxt "$@"); do
         perl -pi -e 's/[\t ]*$//g' "$f" # 'perl -p' is more portable than sed (e.g. \t\n does not work under OSX)
         perl -pi -e 's/\t/    /g' "$f"
     done
 }
 
+fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
 ext-ip () { curl http://ipecho.net/plain; echo; }
 int-ips () { /sbin/ifconfig $1 | grep "inet[^0-9]" | sed 's/.*[^0-9]\([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\)[^0-9].*/\1/' | grep -v '127\.0\.0\.1'; }
+
+mtr_proto () {
+    local host=$1
+    traceroute $host | \
+        awk 'NR > 1 && $2 != "*" { sub(/^\(/,"",$3); sub(/)$/,"",$3); print $3 }'  | \
+        xargs -r -L1 ping -n -i0.5 -c20 -s80 | tee $host.mtr
+}
 
 function memmost(){     # args: [proc_count=10] - Courtesy of fsquillace@
     local ps_out=$(psf)
@@ -372,13 +381,6 @@ function cpumost(){     # args: [proc_count=10] - Courtesy of fsquillace@
     local ps_out=$(psf)
     echo "$ps_out" | head -n 1
     echo "$ps_out" | sort -nr -k 3 | head -n ${1:-10}
-}
-
-mtr_proto () {
-    local host=$1
-    traceroute $host | \
-        awk 'NR > 1 && $2 != "*" { sub(/^\(/,"",$3); sub(/)$/,"",$3); print $3 }'  | \
-        xargs -r -L1 ping -n -i0.5 -c20 -s80 | tee $host.mtr
 }
 
 pid () { sh -c 'echo $PPID'; }
