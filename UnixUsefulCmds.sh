@@ -93,6 +93,8 @@ perl -wle 'exit 1 if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with
 
 a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a '
 
+dig +short TXT google-public-dns-a.google.com # check without 'TXT'
+
 
 ##################
   Bash scripting
@@ -425,7 +427,8 @@ md5sum
 &*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*
 * Parallellism, queueing, caching... *
 &*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*
-xargs -P 0 # or GNU parallel
+export -f bash_func
+xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # or GNU parallel
 
 memcached
 
@@ -502,7 +505,8 @@ dig +short -x $ip # Reverse DNS
 avahi-resolve -n $USER.local # Multicast DNS == mDNS - from avahi-tools pkg
 # Caching
 /etc/hosts /etc/resolv.conf /etc/dhcp*/*.conf # manual / basic
-bind / dnsmasq / lwresd / nscd (broken: ignore TTL) # daemon
+bind / dnsmasq / lwresd / unbound # DNS daemon
+nsscache / nss_db / nscd (broken: ignore TTL) # Cache /etc/{passwd,group,shadow,...} - Notes: nscd-aggstats, nscd -g
 getent ahostsv4 www.google.com # whole query through NSS
 rndc # display various DNS cache control commands, part of Bind9 tools suite
 rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ; lwresd $port can be figured out with lsof/nmap
@@ -568,8 +572,8 @@ curl # http://curl.haxx.se/docs/httpscripting.html
 # Web scrapping:
 httrack
 PhantomJS
-Scrapbook, iMacros # FF extensions
-Scrapy, RoboBrowser, FlexGet # python crawling libs
+GreaseMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
+Selenium, Scrapy, RoboBrowser, FlexGet # python crawling libs
 
 
 =cCcCcCc=
@@ -910,14 +914,17 @@ sqlite3 places.sqlite "select b.title, b.type, b.parent, a.url from moz_places a
 .schema moz_places
 pragma table_info(moz_places)
 
-mysql -h $HOST -u $USER -p [--ssl-ca=$file.pem] # default port 3306
+mysql -h $HOST -u $USER -p [--ssl-ca=$file.pem] DBNAME -e 'cmd ending with ; or \G' # default port 3306
 mytop # watch mysql
 
 show tables;
 show table status;
-show columns from $table;
+show columns from $table; # or just: desc $table
+show create table $table;
 show processlist;
 kill $thread_to_be_killed;
+
+-- {..} /*...*/ # comments
 
 # How to start a file to make it executable AND runnable with mysql < FILE.mysql :
 /*/cat <<NOEND | mysql #*/

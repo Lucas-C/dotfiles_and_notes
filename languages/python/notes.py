@@ -8,7 +8,7 @@ python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).g
 _ # result of the last expression evaluated (in an interpreter only)
 
 r'''Raw string literal: no need to double escape \{0}\{one:.5f}'''.format("zero", one=1)
-u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0)
+u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0) # for formatting with a defaultdict, use string.Formatter().vformat
 from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII
 unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
 chardet.detect(str) # Mozilla encoding detection
@@ -16,7 +16,7 @@ str.encode('ascii') # raise a codec exception if the string doesn't only contain
 with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as UTF8
     for line in open_file.readlines():
         yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
-with io.open('my_file', 'wU', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
+with io.open('my_file', 'w', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
 intern(str) # internal representation - useful for enums/atoms
 
 __all__ = ['bar', 'foo']
@@ -55,6 +55,7 @@ def foobar():
 
 StringIO # fake file
 
+os.makedirs(dir_path) # + ignore OSError where .errno == errno.EEXIST and os.path.isdir(dir_path) # mkdir -p
 tempfile.gettempdir()
 tempfile.mkdtemp()
 tempfile.NamedTemporaryFile() # file automagically deleted on close()
@@ -80,6 +81,8 @@ def _tzinfos_pytz_pst_func(tzname, tzoffset):
     if tzoffset:
         tzdata += timedelta(seconds=tzoffset)
     return tzdata
+parser.parse(date_string_with_tz, tzinfos=_tzinfos_pytz_pst_func).astimezone(pytz.utc) # !! Won't work for DST ! Else:
+pytz.timezone('America/Los_Angeles').localize(parser.parse(date_string_without_tz)).astimezone(pytz.utc)
 
 globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class creation
 # !!WARNING!! 'type()' uses the current global __name__ as the __module__, unless it calls a metaclass constructor
@@ -248,6 +251,8 @@ json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatt
 """""""""""
 # !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
 
+bool(datetime.time(0,0,0)) # False
+
 # DO NOT use other default parameter values than None, + initialization is static
 def foo(x = []):
     x.append('do')
@@ -289,6 +294,10 @@ self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected,
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 import doctest # include tests as part of the documentation
 
+module_name=code
+code_module_path=$(python -c "import $module_name; print $module_name.__file__" | sed 's/pyc$/py/')
+python -mtrace --ignore-module=codeop,__future__ --trace [ $file | $code_module_path ] # trace all code lines run when executing a file / in interactive console
+
 # IPython tricks
 cd /a/path
 !cmd # shell command
@@ -308,8 +317,7 @@ google/pyringe # when python itself crashes, gets stuck in some C extension, or 
 
 from pprint import pprint # indent=4
 
-vars(obj)
-dir(obj)
+vars(obj), dir(obj)
 
 inspect.getmembers(obj)
 inspect.getargspec(foo_func) # get signature
@@ -378,6 +386,10 @@ def get_refcount(obj):
     """Valid for CPython implementation only"""
     return ctypes.c_size_t.from_address(id(obj))
 # FUN FACT: the references to the 'int' [-5 ; 256] are shared
+POINTER(c_int).from_address(0)[0] # SEGFAULT
+def deref(addr, typ):
+    return ctypes.cast(addr, ctypes.POINTER(typ))
+deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index to the ob_ival field in a PyIntObject - In Python3 this index is '6'
 
 
 """""""""""""""""""""""""""""
@@ -477,6 +489,7 @@ argparse > optparse # or docopt or clize - S&M
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument(... type=argparse.FileType('r'))
 
+dropbox/python-zxcvbn # password strength estimation
 from getpass import getpass # get password without echoing it
 pyreadline, readline, rlcompleter
 colorama # cross-platform colored terminal text
@@ -504,7 +517,7 @@ for root, dirs, files in os.walk('/path/to/foo'):
     for name in files:
         archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
 
-templite, jinja2 # HTML templating system
+templite, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
 from lxml import etree
 tree = etree.parse(some_file_like_object)
@@ -613,4 +626,8 @@ obj.__qualname__
 
 from enum import Enum, IntEnum
 
-from functools import singledispatch
+from functools import \
+    singledispatch, \
+    total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
+    lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties
+

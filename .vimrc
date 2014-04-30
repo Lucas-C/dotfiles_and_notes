@@ -144,6 +144,7 @@ if isdirectory($HOME."/.vim/bundle/vundle")
 
     Bundle 'guns/vim-clojure-static'
     Bundle 'JuliaLang/julia-vim'
+    Bundle 'Glench/Vim-Jinja2-Syntax'
     Bundle 'plasticboy/vim-markdown'
     let g:vim_markdown_initial_foldlevel=1
     Bundle 'scrooloose/syntastic'
