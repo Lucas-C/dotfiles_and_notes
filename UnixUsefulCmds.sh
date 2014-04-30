@@ -524,6 +524,11 @@ openssl s_client # bare SSL client cmd
 openssl x509 -text -noout -in $cert.pem # get certs details
 openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
 keytool -printcert -file $cert.pem # get certs details
+mussh \ # MUltihost SSH Wrapper
+ -l $USER \
+ -m 2 \ # run on two hosts concurrently
+ -h rpi-1 rpi-2 \ # hostnames
+ -c "$cmd"
 
 iptables -A INPUT -s $host -j DROP
 iptables -n -L -v
@@ -542,6 +547,7 @@ lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 
 # Non portable tools
 slurm, iptraf, ntop, iftop, nethogs
+iperf # measure throughput between 2 points / saturate a network connection -> useful for testing
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 
 ipcalc < cidr $ip/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
@@ -892,8 +898,10 @@ http://en.wikipedia.org/wiki/Help:Magic_words
 
 
 ::=::=::=::
-:: MySQL==MariaDB / SQLite
+:: MySQL / SQLite
 ::=::=::=::
+MariaDB / Percona / Drizzle # https://blog.mozilla.org/it/2013/03/08/different-mysql-forks-for-different-folks/
+
 LIKE >faster> REGEXP
 
 sqlite3 places.sqlite "select b.title, b.type, b.parent, a.url from moz_places a, moz_bookmarks b where a.id=b.fk;" # type: 1: bookmark/folder, 2: tag ; no cmd => interactive - Firefox
