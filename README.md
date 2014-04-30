@@ -30,3 +30,7 @@ As an alternative setup, you can source the versioned .bashrc from your own ~/.b
 Any other .bashrc_* file in the same directory will be sourced.
 
 The .zshrc file is here to invoke _bash_ even if _zsh_ is the default shell.
+
+#### ToDo ####
+
+Move all .* files in a subdir.

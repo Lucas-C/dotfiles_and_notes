@@ -39,9 +39,9 @@ opendiff (OSX)
 EOF
 }
 
-alias diff='diff_alt && diff -b'
-less () { less -iM "$@"; }
-alias make='make -j3'
+alias diff='diff_alt && /usr/bin/diff -b'
+less () { /usr/bin/less -iM "$@"; }
+alias make='/usr/bin/make -j3'
 if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias cl='grc -es --colour=auto'
     alias make='cl make -j3'
@@ -56,12 +56,12 @@ if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias tail='cl tail'
     less () {
         if [ $# -ne 0 ]; then
-            grc -es cat "$@" | /bin/less -iMR
+            grc -es cat "$@" | /usr/bin/less -iMR
         elif [ -t 0 ]; then # nothing in stdin
             /bin/less
             return 1
         else
-            grcat conf.log | /bin/less -iMR
+            grcat conf.log | /usr/bin/less -iMR
         fi
     }
 fi

@@ -2,7 +2,8 @@
 // Docs: http://wiki.imacros.net/iMacros_for_Firefox#Javascript_Scripting_Interface
 // It has a very useful 'recording' mode
 
-const IMACRO = 'CODE:SET !ERRORIGNORE YES\n\
+const IMACRO = 'CODE:\n\
+SET !TIMEOUT_STEP 0\n\
 TAB T=1
 URL GOTO=https://mywebsite.com/page?action={{var1}}\n\
 TAG POS=1 TYPE=INPUT:CHECKBOX FORM=ID:modify ATTR=NAME:checkbox_{{var2}} CONTENT=YES\n\
@@ -16,6 +17,7 @@ for(var iVal = 0; iVal < VALUES.length; iVal++){
         iimDisplay("var1:" + value + " | var2: " + n)
         iimSet("var1", value);
         iimSet("var2", n);
-        iimPlay(IMACRO);
+        var return_code = iimPlay(IMACRO);
+        iimDisplay("Return code: " + return_code + " - Error: " + iimGetErrorText());
     }
 }
