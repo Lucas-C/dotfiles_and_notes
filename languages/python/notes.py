@@ -23,7 +23,8 @@ __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
 
 __slots__ = ("attr1_name")
-# Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots." It slightly slow down lookup time
+# Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots." It also slightly slows down lookup time
+# !! Redefining a 'slot' in a child class is UNDEFINED BEHAVIOUR ! cf. https://docs.python.org/2/reference/datamodel.html#__slots__
 
 __repr__ # unambigous, as possible 'eval'uable
 "MyClass(this=%r,that=%r)" % (self.this,self.that)
@@ -73,6 +74,7 @@ subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=STDOUT)
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
     foo = kwargs.pop('foo')
 
+import arrow # 'better dates and times'
 datetime.utcnow() # better than time.time()
 import pytz # pytz.utc, pytz.all_timezones
 from dateutil import parser # !! ALWAYS pass a Callable as tzinfos so that it won't use the system timezone (time.tzname)
@@ -134,11 +136,13 @@ class Property(object):
 
 buffer & memoryview
 
-class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')): pass # Immutable class
+class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
+    __slots__ = () # Else new attributes can still be added to that class dynamically
 # Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
 
 # For multiple inheritance with namedtuple, combine fields + use specific inheritance order:
-class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), Immut2DPoint): pass
+class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
+    __slots__ = ()
 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s")
 logging.handlers.[Timed]RotatingFileHandler # logrotate in Python
@@ -511,6 +515,7 @@ shelve # other data persistence using pickle, full list of alt: http://docs.pyth
 
 ConfigParser # std configuration files format
 csv, xlwt, xlrd
+yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 cPickle # binary format, generic, fast & lighweight.
 # + PyCloud make it possible to pickle functions dependencies
 

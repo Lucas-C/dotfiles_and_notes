@@ -443,6 +443,7 @@ beanstalk # Better alternative queuing system, with lots of existing tools & lib
 ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ # Message queue using AMPQ
 Celery/Kombu # Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
 Nameko # python framework for building service orientated software
+fritzy/thoonk.js / fritzy/thoonk.py # Persistent and fast push feeds, queues, and jobs
 
 BerkeleyDB, SQLite, LMDB, LevelDB # embedded database
 
@@ -500,8 +501,9 @@ ifup, ifdown # bring a network interface up
 ls /var/lib/dhc* # check what DHCP client is used
 # Query DNS cmds > deprecated 'nslookup'
 host [-t txt] $hostname # -a (all records) -v
-dig +short txt $dns_server
+dig @$dns_server $hostname
 dig +short -x $ip # Reverse DNS
+dig +short txt $dns_server
 avahi-resolve -n $USER.local # Multicast DNS == mDNS - from avahi-tools pkg
 # Caching
 /etc/hosts /etc/resolv.conf /etc/dhcp*/*.conf # manual / basic
@@ -898,7 +900,7 @@ Include {{templates}} in pre blocks
 alt{{ernative}}
 }}
 
-http://en.wikipedia.org/wiki/Help:Magic_words
+http://en.wikipedia.org/wiki/Help:Magic_words ; http://www.mediawiki.org/wiki/Help:Magic_words
 
 
 ::=::=::=::

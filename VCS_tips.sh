@@ -23,7 +23,7 @@ svn diff | diffstat # sum-up a diff
 # Git
 #*****#
 curl 'https://raw.githubusercontent.com/eacousineau/util/master/git-new-workdir.sh' > .git-new-workdir.sh
-curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > .bashrc_git_completion
+curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > .bashrc_git_completion # buggy with TMUX
 
 # use HTTPS protocol instead of git one (e.g. to bypass a firefall):
 git config --global url."https://".insteadOf git://
