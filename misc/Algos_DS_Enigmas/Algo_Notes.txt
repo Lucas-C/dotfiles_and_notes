@@ -10,3 +10,8 @@ Test set membership:
 
 Hashing:
 - 'fuzzy' hashing that gaves same result for inputs that have homologies : http://www.forensicswiki.org/wiki/Context_Triggered_Piecewise_Hashing
+
+Compression:
+- Google Snappy (10x faster, 50% worse compression than LZ)
+- Google Zöpfli (5% more compression, 100x slower than LZ)
+

@@ -158,6 +158,7 @@ generators
 hex_md5('string') // crypt/md5.js
 
 underscorejs.org // Functional prog lib
+moment.js // parse, validate, manipulate, and display dates
 
 npm install // Node Packaged Modules
 var fs = require("fs"); // Node.js
