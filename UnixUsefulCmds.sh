@@ -528,7 +528,7 @@ openssl s_client # bare SSL client cmd
 openssl x509 -text -noout -in $cert.pem # get certs details
 openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
 keytool -printcert -file $cert.pem # get certs details
-mussh \ # MUltihost SSH Wrapper
+mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
  -l $USER \
  -m 2 \ # run on two hosts concurrently
  -h rpi-1 rpi-2 \ # hostnames

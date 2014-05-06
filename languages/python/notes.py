@@ -430,6 +430,7 @@ from cryptography.fernet import Fernet # symmetric encryption
 "" Other libs & tools
 """""""""""""""""""""
 reload(module)
+modulefinder # determine the set of modules imported by a script
 
 Pypy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler
 Jython / Py4J # intercommunicate with Java
@@ -467,6 +468,8 @@ mrjob, luigi # Hadoop / AWS map-reduce jobs
 
 pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
 dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshare.net/dakerfp/functional-pattern-matching
+
+toolz # functional programming - Even faster: CyToolz - Also: suor/funcy ; kachayev/fn.py
 
 pylama # include pyflakes, pylint, PEP-checking - Also: Flake8
 pyreverse # UML diagrams
@@ -507,7 +510,8 @@ sqlite3 # std DB, persistent in a file || can be created in RAM
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
 
 ConfigParser # std configuration files format
-csv, json, cPickle # for serialization, the 2nd is a binary format, generic, fast & lighweight
+csv, xlwt, xlrd
+cPickle # binary format, generic, fast & lighweight.
 # + PyCloud make it possible to pickle functions dependencies
 
 hmac, hashlib.md5('string').hexdigest()
@@ -529,6 +533,7 @@ urlparse
 requests # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
+kevin1024/vcrpy # record / replay HTTP interactions
 
 bottle, pyramid, flask # Web frameworks
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
