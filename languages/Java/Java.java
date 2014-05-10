@@ -59,7 +59,9 @@ Arrays.toString(myCollection.toArray()) // nice collection stringification
 
 assert *<condition>* : *<object>* // Don't forget to -enableassertions
 
-"" == (new String("")).intern()
+"" == (new String("")).intern() // Using .intern() can be risky + interned Strings live in PermGen space
+
+System.nanoTime() // 30 ns latency. Use it wisely: the latency, granularity, and scalability effects introduced may and will affect your measurements
 
 // Reflection
 import java.lang.reflect.Field;

@@ -51,7 +51,7 @@ if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias ld='cl ld'
     alias netstat='cl netstat'
     alias ping='cl ping'
-    alias traceroute='cl traceroute'v
+    alias traceroute='cl traceroute'
     alias diff='diff_alt && cl diff -b'
     alias tail='cl tail'
     less () {
@@ -170,8 +170,8 @@ urlencode () { perl -ne 'chomp; s/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/
 urldecode () { sed -e's/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g' | xargs echo -e; } # don't handle '+'->' ' in a query
 iconv_help () {
     local file=${1:-\$file}
-    echo iconv -f ISO-8859-1 -t UTF-8 $file -o ${2:-$file.utf8}
-    echo iconv -t 'ASCII//TRANSLIT//IGNORE' $file -o ${2:-$file.ascii}
+    echo iconv -f ISO-8859-1 -t UTF-8 $file \> ${2:-$file.utf8}
+    echo iconv -t 'ASCII//TRANSLIT//IGNORE' $file \> ${2:-$file.ascii}
     echo tail --bytes=+4 UTF8WithBom.txt \> UTF8WithoutBom.txt
 }
 alias utf8=iconv_help
