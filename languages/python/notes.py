@@ -146,10 +146,13 @@ class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), 
 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s")
 logging.handlers.[Timed]RotatingFileHandler # logrotate in Python
+# Lazy logger: http://stackoverflow.com/a/4149231
+# Support for {} format syntax: vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
+logger = logging.getLogger(__name__)
 try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err:
     # see chain_errors module
-    logging.exception("Additional infos") # Exception will be automagically logged
+    logger.exception("Additional info: %s", 42) # Exception will be automagically logged
     import traceback; traceback.print_exc() # or .extract_stack()
 else: pass
 finally: pass
@@ -564,7 +567,7 @@ tn.write(user + "\n")
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-python
 
-EasyDialogs, optparse_gui, EasyGui
+EasyDialogs, optparse_gui, EasyGui, Tkinter
 pyglet # windowing and multimedia lib
 pillow > pil # Python Image Library
 AAlib # ASCII rendering

@@ -2,29 +2,21 @@
 ### SHELL & misc  ###
 ~°~°~°~°~°~°~°~°~°~°~
 
-# Useful key bindings
 <CTRL>+u : remove part of current line "a gaUche"
 <CTRL>+k : remove "Klosing" part of current line
 <CTRL>+w : remove previous "Word"
 <CTRL>+r : search bash history, powerful to use with cmd #tags
 
-# replace word from 'last command'
-^command^user^
+^command^user^ # replace word from 'last command'
 
 <ALT>+. # insert preceding line's final parameter
 !$ # select the last arg
 !!:n # selects the nth argument of the last command
 
-xclip [-selection clipboard] # copy & paste clipboard
-ranger # text-based file manager written in Python with vi key bindings
-
 time read # chrono
 man ascii # display ASCII table
 cal # quick calendar - Also: calcurse, wyrd
 look # find English words (or lines in a file) beginning with a string
-
-write / mesg # 2nd control write access
-wall # broadcast message
 
 # 'top' < 'htop'
 * display full command path of processes : "c"
@@ -54,36 +46,11 @@ xkill # kill window by clicking
 xprop # get window infos by cliking
 xdpyinfo / xwininfo -children -id $ID # get X11 windows infos
 
-# Follow program system calls (!! -f => follow fork)
-strace -f -p $pid -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
-strace -f -e trace=network -s 10000 $cmd # capture network traffic
-# Bug: http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
-kill -CONT $pid # strace bug fix
-ltrace -ttS -s 65535 -o $logfile -p $pid # log system calls and library calls
+xclip [-selection clipboard] # copy & paste clipboard
+ranger # text-based file manager written in Python with vi key bindings
 
-cat /proc/pid/smaps # get resources infos
-pmap -x $pid # get memory usage
-valgrind --tool=massif $cmd # get memory usage with details & graph
-valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
-
-# get a core file for a running program
-gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID # then manipulate with pstack, pmap
-# get a stack trace for all threads
-gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log
-
-hexdump -c # aka 'hd', use 'bvi' for editing
-strings -n $min_length exec.bin # extract strings of length >= 4
-objdump
-/dev/mem # Physical memory, useful to strings | grep pswd. Ubuntu limit this to 1Mb
-dd if=/dev/fmem of=/tmp/fmem_dump.dd bs=1MB count=10 # don't forget 'count'
-nm *.o # list symbols
-readelf -Ws *.so
-ldd $executable # list dynamically linked libs
-
-# LD_PRELOAD trick
-man ld.so
-gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
-LD_PRELOAD=./myfopen.so cat $file
+write / mesg # 2nd control write access
+wall # broadcast message
 
 ttyrec, ipbt, ttygif # record & playback terminal sessions 
 
@@ -305,6 +272,7 @@ ulimit -u # max number of processes
 
 >| # '>' that overrides 'set -o noclobber'
 
+grep -a # if "Binary file (standard input) matches"
 grep -q # silent, !! FAIL with SIGPIPE if 'pipefail' is used: http://stackoverflow.com/a/19120674/636849
 grep '\<word\>' # match word-boundaries
 grep -I # ignore binary files
@@ -348,6 +316,7 @@ sed -i "1i$content" $file # append at the beginning of $file
 
 sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN - How it works : N means 'pattern_space+=\n+nextline' and we use branching to :a - Alt: just '1!N; s/...//'
 seq 1 10 | paste -s -d+ | bc # Replace newlines by a separator, aka 'join' - Also, for arrays: OLD_IFS=$IFS; IFS=+; echo "${argv[*]}"; IFS=$OLD_IFS
+sed "0,/$pattern/d" $file # print only lines after $pattern
 # paste is also useful to interlace files: paste $file1 $file2
 
 perl -pe 's/\s+/\n/g' # Break on word per line
@@ -535,6 +504,7 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
  -m 2 \ # run on two hosts concurrently
  -h rpi-1 rpi-2 \ # hostnames
  -c "$cmd"
+# http://en.wikipedia.org/wiki/Comparison_of_SSH_clients#Platform
 
 iptables -A INPUT -s $host -j DROP
 iptables -n -L -v
@@ -574,13 +544,14 @@ curl # http://curl.haxx.se/docs/httpscripting.html
 # Web scrapping:
 httrack
 PhantomJS
-GreaseMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
+GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
 Selenium, Scrapy, RoboBrowser, FlexGet # python crawling libs
 
 
 =cCcCcCc=
 # Cisco #
 =cCcCcCc=
+# Remote-cmd & monitor device config: RANCID/clogin
 
 enable # unlock more comnmands
 show version
@@ -632,6 +603,7 @@ echo 1 > /sys/module/printk/parameters/printk_time
 
 iostat # + iotop, non portable
 mpstat 5 # cpu usage stats every 5sec
+monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
 dstat, glances # non portables
 
 # Checking Swap Space Size and Usage
@@ -643,8 +615,7 @@ sar
 # People previous logged
 last [-f /var/log/wtmp.1]
 
-# Message of the day
-/etc/motd
+/etc/motd # Message of the day, can be combined from multiple files: man update-motd
 
 # Get uid / groups infos
 id $USER # for primary group, use -ng flag
@@ -718,22 +689,15 @@ mplayer -identify -vo null -ao null -frames 0 $file | grep "Video stream found" 
 mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
 avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi
 
-# Xlib: connection to ":0.0" refused by server.
-xhost +local:local
-
 sudo /usr/share/doc/libdvdread4/install-css.sh # Install libdvdcss
 
-# Rescan for memory card
-sudo su -l
-echo 1 > /sys/bus/pci/rescan
+sudo su -c 'echo 1 > /sys/bus/pci/rescan' # Rescan for memory card
 
 ~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
 about:cache # Firefox cache infos: location, size, number of entries
 $ff_profile_dir/.parentlock # fix "Firefox is already running but is not responding" error
 
-xhost local:root # Xlib: connection to ":0.0" refused by server
-
-grep -a # when grep returns "Binary file (standard input) matches"
+xhost +local:root # Xlib: connection to ":0.0" refused by server
 
 
 =\/=/\=\/=/\=\/=
@@ -910,7 +874,9 @@ MariaDB / Percona / Drizzle # https://blog.mozilla.org/it/2013/03/08/different-m
 
 LIKE >faster> REGEXP
 
-sqlite3 places.sqlite "select b.title, b.type, b.parent, a.url from moz_places a, moz_bookmarks b where a.id=b.fk;" # type: 1: bookmark/folder, 2: tag ; no cmd => interactive - Firefox
+sqlite3 places.sqlite "select b.title, b.type, b.parent, a.url from moz_places a, moz_bookmarks b where a.id=b.fk;" # no cmd => interactive - Firefox, type: 1 => bookmark/folder, 2 => tag
+sqlite3 extensions.sqlite 'select id, optionsURL from addon;' # Firefox extensions
+
 .help
 .tables
 .schema moz_places

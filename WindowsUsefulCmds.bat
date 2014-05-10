@@ -8,14 +8,11 @@ msinfo32 :: info composants
 
 schtasks :: task scheduler
 
-:: Backup
-robocopy "C:\Source" "E:\Destination" /E /PURGE
+robocopy "C:\Source" "E:\Destination" /E /PURGE :: Backup
 
-:: Variable substitution
-copy "C:\file.txt" "D:\%date:/=-%_file.txt.bak"
+copy "C:\file.txt" "D:\%date:/=-%_file.txt.bak" :: Variable substitution
 
-:: Sysinternals Process Utilities
-handle, pskill, pslist...
+handle, pskill, pslist... :: Sysinternals Process Utilities
 
 :: Usual cleanup steps
 - create a restoration point
@@ -41,8 +38,7 @@ del file
 
 :: Default .dll owner : NT SERVICE\TrustedInstaller
 
-:: Loupe
-Magnify.exe
+Magnify.exe :: Loupe
 
 
 ::::::::::
@@ -61,5 +57,4 @@ for /l %%x in (1, 1, 100) do echo %%x
 for /r %%f in (file_A file_B) do if exist "%%f" echo %%f :: paths are relative to the local dir
 for /f "delims=" %%l in (%file%) do set /a counter+=1 :: /a => evaluate numeric expression
 for /f "tokens=1,* delims=:" %%i in ('findstr /n /r . file.txt') do if %%i geq 10 if %%i leq 20 echo %%j
-
 
