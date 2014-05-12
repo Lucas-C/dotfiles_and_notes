@@ -330,6 +330,7 @@ inspect.getmembers(obj)
 inspect.getargspec(foo_func) # get signature
 inspect.getfile(my_module)
 frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
+sys._getframe(1).f_locals['foo'] = 'overriding caller local variable!'
 
 <module>.__file__
 
@@ -365,13 +366,14 @@ exec compiled
 
 from dis import dis; dis(myfunc) # get dissassembly
 uncompyle2 prog.pyc # bytecode -> python code
+foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')) # bytecode evil alteration
 
 import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
 # SUPER powerful to hack python code and sniff values
 
 python -m cProfile myscript.py -o output.pstats # cProfile.Profile().dump_stats(filename)
 gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
-pycallgraph graphviz -- ./mypythonscript.py
+pycallgraph graphviz -- ./mypythonscript.py # Alt for recursion tree: carlsborg/rcviz
 kernprof.py --line-by-line myscript.py # line_profiler
 pyprof2calltree # use kcachegrind
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
@@ -440,6 +442,7 @@ reload(module)
 modulefinder # determine the set of modules imported by a script
 
 Pypy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler
+-> from tputil import make_proxy # transparent proxy : can record/intercept/modify operations
 Jython / Py4J # intercommunicate with Java
 
 virtualenv # sandbox

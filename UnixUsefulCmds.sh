@@ -543,9 +543,9 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspir
 curl # http://curl.haxx.se/docs/httpscripting.html
 # Web scrapping:
 httrack
-PhantomJS
+PhantomJS, SlimerJS, CasperJS
 GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
-Selenium, Scrapy, RoboBrowser, FlexGet # python crawling libs
+Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter # python crawling libs
 
 
 =cCcCcCc=
