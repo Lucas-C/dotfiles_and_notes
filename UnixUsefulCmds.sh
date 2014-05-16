@@ -632,6 +632,7 @@ awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd
 sudo su -l # login as user root
 sudo -K # Remove sudo time stamp => no more sudo rights
 fakeroot # runs a command in an environment wherein it appears to have root privileges for file manipulation
+chroot $path_to_fake_root $cmd # 'chroot jail' => changes the apparent root directory
 
 lspci -v # list devices
 lshw -C disk # list disks : ata, cdrom, dvdrom

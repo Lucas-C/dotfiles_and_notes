@@ -5,6 +5,7 @@
 [DOM] : http://googletesting.blogspot.com/2013/05/testing-on-toilet-dont-overuse-mocks.html
 [KYTD] : http://googletesting.blogspot.com/2013/07/testing-on-toilet-know-your-test-doubles.html
 [CRoTDD] : http://svenpet.com/2014/01/07/better-code-reviews/
+[JP] : Java Puzzlers - Joshua Bloch & Neal Gafter
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -32,6 +33,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - Logical dependencies are not physical : avoid assumptions on other modules behaviour, make it explicit + expose objects modifications (functional programing) [CC-G22] [CC-G31]
 - Artifical coupling / Misplaced responsability [CC-G13] [CC-G14] [CC-G17]
     There is a place for everything : don't toss code in the most convenient place at hand, take the time to figure out where functions, constants, variables ought to be declared
+- when in doubt, favor composition over inheritance [JP-C6]
 
 # Be rigorous and clean after yourself
 - Be consistent : be careful with the conventions you choose, and follow them strictly. E.g. stick with one word per concept. [CC-G11]
