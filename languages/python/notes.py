@@ -572,6 +572,7 @@ pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-py
 
 EasyDialogs, optparse_gui, EasyGui, Tkinter
 pyglet # windowing and multimedia lib
+pysoy # 3D game engine
 pillow > pil # Python Image Library
 AAlib # ASCII rendering
 

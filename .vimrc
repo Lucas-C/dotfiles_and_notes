@@ -146,7 +146,7 @@ if isdirectory($HOME."/.vim/bundle/vundle")
     Bundle 'JuliaLang/julia-vim'
     Bundle 'Glench/Vim-Jinja2-Syntax'
     Bundle 'plasticboy/vim-markdown'
-    let g:vim_markdown_initial_foldlevel=1
+    let g:vim_markdown_folding_disabled=1
     Bundle 'scrooloose/syntastic'
 
     " require vim compiled with +python

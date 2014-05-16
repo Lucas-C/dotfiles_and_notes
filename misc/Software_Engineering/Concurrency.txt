@@ -54,3 +54,5 @@ Example Java checkpoints (sync points):
     Thread A exits a 'synchronize' block and thread V subsequently enters the same 'synchronize' block
     Thread A writes to a volatile variable and thread B reads it
     Placing, retrieving an object in a shared zone
+
+Thread.stop Thread.suspend // DEPRECATED ! Do not use them

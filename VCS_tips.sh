@@ -78,13 +78,14 @@ git tag # Add vX.Y tags to commits
 git branch -u origin/master # Set remote branch to track
 git branch -d $branch_name # Delete branch
 git branch -m old_name new_name # Rename branch
+git push ${remote_name:-origin} $branch_name # create remote branch
 # Show branch info:
 git branch -av
 git remote show origin
 
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:
-git branch $branch_name --track origin/mainline
+git co -b $branch_name --track origin/mainline # checkout -b <=> create branch && checkout
 # Commit feature branch and fast forward changes to mainline
 git co featureBranch
 git ci

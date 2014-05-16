@@ -18,7 +18,7 @@ java -cp junit.jar:. org.junit.runner.JUnitCore path.to.pkg.AllTests// JUnit
 findbugs, error-prone // code checking tools
 cobertura // code coverage
 jdb // debugger
-JD // Java decompiler
+JD // Java decompiler, include a GUI
 jconsole // http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
 JVM Monitor (free Eclipse plugin), jprofiler (non free), visualVM // profilers
 jmap -histo:live <pid> // Object-type histogram on a running jvm
@@ -31,6 +31,8 @@ sudo update-alternatives --config java
 jps, jcmd, jstat // Std perf monitoring tools: http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.html
 
 JSP (JavaServer Pages) is an alternative to PHP
+
+dex2jar // Convert an Android .apk into .jar
 
 // 1. Make JVM accept JMX connections
 -Dcom.sun.management.jmxremote.port=9876 // can be any port
@@ -49,23 +51,37 @@ kill -3 <pid> // dump a full stack trace and heap summary, including generationa
 // String / ByteString correct conversion :
 String asString = new String( byteString.getArray(), "UTF-8" );
 ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
+"" == (new String("")).intern() // Using .intern() can be risky + interned Strings live in PermGen space
+"regexp".matches("regex.*") // Also: .indexOf .lastIndexOf .substring .trim .split
+// char[] >slightly> String for passwords: http://stackoverflow.com/a/8881376
 
 Cloneable interface // Somehow broken because it does not have a 'clone()' method and Object.clone() is protected - Do not implement it
 
 java.util.AbstractSequentialList, AbstractList // Skeleton implementations for list classes
 
+Integer.bitCount
+BigDecimal("1.6") // instead of float, for exact decimal arithmetic + do not use BigDecimal(1.6)
+
 import java.util.Arrays;
-Arrays.toString(myCollection.toArray()) // nice collection stringification
+Arrays.toString(myCollection.toArray()) // or 'deepToString' to deal with nested arrays
+Collections.shuffle(myList)
+           .sort(myList) // stable Python TimSort
+           .binarySearch(myList, key)
+           .frequency(myCollection, objToCount)
+           .indexkOfSubList .lastIndexOfSubList
+           .nCopies(count, obj) // -> list
+           .reverse(myList) .rotate(myList)
+           .replaceAll(myList, oldVal, newVal)
+           .unmodifiable[Sorted]Collection // -> collection view
 
 assert *<condition>* : *<object>* // Don't forget to -enableassertions
-
-"" == (new String("")).intern() // Using .intern() can be risky + interned Strings live in PermGen space
 
 System.nanoTime() // 30 ns latency. Use it wisely: the latency, granularity, and scalability effects introduced may and will affect your measurements
 
 // Reflection
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+java.lang.refect.Constructor.newInstance > MyClass.newInstance // it can throw undeclared checked exceptions !
 
 // Methods/attribute privacy only true at compile time : if one recompile a class into bytecode with all private, it will still work !
 
@@ -137,6 +153,8 @@ for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
     System.out.println(ste);
 }
 
+// Use shutdown hooks for behavior that must occur before the VM exist (a simply 'finally' block won't be executed in case of a System.exit
+Runtime.getRuntime().addShutdownHook(new Thread() { public void run() { /* clean-up */ } });
 
 /* Useful standard runtime exceptions:
  *  - IllegalArgumentException
