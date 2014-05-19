@@ -19,21 +19,29 @@ findbugs, error-prone // code checking tools
 cobertura // code coverage
 jdb // debugger
 JD // Java decompiler, include a GUI
-jconsole // http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html
-JVM Monitor (free Eclipse plugin), jprofiler (non free), visualVM // profilers
 jmap -histo:live <pid> // Object-type histogram on a running jvm
+
 JLine // console input handling like BSD editline / GNU readline
+SLF4J // logging API, then pick a logging engine: java.util.logging for basic stuff, Log4j2 else
+Metrics // perf & health monitoring
 
 OpenJDK JMH // Benchmark tool
 
 sudo update-alternatives --config java
 
-jps, jcmd, jstat // Std perf monitoring tools: http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.html
+jps, jstat // Std perf monitoring tools: http://www.orace.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.html
+jcmd [$process] // without args to list running Java processes
 
 JSP (JavaServer Pages) is an alternative to PHP
+JavaFX / OpenJFX // bytecode compiled non-dynamic language providing GUI and app packaging
+Packr // Package .jar & assets for any distrib (most suited for GUI apps)
+Capsule // dead-Simple packaging and deployment for JVM apps
 
 dex2jar // Convert an Android .apk into .jar
 
+VisualVM, jmxterm // GUI & CLI for JMX (Java Management Extensions that specifies simple Java objects called MBeans)
+// Alt profilers: byteman, JVM Monitor (free Eclipse plugin), jprofiler (non free), Java Flight Recorder (baked into the HotSpot VM) & Java Mission Control
+Jolokia, hawtio // Provide JMX HTTP REST access
 // 1. Make JVM accept JMX connections
 -Dcom.sun.management.jmxremote.port=9876 // can be any port
 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false // turning this off for simplicity

@@ -155,6 +155,7 @@ alias f='firefox'
 alias tkcon='tkcon -load Tk'
 alias py='ipython --pdb'
 rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
+alias node='env NODE_NO_READLINE=1 rlwrap /usr/local/bin/node'
 
 # Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
 alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'

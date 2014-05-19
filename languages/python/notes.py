@@ -313,6 +313,7 @@ cd /a/path
 %timeit do_something()
 %debug # post_mortem
 %bg # run in the background
+ipython notebook # D3 support : wrobstory/sticky
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 
 # PDB tricks
@@ -498,7 +499,7 @@ def function_with_docstring(foo): # sphinx
     """
     return False
 
-argparse > optparse # or docopt or clize - S&M
+twobraids/configman > argparse > optparse # or docopt or clize - S&M
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument(... type=argparse.FileType('r'))
 
@@ -518,6 +519,7 @@ peewee, SQLAlchemy # ORM DB
 anydbm: dbhash else gdbm else dbm else dumbdbm
 sqlite3 # std DB, persistent in a file || can be created in RAM
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
+stephenmcd/hot-redis
 
 ConfigParser # std configuration files format
 csv, xlwt, xlrd

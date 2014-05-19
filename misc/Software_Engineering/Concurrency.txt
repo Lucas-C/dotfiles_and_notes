@@ -56,3 +56,5 @@ Example Java checkpoints (sync points):
     Placing, retrieving an object in a shared zone
 
 Thread.stop Thread.suspend // DEPRECATED ! Do not use them
+
+Fibers // Simple Lightweight Concurrency

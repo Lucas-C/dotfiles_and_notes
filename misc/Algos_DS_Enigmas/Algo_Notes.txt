@@ -16,3 +16,5 @@ Compression:
 - Google Snappy (10x faster, 50% worse compression than LZ)
 - Google Zöpfli (5% more compression, 100x slower than LZ)
 
+PID controller: control loop feedback mechanism, using the proportional, integral and derivative values,
+    that attempts to minimize the error in outputs by adjusting the process control inputs.

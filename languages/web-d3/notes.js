@@ -5,6 +5,7 @@ $$("#articleContent ul li").length
 
 debugger // breakpoint for debugger
 
+$._data($(elem).get(0), "events") // get events binded to 'elem'
 
 (function(exports) {
     var private_name = 'protected_by_closure';

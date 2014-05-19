@@ -1,3 +1,22 @@
+# CTRL+a c -> open new window
+# CTRL+a a -> go to first/last window
+# CTRL+a p/n -> navigate through windows
+# CTRL+a d -> detach
+# CTRL+a :number $x -> move window to position $x
+
+# CTRL+a f/:fit -> resize window
+# CTRL+a :quit
+
+# CTRL+a $x -> go to window $x
+# CTRL+a x/k/:kill -> kill current window
+
+# CTRL+a s -> new region
+# CTRL+a x -> kill region
+# CTRL+a <TAB> -> switch region
+
+# CTRL+a ? -> help
+# CTRL+a [ -> copy/scroll mode (ESC)
+
 # screen -ls
 # screen -r
 # DOC: http://www.bangmoney.org/presentations/screen.html
@@ -20,6 +39,7 @@ bindkey -d ^a^s split
 bindkey -d ^ax remove
 bindkey -d ^a^x remove
 
+# CTRL+a CTRL+b -> detach
 bindkey -d ^a^d detach
 
 # Bind F1... keys
