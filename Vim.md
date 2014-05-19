@@ -84,7 +84,7 @@ Commands
 - *:*__[UP]__ : commands history
 - *:u* : undo
 - __[CTRL]+[R]__ : redo
-- *:.* : repeat last change - *@:* : repeat last command-line change
+- *:.* : repeat last change - *:@* : repeat last command-line change
 
 Config
 ======
