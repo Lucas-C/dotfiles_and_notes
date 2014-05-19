@@ -422,6 +422,23 @@ redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*
 
 RRDtool (the ancestor) and its followers: RRDCached, Graphite Whisper, OpenTSDB, reconnoiter, chriso/gauged # storage layer for numeric data series over time
 
+gnuplot -e "set term dumb; plot '<seq 1 9'" # ASCII graph
+gnuplot -e "set term dumb size 200,50; plot [-5:6.5] sin(x) with impulse"
+loop_cfg_file=/tmp/gnuplot_loop.cfg
+in_data_file=/tmp/gnuplot_in.data
+echo <<EOF >$loop_cfg_file
+set term dumb size 200,50
+set title 'Traffic-In (bytes/s)'
+# Sampling 30 data points each time
+plot '<tail -n 30 $in_data_file'
+pause 1
+replot
+# Loop by rereading this file, doesn't work with -e on the command-line
+reread
+EOF
+tail -F $log_file | grep $keyword | pv --line-mode --numeric >/dev/null 2>$in_data_file &
+gnuplot $loop_cfg_file # real-time ASCII graphing !
+
 
 |°|°|°|°|°|°|°|°
 == NETWORKING
@@ -449,8 +466,8 @@ lsof -i -n | grep ssh # list SSH connections/tunnels
 ss -nap # -a => list both listening and non-listening sockets/ports ; -n => no DNS resolution for addresses, use IPs ; -p => get pid & name of process owning the socket
 ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
 
-# Even if 'ss' is the replacement for deprecated 'netstat', the following has no equivalent
-netstat --statistics [--udp] # global network statistics
+netstat --statistics [--udp] # global network statistics - 'ss' is the replacement for deprecated 'netstat', but this has no equivalent
+/proc/net/{snmp, netstat, ...} # network counters
 
 ip n[eighbour] # ARP or NDISC cache entries - replace deprecated 'arp'
 ip a[ddr] [show|add $ip] dev eth0 # replace deprecated 'ifconfig'
@@ -515,6 +532,11 @@ snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName
 
 # Dump all tcp transmission to a specific IP :
 sudo tcpdump -i $interface host $IP [ip proto icmp|udp|tcp] -A -s 0 # last flag remove the limit on the captured packet size | Use -X for hex-dump | -n to disable dns resolution
+tcpdump udp and dst port 514 -w - | pv -btr >/dev/null # Incoming syslog UDP packets rate -> can be used for TCP or all network traffic too
+
+nc -l -p 7777 > /dev/null # on receiver machine
+pv -btr /dev/zero | nc $host 7777 # show live throughput between two machines
+yes | pv -btr | ssh $host 'cat > /dev/null' # same through SSH
 
 grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 
@@ -584,6 +606,7 @@ cat /etc/issue*
 
 /proc/version
 /proc/cpuinfo # Number of cores, cache size & alignement...
+watch -d 'cat /proc/meminfo' # Watch system stats
 /proc/loadavg : # graph in TTY: tload
 - first 3 fields : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1, 5, and 15 minutes
 - 4th field : number of currently executing kernel scheduling entities (processes, threads) / number of existing kernel scheduling entities
@@ -593,8 +616,6 @@ stap # SystemTap
 perf # need a version of linux-tools-* mathcing the kernel
     top -G
     stat -e cycles,instructions,cache-misses,dTLB-load-misses -p $PID
-
-watch -d 'cat /proc/meminfo' # Watch system stats
 
 # System errors
 dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
