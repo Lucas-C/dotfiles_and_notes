@@ -68,7 +68,7 @@ os.stat("filename").st_ino # get inode
 
 from distutils import spawn
 cmd_path = spawn.find_executable('cmd') # shutil.which in Python3
-subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=STDOUT)
+subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT)
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
 
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
@@ -500,8 +500,10 @@ def function_with_docstring(foo): # sphinx
     return False
 
 twobraids/configman > argparse > optparse # or docopt or clize - S&M
+parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument(... type=argparse.FileType('r'))
+return parser.parse_args()
 
 dropbox/python-zxcvbn # password strength estimation
 from getpass import getpass # get password without echoing it
