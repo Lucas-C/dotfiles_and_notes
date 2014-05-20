@@ -9,7 +9,7 @@ cmd1 <(cmd2) >(cmd3) # make cmd2 output & cmd3 input look like a file for cmd1. 
 <CTRL>+w : remove previous "Word"
 <CTRL>+r : search bash history, powerful to use with cmd #tags
 
-^command^user^ # replace word from 'last command'
+^command^user^ # replace word from 'last command' - Alt: alias r='fc -s'
 
 <ALT>+. # insert preceding line's final parameter
 !$ # select the last arg
@@ -205,6 +205,8 @@ for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # enable c
 tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top right corner
 
 select value in choice1 choice2; do break; done # multiple choices
+read -s password # 'silent' user input, no characters are displayed
+stty -echo # disable TTY output
 # ask a yes or no question, with a default of no.
 echo -n "Do you ...? [y/N]: "
 read answer
@@ -214,15 +216,7 @@ else
    echo KO
 fi
 
-# Ask for a password without echoing the characters. The trapping ensures that an interrupt does not leave the echoing off.
-stty -echo
-trap "stty echo ; echo 'Interrupted' ; exit 1" 1 2 3 15
-echo -n "Enter password: "
-read password
-stty echo
-
-# disable wildcard expansion
-set -o noglob
+set -o noglob # disable wildcard expansion
 # Extended bash globbing
 shopt -s extglob # http://www.linuxjournal.com/content/bash-extended-globbing
 shopt [-o] # list options values. Alt: $- E.g. check if shell is interactive: [[ $- =~ i ]]

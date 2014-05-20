@@ -181,4 +181,4 @@ Google V8 // Open Source high perf JS engine written in C++. Features :
 
 // Languages that compile to JS:
 CoffeeScript, TypeScript
-Python // RapydScript
+Brython, RapydScript, Pyjamas, PythonJS // for Python
