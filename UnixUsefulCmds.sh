@@ -2,6 +2,8 @@
 ### SHELL & misc  ###
 ~°~°~°~°~°~°~°~°~°~°~
 
+cmd1 <(cmd2) >(cmd3) # make cmd2 output & cmd3 input look like a file for cmd1. Alt: cmd1 | cmd2 /dev/stdin # or use a symlink to /dev/fd/0 if extension matter
+
 <CTRL>+u : remove part of current line "a gaUche"
 <CTRL>+k : remove "Klosing" part of current line
 <CTRL>+w : remove previous "Word"
