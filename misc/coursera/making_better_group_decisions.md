@@ -1028,3 +1028,11 @@ Final takeaways
 ===============
 
 
+
+
+Extra notes
+===========
+
+http://clairebyrne.ie/counts/animation.php?count=dublin_city_ballymun
+"Proportional representation by means of the Single Transferable Vote is used for all public elections in the Republic of Ireland, with the exception of single-winner elections (presidential elections and single-vacancy by-elections) which are conducted under Instant Run-off Voting"
+FROM: https://en.wikipedia.org/wiki/History_and_use_of_the_single_transferable_vote#Republic_of_Ireland
