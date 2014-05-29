@@ -20,6 +20,7 @@ alloca > malloc
 stdlib 'realloc' : change the size of an already allocated memory block
 
 mmap // File in memomry mapping, to optimize paging operations
+// GOTCHAS: https://bugzilla.mozilla.org/show_bug.cgi?id=1015957#c2
 
 #include <dirent.h> // opendir/closedir, readdir, telldir, rewinddir, seekdir
 

@@ -1,12 +1,16 @@
 % VIM_CHEAT_SHEET
 
-Crashes
-=======
-- *vim -r* __file.swp__ : restore file
-
 Files
 =====
 - *:w* __new_filename__ : save a copy and keep working on original
+- *vim -r* __file.swp__ : restore a file after a crash
+- *vim -p* __{files}__ : open multiple files in tabs
+
+Tabs
+====
+- *gt* : switch tab
+- *tabf* __{file}__ : open file in new tab
+- *tabdo* __{cmd}__ : run command through all tabs
 
 Moving around
 =============
@@ -18,13 +22,6 @@ Moving around
 Panels
 ======
 - *(v)sp(lit)* : split screen (vertically)/horizontally
-
-Tabs
-====
-- *vim -p* __{files}__
-- *gt* : switch tab
-- *tabf* __{file}__ : open file in new tab
-- *tabdo* __{cmd}__ : run command through all tabs
 
 BANG!
 =====
