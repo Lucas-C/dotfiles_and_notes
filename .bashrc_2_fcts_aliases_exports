@@ -206,6 +206,7 @@ stats () { # --no-header | awk '{print $3}'
 alias df='df -hT'
 alias du='du -sh'
 alias pstree='pstree -p'
+alias glances='glances -ey'
 
 if [ -e /proc/uptime ]; then
     dmesg () {

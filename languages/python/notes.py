@@ -449,6 +449,8 @@ Jython / Py4J # intercommunicate with Java
 virtualenv # sandbox
 pip # or easyinstall : libs manager
 
+scales # metrics for Python
+
 multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
 SimPy # Process Interaction
 threading.Thread().deamon = True # The entire Python program exits when no alive non-daemon threads are left.
@@ -467,9 +469,11 @@ greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 numbapro # for CUDA
 
-autobanh # meteor.js in Python
+autobanh, crossbar.io # WAMP in Python
+pywebsocket
 asynchat, irc
 mailr, mailbox, imaplib, smtpd, smptplib
+paramiko # remote SSH/SFTP connexion
 
 celery # distributed task queue ; alt: pyres
 sched # event scheduler ; alt: dagobah/schedule
@@ -561,9 +565,6 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             self.path = param1_match.group(1) + '.json'
         return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
-
-pywebsocket
-paramiko # remote SSH/SFTP connexion
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
