@@ -1,6 +1,7 @@
 /*!
     @file DebugMacros.h
     @brief C/C++ preprocessor macros for tracing/asserting
+    Because of __VA_ARGS__ this requires -std=c99 or -std=c++0x
     @author CIMON Lucas
     @date 2014
 */
@@ -24,7 +25,7 @@
     @brief Debug track of the execution. Deactivated by defining NODBG.
  */
 #ifdef NODBG
-    #define DBG(...)        ((void)0)
+    #define DBG(...)
 #else
     #define DBG(...)     COLOR_STRM_STRING(STDERR_STRM, GREEN_COLOR, __VA_ARGS__)
 #endif
@@ -55,16 +56,17 @@
 
 /*!
     @def CHECK_INT(expected, expression)
-    @brief Assertion with rich error message, from "The Pragmatic Programmer" by Hunt & Thomas
+    @brief Assertion with rich colored error message
+    FROM: "The Pragmatic Programmer" by Hunt & Thomas
  */
 #define CHECK_INT(expected, expression) {\
     int result = (expression);\
     if (result != (expected)) {\
-        abort_check(__FILE__, __LINE__, #expression, result, expected);\
+        abort_check_int(__FILE__, __LINE__, #expression, result, expected);\
     }\
 }
 
-void abort_check(const char* filename, int line, const char* expression, int result, int expected) {
+void abort_check_int(const char* filename, int line, const char* expression, int result, int expected) {
     char error_msg[256];
     sprintf(error_msg, "%s line %d : '%s' is evaluating to %d, but %d was expected\n",
             filename, line, expression, result, expected);

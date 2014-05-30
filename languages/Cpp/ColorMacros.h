@@ -1,6 +1,7 @@
 /*!
     @file ColorMacros.h
     @brief C/C++ preprocessor macros to color strings
+    Because of __VA_ARGS__ this requires -std=c99 or -std=c++0x
     @author CIMON Lucas
     @date 2014
 */

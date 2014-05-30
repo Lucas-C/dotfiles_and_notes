@@ -1,5 +1,5 @@
 ## Personal tasks management
-Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, plenty of plugins and an history of changes
+Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins
 
 ## Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.
