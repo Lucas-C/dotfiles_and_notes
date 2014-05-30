@@ -54,7 +54,7 @@ ranger # text-based file manager written in Python with vi key bindings
 write / mesg # 2nd control write access
 wall # broadcast message
 
-ttyrec, ipbt, ttygif # record & playback terminal sessions 
+ttyrec, ipbt, ttygif, playitagainsam # record & playback terminal sessions - Last one provides a JS player
 
 : () { : | : & } ; : # Fork bomb
 
@@ -361,8 +361,7 @@ truncate -s $size_in_bytes $file # from coreutils
 setcap # man capabilities
 umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
-# Forbid file deletion
-sudo chattr +i [-R] $file # to check a file attributes : lsattr
+sudo chattr +i [-R] $file # Forbid file deletion - To check a file attributes: lsattr
 
 tune2fs # control extX file system parameters, e.g. reclaim disk space reserved to root 
 debugfs -R "stat <$(ls -i $file | awk '{print $1}')>" $(df $file | tail -n 1 | awk '{print $1}') # Get $file creation time ('crtime') on ext4 filesystems
@@ -608,29 +607,29 @@ watch -d 'cat /proc/meminfo' # Watch system stats
 - 4th field : number of currently executing kernel scheduling entities (processes, threads) / number of existing kernel scheduling entities
 - 5th field : PID of last process created
 
+echo 1 > /sys/module/printk/parameters/printk_time # Enable dmesg timestamps
+dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
+
+# Monitoring
+iostat # + iotop, non portable
+mpstat 5 # cpu usage stats every 5sec
+monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
+dstat
+glances
+collectd, perfwatcher
+
 stap # SystemTap
 perf # need a version of linux-tools-* mathcing the kernel
     top -G
     stat -e cycles,instructions,cache-misses,dTLB-load-misses -p $PID
 
-# System errors
-dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
-# Enable dmesg timestamps
-echo 1 > /sys/module/printk/parameters/printk_time
-
-iostat # + iotop, non portable
-mpstat 5 # cpu usage stats every 5sec
-monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
-dstat, glances # non portables
-
 # Checking Swap Space Size and Usage
 free -m # how much free ram I really have ? -> look at the row that says "-/+ buffers/cache"
 vmstat 2
-sar
-# + to consult history : https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/sect-Oracle_9i_and_10g_Tuning_Guide-Swap_Space-Checking_Swap_Space_Size_and_Usage.html
+sar # provides history data
 
-# People previous logged
-last [-f /var/log/wtmp.1]
+last [-f /var/log/wtmp.1] # People previous logged
+lastcomm # list last executed commands, from acct pkg. Alt: auditctl -a task,always; ausearch -i -sc execve
 
 /etc/motd # Message of the day, can be combined from multiple files: man update-motd
 
@@ -738,7 +737,7 @@ VBoxManage controlvm $name poweroff
 # - identify -version # to check HDRI is enabled
 # Scripts: http://www.fmwconcepts.com/imagemagick/
 display $img_file
-convert img.png -adaptive-resize 800x600 -auto-orienti -crop 50x100+10+20 img.jpg
+convert img.png -adaptive-resize 800x600 -auto-orient -crop 50x100+10+20 img.jpg
 mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
 identify -v $img_file # get PPI: -format "%w x %h %x x %y"
 import -display :0.0 -window root screenshot.png

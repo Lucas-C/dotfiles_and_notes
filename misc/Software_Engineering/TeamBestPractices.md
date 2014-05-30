@@ -30,8 +30,15 @@ It mush be SHORT:
 ## Ops
 - zero config: hard to document, hard to update, hard to set up, its persistent state can overlaps with other data
 - emails are evil: no guarantee it will be actioned + no guarantee anyone is subscribed + sense of false security as it works from time to time
+- when an alarm is raised, alerting tools should give a maximum of *context* on the system state and what triggered it
 
 ## Documentation:
+- Tenets:
+    * the key challenge to sustaining a complex system is maintaining our *understanding* of it
+    * documentation reduce accidents
+    * trouble is, documentation goes out of date -> _instrumentation_ reflects the reality of the system as it exists
+    * it is possible to have too litlle info, or too much, or present it badly
+- use Doxygen / Docurium for code documentation
 - Teach don't tell : http://stevelosh.com/blog/2013/09/teach-dont-tell/
 - wiki are great !
     * store meeting notes, tasks list, team & members pages, build processes, design docs, software architecture diagrams...

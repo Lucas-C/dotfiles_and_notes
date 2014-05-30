@@ -67,3 +67,5 @@ sudo sed -i 's/enabled=1/enabled=0/' /etc/default/apport # Disable System Crash 
 
 sudo aptitude install gufw # firewall
 sudo aptitude install grc pandoc
+
+sudo aptitude install hddtemp && sudo pip install pysensors batinfo glances
