@@ -56,6 +56,8 @@ wall # broadcast message
 
 ttyrec, ipbt, ttygif, playitagainsam # record & playback terminal sessions - Last one provides a JS player
 
+export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # or GNU parallel
+
 : () { : | : & } ; : # Fork bomb
 
 perl -wle 'exit 1 if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with a REGEX !
@@ -261,6 +263,28 @@ ulimit -s # max stack size
 ulimit -t # max of cpu time
 ulimit -u # max number of processes
 
+mkfifo /tmp/myfifo; exec 3<> /tmp/myfifo # Über trick: dummy FD => non-blocking named-pipe
+python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" $fifo # readble bytes in a fifo -> NOT RELIABLE, e.g. always return 0 with non-blocking named-pipe
+ulimit -p # should get max pipe size, but WRONG : defined in pipe_fs_i.h
+fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
+
+gnuplot -e "set term dumb; plot '<seq 1 9'" # ASCII graph
+gnuplot -e "set term dumb size 200,50; plot [-5:6.5] sin(x) with impulse"
+loop_cfg_file=/tmp/gnuplot_loop.cfg
+in_data_file=/tmp/gnuplot_in.data
+echo <<EOF >$loop_cfg_file
+set term dumb size 200,50
+set title 'Traffic-In (bytes/s)'
+# Sampling 30 data points each time
+plot '<tail -n 30 $in_data_file'
+pause 1
+replot
+# Loop by rereading this file, doesn't work with -e on the command-line
+reread
+EOF
+tail -F $log_file | grep $keyword | pv --line-mode --numeric >/dev/null 2>$in_data_file &
+gnuplot $loop_cfg_file # real-time ASCII graphing !
+
 
 ++++++++++++++++++
 # Text stream filtering
@@ -386,53 +410,6 @@ yum install p7zip # for .7z files
 
 sha{1,224,256,384,512}sum
 md5sum
-
-
-&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*
-* Parallellism, queueing, caching... *
-&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*
-export -f bash_func
-xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # or GNU parallel
-
-memcached
-
-mkfifo # Named pipes: https://en.wikipedia.org/wiki/Named_pipe
-exec 3<> /tmp/myfifo # Über trick: dummy FD => non-blocking named-pipe
-python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" $fifo # readble bytes in a fifo -> NOT RELIABLE, e.g. always return 0 with non-blocking named-pipe
-ulimit -p # should get max pipe size, but WRONG : defined in pipe_fs_i.h
-fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
-
-man mq_overview # POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code
-beanstalk # Better alternative queuing system, with lots of existing tools & libs in various labguages
-ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ # Message queue using AMPQ
-Celery/Kombu # Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
-Nameko # python framework for building service orientated software
-fritzy/thoonk.js / fritzy/thoonk.py # Persistent and fast push feeds, queues, and jobs
-
-BerkeleyDB, SQLite, LMDB, LevelDB # embedded database
-
-redis-cli ping
-redis-cli -h HOST -p PORT -n DATABASE_NUMBER llen QUEUE_NAME
-redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*
-
-RRDtool (the ancestor) and its followers: RRDCached, Graphite Whisper, OpenTSDB, reconnoiter, chriso/gauged # storage layer for numeric data series over time
-
-gnuplot -e "set term dumb; plot '<seq 1 9'" # ASCII graph
-gnuplot -e "set term dumb size 200,50; plot [-5:6.5] sin(x) with impulse"
-loop_cfg_file=/tmp/gnuplot_loop.cfg
-in_data_file=/tmp/gnuplot_in.data
-echo <<EOF >$loop_cfg_file
-set term dumb size 200,50
-set title 'Traffic-In (bytes/s)'
-# Sampling 30 data points each time
-plot '<tail -n 30 $in_data_file'
-pause 1
-replot
-# Loop by rereading this file, doesn't work with -e on the command-line
-reread
-EOF
-tail -F $log_file | grep $keyword | pv --line-mode --numeric >/dev/null 2>$in_data_file &
-gnuplot $loop_cfg_file # real-time ASCII graphing !
 
 
 |°|°|°|°|°|°|°|°
@@ -628,8 +605,10 @@ free -m # how much free ram I really have ? -> look at the row that says "-/+ bu
 vmstat 2
 sar # provides history data
 
-last [-f /var/log/wtmp.1] # People previous logged
-lastcomm # list last executed commands, from acct pkg. Alt: auditctl -a task,always; ausearch -i -sc execve
+last [-f /var/log/wtmp.1] # previous logged users
+dump-utmp /var/run/utmp # or /var/log/wtmp
+lastcomm # or dump-acct pacct : list last executed commands. From acct pkg, must be turned on with /etc/init.d/psacct start
+# Alt (very resource consuming): auditctl -a task,always; ausearch -i -sc execve
 
 /etc/motd # Message of the day, can be combined from multiple files: man update-motd
 
@@ -678,9 +657,9 @@ chkconfig, service # control & check /etc/init.d scripts
 shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck
 
 
-##################
-~= Issues Fixes =~
-##################
+&*&*&*&*&*&*&*&*&*
+~= Issues fixes =~
+&*&*&*&*&*&*&*&*&*
 # Resurect computer : http://en.wikipedia.org/wiki/Magic_SysRq_key
 
 echo <ctrl-v><ctrl-o> # or 'reset', fix terminal frenzy

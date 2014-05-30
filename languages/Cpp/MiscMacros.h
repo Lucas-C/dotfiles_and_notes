@@ -11,16 +11,16 @@
     @def DO_PRAGMA(x)
     @brief Apply a compiler pragma
  */
-#define DO_PRAGMA(x)        _Pragma (#x)
+#define DO_PRAGMA(pragma)        _Pragma (#pragma)
 
 /*!
     @def TODO(string)
-    @brief Track the compilation and print TODO messages, deactivated by defining NDEBUG
+    @brief Track the compilation and print TODO messages, deactivated by defining NOTODO
  */
-#ifdef NDEBUG
-    #define TODO(string)        ((void)0)
+#ifdef NOTODO
+    #define TODO(string)
 #else
-    #define TODO(string)         DO_PRAGMA(message ("TODO - " string))
+    #define TODO(string)    DO_PRAGMA(message ("TODO - " string))
 #endif
 
 
