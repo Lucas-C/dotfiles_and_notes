@@ -101,7 +101,6 @@ ImmutableMap.Builder<K,V>
 
 Argo // JSON parsing
 
-// Enum
 static enum Action {
     PUT(ClientPut.class),
     GET(ClientGet.class),
@@ -186,3 +185,6 @@ Runtime.getRuntime().addShutdownHook(new Thread() { public void run() { /* clean
  *  - SystemException / SecurityException
  * Complete list : http://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html
  */
+
+// GUI: Swing easy to customize color picker, editable text pane, file chooser, password field, progress bar, spreadsheet table, hierarchical tree...
+http://docs.oracle.com/javase/tutorial/uiswing/components/componentlist.html

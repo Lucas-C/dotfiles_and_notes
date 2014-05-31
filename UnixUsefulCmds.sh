@@ -308,7 +308,7 @@ sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending 
 perl -ne '/(error|warn)(?!negative-look-ahead-string-to-not-match-just-after)/i'
 perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
 
-pdftotext $file.pdf - | grep # from xpdf-utils
+pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: http://compress.smallpdf.com
 
 tr -c '[:alnum:]' _
