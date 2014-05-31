@@ -418,7 +418,7 @@ statistics # Python 3
 scipy
     numpy # n-dimensional arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
-    pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
+    pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
     matplotlib, prettyplotlib, mpld3 # 2d plotting
     python-graph-core
 
@@ -449,6 +449,7 @@ Jython / Py4J # intercommunicate with Java
 virtualenv # sandbox
 pip # or easyinstall : libs manager
 
+liftoff/pyminifier # code minifier, obfuscator, and compressor
 scales # metrics for Python
 
 multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
@@ -478,6 +479,7 @@ paramiko # remote SSH/SFTP connexion
 celery # distributed task queue ; alt: pyres
 sched # event scheduler ; alt: dagobah/schedule
 zeromq, aiozmq  # distributed app / msg passing framework
+ampqlib, haigha # AMPQ libs
 
 mrjob, luigi # Hadoop / AWS map-reduce jobs
 
