@@ -7,14 +7,15 @@
     * Use the information you acquire as effectively as possible
 
 ## Team culture building
+- build a team brand: catching name, logo, slogan... [PP]
 - small is good: 2-pizzas team
 - whiteboard sessions
 - team tenets as guidelines for priorities
 - clear team goals with deadlines
 - make decisions based on data
 - coding style reference, tools to enforce it, code reviews
-- regular emails with tips
 - allocate some hack time
+- regular emails with tips
 
 ## StandUp
 It mush be SHORT:

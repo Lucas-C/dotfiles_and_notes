@@ -15,6 +15,7 @@ java -jar archive.jar # Maybe -cp .
 */
 
 java -cp junit.jar:. org.junit.runner.JUnitCore path.to.pkg.AllTests// JUnit
+JContractS (formerly iContract), cofoja // Design By Contract libs
 findbugs, error-prone // code checking tools
 cobertura // code coverage
 jdb // debugger
@@ -100,6 +101,7 @@ ImmutableSet<V>
 ImmutableMap.Builder<K,V>
 
 Argo // JSON parsing
+JavaCC // parser generator
 
 static enum Action {
     PUT(ClientPut.class),

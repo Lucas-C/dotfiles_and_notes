@@ -300,6 +300,7 @@ nosetest # -vv --collect-only # for debug
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 import doctest # include tests as part of the documentation
+AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
 
 module_name=code
 code_module_path=$(python -c "import $module_name; print $module_name.__file__" | sed 's/pyc$/py/')

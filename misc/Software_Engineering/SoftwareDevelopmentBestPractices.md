@@ -6,6 +6,7 @@
 - [KYTD] : http://googletesting.blogspot.com/2013/07/testing-on-toilet-know-your-test-doubles.html
 - [CRoTDD] : http://svenpet.com/2014/01/07/better-code-reviews/
 - [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter
+- [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -119,6 +120,12 @@ Don't use comments when you can use a function/variable to expresse the intent [
 * A stub has no logic, and only returns what you tell it to return
 * A mock has expectations about the way it should be called, and a test should fail if it’s not called that way. Mocks are used to test interactions between objects.
 * A fake doesn’t use a mocking framework: it’s a lightweight implementation of an API that behaves like the real implementation, but isn't suitable for production.
+
+### Why unit tests ? [PP-Chapt34]
+- build trust in your code
+- build regression tests, helpful for later refactoring
+- show examples of how to use your code
+- explicitely details the code behaviour on corner cases
 
 ## Code review > TDD [CRoTDD]
 * TDD: automated, easy to follow, autonomously done
