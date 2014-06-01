@@ -537,6 +537,7 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspir
 curl # http://curl.haxx.se/docs/httpscripting.html
 # Web scrapping:
 httrack
+Xvfb, xdummy
 PhantomJS, SlimerJS, CasperJS
 GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
 Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter # python crawling libs
@@ -592,7 +593,7 @@ iostat # + iotop, non portable
 mpstat 5 # cpu usage stats every 5sec
 monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
 dstat
-glances
+glances, conky
 collectd, perfwatcher
 
 stap # SystemTap
@@ -691,7 +692,10 @@ sudo su -c 'echo 1 > /sys/bus/pci/rescan' # Rescan for memory card
 
 ~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
 about:cache # Firefox cache infos: location, size, number of entries
+about:memory # Firefox memory allocation details
+about:about # all the about: pages e.g. :crashes :healthreport :permissions :plugins :sessionrestore
 $ff_profile_dir/.parentlock # fix "Firefox is already running but is not responding" error
+cp sessionstore.bak sessionstore.js # Restore previous session tabs
 
 xhost +local:root # Xlib: connection to ":0.0" refused by server
 
