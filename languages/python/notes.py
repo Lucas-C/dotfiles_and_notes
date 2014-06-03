@@ -138,6 +138,8 @@ buffer & memoryview
 
 class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
     __slots__ = () # Else new attributes can still be added to that class dynamically
+    def __new__(cls): # Facultative
+         return cls.__bases__[0].__new__(cls, 'X', 'Y')
 # Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
 
 # For multiple inheritance with namedtuple, combine fields + use specific inheritance order:
@@ -544,7 +546,7 @@ for root, dirs, files in os.walk('/path/to/foo'):
         archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
 
 templite, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
-lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
+lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2 . Handy: lxml.html.tostring(obj)
 from lxml import etree
 tree = etree.parse(some_file_like_object)
 etree.tostring(tree)

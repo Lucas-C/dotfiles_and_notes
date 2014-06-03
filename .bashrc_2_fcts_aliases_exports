@@ -121,6 +121,7 @@ lse () {                # group files by their extension
 # grep
 #------
 alias g='grep -i --color=always'
+gn () { cd $BASHRC_DIR; g -I "$@" $(git ls-files); }
 alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
 zgr () {
     local pattern=$1
