@@ -1,0 +1,48 @@
+dig +short txt $keyword.wp.dg.cx # Wikipedia query over DNS
+
+<!-- Comment -->
+
+#REDIRECT[[United States]]
+
+# To see child pages, try to delete the page !
+
+{{:Transclude_an_arbitrary_page{{{with_template_param_subst|default_value}}}}}
+
+{{ {{{|safesubst:}}}lc:THIS LOWERCASE TEXT}} # uc for UPPERCASE
+x<sup>2</sup>, x<sub>2</sub>
+
+<includeonly>bgcolor="#1F78B4"|[https://{{{1}}} <span style="color:black">{{{1}}}</span>]</includeonly>
+<noinclude>
+Explanations...
+Example:
+{| {{my_template}}
+| What you type
+| What you get
+|-
+| <nowiki>{{my_template|42}}</nowiki>
+| {{my_template|42}}
+|}
+[[Category:Template|{{PAGENAME}}]]
+</noinclude>
+
+{{!}}, {{=}} # escape pipe & equal signs
+
+<nowiki>https://my.url/app/</nowiki>{{MyTemplate}} # URL with template
+
+{{#if:{{{variable_foo|}}} # http://www.mediawiki.org/wiki/Help:Extension:ParserFunctions - use {{{1|}}} for positional params
+|foo is set to '''{{{variable_foo}}}'''
+|foo is ''blank''}}
+
+Multi-Line <pre></pre> within list (* or #) : use  &#10; (Line Feed) or &#13; (Carriage Return) for newlines
+
+---- # horizontal separator
+
+<pre&lt;noinclude&gt;&lt;/noinclude&gt;>
+Include {{templates}} in pre blocks
+</pre&lt;noinclude&gt;&lt;/noinclude&gt;>
+{{#tag:pre|
+alt{{ernative}}
+}}
+
+http://en.wikipedia.org/wiki/Help:Magic_words ; http://www.mediawiki.org/wiki/Help:Magic_words
+

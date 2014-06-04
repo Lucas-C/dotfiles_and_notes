@@ -7,13 +7,14 @@ cmd1 <(cmd2) >(cmd3) # make cmd2 output & cmd3 input look like a file for cmd1. 
 <CTRL>+u : remove part of current line "a gaUche"
 <CTRL>+k : remove "Klosing" part of current line
 <CTRL>+w : remove previous "Word"
+<CTRL>+w : cut the "Word" before the cursor to the clipboard
+<CTRL>+y : "Yank" (paste) the last thing to be cut
 <CTRL>+r : search bash history, powerful to use with cmd #tags
-
-^command^user^ # replace word from 'last command' - Alt: alias r='fc -s'
-
+<ALT>+r : cancel the changes made on a line and "Revert" it as it was in the history
 <ALT>+. # insert preceding line's final parameter
 !$ # select the last arg
 !!:n # selects the nth argument of the last command
+^command^user^ # replace word from 'last command' - Alt: alias r='fc -s'; r command=user
 
 time read # chrono
 man ascii # display ASCII table
@@ -225,9 +226,7 @@ shopt [-o] # list options values. Alt: $- E.g. check if shell is interactive: [[
 
 ( set -o posix; set ) # List all defined variables
 # Get all commands prefixed by (useful for unit tests)
-compgen -abck unit_test_
-# Control readline auto-completion : http://linuxcommand.org/man_pages/complete1.html
-# can be enable by '-e' flag of 'read'
+compgen -abck unit_test_ # control readline auto-completion (help complete), can be enable by '-e' flag of 'read'
 complete -f -X '!*.ext' command # exclude files using a filter
 complete -F _compfunc command
 _compfunc() {
@@ -243,6 +242,7 @@ hash # frequently used commands cache
 syslogd -m 0 -r -SS # port: 514
 logger -is -t SCRIPT_NAME -p user.warn "Message"
 echo "<15>My logline" | nc -u -w 1 $HOSTNAME 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13 <-> user.notice
+time tcpdump udp and dst port 514 | awk '{print $3" "$7}' | sed 's/\.syslog//' > noisy_devices
 
 mv $file ${file%.*}.bak # Change extension
 mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
@@ -461,7 +461,7 @@ ls /var/lib/dhc* # check what DHCP client is used
 host [-t txt] $hostname # -a (all records) -v
 dig @$dns_server $hostname
 dig +short -x $ip # Reverse DNS
-dig +short txt $dns_server
+dig +trace +norecurse txt $dns_server
 avahi-resolve -n $USER.local # Multicast DNS == mDNS - from avahi-tools pkg
 # Caching
 /etc/hosts /etc/resolv.conf /etc/dhcp*/*.conf # manual / basic
@@ -562,7 +562,7 @@ sh ip rou 1.2.3.4
 # for Fastpath, e.g. QuantaLB:
 show logging hosts
 show logging buffered
-traceroute $regional_syslog_ip
+traceroute $ip
 
 
 -%-%-%-%-%-
@@ -741,9 +741,9 @@ espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mb
 #        http://cookerspot.tuxfamily.org/wikka.php?wakka=SyntheseVocaleEspeak
 
 
-@@@@@@@@@@
-@ MAC OSX
-@@@@@@@@@@
+::=::=::=::
+: MAC OSX :
+::=::=::=::
 
 curl http://google.com/ | base64 | say # FUN
 
@@ -814,98 +814,3 @@ cse_id=003799500572498885021:6zbuscnifvi
 curl -s "https://www.googleapis.com/customsearch/v1?key=${api_key}&cx=${cse_id}&fields=items(snippet)&q=define%20${term}"
 # DOCS: https://developers.google.com/custom-search/json-api/v1/using_rest https://developers.google.com/custom-search/json-api/v1/performance#partial
 
-
-=======
-= Wiki
-=======
-dig +short txt $keyword.wp.dg.cx # Wikipedia query over DNS
-
-<!-- Comment -->
-
-#REDIRECT[[United States]]
-
-# To see child pages, try to delete the page !
-
-{{:Transclude_an_arbitrary_page{{{with_template_param_subst|default_value}}}}}
-
-{{ {{{|safesubst:}}}lc:THIS LOWERCASE TEXT}} # uc for UPPERCASE
-x<sup>2</sup>, x<sub>2</sub>
-
-<includeonly>bgcolor="#1F78B4"|[https://{{{1}}} <span style="color:black">{{{1}}}</span>]</includeonly>
-<noinclude>
-Explanations...
-Example:
-{| {{my_template}}
-| What you type
-| What you get
-|-
-| <nowiki>{{my_template|42}}</nowiki>
-| {{my_template|42}}
-|}
-[[Category:Template|{{PAGENAME}}]]
-</noinclude>
-
-{{!}}, {{=}} # escape pipe & equal signs
-
-<nowiki>https://my.url/app/</nowiki>{{MyTemplate}} # URL with template
-
-{{#if:{{{variable_foo|}}} # http://www.mediawiki.org/wiki/Help:Extension:ParserFunctions - use {{{1|}}} for positional params
-|foo is set to '''{{{variable_foo}}}'''
-|foo is ''blank''}}
-
-Multi-Line <pre></pre> within list (* or #) : use  &#10; (Line Feed) or &#13; (Carriage Return) for newlines
-
----- # horizontal separator
-
-<pre&lt;noinclude&gt;&lt;/noinclude&gt;>
-Include {{templates}} in pre blocks
-</pre&lt;noinclude&gt;&lt;/noinclude&gt;>
-{{#tag:pre|
-alt{{ernative}}
-}}
-
-http://en.wikipedia.org/wiki/Help:Magic_words ; http://www.mediawiki.org/wiki/Help:Magic_words
-
-
-::=::=::=::
-:: MySQL / SQLite
-::=::=::=::
-MariaDB / Percona / Drizzle # https://blog.mozilla.org/it/2013/03/08/different-mysql-forks-for-different-folks/
-
-LIKE >faster> REGEXP
-
-sqlite3 places.sqlite "select b.title, b.type, b.parent, a.url from moz_places a, moz_bookmarks b where a.id=b.fk;" # no cmd => interactive - Firefox, type: 1 => bookmark/folder, 2 => tag
-sqlite3 extensions.sqlite 'select id, optionsURL from addon;' # Firefox extensions
-
-.help
-.tables
-.schema moz_places
-pragma table_info(moz_places)
-
-mysql -h $HOST -u $USER -p [--ssl-ca=$file.pem] DBNAME -e 'cmd ending with ; or \G' # default port 3306
-mytop # watch mysql
-
-show tables;
-show table status;
-show columns from $table; # or just: desc $table
-show create table $table;
-show processlist;
-kill $thread_to_be_killed;
-
--- {..} /*...*/ # comments
-
-# How to start a file to make it executable AND runnable with mysql < FILE.mysql :
-/*/cat <<NOEND | mysql #*/
-USE ...;
-WITH
-    subquery AS ( SELECT ... ),
-    ...
-SELECT
-    id, name
-FROM
-    subquery,
-    ... # "inline" SELECT are also allowed
-WHERE
-    ...
-ORDER BY
-    ...;

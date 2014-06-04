@@ -10,24 +10,24 @@ set convert-meta off
 set show-all-if-ambiguous on
 set completion-ignore-case on
 
-# Ctrl+left/right arrows
+# <CTRL>+left/right arrows
 "\eO5C": forward-word
 "\eO5D": backward-word
 "\e[1;5C": forward-word
 "\e[1;5D": backward-word
 
-# up/left: incremental history search
-"\e[A":history-search-backward
-"\e[B":history-search-forward
+# <CTRL>+up/left: incremental history search
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# <CTRL>+e : perform shell-expansion on the currently edited cmd-line
+"\C-e": shell-expand-line
 
 
-# NOTE by cimom@ - config below not tested yet
+# NOTE by cimon@ - config below not tested yet
 # allow the use of the Home/End keys
 #"\e[1~": beginning-of-line
 #"\e[4~": end-of-line
-# those two are for rxvt
-"\e[7~":beginning-of-line
-"\e[8~":end-of-line
 
 # allow the use of the Delete/Insert keys
 "\e[3~": delete-char
@@ -42,6 +42,7 @@ set completion-ignore-case on
 "\e\e[D": backward-word
 
 $if term=rxvt
+"\e[7~": beginning-of-line
 "\e[8~": end-of-line
 "\eOc": forward-word
 "\eOd": backward-word

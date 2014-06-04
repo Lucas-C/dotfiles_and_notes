@@ -24,7 +24,7 @@ alias r='fc -s' # 'repeat' - USAGE: r [old=new] [cmd] : runs last command [match
 #---------------
 export EDITOR=vim
 mkdir -p ~/.vim/undodir
-vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${code:-~}/Vim.md | pandoc -s -f markdown -t man | man -l -; }
+vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md | pandoc -s -f markdown -t man | man -l -; }
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
