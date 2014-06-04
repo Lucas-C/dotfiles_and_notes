@@ -80,6 +80,14 @@ else
     set directory=/tmp
 end
 
+if &term =~ '^screen'
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif
+
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 map!  
