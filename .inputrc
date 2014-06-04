@@ -2,52 +2,39 @@
 # bind -p # Equivalent to dump-functions
 # bind -s # Equivalent to dump-macros
 # bind -v # Equivalent to dump-variables
+# ldconfig -p | grep readline # get readline versions on system. Bash doesn't link to them, has its own version included: ldd $(which bash)
+
+$include /etc/inputrc
 
 set input-meta on
 set output-meta on
+
+# allow the use of 8bit-characters + disable meta key
 set convert-meta off
 
 set show-all-if-ambiguous on
 set completion-ignore-case on
 
 # <CTRL>+left/right arrows
-"\eO5C": forward-word
-"\eO5D": backward-word
+# WHEN xterm-keys on, e.g. inside Tmux (already in /etc/inputrc):
 "\e[1;5C": forward-word
 "\e[1;5D": backward-word
+# WHEN xterm-keys off:
+"\eOC": forward-word
+"\eOD": backward-word
+#"\eO5C": forward-word
+#"\eO5D": backward-word
 
-# <CTRL>+up/left: incremental history search
-"\e[A": history-search-backward
-"\e[B": history-search-forward
+# <CTRL>+up/left: history search based on the current line; the search string must match at the beginning of a history line. 
+# WHEN xterm-keys on, e.g. inside Tmux:
+"\e[1;5A": history-search-backward
+"\e[1;5B": history-search-forward
+# WHEN xterm-keys off:
+"\eOA": history-search-backward
+"\eOB": history-search-forward
+#"\e[A": history-search-backward
+#"\e[B": history-search-forward
 
 # <CTRL>+e : perform shell-expansion on the currently edited cmd-line
 "\C-e": shell-expand-line
 
-
-# NOTE by cimon@ - config below not tested yet
-# allow the use of the Home/End keys
-#"\e[1~": beginning-of-line
-#"\e[4~": end-of-line
-
-# allow the use of the Delete/Insert keys
-"\e[3~": delete-char
-"\e[2~": quoted-insert
-
-# mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
-"\e[1;5C": forward-word
-"\e[1;5D": backward-word
-"\e[5C": forward-word
-"\e[5D": backward-word
-"\e\e[C": forward-word
-"\e\e[D": backward-word
-
-$if term=rxvt
-"\e[7~": beginning-of-line
-"\e[8~": end-of-line
-"\eOc": forward-word
-"\eOd": backward-word
-$endif
-
-# for non RH/Debian xterm, can't hurt for RH/Debian xterm
-# "\eOH": beginning-of-line
-# "\eOF": end-of-line
