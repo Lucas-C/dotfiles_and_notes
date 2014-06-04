@@ -54,7 +54,7 @@ prompt_command()
 
     history -a # flush history => shared between term sessions 
 
-    [ "$TERM" = screen ] && [ -e $BASHRC_DIR/.use_tmux ] && tmux list-windows | awk -F: '{print $1}' > $CURRENT_PWD_DIR/tmux_live_windows
+    [ -n "$TMUX" ] && tmux list-windows | awk -F: '{print $1}' > $CURRENT_PWD_DIR/tmux_live_windows
 }
 
 cd () {                 # zsh-like, USAGE: cd $path | cd $old_path_snippet $new_path_subst
@@ -76,7 +76,7 @@ cd () {                 # zsh-like, USAGE: cd $path | cd $old_path_snippet $new_
     fi
     error_code=$?
     [ $error_code -ne 0 ] && return $error_code
-    if [ "$TERM" = screen ] && [ -e $BASHRC_DIR/.use_tmux ]; then
+    if [ -n "$TMUX" ]; then
         set_term_window_name "#[fg=colour$((RANDOM%230+1))]$(hostname | cut -d. -f1):$(pwd | awk -F/ '{print $NF}')#[default]"
         local tmux_window=$(tmux display -pt $TMUX_PANE '#I')
         pwd > $CURRENT_PWD_DIR/tmux_window_${tmux_window}_pwd
@@ -94,10 +94,9 @@ set_term_window_name () {  # Valid for Tmux AND Screen
 }
 
 _tmux_restore_windows () {
-    [ "$TERM" = screen ] || return 1
-    [ -e $BASHRC_DIR/.use_tmux ] || return 2
+    [ -n "$TMUX" ] || return 1
     local tmux_window=$(tmux display -pt $TMUX_PANE '#I')
-    [ -e $BASHRC_DIR/.tmux_window_${tmux_window}_needs_to_be_restored ] || return 3
+    [ -e $BASHRC_DIR/.tmux_window_${tmux_window}_needs_to_be_restored ] || return 2
     if [ $tmux_window -eq 0 ]; then
         local is_first_window=true
         while read window_id; do

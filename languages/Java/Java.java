@@ -94,7 +94,7 @@ java.lang.refect.Constructor.newInstance > MyClass.newInstance // it can throw u
 
 // Methods/attribute privacy only true at compile time : if one recompile a class into bytecode with all private, it will still work !
 
-// Google Guava
+// Google Guava, + cf. Concurrency.md
 Optional<> : Optional.of(...), Optional.absent(), opt.isPresent(), opt.get()
 public String toString() { Objects.toStringHelper(getClass()).add("Attr", attr).add(...); }
 ImmutableSet<V>

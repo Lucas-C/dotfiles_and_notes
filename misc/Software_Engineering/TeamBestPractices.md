@@ -28,11 +28,22 @@ It mush be SHORT:
 - start from a POC / MVP
 - + Diagrams !
 
+## Define team metrics
+- customer satisfaction
+- performance, output data quality
+- availability : measured from the client side
+- latency
+
 ## Ops
 - monitor everything ! CPU, openFD, procCount... And store historical data !
 - zero config: hard to document, hard to update, hard to set up, its persistent state can overlaps with other data
 - emails are evil: no guarantee it will be actioned + no guarantee anyone is subscribed + sense of false security as it works from time to time
 - when an alarm is raised, alerting tools should give a maximum of *context* on the system state and what triggered it
+- prioritize identifying the root cause of an issue and resolving it
+- hold weekly/monthly ops review meetings, including:
+    * highlights from previous on-call shift: high severity events, metrics...
+    * this week's priorities: deployments, hand-over of burning tickets or tickets failing over SLA
+- frequently determine operational excellence goals: eliminate the top root cause of tickets, create a runbook/dashboard for a service...
 
 ## Documentation:
 - Tenets:

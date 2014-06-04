@@ -59,7 +59,14 @@ synchronized method/code blocks to handle concurrent access:
 Full list of already existing constructs:
 
 - http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/package-summary.html
+- http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/eventbus/package-summary.html
+    * @Subscribe
+    * @AllowConcurrentEvents
+    * DeadEvent
 - http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/util/concurrent/package-summary.html
+    * Futures.addCallback(ListenableFuture)
+    * TimeLimiter
+    * AtomicDouble
 
 std Atomic* class references > volatile
 

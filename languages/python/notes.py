@@ -149,6 +149,7 @@ class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s")
 logging.handlers.[Timed]RotatingFileHandler # logrotate in Python
 # Lazy logger: http://stackoverflow.com/a/4149231
+@deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/
 # Support for {} format syntax: vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
 logger = logging.getLogger(__name__)
 try: Ellipsis # like 'pass' but as an object, not a statement
