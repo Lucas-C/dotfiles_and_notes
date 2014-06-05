@@ -38,7 +38,7 @@ It can also be done after visually selecting some text : it is then piped to the
 
 Formatting
 ==========
-- __\<leader>__cc : comment toggle selection
+- __\<leader\>__cc : comment toggle selection
 - *guu*/*gUU*/*~* : lowercase line / uppercase line / invert case of selection
 - __\<select\>__+__{tabs count}__*>* : indent
 - *=* : auto (re)indent selection
