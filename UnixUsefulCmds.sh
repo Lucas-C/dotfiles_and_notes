@@ -2,19 +2,18 @@
 ### SHELL & misc  ###
 ~°~°~°~°~°~°~°~°~°~°~
 
-cmd1 <(cmd2) >(cmd3) # make cmd2 output & cmd3 input look like a file for cmd1. Alt: cmd1 | cmd2 /dev/stdin # or use a symlink to /dev/fd/0 if extension matter
-
+<CTRL>+e : perform shell-"Expansion" on cmd-line - cf. .inputrc
 <CTRL>+u : remove part of current line "a gaUche"
 <CTRL>+k : remove "Klosing" part of current line
-<CTRL>+w : remove previous "Word"
 <CTRL>+w : cut the "Word" before the cursor to the clipboard
-<CTRL>+y : "Yank" (paste) the last thing to be cut
+<CTRL>+y : "Yank" (paste) the last thing cut
 <CTRL>+r : search bash history, powerful to use with cmd #tags
 <ALT>+r : cancel the changes made on a line and "Revert" it as it was in the history
-<ALT>+. # insert preceding line's final parameter
-!$ # select the last arg
-!!:n # selects the nth argument of the last command
-^command^user^ # replace word from 'last command' - Alt: alias r='fc -s'; r command=user
+!$ # the last word of the last cmd-line
+!!:n # the nth word of the last cmd-line
+^command^user^ # repeat last command with word substitution - Alt: alias r='fc -s'; r command=user
+
+cmd1 <(cmd2) >(cmd3) # make cmd2 output & cmd3 input look like a file for cmd1. Alt: cmd1 | cmd2 /dev/stdin # or use a symlink to /dev/fd/0 if extension matter
 
 time read # chrono
 man ascii # display ASCII table
@@ -63,7 +62,7 @@ export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # or GNU parallel
 
 perl -wle 'exit 1 if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with a REGEX !
 
-a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a '
+a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a ' # Quine
 
 dig +short TXT google-public-dns-a.google.com # check without 'TXT'
 

@@ -4,6 +4,9 @@
 # bind -v # Equivalent to dump-variables
 # ldconfig -p | grep readline # get readline versions on system. Bash doesn't link to them, has its own version included: ldd $(which bash)
 
+# Under OSX, iTerm2 must be configured to map <CMD>+arrow to send Esc+[1;5X
+# Note: "\e[X", with X in ABCD => 'bare' arrow key
+
 $include /etc/inputrc
 
 set input-meta on
@@ -22,6 +25,9 @@ set completion-ignore-case on
 # WHEN xterm-keys off:
 "\eOC": forward-word
 "\eOD": backward-word
+# Under RHEL:
+"\e[5C": forward-word
+"\e[5D": backward-word
 #"\eO5C": forward-word
 #"\eO5D": backward-word
 
@@ -32,9 +38,10 @@ set completion-ignore-case on
 # WHEN xterm-keys off:
 "\eOA": history-search-backward
 "\eOB": history-search-forward
-#"\e[A": history-search-backward
-#"\e[B": history-search-forward
+# Under RHEL
+"\e[5A": history-search-backward
+"\e[5B": history-search-forward
 
-# <CTRL>+e : perform shell-expansion on the currently edited cmd-line
+# <CTRL>+e : perform shell-expansion on the current cmd-line, i.e. expand aliases, history & shell variables
 "\C-e": shell-expand-line
 
