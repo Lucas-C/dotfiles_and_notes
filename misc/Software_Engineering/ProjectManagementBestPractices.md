@@ -1,5 +1,6 @@
 ## References
 - [PP] : The Pragmatic Programmer : Chapter 7 "Before the project" - Andrew Hunt & David Thomas
+- [VisualSpec](http://www.targetprocess.com/articles/visual-specifications.html)
 
 ## Requirements
 - don't gather requirements, **dig** for them [PP]
@@ -10,6 +11,10 @@
 - maintain a project glossary [PP]
 - Don't fall into the specifications spiral [PP]
 - Formal methods (CASE, waterfall, spiral model, UML...) have some serious shortcomings [PP]
+- [VisualSpec]
+    * do: sketches, flows, storyboard, paper prototype, short narratives
+    * don't: behavior-Driven Development, pseudo-narrative
+    * do if enough time: live prototype, animation
 
 ### Documenting methods
 - Alistair Cockburn goal-driven use cases template
