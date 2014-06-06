@@ -25,11 +25,11 @@ set completion-ignore-case on
 # WHEN xterm-keys off:
 "\eOC": forward-word
 "\eOD": backward-word
+#"\eO5C": forward-word
+#"\eO5D": backward-word
 # Under RHEL:
 "\e[5C": forward-word
 "\e[5D": backward-word
-#"\eO5C": forward-word
-#"\eO5D": backward-word
 
 # <CTRL>+up/left: history search based on the current line; the search string must match at the beginning of a history line. 
 # WHEN xterm-keys on, e.g. inside Tmux:

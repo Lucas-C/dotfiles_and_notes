@@ -483,7 +483,7 @@ ssh -f $host -L 2034:$host:34 -N # port forwarding
 /etc/ssh/sshd_config # PasswordAuthentication yes, UsePAM yes OR AllowGroups sshusers
 /etc/pam.d/* # use pam_unix.so
 knockd # port knocking server
-openssl s_client # bare SSL client cmd
+openssl s_client -CApath $ca -cert $pem -key $key -connect $host:443 -ssl3 # bare SSL client
 openssl x509 -text -noout -in $cert.pem # get certs details
 openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
 keytool -printcert -file $cert.pem # get certs details
@@ -504,6 +504,7 @@ snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName
 # Dump all tcp transmission to a specific IP :
 sudo tcpdump -i $interface host $IP [ip proto icmp|udp|tcp] -A -s 0 # last flag remove the limit on the captured packet size | Use -X for hex-dump | -n to disable dns resolution
 tcpdump udp and dst port 514 -w - | pv -btr >/dev/null # Incoming syslog UDP packets rate -> can be used for TCP or all network traffic too
+time tcpdump udp and dst port 514 -w /dev/null -c 1000 # Alt solution to estimate the rate
 
 nc -l -p 7777 > /dev/null # on receiver machine
 pv -btr /dev/zero | nc $host 7777 # show live throughput between two machines
