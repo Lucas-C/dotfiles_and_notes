@@ -44,6 +44,7 @@ git revert HEAD..HEAD^^ # Rollback last pushed commit
 
 git diff --cached HEAD # Git show changes currently 'added' (ready to be commited)
 git diff --stat # Git diff with same format as 'git status'
+git fsck --lost-found # list 'dangling commits' SHA1 that can be 'git show'-ed
 
 git stash save "stash-name" # Stash with a name, then either pop or apply + drop
 # Checking that all stashes have been commited:
