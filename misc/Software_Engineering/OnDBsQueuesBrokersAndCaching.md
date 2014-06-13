@@ -36,6 +36,11 @@ LIKE >faster> REGEXP
 
 Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' is enabled on database and table names.
 
+    cd $MYSQL_BASE_DIR
+    bin/mysql_install_db --datadir=$OLDPWD/data
+    bin/mysqld_safe --datadir=$OLDPWD/data &
+    bin/mysql test < db-dump.sql
+
     -- {..} /*...*/ # comments
 
     sqlite3 places.sqlite "select b.title, b.type, b.parent, a.url from moz_places a, moz_bookmarks b where a.id=b.fk;" # no cmd => interactive - Firefox, type: 1 => bookmark/folder, 2 => tag
@@ -49,6 +54,7 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
     mysql -h $HOST -u $USER -p [--ssl-ca=$file.pem] DBNAME -e 'cmd ending with ; or \G' # default port 3306
     mytop # watch mysql
 
+    show databases;
     show tables;
     show table status;
     show columns from $table; # or just: desc $table
