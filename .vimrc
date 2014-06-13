@@ -50,6 +50,7 @@ set linebreak             " This displays long lines as wrapped at word boundrie
 set magic                 " regexp behave as in grep
 set matchtime=10          " Time to flash the brack with showmatch
 set nobackup              " Don't keep a backup file
+"set noswapfile              " this guy is really annoying sometimes
 set nocompatible          " Use Vim defaults (much better!)
 set nofen                 " disable folds
 set notimeout             " i like to be pokey
@@ -67,9 +68,6 @@ set wrap
 
 "Suffixes that get lower priority when doing tab completion for filenames, i.e. files not likely to be edited or read
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.class
-
-"set noswapfile              " this guy is really annoying sometimes
-"set wrapmargin=80           " When pasteing, use this, because textwidth becomes 0 ; wrapmargin inserts breaks if you exceed its value
 
 "Non-persistent history ? Check ~/.viminfo permissions
 set viminfo='20,\"50         " read/write a .viminfo file, don't store more than 50 lines of registers
@@ -96,6 +94,7 @@ map!  
 set mouse=a
 
 set pastetoggle=<F2>         "http://vim.wikia.com/wiki/Toggle_auto-indenting_for_code_paste
+"set wrapmargin=80           " When pasteing, use this, because textwidth becomes 0 ; wrapmargin inserts breaks if you exceed its value
 
 let mapleader = "\\"
 
