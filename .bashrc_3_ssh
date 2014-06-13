@@ -81,7 +81,6 @@ scp () { pre_ssh; $(nofuncalias scp) "$@"; }
 unfuncalias rsync
 rsync () { pre_ssh; $(nofuncalias rsync) "$@"; }
 
-# TODO: re-order .visited
 visit () {              # ssh to a host after calling 'exportSshFiles'. List visited hosts in ~/.visited
     local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     if exportSshFiles $dst; then
@@ -106,6 +105,25 @@ rmRemoteHome () {       # remove remote /home/$USER
         for f in $logdir/.*history; do mv $f $logdir/$(date +%Y-%m-%d-%Hh_%Mm_%Ss)$(basename $f) ; done
     ssh -t $dst "rm -rf /home/$USER/* && sudo rmdir /home/$USER" || return 1
     [ -w $VISITED_HOSTS_LOG_FILE ] && sed -i -e /$1/d $VISITED_HOSTS_LOG_FILE
+}
+
+# FROM: http://dmytro.github.io/2012/10/31/ssh-multi.html
+tmux_ssh() {
+    local hosts="$@"
+    if [ -z "$hosts" ]; then
+        echo -n "Please provide of list of hosts separated by spaces [ENTER]: "
+        local host
+        while read host; do hosts="$host $hosts"; done
+    fi
+    hosts=($hosts)
+    tmux new-window "ssh ${hosts[0]}"
+    unset hosts[0];
+    for i in "${hosts[@]}"; do
+        tmux split-window -h "ssh $i"
+        tmux select-layout tiled > /dev/null
+    done
+    tmux select-pane -t 0
+    tmux set-window-option synchronize-panes on > /dev/null
 }
 
 sshl () { # Ssh with console logs, useful but not good for security

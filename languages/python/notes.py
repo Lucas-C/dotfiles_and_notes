@@ -480,8 +480,8 @@ asynchat, irc
 mailr, mailbox, imaplib, smtpd, smptplib
 paramiko # remote SSH/SFTP connexion
 
-celery # distributed task queue ; alt: pyres
-sched # event scheduler ; alt: dagobah/schedule
+celery # distributed task queue ; montoring: mher/flower; alt: pyres
+sched # event scheduler ; alt: crontabber, dagobah/schedule
 zeromq, aiozmq  # distributed app / msg passing framework
 ampqlib, haigha # AMPQ libs
 
@@ -509,17 +509,19 @@ def function_with_docstring(foo): # sphinx
     """
     return False
 
-twobraids/configman > argparse > optparse # or docopt or clize - S&M
-parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-group = parser.add_mutually_exclusive_group(required=True)
-group.add_argument(... type=argparse.FileType('r'))
+twobraids/configman > argparse > optparse # Alt: docopt, clize, click
+parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve')
+parser_group = parser.add_mutually_exclusive_group(required=True)
+parser_group.add_argument(... type=argparse.FileType('r'))
 return parser.parse_args()
 
 dropbox/python-zxcvbn # password strength estimation
 from getpass import getpass # get password without echoing it
+tqdm # KISS progress bar
+
+code.InteractiveConsole().interact() # interactive python prompt 
 pyreadline, readline, rlcompleter
 colorama # cross-platform colored terminal text
-tqdm # KISS progress bar
 
 @retry # https://github.com/rholder/retrying
 
@@ -546,7 +548,7 @@ for root, dirs, files in os.walk('/path/to/foo'):
     for name in files:
         archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
 
-templite, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
+templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2 . Handy: lxml.html.tostring(obj)
 from lxml import etree
 tree = etree.parse(some_file_like_object)

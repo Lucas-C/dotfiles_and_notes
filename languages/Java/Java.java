@@ -2,7 +2,7 @@
 //1-Compile
 rm -rf bin/*
 libs="src/" ; for f in lib/*.jar; do libs="$libs:$f"; done
-javac -cp $libs -d bin/ $(find src/ -name *.java)
+javac -Xlint:all -cp $libs -d bin/ $(find src/ -name *.java)
 //2-Pack
 mkdir lib_extracted
 for file in $(find ../lib/ -name *.jar | grep -v 'mockito\|junit'); do jar xf $file; done
@@ -19,7 +19,7 @@ JContractS (formerly iContract), cofoja // Design By Contract libs
 findbugs, error-prone // code checking tools
 cobertura // code coverage
 jdb // debugger
-JD // Java decompiler, include a GUI
+javap, JD // .class dissassembler & Java decompiler, include a GUI
 jmap -histo:live <pid> // Object-type histogram on a running jvm
 
 JLine // console input handling like BSD editline / GNU readline
@@ -71,6 +71,9 @@ java.util.AbstractSequentialList, AbstractList // Skeleton implementations for l
 Integer.bitCount
 BigDecimal("1.6") // instead of float, for exact decimal arithmetic + do not use BigDecimal(1.6)
 
+public <T> T[] toArray(T[] array) {
+    if (array.lengh < size)
+        array = (T[])java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), size);
 import java.util.Arrays;
 Arrays.toString(myCollection.toArray()) // or 'deepToString' to deal with nested arrays
 Collections.shuffle(myList)
@@ -100,7 +103,10 @@ public String toString() { Objects.toStringHelper(getClass()).add("Attr", attr).
 ImmutableSet<V>
 ImmutableMap.Builder<K,V>
 
-Argo // JSON parsing
+// http://docs.oracle.com/javase/tutorial/essential/io/formatting.html
+System.out.println("a" + "b"); System.out.format("a%s", "b");
+
+org.json.JSONObject, Argo, Gson, Jackson, JSON.simple
 JavaCC // parser generator
 
 static enum Action {

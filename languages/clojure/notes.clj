@@ -2,6 +2,7 @@
 ; LIBS
 ;;;;;;;;
 Datomic ; time-based elastic ACID DB
+Langohr ; RabbitMQ client
 
 ;;;;;;;;;
 ; DEBUG
