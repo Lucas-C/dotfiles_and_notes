@@ -5,6 +5,9 @@
 <!--Notepad in browser-->
 data:text/html, <html contenteditable>
 
+<!-- Fallback when SVG is not supported -->
+<img src="logo.svg" onerror="this.src = 'logo.png';" alt="logo" width="140" height="140"/
+
 <!--Use protocol-relative URLs (starting with //) like so:-->
 <img src="//domain.com/img/logo.png">
 <!--This will cause the browser to automatically prepend the protocol that is currently being used. This trick also works in CSS.-->

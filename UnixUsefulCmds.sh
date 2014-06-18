@@ -201,7 +201,7 @@ tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)" # mktemp dir & default value
 /dev/shmi # Use RAM for tmp files - monitor usage with ipcs -m
 
 for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"; done # display all 256 colours
-for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # enable colored terminal output
+for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # colored terminal output
 # + colors can be set like this: tput initc 2 500 900 100 # RGB values between 0 & 1000
 # Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
 tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top right corner
@@ -291,6 +291,7 @@ gnuplot $loop_cfg_file # real-time ASCII graphing !
 
 >| # '>' that overrides 'set -o noclobber'
 
+# grep alt: ack, grin
 grep -a # if "Binary file (standard input) matches"
 grep -q # silent, !! FAIL with SIGPIPE if 'pipefail' is used: http://stackoverflow.com/a/19120674/636849
 grep '\<word\>' # match word-boundaries

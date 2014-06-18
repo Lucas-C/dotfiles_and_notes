@@ -63,6 +63,7 @@ tempfile.NamedTemporaryFile() # file automagically deleted on close()
 tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
 
 glob, fnmatch # manipulate unix-like file patterns
+jaraco/path.py # provides a handy 'Path' object
 os.stat("filename").st_ino # get inode
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 
@@ -150,12 +151,14 @@ logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(process)s [%(le
 logging.handlers.[Timed]RotatingFileHandler # logrotate in Python
 # Lazy logger: http://stackoverflow.com/a/4149231
 @deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/
-# Support for {} format syntax: vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
+# Support for {} / %(keyword)s format syntaxex:
+# - https://docs.python.org/3/howto/logging-cookbook.html#formatting-styles
+# - vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
 logger = logging.getLogger(__name__)
 try: Ellipsis # like 'pass' but as an object, not a statement
-except Exception as err:
-    # see chain_errors module
+except Exception as err: # see chain_errors module
     logger.exception("Additional info: %s", 42) # Exception will be automagically logged
+    logging.warn("Hello %(world)r!", world=earth)
     import traceback; traceback.print_exc() # or .extract_stack()
 else: pass
 finally: pass
@@ -312,7 +315,7 @@ python -mtrace --ignore-module=codeop,__future__ --trace [ $file | $code_module_
 # IPython tricks
 cd /a/path
 !cmd # shell command
-%history # dump it
+%history # dump it. Stored in ~/.config/ipython/profile_default/history.sqlite - used by pdb too
 %pdb # Automatic pdb calling
 %timeit do_something()
 %debug # post_mortem
@@ -322,7 +325,8 @@ ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 
 # PDB tricks
 debug foo() # step into a function with pdb
-import pdb; foo(42); pdb.pm() # enter debugger post-mortem
+import pdb; foo(42); pdb.pm() # enter debugger post-mortem using:
+sys.last_traceback / sys.last_value # non-handled exception info
 from IPython.core.debugger import Pdb; Pdb().set_trace()
 ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
 google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
@@ -557,7 +561,7 @@ root = tree.getroot()
 BeautifulSoup('html string').prettify() # newlines+tabs formatted dump
 
 urlparse
-requests # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent
+requests.get(url, allow_redirects= rue, stream=True) # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent
 requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 kevin1024/vcrpy # record / replay HTTP interactions

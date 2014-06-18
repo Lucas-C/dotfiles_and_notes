@@ -50,7 +50,7 @@ It mush be SHORT:
     * the key challenge to sustaining a complex system is maintaining our *understanding* of it
     * documentation reduce accidents
     * trouble is, documentation goes out of date -> _instrumentation_ reflects the reality of the system as it exists
-    * it is possible to have too litlle info, or too much, or present it badly
+    * it is possible to have too little info, or too much, or present it badly
 - use Doxygen / Docurium for code documentation
 - Teach don't tell : http://stevelosh.com/blog/2013/09/teach-dont-tell/
 - wiki are great !

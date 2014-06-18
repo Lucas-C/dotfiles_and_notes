@@ -8,6 +8,17 @@
 # FROM: http://stackoverflow.com/questions/242485/starting-python-debugger-automatically-on-error
 from imp import find_module
 import sys
+
+def ret_except(func, *args, **kwargs):
+    """
+    Utility function useful in pdb to catch exceptions in a variable.
+    :returns: an :class:`Exception` if any is raised during the call, else the normal function return value
+    """
+    try:
+        return func(*args, **kwargs)
+    except Exception as err:
+        return err
+
 try:
     from ipdb import launch_ipdb_on_exception as launch_pdb_on_exception
 except ImportError:

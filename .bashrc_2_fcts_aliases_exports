@@ -31,16 +31,18 @@ vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md
 
 diff_alt () {
     cat <<EOF
-ALT: \
-diff --side-by-side -r --exclude=.git / \
-sdiff -B -b -s # for %stats / \
-vimdiff (add color + support side-by-side naturally) / \
-diff3 / \
-opendiff (OSX)
+$(tput smul)ALT:$(tput sgr0) \
+diff --side-by-side $(tput smul)# slower than equivalent 'sdiff'$(tput sgr0) ; \
+diff -r --exclude=.git ; \
+diff -U2 ... | diffstat ; \
+vimdiff $(tput smul)# colored side-by-side$(tput sgr0) ; \
+diff3 ; \
+opendiff $(tput smul)# OSX$(tput sgr0)
 EOF
 }
 
-alias diff='diff_alt && /usr/bin/diff -b'
+alias diff='diff_alt && /usr/bin/diff -bB --suppress-common-lines'
+alias sdiff='/usr/bin/sdiff -bB --suppress-common-lines'
 less () { /usr/bin/less -iM "$@"; }
 alias make='/usr/bin/make -j3'
 if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
