@@ -15,7 +15,7 @@
 - make decisions based on data
 - coding style reference, tools to enforce it, code reviews
 - allocate some hack time
-- regular emails with tips
+- regular emails with tips. Or put a one-pager in the toilets, as Google is doing
 
 ## StandUp
 It mush be SHORT:

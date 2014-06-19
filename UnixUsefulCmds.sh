@@ -464,7 +464,7 @@ dig +short -x $ip # Reverse DNS
 dig +trace +norecurse txt $dns_server
 avahi-resolve -n $USER.local # Multicast DNS == mDNS - from avahi-tools pkg
 # Caching
-/etc/hosts /etc/resolv.conf /etc/dhcp*/*.conf # manual / basic
+/etc/hosts /etc/{host,resolv,nsswitch}.conf /etc/dhcp*/*.conf # manual / basic
 bind / dnsmasq / lwresd / unbound # DNS daemon
 nsscache / nss_db / nscd (broken: ignore TTL) # Cache /etc/{passwd,group,shadow,...} - Notes: nscd-aggstats, nscd -g
 getent ahostsv4 www.google.com # whole query through NSS
@@ -498,7 +498,7 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
 iptables -A INPUT -s $host -j DROP
 iptables -n -L -v
 
-snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName.0
+snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName.0 - Alt: snmpbulkwalk -> gets all OOIDs
 # SNMP port : 161
 # LAG == Link Aggregation
 
@@ -506,6 +506,7 @@ snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName
 sudo tcpdump -i $interface host $IP [ip proto icmp|udp|tcp] -A -s 0 # last flag remove the limit on the captured packet size | Use -X for hex-dump | -n to disable dns resolution
 tcpdump udp and dst port 514 -w - | pv -btr >/dev/null # Incoming syslog UDP packets rate -> can be used for TCP or all network traffic too
 time tcpdump udp and dst port 514 -w /dev/null -c 1000 # Alt solution to estimate the rate
+# To find which process is sending packets, use netstat/ss 
 
 nc -l -p 7777 > /dev/null # on receiver machine
 pv -btr /dev/zero | nc $host 7777 # show live throughput between two machines

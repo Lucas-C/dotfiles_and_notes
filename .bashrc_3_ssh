@@ -2,7 +2,8 @@ SSH_EXPORT_FILES=".bash_dirs .bash_profile .bashrc* .gitconfig .inputrc .screenr
 SSH_EXPORT_TMP_DIR="/tmp/$USER"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited
-SSH_AGENT_CONFIG_FILE_REL=.ssh/.ssh-agent.sh
+SSH_AUTH_SOCK_LINK=.ssh/ssh-agent-auth-sock
+SSH_AGENT_CONFIG_FILE_REL=.ssh/ssh-agent.sh
 SSH_AGENT_CONFIG_FILE=~/$SSH_AGENT_CONFIG_FILE_REL
 
 # TODO/FLAWS: make up to FOUR ssh connections (with 'visit') 
@@ -53,6 +54,9 @@ ssh_setup () { # '-f' force a new ssh-agent creation
     if [ -r $SSH_AGENT_CONFIG_FILE ]; then
         source $SSH_AGENT_CONFIG_FILE >/dev/null
         [ $(wc -l $SSH_AGENT_CONFIG_FILE | awk '{print $1}') -eq 1 ] && IS_SSH_FORWARDED=true
+        rm -f $SSH_AUTH_SOCK_LINK
+        ln -s $SSH_AUTH_SOCK $SSH_AUTH_SOCK_LINK
+        export SSH_AUTH_SOCK=$SSH_AUTH_SOCK_LINK # required by tmux_ssh, to be able to load the latest ssh agent
     fi
 
     # We create a new ssh-agent if '-f' is used or 'ssh-add -l' fails (=> no agent running OR no keys loaded)
@@ -84,7 +88,8 @@ rsync () { pre_ssh; $(nofuncalias rsync) "$@"; }
 visit () {              # ssh to a host after calling 'exportSshFiles'. List visited hosts in ~/.visited
     local dst=$(fqdn $1 2>/dev/null || echo $1) ; [ -z $dst ] && echo "MISSING ARG: Specifiy a remote host" && return 1
     if exportSshFiles $dst; then
-        grep -q $dst $VISITED_HOSTS_LOG_FILE || echo $dst >> $VISITED_HOSTS_LOG_FILE
+        sed -i "/$dst/d" $VISITED_HOSTS_LOG_FILE
+        echo $dst >> $VISITED_HOSTS_LOG_FILE
         ssh $dst
     else
         echo "$(tput setaf 1)exportSshFiles FAILED: $(tput sgr0) sudo rights probably missing on $dst, fallback to a /tmp \$HOME"
