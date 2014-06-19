@@ -7,6 +7,7 @@
 - [CRoTDD] : http://svenpet.com/2014/01/07/better-code-reviews/
 - [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter
 - [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas
+- [JC-PI] : John Carmack on Parallel Implementations http://www.altdev.co/2011/11/22/parallel-implementations/
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -17,6 +18,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
     switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
     similar algorithm            -> template method / strategy pattern
 - "Premature optimization is the root of all evil"
+- Code Fearlessly & implement alternative code versions in parallel [JC-PP]
 
 ## Design principles (SE = software entity : class, module, function...) - where "Design" = Organisation of the software logic
 - Single Responsability Principle : every SE should have a single responsibility, and that responsibility should be entirely encapsulated by the SE

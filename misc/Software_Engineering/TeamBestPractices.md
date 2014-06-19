@@ -1,10 +1,12 @@
 ## Joining a new team
-- talk to a colleague each day and question him on what he does, but try to not bother them for half of the day
+- talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
 - take notes in a file, complete/fix the existing docs & draw diagrams
 - quickly get a short-term goal to focus on & follow the 'minimal info' loop:
     * Acquire as little information as possible
     * Acquire information as efficiently as possible
     * Use the information you acquire as effectively as possible
+- ask people to have lunch with them (force yourself !)
+- ask people for coffee breaks (force yourself !)
 
 ## Team culture building
 - build a team brand: catching name, logo, slogan... [PP]
@@ -51,8 +53,8 @@ It mush be SHORT:
     * documentation reduce accidents
     * trouble is, documentation goes out of date -> _instrumentation_ reflects the reality of the system as it exists
     * it is possible to have too little info, or too much, or present it badly
-- use Doxygen / Docurium for code documentation
 - Teach don't tell : http://stevelosh.com/blog/2013/09/teach-dont-tell/
+- many more advices: https://github.com/PharkMillups/beautiful-docs
 - wiki are great !
     * store meeting notes, tasks list, team & members pages, build processes, design docs, software architecture diagrams...
     * + use it to share useful links, and try to encourage using this instead of individual bookmarks
@@ -60,6 +62,7 @@ It mush be SHORT:
     * +++ DASHBOARD !!
     * include the wiki as part of task processes : sprints, ops, deployments...
     * get a leader whose goal is to motivate & educate others
+- use Doxygen / Docurium for code documentation
 
 ## Recruiting & coaching new hires
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process

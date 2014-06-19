@@ -196,3 +196,9 @@ Runtime.getRuntime().addShutdownHook(new Thread() { public void run() { /* clean
 
 // GUI: Swing easy to customize color picker, editable text pane, file chooser, password field, progress bar, spreadsheet table, hierarchical tree...
 http://docs.oracle.com/javase/tutorial/uiswing/components/componentlist.html
+
+// Java8
+Arrays.parallelSort(myArray) // break up the collection into several parts sorted independently across a number of cores. Will be less efficient on a loaded machine, depending on its architecture
+concurrent Adders > Atomics
+SecureRandom.getInstanceStrong() // Secure random generator 
+Optional<T>

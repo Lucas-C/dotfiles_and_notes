@@ -86,4 +86,4 @@ Nana // GUI programming
 
 // MinGW: http://lynix.digitalpulsesoftware.com/2010/06/gcc-4-4-0-sous-windows-avec-mingw/
 
-cl /analyze // Visual Studio code analysis
+cl /analyze // Visual Studio code analysis: http://www.altdev.co/2011/12/24/static-code-analysis/ (John Carmack)
