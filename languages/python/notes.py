@@ -485,7 +485,7 @@ mailr, mailbox, imaplib, smtpd, smptplib
 paramiko # remote SSH/SFTP connexion
 
 celery # distributed task queue ; montoring: mher/flower; alt: pyres
-sched # event scheduler ; alt: crontabber, dagobah/schedule
+sched # event scheduler ; alt: fengsp/plan, crontabber, dagobah/schedule
 zeromq, aiozmq  # distributed app / msg passing framework
 ampqlib, haigha # AMPQ libs
 
@@ -590,7 +590,7 @@ pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-py
 EasyDialogs, optparse_gui, EasyGui, Tkinter
 pyglet # windowing and multimedia lib
 pysoy # 3D game engine
-pillow > pil # Python Image Library
+wand (ImageMagick binding), pillow > pil # Python Image Library
 AAlib # ASCII rendering
 
 platform # python version, OS / machine / proc info...

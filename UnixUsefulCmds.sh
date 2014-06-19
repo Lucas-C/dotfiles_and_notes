@@ -71,8 +71,9 @@ dig +short TXT google-public-dns-a.google.com # check without 'TXT'
   Bash scripting
 ##################
 zenity # GUI: error windows, selection dialog, progress bars...
+mooz/percol # interactive filtering through pipes
 
-set -o pipefail -o errexit -o nounset -o xtrace
+set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 
 bash -n $script # Check syntax without executing
@@ -595,7 +596,7 @@ iostat # + iotop, non portable
 mpstat 5 # cpu usage stats every 5sec
 monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
 dstat
-glances, conky
+glances, psdash, conky
 collectd, perfwatcher
 
 stap # SystemTap
