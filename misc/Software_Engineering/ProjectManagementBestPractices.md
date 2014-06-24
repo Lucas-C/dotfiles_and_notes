@@ -3,14 +3,20 @@
 - [VisualSpec](http://www.targetprocess.com/articles/visual-specifications.html)
 
 ## Requirements
+- write a one-pager summing up:
+    - the stakes, the problem, the success criteria
+    - the high level requirements, user stories
+    - the high level design & architecture
+    - the dependencies and required preconditions / assumptions
+    - high level project planning
 - don't gather requirements, **dig** for them [PP]
 - whenever possible, **become** a user, else work with one to think like him [PP]
 - separate policy concerns from requirements [PP]
 - don't **overspecify**. Good requirements remain _abstract_. They are not archictecture, design nor UI. They are **needs** [PP]
 - keep track of requirements growth to spot features creep/bloat [PP]
 - maintain a project glossary [PP]
-- Don't fall into the specifications spiral [PP]
-- Formal methods (CASE, waterfall, spiral model, UML...) have some serious shortcomings [PP]
+- don't fall into the specifications spiral [PP]
+- formal methods (CASE, waterfall, spiral model, UML...) have some serious shortcomings [PP]
 - [VisualSpec]
     * do: sketches, flows, storyboard, paper prototype, short narratives
     * don't: behavior-Driven Development, pseudo-narrative

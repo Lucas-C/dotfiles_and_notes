@@ -289,9 +289,9 @@ d[a] = 42
 print d # {'a':42}
 print type(d.keys()[0]) # str
 
-def create_multipliers():
-    return [lambda x : i * x for i in range(2)]
-for multiplier in create_multipliers():
+def create_multipliers(n):
+    return [lambda x : i * x for i in range(1,n+1)]
+for multiplier in create_multipliers(2):
     print multiplier(3) # Late Binding Closure : prints 6 twice
 
 
@@ -540,7 +540,7 @@ shelve # other data persistence using pickle, full list of alt: http://docs.pyth
 stephenmcd/hot-redis
 
 ConfigParser # std configuration files format
-csv, xlwt, xlrd
+csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
 yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 cPickle # binary format, generic, fast & lighweight.
 # + PyCloud make it possible to pickle functions dependencies

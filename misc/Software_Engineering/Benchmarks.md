@@ -7,9 +7,11 @@ Geometric mean ({a1, a2, ..., an}) = sqrt[1/n](a1 * a2 * ... * an)
 
 * Standard deviation : To compute it on-the-fly, see 'stats' command.
 
-* Median : The median is a fairly robust estimator of the expectation value with respect to outliers (assuming they're comparatively rare).
+* Median : The median is a fairly robust estimator of the expectation value with respect to outliers (assuming they are comparatively rare).
 
 * Median absolute deviation : The median absolute deviation is a measure of statistical dispersion. Moreover, the MAD is a robust statistic, being more resilient to outliers in a data set than the standard deviation. In the standard deviation, the distances from the mean are squared, so large deviations are weighted more heavily, and thus outliers can heavily influence it. In the MAD, the deviations of a small number of outliers are irrelevant. [wiki]
+
+* (exponantial) Moving average : http://en.wikipedia.org/wiki/Moving_average
 
 * Remove outliers : all timings that deviate from the median by more than X times the MAD
 

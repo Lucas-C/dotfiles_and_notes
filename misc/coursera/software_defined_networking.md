@@ -55,11 +55,6 @@ All of the following are true about 802.11 wireless medium access control:
 - It is particularly important for wireless networks, where the collision detection of the alternative CSMA/CD is unreliable due to the hidden node problem.
 - CSMA/CA can optionally be supplemented by the exchange of a Request to Send (RTS) packet sent by the sender S, and a Clear to Send (CTS) packet sent by the intended receiver R. Thus alerting all nodes within range of the sender, receiver or both, to not transmit for the duration of the main transmission. This is known as the IEEE 802.11 RTS/CTS exchange. It reduces the overall achieveable throughput of the wireless network. Implementation of RTS/CTS helps to partially solve the hidden node problem that is often found in wireless networking
 
-All of the  following are true about TCP:
-
-- TCP's congestion avoidance algorithm causes the sender to reduce its sending rate by a factor of two when it sees a packet loss.
-- A TCP sender controls its sending rate by adjusting the number of unacknowledged packets that can be sent over the network at any time.
-
 
 ### Module 2.0: Testing Mininet Setup [16:35]
 
