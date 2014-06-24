@@ -363,7 +363,7 @@ find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING ot
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
-find . -mtime +730 -exec rm -f {} \;
+find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long'
 
 rename \  _ * # Replace whitespaces by underscores
 
@@ -399,7 +399,7 @@ cp /proc/$pid/fd/4 myfile.saved
 auditctl -w $file -p wax -k $tag
 ausearch -k $tag [-ts today -ui 506 -x cat]
 
-rsync -v --compress --exclude=".*" $src $dst
+rsync -v --compress --exclude=".*" $src $dst # Alt: rdiff-backup
 --archive # recursive + preserve mtime, permissions...
 --delete # remove extra remote files
 --append # resume interrupted rsync/cp
@@ -440,6 +440,7 @@ ss -nap # -a => list both listening and non-listening sockets/ports ; -n => no D
 ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
 
 netstat --statistics [--udp] # global network statistics - 'ss' is the replacement for deprecated 'netstat', but this has no equivalent
+dropwatch # to find out where are packets dropped
 /proc/net/{snmp, netstat, ...} # network counters
 
 ip n[eighbour] # ARP or NDISC cache entries - replace deprecated 'arp'

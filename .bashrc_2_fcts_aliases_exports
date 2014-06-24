@@ -376,13 +376,13 @@ mtr_proto () {
         xargs -r -L1 ping -n -i0.5 -c20 -s80 | tee $host.mtr
 }
 
-function memmost(){     # args: [proc_count=10] - Courtesy of fsquillace@
+memmost() {     # args: [proc_count=10] - Courtesy of fsquillace@
     local ps_out=$(psf)
     echo "$ps_out" | head -n 1
     echo "$ps_out" | sort -nr -k 4 | head -n ${1:-10}
 }
 
-function cpumost(){     # args: [proc_count=10] - Courtesy of fsquillace@
+cpumost() {     # args: [proc_count=10] - Courtesy of fsquillace@
     local ps_out=$(psf)
     echo "$ps_out" | head -n 1
     echo "$ps_out" | sort -nr -k 3 | head -n ${1:-10}

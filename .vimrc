@@ -132,10 +132,10 @@ endtry
 
 
 """PLUGINS
-if isdirectory($HOME."/.vim/bundle/vundle")
+if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     filetype off                "required
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
     Plugin 'gmarik/vundle'
 
     Plugin 'vim-scripts/LargeFile'
@@ -168,6 +168,8 @@ if isdirectory($HOME."/.vim/bundle/vundle")
     let g:SuperTabDefaultCompletionType = "context"
     "To force to omni: "<C-X><C-O>"
     set omnifunc=syntaxcomplete#Complete
-endif " Vundle END
+
+    call vundle#end()
+endif
 filetype plugin indent on
 

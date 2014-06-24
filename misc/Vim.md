@@ -99,8 +99,7 @@ Display
 
 More tips
 =========
-- git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-- vim +PluginInstall +qall
+- git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim && vim +PluginInstall +qall
 - *:set spell* : enable vim 7.0+ spell checker
 - *vimtutor*
 - *ggg?G* : rot13 whole file
