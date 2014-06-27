@@ -25,3 +25,5 @@ The CAP theorem: Consistency, Availability, and Partition tolerance, pick at mos
 
 Minimum spanning tree for a connected weighted graph ("arbre recouvrant de poids minimum") : Algorithme de Kruskal
 
+HMAC > a hash with a salt, in term of security
+

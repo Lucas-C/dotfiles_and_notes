@@ -710,6 +710,8 @@ xhost +local:root # Xlib: connection to ":0.0" refused by server
 sudo adduser $USER vboxusers # then logout
 VBoxManage list vms
 VBoxManage controlvm $name poweroff
+VBoxClient --clipboard
+$HOME/VirtualBox VMs/{machinename}/Logs
 
 # Cool features : remote display (VRDS), shared folders & clipboard, seamless mode
 
