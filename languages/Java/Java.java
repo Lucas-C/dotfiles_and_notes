@@ -102,6 +102,7 @@ Optional<> : Optional.of(...), Optional.absent(), opt.isPresent(), opt.get()
 public String toString() { Objects.toStringHelper(getClass()).add("Attr", attr).add(...); }
 ImmutableSet<V>
 ImmutableMap.Builder<K,V>
+// + Guice (dependency injection) & GuiceBerry for testing it
 
 // http://docs.oracle.com/javase/tutorial/essential/io/formatting.html
 System.out.println("a" + "b"); System.out.format("a%s", "b");

@@ -30,6 +30,13 @@ RRDtool (the ancestor) and its followers:
 - reconnoiter
 - chriso/gauged
 
+# SQL*PLus
+
+    # in login.sql
+    SET TIMING ON
+    SET SERVEROUTPUT ON
+    SET LINESIZE 180 PAGESIZE 1000
+
 # MySQL / SQLite
 
 LIKE >faster> REGEXP

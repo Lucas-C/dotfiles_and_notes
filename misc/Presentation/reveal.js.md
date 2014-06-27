@@ -21,7 +21,7 @@ HTML section to include:
     <li class="fragment">Press ESC to enter the slide overview</li>
     <li class="fragment">Press 'b' to fade out to blac screen</li>
     <li class="fragment">Change the background on a slide: <code>data-background="#007777"</code></li>
-    <li class="fragment">[PDF export](https://github.com/hakimel/reveal.js#pdf-export "PDF export description on Github")</li>
+    <li class="fragment">[PDF export instructions](https://github.com/hakimel/reveal.js#pdf-export) using Chrome, + append 'index.html?print-pdf' and scroll to the end before printing</li>
     <li class="fragment">[Online visual editor](http://slid.es)</em></li>
 </ul>
 

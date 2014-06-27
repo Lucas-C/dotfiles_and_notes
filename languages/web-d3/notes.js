@@ -162,6 +162,17 @@ underscorejs.org // Functional prog lib
 moment.js // parse, validate, manipulate, and display dates
 
 npm install // Node Packaged Modules
+
+var http = require('http');
+http.createServer(function (req, res) {
+  console.log('request recieved');
+  console.log('url: ' + req.url);
+  console.log('headers: ' + JSON.stringify(req.headers));
+  res.writeHead(402, {'Content-Type': 'text/plain'});
+  res.end('');
+}).listen(8181, '127.0.0.1');
+console.log('Server running at http://127.0.0.1:8181/');
+
 var fs = require("fs"); // Node.js
 fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
     console.log(line);
