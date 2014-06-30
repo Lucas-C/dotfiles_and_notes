@@ -54,16 +54,15 @@ def foobar():
     yield
     # __exit__ code
 
-StringIO # fake file
-
 os.makedirs(dir_path) # + ignore OSError where .errno == errno.EEXIST and os.path.isdir(dir_path) # mkdir -p
 tempfile.gettempdir()
 tempfile.mkdtemp()
 tempfile.NamedTemporaryFile() # file automagically deleted on close()
 tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
 
+StringIO # fake file
 glob, fnmatch # manipulate unix-like file patterns
-jaraco/path.py # provides a handy 'Path' object
+jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object
 os.stat("filename").st_ino # get inode
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 
@@ -486,7 +485,7 @@ paramiko # remote SSH/SFTP connexion
 
 celery # distributed task queue ; montoring: mher/flower; alt: pyres
 sched # event scheduler ; alt: fengsp/plan, crontabber, dagobah/schedule
-zeromq, aiozmq  # distributed app / msg passing framework
+zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha # AMPQ libs
 
 mrjob, luigi # Hadoop / AWS map-reduce jobs
@@ -592,6 +591,7 @@ pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 wand (ImageMagick binding), pillow > pil # Python Image Library
 AAlib # ASCII rendering
+fogleman/Tiling # pavages
 
 platform # python version, OS / machine / proc info...
 

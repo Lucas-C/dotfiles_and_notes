@@ -69,3 +69,5 @@ sudo aptitude install gufw # firewall
 sudo aptitude install grc pandoc
 
 sudo aptitude install hddtemp && sudo pip install pysensors batinfo glances
+
+gsettings set com.canonical.Unity.Lenses disabled-scopes "['more_suggestions-amazon.scope', 'more_suggestions-u1ms.scope', 'more_suggestions-populartracks.scope', 'music-musicstore.scope', 'more_suggestions-ebay.scope', 'more_suggestions-ubuntushop.scope', 'more_suggestions-skimlinks.scope']"

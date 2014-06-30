@@ -203,8 +203,7 @@ stats () { # --no-header | awk '{print $3}'
         else{median=(a[n/2]+a[n/2-1])/2;}\
         printf "%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n",\
             sum,n,mean,std_dev,a[0],tp(.01),tp(.1),median,tp(.9),tp(.99),a[n-1]}'
-} # TODO: add 'MAD' 
-
+}
 
 #-------------------
 # Command overrides
