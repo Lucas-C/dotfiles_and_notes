@@ -1,13 +1,14 @@
 ## References:
 - [CC-\w\d+] : Clean Code - Robert C. Martin
 - [SDP] : Software Design Philosophy - John Ousterhout
-- [97TEPSK] 97 Things Every Programmer Should Know : http://programmer.97things.oreilly.com/wiki/index.php/Contributions_Appearing_in_the_Book
-- [DOM] : http://googletesting.blogspot.com/2013/05/testing-on-toilet-dont-overuse-mocks.html
-- [KYTD] : http://googletesting.blogspot.com/2013/07/testing-on-toilet-know-your-test-doubles.html
-- [CRoTDD] : http://svenpet.com/2014/01/07/better-code-reviews/
+- [97TEPSK] : [97 Things Every Programmer Should Know](http://programmer.97things.oreilly.com/wiki/index.php/Contributions_Appearing_in_the_Book)
+- [DOM] : [Don't overuse mocks](http://googletesting.blogspot.com/2013/05/testing-on-toilet-dont-overuse-mocks.html)
+- [KYTD] : [Know your test doubles](http://googletesting.blogspot.com/2013/07/testing-on-toilet-know-your-test-doubles.html)
+- [CRoTDD] : [CR over TDD](http://svenpet.com/2014/01/07/better-code-reviews/)
 - [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter
 - [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas
-- [JC-PI] : John Carmack on Parallel Implementations http://www.altdev.co/2011/11/22/parallel-implementations/
+- [JC-PI] : [John Carmack on Parallel Implementations](http://www.altdev.co/2011/11/22/parallel-implementations/)
+- [RobPikeKenThompson] : [What Rob Pike learned from KenThompson](http://www.informit.com/articles/article.aspx?p=1941206)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -144,6 +145,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 
 - Avoid multiple languages in one source file [CC-G1]
 - Use the idioms of the programming language employed, aka "Don't write C code in Java"
+- When debugging, **THINK** before going on step-by-step debug mode [RobPikeKenThompson]
 
 ## Fun facts
 - OCTDD : Obsessive Compulsive Test Driven Development

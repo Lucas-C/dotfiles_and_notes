@@ -20,6 +20,9 @@ Geometric mean ({a1, a2, ..., an}) = sqrt[1/n](a1 * a2 * ... * an)
 ** Measure of variability : MAD of the truncated distribution
 ** Uncertainty on the expectation value : sigma = MAD / sqrt(N) where N is the number of remaining measurements). To get a %relative error -> sigma / mean
 
+* MAD = Median absolute deviation, !! NOT to be confused with the "Mean absolute difference"
+For other measure of dispersion: https://en.wikipedia.org/wiki/Statistical_dispersion#Measures_of_statistical_dispersion
+
 
 RESSOURCES:
 [1] : HOW TO NOT TO LIE WITH STATISTICS: THE CORRECT WAY TO SUMMARIZE BENCHMARK RESULTS (PHILIP J. FLEMING and JOHN J. WALLACE)
