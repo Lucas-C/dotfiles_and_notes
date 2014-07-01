@@ -235,8 +235,11 @@ items = d.iteritems() # dicts ( iteritems > items )
 d.setdefault('key', []).append(42) # add element to list, create it if needed
 collections.defaultdict
 
+isinstance(obj, collections.Hashable)
+
 collections.OrderedDict # remember insertion order
 OrderedDict(sorted(d.iteritems(), key=lambda (k,v): (v,k))) # sort a dict by its values
+grantjenks/sorted_containers # faster: SortedList, SortedDict, SortedSet
 
 from itertools import groupby
 {category: list(packages) for category, packages in groupby(pkg_list, get_category)} # dict-comprehension, limited: see SO/18664274

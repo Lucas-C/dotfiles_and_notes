@@ -1,4 +1,10 @@
 gcc -g3 -D_DEBUG -Wall -Wextra -pedantic-errors -Wfloat-equal -Wconversion -Wshadow -Weffc++ # -pg -fstack-protector
+-fsanitize=thread -fPIE -pie -g // dynamic ThreadSanitizer
+-fsanitize=memory -fPIE -pie -g // dynamic MemorySanitizer
+-fsanitize=address -O1 -fno-omit-frame-pointer -g // dynamic AddressSanitizer
+valgrind --leak-check=full --track-origins=yes // seemingly > purify
+gperftools: -ltcmalloc, HEAPCHECK, HEAPPROFILE, pprof // thread-caching malloc, heap checker/profiler, CPU profiler
+
 gcc -dM -E </dev/null // dump the list of predefined macros; e.g. unix & linux
 
 // Use ‘const’ as much as possible.
