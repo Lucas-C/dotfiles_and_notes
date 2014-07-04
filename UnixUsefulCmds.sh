@@ -386,7 +386,8 @@ truncate -s $size_in_bytes $file # from coreutils
 setcap # man capabilities
 umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
-sudo chattr +i [-R] $file # Forbid file deletion - To check a file attributes: lsattr
+getfacl/setfacl
+sudo chattr +i [-R] $file # Forbid file deletion - To check a file attributes: lsattr. Also: getfattr/setfattr
 
 tune2fs # control extX file system parameters, e.g. reclaim disk space reserved to root 
 debugfs -R "stat <$(ls -i $file | awk '{print $1}')>" $(df $file | tail -n 1 | awk '{print $1}') # Get $file creation time ('crtime') on ext4 filesystems
@@ -408,6 +409,7 @@ rsync -v --compress --exclude=".*" $src $dst # Alt: rdiff-backup
 tar -J... # instead of -z, .xz compression format support
 pigz # paralell gzip
 yum install p7zip # for .7z files
+lzop # faster, use less CPU
 
 sha{1,224,256,384,512}sum
 md5sum
@@ -432,7 +434,6 @@ nmap $host -p $port --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping,
 nmap 192.168.1.* # Or 192.168.1.0/24, scan entire subnet
 nmap -DdecoyIP1,decoyIP2 ... # cloak your scan
 
-# Locally
 lsof -i -P -p $pid # -i => list all Internet network files ; -P => no conversion of port numbers to port names for network files ; -n => no IP->hostname resolution
 lsof -i -n | grep ssh # list SSH connections/tunnels
 
@@ -703,6 +704,8 @@ cp sessionstore.bak sessionstore.js # Restore previous session tabs
 
 xhost +local:root # Xlib: connection to ":0.0" refused by server
 
+killall unity-panel-service # display clock in Ubuntu when buggy
+
 
 =\/=/\=\/=/\=\/=
 =  Virtualbox
@@ -800,6 +803,8 @@ log "HELLO WORLD !"
 $$$$$$$$$$$$$$$
 $ Google APIs $
 $$$$$$$$$$$$$$$
+sqrt(cos(x))*cos(200 x) + sqrt(abs(x))-0.7)*(4-x*x)^0.01, sqrt(9-x^2), -sqrt(9-x^2) from -4.5 to 4.5 # Google it & profit !
+
 # Search tips&tricks
 site:$base_url "exact match" OR "a * saved is a * earned" -term # basics
 cache:$url

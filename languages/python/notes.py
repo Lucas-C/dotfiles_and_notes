@@ -127,6 +127,7 @@ def my_decorator(decorator_args):
 # Descriptors
 class Property(object):
     def __init__(self, fget):
+	    self.__doc__ = getattr(fget, '__doc__')
         self.fget = fget
 
     def __get__(self, obj, type):
@@ -666,5 +667,5 @@ from enum import Enum, IntEnum
 from functools import \
     singledispatch, \
     total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
-    lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties
+    lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property
 

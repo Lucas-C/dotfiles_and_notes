@@ -1,4 +1,6 @@
+F8 at start-up :: Safe mode / Mode sans echec
 F7 in cmd.exe -> history
+:: BUT better use cmder or at least PowerShell ISE
 
 ipconfig /displaydns
 
@@ -11,6 +13,8 @@ schtasks :: task scheduler
 robocopy "C:\Source" "E:\Destination" /E /PURGE :: Backup
 
 copy "C:\file.txt" "D:\%date:/=-%_file.txt.bak" :: Variable substitution
+
+icacls * /T /Q /C /RESET :: reset files permissions
 
 handle, pskill, pslist... :: Sysinternals Process Utilities
 
@@ -35,6 +39,8 @@ takeown /f directory /r
 cacls file /G username:F
 ::3- Remove file
 del file
+
+services.msc :: Services windows
 
 :: Default .dll owner : NT SERVICE\TrustedInstaller
 

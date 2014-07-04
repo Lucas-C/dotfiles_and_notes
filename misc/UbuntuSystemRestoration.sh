@@ -71,3 +71,11 @@ sudo aptitude install grc pandoc
 sudo aptitude install hddtemp && sudo pip install pysensors batinfo glances
 
 gsettings set com.canonical.Unity.Lenses disabled-scopes "['more_suggestions-amazon.scope', 'more_suggestions-u1ms.scope', 'more_suggestions-populartracks.scope', 'music-musicstore.scope', 'more_suggestions-ebay.scope', 'more_suggestions-ubuntushop.scope', 'more_suggestions-skimlinks.scope']"
+
+# Change desktop directory
+~/.config/user-dirs.dirs # edit XDG_DESKTOP_DIR
+
+# Restore windows while keeping dual-boot:
+http://askubuntu.com/questions/189410/how-do-i-reinstall-windows-7-while-keeping-my-dual-boot-configuration
+
+ntfs-3g

@@ -100,6 +100,7 @@ Display
 More tips
 =========
 - git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim && vim +PluginInstall +qall
+- gvim over ssh: grantm/bcvi
 - *:set spell* : enable vim 7.0+ spell checker
 - *vimtutor*
 - *ggg?G* : rot13 whole file
