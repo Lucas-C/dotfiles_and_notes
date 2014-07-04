@@ -14,7 +14,7 @@ pmap -x $pid # get memory usage
 valgrind --tool=massif $cmd # get memory usage with details & graph
 valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
 
-hexdump -c # aka 'hd', use 'bvi' for editing
+hexdump -c $file # aka 'hd', use 'bvi' for editing. Alt: od -Ax -tx1z -v $file
 strings -n $min_length exec.bin # extract strings of length >= 4
 objdump
 /dev/mem # Physical memory, useful to strings | grep pswd. Ubuntu limit this to 1Mb
@@ -27,6 +27,7 @@ ldd $executable # list dynamically linked libs
 # 0xDEADC0DE 0xDEADBEEF
 #          GDB
 # 0xBADDCAFE 0xD15EA5E
+# Alt: Oracle dbx
 curl -s http://svn.python.org/projects/python/trunk/Misc/gdbinit > ~/.gdbinit
 sudo chown root:root ~/.gdbinit
 gdb -p $PID # attach gdb

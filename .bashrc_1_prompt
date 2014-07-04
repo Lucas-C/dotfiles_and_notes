@@ -4,11 +4,6 @@
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 export T_normal=0
 export T_bold=1
 export T_underline=4
@@ -22,11 +17,19 @@ export EXIT_CODE=0
 export CODE_COLOR=$T_normal
 export CODE_STRING=
 export USER_STYLE=$T_normal
-export HOST_COLOR='1;35'
+export HOST_COLOR='1;35' # magenta
 
-CURRENT_PWD_DIR=$BASHRC_DIR/.current_pwd
-mkdir -p $CURRENT_PWD_DIR
+# FROM: http://stackoverflow.com/a/88716
+ROOT_INODE=$(stat -c %i /)
+if [ $ROOT_INODE -ne 2 -a $ROOT_INODE -ne 128 ]; then
+    IS_CHROOTED_PROMPT=$'\e[1;36m(chrooted)\e[0m' # cyan
+else
+    IS_CHROOTED_PROMPT=''
+fi
 
+export PS1='${IS_CHROOTED_PROMPT}\[\e[${USER_STYLE}m\]\u\[\e[${T_normal}m\]@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]${GIT_BRANCH}:\[\e[${DIRCOLOR}m\]\W\[\e[${CODE_COLOR}m\]$CODE_STRING\[\e[${T_normal}m\]\$ '
+
+export PROMPT_COMMAND=prompt_command
 prompt_command()
 {
     EXIT_CODE=$?
@@ -46,16 +49,24 @@ prompt_command()
         CODE_STRING=
     fi
 
-    if [ -S "$SSH_AUTH_SOCK" ]; then
+    if [ -S "$SSH_AUTH_SOCK" ]; then # exists and is a socket
         USER_STYLE=$T_underline
     else
         USER_STYLE=$T_normal
+    fi
+
+    GIT_BRANCH=$(git branch --no-color 2>/dev/null | sed -ne 's/^* //p')
+    if [ -n "$GIT_BRANCH" ]; then
+        GIT_BRANCH=$'\e[1;33m['$GIT_BRANCH$']\e[0m' # yellow
     fi
 
     history -a # flush history => shared between term sessions 
 
     [ -n "${TMUX:-}" ] && tmux list-windows | awk -F: '{print $1}' > $CURRENT_PWD_DIR/tmux_live_windows
 }
+
+CURRENT_PWD_DIR=$BASHRC_DIR/.current_pwd
+mkdir -p $CURRENT_PWD_DIR
 
 cd () {                 # zsh-like, USAGE: cd $path | cd $old_path_snippet $new_path_subst
     local error_code
@@ -116,13 +127,3 @@ _tmux_restore_windows () {
 
 _tmux_restore_windows || builtin cd "$(cat $CURRENT_PWD_DIR/last_pwd 2>/dev/null)"
 
-export PROMPT_COMMAND=prompt_command
-
-if [ ${TERM:0:5} = xterm ]; then
-    PS1='\[\e]0;\u@\h:\W\007\]'
-else
-    PS1=''
-fi
-PS1=$PS1'\[\e[${USER_STYLE}m\]\u\[\e[${T_normal}m\]@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]:\[\e[${DIRCOLOR}m\]\W\[\e[${CODE_COLOR}m\]$CODE_STRING\[\e[${T_normal}m\]\$ '
-export PS1
-# PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'

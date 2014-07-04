@@ -15,8 +15,12 @@ set output-meta on
 # allow the use of 8bit-characters + disable meta key
 set convert-meta off
 
+$if Bash
+    set expand-tilde on
+$endif
 set show-all-if-ambiguous on
 set completion-ignore-case on
+Space: magic-space
 
 # <CTRL>+left/right arrows
 # WHEN xterm-keys on, e.g. inside Tmux (already in /etc/inputrc):
