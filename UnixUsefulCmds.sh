@@ -70,7 +70,7 @@ dig +short TXT google-public-dns-a.google.com # check without 'TXT'
 ##################
   Bash scripting
 ##################
-zenity # GUI: error windows, selection dialog, progress bars...
+notify-send (libnotify), zenity # GUI: error windows, selection dialog, progress bars...
 mooz/percol # interactive filtering through pipes
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
@@ -407,6 +407,7 @@ rsync -v --compress --exclude=".*" $src $dst # Alt: rdiff-backup
 --backup --backup-dir=/var/tmp/rsync # keep a copy of the dst file
 
 tar -J... # instead of -z, .xz compression format support
+zipinfo $file.zip
 pigz # paralell gzip
 yum install p7zip # for .7z files
 lzop # faster, use less CPU
@@ -594,7 +595,7 @@ echo 1 > /sys/module/printk/parameters/printk_time # Enable dmesg timestamps
 dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
 
 # Monitoring
-iostat # + iotop, non portable
+iostat # ! '%util' & 'svctm' are misleading + iotop, non portable
 mpstat 5 # cpu usage stats every 5sec
 monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
 dstat

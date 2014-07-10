@@ -107,7 +107,7 @@ alias_r () {            # recursively resolve an alias, handle pipes and nested 
 #----
 # ls
 #----
-alias l='ls -BF --color=always'
+alias l='LANG=en_US.UTF-8 ls -BF --color=always'
 alias la='l -A'
 alias ll='l -lhA'
 alias lk='ll -rS'       # sort by size, smallest first
@@ -116,10 +116,10 @@ alias lc='ll -rtc'      # sort by and show change time, oldest first
 alias lu='ll -rtu'      # sort by and show access time, oldest first
 alias lr='ll -R'        # recursive ls
 lsp () {                # group files by their prefix
-    ls -AB1 $@ | sed 's/\(.[^.]\+\).*/\1/' | sort | uniq -c
+    LANG=en_US.UTF-8 ls -AB1 $@ | sed 's/\(.[^.]\+\).*/\1/' | sort | uniq -c
 }
 lse () {                # group files by their extension
-    ls -AB1 $@ | awk -F'.' '{print $NF}' | sort | uniq -c
+    LANG=en_US.UTF-8 ls -AB1 $@ | awk -F'.' '{print $NF}' | sort | uniq -c
 }
 
 #------
@@ -236,9 +236,9 @@ man () {               # colored manual with 'help' as a fallback
     help "$@" >/dev/null 2>&1 && help "$@" | less
 }
 
-mv () {
-    rsync_massive_mv_tip "$@" || /bin/mv "$@"
-}
+#mv () {
+#    rsync_massive_mv_tip "$@" || /bin/mv "$@"
+#}
 
 rsync_massive_mv_tip () {       # 'mv' suggesting 'rsync' for 'massive' src files & different partitions
     _get_cp_mv_src_args "$@" >/dev/null || return 1
@@ -260,9 +260,9 @@ If you want to ignore my advice, simply run:
 EOF
 }
 
-cp () {                 # 'cp' suggesting 'rsync' to follow progress for 'massive' src files
-    rsync_massive_cp_tip "$@" || /bin/cp "$@"
-}
+#cp () {                 # 'cp' suggesting 'rsync' to follow progress for 'massive' src files
+#    rsync_massive_cp_tip "$@" || /bin/cp "$@"
+#}
 
 rsync_massive_cp_tip () {
     _is_massive_cp_mv_src "$@" || return 1
@@ -398,6 +398,10 @@ ppid () {
 # foo () { sh -c 'echo $PPID' ; local pid=$(sh -c 'echo $PPID'); echo $pid ; }
 # Same values if invoked in a shell or by executing a ./script
 # But differents if invoked in a $(cmd) or sourced.
+
+alert () {                  # USAGE: $long_cmd; alert
+    notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')";
+}
 
 timeout () {            # Alternative to coreutils 'timeout'
     if [ "${1:-}" = "-h" -o "${1:-}" = "--help" ]; then 

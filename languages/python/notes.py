@@ -344,7 +344,7 @@ inspect.getfile(my_module)
 frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
 sys._getframe(1).f_locals['foo'] = 'overriding caller local variable!'
 
-<module>.__file__
+<module>.__file__ # can refer to .py OR .pyc !!
 
 o.__class__.__bases__ # Get class parents
 
@@ -557,6 +557,7 @@ for root, dirs, files in os.walk('/path/to/foo'):
 
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2 . Handy: lxml.html.tostring(obj)
+hickford/MechanicalSoup
 from lxml import etree
 tree = etree.parse(some_file_like_object)
 etree.tostring(tree)

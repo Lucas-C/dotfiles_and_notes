@@ -2,7 +2,7 @@ SSH_EXPORT_FILES=".bash_dirs .bash_profile .bashrc* .gitconfig .inputrc .screenr
 SSH_EXPORT_TMP_DIR="/tmp/$USER"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited
-SSH_AUTH_SOCK_LINK=.ssh/ssh-agent-auth-sock
+SSH_AUTH_SOCK_LINK=~/.ssh/ssh-agent-auth-sock
 SSH_AGENT_CONFIG_FILE_REL=.ssh/ssh-agent.sh
 SSH_AGENT_CONFIG_FILE=~/$SSH_AGENT_CONFIG_FILE_REL
 
