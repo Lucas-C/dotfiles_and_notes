@@ -400,7 +400,8 @@ cp /proc/$pid/fd/4 myfile.saved
 auditctl -w $file -p wax -k $tag
 ausearch -k $tag [-ts today -ui 506 -x cat]
 
-rsync -v --compress --exclude=".*" $src $dst # Alt: rdiff-backup
+Xfennec/cv # show progress & throughput of all running cp, mv, tar, gzip, cat...
+rsync -v --progress --compress --exclude=".*" $src $dst # Alt: rdiff-backup
 --archive # recursive + preserve mtime, permissions...
 --delete # remove extra remote files
 --append # resume interrupted rsync/cp
@@ -603,7 +604,7 @@ glances, psdash, conky
 collectd, perfwatcher
 
 stap # SystemTap
-perf # need a version of linux-tools-* mathcing the kernel
+perf # aka perf_events, needs a version of linux-tools-* matching the kernel
     top -G
     stat -e cycles,instructions,cache-misses,dTLB-load-misses -p $PID
 
@@ -816,7 +817,7 @@ link:$url # Search for pages that link to a URL
 # Youtube playlist query - Start from 1, max paging 50, max playlist size 200
 playlist=FLF8xTv55ZmwikWWmWLPEAZQ
 rm yt_playlist_$playlist
-for i in {1..4}; do
+for i in {1..5}; do
     index=$(( (i-1)*50 + 1 ))
     curl -s "https://gdata.youtube.com/feeds/api/playlists/$playlist?start-index=$index&amp;max-results=50&amp;v=2" >> yt_playlist_$playlist
 done

@@ -13,6 +13,7 @@ cat /proc/pid/smaps # get resources infos
 pmap -x $pid # get memory usage
 valgrind --tool=massif $cmd # get memory usage with details & graph
 valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
+oprofile
 
 hexdump -c $file # aka 'hd', use 'bvi' for editing. Alt: od -Ax -tx1z -v $file
 strings -n $min_length exec.bin # extract strings of length >= 4

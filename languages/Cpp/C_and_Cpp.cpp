@@ -72,6 +72,8 @@ string rev(string&& s) { reverse(s.begin(), s.end()); return s; }
 string rev(const string& s) { string t = s; reverse(t.begin(), t.end()); return t; }
 // -> compiler will choose this one if the argument might be used again later, which will safely copy the string's characters
 
+http://en.wikipedia.org/wiki/Streaming_SIMD_Extensions // SSE, MMX high performance instructions, e.g. prefetching with dcbt
+
 // NVWA:
   * boolarray.h
   * class_level_lock.h

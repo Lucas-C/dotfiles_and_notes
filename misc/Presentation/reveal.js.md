@@ -14,6 +14,32 @@ HTML section to include:
 
 
 
+## Concise colored text
+
+<link rel="stylesheet" href="../md-tags.css"/>
+
+_&lt;em&gt;mphasized text_
+
+**&lt;strong&gt; text**
+
+<cite>Citation: &lt;cite&gt;</cite>
+
+<dfn>Definition term: &lt;dfn&gt;</dfn>
+
+<i>Alternate voice or mood: &lt;i&gt;</i>
+
+<kbd>Keyboard input: &lt;kbd&gt;</kbd>
+
+<mark>Highlight: &lt;mark&gt;</mark>
+
+<q>Is this a question ? &lt;q&gt;</q>
+
+<samp>Sample output: &lt;samp&gt;</samp>
+
+<var>Variable: &lt;var&gt;</var>
+
+
+
 ## Features
 
 <ul>
