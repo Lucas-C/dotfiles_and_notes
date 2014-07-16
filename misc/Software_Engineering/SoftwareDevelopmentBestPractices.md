@@ -142,6 +142,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - Data/Object anti-symetry : both have different use-cases [CC-Chapt6]
     * "Objects hide their data behind abstractions and expose functions that operate one data"
     * "Data structures expose their data and have no meaningful functions"
+- for high performances, OOP is a bad idea, think Data Oriented Design instead
 
 - Avoid multiple languages in one source file [CC-G1]
 - Use the idioms of the programming language employed, aka "Don't write C code in Java"

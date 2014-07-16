@@ -565,8 +565,8 @@ root = tree.getroot()
 BeautifulSoup('html string').prettify() # newlines+tabs formatted dump
 
 urlparse
-requests.get(url, allow_redirects= rue, stream=True) # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent
-requests.post('http://urldelamortquitue.com/magicform/', {u'champ1':u"valeur1", u'champ2':u"valeur2"})
+requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent
+requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 kevin1024/vcrpy # record / replay HTTP interactions
 
@@ -670,3 +670,4 @@ from functools import \
     total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
     lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property
 
+collections.ChainMap # view of multiple dicts

@@ -309,7 +309,7 @@ _get_cp_mv_dst_arg () {
     fi
 }
 
-cp_p()                  # 'cp' showing progress, but slower than rsync and less portable
+cp_p()                  # 'cp' showing progress, but slower than rsync and less portable. Alt: Xfennec/cv
 {
     strace -q -e write cp -- "${1}" "${2}" 2>&1 | awk '{
         if (NR % int(total_size / 409600) == 0) {
