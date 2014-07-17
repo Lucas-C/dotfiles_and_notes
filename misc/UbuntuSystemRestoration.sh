@@ -1,5 +1,5 @@
 apt-get install aptitude
-aptitude install vim tilda git svn screen g++ openjdk-7-jdk vlc chgwall
+aptitude install vim tilda git svn screen tmux g++ openjdk-7-jdk vlc chgwall
 aptitude install scite nautilus-open-terminal scite grisbi texlive graphviz doxygen doxygen-gui libsdl-mixer1.2* mtpaint gaupol timidity-interfaces-extra timidity freepats most
 # Fix for tilda on maverick : echo "export TERM=xterm" | sudo tee /etc/profile.d/set_term.sh && source /etc/profile
 # (Système>Préférence>Clavier->Agencements->Options de l'agencement : espace insecable à tout niveau SINON pbs avec barre espace)
@@ -57,7 +57,7 @@ Ubuntu Software Center : Ubuntu restricted extras, System Load Indicator # or pk
 # Clean-up unused kernels
 # FROM: http://markmcb.com/2013/02/04/cleanup-unused-linux-kernels-in-ubuntu/
 dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge
-sudo update-grub2 
+sudo update-grub2
 
 # Disable overlay Scrollbars (then restart lightdm)
 gsettings set org.gnome.desktop.interface ubuntu-overlay-scrollbars false # <= v12
@@ -66,7 +66,12 @@ gsettings set com.canonical.desktop.interface scrollbar-mode normal # >= v13
 sudo sed -i 's/enabled=1/enabled=0/' /etc/default/apport # Disable System Crash Reports
 
 sudo aptitude install gufw # firewall
-sudo aptitude install grc pandoc
+sudo aptitude install ipython gdb grc pandoc nmap
+
+sudo add-apt-repository ppa:nesthib/weechat-stable
+sudo aptitude update && sudo aptitude install weechat python-xmpp # Alt: irssi bitlbee # or mcabber for Jabber only
+weechat --run-command '/set;/quit' > ~/dump-weechat-config
+http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdata.py'
 
 sudo aptitude install hddtemp && sudo pip install pysensors batinfo glances
 
