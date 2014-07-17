@@ -17,10 +17,10 @@ set convert-meta off
 
 $if Bash
     set expand-tilde on
+    Space: magic-space
 $endif
 set show-all-if-ambiguous on
 set completion-ignore-case on
-Space: magic-space
 
 # <CTRL>+left/right arrows
 # WHEN xterm-keys on, e.g. inside Tmux (already in /etc/inputrc):
