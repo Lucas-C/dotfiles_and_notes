@@ -1,6 +1,7 @@
 ## References
 - [PP] : The Pragmatic Programmer : Chapter 7 "Before the project" - Andrew Hunt & David Thomas
 - [VisualSpec](http://www.targetprocess.com/articles/visual-specifications.html)
+- [ProductOwnership] https://blog.codecentric.de/en/2014/07/devops-product-ownership/
 
 ## Requirements
 - write a one-pager summing up:
@@ -28,6 +29,8 @@
 
 ## Personal tasks management
 Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins
+
+For tips on priotizating issues of a service: _cf._ [ProductOwnership]
 
 ## Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.
