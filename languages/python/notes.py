@@ -429,7 +429,7 @@ statistics # Python 3
 scipy
     numpy # n-dimensional arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
-    pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu)
+    pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
     matplotlib, prettyplotlib, mpld3 # 2d plotting
     python-graph-core
 
@@ -539,6 +539,7 @@ resource # limit a process resources: SPU time, heap size, stack size...
 peewee, SQLAlchemy # ORM DB
 anydbm: dbhash else gdbm else dbm else dumbdbm
 sqlite3 # std DB, persistent in a file || can be created in RAM
+pyMySQL, noplay/python-mysql-replication
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
 stephenmcd/hot-redis
 

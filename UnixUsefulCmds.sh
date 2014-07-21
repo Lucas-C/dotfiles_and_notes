@@ -349,6 +349,7 @@ printf "%-8s\n" "${value}" # 8 spaces output formatting
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
+pandoc --standalone --smart --table-of-contents --include-in-header $css -f markdown -t html $f > ${f%%.md}.html # -s -S --toc
 pandoc -s -f markdown -t man foo.md | man -l - # md2man : man pandoc_markdown
 markdown foo.md | lynx -stdin # alternative using HTML an an intermediate instead of groff
 
@@ -596,7 +597,7 @@ echo 1 > /sys/module/printk/parameters/printk_time # Enable dmesg timestamps
 dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
 
 # Monitoring
-iostat # ! '%util' & 'svctm' are misleading + iotop, non portable
+iostat # ! '%util' & 'svctm' are misleading + iotop, non portable + brendangregg/perf-tools/blob/master/iosnoop
 mpstat 5 # cpu usage stats every 5sec
 monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
 dstat
