@@ -1,0 +1,34 @@
+# Usage example: echo "${_BOLD}${_UNDER}${_EM}${_ICYAN}Hello World${_END}"
+_RESET_COLOR=$'\x1b[0m'
+_STRONG=$'\x1b[1m'
+_ITALIC=$'\x1b[3m'
+_UNDERLINE=$'\x1b[4m'
+_REV=$'\x1b[7m'
+_STRIKE=$'\x1b[9m'
+
+# Short hands
+_END=$_RESET_COLOR
+_BOLD=$_STRONG
+_EM=$_ITALIC
+_UNDER=$_UNDERLINE
+
+# Colors
+_GREY=$'\x1b[30m'
+_RED=$'\x1b[31m'
+_GREEN=$'\x1b[32m'
+_YELLOW=$'\x1b[33m'
+_BLUE=$'\x1b[34m'
+_PURPLE=$'\x1b[35m'
+_CYAN=$'\x1b[36m'
+_WHITE=$'\x1b[37m'
+
+# Inverted background equivalents
+_IGREY=$'\x1b[40m'
+_IRED=$'\x1b[41m'
+_IGREEN=$'\x1b[42m'
+_IYELLOW=$'\x1b[43m'
+_IBLUE=$'\x1b[44m'
+_IPURPLE=$'\x1b[45m'
+_ICYAN=$'\x1b[46m'
+_IWHITE=$'\x1b[47m'
+

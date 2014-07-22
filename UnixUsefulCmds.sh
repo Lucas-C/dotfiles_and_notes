@@ -201,10 +201,10 @@ exec 8>&- # Close file descriptor
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)" # mktemp dir & default value
 /dev/shmi # Use RAM for tmp files - monitor usage with ipcs -m
 
-for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"; done # display all 256 colours
+for i in {0..255}; do printf "\x1b[38;5;${i}mcolor${i}\x1b[0m\n"; done # display all 256 colours
 for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # colored terminal output
 # + colors can be set like this: tput initc 2 500 900 100 # RGB values between 0 & 1000
-# Also: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
+# Other tput: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
 tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top right corner
 
 select value in choice1 choice2; do break; done # multiple choices
@@ -308,6 +308,7 @@ LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (si
 sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
 perl -ne '/(error|warn)(?!negative-look-ahead-string-to-not-match-just-after)/i'
 perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
+grep | cut -c1-200 # ignore lines with length > 200 chars
 
 pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: http://compress.smallpdf.com
@@ -426,7 +427,7 @@ md5sum
 mtr $host > ping / traceroute
 paris-traceroute > traceroute
 
-socat > nc (netcat) > telnet
+socat > nc (netcat) > telnet # prefix with rlwrap !
 socat - udp4-listen:5000,fork # create server redirecting listening on port 5000 output to terminal
 nc -l -u -k -w 1 5000
 echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
@@ -535,6 +536,7 @@ ipcalc < cidr $ip/X # get netmask, network address - FROM http://fossies.org/lin
 /etc/ssmtp/revaliases
 /etc/ssmtp/ssmtp.conf
 
+w3m > elinks > links > lynx # http://askubuntu.com/questions/15988/browse-internet-inside-terminal
 lynx -dump -stdin # convert HTML to text
 wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspire web page
   -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
@@ -589,6 +591,7 @@ cat /etc/issue*
 /proc/version
 /proc/cpuinfo # Number of cores, cache size & alignement...
 watch -d 'cat /proc/meminfo' # Watch system stats
+/proc/sys/fs/file-nr # allocated/free file descriptors
 /proc/loadavg : # graph in TTY: tload
 - first 3 fields : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1, 5, and 15 minutes
 - 4th field : number of currently executing kernel scheduling entities (processes, threads) / number of existing kernel scheduling entities
