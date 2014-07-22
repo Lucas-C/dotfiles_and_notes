@@ -62,6 +62,10 @@ try {
     throw;
 }
 
+// Pattern from: http://aosabook.org/en/llvm.html
+class MyClass : public MyParent { ... }
+MyParent *createMyClass() { return new MyClass(); } // Benefits: can easily migrate to custom memory allocation / singleton later on
+
 // Pitfalls
 Derived d;
 static_cast<Base>(d).foo() // the cast create a tmp obj, so foo() won't be called on d

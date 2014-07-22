@@ -402,10 +402,11 @@ auditctl -w $file -p wax -k $tag
 ausearch -k $tag [-ts today -ui 506 -x cat]
 
 Xfennec/cv # show progress & throughput of all running cp, mv, tar, gzip, cat...
-rsync -v --progress --compress --exclude=".*" $src $dst # Alt: rdiff-backup
+rsync -v --progress --dry-run --compress $src_dir/ $dst_dir # Alt: rdiff-backup
+--cvs-exclude --exclude=".*"
 --archive # recursive + preserve mtime, permissions...
 --delete # remove extra remote files
---append # resume interrupted rsync/cp
+--append-verify # resume interrupted rsync/cp
 --backup --backup-dir=/var/tmp/rsync # keep a copy of the dst file
 
 tar -J... # instead of -z, .xz compression format support
@@ -681,6 +682,7 @@ killall gnome-panel
 
 xev # Listen to keyboard events
 loadkeys fr # Change keyboard to FR
+setxkbmap -print # print keyboard config
 install myspell-fr # LibreOffice SpellCheck
 rm ~/.config/user-dirs.locale # can fix broken locale
 
@@ -704,6 +706,7 @@ about:memory # Firefox memory allocation details
 about:about # all the about: pages e.g. :crashes :healthreport :permissions :plugins :sessionrestore
 $ff_profile_dir/.parentlock # fix "Firefox is already running but is not responding" error
 cp sessionstore.bak sessionstore.js # Restore previous session tabs
+<CTRL>+F5 # refresh page bypassing the cache
 
 xhost +local:root # Xlib: connection to ":0.0" refused by server
 

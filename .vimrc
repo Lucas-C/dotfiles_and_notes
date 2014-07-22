@@ -106,9 +106,9 @@ if os == 'Darwin' || os == 'Mac'
 elseif os == 'Linux'
     nmap <F3> :r!xclip -o<CR>
     imap <F3> <esc>:r!xclip -o<CR>i
-    if system("setxkbmap -print") =~ "fr(UnicodeExpert)"
-        let mapleader = "<"
-    endif
+    "The leader should probably be configured depending on the keyboard,
+    "I'm keeping this value for AZERTY kb for now
+    let mapleader = "<"
 end
 
 "When editing a file, make screen display the name of the file you are editing

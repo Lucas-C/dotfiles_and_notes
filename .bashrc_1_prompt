@@ -11,6 +11,8 @@ export C_owner='0;32'
 export C_write='0;36'
 export C_nowrite='0;31'
 export C_error='1;31'
+export C_branch='1;33' # yellow
+export C_chrooted='1;36' # cyan
 
 export DIRCOLOR=$T_normal
 export EXIT_CODE=0
@@ -21,13 +23,19 @@ export HOST_COLOR='1;35' # magenta
 
 # FROM: http://stackoverflow.com/a/88716
 ROOT_INODE=$(stat -c %i /)
-if [ $ROOT_INODE -ne 2 -a $ROOT_INODE -ne 128 ]; then
-    IS_CHROOTED_PROMPT=$'\e[1;36m(chrooted)\e[0m' # cyan
+if [ $ROOT_INODE -ne 2 -a $ROOT_INODE -ne 128 ] && [ -z "${WINDIR:-}" ]; then
+    IS_CHROOTED_PROMPT='(chrooted)'
 else
     IS_CHROOTED_PROMPT=''
 fi
 
-export PS1='${IS_CHROOTED_PROMPT}\[\e[${USER_STYLE}m\]\u\[\e[${T_normal}m\]@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]${GIT_BRANCH}:\[\e[${DIRCOLOR}m\]\W\[\e[${CODE_COLOR}m\]$CODE_STRING\[\e[${T_normal}m\]\$ '
+export PS1=\
+'\[\e[${C_chrooted}m\]${IS_CHROOTED_PROMPT}\[\e[${T_normal}m\]'\
+'\[\e[${USER_STYLE}m\]\u\[\e[${T_normal}m\]'\
+'@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]'\
+'\[\e[${C_branch}m\]${GIT_BRANCH}\[\e[${T_normal}m\]:'\
+'\[\e[${DIRCOLOR}m\]\W\[\e[${T_normal}m\]'\
+'\[\e[${CODE_COLOR}m\]$CODE_STRING\[\e[${T_normal}m\]\$ '
 
 export PROMPT_COMMAND=prompt_command
 prompt_command()
@@ -55,12 +63,14 @@ prompt_command()
         USER_STYLE=$T_normal
     fi
 
-    GIT_BRANCH=$(git branch --no-color 2>/dev/null | sed -ne 's/^* //p')
-    if [ -n "$GIT_BRANCH" ]; then
-        GIT_BRANCH=$'\e[1;33m['$GIT_BRANCH$']\e[0m' # yellow
+    if [ -z "${WINDIR:-}" ]; then
+        GIT_BRANCH=$(git branch --no-color 2>/dev/null | sed -ne 's/^* //p')
+        if [ -n "$GIT_BRANCH" ]; then
+            GIT_BRANCH="[$GIT_BRANCH]"
+        fi
     fi
 
-    history -a # flush history => shared between term sessions 
+    history -a # flush history => shared between term sessions
 
     [ -n "${TMUX:-}" ] && tmux list-windows | awk -F: '{print $1}' > $CURRENT_PWD_DIR/tmux_live_windows
 }
