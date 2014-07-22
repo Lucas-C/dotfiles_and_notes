@@ -14,7 +14,7 @@
 - Principal tenets: Exemplary Practitioner; Technically Fearless; Balanced and Pragmatic; Flexible in Approach; Respect What Came Before; Learn, Educate, and Advocate...
 - Leah Melvoin recomendations: Louder Than Words (Navarro), Fearless Change (Manns & Rising), That's Not What I Meant (Tannen)
 - demonstrate you are operating at the next level
-- Criteria: 
+- Criteria:
     Track record – successful delivery, defects, on-time/late
     Design – performance, availability, re-usability, usability, complexity
     Sophistication of failure analysis

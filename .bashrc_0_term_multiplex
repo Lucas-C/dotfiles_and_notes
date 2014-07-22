@@ -1,7 +1,7 @@
 ps -p $PPID | grep -Eq 'tilda|su|ssh' && return
 
 if [ -e $BASHRC_DIR/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
-    type tmux >/dev/null || return 
+    type tmux >/dev/null 2>&1 || return 
     if [[ $(ps -p $PPID -o comm=) =~ tmux ]]; then # Alreay running in TMUX
         return
     fi
@@ -11,7 +11,7 @@ if [ -e $BASHRC_DIR/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no f
     fi
     tmux attach -t tmux_$USER
 elif [ -e $BASHRC_DIR/.use_screen ]; then
-    type screen >/dev/null || return 
+    type screen >/dev/null 2>&1 || return 
     if [[ $(ps -p $PPID -o comm=) =~ screen ]]; then # Alreay running in SCREEN
         return
     fi

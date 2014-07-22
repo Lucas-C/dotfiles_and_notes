@@ -1,12 +1,13 @@
-## References:
-- [CC-\w\d+] : Clean Code - Robert C. Martin
-- [SDP] : Software Design Philosophy - John Ousterhout
+## References
+- [CC-\\w\\d+] : Clean Code - Robert C. Martin - Ed. Prentice Hall
+- [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley
+- [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) - Amy Brown & Greg Wilson
+- [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter - Ed. Addison-Wesley
+- [SDP] : [Software Design Philosophy - John Ousterhout](https://ramcloud.stanford.edu/wiki/display/ramcloud/Software+Design+Philosophy)
 - [97TEPSK] : [97 Things Every Programmer Should Know](http://programmer.97things.oreilly.com/wiki/index.php/Contributions_Appearing_in_the_Book)
 - [DOM] : [Don't overuse mocks](http://googletesting.blogspot.com/2013/05/testing-on-toilet-dont-overuse-mocks.html)
 - [KYTD] : [Know your test doubles](http://googletesting.blogspot.com/2013/07/testing-on-toilet-know-your-test-doubles.html)
 - [CRoTDD] : [CR over TDD](http://svenpet.com/2014/01/07/better-code-reviews/)
-- [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter
-- [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas
 - [JC-PI] : [John Carmack on Parallel Implementations](http://www.altdev.co/2011/11/22/parallel-implementations/)
 - [RobPikeKenThompson] : [What Rob Pike learned from KenThompson](http://www.informit.com/articles/article.aspx?p=1941206)
 
@@ -21,7 +22,11 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - "Premature optimization is the root of all evil"
 - Code Fearlessly & implement alternative code versions in parallel [JC-PP]
 
-## Design principles (SE = software entity : class, module, function...) - where "Design" = Organisation of the software logic
+## Design principles 
+where "Design" = Organisation of the software logic
+
+SE = software entity : class, module, function...
+
 - Single Responsability Principle : every SE should have a single responsibility, and that responsibility should be entirely encapsulated by the SE
 - Law of Demeter : each SE should have only limited knowledge about other SEs. Write "shy code". Talk to friends; Don’t talk to strangers [CC-G36]
 - Open/Closed Principle : SE should be open for extension, but closed for modification
