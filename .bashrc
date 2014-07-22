@@ -17,6 +17,8 @@ else
     export BASHRC_DIR="$(builtin cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
 fi
 
+source ${BASHRC_DIR}/.bash_colors
+
 ########################
 # Additionnal .bashrc_*
 ########################

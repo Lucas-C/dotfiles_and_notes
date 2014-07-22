@@ -31,13 +31,13 @@ vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md
 
 diff_alt () {
     cat <<EOF
-$(tput smul)ALT:$(tput sgr0) \
-diffs $(tput smul)# == 'diff -U2 ... | diffstat' $(tput sgr0); \
-sdiff $(tput smul)# == 'diff --side-by-side', but faster$(tput sgr0) ; \
+${_UNDER}ALT:${_END} \
+diffs ${_UNDER}# == 'diff -U2 ... | diffstat' ${_END}; \
+sdiff ${_UNDER}# == 'diff --side-by-side', but faster${_END} ; \
 diff -r --exclude=.git ; \
-vimdiff $(tput smul)# colored side-by-side$(tput sgr0) ; \
+vimdiff ${_UNDER}# colored side-by-side${_END} ; \
 diff3 ; \
-opendiff $(tput smul)# OSX$(tput sgr0)
+opendiff ${_UNDER}# OSX${_END}
 EOF
 }
 

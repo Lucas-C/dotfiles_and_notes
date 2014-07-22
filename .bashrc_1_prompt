@@ -7,12 +7,12 @@ shopt -s checkwinsize
 export T_normal=0
 export T_bold=1
 export T_underline=4
-export C_owner='0;32'
-export C_write='0;36'
-export C_nowrite='0;31'
-export C_error='1;31'
-export C_branch='1;33' # yellow
-export C_chrooted='1;36' # cyan
+export C_owner='0;32' # green
+export C_write='0;36' # cyan
+export C_nowrite='0;31' # red
+export C_error='1;31' # bold red
+export C_branch='0;33' # yellow
+export C_chrooted='0;36' # cyan
 
 export DIRCOLOR=$T_normal
 export EXIT_CODE=0

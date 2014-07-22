@@ -177,6 +177,7 @@ var fs = require("fs"); // Node.js
 fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
     console.log(line);
 });
+node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/3944507/636849
 
 JSHint, JSLint // static code analysis
 
