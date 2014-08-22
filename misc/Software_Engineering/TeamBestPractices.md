@@ -11,6 +11,7 @@
     * Use the information you acquire as effectively as possible
 - ask people to have lunch with them (force yourself !)
 - ask people for coffee breaks (force yourself !)
+- hang cheat-sheets in home toiles to learn stuff
 
 ## Team culture building
 - two main tenets: RESPECT & TRUST people.

@@ -88,7 +88,9 @@ with({ a:5 }) { function toto() { return a } } // local scope
 
 try { ... } catch ( err if err instanceof ReferenceError ) { ... } finally {}
 
-function Stack() { try { throw Error() } catch(ex) { return ex.stack } } // Display the current call stack
+arguments.callee.caller.toString()
+console.trace() // stack trace
+new Error().stack // Current call stack, can be printed
 foo.toSource(2) // get function code source, with comments !
 
 requestAnimationFrame > setInterval OR setTimeout // For smart animating, recommended by Mozilla

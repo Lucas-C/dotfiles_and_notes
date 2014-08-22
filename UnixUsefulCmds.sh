@@ -204,7 +204,7 @@ tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)" # mktemp dir & default value
 for i in {0..255}; do printf "\x1b[38;5;${i}mcolor${i}\x1b[0m\n"; done # display all 256 colours
 for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # colored terminal output
 # + colors can be set like this: tput initc 2 500 900 100 # RGB values between 0 & 1000
-# Other tput: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev
+# Other tput: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev... cf. man terminfo
 tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top right corner
 
 select value in choice1 choice2; do break; done # multiple choices
@@ -251,6 +251,7 @@ logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call
 
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
+while true do inotifywait -r -e modify -e create -e close . ./run.sh done # inotify-tools based keep-alive trick
 
 # Launch command at a specified time or when load average is under 0.8
 echo $cmd | at midnight
@@ -728,25 +729,6 @@ $HOME/VirtualBox VMs/{machinename}/Logs
 # Cool features : remote display (VRDS), shared folders & clipboard, seamless mode
 
 
-]_]_]_]_]_]_]_]
-] ImageMagick
-]_]_]_]_]_]_]_]
-# Compile IM with HDRI:
-# - http://www.imagemagick.org/script/install-source.php
-# - sudo aptitude install libmagickcore-dev liblcms2-dev libtiff4-dev libfreetype6-dev libjpeg8-dev liblqr-1-0-dev libglib2.0-dev libfontconfig-dev libxext-dev libz-dev libbz2-dev
-# - ./configure --enable-hdri
-# - identify -version # to check HDRI is enabled
-# Scripts: http://www.fmwconcepts.com/imagemagick/
-display $img_file
-convert img.png -adaptive-resize 800x600 -auto-orient -crop 50x100+10+20 img.jpg
-mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
-identify -v $img_file # get PPI: -format "%w x %h %x x %y"
-import -display :0.0 -window root screenshot.png
-animate -delay 5 *.png
-compare img1 img2
-composite # merge images
-
-
 ()()()()()()()()()()
 () Synthèse vocale
 ()()()()()()()()()()
@@ -807,6 +789,27 @@ on log(msg)
   do shell script "echo " & quoted form of log_line
 end log
 log "HELLO WORLD !"
+
+
+]_]_]_]_]_]_]_]
+] ImageMagick
+]_]_]_]_]_]_]_]
+# Compile IM with HDRI:
+# - http://www.imagemagick.org/script/install-source.php
+# - sudo aptitude install libmagickcore-dev liblcms2-dev libtiff4-dev libfreetype6-dev libjpeg8-dev liblqr-1-0-dev libglib2.0-dev libfontconfig-dev libxext-dev libz-dev libbz2-dev
+# - ./configure --enable-hdri
+# - identify -version # to check HDRI is enabled
+# Scripts: http://www.fmwconcepts.com/imagemagick/
+display $img_file
+convert img.png -adaptive-resize 800x600 -auto-orient -crop 50x100+10+20 img.jpg
+mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
+identify -v $img_file # get PPI: -format "%w x %h %x x %y"
+import -display :0.0 -window root screenshot.png
+animate -delay 5 *.png
+compare img1 img2
+composite # merge images
+
+tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
 
 
 $$$$$$$$$$$$$$$

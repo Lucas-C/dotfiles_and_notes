@@ -1,16 +1,13 @@
-# Usage example: echo "${_BOLD}${_UNDER}${_EM}${_ICYAN}Hello World${_END}"
-_RESET_COLOR=$'\x1b[0m'
-_STRONG=$'\x1b[1m'
-_ITALIC=$'\x1b[3m'
-_UNDERLINE=$'\x1b[4m'
-_REV=$'\x1b[7m'
-_STRIKE=$'\x1b[9m'
+# This is a minimal set of ANSI/VT100 color codes for unix shells
+# (hence it does not provide striked/italic text)
+# For a more portable solution: man tput && man terminfo
+# Usage example: echo "${_BOLD}${_UNDER}${_ICYAN}Hello World${_END}"
+# Author: Lucas Cimon
 
-# Short hands
-_END=$_RESET_COLOR
-_BOLD=$_STRONG
-_EM=$_ITALIC
-_UNDER=$_UNDERLINE
+_END=$'\x1b[0m'
+_BOLD=$'\x1b[1m'
+_UNDER=$'\x1b[4m'
+_REV=$'\x1b[7m'
 
 # Colors
 _GREY=$'\x1b[30m'
@@ -22,7 +19,7 @@ _PURPLE=$'\x1b[35m'
 _CYAN=$'\x1b[36m'
 _WHITE=$'\x1b[37m'
 
-# Inverted background equivalents
+# Inverted, i.e. colored backgrounds
 _IGREY=$'\x1b[40m'
 _IRED=$'\x1b[41m'
 _IGREEN=$'\x1b[42m'

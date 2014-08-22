@@ -80,6 +80,7 @@ git branch -u origin/master # Set remote branch to track
 git branch -d $branch_name # Delete branch
 git branch -m old_name new_name # Rename branch
 git push ${remote_name:-origin} $branch_name # create remote branch
+git remote set-url origin https://github.com/Lucas-C/... # change a remote URL, useful for rebasing on a fork for a Pull reuqest
 # Show branch info:
 git branch -av
 git remote show origin

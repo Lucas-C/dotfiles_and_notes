@@ -28,9 +28,9 @@
 - UML use cases
 
 ## Personal tasks management
-Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins
-
-For tips on priotizating issues of a service: _cf._ [ProductOwnership]
+- Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins
+- For tips on priotizating issues of a service: _cf._ [ProductOwnership]
+- Pomodoro Technique: use a timer to break down work into ~25min intervals separated by short breaks
 
 ## Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.
