@@ -29,6 +29,8 @@ handle, pskill, pslist... :: Sysinternals Process Utilities
 - désactiver l'indexation des disques
 - chkdsk /r /f
 - sfc /scannow :: restore system files
+- checksur.exe :: check system is up-to-date and installation conform
+- perfmon.exe/resmon.exe
 findstr /c:"[SR]" %windir%\logs\cbs\cbs.log >sfcdetails.txt :: to read CBS.Log
 
 ::Remove a file as admin :

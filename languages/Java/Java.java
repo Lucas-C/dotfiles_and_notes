@@ -32,6 +32,7 @@ sudo update-alternatives --config java
 
 jps, jstat // Std perf monitoring tools: http://www.orace.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.html
 jcmd [$process] // without args to list running Java processes
+mariusaeriksen/heapster // Google perftools for the JVM
 
 JSP (JavaServer Pages) is an alternative to PHP
 JavaFX / OpenJFX // bytecode compiled non-dynamic language providing GUI and app packaging
