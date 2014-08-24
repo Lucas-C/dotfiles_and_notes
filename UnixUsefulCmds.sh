@@ -711,6 +711,7 @@ about:about # all the about: pages e.g. :crashes :healthreport :permissions :plu
 $ff_profile_dir/.parentlock # fix "Firefox is already running but is not responding" error
 cp sessionstore.bak sessionstore.js # Restore previous session tabs
 <CTRL>+F5 # refresh page bypassing the cache
+MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage
 
 xhost +local:root # Xlib: connection to ":0.0" refused by server
 
