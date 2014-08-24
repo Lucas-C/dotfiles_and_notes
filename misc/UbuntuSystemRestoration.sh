@@ -39,10 +39,8 @@ sudo fc-cache -f -v
 # RACCOURCIS :
 # ALT+T : gnome-terminal --zoom=0.8 --geometry=50x29+940+50
 
-# Restauration Ubuntu Thib
-http://doc.ubuntu-fr.org/grub
-https://help.ubuntu.com/community/Grub2#METHOD%203%20-%20CHROOT
 # Méthode basique pour restaurer grub : booter sous livecd & sudo update-grub
+https://help.ubuntu.com/community/Grub2#METHOD%203%20-%20CHROOT
 
 # Gnome keylogger at start-up : "sudo apt-get install libpam-keyring" puis ajouter "@include common-pamkeyring" in /etc/pam.d/gdm
 # Note : keyring in .gnome2/keyrings/login.keyring
