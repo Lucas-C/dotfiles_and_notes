@@ -234,7 +234,7 @@ items = d.iteritems() # dicts ( iteritems > items )
 # Extremely fast as long as < one million elems
 
 d.setdefault('key', []).append(42) # add element to list, create it if needed
-collections.defaultdict
+collections.defaultdict # autovivification: def tree(): return defaultdict(tree)
 
 isinstance(obj, collections.Hashable)
 
@@ -257,6 +257,8 @@ dict(y, **x) # union of dicts, duplicates are resolved in favor of x
 class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
+
+ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
 
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Also: -mjson.tool
@@ -297,6 +299,8 @@ def create_multipliers(n):
 for multiplier in create_multipliers(2):
     print multiplier(3) # Late Binding Closure : prints 6 twice
 
+i, a[i] = 1, 10 # https://news.ycombinator.com/item?id=8091943 - Original blog post from http://jw2013.github.io
+
 
 """""""""""""""""
 "" Test & Debug
@@ -310,6 +314,9 @@ self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected,
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 import doctest # include tests as part of the documentation
 AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
+import capsys # capture stdin/out
+import monkeypatch # modify an object that will be restored after the unit test
+import tmpdir # generate a tmp dir for the time of the unit test
 
 module_name=code
 code_module_path=$(python -c "import $module_name; print $module_name.__file__" | sed 's/pyc$/py/')
@@ -420,6 +427,7 @@ nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, tra
 topia.termextract
 difflib # compare sequences
 sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && sudo pip install sumy && sudo python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB
+deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .ps ...
 
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 float("inf") # infinite !
@@ -453,9 +461,11 @@ from cryptography.fernet import Fernet # symmetric encryption
 reload(module)
 modulefinder # determine the set of modules imported by a script
 
-Pypy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler
+PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler. Also: PyPy-STM
 -> from tputil import make_proxy # transparent proxy : can record/intercept/modify operations
 Jython / Py4J # intercommunicate with Java
+Numba # NumPy aware dynamic Python compiler using LLVM
+Pyston # VM using LLVM JIT
 
 virtualenv # sandbox
 pip # or easyinstall : libs manager
@@ -585,12 +595,13 @@ SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
+scapy # packet injection/manipulation for many network protocols
 wifi # wrapper around iwlist and /etc/network/interfaces
 tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
 
-pygeoip, mitsuhiko/python-geoip, python-geoip@code.google,  maxmind/geoip-api-python
+pygeoip, mitsuhiko/python-geoip, python-geoip@code.google, maxmind/geoip-api-python
 
 EasyDialogs, optparse_gui, EasyGui, Tkinter
 pyglet # windowing and multimedia lib
@@ -630,7 +641,8 @@ a='a=%s;print a%%`a`';print a%`a` # Quine
 from __future__ import print_function, with_statement, generators...
 print('string', file=sys.stderr, end='')
 
-@type_check
+from typecheck import typecheck, dict_of
+@typecheck
 def foo(x: between(3, 10), y: is_int) -> is_int:
     return x * y
 # Function annotations, see the following SO question that point to PEP 3107 & 0362 (function signatures):

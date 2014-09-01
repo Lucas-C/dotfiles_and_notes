@@ -399,6 +399,7 @@ ppid () {
 # Same values if invoked in a shell or by executing a ./script
 # But differents if invoked in a $(cmd) or sourced.
 
+unfuncalias alert
 alert () {                  # USAGE: $long_cmd; alert
     notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')";
 }

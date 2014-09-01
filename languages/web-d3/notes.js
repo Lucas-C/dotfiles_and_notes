@@ -158,6 +158,11 @@ let > var
 array comprehension
 generators
 
+asm.js // static subset of JS, can be compiled ahead, include static typing
+// Rarely hand-written: C++ -> LLVM bytecode -> asm.js
+
+ParallelJS // .mapPar() .filterPar() .reducePar()
+
 hex_md5('string') // crypt/md5.js
 
 underscorejs.org // Functional prog lib

@@ -71,7 +71,7 @@ dig +short TXT google-public-dns-a.google.com # check without 'TXT'
   Bash scripting
 ##################
 notify-send (libnotify), zenity # GUI: error windows, selection dialog, progress bars...
-mooz/percol # interactive filtering through pipes
+mooz/percol | peco/peco # interactive filtering through pipes
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
@@ -243,7 +243,9 @@ syslogd -m 0 -r -SS # port: 514
 logger -is -t SCRIPT_NAME -p user.warn "Message"
 echo "<15>My logline" | nc -u -w 1 $HOSTNAME 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13 <-> user.notice
 time tcpdump udp and dst port 514 | awk '{print $3" "$7}' | sed 's/\.syslog//' > noisy_devices
+petit --hash /var/log/messages # Cmdline log analyze, also --wordcount. Alt: sysdig -c spy_syslog
 
+#   --reject doesn't apply to the whole path, only to the filename/query
 mv $file ${file%.*}.bak # Change extension
 mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken on some distros
 logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
@@ -283,7 +285,7 @@ replot
 # Loop by rereading this file, doesn't work with -e on the command-line
 reread
 EOF
-tail -F $log_file | grep $keyword | pv --line-mode --numeric >/dev/null 2>$in_data_file &
+tail -F $log_file | grep $keyword | pv --line-mode --numeric >/dev/null 2>$in_data_file & # Alt: petit --sgraph
 gnuplot $loop_cfg_file # real-time ASCII graphing !
 
 
@@ -362,11 +364,12 @@ markdown foo.md | lynx -stdin # alternative using HTML an an intermediate instea
 
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
-find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore
+find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: agedu
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
 find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long'
+fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte
 
 rename \  _ * # Replace whitespaces by underscores
 
@@ -417,8 +420,7 @@ pigz # paralell gzip
 yum install p7zip # for .7z files
 lzop # faster, use less CPU
 
-sha{1,224,256,384,512}sum
-md5sum
+sha{1,224,256,384,512}sum, md5sum, cksum
 
 
 |°|°|°|°|°|°|°|°
@@ -546,6 +548,7 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspir
   -A --accept acclist -R --reject rejlist : comma-separated list of filename suffixes or patterns to accept or reject
   -l --level=depth : default = 5
   -c --continue : continue getting a partially-downloaded file
+  --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
 curl # http://curl.haxx.se/docs/httpscripting.html
 # Web scrapping:
 httrack
@@ -593,7 +596,7 @@ cat /etc/issue*
 /proc/cpuinfo # Number of cores, cache size & alignement...
 watch -d 'cat /proc/meminfo' # Watch system stats
 /proc/sys/fs/file-nr # allocated/free file descriptors
-/proc/loadavg : # graph in TTY: tload
+/proc/loadavg : # graph in TTY: tload - Alt: uptime
 - first 3 fields : number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1, 5, and 15 minutes
 - 4th field : number of currently executing kernel scheduling entities (processes, threads) / number of existing kernel scheduling entities
 - 5th field : PID of last process created
@@ -619,6 +622,7 @@ free -m # how much free ram I really have ? -> look at the row that says "-/+ bu
 vmstat 2
 sar # provides history data
 
+w / who # users currently logged
 last [-f /var/log/wtmp.1] # previous logged users
 dump-utmp /var/run/utmp # or /var/log/wtmp
 lastcomm # or dump-acct pacct : list last executed commands. From acct pkg, must be turned on with /etc/init.d/psacct start
@@ -705,6 +709,7 @@ sudo /usr/share/doc/libdvdread4/install-css.sh # Install libdvdcss
 sudo su -c 'echo 1 > /sys/bus/pci/rescan' # Rescan for memory card
 
 ~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
+find Cache/ -type f -exec file {} \; | grep image | cut -d':' -f1 # all cached images
 about:cache # Firefox cache infos: location, size, number of entries
 about:memory # Firefox memory allocation details
 about:about # all the about: pages e.g. :crashes :healthreport :permissions :plugins :sessionrestore
@@ -832,6 +837,7 @@ for i in {1..5}; do
     index=$(( (i-1)*50 + 1 ))
     curl -s "https://gdata.youtube.com/feeds/api/playlists/$playlist?start-index=$index&amp;max-results=50&amp;v=2" >> yt_playlist_$playlist
 done
+youtube-dl $url # -x = only audio
 
 # Snippet-search
 cse_id=003799500572498885021:6zbuscnifvi

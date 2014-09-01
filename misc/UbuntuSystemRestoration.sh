@@ -39,8 +39,16 @@ sudo fc-cache -f -v
 # RACCOURCIS :
 # ALT+T : gnome-terminal --zoom=0.8 --geometry=50x29+940+50
 
-# Méthode basique pour restaurer grub : booter sous livecd & sudo update-grub
-https://help.ubuntu.com/community/Grub2#METHOD%203%20-%20CHROOT
+# Restore grub : boot with livecd and:
+sudo mount /dev/sda8 /mnt
+#sudo grub-install --root-directory=/mnt /dev/sda # only if Ubuntu versions differ between LiveCD & OS
+for i in /dev /proc /sys; do sudo mount --bind $i /mnt$i; done
+sudo chroot /mnt
+sudo update-grub
+exit
+for i in /mnt/dev /mnt/proc /mnt/sys /mnt; do sudo u --mount $i; done
+sudo dd bs=512 count=1 if=/dev/sda 2>/dev/null | strings # check the MBR
+sudo reboot
 
 # Gnome keylogger at start-up : "sudo apt-get install libpam-keyring" puis ajouter "@include common-pamkeyring" in /etc/pam.d/gdm
 # Note : keyring in .gnome2/keyrings/login.keyring
