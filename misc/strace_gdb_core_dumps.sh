@@ -40,6 +40,7 @@ pystack # get the python stack trace
 ulimit -c # check if core dumps are enabled
 ulimit -S -c unlimited && echo 'kernel.core_pattern = /tmp/core2' >>/etc/sysctl.conf # enable core dumps
 gdb -tui $prog /tmp/core.$PID # post-mortem debug of a prog compiled with -g
+gcore $pid # memory core dump
 
 # get a core file for a running program
 gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID # then manipulate with pstack, pmap

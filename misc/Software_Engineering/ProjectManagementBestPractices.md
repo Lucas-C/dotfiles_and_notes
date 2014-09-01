@@ -2,6 +2,8 @@
 - [PP] : The Pragmatic Programmer : Chapter 7 "Before the project" - Andrew Hunt & David Thomas
 - [VisualSpec](http://www.targetprocess.com/articles/visual-specifications.html)
 - [ProductOwnership] https://blog.codecentric.de/en/2014/07/devops-product-ownership/
+- [NorrisNumbers](http://www.teamten.com/lawrence/writings/norris-numbers.html)
+- [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
 
 ## Requirements
 - write a one-pager summing up:
@@ -16,7 +18,7 @@
 - don't **overspecify**. Good requirements remain _abstract_. They are not archictecture, design nor UI. They are **needs** [PP]
 - keep track of requirements growth to spot features creep/bloat [PP]
 - maintain a project glossary [PP]
-- don't fall into the specifications spiral [PP]
+- don't fall into the specifications spiral [PP]. A tech lead primary contribution is to say NO to features that are not needed [NN]
 - formal methods (CASE, waterfall, spiral model, UML...) have some serious shortcomings [PP]
 - [VisualSpec]
     * do: sketches, flows, storyboard, paper prototype, short narratives
