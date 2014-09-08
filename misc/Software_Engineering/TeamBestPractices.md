@@ -48,6 +48,8 @@ In general, limit meetings by making them informal chats or doing them properly:
 - latency
 
 ## Ops
+![](http://blog.sei.cmu.edu/assets/content/Traceability-Model.png)
+
 - monitor everything ! CPU, openFD, procCount... For services: throughput + delay + completness (% of potential src data processed). And store historical data !
 - zero config: hard to document, hard to update, hard to set up, its persistent state can overlaps with other data
 - emails are evil: no guarantee it will be actioned + no guarantee anyone is subscribed + sense of false security as it works from time to time

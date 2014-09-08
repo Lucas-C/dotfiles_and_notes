@@ -7,7 +7,7 @@ Radix / Counting sort: the best for ints
 Trie / directed acyclic graph can be + efficient than binary search trees / hash tables
 
 Test set membership:
-- Bloom filters : http://crystal.uta.edu/~mcguigan/cse6350/papers/Bloom.pdf
+- Bloom filters : http://crystal.uta.edu/~mcguigan/cse6350/papers/Bloom.pdf - http://corte.si/%2Fposts/code/bloom-filter-rules-of-thumb/index.html - http://arxiv.org/pdf/1101.2245v2.pdf
 - Use prime numbers to represent set elements : http://www.stdlib.net/~colmmacc/2010/09/02/prime-and-proper/
 
 Hashing:

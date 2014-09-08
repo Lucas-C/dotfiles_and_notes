@@ -560,7 +560,7 @@ cPickle # binary format, generic, fast & lighweight.
 # + PyCloud make it possible to pickle functions dependencies
 
 hmac, hashlib.md5('string').hexdigest()
-bz2, gzip, tarfile, zlib.compress(string)
+bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp
 archive = zipfile.ZipFile('foo.zip', mode='w')
 for root, dirs, files in os.walk('/path/to/foo'):
     for name in files:
