@@ -16,6 +16,8 @@ vssadmin list shadows &:: list available Volume Shadow Copies ()aka restore poin
 
 robocopy "C:\Source" "E:\Destination" /E /PURGE &:: Backup
 
+dir %WINDIR%\Microsoft.Net\Framework\v* /O:-N /B &:: Check .NET version
+
 icacls * /T /Q /C /RESET &:: reset files permissions
 :: Default .dll owner : NT SERVICE\TrustedInstaller
 

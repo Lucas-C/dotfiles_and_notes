@@ -313,7 +313,7 @@ perl -ne '/(error|warn)(?!negative-look-ahead-string-to-not-match-just-after)/i'
 perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
 grep | cut -c1-200 # ignore lines with length > 200 chars
 
-pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py
+pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py OR LibreOffice Draw
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: http://compress.smallpdf.com
 
 tr -c '[:alnum:]' _
@@ -411,7 +411,6 @@ rsync -v --progress --dry-run --compress $src_dir/ $dst_dir # Alt: rdiff-backup
 --cvs-exclude --exclude=".*"
 --archive # recursive + preserve mtime, permissions...
 --delete # remove extra remote files
---append-verify # resume interrupted rsync/cp
 --backup --backup-dir=/var/tmp/rsync # keep a copy of the dst file
 
 tar -J... # instead of -z, .xz compression format support
@@ -437,7 +436,7 @@ echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
 echo hello | nc -u -w 1 127.0.0.1 5000
 
 # Port scanning
-nmap -sS -O 127.0.0.1 # Guess OS !! Also try -A
+nmap -sS -O 127.0.0.1 # Guess OS !! Also try -A - Alt: p0f
 nmap $host -p $port --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping, only scanning
 nmap 192.168.1.* # Or 192.168.1.0/24, scan entire subnet
 nmap -DdecoyIP1,decoyIP2 ... # cloak your scan
@@ -448,9 +447,16 @@ lsof -i -n | grep ssh # list SSH connections/tunnels
 ss -nap # -a => list both listening and non-listening sockets/ports ; -n => no DNS resolution for addresses, use IPs ; -p => get pid & name of process owning the socket
 ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
 
-netstat --statistics [--udp] # global network statistics - 'ss' is the replacement for deprecated 'netstat', but this has no equivalent
+netstat -ntap # To find which processes are sending packets
+netstat --statistics --udp # global network statistics - 'ss' is the replacement for deprecated 'netstat', but this has no equivalent
+mitmproxy --host
 dropwatch # to find out where are packets dropped
 /proc/net/{snmp, netstat, ...} # network counters
+
+# Dump all tcp transmission to a specific IP :
+sudo tcpdump -i $interface host $IP [ip proto icmp|udp|tcp] -A -s 0 # last flag remove the limit on the captured packet size | Use -X for hex-dump | -n to disable dns resolution
+tcpdump udp and dst port 514 -w - | pv -btr >/dev/null # Incoming syslog UDP packets rate -> can be used for TCP or all network traffic too
+time tcpdump udp and dst port 514 -w /dev/null -c 1000 # Alt solution to estimate the rate
 
 ip n[eighbour] # ARP or NDISC cache entries - replace deprecated 'arp'
 ip a[ddr] [show|add $ip] dev eth0 # replace deprecated 'ifconfig'
@@ -495,6 +501,7 @@ ssh -f $host -L 2034:$host:34 -N # port forwarding
 /etc/ssh/sshd_config # PasswordAuthentication yes, UsePAM yes OR AllowGroups sshusers
 /etc/pam.d/* # use pam_unix.so
 knockd # port knocking server
+cat $file.key $file.crt > $file.pem
 openssl s_client -CApath $ca -cert $pem -key $key -connect $host:443 -ssl3 # bare SSL client
 openssl x509 -text -noout -in $cert.pem # get certs details
 openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
@@ -512,12 +519,6 @@ iptables -n -L -v
 snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName.0 - Alt: snmpbulkwalk -> gets all OOIDs
 # SNMP port : 161
 # LAG == Link Aggregation
-
-# Dump all tcp transmission to a specific IP :
-sudo tcpdump -i $interface host $IP [ip proto icmp|udp|tcp] -A -s 0 # last flag remove the limit on the captured packet size | Use -X for hex-dump | -n to disable dns resolution
-tcpdump udp and dst port 514 -w - | pv -btr >/dev/null # Incoming syslog UDP packets rate -> can be used for TCP or all network traffic too
-time tcpdump udp and dst port 514 -w /dev/null -c 1000 # Alt solution to estimate the rate
-# To find which process is sending packets, use netstat/ss 
 
 nc -l -p 7777 > /dev/null # on receiver machine
 pv -btr /dev/zero | nc $host 7777 # show live throughput between two machines
@@ -825,6 +826,8 @@ sqrt(cos(x))*cos(200 x) + sqrt(abs(x))-0.7)*(4-x*x)^0.01, sqrt(9-x^2), -sqrt(9-x
 
 # Search tips&tricks
 site:$base_url "exact match" OR "a * saved is a * earned" -term # basics
+inurl:gouv.fr
+filetype:pdf
 cache:$url
 define:$term
 related:$url

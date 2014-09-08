@@ -68,7 +68,7 @@ git bisect reset # to return your repository to the state it started in
 
 git blame -L '/REGEX/',+1 FILE # 'rblame' to get an history of the changes on a line
 git log --pickaxe-all --pickaxe-regex -S$regex $file # To get only the additions / deletions (ignore the small changes)
-git grep $keyword $(git rev-list $rev1..$rev2) [–function-context]
+git grep $keyword $(git rev-list $rev1..$rev2) $file # or rev-list --all Also: -function-context
 
 git submodule add URL DIRNAME # Incorporate a repo in another repo - http://git-scm.com/book/en/Git-Tools-Submodules
 

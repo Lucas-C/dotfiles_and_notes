@@ -23,7 +23,7 @@ dd if=/dev/fmem of=/tmp/fmem_dump.dd bs=1MB count=10 # don't forget 'count'
 nm *.o # list symbols
 readelf -Ws *.so
 ldd $executable # list dynamically linked libs
-
+Hex-Rays IDA, Radare # disassemblers
 
 # 0xDEADC0DE 0xDEADBEEF
 #          GDB
