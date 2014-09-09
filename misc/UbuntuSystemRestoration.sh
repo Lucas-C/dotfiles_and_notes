@@ -9,6 +9,14 @@ aptitude install tkcon libsdl1.2debian-all libaudiere-1.9.4
 aptitude install ballz holotz-castle val-and-rick jumpnbump einstein sgt-puzzles teeworlds teeworlds-server unrar
 aptitude install lua5.1 sun-java6-plugin mercurial
 
+sudo aptitude install gufw # firewall
+sudo aptitude install ipython gdb grc rlwrap pandoc nmap
+aptitude install moreutils build-essential aha fdupes youtube-dl poppler-utils # pdftotext
+sudo aptitude install tesseract-ocr imagemagick
+
+sudo aptitude install hddtemp && sudo pip install pysensors batinfo glances
+sudo pip install requests lxml beautifulsoup scrapy coverage nose numpy scipy pandas statsmodels percol
+
 # VLC Préferences->audio->sortie OSS pour UNIX
 
 # Aide installation :	http://www.siteduzero.com/tutoriel-3-12827-reprenez-le-controle-avec-linux.html
@@ -71,15 +79,10 @@ gsettings set com.canonical.desktop.interface scrollbar-mode normal # >= v13
 
 sudo sed -i 's/enabled=1/enabled=0/' /etc/default/apport # Disable System Crash Reports
 
-sudo aptitude install gufw # firewall
-sudo aptitude install ipython gdb grc pandoc nmap
-
 sudo add-apt-repository ppa:nesthib/weechat-stable
 sudo aptitude update && sudo aptitude install weechat python-xmpp # Alt: irssi bitlbee # or mcabber for Jabber only
 weechat --run-command '/set;/quit' > ~/dump-weechat-config
 http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdata.py'
-
-sudo aptitude install hddtemp && sudo pip install pysensors batinfo glances
 
 gsettings set com.canonical.Unity.Lenses disabled-scopes "['more_suggestions-amazon.scope', 'more_suggestions-u1ms.scope', 'more_suggestions-populartracks.scope', 'music-musicstore.scope', 'more_suggestions-ebay.scope', 'more_suggestions-ubuntushop.scope', 'more_suggestions-skimlinks.scope']"
 

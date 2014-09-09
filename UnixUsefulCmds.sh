@@ -13,7 +13,9 @@
 !!:n # the nth word of the last cmd-line
 ^command^user^ # repeat last command with word substitution - Alt: alias r='fc -s'; r command=user
 
+less + /search + SHIFT-F # LIKE grep|tail -f !!
 cmd1 <(cmd2) >(cmd3) # make cmd2 output & cmd3 input look like a file for cmd1. Alt: cmd1 | cmd2 /dev/stdin # or use a symlink to /dev/fd/0 if extension matter
+>| # '>' that overrides 'set -o noclobber' == existing regular files cannot be overwritten by redirection of output
 
 time read # chrono
 man ascii # display ASCII table
@@ -71,7 +73,7 @@ dig +short TXT google-public-dns-a.google.com # check without 'TXT'
   Bash scripting
 ##################
 notify-send (libnotify), zenity # GUI: error windows, selection dialog, progress bars...
-mooz/percol | peco/peco # interactive filtering through pipes
+mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
@@ -201,7 +203,7 @@ exec 8>&- # Close file descriptor
 tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)" # mktemp dir & default value
 /dev/shmi # Use RAM for tmp files - monitor usage with ipcs -m
 
-for i in {0..255}; do printf "\x1b[38;5;${i}mcolor${i}\x1b[0m\n"; done # display all 256 colours
+for i in {0..255}; do printf "\x1b[38;5;${i}mcolor${i}\x1b[0m\n"; done # display all 256 colors
 for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # colored terminal output
 # + colors can be set like this: tput initc 2 500 900 100 # RGB values between 0 & 1000
 # Other tput: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev... cf. man terminfo
@@ -293,7 +295,13 @@ gnuplot $loop_cfg_file # real-time ASCII graphing !
 # Text stream filtering
 ++++++++++++++++++
 
->| # '>' that overrides 'set -o noclobber'
+cat -vET # shows non-printing characters as ascii escapes.
+printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalent, BUT:
+# echo $'A\0B' -> A
+# printf 'A\0B\n' -> AB
+
+aha # convert ANSI colors into HTML tags
+make 2>&1 | colout -t cmake | colout -t g++ # from nojhan github: "Color Up Arbitrary Command Output"
 
 # grep alt: ack, grin
 grep -a # if "Binary file (standard input) matches"
@@ -318,13 +326,6 @@ gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer
 
 tr -c '[:alnum:]' _
 
-cat -vET # shows non-printing characters as ascii escapes.
-printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalent, BUT:
-# echo $'A\0B' -> A
-# printf 'A\0B\n' -> AB
-
-make 2>&1 | colout -t cmake | colout -t g++ # from nojhan github: "Color Up Arbitrary Command Output"
-
 # filter outpout : not lines 1-3 and last one
 type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
 # this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD $@; ... }
@@ -332,7 +333,7 @@ type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
 perl -ne 'if (length > $w) { $w = length; print $ARGV.":".$_ };  END {print "$w\n"}' *.py # Longest line of code
 cloc # count lines of code
 
-comm -12 #or uniq -d - Sets intersec - See also: "Set Operations in the Unix Shell"
+comm -12 #or uniq -d - Sets intersec - See also: "Set Operations in the Unix Shell" - Alt: moreutils/combine
 join # join lines of two files on a common field
 
 tee -a $file # display input to stdout + append to end of $file
@@ -343,6 +344,7 @@ sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN - How it w
 seq 1 10 | paste -s -d+ | bc # Replace newlines by a separator, aka 'join' - Also, for arrays: OLD_IFS=$IFS; IFS=+; echo "${argv[*]}"; IFS=$OLD_IFS
 sed "0,/$pattern/d" $file # print only lines after $pattern
 # paste is also useful to interlace files: paste $file1 $file2
+tac # reverse lines
 
 perl -pe 's/\s+/\n/g' # Break on word per line
 awk [-F":|="] '{ print $NF }' # Print last column. Opposite: awk '{$NF=""; print $0}'. Only last elems: awk -F' ' '{for (i = 3; i <= NF; i++) printf "%s ",$i; print ""}'
@@ -414,6 +416,7 @@ rsync -v --progress --dry-run --compress $src_dir/ $dst_dir # Alt: rdiff-backup
 --backup --backup-dir=/var/tmp/rsync # keep a copy of the dst file
 
 tar -J... # instead of -z, .xz compression format support
+pax > cpio > tar # http://dpk.io/pax
 zipinfo $file.zip
 pigz # paralell gzip
 yum install p7zip # for .7z files
@@ -444,14 +447,16 @@ nmap -DdecoyIP1,decoyIP2 ... # cloak your scan
 lsof -i -P -p $pid # -i => list all Internet network files ; -P => no conversion of port numbers to port names for network files ; -n => no IP->hostname resolution
 lsof -i -n | grep ssh # list SSH connections/tunnels
 
+netstat -ntap # To find which processes are sending packets
+netstat --statistics --udp # global network statistics - 'ss' is the replacement for deprecated 'netstat', but this has no equivalent
 ss -nap # -a => list both listening and non-listening sockets/ports ; -n => no DNS resolution for addresses, use IPs ; -p => get pid & name of process owning the socket
 ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
 
-netstat -ntap # To find which processes are sending packets
-netstat --statistics --udp # global network statistics - 'ss' is the replacement for deprecated 'netstat', but this has no equivalent
-mitmproxy --host
-dropwatch # to find out where are packets dropped
 /proc/net/{snmp, netstat, ...} # network counters
+dropwatch # to find out where are packets dropped
+hping # packets crafting
+mitmproxy --host # interactive examination and modification of HTTP traffic
+mitmdump # tcpdump-like: view, record, and programmatically transform HTTP traffic
 
 # Dump all tcp transmission to a specific IP :
 sudo tcpdump -i $interface host $IP [ip proto icmp|udp|tcp] -A -s 0 # last flag remove the limit on the captured packet size | Use -X for hex-dump | -n to disable dns resolution

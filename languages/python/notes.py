@@ -29,7 +29,7 @@ __slots__ = ("attr1_name")
 __repr__ # unambigous, as possible 'eval'uable
 "MyClass(this=%r,that=%r)" % (self.this,self.that)
 
-hasattr(obj, '__call__') # isCallable ; work for functions too
+callable(obj) # == hasattr(obj, '__call__') # both should work for functions too
 
 a, b = b, a # swapping
 
@@ -264,9 +264,9 @@ def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # o
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Also: -mjson.tool
 
 
-"""""""""""
-"" Gotchas
-"""""""""""
+"""""""""""""""""""
+"" Quirks & Gotchas
+"""""""""""""""""""
 # !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
 
 bool(datetime.time(0,0,0)) # False
@@ -300,6 +300,10 @@ for multiplier in create_multipliers(2):
     print multiplier(3) # Late Binding Closure : prints 6 twice
 
 i, a[i] = 1, 10 # https://news.ycombinator.com/item?id=8091943 - Original blog post from http://jw2013.github.io
+
+issubclass(list, object) # True
+issubclass(object, collections.Hashable) # True
+issubclass(list, collections.Hashable) # False - There are 1449 such triplets (4.3% of all eligible triplets) in Python 2.7.3 std lib
 
 
 """""""""""""""""
@@ -397,6 +401,7 @@ kernprof.py --line-by-line myscript.py # line_profiler
 pyprof2calltree # use kcachegrind
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
 http://mg.pov.lt/objgraph # explore Python object graphs
+snakefood # draw code base dependency graphs
 
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
 timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000)
