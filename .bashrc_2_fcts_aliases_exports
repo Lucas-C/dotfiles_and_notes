@@ -72,8 +72,7 @@ if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias less=colorless
 fi
 
-alias tF='tail -F'
-alias t5='tail -500'
+alias tF='tail -F'      # Alt: less + /search + SHIFT-F
 
 #---------------
 # Alias control
