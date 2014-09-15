@@ -1,0 +1,19 @@
+# FROM: http://dlo.me/archives/2014/09/08/pythonrc/
+# USAGE: export PYTHONSTARTUP="$HOME/.pythonrc"
+# vim: set ft=python :
+
+from __future__ import print_function
+
+try:
+    import readline
+except ImportError:
+    print("Module readline not available.")
+else:
+    import rlcompleter
+    if 'libedit' in readline.__doc__:
+        readline.parse_and_bind("bind ^I rl_complete")
+    else:
+        readline.parse_and_bind("tab: complete")
+
+import json, os, sys
+

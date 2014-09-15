@@ -9,7 +9,7 @@ _ # result of the last expression evaluated (in an interpreter only)
 
 r'''Raw string literal: no need to double escape \{0}\{one:.5f}'''.format("zero", one=1)
 u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0) # for formatting with a defaultdict, use string.Formatter().vformat
-from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII
+from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII - Gotchas: http://stackoverflow.com/a/827449/636849
 unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
 chardet.detect(str) # Mozilla encoding detection
 str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters - Also: str.decode('utf8')
@@ -171,7 +171,7 @@ class custom_build(build):
 cmdclass['build'] = custom_build
 
 # Environment variables
-PYTHONSTARTUP: module to execute when Python starts
+export PYTHONSTARTUP="$HOME/.pythonrc" # code to execute when Python starts
 PYTHONPATH : directories to add to sys.path # use *.pth files instead for 3rd party modules - See also: import site
 PYTHONHOME : Python interpreter directory
 PYTHONCASEOK : case insensitive module names (usefule under Windows)
@@ -226,6 +226,8 @@ for index, item in enumerate(iterable): ...
 # Loop & modify transparently standard DS
 items = zip(xrange(0, len(ds)), ds) # lists, tuples & namedtuples
 items = d.iteritems() # dicts ( iteritems > items )
+
+jesperborgstrup/Py-IBLT # Invertible Bloom filter - Alt: http://code.activestate.com/recipes/577684-bloom-filter/
 
 
 """""""""""""
@@ -443,7 +445,7 @@ scipy
     numpy # n-dimensional arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
-    matplotlib, prettyplotlib, mpld3 # 2d plotting
+    matplotlib, prettyplotlib, mpld3, bokeh, vispy # 2d plotting
     python-graph-core
 
 SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
@@ -543,7 +545,7 @@ tqdm # KISS progress bar
 
 code.InteractiveConsole().interact() # interactive python prompt 
 pyreadline, readline, rlcompleter
-colorama # cross-platform colored terminal text
+termcolor, colorama # cross-platform colored terminal text
 
 @retry # https://github.com/rholder/retrying
 
@@ -610,6 +612,7 @@ pygeoip, mitsuhiko/python-geoip, python-geoip@code.google, maxmind/geoip-api-pyt
 
 EasyDialogs, optparse_gui, EasyGui, Tkinter
 pyglet # windowing and multimedia lib
+pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 pysoy # 3D game engine
 wand (ImageMagick binding), pillow > pil # Python Image Library
 AAlib # ASCII rendering
@@ -643,7 +646,7 @@ a='a=%s;print a%%`a`';print a%`a` # Quine
 """""""""""
 " Python 3
 """""""""""
-from __future__ import print_function, with_statement, generators...
+from __future__ import division, print_function
 print('string', file=sys.stderr, end='')
 
 from typecheck import typecheck, dict_of

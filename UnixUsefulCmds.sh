@@ -371,7 +371,7 @@ find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
 find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long'
-fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte
+fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte - Also: findimagedupes
 
 rename \  _ * # Replace whitespaces by underscores
 
@@ -455,7 +455,7 @@ ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
 /proc/net/{snmp, netstat, ...} # network counters
 dropwatch # to find out where are packets dropped
 hping # packets crafting
-mitmproxy --host # interactive examination and modification of HTTP traffic
+mitmproxy --host # interactive examination and modification of HTTP traffic - Alt: CharlesProxy, BurpProxy, Fiddler on Windows
 mitmdump # tcpdump-like: view, record, and programmatically transform HTTP traffic
 
 # Dump all tcp transmission to a specific IP :
@@ -645,8 +645,7 @@ useradd -m -G sudo,sshusers -p $(openssl passwd ******)
 newgroup $new_secondary_group
 newgroup $original_primary_group
 
-# List system users
-awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd
+awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd # List system users
 
 sudo su -l # login as user root
 sudo -K # Remove sudo time stamp => no more sudo rights
@@ -680,6 +679,15 @@ chkconfig, service # control & check /etc/init.d scripts
 
 shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck
 
+xev # Listen to keyboard events
+loadkeys fr # Change keyboard to FR
+setxkbmap -print # print keyboard config
+install myspell-fr # LibreOffice SpellCheck
+
+mplayer -identify -vo null -ao null -frames 0 $file | grep "Video stream found" # Identify video
+mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
+avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi - Replacement for ffmpeg
+
 
 &*&*&*&*&*&*&*&*&*
 ~= Issues fixes =~
@@ -694,10 +702,6 @@ killall gnome-settings-daemon # Fix crazy numpad (no '-')
 sudo service lightdm restart # restart Gnome session / useful in case of a frozen X server
 killall gnome-panel
 
-xev # Listen to keyboard events
-loadkeys fr # Change keyboard to FR
-setxkbmap -print # print keyboard config
-install myspell-fr # LibreOffice SpellCheck
 rm ~/.config/user-dirs.locale # can fix broken locale
 
 # Audio/mike issues
@@ -706,14 +710,18 @@ pavucontrol
 alsamixer
 gstreamer-properties
 
-mplayer -identify -vo null -ao null -frames 0 $file | grep "Video stream found" # Identify video
-mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
-avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi
-
 sudo /usr/share/doc/libdvdread4/install-css.sh # Install libdvdcss
 
 sudo su -c 'echo 1 > /sys/bus/pci/rescan' # Rescan for memory card
 
+xhost +local:root # Xlib: connection to ":0.0" refused by server
+
+killall unity-panel-service # display clock in Ubuntu when buggy
+
+
+FFFFFFFFFFFFFFF
+F i r e f o x
+FFFFFFFFFFFFFFF
 ~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
 find Cache/ -type f -exec file {} \; | grep image | cut -d':' -f1 # all cached images
 about:cache # Firefox cache infos: location, size, number of entries
@@ -723,10 +731,6 @@ $ff_profile_dir/.parentlock # fix "Firefox is already running but is not respond
 cp sessionstore.bak sessionstore.js # Restore previous session tabs
 <CTRL>+F5 # refresh page bypassing the cache
 MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage
-
-xhost +local:root # Xlib: connection to ":0.0" refused by server
-
-killall unity-panel-service # display clock in Ubuntu when buggy
 
 
 =\/=/\=\/=/\=\/=
