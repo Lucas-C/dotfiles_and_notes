@@ -10,7 +10,8 @@ powercfg -h off/on &:: as admin, delete hiberfil.sys
 schtasks &:: task scheduler
 msinfo32 &:: info composants
 services.msc &:: Services windows
-Magnify.exe &:: Loupe
+magnify.exe &:: Loupe
+clipbrd.exe &:: Display clipboard
 regsvr32 %dll_file% &:: register dll
 vssadmin list shadows &:: list available Volume Shadow Copies ()aka restore points, cf. http://superuser.com/a/165576)
 

@@ -4,6 +4,9 @@ import os
 import scrapy
 import urlparse
 
+# Recursively crawl through an Apache standard index HTML directory page, and list all files found in a JSON file
+# USAGE: scrapy runspider --pdb -L INFO $this_script.py -o $out.json -a url=http://$directory_url
+
 class FileUrl(scrapy.Item):
     url = scrapy.Field()
 

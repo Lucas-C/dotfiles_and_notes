@@ -92,4 +92,6 @@ gsettings set com.canonical.Unity.Lenses disabled-scopes "['more_suggestions-ama
 # Restore windows while keeping dual-boot:
 http://askubuntu.com/questions/189410/how-do-i-reinstall-windows-7-while-keeping-my-dual-boot-configuration
 
-ntfs-3g
+ntfs-3g # IT POTENTIALLY KILL WIN7, PROCEED WITH CAUTION !
+
+radiotray # Radios FR: http://www.xcfa.tuxfamily.org/static5/liens#RadioTray

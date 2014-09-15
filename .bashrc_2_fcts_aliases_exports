@@ -159,7 +159,9 @@ alias f='firefox'
 # Languages
 #----------
 alias tkcon='tkcon -load Tk'
-alias py='ipython --pdb'
+alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
+alias py27='PYTHONSTARTUP=$HOME/.pythonrc python2.7'
+alias py34='PYTHONSTARTUP=$HOME/.pythonrc python3.4'
 rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
 alias node='env NODE_NO_READLINE=1 rlwrap /usr/local/bin/node'
 
