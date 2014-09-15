@@ -533,7 +533,7 @@ def function_with_docstring(foo): # sphinx
     """
     return False
 
-twobraids/configman > argparse > optparse # Alt: docopt, clize, click
+twobraids/configman > argparse > optparse # Alt: docopt, clize, click - Also compatible with argparse: chriskiehl/Gooey for a quick GUI
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve')
 parser_group = parser.add_mutually_exclusive_group(required=True)
 parser_group.add_argument(... type=argparse.FileType('r'))
