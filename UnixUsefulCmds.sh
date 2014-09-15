@@ -687,6 +687,7 @@ install myspell-fr # LibreOffice SpellCheck
 mplayer -identify -vo null -ao null -frames 0 $file | grep "Video stream found" # Identify video
 mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
 avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi - Replacement for ffmpeg
+avconv -i $video_file -r 1 -an "videoframe%03d.png" # extract images from a video with FPS=1
 
 
 &*&*&*&*&*&*&*&*&*
