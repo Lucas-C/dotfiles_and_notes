@@ -821,7 +821,7 @@ display $img_file
 convert img.png -adaptive-resize 800x600 -auto-orient -crop 50x100+10+20 img.jpg
 mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
 identify -v $img_file # get PPI: -format "%w x %h %x x %y"
-import -display :0.0 -window root screenshot.png
+import -display :0.0 -window root screenshot.png # Alt: gnome-screenshot --interactive # Or Gimp
 animate -delay 5 *.png
 compare img1 img2
 composite # merge images
