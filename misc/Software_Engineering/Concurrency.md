@@ -18,7 +18,7 @@
 - Dining Philosophers
 
 ## Architecture patterns
-- Publish/Subscribe aka message bus.
+- PubSub aka Publish/Subscribe aka message bus.
     * Examples: AMQP, MQTT, DDS, JMS, CORBA (with either push/pull mode)
     * https://encrypted.google.com/books?id=RxsyCBr9eLMC
 - MVC. Can be chained, i.e. the view on one layer can be the model of another one

@@ -1,11 +1,18 @@
-# Memory caching system
-memcached
+## References
+- [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) : chapter dedicated to NoSQL
+
+## Memory caching system
+memcached # for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
+
+_Redis_ **MULTI** allows to combine multiple operations atomically & consistently, and **WATCH** allows isolation. [AOSA]
 
     redis-cli ping
     redis-cli -h HOST -p PORT -n DATABASE_NUMBER llen QUEUE_NAME
     redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*
 
-# Queues
+twitter/twemproxy # fast, light-weight proxy for memcached and Redis
+
+## Queues
 - mkfifo, man mq_overview : POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code
 - D-Bus : unix message bus system, with bindings in Java, Python...
 - beanstalkd : KISS fast work queue, with lots of existing tools & libs in various languages
@@ -14,14 +21,14 @@ memcached
 - Nameko : python framework for building service orientated software
 - fritzy/thoonk.js / fritzy/thoonk.py : Persistent and fast push feeds, queues, and jobs
 
-# DBs
+## DBs
 ![](https://raw.githubusercontent.com/cockroachdb/cockroach/master/resources/doc/sql-nosql-newsql.png "SQL - NoSQL - NewSQL Capabilities")
 
 - BerkeleyDB, SQLite, LMDB, LevelDB # embedded database
 - cockroachdb/cockroach # NewSQL
 - MariaDB / Percona / Drizzle # https://blog.mozilla.org/it/2013/03/08/different-mysql-forks-for-different-folks/
 
-# Storage layer for numeric data series over time
+## Storage layer for numeric data series over time
 RRDtool (the ancestor) and its followers:
 
 - RRDCached
@@ -30,14 +37,14 @@ RRDtool (the ancestor) and its followers:
 - reconnoiter
 - chriso/gauged
 
-# SQL*PLus
+## SQL*PLus
 
     # in login.sql
     SET TIMING ON
     SET SERVEROUTPUT ON
     SET LINESIZE 180 PAGESIZE 1000
 
-# MySQL / SQLite
+## MySQL / SQLite
 
 LIKE >faster> REGEXP
 
@@ -69,7 +76,7 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
     show processlist;
     kill $thread_to_be_killed;
 
-## How to start a file to make it executable AND runnable with mysql < FILE.mysql
+### How to start a file to make it executable AND runnable with mysql < FILE.mysql
     /*/cat <<NOEND | mysql #*/
     USE ...;
     WITH

@@ -1,9 +1,12 @@
 ## References
 - [PP] : The Pragmatic Programmer : Chapter 7 "Before the project" - Andrew Hunt & David Thomas
 - [VisualSpec](http://www.targetprocess.com/articles/visual-specifications.html)
-- [ProductOwnership] https://blog.codecentric.de/en/2014/07/devops-product-ownership/
+- [ProductOwnership](https://blog.codecentric.de/en/2014/07/devops-product-ownership/)
 - [NorrisNumbers](http://www.teamten.com/lawrence/writings/norris-numbers.html)
 - [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
+- [EvidenceBasedScheduling](http://www.joelonsoftware.com/items/2007/10/26.html)
+- [NoHourlyTimeTrackingInSoftware](http://bocoup.com/weblog/developer-weeks/)
+- [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
 
 ## Requirements
 - write a one-pager summing up:
@@ -34,7 +37,12 @@
 - For tips on priotizating issues of a service: _cf._ [ProductOwnership]
 - Pomodoro Technique: use a timer to break down work into ~25min intervals separated by short breaks
 
-## Stories
+## Team tasks management
+- [EvidenceBasedScheduling]
+- [DieScrum]
+- [NoHourlyTimeTrackingInSoftware]
+
+### Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.
 
 A story usually includes:
@@ -49,5 +57,5 @@ Any assumptions without which the story would be difficult or impossible to impl
 - Not Included
 If there is any possibility of misunderstanding what is included, it is sometimes helpful to explicitly enumerate what is not included in the Story.
 
-### Sub-story
+#### Sub-story
 The smallest unit of work that has value for our customers

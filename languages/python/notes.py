@@ -327,6 +327,7 @@ import tmpdir # generate a tmp dir for the time of the unit test
 module_name=code
 code_module_path=$(python -c "import $module_name; print $module_name.__file__" | sed 's/pyc$/py/')
 python -mtrace --ignore-module=codeop,__future__ --trace [ $file | $code_module_path ] # trace all code lines run when executing a file / in interactive console
+dhellmann/smiley # application tracer, record & report, inspired by rad2py/wiki/QdbRemotePythonDebugger
 
 # IPython tricks
 cd /a/path
@@ -500,7 +501,7 @@ numbapro # for CUDA
 
 autobanh, crossbar.io # WAMP in Python
 pywebsocket
-asynchat, irc
+asynchat, irc, sleekxmpp, embolalia/willie
 mailr, mailbox, imaplib, smtpd, smptplib
 paramiko # remote SSH/SFTP connexion
 
@@ -516,7 +517,7 @@ dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshar
 
 toolz # functional programming - Even faster: CyToolz - Also: suor/funcy ; kachayev/fn.py
 
-pylama # include pyflakes, pylint, PEP-checking - Also: Flake8
+pylama # include pyflakes, pylint, PEP-checking - Also: Flake8, openstack-dev/hacking
 pyreverse # UML diagrams
 
 http://amoffat.github.io/sh/ # AWESOME for shell scripting
@@ -614,6 +615,7 @@ EasyDialogs, optparse_gui, EasyGui, Tkinter
 pyglet # windowing and multimedia lib
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 pysoy # 3D game engine
+Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
 wand (ImageMagick binding), pillow > pil # Python Image Library
 AAlib # ASCII rendering
 fogleman/Tiling # pavages
