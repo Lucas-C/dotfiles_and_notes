@@ -27,3 +27,4 @@ Minimum spanning tree for a connected weighted graph ("arbre recouvrant de poids
 
 HMAC > a hash with a salt, in term of security
 
+VCDIFF : format & algorithm for delta encoding

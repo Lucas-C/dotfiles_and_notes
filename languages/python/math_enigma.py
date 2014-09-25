@@ -1,5 +1,6 @@
 # FROM: http://blog.tanyakhovanova.com/?p=504 - old Olympiad problem
-#   "Prove that you can choose 2^k numbers from the set {1, 2, 3, ..., 3^k-1} in such a way that the chosen set contains no averages of any two of its elements."
+#   "Prove that you can choose 2^k numbers from the set {1, 2, 3, ..., 3^k-1}
+#   in such a way that the chosen set contains no averages of any two of its elements."
 # My solution:
 #   N_0 = {1}
 #   N_{k+1} = N_k U {3^k + e | e in N_k}

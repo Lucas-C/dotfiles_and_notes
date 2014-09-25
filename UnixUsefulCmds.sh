@@ -211,6 +211,7 @@ tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top ri
 
 select value in choice1 choice2; do break; done # multiple choices
 read -s password # 'silent' user input, no characters are displayed
+strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n' # 30 characters password generation
 stty -echo # disable TTY output
 # ask a yes or no question, with a default of no.
 echo -n "Do you ...? [y/N]: "
@@ -245,7 +246,7 @@ syslogd -m 0 -r -SS # port: 514
 logger -is -t SCRIPT_NAME -p user.warn "Message"
 echo "<15>My logline" | nc -u -w 1 $HOSTNAME 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13 <-> user.notice
 time tcpdump udp and dst port 514 | awk '{print $3" "$7}' | sed 's/\.syslog//' > noisy_devices
-petit --hash /var/log/messages # Cmdline log analyze, also --wordcount. Alt: sysdig -c spy_syslog
+petit --hash /var/log/messages # Cmdline log analyze, also --wordcount. Alt: lnav ; sysdig -c spy_syslog
 
 #   --reject doesn't apply to the whole path, only to the filename/query
 mv $file ${file%.*}.bak # Change extension
@@ -394,7 +395,7 @@ truncate -s $size_in_bytes $file # from coreutils
 setcap # man capabilities
 umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
-getfacl/setfacl
+setfacl -Rm u:"$user":rwx "$HOME/$dir" && setfacl -Rm d:u:"$user":rwx "$HOME/$dir" # Selectively gives access to another user - Also: getfacl
 sudo chattr +i [-R] $file # Forbid file deletion - To check a file attributes: lsattr. Also: getfattr/setfattr
 
 tune2fs # control extX file system parameters, e.g. reclaim disk space reserved to root 
@@ -415,6 +416,7 @@ rsync -v --progress --dry-run --compress $src_dir/ $dst_dir # Alt: rdiff-backup
 --delete # remove extra remote files
 --backup --backup-dir=/var/tmp/rsync # keep a copy of the dst file
 
+tar -czvf "$archive.tgz" "$dir_without_trailing_slash" # Extract: tar -xzvf $archive
 tar -J... # instead of -z, .xz compression format support
 pax > cpio > tar # http://dpk.io/pax
 zipinfo $file.zip
@@ -511,6 +513,8 @@ openssl s_client -CApath $ca -cert $pem -key $key -connect $host:443 -ssl3 # bar
 openssl x509 -text -noout -in $cert.pem # get certs details
 openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
 keytool -printcert -file $cert.pem # get certs details
+sshfs # && fusermount -u
+Russell91/sshrc # bring your .*rc with you
 mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
  -l $USER \
  -m 2 \ # run on two hosts concurrently
@@ -547,7 +551,7 @@ ipcalc < cidr $ip/X # get netmask, network address - FROM http://fossies.org/lin
 
 w3m > elinks > links > lynx # http://askubuntu.com/questions/15988/browse-internet-inside-terminal
 lynx -dump -stdin # convert HTML to text
-wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # aspire web page
+wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: axel.alioth.debian.org - can use multiple connections (and mirrors) to download one file
   -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
   -k --convert-links : convert the links in the document to make them suitable for local viewing
   --no-parent : do not ever ascend to the parent directory when retrieving recursively
@@ -622,6 +626,7 @@ stap # SystemTap
 perf # aka perf_events, needs a version of linux-tools-* matching the kernel
     top -G
     stat -e cycles,instructions,cache-misses,dTLB-load-misses -p $PID
+tobert/pcstat # page cache stats for files
 
 # Checking Swap Space Size and Usage
 free -m # how much free ram I really have ? -> look at the row that says "-/+ buffers/cache"
@@ -686,7 +691,7 @@ install myspell-fr # LibreOffice SpellCheck
 
 mplayer -identify -vo null -ao null -frames 0 $file | grep "Video stream found" # Identify video
 mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
-avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi - Replacement for ffmpeg
+avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi - Replacement for ffmpeg - GUI: Adapter
 avconv -i $video_file -r 1 -an "videoframe%03d.png" # extract images from a video with FPS=1
 
 

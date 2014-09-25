@@ -1,6 +1,8 @@
 ## References
 - [MVB] : [Miniumn Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)
 - [GoodAtOps] : [How to be Good at Ops in 40min](https://adamhjk.github.io/good-at-ops/#/8)
+- [ShittyDashboards](http://attackwithnumbers.com/the-laws-of-shitty-dashboard)
+- [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -28,7 +30,7 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
 - regular emails with tips. Or put a one-pager in the toilets, as Google is doing
 
 ## Stand-up & meetings
-It mush be SHORT:
+It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [DieScrum]
 - What did you do yesterday?
 - What are you doing today?
 - What is blocking your progress?
@@ -46,6 +48,7 @@ In general, limit meetings by making them informal chats or doing them properly:
 - performance, output data quality
 - availability : measured from the client side
 - latency
+- to fight it and encourage people reducing it, properly measure the technical debt: time & effort to repair; impact frequency, severity & reach; error rates; capacity/headroom
 
 ## Ops
 ![](http://blog.sei.cmu.edu/assets/content/Traceability-Model.png)
@@ -72,7 +75,7 @@ In general, limit meetings by making them informal chats or doing them properly:
     * store meeting notes, tasks list, team & members pages, build processes, design docs, software architecture diagrams...
     * + use it to share useful links, and try to encourage using this instead of individual bookmarks
     * ++ Ops Docs !
-    * +++ DASHBOARD !!
+    * +++ DASHBOARD !! But dont create [ShittyDashboards]
     * include the wiki as part of task processes : sprints, ops, deployments...
     * get a leader whose goal is to motivate & educate others
 - Teach don't tell : http://stevelosh.com/blog/2013/09/teach-dont-tell/
@@ -82,3 +85,4 @@ In general, limit meetings by making them informal chats or doing them properly:
 ## Recruiting & coaching new hires
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process
 - STAR -> Probe -> Chalenge
+- some soft skills: teamwork, conflict resolution, listening, coordination...

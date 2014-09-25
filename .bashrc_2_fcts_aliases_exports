@@ -369,7 +369,7 @@ notabs () {             # INPLACE Replace tabs by 4 spaces & remove trailing one
 }
 
 fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[0]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
-ext-ip () { curl http://ipecho.net/plain; echo; }
+ext-ip () { dig +short myip.opendns.com @resolver1.opendns.com; } # faster than HTTP, e.g. ipecho.net/plain checkip.dyndns.org ifconfig.me
 int-ips () { /sbin/ifconfig $1 | grep "inet[^0-9]" | sed 's/.*[^0-9]\([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\)[^0-9].*/\1/' | grep -v '127\.0\.0\.1'; }
 
 mtr_proto () {

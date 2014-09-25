@@ -10,6 +10,7 @@ SSH_AGENT_CONFIG_FILE=~/$SSH_AGENT_CONFIG_FILE_REL
 # Will create a remote $HOME dir if needed 
 # If it fails, config files will still be kept int remote $SSH_EXPORT_TMP_DIR
 # DO NOT use sshl in that cmd.
+# Suggestion: switch to Russell91/sshrc
 exportSshFiles () {      # export $SSH_EXPORT_FILES to a remote host $1
     local prev_dir=$PWD
     cd $BASHRC_DIR
