@@ -228,6 +228,7 @@ shopt -s extglob # http://www.linuxjournal.com/content/bash-extended-globbing
 shopt [-o] # list options values. Alt: $- E.g. check if shell is interactive: [[ $- =~ i ]]
 
 ( set -o posix; set ) # List all defined variables
+foo=bar; foo () { :; } ; unset foo # Gotcha : the variable is unset first, then the function if called a 2nd time
 # Get all commands prefixed by (useful for unit tests)
 compgen -abck unit_test_ # control readline auto-completion (help complete), can be enable by '-e' flag of 'read'
 complete -f -X '!*.ext' command # exclude files using a filter
@@ -358,7 +359,7 @@ zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Ta
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
 pandoc --standalone --smart --table-of-contents --include-in-header $css -f markdown -t html $f > ${f%%.md}.html # -s -S --toc
 pandoc -s -f markdown -t man foo.md | man -l - # md2man : man pandoc_markdown
-markdown foo.md | lynx -stdin # alternative using HTML an an intermediate instead of groff
+stmd foo.md | lynx -stdin # standard replacement for original 'markdown' command
 
 
 =#=#=#=#=#=
@@ -832,6 +833,8 @@ compare img1 img2
 composite # merge images
 
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
+
+qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
 
 
 $$$$$$$$$$$$$$$

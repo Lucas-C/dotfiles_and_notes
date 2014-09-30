@@ -405,6 +405,7 @@ pyprof2calltree # use kcachegrind
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
 http://mg.pov.lt/objgraph # explore Python object graphs
 snakefood # draw code base dependency graphs
+what-studio/profiling # live profiling
 
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
 timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000)
@@ -433,7 +434,7 @@ deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index t
 """""""""""""""""""""""""""""
 nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
 topia.termextract
-difflib # compare sequences
+difflib # compare text/strings/sequences
 sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && sudo pip install sumy && sudo python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB
 deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .ps ...
 
@@ -447,10 +448,9 @@ scipy
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
     matplotlib, prettyplotlib, mpld3, bokeh, vispy # 2d plotting
-    python-graph-core
 
 SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
-networkx # networks & graphs manipulation
+python-graph-core, networkx # networks & graphs manipulation
 
 deap # genetic programming
 cvxopt # convex optimization
@@ -617,8 +617,10 @@ pygst # GStreamer : media-processing framework : audio & video playback, recordi
 pysoy # 3D game engine
 Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
 wand (ImageMagick binding), pillow > pil # Python Image Library
+lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
 AAlib # ASCII rendering
 fogleman/Tiling # pavages
+graphviz # graphs generation and export as images
 
 platform # python version, OS / machine / proc info...
 

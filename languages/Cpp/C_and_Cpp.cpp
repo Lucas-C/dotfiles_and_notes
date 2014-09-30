@@ -5,6 +5,8 @@ gcc -g3 -D_DEBUG -Wall -Wextra -pedantic-errors -Wfloat-equal -Wconversion -Wsha
 valgrind --leak-check=full --track-origins=yes // seemingly > purify
 gperftools: -ltcmalloc, HEAPCHECK, HEAPPROFILE, pprof // thread-caching malloc, heap checker/profiler, CPU profiler
 
+re2c // tool generating fast code for regular expressions matching
+
 gcc -dM -E </dev/null // dump the list of predefined macros; e.g. unix & linux
 
 // Use ‘const’ as much as possible.
