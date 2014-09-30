@@ -1,5 +1,5 @@
 ## References
-- [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) : chapter dedicated to NoSQL
+- [AOSA_NoSQL] : [The Architecture of Open Source Applications](http://www.aosabook.org) chapter dedicated to NoSQL
 
 ## Memory caching system
 memcached # for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
@@ -23,6 +23,10 @@ twitter/twemproxy # fast, light-weight proxy for memcached and Redis
 
 ## DBs
 ![](https://raw.githubusercontent.com/cockroachdb/cockroach/master/resources/doc/sql-nosql-newsql.png "SQL - NoSQL - NewSQL Capabilities")
+
+The CAP theorem: Consistency, Availability, and Partition tolerance, pick at most two.
+First proposed by Eric Brewer in 1998, then proved by Gilbert and Lynch. See also ACID, BASE & [AOSA_NoSQL]
+=> Daniel Abadi suggested a more nuanced classification system, PACELC
 
 - BerkeleyDB, SQLite, LMDB, LevelDB # embedded database
 - cockroachdb/cockroach # NewSQL
@@ -49,6 +53,8 @@ RRDtool (the ancestor) and its followers:
 LIKE >faster> REGEXP
 
 Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' is enabled on database and table names.
+
+[Unix SSH Auth](http://www.mon-code.net/article/72/utiliser-le-compte-linux-pour-se-connecter-de-facon-securise-a-mariadb-et-mysql-sans-mot-de-passe)
 
     cd $MYSQL_BASE_DIR
     bin/mysql_install_db --datadir=$OLDPWD/data

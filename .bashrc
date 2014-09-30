@@ -24,7 +24,7 @@ source ${BASHRC_DIR}/.bash_colors
 ########################
 for f in ${BASHRC_DIR}/.bashrc_*; do
     source $f
-done
+done; unset f
 
 #------
 # Dirs

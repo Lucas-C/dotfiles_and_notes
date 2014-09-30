@@ -7,7 +7,7 @@ aptitude install tkcon libsdl1.2debian-all libaudiere-1.9.4
 #							(tastystatic)	(asciiportal)
 # Tkcon avec wish 8.5 : modifier /usr/share/tcltk/tkcon2.5/tkcon.tcl -> remplacer "wish" l.3 par "/usr/bin/wish8.5"
 aptitude install ballz holotz-castle val-and-rick jumpnbump einstein sgt-puzzles teeworlds teeworlds-server unrar
-aptitude install lua5.1 sun-java6-plugin mercurial
+aptitude install lua5.2 mercurial
 
 sudo aptitude install gufw # firewall
 sudo aptitude install ipython gdb grc rlwrap pandoc nmap

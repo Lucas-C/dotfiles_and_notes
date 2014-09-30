@@ -164,6 +164,7 @@ asm.js // static subset of JS, can be compiled ahead, include static typing
 ParallelJS // .mapPar() .filterPar() .reducePar()
 
 hex_md5('string') // crypt/md5.js
+// davidshimjs/qrcodejs
 
 underscorejs.org // Functional prog lib
 moment.js // parse, validate, manipulate, and display dates
@@ -203,3 +204,6 @@ CoffeeScript, TypeScript
 Brython, RapydScript, Pyjamas, PythonJS // for Python
 
 Esprima // ECMAScript parser
+
+CommonMark // https://github.com/jgm/stmd/blob/master/js/stmd.js
+cemerick/jsdifflib

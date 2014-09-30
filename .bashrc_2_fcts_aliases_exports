@@ -153,7 +153,7 @@ alias gpr='git pull --rebase'
 #------------
 alias e='$EDITOR'
 alias b='cd -'
-alias f='firefox'
+f () { ( nohup firefox "$@" >~/firefox.log 2>&1 & ); }
 
 #---------
 # Languages
@@ -164,6 +164,8 @@ alias py27='PYTHONSTARTUP=$HOME/.pythonrc python2.7'
 alias py34='PYTHONSTARTUP=$HOME/.pythonrc python3.4'
 rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
 alias node='env NODE_NO_READLINE=1 rlwrap /usr/local/bin/node'
+alias lua='rlwrap --always-readline lua'
+alias lua5.2='rlwrap --always-readline lua5.2'
 
 # Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
 alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'

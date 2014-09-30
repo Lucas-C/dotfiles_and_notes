@@ -20,9 +20,6 @@ Compression:
 PID controller: control loop feedback mechanism, using the proportional, integral and derivative values,
     that attempts to minimize the error in outputs by adjusting the process control inputs.
 
-The CAP theorem: Consistency, Availability, and Partition tolerance, pick at most two. First proposed by Eric Brewer in 1998. See also ACID and BASE. 
-=> Daniel Abadi suggested a more nuanced classification system, PACELC
-
 Minimum spanning tree for a connected weighted graph ("arbre recouvrant de poids minimum") : Algorithme de Kruskal
 
 HMAC > a hash with a salt, in term of security
