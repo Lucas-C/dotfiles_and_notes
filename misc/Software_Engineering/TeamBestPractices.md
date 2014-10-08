@@ -3,6 +3,7 @@
 - [GoodAtOps] : [How to be Good at Ops in 40min](https://adamhjk.github.io/good-at-ops/#/8)
 - [ShittyDashboards](http://attackwithnumbers.com/the-laws-of-shitty-dashboard)
 - [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
+- [5EPSQ] : [Five essential phone screen questions](https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -83,6 +84,6 @@ In general, limit meetings by making them informal chats or doing them properly:
 - many more advices: https://github.com/PharkMillups/beautiful-docs
 
 ## Recruiting & coaching new hires
-- recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process
+- recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [5EPSQ]
 - STAR -> Probe -> Chalenge
 - some soft skills: teamwork, conflict resolution, listening, coordination...

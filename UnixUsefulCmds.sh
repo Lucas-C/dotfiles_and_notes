@@ -2,7 +2,7 @@
 ### SHELL & misc  ###
 ~°~°~°~°~°~°~°~°~°~°~
 
-<CTRL>+e : perform shell-"Expansion" on cmd-line - cf. .inputrc
+<CTRL>+e : perform shell-"Expansnon" on cmd-line - cf. .inputrc
 <CTRL>+u : remove part of current line "a gaUche"
 <CTRL>+k : remove "Klosing" part of current line
 <CTRL>+w : cut the "Word" before the cursor to the clipboard
@@ -14,7 +14,8 @@
 ^command^user^ # repeat last command with word substitution - Alt: alias r='fc -s'; r command=user
 
 less + /search + SHIFT-F # LIKE grep|tail -f !!
-cmd1 <(cmd2) >(cmd3) # make cmd2 output & cmd3 input look like a file for cmd1. Alt: cmd1 | cmd2 /dev/stdin # or use a symlink to /dev/fd/0 if extension matter
+cmd1 <(cmd2) >(cmd3) # make cmd2 output & cmd3 input look like a file for cmd1 - Alt:
+cmd2 | cmd1 /dev/stdin # aka /proc/self/fd/0 aka /dev/fd/0 - Useful when a command needs a file as parameter, use a symlink if extension matters
 >| # '>' that overrides 'set -o noclobber' == existing regular files cannot be overwritten by redirection of output
 
 time read # chrono
@@ -36,11 +37,11 @@ SWAP: bogus
 pstree -p [$OPT_PID] # hierarchy of processes
 
 pidof $process_name
-pid -o comm= -p $PPID # get process name
-pwdx $pid # get process working directory
+pid -o comm= -p $PPID # get process name - Also: /proc/$pid/{cmdline,comm,exe}
+pwdx $pid # get process working directory - Alt: file /proc/$pid/cwd
 
 nohup $cmd # detach command
-disown -h $pid # detach running process
+disown -h $pid # detach running process - To redirect its stdout/err: dupx / https://gist.github.com/zaius/782263
 
 kill -15 # (TERM) then wait 2sec, then -2 (INT) then -1 (HUP) THEN -9 (KILL)
 # Because then: no sockets shutdown / no tmp files cleanup / children not informed / no terminal reset
@@ -58,7 +59,7 @@ wall # broadcast message
 
 ttyrec, ipbt, ttygif, playitagainsam # record & playback terminal sessions - Last one provides a JS player
 
-export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # or GNU parallel
+export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # Alt: GNU parallel, mfisk/filemap 'fm' Map-Reduce command
 
 : () { : | : & } ; : # Fork bomb
 
@@ -72,7 +73,7 @@ dig +short TXT google-public-dns-a.google.com # check without 'TXT'
 ##################
   Bash scripting
 ##################
-notify-send (libnotify), zenity # GUI: error windows, selection dialog, progress bars...
+notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
 mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
@@ -213,6 +214,7 @@ select value in choice1 choice2; do break; done # multiple choices
 read -s password # 'silent' user input, no characters are displayed
 strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n' # 30 characters password generation
 stty -echo # disable TTY output
+stty -echo -icanon time 0 min 0 # non-blocking read trick FROM: http://stackoverflow.com/a/5297780
 # ask a yes or no question, with a default of no.
 echo -n "Do you ...? [y/N]: "
 read answer
@@ -225,7 +227,7 @@ fi
 set -o noglob # disable wildcard expansion
 # Extended bash globbing
 shopt -s extglob # http://www.linuxjournal.com/content/bash-extended-globbing
-shopt [-o] # list options values. Alt: $- E.g. check if shell is interactive: [[ $- =~ i ]]
+shopt [-o] # list options values. Alt: $- E.g. check if shell is interactive: [[ $- =~ i ]] - Also, is stdin open in a terminal: [ -t 0 ]
 
 ( set -o posix; set ) # List all defined variables
 foo=bar; foo () { :; } ; unset foo # Gotcha : the variable is unset first, then the function if called a 2nd time
@@ -269,6 +271,7 @@ ulimit -v # max virtual memory
 ulimit -s # max stack size
 ulimit -t # max of cpu time
 ulimit -u # max number of processes
+ulimit -a # ALL - Also: /proc/$pid/limits
 
 mkfifo /tmp/myfifo; exec 3<> /tmp/myfifo # Über trick: dummy FD => non-blocking named-pipe
 python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes import c_int ; from sys import argv ; size_int = c_int() ; fd = open(argv[1]) ; ioctl(fd, FIONREAD, size_int) ; fd.close() ; print size_int.value" $fifo # readble bytes in a fifo -> NOT RELIABLE, e.g. always return 0 with non-blocking named-pipe
@@ -305,7 +308,7 @@ printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalen
 aha # convert ANSI colors into HTML tags
 make 2>&1 | colout -t cmake | colout -t g++ # from nojhan github: "Color Up Arbitrary Command Output"
 
-# grep alt: ack, grin
+# grep Alt: ack, grin, ag (ggreer/the_silver_searcher), pt (monochromegane/the_platinum_searcher)
 grep -a # if "Binary file (standard input) matches"
 grep -q # silent, !! FAIL with SIGPIPE if 'pipefail' is used: http://stackoverflow.com/a/19120674/636849
 grep '\<word\>' # match word-boundaries
@@ -316,7 +319,7 @@ grep -C3 # output 3 lines of context, see also -B/-A
 grep -H/-h # output with/without filename
 grep -L $pattern $files # Get only filenames where PATTERN is not present
 grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/b/'
-grep -P -n "[\x80-\xFF]" file.xml # Find non-ASCII characters
+grep -P -n "[\x80-\xFF]" $file # Find non-ASCII characters
 LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
 sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
 perl -ne '/(error|warn)(?!negative-look-ahead-string-to-not-match-just-after)/i'
@@ -324,7 +327,7 @@ perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
 grep | cut -c1-200 # ignore lines with length > 200 chars
 
 pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py OR LibreOffice Draw
-gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: http://compress.smallpdf.com
+gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: -dFirstPage=X -dLastPage=Y - Alt: http://compress.smallpdf.com
 
 tr -c '[:alnum:]' _
 
@@ -355,6 +358,9 @@ fmt # reformat lines into paragraphs
 printf "%-8s\n" "${value}" # 8 spaces output formatting
 | xargs -n 1 sh -c 'echo ${0:0:3}' # 3 first characters of $string
 
+jq # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
+xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstartlet & http://stackoverflow.com/a/91801
+
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
 pandoc --standalone --smart --table-of-contents --include-in-header $css -f markdown -t html $f > ${f%%.md}.html # -s -S --toc
@@ -368,7 +374,8 @@ stmd foo.md | lynx -stdin # standard replacement for original 'markdown' command
 
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
-find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: agedu
+find -D rates ... # details success rates of each match logic term
+find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: agedu ; + all tools listed in http://dev.yorhel.nl/ncdu
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
@@ -404,6 +411,7 @@ debugfs -R "stat <$(ls -i $file | awk '{print $1}')>" $(df $file | tail -n 1 | a
 
 # Bring back deleted file from limbo (ONLY if still in use in another process)
 lsof | grep myfile # get pid
+ls -l /proc/$pid/fd
 cp /proc/$pid/fd/4 myfile.saved
 
 # http://www.cyberciti.biz/tips/linux-audit-files-to-see-who-made-changes-to-a-file.html
@@ -500,6 +508,8 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
 sudo service restart ssh
+cat ~/.ssh/id_rsa.pub | ssh $user@$host "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" # Alt: ssh-copy-id $user@$host
+ssh $host "$(printf "%q" $(cat script.sh))" # %q adds escapes to any string
 ssh $host "$cmds ; /bin/bash -i" # Keep ssh session open after executing commands
 ssh -f $host -L 2034:$host:34 -N # port forwarding
 [ENTER] ~. # Exit a hung SSH session
@@ -613,18 +623,20 @@ watch -d 'cat /proc/meminfo' # Watch system stats
 - 5th field : PID of last process created
 
 echo 1 > /sys/module/printk/parameters/printk_time # Enable dmesg timestamps
-dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom"
+dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom" # In case of OOM, Linux kernel will kill the process with highest /proc/$pid/oom_score - To exclude a process from the OOM killer list: echo "-17"> /proc/$pid/oom_adj
+
+watch -d -n 1 "cat /proc/$pid/status | grep ctxt_switches" # mostly nonvoluntary context switches => CPU bound / else IO bound - FROM: https://blogs.oracle.com/ksplice/entry/solving_problems_with_proc
 
 # Monitoring
 iostat # ! '%util' & 'svctm' are misleading + iotop, non portable + brendangregg/perf-tools/blob/master/iosnoop
 mpstat 5 # cpu usage stats every 5sec
 monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
 dstat
-glances, psdash, conky
+pt-summary, glances, psdash, conky
 collectd, perfwatcher
 
 stap # SystemTap
-perf # aka perf_events, needs a version of linux-tools-* matching the kernel
+perf # aka perf_events, needs a version of linux-tools-* matching the kernel - More: http://www.pixelbeat.org/programming/profiling/
     top -G
     stat -e cycles,instructions,cache-misses,dTLB-load-misses -p $PID
 tobert/pcstat # page cache stats for files
@@ -652,6 +664,7 @@ newgroup $new_secondary_group
 newgroup $original_primary_group
 
 awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd # List system users
+/etc/shadow # $encryption_id$salt$encrypted - can be checked with mkpasswd -$encryption_id $salt $password (or 'openssl passwd') - To check a user/sudo password, cf. http://askubuntu.com/a/276182
 
 sudo su -l # login as user root
 sudo -K # Remove sudo time stamp => no more sudo rights
@@ -739,6 +752,11 @@ cp sessionstore.bak sessionstore.js # Restore previous session tabs
 <CTRL>+F5 # refresh page bypassing the cache
 MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage
 
+https://developer.mozilla.org/en-US/docs/Tools/Web_Console
+- inspect(), pprint()
+- cd("#frame1"); # get into a specific iframe
+- $("css selector") or $$() for ALL matches; $x("xpath expression")
+//div[contains(concat(' ',normalize-space(@class),' '),' foo ')] # http://pivotallabs.com/xpath-css-class-matching/
 
 =\/=/\=\/=/\=\/=
 =  Virtualbox
@@ -844,7 +862,7 @@ sqrt(cos(x))*cos(200 x) + sqrt(abs(x))-0.7)*(4-x*x)^0.01, sqrt(9-x^2), -sqrt(9-x
 
 # Search tips&tricks
 site:$base_url "exact match" OR "a * saved is a * earned" -term # basics
-inurl:gouv.fr
+inurl:gouv.fr # Also: intitle:
 filetype:pdf
 cache:$url
 define:$term

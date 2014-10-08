@@ -9,6 +9,7 @@ Trie / directed acyclic graph can be + efficient than binary search trees / hash
 Test set membership:
 - Bloom filters : http://crystal.uta.edu/~mcguigan/cse6350/papers/Bloom.pdf - http://corte.si/%2Fposts/code/bloom-filter-rules-of-thumb/index.html - Invertible: http://arxiv.org/pdf/1101.2245v2.pdf (cf. Python implementations)
 - Use prime numbers to represent set elements : http://www.stdlib.net/~colmmacc/2010/09/02/prime-and-proper/
+- with time decay: [Flower Filter](http://eng.kifi.com/flower-filter-an-update/)
 
 Hashing:
 - 'fuzzy' hashing that gaves same result for inputs that have homologies : http://www.forensicswiki.org/wiki/Context_Triggered_Piecewise_Hashing
@@ -25,3 +26,7 @@ Minimum spanning tree for a connected weighted graph ("arbre recouvrant de poids
 HMAC > a hash with a salt, in term of security
 
 VCDIFF : format & algorithm for delta encoding
+
+Fisher-Yates shuffle : O(n) complexity, guaranteed uniformity, optimal asymptotic time & space complexity
+
+[Exponential Backoff algorithm](http://en.wikipedia.org/wiki/Exponential_backoff#Binary_exponential_backoff_.2F_truncated_exponential_backoff)

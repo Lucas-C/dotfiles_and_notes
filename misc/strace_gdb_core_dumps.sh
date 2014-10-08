@@ -1,15 +1,19 @@
+mozilla/rr # recording and replaying execution of applications
+
 gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
 LD_PRELOAD=./myfopen.so cat $file
 man ld.so
 
-# Follow program system calls (man syscalls) !! -f => follow fork
+# Follow p$rogram system calls (man syscalls) !! -f => follow fork
 strace -f -p $pid -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
 strace -f -e trace=network -s 10000 $cmd # capture network traffic
 # Bug: http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
 kill -CONT $pid # strace bug fix
 ltrace -ttS -s 65535 -o $logfile -p $pid # log system calls and library calls
 
-cat /proc/pid/smaps # get resources infos
+cat /proc/$pid/cmdline
+cat /proc/$pid/maps # memory map, useful to now which libs are loaded
+cat /proc/$pid/smaps # get resources infos
 pmap -x $pid # get memory usage
 valgrind --tool=massif $cmd # get memory usage with details & graph
 valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind

@@ -314,7 +314,7 @@ issubclass(list, collections.Hashable) # False - There are 1449 such triplets (4
 faulthandler.enable() # dump stacktrace on SIGSEGV, SIGABRT... signals ; python2 -X faulthandler script.py
 
 import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code...
-import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function
+import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
@@ -476,7 +476,7 @@ Numba # NumPy aware dynamic Python compiler using LLVM
 Pyston # VM using LLVM JIT
 
 virtualenv # sandbox
-pip # or easyinstall : libs manager
+pip # > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 scales # metrics for Python
@@ -501,6 +501,7 @@ numbapro # for CUDA
 
 autobanh, crossbar.io # WAMP in Python
 pywebsocket
+xmlrpclib / xmlrpc.client # XML-RPC via HTTP
 asynchat, irc, sleekxmpp, embolalia/willie
 mailr, mailbox, imaplib, smtpd, smptplib
 paramiko # remote SSH/SFTP connexion
@@ -548,7 +549,7 @@ code.InteractiveConsole().interact() # interactive python prompt
 pyreadline, readline, rlcompleter
 termcolor, colorama # cross-platform colored terminal text
 
-@retry # https://github.com/rholder/retrying
+@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
 
 import uuid # generate unique IDs
 
