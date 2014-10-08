@@ -1,8 +1,5 @@
 from collections import Counter, OrderedDict
-import json
-import os
-import scrapy
-import urlparse
+import json, os, scrapy, urlparse
 
 # Recursively crawl through an Apache standard index HTML directory page, and list all files found in a JSON file
 # USAGE: scrapy runspider --pdb -L INFO $this_script.py -o $out.json -a url=http://$directory_url
