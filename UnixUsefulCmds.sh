@@ -69,6 +69,8 @@ a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a ' # Quine
 
 dig +short TXT google-public-dns-a.google.com # check without 'TXT'
 
+echo "You can simulate on-screen typing just like in the movies" | pv -qL 10
+
 
 ##################
   Bash scripting
@@ -507,16 +509,15 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
-sudo service restart ssh
+keithw/mosh # faster 'ssh' replacement that allows the client and server to "roam" and change IP addresses, while keeping the connection alive
 cat ~/.ssh/id_rsa.pub | ssh $user@$host "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" # Alt: ssh-copy-id $user@$host
 ssh $host "$(printf "%q" $(cat script.sh))" # %q adds escapes to any string
 ssh $host "$cmds ; /bin/bash -i" # Keep ssh session open after executing commands
 ssh -f $host -L 2034:$host:34 -N # port forwarding
 [ENTER] ~. # Exit a hung SSH session
-# It is possible to force a user (based on its pub key) to only run one command one a host (e.g. tail -f) using ~/.ssh/authorized_keys : cf. tmux example
+# Force a user (based on its pub key) to only run one command one a host (e.g. tail -f) using ~/.ssh/authorized_keys : cf. tmux example
 # How to change your login on a specified acces: http://orgmode.org/worg/worg-git-ssh-key.php
-# SSH daemon config to allow UNIX user/pswd auth:
-/etc/ssh/sshd_config # PasswordAuthentication yes, UsePAM yes OR AllowGroups sshusers
+/etc/ssh/sshd_config # SSH daemon config to allow UNIX user/pswd auth: PasswordAuthentication yes, UsePAM yes OR AllowGroups sshusers
 /etc/pam.d/* # use pam_unix.so
 knockd # port knocking server
 cat $file.key $file.crt > $file.pem
@@ -533,8 +534,8 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
  -c "$cmd"
 # http://en.wikipedia.org/wiki/Comparison_of_SSH_clients#Platform
 
+iptables -nvL --line-numbers # Also: iptables-save
 iptables -A INPUT -s $host -j DROP
-iptables -n -L -v
 
 snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName.0 - Alt: snmpbulkwalk -> gets all OOIDs
 # SNMP port : 161

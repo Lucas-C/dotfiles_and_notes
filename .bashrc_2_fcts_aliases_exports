@@ -91,7 +91,7 @@ alias_r () {            # recursively resolve an alias, handle pipes and nested 
     local cmd=$1
     local end_of_cmd
     while alias $cmd >/dev/null 2>&1; do
-        local aliased=$(alias $cmd | sed "s/.*\([\'\"]\)\(.*\)\1/\2/")
+        local aliased=$(alias $cmd | sed "s/alias $cmd=\([\'\"]\)\(.*\)\1/\2/"| sed 's/^[^ ]\+=[^ ]\+ //g')
         cmd=$(echo $aliased | awk '{ print $1 }')
         end_of_cmd="$(echo $aliased | awk '{ $1 = ""; print }') $end_of_cmd" # still contain delim=<space>
     done
@@ -413,7 +413,7 @@ proc_read_fd_progress () {   # args: $pid [$fd]
     ! [ -e $proc_fd ] && echo "fd=$fd is not a valid file descriptor in /proc/$pid/fd/" >&2 && return 2
     local fd_size=$(wc -c $proc_fd | awk '{print $1}')
     echo "Progress reading '$(readlink $proc_fd)':"
-    while [ -e $proc_fd ] && ! read -t 1 dummy; do
+    while [ -e $proc_fd ] && ! read -n 1 -t 1 dummy; do
         local progress=$(cat /proc/$pid/fdinfo/$fd | grep ^pos | awk '{print $2}')
         echo $((100 * $progress / $fd_size))
     done | progress_bar
