@@ -32,6 +32,7 @@ mmap // File in memomry mapping, to optimize paging operations
 
 #include <dirent.h> // opendir/closedir, readdir, telldir, rewinddir, seekdir
 
+goto // http://stackoverflow.com/a/2809622 - Edsger Dijkstra's "GoTo Considered Harmful" oftens doesn't apply
 
 ////////////
 // C only
@@ -79,6 +80,9 @@ string rev(const string& s) { string t = s; reverse(t.begin(), t.end()); retur
 // -> compiler will choose this one if the argument might be used again later, which will safely copy the string's characters
 
 http://en.wikipedia.org/wiki/Streaming_SIMD_Extensions // SSE, MMX high performance instructions, e.g. prefetching with dcbt
+
+3rdparty/stout // includes Option, Result, Stopwatch, Try
+folly::fbvector > std::vector + other useful libs in facebook/folly // https://github.com/facebook/folly/blob/master/folly/docs/Overview.md
 
 // NVWA:
   * boolarray.h

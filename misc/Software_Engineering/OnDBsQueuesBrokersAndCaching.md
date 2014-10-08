@@ -2,7 +2,10 @@
 - [AOSA_NoSQL] : [The Architecture of Open Source Applications](http://www.aosabook.org) chapter dedicated to NoSQL
 
 ## Memory caching system
-memcached # for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
+memcached
+
+- for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
+- use a firewall !! -> beware security issues: http://www.slideshare.net/sensepost/cache-on-delivery
 
 _Redis_ **MULTI** allows to combine multiple operations atomically & consistently, and **WATCH** allows isolation. [AOSA]
 
@@ -55,6 +58,8 @@ LIKE >faster> REGEXP
 Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' is enabled on database and table names.
 
 [Unix SSH Auth](http://www.mon-code.net/article/72/utiliser-le-compte-linux-pour-se-connecter-de-facon-securise-a-mariadb-et-mysql-sans-mot-de-passe)
+
+[REST API for v>5.7](www.infoq.com/news/2014/09/MySQL-REST)
 
     cd $MYSQL_BASE_DIR
     bin/mysql_install_db --datadir=$OLDPWD/data

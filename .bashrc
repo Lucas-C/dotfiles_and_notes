@@ -1,13 +1,10 @@
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
+[ -e /etc/bashrc ] && source /etc/bashrc
+[ -e /etc/bash_completion ] && source /etc/bash_completion
 
 # if shell is not interactive, exit, as printing anything at this point will break 'scp'
 # also ensure that [[ =~ ]] is available
-if ! [[ $- =~ i ]]; then
-    return
-fi
+[[ $- =~ i ]] || return
 
 set -o pipefail
 

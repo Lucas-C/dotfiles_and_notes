@@ -1,3 +1,6 @@
+## HTTP
+- to check if a page exists without downloading it: use an HEAD request OR use an Etag + "If-None-Match" request -> HTTP 404 Not modified
+
 ## TCP
 - reception acknowledged, packets ordered
 - TCP's congestion avoidance algorithm causes the sender to reduce its sending rate by a factor of two when it sees a packet loss.

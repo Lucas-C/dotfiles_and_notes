@@ -10,6 +10,7 @@
 - [CRoTDD] : [CR over TDD](http://svenpet.com/2014/01/07/better-code-reviews/)
 - [JC-PI] : [John Carmack on Parallel Implementations](http://www.altdev.co/2011/11/22/parallel-implementations/)
 - [RobPikeKenThompson] : [What Rob Pike learned from KenThompson](http://www.informit.com/articles/article.aspx?p=1941206)
+- [The Problems With Acceptance Testing](http://www.jamesshore.com/Blog/The-Problems-With-Acceptance-Testing.html)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -138,7 +139,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 ## Code review > TDD [CRoTDD]
 * TDD: automated, easy to follow, autonomously done
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building)
-* Do it well: use tools; make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
+* Do it well: use proper tools, including automated static analysis (findbugs, checkstyle, syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
 
 ## General
 - Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
@@ -151,9 +152,39 @@ Don't use comments when you can use a function/variable to expresse the intent [
 
 - Avoid multiple languages in one source file [CC-G1]
 - Use the idioms of the programming language employed, aka "Don't write C code in Java"
-- When debugging, **THINK** before going on step-by-step debug mode [RobPikeKenThompson]
+- When debugging, **THINK** before going on step-by-step debug mode [RobPikeKenThompson]. [A longer quote on ptrint-traces debugging VS debuggers](http://taint.org/2007/01/08/155838a.html)
 
-## Fun facts
+## [On beeing a senior engineer](http://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/)
+- Mature engineers seek out constructive criticism of their designs.
+- Mature engineers understand the non-technical areas of how they are perceived.
+- Mature engineers do not shy away from making estimates, and are always trying to get better at it.
+- Mature engineers have an innate sense of anticipation, even if they don’t know they do.
+- Mature engineers understand that not all of their projects are filled with rockstar-on-stage work.
+- Mature engineers lift the skills and expertise of those around them.
+- Mature engineers make their trade-offs explicit when making judgements and decisions.
+- Mature engineers don’t practice CYAE (“Cover Your Ass Engineering”)
+- Mature engineers are empathetic.
+- Mature engineers don’t make empty complaints.
+- Mature engineers are aware of cognitive biases
+    * [Self-Serving Bias](http://en.wikipedia.org/wiki/Self-serving_bias)
+    * [Fundamental Attribution Error](http://www.kitchensoap.com/2012/09/10/fundamental-stress-strain-curves-in-web-engineering/)
+    * [Hindsight Bias ](http://en.wikipedia.org/wiki/Hindsight_bias)
+    * [Outcome Bias](http://en.wikipedia.org/wiki/Outcome_bias)
+    * [Planning Fallacy](http://en.wikipedia.org/wiki/Planning_fallacy)
+
+### The Ten Commandments of Egoless Programming
+- Understand and accept that you will make mistakes.
+- You are not your code.
+- No matter how much “karate” you know, someone else will always know more.
+- Don’t rewrite code without consultation.
+- Treat people who know less than you with respect, deference, and patience.
+- The only constant in the world is change. Be open to it and accept it with a smile.
+- The only true authority stems from knowledge, not from position.
+- Fight for what you believe, but gracefully accept defeat.
+- Don’t be “the coder in the corner.”
+- Critique code instead of people – be kind to the coder, not to the code.
+
+## Fun quotes
 - OCTDD : Obsessive Compulsive Test Driven Development
 - Doug McIlroy replacement for Donald Knuth's 10+ pages of Pascal illustrating literate programming: 6 lines of shell
 tr -cs A-Za-z '\n' |
@@ -162,3 +193,7 @@ sort |
 uniq -c |
 sort -rn |
 sed ${1}q
+- "The bearing of a child takes nine months, no matter how many women are assigned. Adding manpower to a late software project makes it later." Fred Brooks - "The Mythical Man-Month"
+- "Programmers always confuse Halloween with Christmas because Oct 31 == Dec 25"
+- "La Cathédrale et le Bazar" - Essai on Open Source & Proprietary Software
+

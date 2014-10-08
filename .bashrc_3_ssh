@@ -37,11 +37,13 @@ exportSshFiles () {      # export $SSH_EXPORT_FILES to a remote host $1
         local install_bash_cmd="
 find $tmp_dir -type f -exec chmod -w {} + ;
 [ -e $SSH_EXPORT_TMP_DIR ] || mkdir $SSH_EXPORT_TMP_DIR || exit 1 ;
-rsync -a $del_flag $tmp_dir/ $SSH_EXPORT_TMP_DIR
+rsync -a $del_flag $tmp_dir/ $SSH_EXPORT_TMP_DIR ;
 rm -rf $tmp_dir ;
 [ -e $dst_dir ] || ( sudo mkdir $dst_dir && sudo chown $USER $dst_dir ) || exit 1 ;
-rsync -a $del_flag $SSH_EXPORT_TMP_DIR/ $dst_dir
-rm -rf $SSH_EXPORT_TMP_DIR
+rsync -a $del_flag $SSH_EXPORT_TMP_DIR/ $dst_dir ;
+cd $dst_dir ;
+chmod 400 $SSH_EXPORT_FILES ;
+rm -rf $SSH_EXPORT_TMP_DIR ;
 "
 
         rsync -avz $del_flag $tmp_dir $dst_host:/tmp || return 1
