@@ -127,6 +127,7 @@ lse () {                # group files by their extension
 alias g='grep -i --color=always'
 gn () { cd $BASHRC_DIR; g -I "$@" $(git ls-files); }
 alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
+alias bzg='bzgrep -i --color=always'
 zgr () {
     local pattern=$1
     shift
@@ -137,10 +138,8 @@ zgr () {
 # git
 #-----
 alias gst='git status'
-alias gc='git checkout'
-alias ga='git add'
 alias gau='git add -u'
-alias gd='git diff'
+alias gdh='git diff HEAD'
 alias gdc='git diff --cached'
 alias gdp='git diff -U999999999 --no-color origin/mainline..HEAD'
 alias gl='git log'
@@ -413,9 +412,11 @@ proc_read_fd_progress () {   # args: $pid [$fd]
     ! [ -e $proc_fd ] && echo "fd=$fd is not a valid file descriptor in /proc/$pid/fd/" >&2 && return 2
     local fd_size=$(wc -c $proc_fd | awk '{print $1}')
     echo "Progress reading '$(readlink $proc_fd)':"
-    while [ -e $proc_fd ] && ! read -n 1 -t 1 dummy; do
-        local progress=$(cat /proc/$pid/fdinfo/$fd | grep ^pos | awk '{print $2}')
-        echo $((100 * $progress / $fd_size))
+    local percent_progress=0
+    while [ -e $proc_fd ] && [ "$percent_progress" -ne 100 ] && ! read -n 1 -t 1 dummy; do
+        local file_read_progress=$(grep ^pos /proc/$pid/fdinfo/$fd | awk '{print $2}')
+        percent_progress=$((100 * $file_read_progress / $fd_size))
+        echo $percent_progress
     done | progress_bar
 }
 

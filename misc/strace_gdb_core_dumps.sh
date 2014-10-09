@@ -38,18 +38,18 @@ echo  >> ~/.gdbinit
 echo 'set prompt \001\033[1;32m\002(gdb)\001\033[0m\002\040' >> ~/.gdbinit # add colored prompt, trick src: http://dirac.org/linux/gdb/
 # Alt: http://reverse.put.as/gdbinit/ 
 sudo chown root:root ~/.gdbinit
-gdb -p $PID # attach gdb
+gdb -p $pid # attach gdb
 pystack # get the python stack trace
 
 ulimit -c # check if core dumps are enabled
 ulimit -S -c unlimited && echo 'kernel.core_pattern = /tmp/core2' >>/etc/sysctl.conf # enable core dumps
-gdb -tui $prog /tmp/core.$PID # post-mortem debug of a prog compiled with -g
+gdb -tui $prog /tmp/core.$pid # post-mortem debug of a prog compiled with -g
 gcore $pid # memory core dump
 
 # get a core file for a running program
-gdb -batch -quiet -ex 'generate-core-file' -p PROGRAMPID # then manipulate with pstack, pmap
+gdb -p $pid -batch -quiet -ex 'generate-core-file' # then manipulate with pstack, pmap
 # get a stack trace for all threads
-gdb -batch -quiet -ex "thread apply all bt full" -p PROGRAMPID > program-backtrace.log
+gdb -p $pid -batch -quiet -ex "thread apply all bt full" > program-backtrace.log
 
 (gdb) help // or 'apropos'
 (gdb) run // or 'start' to add a breakpoint at the beggining
