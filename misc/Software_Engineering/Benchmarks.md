@@ -21,7 +21,7 @@ Geometric mean ({a1, a2, ..., an}) = sqrt[1/n](a1 * a2 * ... * an)
 ** Uncertainty on the expectation value : sigma = MAD / sqrt(N) where N is the number of remaining measurements). To get a %relative error -> sigma / mean
 
 * MAD = Median absolute deviation, !! NOT to be confused with the "Mean absolute difference"
-"Space-Efficient Online Computation of Quantile Summaries" : http://infolab.stanford.edu/~datar/courses/cs361a/papers/quantiles.pdf
+For space-effecient sketch / streaming algorithm to compute quantiles, cf. Algo_Notes.md
 For other measure of dispersion: https://en.wikipedia.org/wiki/Statistical_dispersion#Measures_of_statistical_dispersion
 
 

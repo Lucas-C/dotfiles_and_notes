@@ -580,6 +580,15 @@ GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF exten
 Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter # python crawling libs
 
 
+<!<! Apapapapache !>!>
+<\-\--------------/-/>
+source /etc/apache2/envvars && apache2 -V # -l -L -M
+APACHE_RUN_USER=www-data APACHE_RUN_GROUP=www-data apache2 -t && apache2ctl -S # check config
+vim /etc/apache2/sites-available/default-ssl
+service apache2 restart
+tail -F /var/log/apache2/*.log
+
+
 =cCcCcCc=
 # Cisco #
 =cCcCcCc=
@@ -684,6 +693,7 @@ yum provides $cmd
 dpkg -S /path/to/cmd
 rpm -qif $(which cmd)
 rpm -Uvh pkg.rpm # upgrade RPM
+apt-cache search $keyword
 apt-cache rdepends $pkg # list dependencies
 rpm -q --whatrequires $pkg # list dependencies
 

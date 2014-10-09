@@ -192,6 +192,22 @@ collections.deque # double-ended queue, with optional maximum length
 collections.Counter([...]).most_common(1) # dict subclass for integer values
 unique_id_map = collections.defaultdict(itertools.count().next) # will always return the same unique int when called on an object: unique_id_map['a'] == unique_id_map['a'] != unique_id_map['b']
 
+DanielStutzbach/blist > std list # kind of a rope
+pyropes # rope: binary tree-based data structure for efficiently storing and manipulating a very long string
+bitarray # array of booleans
+
+Banyan, mozman/bintrees, pytst, rbtree, scipy-spatial # binary, redblack, AVL, ternary-search & k-d trees
+
+marisa-trie, datrie, chartrie, hat-trie, pyjudy, biopython # Tries comparison: http://kmike.ru/python-data-structures/
+kmicke/DAWG # Directed Acyclic Word Graphs
+ahocorasick, acora # Aho-Corasick automaton : quick multiple-keyword search across text
+
+kayzh/LSHash # locality sensitive hashing
+
+bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra/, xmonader/pybloomfilter
+svpcom/hyperloglog # Super and Hyper Log Log Sketches
+jesperborgstrup/Py-IBLT # Invertible Bloom filter - Alt: http://code.activestate.com/recipes/577684-bloom-filter/
+
 l = ['a,b', 'c,d']
 from itertools import chain # also has iterator = count().next
 s = frozenset(chain.from_iterable(e.split(',') for e in l))
@@ -227,8 +243,6 @@ for index, item in enumerate(iterable): ...
 items = zip(xrange(0, len(ds)), ds) # lists, tuples & namedtuples
 items = d.iteritems() # dicts ( iteritems > items )
 
-jesperborgstrup/Py-IBLT # Invertible Bloom filter - Alt: http://code.activestate.com/recipes/577684-bloom-filter/
-
 
 """""""""""""
 "" dict & set
@@ -262,6 +276,7 @@ class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/r
 
 ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
 
+vaidik/commentjson
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Also: -mjson.tool
 
@@ -435,13 +450,14 @@ deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index t
 nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
 topia.termextract
 difflib # compare text/strings/sequences
-sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && sudo pip install sumy && sudo python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB
+sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && pip install sumy && python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB
 deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .ps ...
 
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 float("inf") # infinite !
 fractions
 statistics # Python 3
+kwgoodman/roly # moving window median algorithms - Also: quantile sketches algos in Algo_Notes.md
 
 scipy
     numpy # n-dimensional arrays
@@ -450,7 +466,7 @@ scipy
     matplotlib, prettyplotlib, mpld3, bokeh, vispy # 2d plotting
 
 SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
-python-graph-core, networkx # networks & graphs manipulation
+python-graph-core, networkx, igraph, graph-tool # networks & graphs manipulation
 
 deap # genetic programming
 cvxopt # convex optimization
@@ -461,6 +477,7 @@ joblib # memoize computations by keeping cache files on disk
 rpy2 # acces to R
 
 from cryptography.fernet import Fernet # symmetric encryption
+mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments by signing content
 
 
 """""""""""""""""""""
@@ -475,8 +492,9 @@ Jython / Py4J # intercommunicate with Java
 Numba # NumPy aware dynamic Python compiler using LLVM
 Pyston # VM using LLVM JIT
 
-virtualenv # sandbox
-pip # > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
+virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
+pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
+pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 scales # metrics for Python
@@ -590,7 +608,7 @@ requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=tr
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 kevin1024/vcrpy # record / replay HTTP interactions
 
-bottle, pyramid, flask # Web frameworks
+bottle, pyramid, flask, web.py # Web frameworks
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
 import re, SimpleHTTPServer, SocketServer
