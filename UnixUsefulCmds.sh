@@ -36,7 +36,7 @@ SHR: how much of the VIRT size is actually sharable memory or libraries
 SWAP: bogus
 pstree -p [$OPT_PID] # hierarchy of processes
 
-pidof $process_name
+pidof $process_name # also: pgrep -f
 pid -o comm= -p $PPID # get process name - Also: /proc/$pid/{cmdline,comm,exe}
 pwdx $pid # get process working directory - Alt: file /proc/$pid/cwd
 
@@ -587,6 +587,7 @@ APACHE_RUN_USER=www-data APACHE_RUN_GROUP=www-data apache2 -t && apache2ctl -S #
 vim /etc/apache2/sites-available/default-ssl
 service apache2 restart
 tail -F /var/log/apache2/*.log
+a2enmod / a2dismod $modname  # enable / disable std modules
 
 
 =cCcCcCc=
@@ -860,6 +861,8 @@ import -display :0.0 -window root screenshot.png # Alt: gnome-screenshot --inter
 animate -delay 5 *.png
 compare img1 img2
 composite # merge images
+
+gifsicle "$gif" -I | sed -ne 's/.* \([0-9]\+\) images/\1/p' # frames count
 
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
 

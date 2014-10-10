@@ -465,6 +465,26 @@ whiteboard_picture_cleaner () { # args: $original_img_file $output_file - use Im
     convert "$1" -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 "$2";
 }
 
+gif_framecount_reducer () {
+    local orig_gif="${1?'Missing GIF filename parameter'}"
+    local reduction_factor=${2?'Missing reduction factor parameter'}
+    local orig_delay=$(gifsicle -I "$orig_gif" | sed -ne 's/.*delay \([0-9.]\+\)s/\1/p' | uniq)
+    [ $(echo "$orig_delay" | wc -l) -ne 1 ] \
+        && echo "Input GIF doesn't have a fixed framerate" >&2 \
+        && return 1
+    local fps=$(echo "(1/$orig_delay)/$reduction_factor" | bc)
+    local tmp_frames_prefix="/var/tmp/${orig_gif%.*}_"
+    local sel_frames_prefix="/var/tmp/sel_${orig_gif%.*}_"
+    convert "$orig_gif" -coalesce +adjoin "$tmp_frames_prefix%05d.gif"
+    local frames_count=$(ls "$tmp_frames_prefix"*.gif | wc -l)
+    for i in $(seq 0 $reduction_factor $((frames_count-1))); do
+        local suffix=$(printf "%05d.gif" $i)
+        ln -s "$tmp_frames_prefix$suffix" "$sel_frames_prefix$suffix"
+    done
+    convert -delay $fps "$sel_frames_prefix"*.gif "${orig_gif%.*}_reduced_x${reduction_factor}.gif"
+    rm "$tmp_frames_prefix"*.gif "$sel_frames_prefix"*.gif
+}
+
 tstp () {               # timestamp converter
     echo $@ | gawk '{print strftime("%c", $0)}'
     # Or date -d @$TIMESTAMP but neither work on OSX

@@ -61,6 +61,8 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
 
 [REST API for v>5.7](www.infoq.com/news/2014/09/MySQL-REST)
 
+    mysqladmin --defaults-file=/etc/mysql/debian.cnf status # mysqladmin config file can be found in /etc/init.d/mysql, along MySQL own one: /etc/mysql/my.cnf
+
     cd $MYSQL_BASE_DIR
     bin/mysql_install_db --datadir=$OLDPWD/data
     bin/mysqld_safe --datadir=$OLDPWD/data &
