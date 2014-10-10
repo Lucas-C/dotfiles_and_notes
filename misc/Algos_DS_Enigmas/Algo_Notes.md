@@ -8,11 +8,11 @@ Trie / directed acyclic graph can be + efficient than binary search trees / hash
 
 Test set membership aka sketching data structures:
 - Bloom filters : http://crystal.uta.edu/~mcguigan/cse6350/papers/Bloom.pdf - http://corte.si/%2Fposts/code/bloom-filter-rules-of-thumb/index.html - Invertible: http://arxiv.org/pdf/1101.2245v2.pdf (cf. Python implementations)
-- Count-Mink sketch (+ Bloom filter explanation) : http://lkozma.net/blog/sketching-data-structures/
-- Use prime numbers to represent set elements : http://www.stdlib.net/~colmmacc/2010/09/02/prime-and-proper/
+- Count-Mink sketch explanation: http://research.neustar.biz/2011/09/13/streaming-algorithms-and-sketches/ ; another, with Bloom filter too: http://lkozma.net/blog/sketching-data-structures/
+- Use prime numbers to represent set elements: http://www.stdlib.net/~colmmacc/2010/09/02/prime-and-proper/
 - with time decay: [Flower Filter](http://eng.kifi.com/flower-filter-an-update/)
 
-Streaming algorithms:
+(Frugal) streaming algorithms:
 - Space-efficient quantiles computation / moving_window median algorithms
     * [Space-Efficient Online Computation of Quantile Summaries](http://infolab.stanford.edu/~datar/courses/cs361a/papers/quantiles.pdf)
     * [Quantiles on Streams](http://www.cs.ucsb.edu/~suri/psdir/ency.pdf) 
