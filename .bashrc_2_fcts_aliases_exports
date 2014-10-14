@@ -9,7 +9,9 @@ PATH=/usr/local/bin:$PATH
 PATH=/usr/local/sbin:$PATH
 PATH=$BASHRC_DIR/bin:$PATH
 
-export DISPLAY=:0 # for xclip
+export DISPLAY=:0 # for xclip, can be checked with 'w' cmd
+
+export LOG=1 # for notify-osd
 
 export LANG=C # makes many string-parsing tools faster: grep, sed...
 
@@ -77,17 +79,17 @@ alias tF='tail -F'      # Alt: less + /search + SHIFT-F
 #---------------
 # Alias control
 #---------------
-pa () {                 # print aliases
+pa () { # print aliases
     grep --color -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bashrc*
     grep --color '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
 }
 
 alias nofuncalias='type -P'
-unfuncalias () {            # undefined any function/alias named as arg
+unfuncalias () { # undefined any function/alias named as arg
     unset -f "$@"; unalias "$@" 2>/dev/null
 }
 
-alias_r () {            # recursively resolve an alias, handle pipes and nested aliases
+alias_r () { # recursively resolve an alias, handle pipes and nested aliases
     local cmd=$1
     local end_of_cmd
     while alias $cmd >/dev/null 2>&1; do
@@ -114,10 +116,10 @@ alias lt='ll -rt'       # sort by date, oldest first
 alias lc='ll -rtc'      # sort by and show change time, oldest first
 alias lu='ll -rtu'      # sort by and show access time, oldest first
 alias lr='ll -R'        # recursive ls
-lsp () {                # group files by their prefix
+lsp () { # group files by their prefix
     LANG=en_US.UTF-8 ls -AB1 $@ | sed 's/\(.[^.]\+\).*/\1/' | sort | uniq -c
 }
-lse () {                # group files by their extension
+lse () { # group files by their extension
     LANG=en_US.UTF-8 ls -AB1 $@ | awk -F'.' '{print $NF}' | sort | uniq -c
 }
 
@@ -225,7 +227,7 @@ if [ -e /proc/uptime ]; then
     }
 fi
 
-man () {               # colored manual with 'help' as a fallback
+man () { # colored manual with 'help' as a fallback
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
         LESS_TERMCAP_md=$(printf "\e[1;31m") \
@@ -242,7 +244,7 @@ man () {               # colored manual with 'help' as a fallback
 #    rsync_massive_mv_tip "$@" || /bin/mv "$@"
 #}
 
-rsync_massive_mv_tip () {       # 'mv' suggesting 'rsync' for 'massive' src files & different partitions
+rsync_massive_mv_tip () { # 'mv' suggesting 'rsync' for 'massive' src files & different partitions
     _get_cp_mv_src_args "$@" >/dev/null || return 1
     _is_massive_cp_mv_src "$@" || return 2
     local src_args_partitions=$(_get_cp_mv_src_args "$@" | xargs df -P | sort | uniq | sed '$d' | awk '{print $1}')
@@ -262,7 +264,7 @@ If you want to ignore my advice, simply run:
 EOF
 }
 
-#cp () {                 # 'cp' suggesting 'rsync' to follow progress for 'massive' src files
+#cp () { # 'cp' suggesting 'rsync' to follow progress for 'massive' src files
 #    rsync_massive_cp_tip "$@" || /bin/cp "$@"
 #}
 
@@ -276,7 +278,7 @@ If you want to ignore my advice, simply run:
 EOF
 }
 
-_is_massive_cp_mv_src () {      # 'massive' means >1000 files OR >100Mo
+_is_massive_cp_mv_src () { # 'massive' means >1000 files OR >100Mo
     [ -z "$1" ] && return 1
     local files_count_max_1000=$(_get_cp_mv_src_args "$@" | while read file; do find "$file" -type f; done | head -n 1000 | wc -l)
     [ ${files_count_max_1000:-0} -eq 1000 ] && return 0
@@ -311,8 +313,7 @@ _get_cp_mv_dst_arg () {
     fi
 }
 
-cp_p()                  # 'cp' showing progress, but slower than rsync and less portable. Alt: Xfennec/cv
-{
+cp_p () { # 'cp' showing progress, but slower than rsync and less portable. Alt: Xfennec/cv
     strace -q -e write cp -- "${1}" "${2}" 2>&1 | awk '{
         if (NR % int(total_size / 409600) == 0) {
             percent = NR * 409600 / total_size
@@ -327,7 +328,7 @@ cp_p()                  # 'cp' showing progress, but slower than rsync and less 
     } END { print "" }' total_size=$(stat -c '%s' "${1}")
 }
 
-touch () {              # touch [EPOCH] [+/-$modifier] $files
+touch () { # touch [EPOCH] [+/-$modifier] $files
     local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
     if [ "$(echo $1 | lower)" = "epoch" ]; then
         yymm=7001
@@ -365,13 +366,13 @@ pdf_pages_extract () {
         -sOutputFile="${filename%.pdf}_p${first_page}-p${last_page}.pdf" "$filename"
 }
 
-findTxt () {            # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
+findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
     find -L "${@:-.}" -type f -exec file {} \; | grep text | sed 's/^\(.*\): .*$/\1/'
 }
 # Tests:
 # - VALID: file.py: a adhoc-python2.7 script text executable
 
-notabs () {             # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces
+notabs () { # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces
     for f in $(findTxt "$@"); do
         perl -pi -e 's/[\t ]*$//g' "$f" # 'perl -p' is more portable than sed (e.g. \t\n does not work under OSX)
         perl -pi -e 's/\t/    /g' "$f"
@@ -390,7 +391,7 @@ mtr_proto () {
 }
 
 FIFTY_NON_SHADY_NOR_GREY_HASHES='##################################################'
-progress_bar () {       # receive a serie of integers in {1..100} as input and update a unique progress bar line accordingly
+progress_bar () { # receive a serie of integers in {1..100} as input and update a unique progress bar line accordingly
     local percent
     while read percent; do
         printf "\r%-50s (%-3s%%)" ${FIFTY_NON_SHADY_NOR_GREY_HASHES:0:$((percent / 2))} $percent
@@ -398,7 +399,7 @@ progress_bar () {       # receive a serie of integers in {1..100} as input and u
     echo
 }
 
-proc_read_fd_progress () {   # args: $pid [$fd]
+proc_read_fd_progress () { # args: $pid [$fd]
     # FROM: https://blogs.oracle.com/ksplice/entry/solving_problems_with_proc
     local pid=${1:?'Missing pid first argument'}
     ! [ -e /proc/$pid/ ] && echo "No process found with PID=$pid" >&2 && return 1
@@ -420,13 +421,13 @@ proc_read_fd_progress () {   # args: $pid [$fd]
     done | progress_bar
 }
 
-memmost() {     # args: [proc_count=10] - Courtesy of fsquillace@
+memmost() { # args: [proc_count=10] - Courtesy of fsquillace@
     local ps_out=$(psf)
     echo "$ps_out" | head -n 1
     echo "$ps_out" | sort -nr -k 4 | head -n ${1:-10}
 }
 
-cpumost() {     # args: [proc_count=10] - Courtesy of fsquillace@
+cpumost() { # args: [proc_count=10] - Courtesy of fsquillace@
     local ps_out=$(psf)
     echo "$ps_out" | head -n 1
     echo "$ps_out" | sort -nr -k 3 | head -n ${1:-10}
@@ -442,11 +443,11 @@ ppid () {
 # But differents if invoked in a $(cmd) or sourced.
 
 unfuncalias alert
-alert () {                  # USAGE: $long_cmd; alert
+alert () { # USAGE: $long_cmd; alert - Logs: ~/.cache/notify-osd.log
     notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')";
 }
 
-timeout () {            # Alternative to coreutils 'timeout'
+timeout () { # Alternative to coreutils 'timeout'
     if [ "${1:-}" = "-h" -o "${1:-}" = "--help" ]; then 
         printf "USAGE: timeout [--no-msg] \$delay_in_seconds \$cmd\n  \$cmd can start with 'exec' to avoid creating a new process\n"
         return
@@ -465,33 +466,39 @@ whiteboard_picture_cleaner () { # args: $original_img_file $output_file - use Im
     convert "$1" -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 "$2";
 }
 
-gif_framecount_reducer () {
+gif_framecount_reducer () { # args: $gif_path $frames_reduction_factor  
     local orig_gif="${1?'Missing GIF filename parameter'}"
     local reduction_factor=${2?'Missing reduction factor parameter'}
+    # Extracting the delays between each frames
     local orig_delay=$(gifsicle -I "$orig_gif" | sed -ne 's/.*delay \([0-9.]\+\)s/\1/p' | uniq)
+    # Ensuring this delay is constant
     [ $(echo "$orig_delay" | wc -l) -ne 1 ] \
         && echo "Input GIF doesn't have a fixed framerate" >&2 \
         && return 1
-    local fps=$(echo "(1/$orig_delay)/$reduction_factor" | bc)
+    # Computing the current and new FPS
+    local new_fps=$(echo "(1/$orig_delay)/$reduction_factor" | bc)
+    # Exploding the animation into individual images in /var/tmp
     local tmp_frames_prefix="/var/tmp/${orig_gif%.*}_"
-    local sel_frames_prefix="/var/tmp/sel_${orig_gif%.*}_"
     convert "$orig_gif" -coalesce +adjoin "$tmp_frames_prefix%05d.gif"
     local frames_count=$(ls "$tmp_frames_prefix"*.gif | wc -l)
+    # Creating a symlink for one frame every $reduction_factor
+    local sel_frames_prefix="/var/tmp/sel_${orig_gif%.*}_"
     for i in $(seq 0 $reduction_factor $((frames_count-1))); do
         local suffix=$(printf "%05d.gif" $i)
         ln -s "$tmp_frames_prefix$suffix" "$sel_frames_prefix$suffix"
     done
-    convert -delay $fps "$sel_frames_prefix"*.gif "${orig_gif%.*}_reduced_x${reduction_factor}.gif"
+    # Assembling the new animated GIF from the selected frames
+    convert -delay $new_fps "$sel_frames_prefix"*.gif "${orig_gif%.*}_reduced_x${reduction_factor}.gif"
+    # Cleaning up
     rm "$tmp_frames_prefix"*.gif "$sel_frames_prefix"*.gif
 }
 
-tstp () {               # timestamp converter
+tstp () { # timestamp converter
     echo $@ | gawk '{print strftime("%c", $0)}'
     # Or date -d @$TIMESTAMP but neither work on OSX
 }
 
-kill_cmd ()             # WIP - Kill every process starting with the pattern passed as a parameter
-{
+kill_cmd () { # WIP - Kill every process starting with the pattern passed as a parameter
     while true; do
         local pid=$(ps -eo pid,args | egrep -e "[0-9]* /bin/bash $1" | grep -v grep | grep -o '[0-9]*')
         echo "Killing $(ps -eo pid,args | egrep -e "[0-9]* /bin/bash $1" | grep -v grep)"

@@ -34,10 +34,18 @@ Hex-Rays IDA, Radare # disassemblers
 # 0xBADDCAFE 0xD15EA5E
 # Alt: Oracle dbx
 curl -s http://svn.python.org/projects/python/trunk/Misc/gdbinit > ~/.gdbinit
-echo  >> ~/.gdbinit
-echo 'set prompt \001\033[1;32m\002(gdb)\001\033[0m\002\040' >> ~/.gdbinit # add colored prompt, trick src: http://dirac.org/linux/gdb/
-# Alt: http://reverse.put.as/gdbinit/ 
+cat <<END >> ~/.gdbinit
+
+# Custom configuration by USER=$USER
+set history save
+set history filename ~/.gdb_history
+## Now add a colored prompt, trick src: http://dirac.org/linux/gdb/ - Alt: http://reverse.put.as/gdbinit/ 
+set prompt \001\033[1;32m\002(gdb)\001\033[0m\002\040
+END
 sudo chown root:root ~/.gdbinit
+
+sudo chmod +s /usr/bin/gdb # in case GDB fails attaching to a process with "ptrace: Operation not permitted"
+
 gdb -p $pid # attach gdb
 pystack # get the python stack trace
 

@@ -84,7 +84,8 @@ sudo aptitude update && sudo aptitude install weechat python-xmpp # Alt: irssi b
 weechat --run-command '/set;/quit' > ~/dump-weechat-config
 http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdata.py'
 
-gsettings set com.canonical.Unity.Lenses disabled-scopes "['more_suggestions-amazon.scope', 'more_suggestions-u1ms.scope', 'more_suggestions-populartracks.scope', 'music-musicstore.scope', 'more_suggestions-ebay.scope', 'more_suggestions-ubuntushop.scope', 'more_suggestions-skimlinks.scope']"
+# http://www.techrepublic.com/blog/linux-and-open-source/pro-tip-remove-product-suggestions-from-ubuntu-unity-search-results/
+System Settings > Security & Privacy > Search > Include online search results Off
 
 # Change desktop directory
 ~/.config/user-dirs.dirs # edit XDG_DESKTOP_DIR
@@ -95,3 +96,6 @@ http://askubuntu.com/questions/189410/how-do-i-reinstall-windows-7-while-keeping
 ntfs-3g # IT POTENTIALLY KILL WIN7, PROCEED WITH CAUTION !
 
 radiotray # Radios FR: http://www.xcfa.tuxfamily.org/static5/liens#RadioTray
+
+sudo dpkg-reconfigure postfix # -> then configure local emails only => create /etc/postfix/main.cf
+sudo aptitude install mailutils # provides 'mail' command

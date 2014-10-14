@@ -207,3 +207,5 @@ Esprima // ECMAScript parser
 
 CommonMark // https://github.com/jgm/stmd/blob/master/js/stmd.js
 cemerick/jsdifflib
+
+jasondavies/d3-cloud // word clouds generator

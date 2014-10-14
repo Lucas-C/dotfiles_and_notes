@@ -251,6 +251,7 @@ syslogd -m 0 -r -SS # port: 514
 logger -is -t SCRIPT_NAME -p user.warn "Message"
 echo "<15>My logline" | nc -u -w 1 $HOSTNAME 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13 <-> user.notice
 time tcpdump udp and dst port 514 | awk '{print $3" "$7}' | sed 's/\.syslog//' > noisy_devices
+logcheck, logtail
 petit --hash /var/log/messages # Cmdline log analyze, also --wordcount. Alt: lnav ; sysdig -c spy_syslog
 
 #   --reject doesn't apply to the whole path, only to the filename/query
@@ -509,7 +510,57 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
+iptables -A INPUT -s $host -j DROP
+iptables -A INPUT -p tcp -m tcp --dport 8888 -j ACCEPT
+iptables -nvL --line-numbers # Also: iptables-save
+iptables -D INPUT $rule_number
+iptables -A INPUT/OUTPUT -m state --state NEW -j LOG # tracing connexion attempts -> /var/log/iptables.log
+
+snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName.0 - Alt: snmpbulkwalk -> gets all OOIDs
+# SNMP port : 161
+# LAG == Link Aggregation
+
+nc -l -p 7777 > /dev/null # on receiver machine
+pv -btr /dev/zero | nc $host 7777 # show live throughput between two machines
+yes | pv -btr | ssh $host 'cat > /dev/null' # same through SSH
+
+grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
+
+# Find wireless driver
+lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
+
+# Non portable tools
+slurm, iptraf, ntop, iftop, nethogs
+iperf # measure throughput between 2 points / saturate a network connection -> useful for testing
+mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
+
+ipcalc < cidr $ip/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
+
+/etc/ssmtp/{revaliases,ssmtp.conf} # Configure 'mail' command
+
+w3m > elinks > links > lynx # http://askubuntu.com/questions/15988/browse-internet-inside-terminal
+lynx -dump -stdin # convert HTML to text
+wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: axel.alioth.debian.org - can use multiple connections (and mirrors) to download one file
+  -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
+  -k --convert-links : convert the links in the document to make them suitable for local viewing
+  --no-parent : do not ever ascend to the parent directory when retrieving recursively
+  -A --accept acclist -R --reject rejlist : comma-separated list of filename suffixes or patterns to accept or reject
+  -l --level=depth : default = 5
+  -c --continue : continue getting a partially-downloaded file
+  --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
+curl # http://curl.haxx.se/docs/httpscripting.html
+# Web scrapping:
+httrack
+Xvfb, xdummy
+PhantomJS, SlimerJS, CasperJS
+GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
+Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter # python crawling libs
+
+_'_"_'_"_'_"_'_"_'_"_'_"_
+#    ssh@  SSH  :ssh    #
+-"-'-"-'-"-'-"-'-"-'-"-'-
 keithw/mosh # faster 'ssh' replacement that allows the client and server to "roam" and change IP addresses, while keeping the connection alive
+liftoff/GateOne # HTML5-powered terminal emulator and SSH client - Also: http://en.wikipedia.org/wiki/Comparison_of_SSH_clients#Platform
 cat ~/.ssh/id_rsa.pub | ssh $user@$host "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" # Alt: ssh-copy-id $user@$host
 ssh $host "$(printf "%q" $(cat script.sh))" # %q adds escapes to any string
 ssh $host "$cmds ; /bin/bash -i" # Keep ssh session open after executing commands
@@ -532,54 +583,8 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
  -m 2 \ # run on two hosts concurrently
  -h rpi-1 rpi-2 \ # hostnames
  -c "$cmd"
-# http://en.wikipedia.org/wiki/Comparison_of_SSH_clients#Platform
 
-iptables -nvL --line-numbers # Also: iptables-save
-iptables -A INPUT -s $host -j DROP
-
-snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName.0 - Alt: snmpbulkwalk -> gets all OOIDs
-# SNMP port : 161
-# LAG == Link Aggregation
-
-nc -l -p 7777 > /dev/null # on receiver machine
-pv -btr /dev/zero | nc $host 7777 # show live throughput between two machines
-yes | pv -btr | ssh $host 'cat > /dev/null' # same through SSH
-
-grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
-
-# Find wireless driver
-lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
-
-# Non portable tools
-slurm, iptraf, ntop, iftop, nethogs
-iperf # measure throughput between 2 points / saturate a network connection -> useful for testing
-mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
-
-ipcalc < cidr $ip/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
-
-# Configure 'mail' command
-/etc/ssmtp/revaliases
-/etc/ssmtp/ssmtp.conf
-
-w3m > elinks > links > lynx # http://askubuntu.com/questions/15988/browse-internet-inside-terminal
-lynx -dump -stdin # convert HTML to text
-wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: axel.alioth.debian.org - can use multiple connections (and mirrors) to download one file
-  -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
-  -k --convert-links : convert the links in the document to make them suitable for local viewing
-  --no-parent : do not ever ascend to the parent directory when retrieving recursively
-  -A --accept acclist -R --reject rejlist : comma-separated list of filename suffixes or patterns to accept or reject
-  -l --level=depth : default = 5
-  -c --continue : continue getting a partially-downloaded file
-  --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
-curl # http://curl.haxx.se/docs/httpscripting.html
-# Web scrapping:
-httrack
-Xvfb, xdummy
-PhantomJS, SlimerJS, CasperJS
-GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
-Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter # python crawling libs
-
-
+</-/--------------\-\>
 <!<! Apapapapache !>!>
 <\-\--------------/-/>
 source /etc/apache2/envvars && apache2 -V # -l -L -M
