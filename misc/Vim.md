@@ -2,6 +2,7 @@
 
 Files
 =====
+- vim __can open__ .gz files
 - *:w* __new_filename__ : save a copy and keep working on original
 - *vim -r* __file.swp__ : restore a file after a crash
 - *vim -p* __{files}__ : open multiple files in tabs

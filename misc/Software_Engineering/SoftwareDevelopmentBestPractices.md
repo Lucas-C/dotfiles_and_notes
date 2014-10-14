@@ -166,11 +166,13 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - Mature engineers are empathetic.
 - Mature engineers don’t make empty complaints.
 - Mature engineers are aware of cognitive biases
-    * [Self-Serving Bias](http://en.wikipedia.org/wiki/Self-serving_bias)
+    * [Self-Serving Bias](//en.wikipedia.org/wiki/Self-serving_bias)
     * [Fundamental Attribution Error](http://www.kitchensoap.com/2012/09/10/fundamental-stress-strain-curves-in-web-engineering/)
-    * [Hindsight Bias ](http://en.wikipedia.org/wiki/Hindsight_bias)
-    * [Outcome Bias](http://en.wikipedia.org/wiki/Outcome_bias)
-    * [Planning Fallacy](http://en.wikipedia.org/wiki/Planning_fallacy)
+    * [Hindsight Bias ](//en.wikipedia.org/wiki/Hindsight_bias)
+    * [Outcome Bias](//en.wikipedia.org/wiki/Outcome_bias)
+    * [Planning Fallacy](//en.wikipedia.org/wiki/Planning_fallacy)
+    * [Belief bias](//en.wikipedia.org/wiki/Belief_bias)
+    * [Confirmation bias](//en.wikipedia.org/wiki/Confirmation_bias) & [Experimenter's bias](//en.wikipedia.org/wiki/Experimenter%27s_bias)
 
 ### The Ten Commandments of Egoless Programming
 - Understand and accept that you will make mistakes.
@@ -196,4 +198,4 @@ sed ${1}q
 - "The bearing of a child takes nine months, no matter how many women are assigned. Adding manpower to a late software project makes it later." Fred Brooks - "The Mythical Man-Month"
 - "Programmers always confuse Halloween with Christmas because Oct 31 == Dec 25"
 - "La Cathédrale et le Bazar" - Essai on Open Source & Proprietary Software
-
+- the phrase software "patch" is from a physical patch applied to Mark 1 paper tape to modify the program: https://chezsoi.org/lucas/ThePatch.jpg

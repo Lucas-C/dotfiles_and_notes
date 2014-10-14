@@ -465,6 +465,8 @@ scipy
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
     matplotlib, prettyplotlib, mpld3, bokeh, vispy # 2d plotting
 
+riccardoscalco/Pykov # markov chains
+
 SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
 python-graph-core, networkx, igraph, graph-tool # networks & graphs manipulation
 
@@ -527,7 +529,7 @@ paramiko # remote SSH/SFTP connexion
 celery # distributed task queue ; montoring: mher/flower; alt: pyres
 sched # event scheduler ; alt: fengsp/plan, crontabber, dagobah/schedule
 zeromq, aiozmq, mrq # distributed app / msg passing framework
-ampqlib, haigha # AMPQ libs
+ampqlib, haigha, puka # AMPQ libs
 
 mrjob, luigi # Hadoop / AWS map-reduce jobs
 
@@ -566,6 +568,7 @@ tqdm # KISS progress bar
 code.InteractiveConsole().interact() # interactive python prompt 
 pyreadline, readline, rlcompleter
 termcolor, colorama # cross-platform colored terminal text
+PrettyTable # pretty ASCII tables output
 
 @retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
 
