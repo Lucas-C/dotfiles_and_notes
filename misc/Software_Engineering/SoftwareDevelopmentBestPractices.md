@@ -12,6 +12,7 @@
 - [RobPikeKenThompson] : [What Rob Pike learned from KenThompson](http://www.informit.com/articles/article.aspx?p=1941206)
 - [The Problems With Acceptance Testing](http://www.jamesshore.com/Blog/The-Problems-With-Acceptance-Testing.html)
 - [Cyclomatic] : [Quantifying the effect of TDD](http://www.keithbraithwaite.demon.co.uk/professional/presentations/2008/qcon/MeasureForMeasure.pdf) & [Cyclomatic complexity measure](http://www.keithbraithwaite.demon.co.uk/professional/software)
+- [CRTP] : [Code review - Tools an process](http://www.slideshare.net/rantav/code-review) slides
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -140,7 +141,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 ## Code review > TDD [CRoTDD]
 * You **need** TDD !! (or at least some kind of automated systematic testing) [QETDDM]
 * TDD: automated, easy to follow, autonomously done
-* CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building)
+* CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
 * Do it well: use proper tools, including automated static analysis (findbugs, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
 
 ## General

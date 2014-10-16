@@ -141,12 +141,12 @@ zgr () {
 # git
 #-----
 alias gst='git status'
-alias gau='git add -u'
+alias gau='git add --update .'
 alias gdh='git diff HEAD'
 alias gdc='git diff --cached'
-alias gdp='git diff -U999999999 --no-color origin/mainline..HEAD'
+alias gdp='git diff -U999999999 --no-color HEAD'
 alias gl='git log'
-alias gll='git log origin/mainline..HEAD' # local commits only
+alias gll='git log HEAD' # local commits only
 alias gri='git rebase --interactive'
 alias gpr='git pull --rebase'
 
@@ -156,7 +156,16 @@ alias gpr='git pull --rebase'
 alias e='$EDITOR'
 alias b='cd -'
 f () { ( nohup firefox "$@" >~/firefox.log 2>&1 & ); }
-t () { date +"# Started: %c - %s" ; "$@"; date +"# Ended  : %c - %s"; } # Execute some cmd with start/end timestamps
+t () { # Execute some cmd with start/end timestamps
+    date +"# Started: %c - @%s"
+    local start_time=$(date +%s)
+    "$@"
+    local retcode=$?
+    local end_time=$(date +%s)
+    date +"# Ended  : %c - @%s - Elapsed: $((end_time - start_time))s"
+    $(exit $retcode)
+}
+alias a=assert
 
 #---------
 # Languages
@@ -348,10 +357,18 @@ ppid () {
 unfuncalias alert
 alert () { # USAGE: cmd; alert $ [OR] cmd <CTRL-z> bg; wait %1; alert
     local retcode=$?
+    local history_last2lines=$(history | tail -n2 | sed -e 's/^\s*[0-9]\+\s*//')
     local header="RETCODE $retcode"
     type -p figlet >/dev/null && header=$(figlet $header)
-    type -p play >/dev/null && play -n synth 0.1 tri 1000
-    xmessage -center "$header$(echo; echo $@; echo; history | tail -n2 | sed -e 's/^\s*[0-9]\+\s*//')";
+    type -p play >/dev/null && play -n synth 0.1 tri 1000 2>/dev/null
+    echo -e "$header\n$@\n\n$history_last2lines" | xmessage -center -file -
+    $(exit $retcode)
+}
+
+assert () { # args: cmd arg*
+    t "$@"
+    local retcode=$?
+    test $retcode -eq 0 || alert "Assertion failed"
     $(exit $retcode)
 }
 

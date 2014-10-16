@@ -114,7 +114,7 @@ set - A B C
 : ${1:?'Missing or empty parameter'}
 : ${var:="new value set if empty"}
 local var=${1:-"default value"}
-# !! 'local' is a command, and its return code will shadow the one of the cmd in the right part of an assignment
+foo () { local x=$(false); echo $?; }; foo # -> 0 !!GOTCHA!! 'local' is also a command, and its return code shadows the one of the cmd invoked
 
 echo ${PWD//\//-} # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 ${var%?} # Remove the final character of var
@@ -240,7 +240,7 @@ shopt -s extglob # http://www.linuxjournal.com/content/bash-extended-globbing
 shopt [-o] # list options values. Alt: $- E.g. check if shell is interactive: [[ $- =~ i ]] - Also, is stdin open in a terminal: [ -t 0 ]
 
 ( set -o posix; set ) # List all defined variables
-foo=bar; foo () { :; } ; unset foo # Gotcha : the variable is unset first, then the function if called a 2nd time
+foo=bar; foo () { :; } ; unset foo # !!GOTCHA!! the variable is unset first, then the function if called a 2nd time
 # Get all commands prefixed by (useful for unit tests)
 compgen -abck unit_test_ # control readline auto-completion (help complete), can be enable by '-e' flag of 'read'
 complete -f -X '!*.ext' command # exclude files using a filter
@@ -902,7 +902,7 @@ define:$term
 related:$url
 link:$url # Search for pages that link to a URL
 
-youtube-dl -x FLF8xTv55ZmwikWWmWLPEAZQ # download playlist as audio files only
+youtube-dl --ignore-errors --extract-audio FLF8xTv55ZmwikWWmWLPEAZQ # download playlist as .m4a files - in case of HTTP error 500, try -f18
 
 # Snippet-search
 cse_id=003799500572498885021:6zbuscnifvi
