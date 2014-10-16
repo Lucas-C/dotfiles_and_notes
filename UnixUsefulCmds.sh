@@ -316,7 +316,7 @@ grep -a # if "Binary file (standard input) matches"
 grep -q # silent, !! FAIL with SIGPIPE if 'pipefail' is used: http://stackoverflow.com/a/19120674/636849
 grep '\<word\>' # match word-boundaries
 grep -I # ignore binary files
-grep -R --include='*.py' --exclude='/build/'
+grep -R --include='*.py' --exclude-dir='build/'
 grep -o # output only matching parts
 grep -C3 # output 3 lines of context, see also -B/-A
 grep -H/-h # output with/without filename
@@ -446,7 +446,7 @@ sha{1,224,256,384,512}sum, md5sum, cksum
 mtr $host > ping / traceroute
 paris-traceroute > traceroute
 
-socat > nc (netcat) > telnet # prefix with rlwrap !
+socat > nc (netcat) > telnet # prefix with rlwrap ! Alt: stone -> a TCP/IP packet repeater in the application layer, avoid forking for each packet received
 socat - udp4-listen:5000,fork # create server redirecting listening on port 5000 output to terminal
 nc -l -u -k -w 1 5000
 echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
@@ -514,7 +514,10 @@ iptables -A INPUT -s $host -j DROP
 iptables -A INPUT -p tcp -m tcp --dport 8888 -j ACCEPT
 iptables -nvL --line-numbers # Also: iptables-save
 iptables -D INPUT $rule_number
-iptables -A INPUT/OUTPUT -m state --state NEW -j LOG # tracing connexion attempts -> /var/log/iptables.log
+# Logging: connexion attempts will be traced in dmesg and, depending on syslog config, /var/log/kern.log
+iptables -j LOG --log-level debug --log-prefix='[iptableslog] [dropped] ' -m limit --limit 1/sec --log-prefix -A INPUT/OUTPUT
+iptables -j LOG --log-level debug --log-prefix='[iptableslog] [new] ' -m state --state NEW -I INPUT/OUTPUT 1
+watch --color 'dmesg --notime | xargs -IX printf "[$(date -u)] %s\n" X >> /var/log/dmesg.log; dmesg --clear; grcat conf.proftpd </var/log/dmesg.log | tail -n 20'
 
 snmpget -v2c -c "$community_string" $device sysDescr.0 # or sysUpTime.0, sysName.0 - Alt: snmpbulkwalk -> gets all OOIDs
 # SNMP port : 161
@@ -754,6 +757,9 @@ sudo su -c 'echo 1 > /sys/bus/pci/rescan' # Rescan for memory card
 xhost +local:root # Xlib: connection to ":0.0" refused by server
 
 killall unity-panel-service # display clock in Ubuntu when buggy
+
+/var/log/kern.log EMPTY # needs $ModLoad imklog in /etc/rsyslog.conf + service rsyslog restart (thx: http://serverfault.com/a/405244 ): BUT:
+# -> "imklog: error reading kernel log - shutting down: Bad file descriptor" + CPU maxing out. Web search => looks like a known issue solved with more recent versions of rsyslog
 
 
 FFFFFFFFFFFFFFF

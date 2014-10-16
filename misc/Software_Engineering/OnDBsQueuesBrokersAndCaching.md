@@ -1,13 +1,17 @@
-## References
+# References
 - [AOSA_NoSQL] : [The Architecture of Open Source Applications](http://www.aosabook.org) chapter dedicated to NoSQL
 
-## Memory caching system
-memcached
+# Memory caching system
+_memcached_
 
 - for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
 - use a firewall !! -> beware security issues: http://www.slideshare.net/sensepost/cache-on-delivery
 
-_Redis_ **MULTI** allows to combine multiple operations atomically & consistently, and **WATCH** allows isolation. [AOSA]
+_Redis_
+
+- builtin datastructures: list, hash, set, sorted set, [hyperloglog](http://antirez.com/news/75)
+- easy-as-a-pie pubsub with Python
+- **MULTI** allows to combine multiple operations atomically & consistently, and **WATCH** allows isolation. [AOSA]
 
     redis-cli ping
     redis-cli -h HOST -p PORT -n DATABASE_NUMBER llen QUEUE_NAME
@@ -15,7 +19,9 @@ _Redis_ **MULTI** allows to combine multiple operations atomically & consistentl
 
 twitter/twemproxy # fast, light-weight proxy for memcached and Redis
 
-## Queues
+Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], recommended in [this blog post by JMason](//swrveengineering.wordpress.com/2014/10/14/how-we-increased-our-ec2-event-throughput-by-50-for-free/)
+
+# Queues
 - mkfifo, man mq_overview : POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code
 - D-Bus : unix message bus system, with bindings in Java, Python...
 - beanstalkd : KISS fast work queue, with lots of existing tools & libs in various languages
@@ -24,7 +30,14 @@ twitter/twemproxy # fast, light-weight proxy for memcached and Redis
 - Nameko : python framework for building service orientated software
 - fritzy/thoonk.js / fritzy/thoonk.py : Persistent and fast push feeds, queues, and jobs
 
-## Storage layer for numeric data series over time
+Some queues property from [Redis author](http://antirez.com/news/78):
+- at-most-once / at-least-once delivery property
+- guaranteed delivery to a single worker at least for a window of time
+- best-effort checks to avoid to re-delivery a message after a timeout if the message was already processed
+- handle, during normal operations, messages as a FIFO
+- auto cleanup of the internal data structures
+
+# Storage layer for numeric data series over time
 RRDtool (the ancestor) and its followers:
 
 - RRDCached
@@ -33,15 +46,21 @@ RRDtool (the ancestor) and its followers:
 - reconnoiter
 - chriso/gauged
 
-## DBs
+# DBs
 ![](https://raw.githubusercontent.com/cockroachdb/cockroach/master/resources/doc/sql-nosql-newsql.png "SQL - NoSQL - NewSQL Capabilities")
 
 The CAP theorem: Consistency, Availability, and Partition tolerance, pick at most two.
 First proposed by Eric Brewer in 1998, then proved by Gilbert and Lynch. See also ACID, BASE & [AOSA_NoSQL]
 => Daniel Abadi suggested a more nuanced classification system, PACELC
 
-- BerkeleyDB, SQLite, LMDB, LevelDB # embedded database
+## NoSQL DBs
+
+- E.g. MongoDB, CouchDB, Riak, Redis, Gizzard... cf. [AOSA_NoSQL]
+and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra which takes inspiration from both.
+- more BerkeleyDB, SQLite, LMDB, RocksDB > LevelDB # embedded database
 - cockroachdb/cockroach # NewSQL
+
+## SQL DBs
 
 LIKE >faster> REGEXP
 

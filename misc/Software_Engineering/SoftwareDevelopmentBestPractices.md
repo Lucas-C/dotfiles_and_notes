@@ -11,6 +11,7 @@
 - [JC-PI] : [John Carmack on Parallel Implementations](http://www.altdev.co/2011/11/22/parallel-implementations/)
 - [RobPikeKenThompson] : [What Rob Pike learned from KenThompson](http://www.informit.com/articles/article.aspx?p=1941206)
 - [The Problems With Acceptance Testing](http://www.jamesshore.com/Blog/The-Problems-With-Acceptance-Testing.html)
+- [Cyclomatic] : [Quantifying the effect of TDD](http://www.keithbraithwaite.demon.co.uk/professional/presentations/2008/qcon/MeasureForMeasure.pdf) & [Cyclomatic complexity measure](http://www.keithbraithwaite.demon.co.uk/professional/software)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -121,7 +122,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - Exhaustively test near bugs [CC-T6]
 - Write learning tests [CC-Chapt8]
 - Use manual try/catch and not @Test(expected) on big tests
-- Don't overuse Mocks [DOM]
+- Don't overuse Mocks [DOM] or they'll become **mockeries**
 * Tests can be harder to understand
 * Tests can be harder to maintain
 * Tests can provide less assurance that your code is working properly
@@ -137,9 +138,10 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - explicitely details the code behaviour on corner cases
 
 ## Code review > TDD [CRoTDD]
+* You **need** TDD !! (or at least some kind of automated systematic testing) [QETDDM]
 * TDD: automated, easy to follow, autonomously done
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building)
-* Do it well: use proper tools, including automated static analysis (findbugs, checkstyle, syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
+* Do it well: use proper tools, including automated static analysis (findbugs, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
 
 ## General
 - Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()

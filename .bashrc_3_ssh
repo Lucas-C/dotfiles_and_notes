@@ -42,7 +42,7 @@ rm -rf $tmp_dir ;
 [ -e $dst_dir ] || ( sudo mkdir $dst_dir && sudo chown $USER $dst_dir ) || exit 1 ;
 rsync -a $del_flag $SSH_EXPORT_TMP_DIR/ $dst_dir ;
 cd $dst_dir ;
-chmod 400 $SSH_EXPORT_FILES ;
+chmod 444 $SSH_EXPORT_FILES ;
 rm -rf $SSH_EXPORT_TMP_DIR ;
 "
 
@@ -68,7 +68,7 @@ ssh_setup () { # '-f' force a new ssh-agent creation
         killall ssh-agent
         ssh-agent >$SSH_AGENT_CONFIG_FILE
         source $SSH_AGENT_CONFIG_FILE >/dev/null
-        for pub_file_key in $(ls ~/.ssh/*.pub 2>/dev/null); do
+        for pub_file_key in $(ls ~/.ssh/id_*.pub 2>/dev/null); do
             local priv_file_key=${pub_file_key%.pub}
             [ -r $priv_file_key ] && ssh-add $priv_file_key
         done
