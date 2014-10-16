@@ -583,7 +583,7 @@ pyMySQL, noplay/python-mysql-replication
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
 stephenmcd/hot-redis
 
-ConfigParser # std configuration files format
+ConfigParser, configobj # std configuration files format
 csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
 yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 cPickle # binary format, generic, fast & lighweight.
@@ -643,6 +643,7 @@ lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
 AAlib # ASCII rendering
 fogleman/Tiling # pavages
 graphviz # graphs generation and export as images
+pyexiv2 # images EXIF manipulation
 
 platform # python version, OS / machine / proc info...
 

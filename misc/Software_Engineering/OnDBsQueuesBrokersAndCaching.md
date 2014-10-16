@@ -96,6 +96,8 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
 
 [REST API for v>5.7](www.infoq.com/news/2014/09/MySQL-REST)
 
+[MyWebSQL web admin UI](http://freedif.org/mywebsql-web-based-database-administration-panel/)
+
     mysqladmin --defaults-file=/etc/mysql/debian.cnf status # mysqladmin config file can be found in /etc/init.d/mysql, along MySQL own one: /etc/mysql/my.cnf
 
     cd $MYSQL_BASE_DIR
@@ -114,6 +116,7 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
     show create table $table;
     show processlist;
     kill $thread_to_be_killed;
+    select user,host from mysql.user;
 
 #### How to start a file to make it executable AND runnable with mysql < FILE.mysql
 
