@@ -62,7 +62,7 @@ tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as lon
 
 StringIO # fake file
 glob, fnmatch # manipulate unix-like file patterns
-jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object
+jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object (std in Python 3), and a handy walkfiles()
 os.stat("filename").st_ino # get inode
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 
@@ -592,7 +592,7 @@ cPickle # binary format, generic, fast & lighweight.
 hmac, hashlib.md5('string').hexdigest()
 bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp
 archive = zipfile.ZipFile('foo.zip', mode='w')
-for root, dirs, files in os.walk('/path/to/foo'):
+for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy
     for name in files:
         archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
 

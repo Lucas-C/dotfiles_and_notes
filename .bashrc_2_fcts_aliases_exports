@@ -9,17 +9,15 @@ PATH=/usr/local/bin:$PATH
 PATH=/usr/local/sbin:$PATH
 PATH=$BASHRC_DIR/bin:$PATH
 
-export DISPLAY=:0 # for xclip, can be checked with 'w' cmd
-
-export LOG=1 # for notify-osd
-
-export LANG=C # makes many string-parsing tools faster: grep, sed...
-
 export HISTCONTROL=ignoreboth # ignoredups and ignorespace
 shopt -s histappend # append to the history file, don't overwrite it
 export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
 export HISTTIMEFORMAT="%F %T "
 alias r='fc -s' # 'repeat' - USAGE: r [old=new] [cmd] : runs last command [matching $cmd if provided], after performing the OLD=NEW substitution
+
+export DISPLAY=:0 # for xclip, can be checked with 'w' cmd
+export LOG=1 # for notify-osd
+export LANG=C # makes many string-parsing tools faster: grep, sed...
 
 #---------------
 # Text display
@@ -52,8 +50,7 @@ alias dmesg='dmesg --ctime' # Alt: http://stackoverflow.com/a/19272272
 if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias cl='grc --stderr --stdout --colour=on'
     alias make='cl make -j3'
-    cl_dmesg () { dmesg "$@" | grcat conf.proftpd; }
-    alias dmesg=cl_dmesg
+    cl_dmesg () { dmesg "$@" | grcat conf.proftpd; }; alias dmesg=cl_dmesg
     alias gcc='cl gcc'
     alias g++='cl g++'
     alias as='cl as'
@@ -86,6 +83,7 @@ pa () { # print aliases
     grep --color -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bashrc*
     grep --color '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
 }
+alias pag='pa|g'
 
 alias nofuncalias='type -P'
 unfuncalias () { # undefined any function/alias named as arg
@@ -158,6 +156,7 @@ alias gpr='git pull --rebase'
 alias e='$EDITOR'
 alias b='cd -'
 f () { ( nohup firefox "$@" >~/firefox.log 2>&1 & ); }
+t () { date +"# Started: %c - %s" ; "$@"; date +"# Ended  : %c - %s"; } # Execute some cmd with start/end timestamps
 
 #---------
 # Languages
@@ -230,94 +229,6 @@ man () { # colored manual with 'help' as a fallback
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
             /usr/bin/man "$@" && return
     help "$@" >/dev/null 2>&1 && help "$@" | less
-}
-
-#mv () {
-#    rsync_massive_mv_tip "$@" || /bin/mv "$@"
-#}
-
-rsync_massive_mv_tip () { # 'mv' suggesting 'rsync' for 'massive' src files & different partitions
-    _get_cp_mv_src_args "$@" >/dev/null || return 1
-    _is_massive_cp_mv_src "$@" || return 2
-    local src_args_partitions=$(_get_cp_mv_src_args "$@" | xargs df -P | sort | uniq | sed '$d' | awk '{print $1}')
-
-    _get_cp_mv_dst_arg "$@" || return 3
-    local dst_arg_partition=$(_get_cp_mv_dst_arg "$@" | xargs -n 1 dirname | xargs df -P | sort | uniq | sed '$d' | awk '{print $1}')
-
-    local non_common_partitions=$(comm -23 <(echo $src_args_partitions | sort) <(echo "$dst_arg_partition" | sort))
-    [ -z "$non_common_partitions" ] && return 4
-
-    cat <<EOF
-You're about to move a MASSIVE amount of files to another partition.
-To first copy files and follow this task progress, I suggest using:
-rsync -r --partial --progress --human-readable --ignore-times --rsh=/dev/null $@
-If you want to ignore my advice, simply run:
-/bin/mv $@
-EOF
-}
-
-#cp () { # 'cp' suggesting 'rsync' to follow progress for 'massive' src files
-#    rsync_massive_cp_tip "$@" || /bin/cp "$@"
-#}
-
-rsync_massive_cp_tip () {
-    _is_massive_cp_mv_src "$@" || return 1
-    cat <<EOF
-You're about to copy a MASSIVE amount of files. To follow this task progress, I suggest using:
-rsync --partial --progress --human-readable --ignore-times --rsh=/dev/null $@
-If you want to ignore my advice, simply run:
-/bin/cp $@
-EOF
-}
-
-_is_massive_cp_mv_src () { # 'massive' means >1000 files OR >100Mo
-    [ -z "$1" ] && return 1
-    local files_count_max_1000=$(_get_cp_mv_src_args "$@" | while read file; do find "$file" -type f; done | head -n 1000 | wc -l)
-    [ ${files_count_max_1000:-0} -eq 1000 ] && return 0
-    local src_args_size=$(_get_cp_mv_src_args "$@" | while read file; do du -sm "$file" | cut -f1; done | awk '{s+=$1} END {print s}')
-    [ ${src_args_size:-0} -gt 100 ] && return 0
-    return 1
-}
-
-_get_cp_mv_src_args () {
-    while [[ "$1" =~ ^-[^t] ]]; do
-        shift
-    done
-    if [ "$1" = "-t" ]; then
-        shift; shift # removing -t $dst
-        for arg in "$@"; do echo "$arg"; done
-    else
-        local argv=("$@")
-        unset argv[${#argv[@]}-1] # removing last element: $dst
-        for arg in "${argv[@]}"; do echo "$arg"; done
-    fi
-}
-
-_get_cp_mv_dst_arg () {
-    while [[ "$1" =~ -[^t] ]]; do
-        shift
-    done
-    if [ "$1" = "-t" ]; then
-        echo "$2"
-    else
-        local argv=("$@")
-        echo "${argv[-1]}"
-    fi
-}
-
-cp_p () { # 'cp' showing progress, but slower than rsync and less portable. Alt: Xfennec/cv
-    strace -q -e write cp -- "${1}" "${2}" 2>&1 | awk '{
-        if (NR % int(total_size / 409600) == 0) {
-            percent = NR * 409600 / total_size
-            printf "%3d%% [", percent
-            for (i=0;i<=percent;i++)
-               printf "="
-            printf ">"
-            for (i=percent;i<100;i++)
-               printf " "
-            printf "]\r"
-        }
-    } END { print "" }' total_size=$(stat -c '%s' "${1}")
 }
 
 touch () { # touch [EPOCH] [+/-$modifier] $files
@@ -435,8 +346,13 @@ ppid () {
 # But differents if invoked in a $(cmd) or sourced.
 
 unfuncalias alert
-alert () { # USAGE: $long_cmd; alert - Logs: ~/.cache/notify-osd.log
-    notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')";
+alert () { # USAGE: cmd; alert $ [OR] cmd <CTRL-z> bg; wait %1; alert
+    local retcode=$?
+    local header="RETCODE $retcode"
+    type -p figlet >/dev/null && header=$(figlet $header)
+    type -p play >/dev/null && play -n synth 0.1 tri 1000
+    xmessage -center "$header$(echo; echo $@; echo; history | tail -n2 | sed -e 's/^\s*[0-9]\+\s*//')";
+    $(exit $retcode)
 }
 
 if ! type -p timeout >/dev/null; then
@@ -492,14 +408,3 @@ tstp () { # timestamp converter
     # Or date -d @$TIMESTAMP but neither work on OSX
 }
 
-kill_cmd () { # WIP - Kill every process starting with the pattern passed as a parameter
-    while true; do
-        local pid=$(ps -eo pid,args | egrep -e "[0-9]* /bin/bash $1" | grep -v grep | grep -o '[0-9]*')
-        echo "Killing $(ps -eo pid,args | egrep -e "[0-9]* /bin/bash $1" | grep -v grep)"
-        if [ -n "$pid" ]; then
-            kill "$pid"
-        else
-            break
-        fi
-    done
-}

@@ -36,9 +36,9 @@ SHR: how much of the VIRT size is actually sharable memory or libraries
 SWAP: bogus
 pstree -p [$OPT_PID] # hierarchy of processes
 
-pidof $process_name # also: pgrep -f
-pid -o comm= -p $PPID # get process name - Also: /proc/$pid/{cmdline,comm,exe}
-pwdx $pid # get process working directory - Alt: file /proc/$pid/cwd
+pgrep -f $procname_pattern | xargs ps -fp # or kill - Alt: pidof $procname
+/proc/$pid/{cmdline,comm,exe} # get process name - Alt: ps -o comm= -p $pid
+file /proc/$pid/cwd # get process working directory - Alt: pwdx $pid
 
 nohup $cmd # detach command
 disown -h $pid # detach running process - To redirect its stdout/err: dupx / https://gist.github.com/zaius/782263
@@ -68,14 +68,22 @@ perl -wle 'exit 1 if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with
 a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a ' # Quine
 
 dig +short TXT google-public-dns-a.google.com # check without 'TXT'
+dig +short TXT istheinternetonfire.com
+traceroute -m 60 216.81.59.173; telnet towel.blinkenlights.nl # Star Wars
 
 echo "You can simulate on-screen typing just like in the movies" | pv -qL 10
+
+rainbow_cursor_worm () { a=1;x=1;y=1;xd=1;yd=1;while true;do if [[ $x == $LINES || $x == 0 ]]; then xd=$(( $xd *-1 )) ; fi ; if [[ $y == $COLUMNS || $y == 0 ]]; then yd=$(( $yd * -1 )) ; fi ; x=$(( $x + $xd )); y=$(( $y + $yd )); printf "\33[%s;%sH\33[48;5;%sm \33[0m" $x $y $(($a%199+16)) ;a=$(( $a + 1 )) ; sleep 0.001 ;done; } # FROM: http://www.climagic.org/coolstuff/cursor-tricks.html
+
+( play -q -n synth sine F2 sine C3 remix - fade 0 4 .1 norm -4 bend 0.5,2399,2 fade 0 4.0 0.5 & )
+echo 'main(t){for(;;t++)putchar(((t<<1)^((t<<1)+(t>>7)&t>>12))|t>>(4-(1^7&(t>>19)))|t>>7);}' | cc -x c - -o crowd && ./crowd | aplay
 
 
 ##################
   Bash scripting
 ##################
-notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
+figlist | sed '1,/Figlet fonts/d;/:/,$d' | xargs -I{} figlet -f {} Hello # ASCII banner fonts
+xmessage -center "$(figlet ERRORMSG 42)", notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
 mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
@@ -382,7 +390,7 @@ find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING ot
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
-find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long'
+find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long' - Alt to mtime: -newer $than_this_file
 fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte - Also: findimagedupes
 
 rename \  _ * # Replace whitespaces by underscores
@@ -894,14 +902,7 @@ define:$term
 related:$url
 link:$url # Search for pages that link to a URL
 
-# Youtube playlist query - Start from 1, max paging 50, max playlist size 200
-playlist=FLF8xTv55ZmwikWWmWLPEAZQ
-rm yt_playlist_$playlist
-for i in {1..5}; do
-    index=$(( (i-1)*50 + 1 ))
-    curl -s "https://gdata.youtube.com/feeds/api/playlists/$playlist?start-index=$index&amp;max-results=50&amp;v=2" >> yt_playlist_$playlist
-done
-youtube-dl $url # -x = only audio
+youtube-dl -x FLF8xTv55ZmwikWWmWLPEAZQ # download playlist as audio files only
 
 # Snippet-search
 cse_id=003799500572498885021:6zbuscnifvi
