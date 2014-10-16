@@ -66,7 +66,7 @@ if (!String.prototype.format) {
     };
 }
 
-// Watch propery changes
+// Watch property changes
 var o = { foo:42 };
 o.watch('foo', function (id, oldval, newval) { ... });
 o.foo = "42";
@@ -185,11 +185,12 @@ var fs = require("fs"); // Node.js
 fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
     console.log(line);
 });
-node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/3944507/636849
+node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/3944507 - Browser -> $host:8080/debug?port=5858 - Need the following iptables rules:
+// for chain in INPUT OUTPUT; do iptables -A $chain -p tcp -m tcp --dport 8080 -j ACCEPT; done
 
 JSHint, JSLint // static code analysis
 
-http://qunitjs.com // Testing lib
+karma-runner/karma > JsTestDriver > Qunit // Testing libs
 
 // E4X is an official JavaScript standard that adds direct support for XML
 

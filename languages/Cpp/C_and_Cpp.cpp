@@ -24,7 +24,7 @@ if(__builtin_expect(entity->extremely_unlikely_flag,0))
 if (errno == EACCES) // or e.g. when an 'open' function return NULL
     perror("Acces to STUFF forbidden : ")
 
-alloca > malloc
+jemalloc > alloca > malloc
 stdlib 'realloc' : change the size of an already allocated memory block
 
 mmap // File in memomry mapping, to optimize paging operations

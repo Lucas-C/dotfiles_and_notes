@@ -7,6 +7,7 @@
 - [EvidenceBasedScheduling](http://www.joelonsoftware.com/items/2007/10/26.html)
 - [NoHourlyTimeTrackingInSoftware](http://bocoup.com/weblog/developer-weeks/)
 - [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
+- [Log-driven programming](http://antirez.com/news/51)
 
 ## Requirements
 - write a one-pager summing up:
@@ -33,8 +34,11 @@
 - UML use cases
 
 ## Personal tasks management
+<img src="http://edudemic.com/wp-content/uploads/2012/01/distraction.png" style="width:50%"/>
+
 - Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins
 - For tips on priotizating issues of a service: _cf._ [ProductOwnership]
+- [Log-driven programming] > nested-thinking: never interrupt the flow, take notes of subtasks you'll achieve later on
 - Pomodoro Technique: use a timer to break down work into ~25min intervals separated by short breaks
 
 ## Team tasks management

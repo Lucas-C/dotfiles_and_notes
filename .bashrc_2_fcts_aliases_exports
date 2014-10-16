@@ -48,9 +48,12 @@ alias sdiff='/usr/bin/sdiff -bB --suppress-common-lines'
 diffs () { /usr/bin/diff -U2 "$@" | diffstat; }
 alias less='/usr/bin/less --ignore-case --LONG-PROMPT'
 alias make='/usr/bin/make -j3'
+alias dmesg='dmesg --ctime' # Alt: http://stackoverflow.com/a/19272272
 if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias cl='grc --stderr --stdout --colour=on'
     alias make='cl make -j3'
+    cl_dmesg () { dmesg "$@" | grcat conf.proftpd; }
+    alias dmesg=cl_dmesg
     alias gcc='cl gcc'
     alias g++='cl g++'
     alias as='cl as'
@@ -215,17 +218,6 @@ stats () { # --no-header | awk '{print $3}'
 alias df='df -hT'
 alias du='du -sh'
 alias pstree='pstree -p'
-alias glances='glances -ey'
-
-if [ -e /proc/uptime ]; then
-    dmesg () {
-        /bin/dmesg "$@" | perl -w -e 'use strict;
-            my ($uptime) = do { local @ARGV="/proc/uptime";<>}; ($uptime) = ($uptime =~ /^(\d+)\./);
-            foreach my $line (<>) {
-                printf( ($line=~/^\[\s*(\d+)\.\d+\](.+)/) ? ( "[%s]%s\n", scalar localtime(time - $uptime + $1), $2 ) : $line )
-            }'
-    }
-fi
 
 man () { # colored manual with 'help' as a fallback
     env \
@@ -447,20 +439,22 @@ alert () { # USAGE: $long_cmd; alert - Logs: ~/.cache/notify-osd.log
     notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')";
 }
 
-timeout () { # Alternative to coreutils 'timeout'
-    if [ "${1:-}" = "-h" -o "${1:-}" = "--help" ]; then 
-        printf "USAGE: timeout [--no-msg] \$delay_in_seconds \$cmd\n  \$cmd can start with 'exec' to avoid creating a new process\n"
-        return
-    fi
-    local no_msg=false; [ "${1:-}" = "--no-msg" ] && { no_msg=true ; shift ; }
-    local s=${1:?'Missing timeout parameters'} ; shift
-    ( pid=$(sh -c 'echo $PPID')
-      ( $no_msg || echo "Command launched with a ${s}s timeout. To let it live: kill $(sh -c 'echo $PPID')"
-        sleep $s
-        kill -9 $pid 2>/dev/null || true
-      ) & "${@:?'Missing timeout command'}"
-    )
-}
+if ! type -p timeout >/dev/null; then
+    timeout () { # Alternative to coreutils 'timeout'
+        if [ "${1:-}" = "-h" -o "${1:-}" = "--help" ]; then 
+            printf "USAGE: timeout [--no-msg] \$delay_in_seconds \$cmd\n  \$cmd can start with 'exec' to avoid creating a new process\n"
+            return
+        fi
+        local no_msg=false; [ "${1:-}" = "--no-msg" ] && { no_msg=true ; shift ; }
+        local s=${1:?'Missing timeout parameters'} ; shift
+        ( pid=$(sh -c 'echo $PPID')
+          ( $no_msg || echo "Command launched with a ${s}s timeout. To let it live: kill $(sh -c 'echo $PPID')"
+            sleep $s
+            kill -9 $pid 2>/dev/null || true
+          ) & "${@:?'Missing timeout command'}"
+        )
+    }
+fi
 
 whiteboard_picture_cleaner () { # args: $original_img_file $output_file - use ImageMagick - FROM: https://gist.github.com/lelandbatey/8677901
     convert "$1" -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 "$2";
