@@ -360,7 +360,7 @@ alert () { # USAGE: cmd; alert $ [OR] cmd <CTRL-z> bg; wait %1; alert
     local history_last2lines=$(history | tail -n2 | sed -e 's/^\s*[0-9]\+\s*//')
     local header="RETCODE $retcode"
     type -p figlet >/dev/null && header=$(figlet $header)
-    type -p play >/dev/null && play -n synth 0.1 tri 1000 2>/dev/null
+    type -p play >/dev/null && play -n synth 0.1 tri 1000 2>/dev/null # beep !
     echo -e "$header\n$@\n\n$history_last2lines" | xmessage -center -file -
     $(exit $retcode)
 }

@@ -133,7 +133,7 @@ endtry
 
 """PLUGINS
 if isdirectory($HOME."/.vim/bundle/Vundle.vim")
-    filetype off                "required
+    filetype off                "required by Vundle
     set rtp+=~/.vim/bundle/Vundle.vim
     call vundle#begin()
     Plugin 'gmarik/vundle'
@@ -156,12 +156,14 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     Bundle 'plasticboy/vim-markdown'
     let g:vim_markdown_folding_disabled=1
     Bundle 'scrooloose/syntastic'
+    " To know what's going on :SyntasticInfo ; to invoke it manually :SyntasticCheck
+    " JSLint: npm install jshint -g # Config example: https://github.com/jshint/jshint/blob/master/examples/.jshintrc
 
-    " require vim compiled with +python
+    " Require vim compiled with +python
     "Bundle 'klen/python-mode'
     "Bundle 'emgram769/vim-multiuser'
 
-    " annotations for git changes
+    " Annotations for git changes
     Bundle 'airblade/vim-gitgutter'
 
     Bundle 'ervandew/supertab'

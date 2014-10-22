@@ -95,8 +95,9 @@ bash --debugger $script
 parent_func=$(caller 0 | cut -d' ' -f2) # "$line $subroutine $filename"
 source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
 
-EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # Script file parent dir
-exec >>$EXEC_DIR/logs/$(basename $0).log.$(date +%Y-%m-%d-%H) 2>&1 # Redirect logs
+readonly EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # Script file parent dir
+readonly LOG_FILE="$EXEC_DIR/logs/$(basename $0).log.$(date +%Y-%m-%d-%H)"
+exec > >(tee -a $LOG_FILE); exec 2>&1
 date "+%F %T,%N" | cut -c-23 # Standard logs date
 date -u +%s # Seconds since EPOCH
 date -d @$seconds_since_epoch "+%F" # under OSX: date -jf "%s" $secs "+%F"
@@ -166,7 +167,13 @@ while getopts ":ab:" opt; do
     esac
 done
 
-declare -A hash_table # Associative arrays
+# CGI scripts
+$(</dev/stdin) # POST data
+saveIFS=$IFS; IFS='=&'; qparams_array=($QUERY_STRING); IFS=$saveIFS # ?foo=bar&x=42 => (foo bar x 42)
+declare -A qparams; for ((i=0; i<${#qparams_array[@]}; i+=2)); do qparams[${qparams_array[i]}]=${qparams_array[i+1]}; done # Alt: bashlib
+echo -ne "Content-type: text/html\n\nCGI Bash Example: $(for k in "${!qparams[@]}"; do echo $k:${qparams[$k]}; done)"
+
+declare -A hash_table # Bash 4+ associative arrays
 # Or, with built-in arrays and cksum-based hashing function (FROM: http://stackoverflow.com/questions/1494178/how-to-define-hash-tables-in-bash)
 hf () { local h=$(echo "$*" |cksum); echo "${h//[!0-9]}"; } # hashing function
 table[$(hf foo bar)]="x42"
@@ -383,10 +390,12 @@ stmd foo.md | lynx -stdin # standard replacement for original 'markdown' command
    FILES
 #=#=#=#=#=#
 
+sleuthkit/scalpel # > foremost, file carving tool, cf. http://www.forensicswiki.org/wiki/Tools:Data_Recovery
+
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
 find -D rates ... # details success rates of each match logic term
-find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: agedu ; + all tools listed in http://dev.yorhel.nl/ncdu
+find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: man agedu (-s $dir then -w / -t) ; + all tools listed in http://dev.yorhel.nl/ncdu
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
@@ -491,6 +500,7 @@ ip link set eth0 [up|down] # enable/disable the[interface specified
 ip tunnel list # list ssh stunnels replace deprecated 'iptunnel'
 ip route # host routing tables - replace deprecated 'route'
 iw # details about wireless interfaces - replace deprecated 'iwconfig'
+iwlist wlan0 scan | grep GHz # get congestion of Wifi channels
 MACADDR=$(ip address show eth0 | grep link/ether | awk '{print $2 }') # can be used to get a unique machine id number instead of using $RANDOM:
 echo $((  16#$(echo $MACADDR | sed 's/://g') % 10000 )) # use base16 - ALT: use md5sum
 
@@ -547,7 +557,7 @@ mininet # realistic virtual network, running real kernel, switch and application
 
 ipcalc < cidr $ip/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
 
-/etc/ssmtp/{revaliases,ssmtp.conf} # Configure 'mail' command
+/etc/ssmtp/{revaliases,ssmtp.conf} # Configure 'mail' command - Alt: mutt -> fake FROM with EMAIL en var : http://stackoverflow.com/a/12158550
 
 w3m > elinks > links > lynx # http://askubuntu.com/questions/15988/browse-internet-inside-terminal
 lynx -dump -stdin # convert HTML to text
@@ -599,7 +609,7 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
 <!<! Apapapapache !>!>
 <\-\--------------/-/>
 source /etc/apache2/envvars && apache2 -V # -l -L -M
-APACHE_RUN_USER=www-data APACHE_RUN_GROUP=www-data apache2 -t && apache2ctl -S # check config
+sudo bash -c 'source /etc/apache2/envvars && apache2 -t && apache2ctl -S' # check config
 vim /etc/apache2/sites-available/default-ssl
 service apache2 restart
 tail -F /var/log/apache2/*.log
@@ -735,6 +745,9 @@ mplayer -identify -vo null -ao null -frames 0 $file | grep "Video stream found" 
 mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
 avconv -i vid%02d.mp4 -vcodec copy -acodec copy vid.avi # .mp4 to .avi - Replacement for ffmpeg - GUI: Adapter
 avconv -i $video_file -r 1 -an "videoframe%03d.png" # extract images from a video with FPS=1
+
+winetricks $dll # install one of: winetricks list dlls
+wine uninstaller # real files are in ~/.wine/
 
 
 &*&*&*&*&*&*&*&*&*

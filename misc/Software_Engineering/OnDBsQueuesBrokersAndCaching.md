@@ -19,6 +19,10 @@ _Redis_
 
 twitter/twemproxy # fast, light-weight proxy for memcached and Redis
 
+[_etcd_](https://github.com/coreos/etcd) : an open-source distributed key value store, Also: [python-etcd](https://github.com/jplana/python-etcd)
+
+    ./etcdctl set /foo/bar "Hello world" --ttl 10
+
 Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], recommended in [this blog post by JMason](//swrveengineering.wordpress.com/2014/10/14/how-we-increased-our-ec2-event-throughput-by-50-for-free/)
 
 # Queues

@@ -147,8 +147,9 @@ class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
 class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
     __slots__ = ()
 
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s")
-logging.handlers.[Timed]RotatingFileHandler # logrotate in Python
+LOG_FORMAT = "%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s"
+file_handler = logging.handlers.RotatingFileHandler('searx.log', maxBytes=1024*1024, backupCount=10) # Also: TimedRotatingFileHandler
+file_handler.setFormatter(logging.Formatter(LOG_FORMAT)) # then: Logger.addHandler(file_handler) - Also: logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
 # Lazy logger: http://stackoverflow.com/a/4149231
 @deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/
 # Support for {} / %(keyword)s format syntaxex:
@@ -615,13 +616,20 @@ bottle, pyramid, flask, web.py # Web frameworks
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
 import re, SimpleHTTPServer, SocketServer
-class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class JsonHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def do_GET(self):
         request_match = re.search('param1=([^&]+)', self.path)
         if request_match:
             self.path = param1_match.group(1) + '.json'
         return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
-SocketServer.TCPServer(('localhost', 8080), Handler).serve_forever()
+SocketServer.TCPServer(('localhost', 8080), JsonHandler).serve_forever()
+# Flask tricks:
+app.logger.addHandler(file_handler)
+@app.errorhandler(404) # or 500
+def internal_error(exception):
+    app.logger.exception("Error 404: %r", {k:getattr(exception, k) for k in dir(exception)})
+    raise exception
+# Also, catch-all URL: http://flask.pocoo.org/snippets/57/
 
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
@@ -633,17 +641,21 @@ tn.write(user + "\n")
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google, maxmind/geoip-api-python
 
-EasyDialogs, optparse_gui, EasyGui, Tkinter
-pyglet # windowing and multimedia lib
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
+jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
+
+pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
 wand (ImageMagick binding), pillow > pil # Python Image Library
+ufoym/cropman # face-aware image cropping
 lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
 AAlib # ASCII rendering
 fogleman/Tiling # pavages
 graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
+
+EasyDialogs, optparse_gui, EasyGui, Tkinter
 
 platform # python version, OS / machine / proc info...
 

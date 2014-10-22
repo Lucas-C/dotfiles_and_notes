@@ -1,6 +1,7 @@
 Quicksort: stable, constant space usage, worst case O(n^2) if pivot is smallest/largest element, not good if data on disk
 Merge sort : stable, O(n) space on arrays / constant space on linked lists, worst case O(n*log(n)), ok if data on disk
 TimSort: used by Python, mix of merge sort & insertion sort, perform well on real-word data
+IntroSort: C++ std::sort, a variation over QuickSort which "degenerates" to HeapSort when the recursion goes too deep
 Radix / Counting sort: the best for ints
 -> Algorithmic complexity attack, e.g. McIlroy sort killer, which build an input to make any sorting quadratic in time
 
