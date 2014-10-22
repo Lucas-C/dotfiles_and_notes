@@ -15,3 +15,7 @@
 - use UDP protocol, but can fall back to TCP
 
 Also cf. **software_defined_networking.md**
+
+## Other protocols
+- [SCTP](http://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol)
+- [UDP](http://en.wikipedia.org/wiki/UDP-based_Data_Transfer_Protocol)

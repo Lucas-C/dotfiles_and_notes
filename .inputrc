@@ -26,9 +26,12 @@ set completion-ignore-case on
 # WHEN xterm-keys on, e.g. inside Tmux (already in /etc/inputrc):
 "\e[1;5C": forward-word
 "\e[1;5D": backward-word
-# WHEN xterm-keys off:
+# WHEN xterm-keys off: -> SANITY-CHECK-TEST: it can make readline (e.g. in python interpreter) jump words simply by pressing the arrow keys, under tmux but not tilda
+$if term=xterm-256color
+$else
 "\eOC": forward-word
 "\eOD": backward-word
+$endif
 #"\eO5C": forward-word
 #"\eO5D": backward-word
 # Under RHEL:
