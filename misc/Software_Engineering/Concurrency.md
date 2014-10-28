@@ -42,6 +42,9 @@
 - When multi-threading, use monitor-style locking whenever possible [SDP]
 - Server-based locking > client-based locking [CC-AppA]
 
+### Distributed systems
+- "splay" : add jitter (== random delay) into timed events (e.g. cache expiration) to prevent a shit storm when all parts of a distributed system see the event at the same time (done at Youtube, Facebook, AWS... cf. https://news.ycombinator.com/item?id=3757456 ) Alt: use prime numbers / exponentially distributed delays
+
 
 # Java
 Built-in parallelism the easy way : ExecutorService

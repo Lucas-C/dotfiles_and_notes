@@ -100,3 +100,5 @@ radiotray # Radios FR: http://www.xcfa.tuxfamily.org/static5/liens#RadioTray
 
 sudo dpkg-reconfigure postfix # -> then configure local emails only => create /etc/postfix/main.cf
 sudo aptitude install mailutils # provides 'mail' command
+
+/home/lucas/.config/variety/variety.conf # wallpaper changer minor change: gsettings set org.cinnamon.background picture-options spanned
