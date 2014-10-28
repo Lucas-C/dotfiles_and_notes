@@ -170,7 +170,7 @@ done
 # CGI scripts
 $(</dev/stdin) # POST data
 saveIFS=$IFS; IFS='=&'; qparams_array=($QUERY_STRING); IFS=$saveIFS # ?foo=bar&x=42 => (foo bar x 42)
-declare -A qparams; for ((i=0; i<${#qparams_array[@]}; i+=2)); do qparams[${qparams_array[i]}]=${qparams_array[i+1]}; done # Alt: bashlib
+declare -A qparams; for ((i=0; i<${#qparams_array[@]}; i+=2)); do qparams["${qparams_array[i]}"]="${qparams_array[i+1]}"; done # Alt: bashlib
 echo -ne "Content-type: text/html\n\nCGI Bash Example: $(for k in "${!qparams[@]}"; do echo $k:${qparams[$k]}; done)"
 
 declare -A hash_table # Bash 4+ associative arrays
@@ -449,7 +449,7 @@ tar -czvf "$archive.tgz" "$dir_without_trailing_slash" # Extract: tar -xzvf $arc
 tar -J... # instead of -z, .xz compression format support
 pax > cpio > tar # http://dpk.io/pax
 zipinfo $file.zip
-pigz # paralell gzip
+pigz # paralell gzip, do not compress folders
 yum install p7zip # for .7z files
 lzop # faster, use less CPU
 
@@ -569,7 +569,7 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: 
   -l --level=depth : default = 5
   -c --continue : continue getting a partially-downloaded file
   --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
-curl # http://curl.haxx.se/docs/httpscripting.html
+curl --fail --insecure --request POST --header $header --data $data # http://curl.haxx.se/docs/httpscripting.html
 # Web scrapping:
 httrack
 Xvfb, xdummy
@@ -906,7 +906,7 @@ $ Google APIs $
 $$$$$$$$$$$$$$$
 sqrt(cos(x))*cos(200 x) + sqrt(abs(x))-0.7)*(4-x*x)^0.01, sqrt(9-x^2), -sqrt(9-x^2) from -4.5 to 4.5 # Google it & profit !
 
-# Search tips&tricks
+# Search tips&tricks : https://support.google.com/websearch/answer/136861
 site:$base_url "exact match" OR "a * saved is a * earned" -term # basics
 inurl:gouv.fr # Also: intitle:
 filetype:pdf

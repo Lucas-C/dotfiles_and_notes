@@ -348,7 +348,7 @@ dhellmann/smiley # application tracer, record & report, inspired by rad2py/wiki/
 # IPython tricks
 cd /a/path
 !cmd # shell command
-%history # dump it. Stored in ~/.config/ipython/profile_default/history.sqlite - used by pdb too
+%save $filename # save session - Alt: %history -> dump it. Stored in ~/.config/ipython/profile_default/history.sqlite - used by pdb too
 %pdb # Automatic pdb calling
 %timeit do_something()
 %debug # post_mortem
@@ -539,7 +539,7 @@ dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshar
 
 toolz # functional programming - Even faster: CyToolz - Also: suor/funcy ; kachayev/fn.py
 
-pylama # include pyflakes, pylint, PEP-checking - Also: Flake8, openstack-dev/hacking
+pylama # include pyflakes, pylint, PEP-checking - Also: Flake8, openstack-dev/hacking, landscapeio/prospector
 pyreverse # UML diagrams
 
 http://amoffat.github.io/sh/ # AWESOME for shell scripting
@@ -606,7 +606,7 @@ etree.tostring(tree)
 root = tree.getroot()
 BeautifulSoup('html string').prettify() # newlines+tabs formatted dump
 
-urlparse
+urlparse.urljoin, urllib.quote_plus # urlencoding & space -> +
 requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent
 requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)
 HTTPretty # Testing HTTP requests without any server, acting at socket-level

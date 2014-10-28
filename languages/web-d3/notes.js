@@ -4,6 +4,7 @@ javascript:alert(document.lastModified) // last page update (can be current time
 $$("#articleContent ul li").length
 
 debugger // breakpoint for debugger
+performance.timing // and performance.memory : useful debugging informations
 
 $._data($(elem).get(0), "events") // get events binded to 'elem'
 
@@ -26,11 +27,9 @@ text
 </>.toString();
 JSON.stringify(obj) // pretty stringifier, an equivalent lib to this builtin is json.js
 
-// Concat of many strings
-[ 'aaa', 'bbb'... ].join('')
-// Concat array2 in array1
-Array.prototype.push.apply(array1, array2);
-// Remove element
+var args = Array.apply(null, arguments); // arguments -> Array
+[ 'aaa', 'bbb'... ].join('') // Concat of many strings
+Array.prototype.push.apply(array1, array2); // Concat array2 in array1
 function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(element)) pos != -1 && array.splice(pos, 1);
 
 +new Date() // milliseconds since epoch
@@ -57,14 +56,7 @@ function range(start, end) {
     }
     return range_array;
 }
-if (!String.prototype.format) {
-    String.prototype.format = function() {
-        var args = arguments;
-        return this.replace(/{(\d+)}/g, function(match, nbr) {
-            return typeof args[nbr] != 'undefined' ? args[nbr] : match;
-        });
-    };
-}
+String.prototype.format // "{0} & {1} NOT {2}".format('x', 42) :  http://stackoverflow.com/a/4673436/636849
 
 // Watch property changes
 var o = { foo:42 };
