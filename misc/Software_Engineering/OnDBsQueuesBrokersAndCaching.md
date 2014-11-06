@@ -80,6 +80,7 @@ LIKE >faster> REGEXP
 ### SQLite
 
     sqlite3 extensions.sqlite 'select id, optionsURL from addon;' # Firefox extensions
+    sqlite3 cookies.sqlite 'select name,value,path,expiry,creationTime from moz_cookies where name = "PHPSESSID";'
     sqlite3 places.sqlite "SELECT b.title, b.type, b.parent, a.url FROM moz_places AS a, moz_bookmarks AS b WHERE a.id=b.fk;" # Firefox, type: 1 => URL, 2 => tag/folder
     SELECT folder.title, COUNT(bookmark.id) FROM moz_bookmarks AS folder, moz_bookmarks AS bookmark WHERE bookmark.parent=folder.id AND folder.parent!=4 GROUP BY folder.title; # List only folders. folder.parent=4 => tag
 

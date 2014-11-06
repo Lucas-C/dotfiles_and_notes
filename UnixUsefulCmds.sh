@@ -794,7 +794,7 @@ about:about # all the about: pages e.g. :crashes :healthreport :permissions :plu
 $ff_profile_dir/.parentlock # fix "Firefox is already running but is not responding" error
 cp sessionstore.bak sessionstore.js # Restore previous session tabs
 <CTRL>+F5 # refresh page bypassing the cache
-MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage
+MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage - Alt: http://freze.it
 
 https://developer.mozilla.org/en-US/docs/Tools/Web_Console
 - inspect(), pprint()
@@ -899,6 +899,8 @@ gifsicle "$gif" -I | sed -ne 's/.* \([0-9]\+\) images/\1/p' # frames count
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
 
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
+
+jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs 
 
 
 $$$$$$$$$$$$$$$

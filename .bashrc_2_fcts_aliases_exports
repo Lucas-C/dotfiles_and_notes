@@ -44,6 +44,8 @@ EOF
 alias diff='diff_alt && /usr/bin/diff -bB --suppress-common-lines'
 alias sdiff='/usr/bin/sdiff -bB --suppress-common-lines'
 diffs () { /usr/bin/diff -U2 "$@" | diffstat; }
+
+alias strings='strings -a' # safer, due to vulnerabilities in libbfd
 alias less='/usr/bin/less --ignore-case --LONG-PROMPT'
 alias make='/usr/bin/make -j3'
 alias dmesg='dmesg --ctime' # Alt: http://stackoverflow.com/a/19272272

@@ -3,7 +3,6 @@
 - [VisualSpec](http://www.targetprocess.com/articles/visual-specifications.html)
 - [ProductOwnership](https://blog.codecentric.de/en/2014/07/devops-product-ownership/)
 - [NorrisNumbers](http://www.teamten.com/lawrence/writings/norris-numbers.html)
-- [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
 - [EvidenceBasedScheduling](http://www.joelonsoftware.com/items/2007/10/26.html)
 - [NoHourlyTimeTrackingInSoftware](http://bocoup.com/weblog/developer-weeks/)
 - [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)

@@ -1,1 +1,4 @@
-Tell STORIES to inspire your audience and make them better remember what you said
+- Tell STORIES to inspire your audience and make them better remember what you said
+- [The smackdown learning model](http://blog.codinghorror.com/in-defense-of-the-smackdown-learning-model/)
+- [Arguments rhétologiques fallacieux](http://www.informationisbeautiful.net/visualizations/rhetological-fallacies/arguments-rhetologiques-fallacieux/)
+- [Which Online Discussion Archetype Are You](http://blog.codinghorror.com/which-online-discussion-archetype-are-you/)

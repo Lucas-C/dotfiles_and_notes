@@ -13,7 +13,7 @@ services.msc &:: Services windows
 magnify.exe &:: Loupe
 clipbrd.exe &:: Display clipboard
 regsvr32 %dll_file% &:: register dll
-vssadmin list shadows &:: list available Volume Shadow Copies ()aka restore points, cf. http://superuser.com/a/165576)
+vssadmin list shadows &:: list available Volume Shadow Copies aka restore points, cf. http://superuser.com/a/165576)
 
 robocopy "C:\Source" "E:\Destination" /E /PURGE &:: Backup
 
@@ -54,6 +54,8 @@ takeown /f directory /r
 cacls file /G username:F
 :: 3- Remove file
 del file
+
+"L'ordinal 459 est introuvable dans la bibliothèque de liens dynamiques urlmon.dll" -> uninstall MAJ KB2847204
 
 
 ::::::::::
