@@ -1,9 +1,14 @@
+[Software development is a collaborative game](http://blog.codinghorror.com/software-development-as-a-collaborative-game/)
+
 ## References
 - [MVB] : [Miniumn Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)
 - [GoodAtOps] : [How to be Good at Ops in 40min](https://adamhjk.github.io/good-at-ops/#/8)
 - [ShittyDashboards](http://attackwithnumbers.com/the-laws-of-shitty-dashboard)
 - [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
 - [5EPSQ] : [Five essential phone screen questions](https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions)
+- [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
+- [IT Change Management](http://stephaniekdean.wordpress.com/2011/06/17/cm/)
+- [Event Management](http://stephaniekdean.wordpress.com/2011/04/04/eventmgmt/)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -64,6 +69,8 @@ In general, limit meetings by making them informal chats or doing them properly:
     * highlights from previous on-call shift: high severity events, metrics...
     * this week's priorities: deployments, hand-over of burning tickets or tickets failing over SLA
 - frequently determine operational excellence goals: eliminate the top root cause of tickets, create a runbook/dashboard for a service...
+- CMs: cf. [IT Change Management]
+- post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management]
 
 ## Documentation:
 - Tenets:

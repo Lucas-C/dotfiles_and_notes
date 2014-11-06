@@ -408,6 +408,7 @@ exec compiled
 
 from dis import dis; dis(myfunc) # get dissassembly
 uncompyle2 prog.pyc # bytecode -> python code
+neuroo/equip # bytecode instrumentation, e.g. insert call counters logic into .pyc
 foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')) # bytecode evil alteration
 
 import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
@@ -598,13 +599,14 @@ for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even 
         archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
 
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
-lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2 . Handy: lxml.html.tostring(obj)
 hickford/MechanicalSoup
-from lxml import etree
-tree = etree.parse(some_file_like_object)
-etree.tostring(tree)
-root = tree.getroot()
-BeautifulSoup('html string').prettify() # newlines+tabs formatted dump
+lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
+import lxml.etree, lxml.html
+html_root = lxml.html.fromstring('html string') # Alt: html_tree.getroot()
+html_tree = lxml.etree.ElementTree(html_root) # Alt: lxml.etree.parse(some_file_like_object)
+html_tree.getpath(element)
+element.getparent().remove(element)
+BeautifulSoup('html string').prettify() # newlines+tabs formatted dump - Alt, less pretty: lxml.html.tostring(element) / lxml.etree.tostring
 
 urlparse.urljoin, urllib.quote_plus # urlencoding & space -> +
 requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent
