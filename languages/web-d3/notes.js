@@ -128,7 +128,7 @@ var a = { b:#1={ c:#1# } }
 
 Print( 1000000000000000128 ); // prints 1000000000000000100
 
-new, with // NEVER use them ! They're reserved keywords
+new, with // NEVER use them as variables ! They're reserved keywords
 
 
 //~\~\~\\

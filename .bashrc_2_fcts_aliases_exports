@@ -267,6 +267,7 @@ touch () { # touch [EPOCH] [+/-$modifier] $files
 
 alias psf='ps -eo user,pid,%cpu,%mem,ppid,tty,stat,rss,etime,start,nice,psr,args --sort=start_time 2>/dev/null'
 alias pg='psf | g'
+alias ps_codes='man ps | grep -A18 "^PROCESS STATE CODES$"'
 
 nav () { nautilus "${1:-$PWD}/"; }
 
@@ -356,14 +357,21 @@ ppid () {
 # Same values if invoked in a shell or by executing a ./script
 # But differents if invoked in a $(cmd) or sourced.
 
+message () { # ARGS: $message* [$header]
+    local message=${1?'Missing message'}
+    local header="${@: -1}"
+    type -p figlet >/dev/null && [ -n "$header" ] && header=$(figlet $header)
+    ps -o stat= -p $$ | grep -q +
+    local in_background=$? # 0 if in background : we need to check as 'play' gets stuck if launch in background
+    type -p play >/dev/null && [ $in_background -ne 0 ] && play -n synth 0.1 tri 1000 2>/dev/null # beep !
+    echo -e "$header\n$message" | xmessage -center -file -
+}
+
 unfuncalias alert
 alert () { # USAGE: cmd; alert $ [OR] cmd <CTRL-z> bg; wait %1; alert
     local retcode=$?
     local history_last2lines=$(history | tail -n2 | sed -e 's/^\s*[0-9]\+\s*//')
-    local header="RETCODE $retcode"
-    type -p figlet >/dev/null && header=$(figlet $header)
-    type -p play >/dev/null && play -n synth 0.1 tri 1000 2>/dev/null # beep !
-    echo -e "$header\n$@\n\n$history_last2lines" | xmessage -center -file -
+    message "$@\n\n$history_last2lines" "RETCODE $retcode"
     $(exit $retcode)
 }
 

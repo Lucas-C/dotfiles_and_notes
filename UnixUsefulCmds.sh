@@ -61,6 +61,8 @@ ttyrec, ipbt, ttygif, playitagainsam # record & playback terminal sessions - Las
 
 export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # Alt: GNU parallel, mfisk/filemap 'fm' Map-Reduce command
 
+cd // # broken PWD
+
 : () { : | : & } ; : # Fork bomb
 
 perl -wle 'exit 1 if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with a REGEX !
@@ -123,7 +125,7 @@ ${var%?} # Remove the final character of var
 for pair in $whatever; do key=${pair%:*}; value=${pair#*:}; ...
 for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.cumulonim.biz/BashPitfalls.html
 
-readonly CONST=42 # works with arrays & functions too
+readonly CONST=42 # works with arrays & functions too - Beautiful hack to unset: http://stackoverflow.com/a/21294582
 
 # Q: Can we find a function 'identity' that satisfies the following 2 properties ? stackoverflow.com/q/21635301
 identity () { for arg in "$@"; do echo "$arg"; done; }
@@ -296,7 +298,7 @@ python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes 
 ulimit -p # should get max pipe size, but WRONG : defined in pipe_fs_i.h
 fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
 
-gnuplot -e "set term dumb; plot '<seq 1 9'" # ASCII graph
+gnuplot -e "set term dumb; plot '<seq 1 9'" # ASCII graph - Alt, with UTF8 & colors: https://github.com/tehmaze/diagram
 gnuplot -e "set term dumb size 200,50; plot [-5:6.5] sin(x) with impulse"
 loop_cfg_file=/tmp/gnuplot_loop.cfg
 in_data_file=/tmp/gnuplot_in.data
@@ -486,7 +488,7 @@ ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
 /proc/net/{snmp, netstat, ...} # network counters
 dropwatch # to find out where are packets dropped
 hping # packets crafting
-mitmproxy --host # interactive examination and modification of HTTP traffic - Alt: CharlesProxy, BurpProxy, Fiddler on Windows
+mitmproxy --host # interactive examination and modification of HTTP traffic - cf. blog.philippheckel.com but no need for -T - Alt: CharlesProxy, BurpProxy, Fiddler on Windows
 mitmdump # tcpdump-like: view, record, and programmatically transform HTTP traffic
 
 # Dump all tcp transmission to a specific IP :
@@ -569,7 +571,7 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: 
   -l --level=depth : default = 5
   -c --continue : continue getting a partially-downloaded file
   --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
-curl --fail --insecure --request POST --header $header --data $data # http://curl.haxx.se/docs/httpscripting.html
+curl --fail --insecure --request POST --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html
 # Web scrapping:
 httrack
 Xvfb, xdummy

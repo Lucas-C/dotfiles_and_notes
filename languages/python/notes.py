@@ -152,6 +152,7 @@ file_handler = logging.handlers.RotatingFileHandler('searx.log', maxBytes=1024*1
 file_handler.setFormatter(logging.Formatter(LOG_FORMAT)) # then: Logger.addHandler(file_handler) - Also: logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
 # Lazy logger: http://stackoverflow.com/a/4149231
 @deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/
+Twangist/log_calls # logging & func calls profiling
 # Support for {} / %(keyword)s format syntaxex:
 # - https://docs.python.org/3/howto/logging-cookbook.html#formatting-styles
 # - vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
@@ -279,7 +280,7 @@ ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e
 
 vaidik/commentjson
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
-json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Also: -mjson.tool
+json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
 
 
 """""""""""""""""""
@@ -357,12 +358,14 @@ ipython notebook # D3 support : wrobstory/sticky
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 
 # PDB tricks
+!p = ... # make it possible to start a cmdline with pdb shorthands
 debug foo() # step into a function with pdb
 import pdb; foo(42); pdb.pm() # enter debugger post-mortem using:
 sys.last_traceback / sys.last_value # non-handled exception info
 from IPython.core.debugger import Pdb; Pdb().set_trace()
 ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
 google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
+from pdb_clone import pdb; pdb.set_trace_remote() # then pdb-attach : remote-debugging - Also: pdbhandler.register() to enter at any time a running program
 
 from pprint import pprint # indent=4
 
@@ -498,6 +501,7 @@ Pyston # VM using LLVM JIT
 
 virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
 pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
+pip install --src . -r requirements.txt
 pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
@@ -563,14 +567,9 @@ parser_group = parser.add_mutually_exclusive_group(required=True)
 parser_group.add_argument(... type=argparse.FileType('r'))
 return parser.parse_args()
 
+hmac, hashlib.md5('string').hexdigest()
 dropbox/python-zxcvbn # password strength estimation
 from getpass import getpass # get password without echoing it
-tqdm # KISS progress bar
-
-code.InteractiveConsole().interact() # interactive python prompt 
-pyreadline, readline, rlcompleter
-termcolor, colorama # cross-platform colored terminal text
-PrettyTable # pretty ASCII tables output
 
 @retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
 
@@ -591,7 +590,6 @@ yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 cPickle # binary format, generic, fast & lighweight.
 # + PyCloud make it possible to pickle functions dependencies
 
-hmac, hashlib.md5('string').hexdigest()
 bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp
 archive = zipfile.ZipFile('foo.zip', mode='w')
 for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy
@@ -658,6 +656,13 @@ graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
 
 EasyDialogs, optparse_gui, EasyGui, Tkinter
+
+urwid # console user interface lib
+code.InteractiveConsole().interact() # interactive python prompt 
+pyreadline, readline, rlcompleter
+termcolor, colorama # cross-platform colored terminal text
+tqdm # KISS progress bar
+PrettyTable # pretty ASCII tables output
 
 platform # python version, OS / machine / proc info...
 
