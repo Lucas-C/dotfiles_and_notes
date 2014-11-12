@@ -1,5 +1,11 @@
 # REPEAT your tests !
 
+Gil Tene (Mr. Java HdrHistogram): always "calibrate" latency tools with ^Z tests. If ^Z results don't make sense, don't use tool.
+<img src="http://www.infoq.com/resource/presentations/latency-lessons-tools/en/slides/sl29.jpg" style="width:50%"/>
+See detailed discussion starting around 38:30 in this talk: http://www.infoq.com/presentations/latency-lessons-tools
+
+Also: When you talk about a 99% requirement:
+<img src="http://www.infoq.com/resource/presentations/latency-lessons-tools/en/slides/sl24.jpg" style="width:50%"/>
 
 # Valuable metrics [2]
 * Use the geometric mean instead of arithmetic mean for normalized numbers [1]. "Normalized Number" : ratio of a benchmark test results / another 'reference' machine results.
