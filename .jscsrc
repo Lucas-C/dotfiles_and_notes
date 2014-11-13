@@ -1,0 +1,58 @@
+{
+    // This is a slightly more relaxed mix of the 'google' & 'rbnb' presets
+    "disallowKeywords": [ "with" ],
+    "disallowEmptyBlocks": true,
+    "disallowNewlineBeforeBlockStatements": true,
+    "disallowSpacesInsideArrayBrackets": true,
+    "disallowSpacesInsideObjectBrackets": "all",
+    "disallowSpacesInsideParentheses": true,
+    "disallowSpaceAfterObjectKeys": true,
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+    "disallowSpaceBeforePostfixUnaryOperators": true,
+    "disallowSpaceBeforeBinaryOperators": [ "," ],
+    "disallowMixedSpacesAndTabs": true,
+    "disallowMultipleLineBreaks": true,
+    "disallowMultipleLineStrings": true,
+    "disallowQuotedKeysInObjects": true,
+    "disallowTrailingWhitespace": true,
+    "disallowYodaConditions": true,
+    "requireBlocksOnNewline": 1,
+    "requireCapitalizedConstructors": true,
+    "requireCommaBeforeLineBreak": true,
+    "requireCurlyBraces": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "try",
+        "catch"
+    ],
+    "requireDotNotation": true,
+    "requireLineFeedAtFileEnd": true,
+    "requireParenthesesAroundIIFE": true,
+    "requireSpacesInConditionalExpression": true,
+    "requireSpaceAfterBinaryOperators": true,
+    "requireSpaceAfterKeywords": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "switch",
+        "case",
+        "return",
+        "try",
+        "catch",
+        "typeof"
+    ],
+    "requireSpaceBeforeBinaryOperators": true,
+    "requireSpaceBeforeBlockStatements": true,
+    "safeContextKeyword": "_this",
+    "validateJSDoc": {
+        "checkParamNames": true,
+        "requireParamTypes": true
+    },
+    "validateLineBreaks": "LF",
+    "validateQuoteMarks": "'"
+}
