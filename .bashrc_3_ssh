@@ -1,4 +1,4 @@
-SSH_EXPORT_FILES=".bash_colors .bash_dirs .bash_profile .bashrc* .gitconfig .inputrc .jshintrc .screenrc .tmux.conf .vimrc* .zshrc"
+SSH_EXPORT_FILES=".bash_colors .bash_dirs .bash_profile .bashrc* .gitconfig .inputrc .js*rc .screenrc .tmux.conf .vimrc* .zshrc"
 SSH_EXPORT_TMP_DIR="/tmp/$USER"
 SSH_LOG_DIR=~/ssh_logs
 VISITED_HOSTS_LOG_FILE=~/.visited

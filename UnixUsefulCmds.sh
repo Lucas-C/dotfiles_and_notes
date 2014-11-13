@@ -453,7 +453,7 @@ pax > cpio > tar # http://dpk.io/pax
 zipinfo $file.zip
 pigz # paralell gzip, do not compress folders
 yum install p7zip # for .7z files
-lzop # faster, use less CPU
+lzop, lz4 # faster, use less CPU
 
 sha{1,224,256,384,512}sum, md5sum, cksum
 
@@ -733,8 +733,9 @@ rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *
 rpmbuild file.spec
 alien # transformer un .rpm en .deb
 
-init q # Reload /etc/inittab
-chkconfig, service # control & check /etc/init.d scripts
+init q # Reload upstart config : /etc/inittab, /etc/init.d, /etc/init/*.conf -> can be really simple & useful
+initctl list # list active upstart services
+chkconfig, service # control & check upstart scripts
 
 shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck
 

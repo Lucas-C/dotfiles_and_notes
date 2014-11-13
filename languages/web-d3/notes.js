@@ -6,9 +6,11 @@ $$("#articleContent ul li").length
 debugger // breakpoint for debugger
 performance.timing // and performance.memory : useful debugging informations
 
-$._data($(elem).get(0), "events") // get events binded to 'elem'
+Function.prototype.bind // set the 'this' context
 
-(function(exports) {
+$._data($(elem).get(0), "events") // get events binded to 'elem' in JQuery
+
+(function(exports) { // for modules, use CommonJS 'require'
     var private_name = 'protected_by_closure';
     var MyClass = function(name) {
         this.name = name;
@@ -18,7 +20,6 @@ $._data($(elem).get(0), "events") // get events binded to 'elem'
         return this.name + ' ' + this.private_name;
     };
 })(this); // IIFE pattern: Immediately Invoked Function Expression
-
 
 const TEXT = <> // const not supported by IE
 multi
@@ -120,7 +121,7 @@ function foo() { return i }
 i = "BOO";
 foo() // "BOO", use 'let' to fix that
 
-// Sharp variable
+// Sharp variablie : obsolete, discouraged & non-standard
 var a = { titi:#1={}, toto:#1# };
 a.titi === a.toto; // is: true
 var a = { b:#1={ c:#1# } }

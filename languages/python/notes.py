@@ -590,7 +590,7 @@ yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 cPickle # binary format, generic, fast & lighweight.
 # + PyCloud make it possible to pickle functions dependencies
 
-bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp
+lz4, bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp
 archive = zipfile.ZipFile('foo.zip', mode='w')
 for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy
     for name in files:

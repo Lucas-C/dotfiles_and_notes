@@ -158,6 +158,8 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     Bundle 'scrooloose/syntastic'
     " To know what's going on :SyntasticInfo ; to invoke it manually :SyntasticCheck
     " JSLint: npm install jshint -g # Config example: https://github.com/jshint/jshint/blob/master/examples/.jshintrc
+    let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+    let g:syntastic_aggregate_errors = 1
 
     " Require vim compiled with +python
     "Bundle 'klen/python-mode'
