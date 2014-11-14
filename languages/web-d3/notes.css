@@ -6,3 +6,5 @@ td { display: table-row; }
 .transparent { zoom: 1; filter: alpha(opacity=50); opacity: 0.5; } /* CSS Transparency Settings for All Browsers */
 
 //github.com/tomgenoni/cssdig # analyze, refactor, standardize and maintain your CSS
+
+for(i=0;A=$$("*")[i++];)A.style.outline="solid hsl("+(A+A).length*9+",99%,50%)1px" // CSS debuggung one-liner - Alt: pesticide.io

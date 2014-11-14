@@ -48,8 +48,10 @@ function toType(obj) {
     return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
 function isNumber(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n); // For 'ParseInt', ALWAYS specify the base !
+    return !isNaN(parseFloat(n)) && isFinite(n); // For 'parseInt', ALWAYS specify the base !
 }
++nbr # or ~~nbr or 0|nbr : poor man's parseInt with flooring
+
 function range(start, end) {
     var range_array=[];
     for (var i=start; i<end; ++i) {
@@ -80,10 +82,10 @@ foo.call(newThis, arg1, arg2) || foo.apply(newThis, argsArray) // change current
 with({ a:5 }) { function toto() { return a } } // local scope
 
 try { ... } catch ( err if err instanceof ReferenceError ) { ... } finally {}
-
-arguments.callee.caller.toString()
+EvalError, RangeError, ReferenceError, SyntaxError, TypeError, URIError // Std error types
 console.trace() // stack trace
 new Error().stack // Current call stack, can be printed
+arguments.callee.caller.toString()
 foo.toSource(2) // get function code source, with comments !
 
 requestAnimationFrame > setInterval OR setTimeout // For smart animating, recommended by Mozilla
@@ -92,7 +94,7 @@ requestAnimationFrame > setInterval OR setTimeout // For smart animating, recomm
 //~~//~~//~~//
 // Tricks //
 //~~//~~//
-// Evaluate to 'fail'
+// Evaluate to 'fail' - FROM: https://twitter.com/lagergren/statuses/337484475204255744
 (![]+[])[+[]]+(![]+[])[+!+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]];
 
 {} + [] // 0
@@ -150,6 +152,10 @@ new, with // NEVER use them as variables ! They're reserved keywords
 let > var
 array comprehension
 generators
+[a, b] = [b, a] // destructuring assignement
+// Javascript 1.8
+f = function(x) x*x // lambda notation with expression closure
+Array.reduce
 
 asm.js // static subset of JS, can be compiled ahead, include static typing
 // Rarely hand-written: C++ -> LLVM bytecode -> asm.js
@@ -201,5 +207,7 @@ Esprima // ECMAScript parser
 
 CommonMark // https://github.com/jgm/stmd/blob/master/js/stmd.js
 cemerick/jsdifflib
+
+sweetalert // pretty replacement for 'alert'
 
 jasondavies/d3-cloud // word clouds generator

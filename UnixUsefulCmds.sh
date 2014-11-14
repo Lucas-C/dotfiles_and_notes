@@ -801,6 +801,7 @@ MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage - Alt: h
 
 https://developer.mozilla.org/en-US/docs/Tools/Web_Console
 - inspect(), pprint()
+- console.time(name) .timeEnd(name) .profile(name) .profileEnd(name)
 - cd("#frame1"); # get into a specific iframe
 - $("css selector") or $$() for ALL matches; $x("xpath expression")
 //div[contains(concat(' ',normalize-space(@class),' '),' foo ')] # http://pivotallabs.com/xpath-css-class-matching/
