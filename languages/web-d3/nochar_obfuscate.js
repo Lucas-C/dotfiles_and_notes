@@ -59,11 +59,13 @@
         });
     },
     get_binary_terms_str = function (integer) {
-        var output = '',
+        var output = 'SINGLE_ZERO',
             i = 0;
         while (integer) {
             if (integer % 2) {
-                if (output) {
+                if (i == 0) {
+                    output = '';
+                } else {
                     output += ' + ';
                 }
                 if (i === 0) {
@@ -98,7 +100,11 @@
                 throw new Error('Cannot encode character: ' + character);
             }
             var char_as_int_binary_terms_str = get_binary_terms_str(char_as_int);
-            output += '(' + char_as_int_binary_terms_str + ')[tostring_str](cst36)';
+            if (char_as_int < 10) {
+                output += '(' + char_as_int_binary_terms_str + ')';
+            } else {
+                output += '(' + char_as_int_binary_terms_str + ')[tostring_str](cst36)';
+            }
         }
         if (debug) { console.log(output); }
         for (var subst_i in VAR_REPLACEMENTS) {
@@ -128,9 +134,9 @@
         chars_freq.sort(function (a, b) { return a[1] - b[1]; });
         return chars_freq;
     },
-    input = 'hello world',
+    input = 'embauchez moi 8)',
     nochar_output = nochar(input),
-    output_chars_freq = generate_chars_frequency_table(nochar_output);
+    output_chars_freq = generate_chars_frequency_table(nochar_output),
     console.log([nochar_output,
         (0, eval)(nochar_output),
         'Length: ' + nochar_output.length,
