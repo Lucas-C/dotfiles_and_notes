@@ -631,6 +631,10 @@ def internal_error(exception):
     raise exception
 # Also, catch-all URL: http://flask.pocoo.org/snippets/57/
 
+make html # Pelican static HTML files generation, using Jinja2 templates
+make serve # preview Pelican articles in localhost, with optional autoreload on edit
+sitemap, extract-toc, Tipue-search # plugins
+
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 scapy # packet injection/manipulation for many network protocols
@@ -639,7 +643,7 @@ tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
 
-pygeoip, mitsuhiko/python-geoip, python-geoip@code.google, maxmind/geoip-api-python
+pygeoip, mitsuhiko/python-geoip, python-geoip@code.google, maxmind/geoip-api-python, pierrrrrrre/PyGeoIpMap # this latest one provide a useful command-line tool
 
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
@@ -655,7 +659,7 @@ fogleman/Tiling # pavages
 graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
 
-EasyDialogs, optparse_gui, EasyGui, Tkinter
+EasyDialogs, optparse_gui, EasyGui > Tkinter
 
 urwid # console user interface lib
 code.InteractiveConsole().interact() # interactive python prompt 

@@ -131,6 +131,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 * A stub has no logic, and only returns what you tell it to return
 * A mock has expectations about the way it should be called, and a test should fail if it’s not called that way. Mocks are used to test interactions between objects.
 * A fake doesn’t use a mocking framework: it’s a lightweight implementation of an API that behaves like the real implementation, but isn't suitable for production.
+* test your code opening files with /dev/full that always returns error code ENOSPC (meaning “No space left on device”)
 
 ### Why unit tests ? [PP-Chapt34]
 - build trust in your code

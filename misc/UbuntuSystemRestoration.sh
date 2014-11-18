@@ -48,16 +48,16 @@ sudo fc-cache -f -v
 # RACCOURCIS :
 # ALT+T : gnome-terminal --zoom=0.8 --geometry=50x29+940+50
 
-# Restore grub : boot with livecd and:
-sudo mount /dev/sda8 /mnt
-#sudo grub-install --root-directory=/mnt /dev/sda # only if Ubuntu versions differ between LiveCD & OS
-for i in /dev /proc /sys; do sudo mount --bind $i /mnt$i; done
-sudo chroot /mnt
-sudo update-grub
+# Restore grub : boot with livecd and as root:
+mount /dev/sda8 /mnt
+#grub-install --root-directory=/mnt /dev/sda # only if Ubuntu versions differ between LiveCD & OS
+for i in /dev /proc /sys; do mount --bind $i /mnt$i; done
+chroot /mnt
+grub-mkconfig && update-grub && grub-install /dev/sd... # the 1st & 3rd helped fix Simon's laptop
 exit
-for i in /mnt/dev /mnt/proc /mnt/sys /mnt; do sudo u --mount $i; done
-sudo dd bs=512 count=1 if=/dev/sda 2>/dev/null | strings # check the MBR
-sudo reboot
+for i in /mnt/dev /mnt/proc /mnt/sys /mnt; do umount $i; done
+dd bs=512 count=1 if=/dev/sda 2>/dev/null | strings # check the MBR
+reboot
 
 # Gnome keylogger at start-up : "sudo apt-get install libpam-keyring" puis ajouter "@include common-pamkeyring" in /etc/pam.d/gdm
 # Note : keyring in .gnome2/keyrings/login.keyring
@@ -102,3 +102,5 @@ sudo dpkg-reconfigure postfix # -> then configure local emails only => create /e
 sudo aptitude install mailutils # provides 'mail' command
 
 /home/lucas/.config/variety/variety.conf # wallpaper changer minor change: gsettings set org.cinnamon.background picture-options spanned
+
+sudo apt-get install pepperflashplugin-nonfree # Flash in chromium : http://askubuntu.com/a/449266

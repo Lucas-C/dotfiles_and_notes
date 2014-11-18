@@ -577,7 +577,7 @@ httrack
 Xvfb, xdummy
 PhantomJS, SlimerJS, CasperJS
 GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
-Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter # python crawling libs
+Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, binux/pyspider # python crawling libs
 
 _'_"_'_"_'_"_'_"_'_"_'_"_
 #    ssh@  SSH  :ssh    #
@@ -710,10 +710,12 @@ sudo -K # Remove sudo time stamp => no more sudo rights
 fakeroot # runs a command in an environment wherein it appears to have root privileges for file manipulation
 chroot $path_to_fake_root $cmd # 'chroot jail' => changes the apparent root directory
 
+fdisk -l
 lspci -v # list devices
 lshw -C disk # list disks : ata, cdrom, dvdrom
 blkid # list UUIDs
 dmidecode
+smartctl -a /dev/sdb2 # scan a device - Alt: gsmartcontrol
 /sbin/mdadm --examine --scan --verbose # need root - RAID config
 
 # Find what package a command belong to:

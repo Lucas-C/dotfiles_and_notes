@@ -8,7 +8,20 @@ performance.timing // and performance.memory : useful debugging informations
 
 Function.prototype.bind // set the 'this' context
 
+Object.freeze / Object.seal
+
+Object.create > mutating .protoype // cf. https://github.com/mbostock/d3/issues/1805
+
 $._data($(elem).get(0), "events") // get events binded to 'elem' in JQuery
+function extend() { // jQuery.extend equivalent
+    for (var i = 1; i < arguments.length; i++)
+        for (var key in arguments[i])
+            if (arguments[i].hasOwnProperty(key))
+                arguments[0][key] = arguments[i][key];
+    return arguments[0];
+}
+
+foo.apply(null, [].push.apply([accumulator], [].slice.call(arguments, 1))) // foo(accumulator, *arguments[1:])
 
 (function(exports) { // for modules, use CommonJS 'require'
     var private_name = 'protected_by_closure';
@@ -30,7 +43,7 @@ JSON.stringify(obj) // pretty stringifier, an equivalent lib to this builtin is 
 
 var args = Array.apply(null, arguments); // arguments -> Array
 [ 'aaa', 'bbb'... ].join('') // Concat of many strings
-Array.prototype.push.apply(array1, array2); // Concat array2 in array1
+[].push.apply(array1, array2); // Concat array2 in array1
 function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(element)) pos != -1 && array.splice(pos, 1);
 
 +new Date() // milliseconds since epoch
@@ -65,7 +78,7 @@ String.prototype.format // "{0} & {1} NOT {2}".format('x', 42) :  http://stackov
 var o = { foo:42 };
 o.watch('foo', function (id, oldval, newval) { ... });
 o.foo = "42";
-// Define getter
+// Define getter - Alt: Object.defineProperty(window, "myVariable", { get: function () { ...
 o.__defineGetter__('x', function(){ return 7 } ) // one can even o.__lookupGetter__
 // default method called
 o.__noSuchMethod__ = function(meth_name){...}
@@ -210,4 +223,5 @@ cemerick/jsdifflib
 
 sweetalert // pretty replacement for 'alert'
 
-jasondavies/d3-cloud // word clouds generator
+ywng/Progressive-News-Cloud, jasondavies/d3-cloud // word clouds generators
+
