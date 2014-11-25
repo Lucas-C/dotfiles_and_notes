@@ -158,6 +158,17 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - Use the idioms of the programming language employed, aka "Don't write C code in Java"
 - When debugging, **THINK** before going on step-by-step debug mode [RobPikeKenThompson]. [A longer quote on ptrint-traces debugging VS debuggers](http://taint.org/2007/01/08/155838a.html)
 
+## The UNIX Philosophy by Mike Gancarz
+1. Small is beautiful.
+2. Make each program do one thing well.
+3. Build a prototype as soon as possible.
+4. Choose portability over efficiency.
+5. Store data in flat text files.
+6. Use software leverage to your advantage.
+7. Use shell scripts to increase leverage and portability.
+8. Avoid captive user interfaces.
+9. Make every program a filter.
+
 ## [On beeing a senior engineer](http://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/)
 - Mature engineers seek out constructive criticism of their designs.
 - Mature engineers understand the non-technical areas of how they are perceived.

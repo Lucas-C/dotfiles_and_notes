@@ -7,6 +7,7 @@
 - [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
 - [5EPSQ] : [Five essential phone screen questions](https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions)
 - [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
+- [InfiniteHows] : http://radar.oreilly.com/2014/11/the-infinite-hows.html
 - [IT Change Management](http://stephaniekdean.wordpress.com/2011/06/17/cm/)
 - [Event Management](http://stephaniekdean.wordpress.com/2011/04/04/eventmgmt/)
 
@@ -71,6 +72,7 @@ In general, limit meetings by making them informal chats or doing them properly:
 - frequently determine operational excellence goals: eliminate the top root cause of tickets, create a runbook/dashboard for a service...
 - CMs: cf. [IT Change Management]
 - post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management]
+Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
 
 ## Documentation:
 - Tenets:
