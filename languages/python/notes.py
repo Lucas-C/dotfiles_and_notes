@@ -585,7 +585,7 @@ shelve # other data persistence using pickle, full list of alt: http://docs.pyth
 stephenmcd/hot-redis
 
 ConfigParser, configobj # std configuration files format
-csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
+csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
 yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 cPickle # binary format, generic, fast & lighweight.
 # + PyCloud make it possible to pickle functions dependencies
@@ -639,6 +639,7 @@ mininet # realistic virtual network, running real kernel, switch and application
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 scapy # packet injection/manipulation for many network protocols
 wifi # wrapper around iwlist and /etc/network/interfaces
+webbrowser.open_new_tab # Firefox/Opera/Chrome instrumentation
 tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
@@ -651,6 +652,7 @@ jiaaro/pydub # manipulate audio with a simple and easy high level interface (wit
 pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
+cairo # graphics library outputting .ps .pdf .svg & more
 wand (ImageMagick binding), pillow > pil # Python Image Library
 ufoym/cropman # face-aware image cropping
 lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
@@ -689,6 +691,7 @@ else:
 from __future__ import braces
 
 import this
+import antigravity
 
 a='a=%s;print a%%`a`';print a%`a` # Quine
 

@@ -21,7 +21,8 @@ function extend() { // jQuery.extend equivalent
     return arguments[0];
 }
 
-foo.apply(null, [].push.apply([accumulator], [].slice.call(arguments, 1))) // foo(accumulator, *arguments[1:])
+var extra_args = [].slice.call(arguments, 1);
+foo.bind(null, accumulator).apply(null, extra_args) // foo(accumulator, *arguments[1:])
 
 (function(exports) { // for modules, use CommonJS 'require'
     var private_name = 'protected_by_closure';
@@ -50,6 +51,7 @@ function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(eleme
 
 'abcd'.match(/a(.*)/) // regexp, also new RegExp("string", 'igm') where g: global, m:multi-line i: ignore case
 RegExp.$1 // 'bcd'
+/whatever/g.test() // ! STATEFUL ! no need for 'g' with .test() or use .match()
 
 for ( let i in function(){ return [1,2,3] }() ) ...
 
@@ -213,7 +215,7 @@ Google V8 // Open Source high perf JS engine written in C++. Features :
 // - Profiler : d8 --prof script.js
 
 // Languages that compile to JS:
-CoffeeScript, TypeScript
+CoffeeScript, TypeScript, Flow // Last two provide static type checking
 Brython, RapydScript, Pyjamas, PythonJS // for Python
 
 Esprima // ECMAScript parser

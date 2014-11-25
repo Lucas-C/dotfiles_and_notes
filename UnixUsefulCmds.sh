@@ -346,7 +346,7 @@ perl -ne '/(error|warn)(?!negative-look-ahead-string-to-not-match-just-after)/i'
 perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
 grep | cut -c1-200 # ignore lines with length > 200 chars
 
-pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py OR LibreOffice Draw
+pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py OR pdftk OR LibreOffice Draw
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: -dFirstPage=X -dLastPage=Y - Alt: http://compress.smallpdf.com
 
 tr -c '[:alnum:]' _
@@ -377,6 +377,8 @@ fold # breaks lines to proper width
 fmt # reformat lines into paragraphs
 printf "%-8s\n" "${value}" # 8 spaces output formatting
 | xargs -n 1 sh -c 'echo ${0:0:3}' # 3 first characters of $string
+
+csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # pip install csvkit
 
 jq # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
 xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstartlet & http://stackoverflow.com/a/91801
@@ -578,6 +580,7 @@ Xvfb, xdummy
 PhantomJS, SlimerJS, CasperJS
 GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
 Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, binux/pyspider # python crawling libs
+python -m webbrowser -t "$url"
 
 _'_"_'_"_'_"_'_"_'_"_'_"_
 #    ssh@  SSH  :ssh    #
@@ -710,13 +713,16 @@ sudo -K # Remove sudo time stamp => no more sudo rights
 fakeroot # runs a command in an environment wherein it appears to have root privileges for file manipulation
 chroot $path_to_fake_root $cmd # 'chroot jail' => changes the apparent root directory
 
-fdisk -l
+fdisk -l # has flaws, better use bitbucket.org/skypher/fdisk
+testdisk # disk data recovery
+lsusb # Alt: usb-devices
 lspci -v # list devices
 lshw -C disk # list disks : ata, cdrom, dvdrom
 blkid # list UUIDs
 dmidecode
-smartctl -a /dev/sdb2 # scan a device - Alt: gsmartcontrol
 /sbin/mdadm --examine --scan --verbose # need root - RAID config
+shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck - Alt:
+smartctl -a /dev/sdb2 # scan a device - Alt: gsmartcontrol or above
 
 # Find what package a command belong to:
 apt-file search /path/to/anyfile
@@ -724,6 +730,7 @@ yum provides $cmd
 dpkg -S /path/to/cmd
 rpm -qif $(which cmd)
 rpm -Uvh pkg.rpm # upgrade RPM
+apt-get source $pkg
 apt-cache search $keyword
 apt-cache rdepends $pkg # list dependencies
 rpm -q --whatrequires $pkg # list dependencies
@@ -738,8 +745,6 @@ alien # transformer un .rpm en .deb
 init q # Reload upstart config : /etc/inittab, /etc/init.d, /etc/init/*.conf -> can be really simple & useful
 initctl list # list active upstart services
 chkconfig, service # control & check upstart scripts
-
-shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck
 
 xev # Listen to keyboard events
 loadkeys fr # Change keyboard to FR
@@ -767,6 +772,8 @@ sudo ldconfig
 killall gnome-settings-daemon # Fix crazy numpad (no '-')
 sudo service lightdm restart # restart Gnome session / useful in case of a frozen X server
 killall gnome-panel
+
+gsettings set org.gnome.desktop.media-handling automount false # disable automount
 
 rm ~/.config/user-dirs.locale # can fix broken locale
 
