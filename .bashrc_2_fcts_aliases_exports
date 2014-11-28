@@ -41,16 +41,17 @@ opendiff ${_UNDER}# OSX${_END}
 EOF
 }
 
-alias diff='diff_alt && /usr/bin/diff -bB --suppress-common-lines'
-alias sdiff='/usr/bin/sdiff -bB --suppress-common-lines'
+alias sudo='sudo ' # Allow aliases with sudo : http://askubuntu.com/a/22043
+alias strings='strings -a' # safer, due to vulnerabilities in libbfd
+alias diff='diff_alt && diff -bB --suppress-common-lines'
+alias sdiff='sdiff -bB --suppress-common-lines'
 diffs () { /usr/bin/diff -U2 "$@" | diffstat; }
 
-alias strings='strings -a' # safer, due to vulnerabilities in libbfd
-alias less='/usr/bin/less --ignore-case --LONG-PROMPT'
-alias make='/usr/bin/make -j3'
-alias dmesg='dmesg --ctime' # Alt: http://stackoverflow.com/a/19272272
 if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
-    alias cl='grc --stderr --stdout --colour=on'
+    alias cl='grc --stderr --stdout --colour=auto' # DO NOT SET --color=on
+    # => it disables bash_completion : _completion_loader dynamically loads completion files,
+    # and they would use the aliased cmds to figure the available completable arguments
+    # (and fail to do so, e.g. for 'make', because of the colored output)
     alias make='cl make -j3'
     cl_dmesg () { dmesg "$@" | grcat conf.proftpd; }; alias dmesg=cl_dmesg
     alias gcc='cl gcc'
@@ -74,6 +75,10 @@ if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
         fi
     }
     alias less=colorless
+else
+    alias less='less --ignore-case --LONG-PROMPT'
+    alias make='make -j3'
+    alias dmesg='dmesg --ctime' # Alt: http://stackoverflow.com/a/19272272
 fi
 
 alias tF='tail -F'      # Alt: less + /search + SHIFT-F
@@ -177,7 +182,7 @@ alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias py27='PYTHONSTARTUP=$HOME/.pythonrc python2.7'
 alias py34='PYTHONSTARTUP=$HOME/.pythonrc python3.4'
 rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
-alias node='env NODE_NO_READLINE=1 rlwrap /usr/local/bin/node'
+alias node='env NODE_NO_READLINE=1 rlwrap $(type -P node)'
 alias lua='rlwrap --always-readline lua'
 alias lua5.2='rlwrap --always-readline lua5.2'
 
