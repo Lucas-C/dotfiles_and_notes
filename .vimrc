@@ -87,9 +87,13 @@ if !empty($TMUX)
     execute "set <xLeft>=\e[1;*D"
 endif
 
-command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+if !exists(":W")
+    command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+endif
 
 map!  
+
+map <C-s> :w<CR>
 
 set mouse=a
 
@@ -98,18 +102,21 @@ set pastetoggle=<F2>         "http://vim.wikia.com/wiki/Toggle_auto-indenting_fo
 
 let mapleader = "\\"
 
-"Bind <F3> to paste the clipboard
+"Bind <C-v> to paste the clipboard
 let os=substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
-    nmap <F3> :r!pbpaste<CR>
-    imap <F3> <esc>:r!pbpaste<CR>i
+    nmap <C-v> :r!pbpaste<CR>
+    imap <C-v> <esc>:r!pbpaste<CR>i
 elseif os == 'Linux'
-    nmap <F3> :r!xclip -o<CR>
-    imap <F3> <esc>:r!xclip -o<CR>i
+    nmap <C-v> :r!xclip -o<CR>
+    imap <C-v> <esc>:r!xclip -o<CR>i
     "The leader should probably be configured depending on the keyboard,
     "I'm keeping this value for AZERTY kb for now
     let mapleader = "<"
 end
+
+"Remapping q to vertical visual block selection (that default to <C-v>)
+:nnoremap q <C-v>
 
 "When editing a file, make screen display the name of the file you are editing
 function! SetTitle()
@@ -143,12 +150,11 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     set lazyredraw              "Don't redraw while executing macros (good performance config)
 
     Bundle 'scrooloose/nerdcommenter'
-    map <leader>cc <plug>NERDCommenterAlignLeft
-    map <leader>cb <plug>NERDCommenterComment
+    map <C-q> <plug>NERDCommenterToggle
 
     Bundle 'jlanzarotta/bufexplorer'
     Bundle 'scrooloose/nerdtree'
-    map <leader>nn :NERDTreeToggle<cr>
+    map <C-x> :NERDTreeToggle<CR>
 
     Bundle 'guns/vim-clojure-static'
     Bundle 'JuliaLang/julia-vim'
