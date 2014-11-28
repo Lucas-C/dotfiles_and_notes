@@ -26,10 +26,9 @@ Panels
 
 BANG!
 =====
-Preffix by *:r* to paste the output.\
-- *:r* __!__*ls*
-- *:r* __!__*pwd*
+Prefix by *:r* to paste the output. E.g.\
 - *:r* __!__*wc* __%__ (current file)
+- *:r* __!__*ls* (or __!__*pwd*)
 - *:cd* /path
 
 
@@ -39,7 +38,7 @@ It can also be done after visually selecting some text : it is then piped to the
 
 Formatting
 ==========
-- __\<leader\>__cc : comment toggle selection
+- __CTRL+q__ : comment/uncomment selection
 - *guu*/*gUU*/*~* : lowercase line / uppercase line / invert case of selection
 - __\<select\>__+__{tabs count}__*>* : indent
 - *=* : auto (re)indent selection
@@ -66,28 +65,31 @@ Insertion
 
 Copy-paste
 ==========
-1. *v* : visual selection (or __CTRL__+V for vertical selection)
+- __CTRL+v__ : paste the clipboard
+1. *v* : visual selection (or *q* for vertical selection)
 2. *y*/*d* : copy (yank)/copy & delete
 3. *p*/*P* : paste after/before
 - *dd* : copy & delete line
 - *yy* : copy line
-- __["]__+__[+]__+__[Y]__ : copy line to system clipboard
+- __"__+__+__+__y__ : copy line to system clipboard
 
 Registers
 =========
-- __[0]__ : only populated with yanked text  __["]__+__[0]__+__[p]__
-- __["]__ (default) : also populated with text from *d*/*x*/*c*/*s* commands
+- __0__ : only populated with yanked text  __"__+__0__+__p__
+- __"__ (default) : also populated with text from *d*/*x*/*c*/*s* commands
 
 Commands
 ========
-- *:*__[UP]__ : commands history
+- *:*__UP__ : commands history
 - *:u* : undo
-- __[CTRL]+[R]__ : redo
+- __CTRL+r__ : redo
 - *:.* : repeat last change - *:@* : repeat last command-line change
 
 Config
 ======
 - *:verbose set* __var__*?* : get config value
+- *:[|i|n|v]map* : display current shortcuts / key bindings
+- *:so %* : reload currently edited .vimrc
 - *echo* os : get variable value
 
 Display
@@ -95,8 +97,8 @@ Display
 - **^M** : those are Windows newline
 - *:set list* : show special characters
 - *ga* : display ascii decimal, hex & octal value of character under cursor
-- *:Ex* : file explorer (also __\<leader>__nn for NERDTree)
-- *:ls* : list buffers (also __\<leader>__be for bufexplorer)
+- *:Ex* : file explorer (also __CTRL+x__ for NERDTree)
+- *:ls* : list buffers (also *:BufExplorer*)
 
 More tips
 =========
