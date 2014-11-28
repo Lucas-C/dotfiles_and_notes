@@ -10,6 +10,7 @@
 - [InfiniteHows] : http://radar.oreilly.com/2014/11/the-infinite-hows.html
 - [IT Change Management](http://stephaniekdean.wordpress.com/2011/06/17/cm/)
 - [Event Management](http://stephaniekdean.wordpress.com/2011/04/04/eventmgmt/)
+- [AuthoringStyleGuide](https://github.com/tooling/authoring-styleguide)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -91,6 +92,7 @@ Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
 - Teach don't tell : http://stevelosh.com/blog/2013/09/teach-dont-tell/
 - use Doxygen / Docurium for code documentation
 - many more advices: https://github.com/PharkMillups/beautiful-docs
+- cf. [AuthoringStyleGuide]
 
 ## Recruiting & coaching new hires
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [5EPSQ]

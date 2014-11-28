@@ -13,13 +13,46 @@ Object.freeze / Object.seal
 Object.create > mutating .protoype // cf. https://github.com/mbostock/d3/issues/1805
 
 $._data($(elem).get(0), "events") // get events binded to 'elem' in JQuery
-function extend() { // jQuery.extend equivalent
-    for (var i = 1; i < arguments.length; i++)
-        for (var key in arguments[i])
-            if (arguments[i].hasOwnProperty(key))
-                arguments[0][key] = arguments[i][key];
+
+format = function (string) { // Provide both {0} & {keyword} substitutions, '<C3><A0> la Python' - Alt: _.template
+    var output = string,
+        extra_args = [].slice.call(arguments, 1);
+    if (extra_args.length === 1 && typeof extra_args[0] !== 'string' && !(extra_args[0] instanceof String)) {
+        extra_args = extra_args[0];
+    }
+    for (var key in extra_args) {
+        if (typeof extra_args[key] !== 'undefined') {
+            output = output.replace(new RegExp('\\{' + key + '\\}', 'g'), extra_args[key]);
+        }
+    }
+    return output;
+}
+extend = function () { // jQuery.extend equivalent
+    for (var i = 1; i < arguments.length; i++) {
+        for (var key in arguments[i]) { // include inherited properties
+            arguments[0][key] = arguments[i][key];
+        }
+    }
     return arguments[0];
 }
+unique = function (array) { // Remove duplicates in an array, like jQuery.unique
+    return array.filter(function (e, i, arr) {
+        return arr.lastIndexOf(e) === i;
+    });
+}
+encode_query_params = function (data) {
+    return Object.keys(data).map(function(key) {
+        return [key, data[key]].map(encodeURIComponent).join('=');
+    }).join('&');
+}
+range = function (start, end) { // Alt: _.range
+    var range_array=[];
+    for (var i=start; i<end; ++i) {
+        range_array.push(i);
+    }
+    return range_array;
+}
+
 
 var extra_args = [].slice.call(arguments, 1);
 foo.bind(null, accumulator).apply(null, extra_args) // foo(accumulator, *arguments[1:])
@@ -52,6 +85,7 @@ function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(eleme
 'abcd'.match(/a(.*)/) // regexp, also new RegExp("string", 'igm') where g: global, m:multi-line i: ignore case
 RegExp.$1 // 'bcd'
 /whatever/g.test() // ! STATEFUL ! no need for 'g' with .test() or use .match()
+str.replace(new RegExp('\\{' + key + '\\}', 'g'), value);
 
 for ( let i in function(){ return [1,2,3] }() ) ...
 
@@ -66,15 +100,6 @@ function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n); // For 'parseInt', ALWAYS specify the base !
 }
 +nbr # or ~~nbr or 0|nbr : poor man's parseInt with flooring
-
-function range(start, end) {
-    var range_array=[];
-    for (var i=start; i<end; ++i) {
-        range_array.push(i);
-    }
-    return range_array;
-}
-String.prototype.format // "{0} & {1} NOT {2}".format('x', 42) :  http://stackoverflow.com/a/4673436/636849
 
 // Watch property changes
 var o = { foo:42 };
@@ -180,8 +205,8 @@ ParallelJS // .mapPar() .filterPar() .reducePar()
 hex_md5('string') // crypt/md5.js
 // davidshimjs/qrcodejs
 
-underscorejs.org // Functional prog lib
-moment.js // parse, validate, manipulate, and display dates
+lazy.js, lodash > underscore.js // Functional prog libs
+moment.js > sugar.js // parse, validate, manipulate, and display dates
 
 npm install // Node Packaged Modules
 
