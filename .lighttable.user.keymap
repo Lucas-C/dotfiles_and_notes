@@ -1,13 +1,11 @@
-; https://github.com/LightTable/LightTable/wiki/For-Users
-; Config files: User/Default behaviors/keymap/script
-;
-; <CTRL>+<SHIFT>+O : Open-file
-; <CTRL>+<ENTER> : evaluate line of code
+; ln -s $PWD/.lighttable.user.keymap $HOME/.config/LightTable/User/user.keymap
+; Some docs: https://github.com/LightTable/LightTable/wiki/For-Users
+; Defaults: https://github.com/LightTable/LightTable/blob/master/deploy/settings/default/default.keymap
+;   <CTRL>+<SPACE> : command prompt with completion, e.g. add-browser-tab
+;   <CTRL>+<SHIFT>+O : Open-file
+;   <CTRL>+<ENTER> : evaluate line of code
 ;     <CTRL>+<SHIFT>+<ENTER> : evaluate whole file
-; <CTRL>+<SPACE> : command prompt with completion, like add-browser-tab
-;
 ; List all available commands to map: grep -hIRF '(cmd/command {:command' /opt/LightTable/ | cut -d' ' -f3 | sort | uniq
-
 [
  [:editor "alt-shift-w" :editor.watch.unwatch]
  [:editor "alt-w" :editor.watch.watch-selection]
@@ -21,5 +19,5 @@
  [:editor "f1" :toggle-console]
  [:editor "ctrl-f1" :clear-console]
 
- [:editor "ctrl-shift-t" :aut]
+ [:editor "f3" :find.next]
 ]

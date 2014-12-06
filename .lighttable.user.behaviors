@@ -1,0 +1,9 @@
+; ln -s $PWD/.lighttable.user.behaviors $HOME/.config/LightTable/User/user.behaviors
+; Files mime-type binding: https://github.com/LightTable/LightTable/blob/master/deploy/settings/default/default.behaviors#L270
+; Plugins:
+;   one-more-minute/Reminisce : restore tabs
+[
+ [:app :lt.objs.style/set-skin "dark"] ; all styles available: https://github.com/LightTable/LightTable/blob/master/deploy/settings/default/default.behaviors#L56
+ [:editor :lt.objs.editor/wrap]
+ [:editor :lt.objs.style/font-settings "" 14 ""]
+]

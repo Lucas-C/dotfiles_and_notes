@@ -1,6 +1,6 @@
 ## References
 - [CC-\\w\\d+] : Clean Code - Robert C. Martin - Ed. Prentice Hall
-- [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley
+- [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley : http://blog.codinghorror.com/a-pragmatic-quick-reference/
 - [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) - Amy Brown & Greg Wilson
 - [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter - Ed. Addison-Wesley
 - [SDP] : [Software Design Philosophy - John Ousterhout](https://ramcloud.stanford.edu/wiki/display/ramcloud/Software+Design+Philosophy)
@@ -143,7 +143,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 * You **need** TDD !! (or at least some kind of automated systematic testing) [QETDDM]
 * TDD: automated, easy to follow, autonomously done
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
-* Do it well: use proper tools, including automated static analysis (findbugs, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
+* Do it well: use proper tools, including automated static analysis (findbugs, ArtisticStyle for C/C++/Java, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
 
 ## General
 - Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
@@ -182,7 +182,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - Mature engineers don’t make empty complaints.
 - Mature engineers are aware of cognitive biases
     * [Self-Serving Bias](//en.wikipedia.org/wiki/Self-serving_bias)
-    * [Fundamental Attribution Error](http://www.kitchensoap.com/2012/09/10/fundamental-stress-strain-curves-in-web-engineering/)
+    * [Fundamental Attribution Error](//en.wikipedia.org/wiki/Fundamental_attribution_error)
     * [Hindsight Bias ](//en.wikipedia.org/wiki/Hindsight_bias)
     * [Outcome Bias](//en.wikipedia.org/wiki/Outcome_bias)
     * [Planning Fallacy](//en.wikipedia.org/wiki/Planning_fallacy)

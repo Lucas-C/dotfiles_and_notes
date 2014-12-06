@@ -279,7 +279,7 @@ logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call
 
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
-while true do inotifywait -r -e modify -e create -e close . ./run.sh done # inotify-tools based keep-alive trick
+while true do inotifywait -r -e modify -e create -e delete . ./run.sh done # inotify-tools based keep-alive trick
 
 # Launch command at a specified time or when load average is under 0.8
 echo $cmd | at midnight
@@ -348,6 +348,7 @@ grep | cut -c1-200 # ignore lines with length > 200 chars
 
 pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py OR pdftk OR LibreOffice Draw
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: -dFirstPage=X -dLastPage=Y - Alt: http://compress.smallpdf.com
+pdfjam file1.pdf file2.pdf 1, 3- `# optional selector` --nup 2x1 --landscape --outfile out.pdf # printer-friendly version
 
 tr -c '[:alnum:]' _
 
@@ -402,7 +403,7 @@ find -D rates ... # details success rates of each match logic term
 find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: man agedu (-s $dir then -w / -t) ; + all tools listed in http://dev.yorhel.nl/ncdu
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
-find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed 's/^[^ ]* //' | xargs -n 1 ls -l # list files by modification time
+find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -l "{}" # list files by modification time
 find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long' - Alt to mtime: -newer $than_this_file
 fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte - Also: findimagedupes
 
@@ -573,7 +574,7 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: 
   -l --level=depth : default = 5
   -c --continue : continue getting a partially-downloaded file
   --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
-curl --fail --insecure --request POST --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html
+curl --fail --insecure --request POST --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html - Alt: jakubroztocil/httpie
 # Web scrapping:
 httrack
 Xvfb, xdummy
@@ -749,7 +750,7 @@ chkconfig, service # control & check upstart scripts
 xev # Listen to keyboard events
 loadkeys fr # Change keyboard to FR
 setxkbmap -print # print keyboard config
-install myspell-fr # LibreOffice SpellCheck
+numlockx # Toggle numpad key locking
 
 mplayer -identify -vo null -ao null -frames 0 $file | grep "Video stream found" # Identify video
 mencoder vid.wmv -o vid.avi -ofps 25 -ni -ovc lavc -oac mp3lame # Convert .wmv to .avi
@@ -768,6 +769,8 @@ wine uninstaller # real files are in ~/.wine/
 echo <ctrl-v><ctrl-o> # or 'reset', fix terminal frenzy
 
 sudo ldconfig
+
+install myspell-fr # LibreOffice SpellCheck
 
 killall gnome-settings-daemon # Fix crazy numpad (no '-')
 sudo service lightdm restart # restart Gnome session / useful in case of a frozen X server
@@ -790,6 +793,8 @@ sudo su -c 'echo 1 > /sys/bus/pci/rescan' # Rescan for memory card
 xhost +local:root # Xlib: connection to ":0.0" refused by server
 
 killall unity-panel-service # display clock in Ubuntu when buggy
+
+xdg-mime default lighttable.desktop text/x-markdown # Also: mimetype $file
 
 /var/log/kern.log EMPTY # needs $ModLoad imklog in /etc/rsyslog.conf + service rsyslog restart (thx: http://serverfault.com/a/405244 ): BUT:
 # -> "imklog: error reading kernel log - shutting down: Bad file descriptor" + CPU maxing out. Web search => looks like a known issue solved with more recent versions of rsyslog
@@ -908,12 +913,10 @@ compare img1 img2
 composite # merge images
 
 gifsicle "$gif" -I | sed -ne 's/.* \([0-9]\+\) images/\1/p' # frames count
-
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
-
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
-
 jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs 
+feh -F -D 3 --cycle-once * # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 
 
 $$$$$$$$$$$$$$$
