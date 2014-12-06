@@ -28,6 +28,8 @@ curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-co
 # use HTTPS protocol instead of git one (e.g. to bypass a firefall):
 git config --global url."https://".insteadOf git://
 
+git rebase --interactive # squash commits. For initial commit, use: git commit --all --amend
+
 # Fix commit already pushed - FROM: http://blog.jacius.info/2008/6/22/git-tip-fix-a-mistake-in-a-previous-commit/
 git stash
 gri HEAD^ # -> 'edit'

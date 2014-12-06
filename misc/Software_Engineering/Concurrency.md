@@ -47,7 +47,7 @@
 
 
 # Java
-Built-in parallelism the easy way : ExecutorService
+Built-in parallelism the easy way : [ExecutorService](http://www.nurkiewicz.com/2014/11/executorservice-10-tips-and-tricks.html)
 
 synchronized method/code blocks to handle concurrent access:
 - Keep synchronized sections as small as possible

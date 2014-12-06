@@ -13,6 +13,7 @@ from __future__ import unicode_literals # make all literal strings unicode by de
 unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
 chardet.detect(str) # Mozilla encoding detection
 str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters - Also: str.decode('utf8')
+PYTHONIOENCODING=utf_8 # http://daveagp.wordpress.com/2010/10/26/what-a-character/
 with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as UTF8
     for line in open_file.readlines():
         yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
@@ -374,6 +375,7 @@ vars(obj), dir(obj)
 inspect.getmembers(obj)
 inspect.getargspec(foo_func) # get signature
 inspect.getfile(my_module)
+inspect.getsource(foo_func) # if implemented in C, use punchagan/cinspect
 frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
 sys._getframe(1).f_locals['foo'] = 'overriding caller local variable!'
 
@@ -495,6 +497,7 @@ modulefinder # determine the set of modules imported by a script
 
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler. Also: PyPy-STM
 -> from tputil import make_proxy # transparent proxy : can record/intercept/modify operations
+from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
 Jython / Py4J # intercommunicate with Java
 Numba # NumPy aware dynamic Python compiler using LLVM
 Pyston # VM using LLVM JIT
@@ -578,6 +581,7 @@ import uuid # generate unique IDs
 resource # limit a process resources: SPU time, heap size, stack size...
 
 peewee, SQLAlchemy # ORM DB
+from playhouse.sqlite_ext import SqliteExtDatabase; db = SqliteExtDatabase(':memory:') # in-memory SQLite DB with peewee
 anydbm: dbhash else gdbm else dbm else dumbdbm
 sqlite3 # std DB, persistent in a file || can be created in RAM
 pyMySQL, noplay/python-mysql-replication

@@ -1,3 +1,9 @@
+; lein repl
+; cljs-rhino / cljs-node ; ClojureScript, aka Clojure for Javascript : https://github.com/clojure/clojurescript/wiki/Differences-from-Clojure
+(ns cljs.user (:require [clojure.string :as string])) ; ClojureScript, requires using the ns macro
+(load-file "lt/objs/cli.cljs")
+(.log js/console (pr-str [1 2 3]))
+
 ;;;;;;;;
 ; LIBS
 ;;;;;;;;

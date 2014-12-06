@@ -185,6 +185,8 @@ rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
 alias node='env NODE_NO_READLINE=1 rlwrap $(type -P node)'
 alias lua='rlwrap --always-readline lua'
 alias lua5.2='rlwrap --always-readline lua5.2'
+cljs-rhino () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline cljsbuild repl-rhino "$@"; }
+cljs-node () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline noderepl "$@"; }
 
 # Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
 alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'

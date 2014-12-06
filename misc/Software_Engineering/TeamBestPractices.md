@@ -74,6 +74,7 @@ In general, limit meetings by making them informal chats or doing them properly:
 - CMs: cf. [IT Change Management]
 - post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management]
 Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
+- use a chatbot for real time alerts
 
 ## Documentation:
 - Tenets:

@@ -14,6 +14,10 @@ java -jar archive.jar # Maybe -cp .
 // To be sure you're using the correct Java : namei $(which java)
 */
 
+// Java scripting
+jrunscript // Javascript engine based on Mozilla's Rhino - Java 6-7 - Uses javax.script module
+jjs // Nashborn Javascript engine - Java 8
+
 java -cp junit.jar:. org.junit.runner.JUnitCore path.to.pkg.AllTests// JUnit
 JContractS (formerly iContract), cofoja // Design By Contract libs
 findbugs, error-prone // code checking tools

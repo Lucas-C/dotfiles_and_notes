@@ -210,6 +210,8 @@ moment.js > sugar.js // parse, validate, manipulate, and display dates
 
 npm install // Node Packaged Modules
 
+substack/minimist // argument options parser - Alt: chevex/yargs, harthur/nomnom
+
 var http = require('http');
 http.createServer(function (req, res) {
   console.log('request recieved');
