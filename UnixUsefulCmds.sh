@@ -279,7 +279,7 @@ logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call
 
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
-while true do inotifywait -r -e modify -e create -e delete . ./run.sh done # inotify-tools based keep-alive trick
+while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick
 
 # Launch command at a specified time or when load average is under 0.8
 echo $cmd | at midnight
@@ -345,10 +345,11 @@ sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending 
 perl -ne '/(error|warn)(?!negative-look-ahead-string-to-not-match-just-after)/i'
 perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
 grep | cut -c1-200 # ignore lines with length > 200 chars
+pyp # pip install --user pyped : alternative to sed, awk, cut & perl
 
 pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py OR pdftk OR LibreOffice Draw
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: -dFirstPage=X -dLastPage=Y - Alt: http://compress.smallpdf.com
-pdfjam file1.pdf file2.pdf 1, 3- `# optional selector` --nup 2x1 --landscape --outfile out.pdf # printer-friendly version
+pdfjam file1.pdf file2.pdf 1, 3- `# optional selector` --nup 2x1 --landscape --outfile out.pdf # printer-friendly version - Also: pdf290 to rotate
 
 tr -c '[:alnum:]' _
 
@@ -381,7 +382,7 @@ printf "%-8s\n" "${value}" # 8 spaces output formatting
 
 csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # pip install csvkit
 
-jq # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
+jq -r '..|objects|.name//empty' # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
 xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstartlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
@@ -518,6 +519,7 @@ ifup, ifdown # bring a network interface up
 ls /var/lib/dhc* # check what DHCP client is used
 # Query DNS cmds > deprecated 'nslookup'
 host [-t txt] $hostname # -a (all records) -v
+dig +short NS $hostname # find authoritative nameservers
 dig @$dns_server $hostname
 dig +short -x $ip # Reverse DNS
 dig +trace +norecurse txt $dns_server
@@ -677,6 +679,7 @@ monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) int
 dstat
 pt-summary, glances, psdash, conky
 collectd, perfwatcher
+hdparm -tT /dev/sda # Check a disk read/write speed
 
 stap # SystemTap
 perf # aka perf_events, needs a version of linux-tools-* matching the kernel - More: http://www.pixelbeat.org/programming/profiling/
@@ -746,6 +749,16 @@ alien # transformer un .rpm en .deb
 init q # Reload upstart config : /etc/inittab, /etc/init.d, /etc/init/*.conf -> can be really simple & useful
 initctl list # list active upstart services
 chkconfig, service # control & check upstart scripts
+# /etc/init/ script example:
+start on startup
+script
+    set -o pipefail -o errexit -o nounset -o xtrace
+    cd $dir
+    exec >> etherpad-upstart.log
+    exec 2>> etherpad-upstart.log
+    date
+    exec start-stop-daemon --start -c $user --exec /path/to/exec
+end script
 
 xev # Listen to keyboard events
 loadkeys fr # Change keyboard to FR
@@ -775,6 +788,7 @@ install myspell-fr # LibreOffice SpellCheck
 killall gnome-settings-daemon # Fix crazy numpad (no '-')
 sudo service lightdm restart # restart Gnome session / useful in case of a frozen X server
 killall gnome-panel
+killall unity-panel-service # restore displaying clock in Ubuntu, hidden when buggy
 
 gsettings set org.gnome.desktop.media-handling automount false # disable automount
 
@@ -792,12 +806,12 @@ sudo su -c 'echo 1 > /sys/bus/pci/rescan' # Rescan for memory card
 
 xhost +local:root # Xlib: connection to ":0.0" refused by server
 
-killall unity-panel-service # display clock in Ubuntu when buggy
-
 xdg-mime default lighttable.desktop text/x-markdown # Also: mimetype $file
 
 /var/log/kern.log EMPTY # needs $ModLoad imklog in /etc/rsyslog.conf + service rsyslog restart (thx: http://serverfault.com/a/405244 ): BUT:
 # -> "imklog: error reading kernel log - shutting down: Bad file descriptor" + CPU maxing out. Web search => looks like a known issue solved with more recent versions of rsyslog
+
+sudo lsof -s | grep deleted | grep -Ev '/dev/|/run/' | awk '$5 == "REG"' | sort -n -r -k 7,7 # find deleted files that are still using space on disk
 
 
 FFFFFFFFFFFFFFF
@@ -915,7 +929,10 @@ composite # merge images
 gifsicle "$gif" -I | sed -ne 's/.* \([0-9]\+\) images/\1/p' # frames count
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
+pngquant ## 70% lossy compression
 jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs 
+identify -verbose $jpg | grep -Fq 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg
+mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata
 feh -F -D 3 --cycle-once * # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 
 

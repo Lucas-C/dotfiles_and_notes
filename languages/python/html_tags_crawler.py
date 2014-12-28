@@ -1,6 +1,6 @@
 import hashlib, os, scrapy
 
-# List all tags of a given type & their attributes on 1 ore more web pages
+# List all HTML tags of a given type & their attributes on 1 or more web pages
 # - input: a text file with 1 URL per line
 # - output: a JSON file
 # USAGE: scrapy runspider --pdb -L INFO $this_script.py -o $out.json -a tag_type=script -a urls_file=$input_file.txt
