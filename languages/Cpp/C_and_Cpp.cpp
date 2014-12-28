@@ -4,8 +4,11 @@ gcc -g3 -D_DEBUG -Wall -Wextra -pedantic-errors -Wfloat-equal -Wconversion -Wsha
 -fsanitize=address -O1 -fno-omit-frame-pointer -g // dynamic AddressSanitizer
 valgrind --leak-check=full --track-origins=yes // seemingly > purify
 gperftools: -ltcmalloc, HEAPCHECK, HEAPPROFILE, pprof // thread-caching malloc, heap checker/profiler, CPU profiler
+plasma-umass/coz // a profiler spotted by jmason
 
 re2c // tool generating fast code for regular expressions matching
+
+tcc, cling, ccons // C interpreters
 
 gcc -dM -E </dev/null // dump the list of predefined macros; e.g. unix & linux
 
@@ -34,6 +37,7 @@ mmap // File in memomry mapping, to optimize paging operations
 
 goto // http://stackoverflow.com/a/2809622 - Edsger Dijkstra's "GoTo Considered Harmful" oftens doesn't apply
 
+
 ////////////
 // C only
 ///////////
@@ -57,7 +61,7 @@ int a=41; a = a++; printf("%d\n", a); // undefined
 
 // Basic exception
 throw runtime_error("invalid type");
-// Catching bad_alloc
+²// Catching bad_alloc
 try {
     obj = new Object;
 } catch(std::bad_alloc &e) {
@@ -97,7 +101,8 @@ folly::fbvector > std::vector + other useful libs in facebook/folly // https://g
   * set_assign.h
   * static_mem_pool.h
 
-// POGO: Profile Guided Optimizations
+// POGO: Profile Guided Optimizations : optimization is done offline, based on profiling information, but once the binary is shipped there is no ongoing optimization, != JIT runtime optimization
+// This is a general technic, but provided by Visual Studio (+ Mpgo.exe & Ngen.exe)
 Nana // GUI programming
 
 // Logging: g2log > glog > log4c (!! memory eater)

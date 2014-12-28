@@ -11,6 +11,9 @@
 - [IT Change Management](http://stephaniekdean.wordpress.com/2011/06/17/cm/)
 - [Event Management](http://stephaniekdean.wordpress.com/2011/04/04/eventmgmt/)
 - [AuthoringStyleGuide](https://github.com/tooling/authoring-styleguide)
+- [TeachDontTell](http://stevelosh.com/blog/2013/09/teach-dont-tell/)
+- [BeautifulDocs](https://github.com/PharkMillups/beautiful-docs)
+- [WriteTheDocs](http://docs.writethedocs.org)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -90,10 +93,8 @@ Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
     * +++ DASHBOARD !! But dont create [ShittyDashboards]
     * include the wiki as part of task processes : sprints, ops, deployments...
     * get a leader whose goal is to motivate & educate others
-- Teach don't tell : http://stevelosh.com/blog/2013/09/teach-dont-tell/
 - use Doxygen / Docurium for code documentation
-- many more advices: https://github.com/PharkMillups/beautiful-docs
-- cf. [AuthoringStyleGuide]
+- cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs]
 
 ## Recruiting & coaching new hires
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [5EPSQ]

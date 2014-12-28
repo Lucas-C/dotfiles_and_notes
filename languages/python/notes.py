@@ -117,13 +117,16 @@ def incr(i):
 inner.counter = 0 # Function attribute
 obj.method = types.MethodType(function, obj) # binding functions into methods
 
-# Decorator with args (deep dive on them on http://blog.dscpl.com.au)
-@functools.wraps
+@functools.wraps # Decorator with args (deep dive on them on http://blog.dscpl.com.au/2014/01/implementing-universal-decorator.html)
 def my_decorator(decorator_args):
     def tmp_decorator(orig_func):
         new_func = orig_func
         return new_func
     return tmp_decorator
+@wrapt.decorator # Proper decorators by Graham Dumpleton - Also: proxy = wrapt.ObjectProxy(original)
+def pass_through(wrapped, instance, args, kwargs):
+    return wrapped(*args, **kwargs) # 'splat' operator
+from tputil import make_proxy # Pypy transparent proxy : can record/intercept/modify operations
 
 # Descriptors
 class Property(object):
@@ -149,8 +152,13 @@ class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), 
     __slots__ = ()
 
 LOG_FORMAT = "%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s"
-file_handler = logging.handlers.RotatingFileHandler('searx.log', maxBytes=1024*1024, backupCount=10) # Also: TimedRotatingFileHandler
-file_handler.setFormatter(logging.Formatter(LOG_FORMAT)) # then: Logger.addHandler(file_handler) - Also: logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
+def create_logger(): # Also: logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    file_handler = logging.handlers.RotatingFileHandler('proxy.log', maxBytes=1024*1024, backupCount=10) # Also: TimedRotatingFileHandler
+    file_handler.setFormatter(logging.Formatter(LOG_FORMAT))
+    logger.addHandler(file_handler)
+    return logger
 # Lazy logger: http://stackoverflow.com/a/4149231
 @deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/
 Twangist/log_calls # logging & func calls profiling
@@ -279,6 +287,7 @@ class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/r
 
 ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
 
+ultrajson >faster> simplejson >faster> json
 vaidik/commentjson
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
@@ -338,6 +347,7 @@ self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected,
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 import doctest # include tests as part of the documentation
 AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
+behave # Behavior Driven Development
 import capsys # capture stdin/out
 import monkeypatch # modify an object that will be restored after the unit test
 import tmpdir # generate a tmp dir for the time of the unit test
@@ -496,13 +506,12 @@ reload(module)
 modulefinder # determine the set of modules imported by a script
 
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler. Also: PyPy-STM
--> from tputil import make_proxy # transparent proxy : can record/intercept/modify operations
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
 Jython / Py4J # intercommunicate with Java
 Numba # NumPy aware dynamic Python compiler using LLVM
 Pyston # VM using LLVM JIT
 
-virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
+pew > virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
 pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
 pip install --src . -r requirements.txt
 pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
@@ -523,7 +532,8 @@ def _make_file_read_nonblocking(f):
     fd = f.fileno()
     flags = fcntl.fcntl(fd, fcntl.F_GETFL)
     fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
-greenlets/gevent, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
+from gevent import monkey; monkey.patch_all() # Greenlets
+Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 numbapro # for CUDA
@@ -748,4 +758,4 @@ from functools import \
     total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
     lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property
 
-collections.ChainMap # view of multiple dicts
+collections.ChainMap # view of multiple dicts - Hidden Py2.7 backport: from ConfigParser import _Chainmap as ChainMap - Alt: Py2ChainMap

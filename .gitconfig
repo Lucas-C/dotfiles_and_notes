@@ -32,11 +32,11 @@
     rblame      = "!bash -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); echo $line; done' dumb_param"
     rblameshow  = "!bash -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); git show $commit; done' dumb_param"
 
-# colored logs, one per line
+# colored logs, one per line - Alt: -p to get full patch diff
     dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 # Log using color, pager, and a graphical representation of branches/merges
-    l =!git log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color | less -cR
+    l = log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color
 
 # Better UI for common diff command: diff against upstream, use color & pager
     d =!git diff --patience --color origin/mainline | less -cR

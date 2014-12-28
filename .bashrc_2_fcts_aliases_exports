@@ -24,7 +24,14 @@ export LANG=C # makes many string-parsing tools faster: grep, sed...
 #---------------
 export EDITOR=vim
 mkdir -p ~/.vim/undodir
-vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md | pandoc -s -f markdown -t man | man -l -; }
+
+md2man () { pandoc -s -f markdown -t man "$1" | man -l -; }
+md2html () {
+    pandoc --include-in-header ~/minimal-md3.css --include-in-header $code/misc/Presentation/md-tags.css \
+        -s -S --toc -f markdown -t html "$1" > "${1%%.md}.html" && firefox "${1%%.md}.html" &
+}
+
+vimhelp () { md2man <(sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md); }
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -37,6 +44,7 @@ sdiff ${_UNDER}# == 'diff --side-by-side', but faster${_END} ; \
 diff -r --exclude=.git ; \
 vimdiff ${_UNDER}# colored side-by-side${_END} ; \
 diff3 ; \
+jeffkaufman/icdiff ; \
 opendiff ${_UNDER}# OSX${_END}
 EOF
 }
@@ -179,12 +187,15 @@ alias a=assert
 #----------
 alias tkcon='tkcon -load Tk'
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
+alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
 alias py27='PYTHONSTARTUP=$HOME/.pythonrc python2.7'
 alias py34='PYTHONSTARTUP=$HOME/.pythonrc python3.4'
 rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
-alias node='env NODE_NO_READLINE=1 rlwrap $(type -P node)'
-alias lua='rlwrap --always-readline lua'
-alias lua5.2='rlwrap --always-readline lua5.2'
+
+alias perl='rlwrap --remember --multi-line --substitute-prompt "> " $(type -P perl)' # Also, use the debugger: perl -d -e 1
+alias node='env NODE_NO_READLINE=1 rlwrap --remember --multi-line $(type -P node)'
+alias lua='rlwrap --remember --multi-line --always-readline $(type -P lua)'
+alias lua5.2='rlwrap --remember --multi-line --always-readline $(type -P lua5.2)'
 cljs-rhino () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline cljsbuild repl-rhino "$@"; }
 cljs-node () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline noderepl "$@"; }
 
@@ -215,7 +226,7 @@ alias funiq="awk '"'{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'"'" 
 # FROM: http://unix.stackexchange.com/questions/13731/is-there-a-way-to-get-the-min-max-median-and-average-of-a-list-of-numbers-in
 # One-pass stable variance algo: http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Online_algorithm
 
-stats () { # --no-header | awk '{print $3}'     # Alt: csvstat ( pip install csvkit ) 
+stats () { # --no-header | awk '{print $3}'     # Alt: csvstat -H ( pip install csvkit ) / ministat
     [ "$1" = "--no-header" ] || printf "%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n"\
         1-SUM 2-COUNT 3-MEAN 4-STD_DEV 5-MIN 6-TP01 7-TP10 8-MEDIAN 9-TP90 10-TP99 11-MAX
     sort -n | awk 'BEGIN{n=0;sum=0;mean=0;M2=0}\

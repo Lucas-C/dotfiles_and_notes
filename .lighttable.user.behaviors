@@ -6,4 +6,5 @@
  [:app :lt.objs.style/set-skin "dark"] ; all styles available: https://github.com/LightTable/LightTable/blob/master/deploy/settings/default/default.behaviors#L56
  [:editor :lt.objs.editor/wrap]
  [:editor :lt.objs.style/font-settings "" 14 ""]
+ [:editor :-lt.plugins.auto-complete/auto-show-on-input]
 ]

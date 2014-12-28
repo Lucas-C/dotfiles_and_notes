@@ -6,7 +6,10 @@ $$("#articleContent ul li").length
 debugger // breakpoint for debugger
 performance.timing // and performance.memory : useful debugging informations
 
-Function.prototype.bind // set the 'this' context
+<script id='loadarea' type='text/javascript'></script>
+document.getElementById('loadarea').src = '.../test.cgi?js';
+
+Function.prototype.bind // set 'this' and/or partially apply arguments
 
 Object.freeze / Object.seal
 
@@ -73,9 +76,9 @@ multi
 lines
 text
 </>.toString();
-JSON.stringify(obj) // pretty stringifier, an equivalent lib to this builtin is json.js
+JSON.stringify(obj, null, 2) // pretty stringifier, an equivalent lib to this builtin is json.js
 
-var args = Array.apply(null, arguments); // arguments -> Array
+var args = [].apply(null, arguments); // arguments -> Array
 [ 'aaa', 'bbb'... ].join('') // Concat of many strings
 [].push.apply(array1, array2); // Concat array2 in array1
 function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(element)) pos != -1 && array.splice(pos, 1);
@@ -84,7 +87,7 @@ function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(eleme
 
 'abcd'.match(/a(.*)/) // regexp, also new RegExp("string", 'igm') where g: global, m:multi-line i: ignore case
 RegExp.$1 // 'bcd'
-/whatever/g.test() // ! STATEFUL ! no need for 'g' with .test() or use .match()
+/whatever/g.test() // ! STATEFUL ! no need for 'g' with .test() or use .exec/.match()
 str.replace(new RegExp('\\{' + key + '\\}', 'g'), value);
 
 for ( let i in function(){ return [1,2,3] }() ) ...
@@ -235,7 +238,7 @@ karma-runner/karma > JsTestDriver > Qunit // Testing libs
 
 // E4X is an official JavaScript standard that adds direct support for XML
 
-Google Closure Compiler, Library & Linter
+Google Closure Compiler, Library & Linter // Optimize JS code
 Google V8 // Open Source high perf JS engine written in C++. Features :
 // - Hidden classes
 // - Dynamic machine code generation
