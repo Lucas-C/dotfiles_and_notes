@@ -24,6 +24,7 @@ findbugs, error-prone // code checking tools
 cobertura // code coverage
 jdb // debugger
 javap, JD // .class dissassembler & Java decompiler, include a GUI
+Konloch/bytecode-viewer // Bytecode viewer, decompiler & debugger
 jmap -histo:live <pid> // Object-type histogram on a running jvm
 
 JLine // console input handling like BSD editline / GNU readline
