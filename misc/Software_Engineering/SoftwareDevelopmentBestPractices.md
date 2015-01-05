@@ -13,6 +13,9 @@
 - [The Problems With Acceptance Testing](http://www.jamesshore.com/Blog/The-Problems-With-Acceptance-Testing.html)
 - [Cyclomatic] : [Quantifying the effect of TDD](http://www.keithbraithwaite.demon.co.uk/professional/presentations/2008/qcon/MeasureForMeasure.pdf) & [Cyclomatic complexity measure](http://www.keithbraithwaite.demon.co.uk/professional/software)
 - [CRTP] : [Code review - Tools an process](http://www.slideshare.net/rantav/code-review) slides
+- [BuildingADecentAPI](https://philsturgeon.uk/blog/2013/07/building-a-decent-api/)
+- [DistributedSystemsAndTheEndOfTheAPI](http://writings.quilt.org/2014/05/12/distributed-systems-and-the-end-of-the-api/)
+- [AwkwardMicroservicesQuestions](http://blog.oshineye.com/2015/01/awkward-microservices-questions.html)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -22,11 +25,14 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - Duplication : DRY ! Once, and only once. [CC-G5]
     switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
     similar algorithm            -> template method / strategy pattern
-- "Premature optimization is the root of all evil"
 - Code Fearlessly & implement alternative code versions in parallel [JC-PP]
+- "About 97% of the time: **premature optimization is the root of all evil**." - Donald Knuth, 1974
+- "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
+- " Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
+- Tony Hoare null "billion-dollar mistake"
 
 ## Design principles 
-where "Design" = Organisation of the software logic
+where "Design" = Architecture / Organisation of the software logic
 
 SE = software entity : class, module, function...
 
@@ -34,6 +40,10 @@ SE = software entity : class, module, function...
 - Law of Demeter : each SE should have only limited knowledge about other SEs. Write "shy code". Talk to friends; Don’t talk to strangers [CC-G36]
 - Open/Closed Principle : SE should be open for extension, but closed for modification
 - Common Closure Principle : any change to the software should only have a very local impact
+
+On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI]
+
+On microservices : [AwkwardMicroservicesQuestions]
 
 ## Design smells
 - "Thin" classes. Ideally, a class should have a very simple interface that hides a lot of functionality and internal complexity. [SDP]
