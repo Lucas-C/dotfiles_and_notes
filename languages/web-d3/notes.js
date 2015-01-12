@@ -78,7 +78,7 @@ text
 </>.toString();
 JSON.stringify(obj, null, 2) // pretty stringifier, an equivalent lib to this builtin is json.js
 
-var args = [].apply(null, arguments); // arguments -> Array
+var args = [].slice.call(arguments); // arguments -> Array
 [ 'aaa', 'bbb'... ].join('') // Concat of many strings
 [].push.apply(array1, array2); // Concat array2 in array1
 function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(element)) pos != -1 && array.splice(pos, 1);

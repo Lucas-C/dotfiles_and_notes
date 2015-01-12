@@ -375,7 +375,9 @@ import pdb; foo(42); pdb.pm() # enter debugger post-mortem using:
 sys.last_traceback / sys.last_value # non-handled exception info
 from IPython.core.debugger import Pdb; Pdb().set_trace()
 ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
+pdbpp # prettier PDB
 google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
+import rpdb; rpdb.set_trace() # remote debugging
 from pdb_clone import pdb; pdb.set_trace_remote() # then pdb-attach : remote-debugging - Also: pdbhandler.register() to enter at any time a running program
 
 from pprint import pprint # indent=4
@@ -642,7 +644,7 @@ app.logger.addHandler(file_handler)
 @app.errorhandler(404) # or 500
 def internal_error(exception):
     app.logger.exception("Error 404: %r", {k:getattr(exception, k) for k in dir(exception)})
-    raise exception
+    raise_chained(exception, 'Error 500: ')
 # Also, catch-all URL: http://flask.pocoo.org/snippets/57/
 
 make html # Pelican static HTML files generation, using Jinja2 templates
@@ -713,6 +715,8 @@ a='a=%s;print a%%`a`';print a%`a` # Quine
 """""""""""
 " Python 3
 """""""""""
+sys.version_info[0] >= 3
+
 from __future__ import division, print_function
 print('string', file=sys.stderr, end='')
 

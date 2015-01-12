@@ -5,8 +5,11 @@ gcc -g3 -D_DEBUG -Wall -Wextra -pedantic-errors -Wfloat-equal -Wconversion -Wsha
 valgrind --leak-check=full --track-origins=yes // seemingly > purify
 gperftools: -ltcmalloc, HEAPCHECK, HEAPPROFILE, pprof // thread-caching malloc, heap checker/profiler, CPU profiler
 plasma-umass/coz // a profiler spotted by jmason
+GNU complexity // Alternative to pmccabe to evaluate code complexity
+indent // GNU C source beautifier
 
 re2c // tool generating fast code for regular expressions matching
+gperf // GNU Perfect Hash Function Generator - http://www.ibm.com/developerworks/library/l-gperf/
 
 tcc, cling, ccons // C interpreters
 
@@ -103,7 +106,8 @@ folly::fbvector > std::vector + other useful libs in facebook/folly // https://g
 
 // POGO: Profile Guided Optimizations : optimization is done offline, based on profiling information, but once the binary is shipped there is no ongoing optimization, != JIT runtime optimization
 // This is a general technic, but provided by Visual Studio (+ Mpgo.exe & Ngen.exe)
-Nana // GUI programming
+Nana C++ // GUI programming
+GNU Nana // assertion checking, logging and performance measurement
 
 // Logging: g2log > glog > log4c (!! memory eater)
 

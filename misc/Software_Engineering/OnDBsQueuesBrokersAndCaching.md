@@ -14,8 +14,12 @@ _Redis_
 - **MULTI** allows to combine multiple operations atomically & consistently, and **WATCH** allows isolation. [AOSA]
 
     redis-cli ping
+    redis-cli info keyspace # Also: memory
     redis-cli -h HOST -p PORT -n DATABASE_NUMBER llen QUEUE_NAME
     redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*
+
+    maxmemory 2mb
+    maxmemory-policy noeviction # Or LRU...
 
 twitter/twemproxy # fast, light-weight proxy for memcached and Redis
 psobot/till # cache server for immutable, time-limited object storage providing a HTTP interface

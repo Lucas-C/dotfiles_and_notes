@@ -1,0 +1,41 @@
+#!/bin/bash
+# Allow for 'py 27' or 'py -3.4', and else simply execute $file if invoked as 'py $file'
+# Testing:
+#   echo -e '#!/usr/bin/env python3.4\nimport sys; print(sys.version_info, sys.argv)' > test.py
+#   chmod u+x test.py
+#   py test.py # -> uses python3.4
+#   py -2.7 test.py # -> uses python2.7
+#   py 27 test.py # -> uses python2.7
+set -o pipefail -o errexit -o nounset
+py () {
+    local py_exec=python
+    local version_flag="$1"
+    if [ "${version_flag:0:1}" = "-" ]; then
+        version_flag="${version_flag:1}"
+    fi
+    for exec_name in python$version_flag python${version_flag:0:1}.${version_flag:1:2}; do
+        if which $exec_name >/dev/null; then
+            shift
+            py_exec=$exec_name
+        fi
+    done
+    if [ "$py_exec" == "python" ]; then
+        # If no version flag parameter has been detected,
+        # looking for a shebang line in the file argument
+        # and if one is found, simply execute it
+        local arg_file="$1"
+        if test -f $arg_file && test -r $arg_file; then
+            local first_line=$(head -n 1 $arg_file)
+            if [ "${first_line:0:2}" = "#!" ]; then
+                shift
+                if [ "${arg_file:0:1}" = "/" ]; then
+                    py_exec="$arg_file"
+                else
+                    py_exec="./$arg_file"
+                fi
+            fi
+        fi
+    fi
+    PYTHONSTARTUP=$HOME/.pythonrc $py_exec "$@"
+}
+py "$@"

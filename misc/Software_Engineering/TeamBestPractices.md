@@ -97,6 +97,7 @@ Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs]
 
 ## Recruiting & coaching new hires
+- codility.com & cie
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [5EPSQ]
 - STAR -> Probe -> Chalenge
 - some soft skills: teamwork, conflict resolution, listening, coordination...
