@@ -342,10 +342,11 @@ grep -P '^((?!b).)*a((?!b).)*$' # Grep 'a' but not 'b' -> PCRE ;  awk '/a/ && !/
 grep -P -n "[\x80-\xFF]" $file # Find non-ASCII characters
 LANG=C grep -F # faster grep : fixed strings + no UTF8 multibyte, ASCII only (significantly better if v < 2.7)
 sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending with one containing BAR.
+sed -e "9r rabbit.ascii" -e "6iTITLE" template.html # insert a file + a specific text line in another file
 perl -ne '/(error|warn)(?!negative-look-ahead-string-to-not-match-just-after)/i'
 perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
 grep | cut -c1-200 # ignore lines with length > 200 chars
-pyp # pip install --user pyped : alternative to sed, awk, cut & perl
+pyp # pip install --user pyp : alternative to sed, awk, cut & perl - Alt: pyped, Russell91/pythonpy
 
 pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py OR pdftk OR LibreOffice Draw
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: -dFirstPage=X -dLastPage=Y - Alt: http://compress.smallpdf.com
@@ -930,8 +931,10 @@ compare img1 img2
 composite # merge images
 
 gifsicle "$gif" -I | sed -ne 's/.* \([0-9]\+\) images/\1/p' # frames count + cf. stopmo_logo/gen_anim.sh
+convert $(for f in *.png; do echo -delay 5 $f; done; ) -rotate -90 -resize 50% -loop 0 out.gif
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
+barcode -b "Hello World !" -o out.ps && convert out.ps -trim out.png
 pngquant ## 70% lossy compression
 jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs 
 identify -verbose $jpg | grep -Fq 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg

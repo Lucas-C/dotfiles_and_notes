@@ -188,8 +188,6 @@ alias a=assert
 alias tkcon='tkcon -load Tk'
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
-alias py27='PYTHONSTARTUP=$HOME/.pythonrc python2.7'
-alias py34='PYTHONSTARTUP=$HOME/.pythonrc python3.4'
 rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
 
 alias perl='rlwrap --remember --multi-line --substitute-prompt "> " $(type -P perl)' # Also, use the debugger: perl -d -e 1
