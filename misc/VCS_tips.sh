@@ -19,9 +19,29 @@ svn up -r $rev $file # Checkout file
 svn diff | diffstat # sum-up a diff
 
 
-#*****#
-# Git
-#*****#
+~°~°~°~°~°~
+ Mercurial
+~°~°~°~°~°~
+hg init / clone $url
+hg pull -u # Alt: hg fetch - requires this in .hgrc : [extensions] hgext.fetch=
+hg log / summary / status
+hg add $file / commit
+hg push -r .
+
+
+::=::=::
+ Bazaar
+::=::=::
+bzr init / branch $url
+bzr pull
+bzr log / diff # status
+bzr mv / rm
+bzr add $file / commit $files -m $msg
+
+
+*******
+= Git =
+*******
 curl 'https://raw.githubusercontent.com/eacousineau/util/master/git-new-workdir.sh' > .git-new-workdir.sh
 curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > .bashrc_git_completion # buggy with TMUX
 
@@ -107,9 +127,9 @@ gri
 git push
 
 
-+++++
-+ p4
-+++++
+++++++
++ p4 +
+++++++
 p4 info | grep 'Client root'
 p4 client -o
 p4 depots

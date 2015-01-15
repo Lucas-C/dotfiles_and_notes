@@ -81,9 +81,7 @@ gsettings set com.canonical.desktop.interface scrollbar-mode normal # >= v13
 sudo sed -i 's/enabled=1/enabled=0/' /etc/default/apport # Disable System Crash Reports
 
 sudo add-apt-repository ppa:nesthib/weechat-stable
-sudo aptitude update && sudo aptitude install weechat python-xmpp # Alt: irssi bitlbee # or mcabber for Jabber only
-weechat --run-command '/set;/quit' > ~/dump-weechat-config
-http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdata.py'
+sudo aptitude update && sudo aptitude install weechat python-xmpp
 
 # http://www.techrepublic.com/blog/linux-and-open-source/pro-tip-remove-product-suggestions-from-ubuntu-unity-search-results/
 System Settings > Security & Privacy > Search > Include online search results Off

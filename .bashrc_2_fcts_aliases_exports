@@ -9,6 +9,9 @@ PATH=/usr/local/bin:$PATH
 PATH=/usr/local/sbin:$PATH
 PATH=$BASHRC_DIR/bin:$PATH
 
+export GOPATH=~/gocode
+PATH=$GOPATH/bin:$PATH
+
 export HISTCONTROL=ignoreboth # ignoredups and ignorespace
 shopt -s histappend # append to the history file, don't overwrite it
 export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
@@ -17,7 +20,15 @@ alias r='fc -s' # 'repeat' - USAGE: r [old=new] [cmd] : runs last command [match
 
 export DISPLAY=:0 # for xclip, can be checked with 'w' cmd
 export LOG=1 # for notify-osd
-export LANG=C # makes many string-parsing tools faster: grep, sed...
+
+# The following is better than a blunt 'export LANG=C',
+# that would also break support for non-ASCII caracters in the terminal.
+# TODO: compare the roles of LANG / LC_ALL : are they redundant ?
+alias grep='LANG=C LC_ALL=C grep'
+alias sed='LANG=C LC_ALL=C sed'
+alias awk='LANG=C LC_ALL=C awk'
+alias sort='LANG=C LC_ALL=C sort'
+
 
 #---------------
 # Text display
@@ -143,7 +154,7 @@ lse () { # group files by their extension
 # grep
 #------
 alias g='grep -i --color=always'
-gn () { cd $BASHRC_DIR; g -I "$@" $(git ls-files); }
+gn () { cd $BASHRC_DIR; grep --color=always "$@" $(git ls-files); }
 alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
 alias bzg='bzgrep -i --color=always'
 zgr () {

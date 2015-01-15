@@ -166,7 +166,7 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     " To know what's going on :SyntasticInfo ; to invoke it manually :SyntasticCheck
     " JSLint: npm install jshint -g # Config example: https://github.com/jshint/jshint/blob/master/examples/.jshintrc
     let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-    let g:syntastic_python_checkers = ['pylama', 'python']
+    let g:syntastic_python_checkers = ['python', 'pylint', 'pyflakes', 'pep8']
     let g:syntastic_aggregate_errors = 1
 
     " Require vim compiled with +python

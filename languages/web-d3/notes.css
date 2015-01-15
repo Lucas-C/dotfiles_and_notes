@@ -1,3 +1,12 @@
+sudo npm install -g csslint
+sudo sed -i '/output += "\\n" + message.evidence;/i                output += "\\nRule: " + message.rule.id + " - " + message.rule.name;' /usr/local/lib/node_modules/csslint/lib/csslint-node.js
+csslint --ignore=ids,overqualified-elements $css_file
+
+curl 'http://dev.w3.org/cvsweb/2002/css-validator/build.xml?rev=1.28;content-type=text%2Fplain' > build.xml
+ant prepare
+rm -r tmp/
+java -jar css-validator.jar $css_url
+
 /* Responsive design tables */
 table, tbody { display: block; }
 tr { display: table; }

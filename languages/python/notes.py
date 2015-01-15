@@ -189,6 +189,7 @@ PYTHONCASEOK : case insensitive module names (usefule under Windows)
 PYTHONIOENCODING : force default encoding for stdin/stdout/stderr
 PYTHONHASHSEED : change seed hash() (=> more secure VM)
 
+__main__.py # code executed in case of 'python my_pkg/' or 'python -m my_pkg'
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil
 
 
@@ -457,7 +458,7 @@ def get_refcount(obj):
     """Valid for CPython implementation only"""
     return ctypes.c_size_t.from_address(id(obj))
 # FUN FACT: the references to the 'int' [-5 ; 256] are shared
-POINTER(c_int).from_address(0)[0] # SEGFAULT
+ctypes.POINTER(c_int).from_address(0)[0] # SEGFAULT
 def deref(addr, typ):
     return ctypes.cast(addr, ctypes.POINTER(typ))
 deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index to the ob_ival field in a PyIntObject - In Python3 this index is '6'
@@ -509,6 +510,7 @@ modulefinder # determine the set of modules imported by a script
 
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler. Also: PyPy-STM
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
+Cython # .pyx : superset of Python with static optional static types, can invoke C/C++ and compile down to C
 Jython / Py4J # intercommunicate with Java
 Numba # NumPy aware dynamic Python compiler using LLVM
 Pyston # VM using LLVM JIT
@@ -559,7 +561,7 @@ dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshar
 
 toolz # functional programming - Even faster: CyToolz - Also: suor/funcy ; kachayev/fn.py
 
-pylama # include pyflakes, pylint, PEP-checking - Also: Flake8, openstack-dev/hacking, landscapeio/prospector
+pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)
 pyreverse # UML diagrams
 
 http://amoffat.github.io/sh/ # AWESOME for shell scripting
@@ -691,6 +693,8 @@ platform # python version, OS / machine / proc info...
 ctypes.cdll.LoadLibrary("libc.so.6")
 libc = ctypes.CDLL("libc.so.6")
 libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
+
+cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
 
 struct # pack/unpack binary formats
 binascii.hexkify # display binary has hexadecimal
