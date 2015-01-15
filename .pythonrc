@@ -15,5 +15,4 @@ else:
     else:
         readline.parse_and_bind("tab: complete")
 
-import json, os, sys
-
+import json, os, re, sys

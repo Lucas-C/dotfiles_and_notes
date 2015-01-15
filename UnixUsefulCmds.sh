@@ -1,7 +1,8 @@
+<CTRL>+<SUPER>+<LEFT>/<RIGHT> # half-maximize a window on one side, in Ubuntu
+
 ~°~°~°~°~°~°~°~°~°~°~
 ### SHELL & misc  ###
 ~°~°~°~°~°~°~°~°~°~°~
-
 <CTRL>+e : perform shell-"Expansnon" on cmd-line - cf. .inputrc
 <CTRL>+u : remove part of current line "a gaUche"
 <CTRL>+k : remove "Klosing" part of current line
@@ -201,7 +202,7 @@ r=$(
 ) && exit $r
 
 # Create and set permissions
-install -o ${SUDO_USER:-$USER} -m 644 $file
+install -o ${SUDO_USER:-$USER} -m 644 $src $dst
 install -d -m 777 $directory
 
 # Floating point arithmetic
@@ -277,6 +278,8 @@ mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken
 logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
 # !! $@ not supported if < v.7.5
 
+echo -e "00 00 * * * $USER cmd >> cmd.log 2&>1\n" | sudo tee /etc/crond.d/crontask # don't forget the newline at the end, don't use % symbols, don't put a dot '.' in its filename, use 644 permissions owned by root, and note that the $USER arg is not present in /etc/crontab files
+sudo grep crontask /var/log/cron.log 
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
 while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick
@@ -316,9 +319,9 @@ tail -F $log_file | grep $keyword | pv --line-mode --numeric >/dev/null 2>$in_da
 gnuplot $loop_cfg_file # real-time ASCII graphing !
 
 
-++++++++++++++++++
-# Text stream filtering
-++++++++++++++++++
++++++++++++++++
+| Text stream |
++++++++++++++++
 
 cat -vET # shows non-printing characters as ascii escapes.
 printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalent, BUT:
@@ -384,7 +387,7 @@ printf "%-8s\n" "${value}" # 8 spaces output formatting
 csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # pip install csvkit
 
 jq -r '..|objects|.name//empty' # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
-xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstartlet & http://stackoverflow.com/a/91801
+pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
@@ -580,10 +583,11 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: 
 curl --fail --insecure --request POST --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html - Alt: jakubroztocil/httpie
 # Web scrapping:
 httrack
-Xvfb, xdummy
-PhantomJS, SlimerJS, CasperJS
+Xdummy > Xvfb # in-memory X11 display server that doesn't render to screen 
+pjscrape, PhantomJS, SlimerJS, CasperJS
 GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
 Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, binux/pyspider # python crawling libs
+kimono, import.io
 
 python -m webbrowser -t "$url"
 urlwatch --urls=urls-list.txt | ifne mutt -s "Page change detected" $email_address
@@ -720,6 +724,8 @@ sudo su -l # login as user root
 sudo -K # Remove sudo time stamp => no more sudo rights
 fakeroot # runs a command in an environment wherein it appears to have root privileges for file manipulation
 chroot $path_to_fake_root $cmd # 'chroot jail' => changes the apparent root directory
+
+faketime $time_spec $cmd
 
 fdisk -l # has flaws, better use bitbucket.org/skypher/fdisk
 testdisk # disk data recovery
@@ -979,3 +985,25 @@ log_stream_names=$(aws logs describe-log-streams --region us-east-1 --log-group-
 for stream in $log_stream_names; do
     aws logs get-log-events --region us-east-1 --log-group-name "$log_group_name" --log-stream-name "$stream" --output text --query 'events[*].message'
 done | less
+
+
+/./././
+ /irc
+/./././
+http://fr.wikipedia.org/wiki/Aide:IRC/commandes
+http://www.ircbeginner.com/ircinfo/ircc-commands.html
+
+# Weechat - Alt: irssi bitlbee or mcabber for Jabber only
+weechat --run-command '/set;/quit' > ~/dump-weechat-config
+tF /home/lucas/.weechat/weechat.log /home/lucas/.weechat/logs/*
+http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdata.py' - Also: hdata_update.py
+/script search iset # then 'i' to install
+
+/server list[full] [server]
+/connect freenode
+/nick dr_max_kurt
+/join #laquadrature 
+/set irc.server.freenode.autoconnect on
+/set irc.server.freenode.nicks "dr_max_kurt"
+/set irc.server.freenode.sasl_ ...
+<ALT>+<ARROW> # switch window

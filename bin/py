@@ -8,7 +8,7 @@
 #   py 27 test.py # -> uses python2.7
 set -o pipefail -o errexit -o nounset
 py () {
-    local py_exec=python
+    local py_exec="python"
     local version_flag="$1"
     if [ "${version_flag:0:1}" = "-" ]; then
         version_flag="${version_flag:1}"
@@ -24,8 +24,8 @@ py () {
         # looking for a shebang line in the file argument
         # and if one is found, simply execute it
         local arg_file="$1"
-        if test -f $arg_file && test -r $arg_file; then
-            local first_line=$(head -n 1 $arg_file)
+        if test -f "$arg_file" && test -r "$arg_file"; then
+            local first_line=$(head -n 1 "$arg_file")
             if [ "${first_line:0:2}" = "#!" ]; then
                 shift
                 if [ "${arg_file:0:1}" = "/" ]; then

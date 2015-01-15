@@ -39,7 +39,7 @@ It can also be done after visually selecting some text : it is then piped to the
 Formatting
 ==========
 - __CTRL+q__ : comment/uncomment selection
-- *guu*/*gUU*/*~* : lowercase line / uppercase line / invert case of selection
+- __\<select\>__+*u*/*U* : lowercase / uppercase selection - Alt: *guu*/*gUU* : lowercase / uppercase whole line
 - __\<select\>__+__{tabs count}__*>* : indent
 - *=* : auto (re)indent selection
 - *=G* : auto (re)indent whole file

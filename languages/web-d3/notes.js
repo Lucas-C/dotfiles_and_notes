@@ -232,7 +232,7 @@ fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
 node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/3944507 - Browser -> $host:8080/debug?port=5858 - Need the following iptables rules:
 // for chain in INPUT OUTPUT; do iptables -A $chain -p tcp -m tcp --dport 8080 -j ACCEPT; done
 
-JSHint > JSLint // static code analysis
+JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
 
 karma-runner/karma > JsTestDriver > Qunit // Testing libs
 
