@@ -283,6 +283,7 @@ sudo grep crontask /var/log/cron.log
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
 while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick
+huptime --exec $cmd # zero downtime restarts of unmodified (networking) programs
 
 # Launch command at a specified time or when load average is under 0.8
 echo $cmd | at midnight
@@ -387,6 +388,8 @@ printf "%-8s\n" "${value}" # 8 spaces output formatting
 csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # pip install csvkit
 
 jq -r '..|objects|.name//empty' # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
+echo '{"A1":"a1","A2":"b2","B1":"b2"}' | jq '"A." as $regex | del(.[keys[]|select(match($regex))])'
+echo '{"A0":["a1","a2","a3"], "B0":["b1","b2","b3"], "c3":[]}' | jq '".[^3]" as $regex | to_entries|map(select(.key|match($regex)))|map(.value|=map(select(match($regex))))|from_entries'
 pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
@@ -1007,3 +1010,24 @@ http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdat
 /set irc.server.freenode.nicks "dr_max_kurt"
 /set irc.server.freenode.sasl_ ...
 <ALT>+<ARROW> # switch window
+
+
+~~~~~~~~~~~~~
+-> Freeplane
+~~~~~~~~~~~~~
+# SHORTCUTS, cf. Help > Key Reference - To add new ones: <CTRL>+<click> a menu item
+<Enter> / <Insert> : new sibling / child node
+<CTRL>+<double click> : new free node
+
+<CTRL>+L : link selected nodes
+<CTRL>+<SHIFT>+K : add hyperlink, <CTRL>+K to modify
+
+<Space> : Toggle folding
+<ALT>+<left> : 'back', go to previously visited node
+
+# Customized shortcuts
+<CTRL>+F? : apply style "Level ?"
+<CTRL>+1 : add image (from 'Node extensions' menu, so that they cab resized)
+<CTRL>+<SHIFT>+1 : add icon
+<CTRL>+3 : node color
+<CTRL>+<SHIFT>+3 : node background color

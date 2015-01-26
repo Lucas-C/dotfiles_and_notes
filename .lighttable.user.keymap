@@ -20,4 +20,5 @@
  [:editor "ctrl-f1" :clear-console]
 
  [:editor "f3" :find.next]
+ [:editor "shift-f3" :find.prev]
 ]

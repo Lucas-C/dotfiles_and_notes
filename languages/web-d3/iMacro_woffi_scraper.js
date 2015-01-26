@@ -1,5 +1,5 @@
 // Disclaimer: NEVER AGAIN !
-// Next time, learn to use Selenium
+// Next time, use Selenium Webdriver or CasperJS
 
 // USAGE: firefox imacros://run/?m=Woffi_scrapper.js
 // Woffi_scrapper.js has to be in the ~/iMacros/Macros directory, and the Woffi web page open

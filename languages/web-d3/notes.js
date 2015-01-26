@@ -43,9 +43,10 @@ unique = function (array) { // Remove duplicates in an array, like jQuery.unique
         return arr.lastIndexOf(e) === i;
     });
 }
-encode_query_params = function (data) {
+encode_query_params = function (data, encode_function) {
+    encode_function = encode_function || encodeURIComponent; // Default to UTF8, alt: 'escape' for latin1 / iso-8859-1 encoding : ç -> %E7 not %C3%A7
     return Object.keys(data).map(function(key) {
-        return [key, data[key]].map(encodeURIComponent).join('=');
+        return [key, data[key]].map(encode_function).join('=');
     }).join('&');
 }
 range = function (start, end) { // Alt: _.range
@@ -60,6 +61,7 @@ range = function (start, end) { // Alt: _.range
 var extra_args = [].slice.call(arguments, 1);
 foo.bind(null, accumulator).apply(null, extra_args) // foo(accumulator, *arguments[1:])
 
+madge > colony & dependo // AMD or CommonJS modules dependencies graphs
 (function(exports) { // for modules, use CommonJS 'require'
     var private_name = 'protected_by_closure';
     var MyClass = function(name) {
