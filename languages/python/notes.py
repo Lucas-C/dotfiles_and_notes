@@ -75,7 +75,7 @@ subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT)
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
     foo = kwargs.pop('foo')
 
-import arrow # 'better dates and times'
+arrow, delorean # 'better dates and times' & 'Time Travel Made Easy'
 datetime.utcnow() # better than time.time()
 import pytz # pytz.utc, pytz.all_timezones
 from dateutil import parser # !! ALWAYS pass a Callable as tzinfos so that it won't use the system timezone (time.tzname)
@@ -289,7 +289,6 @@ class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/r
 ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
 
 ultrajson >faster> simplejson >faster> json
-vaidik/commentjson
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
 
@@ -470,8 +469,10 @@ deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index t
 nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
 topia.termextract
 difflib # compare text/strings/sequences
+fuzzywuzzy # fuzzy string comparison ratios, token ratios...
 sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && pip install sumy && python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB
 deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .ps ...
+snowballstemmer # supports 15 languages
 
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 float("inf") # infinite !
@@ -482,7 +483,7 @@ kwgoodman/roly # moving window median algorithms - Also: quantile sketches algos
 scipy
     numpy # n-dimensional arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
-    pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
+    pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
     matplotlib, prettyplotlib, mpld3, bokeh, vispy # 2d plotting
 
 riccardoscalco/Pykov # markov chains
@@ -514,6 +515,9 @@ Cython # .pyx : superset of Python with static optional static types, can invoke
 Jython / Py4J # intercommunicate with Java
 Numba # NumPy aware dynamic Python compiler using LLVM
 Pyston # VM using LLVM JIT
+PyInline # put source code from other programming languages (e.g. C) directly "inline" in Python code
+Pyrex # write code that mixes Python and C data types and compiles it into a C extension
+Nuitka # converts Python code into C++ code (targetting VisualStudio, MinGW or Clang/LLVM compilers)
 
 pew > virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
 pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
@@ -625,8 +629,9 @@ element.getparent().remove(element)
 BeautifulSoup('html string').prettify() # newlines+tabs formatted dump - Alt, less pretty: lxml.html.tostring(element) / lxml.etree.tostring
 
 urlparse.urljoin, urllib.quote_plus # urlencoding & space -> +
-requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent
+requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent, and requests-futures for asynchronous (non-blocking) HTTP requests
 requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)
+wget # equivalent lib to the command-line tool
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 kevin1024/vcrpy # record / replay HTTP interactions
 
@@ -687,6 +692,7 @@ pyreadline, readline, rlcompleter
 termcolor, colorama # cross-platform colored terminal text
 tqdm # KISS progress bar
 PrettyTable # pretty ASCII tables output
+bashplotlib # terminal plotting of histograms / scatterplots from list of coordinates
 
 platform # python version, OS / machine / proc info...
 

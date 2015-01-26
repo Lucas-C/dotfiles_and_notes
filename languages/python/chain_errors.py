@@ -1,4 +1,4 @@
-def raise_chained(err_caught, prefix_err_msg, custom_err_type=None):
+def raise_chained(err_caught, prefix_msg='', suffix_msg='', custom_err_type=None):
     """
     Re-raise Python exception and preserve stack trace
     Create a new exception of the same type by passing a single message string as a parameter
@@ -13,6 +13,6 @@ def raise_chained(err_caught, prefix_err_msg, custom_err_type=None):
     """
     import sys
     err_cls = custom_err_type or type(err_caught)
-    traceback = sys.exc_info()[2]
-    raise err_cls, err_cls(prefix_err_msg + str(err_caught.message)), traceback
+    backtrace = sys.exc_info()[2]
+    raise err_cls, err_cls(prefix_msg + str(err_caught.message) + suffix_msg), backtrace
 

@@ -47,7 +47,7 @@ Capsule // dead-Simple packaging and deployment for JVM apps
 dex2jar // Convert an Android .apk into .jar
 
 VisualVM, jmxterm // GUI & CLI for JMX (Java Management Extensions that specifies simple Java objects called MBeans)
-// Alt profilers: byteman, JVM Monitor (free Eclipse plugin), jprofiler (non free), Java Flight Recorder (baked into the HotSpot VM) & Java Mission Control
+// Alt profilers: byteman, JVM Monitor (free Eclipse plugin), jprofiler (non free), Java Flight Recorder (baked into the HotSpot VM) & Java Mission Control, YourKit Java Profiler
 Jolokia, hawtio // Provide JMX HTTP REST access
 // 1. Make JVM accept JMX connections
 -Dcom.sun.management.jmxremote.port=9876 // can be any port

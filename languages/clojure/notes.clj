@@ -9,6 +9,8 @@
 ;;;;;;;;
 Datomic ; time-based elastic ACID DB
 Langohr ; RabbitMQ client
+Enlive ; web scraping, templating and transformation system
+clj-webdriver ; API for Selenium-WebDriver 
 
 ;;;;;;;;;
 ; DEBUG

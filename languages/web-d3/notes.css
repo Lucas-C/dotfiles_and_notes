@@ -7,6 +7,11 @@ ant prepare
 rm -r tmp/
 java -jar css-validator.jar $css_url
 
+/* Remove default style for <a href=> links */
+a, a:visited, a:hover, a:active {
+  color: inherit;
+  text-decoration: inherit;
+}
 /* Responsive design tables */
 table, tbody { display: block; }
 tr { display: table; }

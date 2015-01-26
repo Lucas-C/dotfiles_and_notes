@@ -66,6 +66,10 @@ alias diff='diff_alt && diff -bB --suppress-common-lines'
 alias sdiff='sdiff -bB --suppress-common-lines'
 diffs () { /usr/bin/diff -U2 "$@" | diffstat; }
 
+alias less='less --ignore-case --LONG-PROMPT'
+alias make='make -j3'
+alias dmesg='dmesg --ctime' # Alt: http://stackoverflow.com/a/19272272
+
 if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias cl='grc --stderr --stdout --colour=auto' # DO NOT SET --color=on
     # => it disables bash_completion : _completion_loader dynamically loads completion files,
@@ -94,10 +98,6 @@ if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
         fi
     }
     alias less=colorless
-else
-    alias less='less --ignore-case --LONG-PROMPT'
-    alias make='make -j3'
-    alias dmesg='dmesg --ctime' # Alt: http://stackoverflow.com/a/19272272
 fi
 
 alias tF='tail -F'      # Alt: less + /search + SHIFT-F
@@ -218,8 +218,12 @@ alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'
 alias lower='tr "[:upper:]" "[:lower:]"'
 alias upper='tr "[:lower:]" "[:upper:]"'
 
-urlencode () { perl -ne 'chomp; s/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg; print "$_\n"'; }
-urldecode () { sed -e's/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g' | xargs echo -e; } # don't handle '+'->' ' in a query
+html_escape () { perl -MCGI -wne 'print CGI::escapeHTML($_)'; }
+html_unescape () { perl -MCGI -wne 'print CGI::unescapeHTML($_)'; }
+urlencode_utf8 () { perl -MURI::Escape -wne 'chomp; print uri_escape($_)."\n"'; }
+# Alt: perl -wne 'chomp; s/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg; print "$_\n"'; }
+urldecode_utf8 () { perl -MURI::Escape -wne 'print uri_unescape($_)'; } # don't handle '+'->' ' in a query
+# Alt: sed -e's/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g' | xargs echo -e; }
 iconv_help () {
     local file=${1:-\$file}
     echo iconv -f ISO-8859-1 -t UTF-8 $file \> ${2:-$file.utf8}
