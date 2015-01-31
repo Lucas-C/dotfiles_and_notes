@@ -42,6 +42,12 @@ md2html () {
         -s -S --toc -f markdown -t html "$1" > "${1%%.md}.html" && firefox "${1%%.md}.html" &
 }
 
+locate_img_and_preview () {
+    local feh_opts='-d -F'
+    [ "$1" = "-t" ] && shift && feh_opts=-t # thumbnails mode
+    feh $feh_opts -f <(locate -0 -i "$@" | xargs -0 -n 1 file | grep image | cut -d: -f1)
+}
+
 vimhelp () { md2man <(sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md); }
 
 # make less more friendly for non-text input files, see lesspipe(1)

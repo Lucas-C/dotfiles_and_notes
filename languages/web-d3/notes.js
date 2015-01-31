@@ -10,6 +10,14 @@ performance.timing // and performance.memory : useful debugging informations
 document.getElementById('loadarea').src = '.../test.cgi?js';
 
 Function.prototype.bind // set 'this' and/or partially apply arguments
+// GOTCHAS:
+o = {name: 'FOO', get_name: function () { return this.name; } }
+o.get_name() // 'FOO'
+var func = o.get_name;
+func() // ''
+o.get_name = o.get_name.bind({name: 'BAR'})
+o.get_name() // 'BAR'
+// + no way to found out if o.get_name is bounded or not !! (nor to what object it's bounded)
 
 Object.freeze / Object.seal
 
@@ -82,7 +90,7 @@ JSON.stringify(obj, null, 2) // pretty stringifier, an equivalent lib to this bu
 
 var args = [].slice.call(arguments); // arguments -> Array
 [ 'aaa', 'bbb'... ].join('') // Concat of many strings
-[].push.apply(array1, array2); // Concat array2 in array1
+[].push.apply(array1, array2); // Concat array2 in array1, returns its length
 function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(element)) pos != -1 && array.splice(pos, 1);
 
 +new Date() // milliseconds since epoch

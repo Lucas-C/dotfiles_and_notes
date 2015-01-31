@@ -86,3 +86,5 @@ Example Java checkpoints (sync points):
 Thread.stop Thread.suspend // DEPRECATED ! Do not use them
 
 Fibers // Simple Lightweight Concurrency
+
+JCTools // Bounded lock free queues, SPSC/MPSC/SPMC/MPMC variations for concurrent queues, Offheap concurrent ring buffer for ITC/IPC purposes

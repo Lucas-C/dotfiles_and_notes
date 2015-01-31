@@ -244,6 +244,16 @@ class CustomGenerator(object): # minimal generator protocol
         yield stuff
         #OR
         return self # then must implement 'next(self)' (__next__ in Python3)
+# Coroutines == generators
+@coroutine # equivalent to a first call to .next()
+def printer():
+    while True:
+        value = (yield 'waiting')
+        print(value)
+p = printer()
+p.next() # returns 'waiting'
+p.send('OK') # prints 'OK', returns 'waiting'
+p.throw(ValueError, 'Bad value')
 
 # Is a dict / list ? -> http://docs.python.org/2/library/collections.html#collections-abstract-base-classes
 # isinstance(d, collections.Mapping) won't work if the class is not registered, so better check:
@@ -335,6 +345,23 @@ issubclass(object, collections.Hashable) # True
 issubclass(list, collections.Hashable) # False - There are 1449 such triplets (4.3% of all eligible triplets) in Python 2.7.3 std lib
 
 
+"""""""""""""""""""""""""""
+"" Functional Programming
+"""""""""""""""""""""""""""
+# Guido van Rossum is not a big fan, he wrote the very interesting 'The fate of reduce() in Python 3000'
+
+# Buitins
+apply, map, filter, zip # I agree with GvR that a list-comprehension is often clearer than a call to filter
+from functools import partial, reduce # for Py3+ compatibility
+sum(list_of_lists, []) # flatten a list of lists - Alt: list(itertools.chain.from_iterable(l_o_l)) OR reduce(operator.concat, l_o_l)
+
+# Extra libs
+dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshare.net/dakerfp/functional-pattern-matching
+toolz # brings: pluck, tail, compose, pipe, memoize - Even faster: CyToolz
+suor/funcy
+kachayev/fn.py
+
+
 """""""""""""""""
 "" Test & Debug
 """""""""""""""""
@@ -360,11 +387,15 @@ dhellmann/smiley # application tracer, record & report, inspired by rad2py/wiki/
 # IPython tricks
 cd /a/path
 !cmd # shell command
+%quickref
+%load script.py # and %%file to write to a file
 %save $filename # save session - Alt: %history -> dump it. Stored in ~/.config/ipython/profile_default/history.sqlite - used by pdb too
 %pdb # Automatic pdb calling
 %timeit do_something()
 %debug # post_mortem
 %bg # run in the background
+%%javascript # and many other languages
+from IPython.display import HTML, SVG; HTML(html_string) # render HTML, SVG
 ipython notebook # D3 support : wrobstory/sticky
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 
@@ -494,7 +525,7 @@ python-graph-core, networkx, igraph, graph-tool # networks & graphs manipulation
 deap # genetic programming
 cvxopt # convex optimization
 
-mmap
+mmap # memory-mapped files
 joblib # memoize computations by keeping cache files on disk
 
 rpy2 # acces to R
@@ -523,9 +554,6 @@ pew > virtualenv # sandbox. To move an existing environment: virtualenv --reloca
 pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
 pip install --src . -r requirements.txt
 pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
-
-liftoff/pyminifier # code minifier, obfuscator, and compressor
-scales # metrics for Python
 
 multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
 SimPy # Process Interaction
@@ -560,16 +588,24 @@ ampqlib, haigha, puka # AMPQ libs
 
 mrjob, luigi # Hadoop / AWS map-reduce jobs
 
-pyparsing # http://pyparsing.wikispaces.com/HowToUsePyparsing
-dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshare.net/dakerfp/functional-pattern-matching
+scales # metrics for Python
 
-toolz # functional programming - Even faster: CyToolz - Also: suor/funcy ; kachayev/fn.py
+pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing
 
+@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
+
+import uuid # generate unique IDs
+
+resource # limit a process resources: SPU time, heap size, stack size...
+
+liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)
 pyreverse # UML diagrams
 
-http://amoffat.github.io/sh/ # AWESOME for shell scripting
 shlex.split('--f "a b"') # tokenize parameters properly
+import sh # sh.py - AWESOME for shell scripting - Alt: gawel/chut
+(import [sh [cat grep wc]]) # in Hy, aka Python with Lisp syntax
+(-> (cat "/usr/share/dict/words") (grep "-E" "^hy") (wc "-l"))
 
 def function_with_docstring(foo): # sphinx
     """Do this and that, similar to :func:`a_function_name`
@@ -588,15 +624,11 @@ parser_group = parser.add_mutually_exclusive_group(required=True)
 parser_group.add_argument(... type=argparse.FileType('r'))
 return parser.parse_args()
 
-hmac, hashlib.md5('string').hexdigest()
-dropbox/python-zxcvbn # password strength estimation
-from getpass import getpass # get password without echoing it
-
-@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
-
-import uuid # generate unique IDs
-
-resource # limit a process resources: SPU time, heap size, stack size...
+ConfigParser, configobj # std configuration files format
+csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
+yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
+cPickle # binary format, generic, fast & lighweight.
+# + PyCloud make it possible to pickle functions dependencies
 
 peewee, SQLAlchemy # ORM DB
 from playhouse.sqlite_ext import SqliteExtDatabase; db = SqliteExtDatabase(':memory:') # in-memory SQLite DB with peewee
@@ -606,13 +638,11 @@ pyMySQL, noplay/python-mysql-replication
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
 stephenmcd/hot-redis
 
-ConfigParser, configobj # std configuration files format
-csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
-yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
-cPickle # binary format, generic, fast & lighweight.
-# + PyCloud make it possible to pickle functions dependencies
+hmac, hashlib.md5('string').hexdigest()
+dropbox/python-zxcvbn # password strength estimation
+from getpass import getpass # get password without echoing it
 
-lz4, bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp
+lz4, bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp # to unpack any archive
 archive = zipfile.ZipFile('foo.zip', mode='w')
 for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy
     for name in files:
@@ -631,6 +661,7 @@ BeautifulSoup('html string').prettify() # newlines+tabs formatted dump - Alt, le
 urlparse.urljoin, urllib.quote_plus # urlencoding & space -> +
 requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent, and requests-futures for asynchronous (non-blocking) HTTP requests
 requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)
+status_string = requests.status_codes._codes[404][0]; status_string = ' '.join(w.capitalize() for w in status_string.split('_')) # Alt: httplib.responses, cf. HTTP_STATUS_LINES in Bottle code: http://bottlepy.org/docs/dev/bottle.py
 wget # equivalent lib to the command-line tool
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 kevin1024/vcrpy # record / replay HTTP interactions

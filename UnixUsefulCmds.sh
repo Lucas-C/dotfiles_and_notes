@@ -58,7 +58,7 @@ ranger # text-based file manager written in Python with vi key bindings
 write / mesg # 2nd control write access
 wall # broadcast message
 
-ttyrec, ipbt, ttygif, playitagainsam # record & playback terminal sessions - Last one provides a JS player
+ttyrec, ipbt, ttygif, playitagainsam, KeyboardFire/mkcast # record & playback terminal sessions - Last one provides a JS player
 
 export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # Alt: GNU parallel, mfisk/filemap 'fm' Map-Reduce command
 
@@ -283,7 +283,7 @@ sudo grep crontask /var/log/cron.log
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
 while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick
-huptime --exec $cmd # zero downtime restarts of unmodified (networking) programs
+huptime --exec $cmd # zero downtime restarts of unmodified (networking) programs, intercept bind(2) and accept(2) calls
 
 # Launch command at a specified time or when load average is under 0.8
 echo $cmd | at midnight
@@ -948,7 +948,7 @@ pngquant ## 70% lossy compression
 jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs 
 identify -verbose $jpg | grep -Fq 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg
 mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata
-feh -F -D 3 --cycle-once * # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
+feh -F -d -D 3 --cycle-once * # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 
 
 $$$$$$$$$$$$$$$
