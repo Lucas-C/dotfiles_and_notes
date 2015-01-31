@@ -16,6 +16,7 @@
 - [BuildingADecentAPI](https://philsturgeon.uk/blog/2013/07/building-a-decent-api/)
 - [DistributedSystemsAndTheEndOfTheAPI](http://writings.quilt.org/2014/05/12/distributed-systems-and-the-end-of-the-api/)
 - [AwkwardMicroservicesQuestions](http://blog.oshineye.com/2015/01/awkward-microservices-questions.html)
+- [Functional Programming Patterns](http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -155,6 +156,11 @@ Don't use comments when you can use a function/variable to expresse the intent [
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
 * Do it well: use proper tools, including automated static analysis (findbugs, ArtisticStyle for C/C++/Java, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
 
+## Functional programming
+cf. [Functional Programming Patterns]
+- _"Don't trust the name - trust the signature"_
+- "Domain modelling pattern" : use types to represent constraints, _avoid "primitive obsession"_
+
 ## General
 - Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
 - Favor idempotent operations, i.e. "that has no additional effect if it is called more than once with the same input parameters".
@@ -224,3 +230,5 @@ sed ${1}q
 - "Programmers always confuse Halloween with Christmas because Oct 31 == Dec 25"
 - "La Cathédrale et le Bazar" - Essai on Open Source & Proprietary Software
 - the phrase software "patch" is from a physical patch applied to Mark 1 paper tape to modify the program: https://chezsoi.org/lucas/ThePatch.jpg
+- "Object-oriented programming is an exceptionally bad idea which could only have originated in California" - E.W. Dijkstra
+"You probably know that arrogance, in computer science, is measured in nanodijkstras" - Alan Kay

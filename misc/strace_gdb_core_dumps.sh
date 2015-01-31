@@ -57,6 +57,7 @@ ulimit -S -c unlimited && echo 'kernel.core_pattern = /tmp/core2' >>/etc/sysctl.
 gdb -tui $prog /tmp/core.$pid # post-mortem debug of a prog compiled with -g
 gcore $pid # memory core dump
 
+gdb --args cmd cmd_arg1 cmd_arg2
 # get a core file for a running program
 gdb -p $pid -batch -quiet -ex 'generate-core-file' # then manipulate with pstack, pmap
 # get a stack trace for all threads
@@ -69,6 +70,9 @@ gdb -p $pid -batch -quiet -ex "thread apply all bt full" > program-backtrace.log
 (gdb) b $position [if $condition] // for a one-time breakpoint: 'tbreak'; Also: 'info break', 'clear $breakpoint_position'
 // $position can be [$file:]$line_number, relative number of lines (e.g. +5), function name
 (gdb) enable/disable/delete $breakpoint_id
+(gdb) command $breakpoint_id // run a command each time you hit the breakpoint
+print var
+end
 (gdb) watch $variable // watch point; also: rwatch/awatch triggered when $variable is read/modified 1st
 (gdb) p[/$format] $variable // use *address@size to display arrays
 // formats: o(octal), x(hex), d(decimal), u(unsigned decimal), t(binary), f(float), a(address), i(instruction), c(char), s(string)
@@ -81,4 +85,6 @@ gdb -p $pid -batch -quiet -ex "thread apply all bt full" > program-backtrace.log
 (gdb) call foo(42) // also: 'jump $position'
 (gdb) return [$value] 
 (gdb) kill
+(gdb) directory path/to/src/files/dir // link debug symbols with relative paths to source files - For absolute paths: substitue-path
+(gdb) macro expand / info macro // require make KCFLAGS=-ggdb3
 
