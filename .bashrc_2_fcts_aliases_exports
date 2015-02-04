@@ -45,7 +45,7 @@ md2html () {
 locate_img_and_preview () {
     local feh_opts='-d -F'
     [ "$1" = "-t" ] && shift && feh_opts=-t # thumbnails mode
-    feh $feh_opts -f <(locate -0 -i "$@" | xargs -0 -n 1 file | grep image | cut -d: -f1)
+    feh $feh_opts -f <(locate -0 -i "${@:-$(cat)}" | xargs -0 -n 1 file | grep image | cut -d: -f1)
 }
 
 vimhelp () { md2man <(sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md); }
@@ -160,7 +160,7 @@ lse () { # group files by their extension
 # grep
 #------
 alias g='grep -i --color=always'
-gn () { cd $BASHRC_DIR; grep --color=always "$@" $(git ls-files); }
+gn () { cd $BASHRC_DIR; grep --color=always "${@:-$(cat)}" $(git ls-files); }
 alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
 alias bzg='bzgrep -i --color=always'
 zgr () {
@@ -187,11 +187,11 @@ alias gpr='git pull --rebase'
 #------------
 alias e='$EDITOR'
 alias b='cd -'
-f () { ( nohup firefox "$@" >~/firefox.log 2>&1 & ); }
+f () { ( nohup firefox "${@:-$(cat)}" >~/firefox.log 2>&1 & ); }
 t () { # Execute some cmd with start/end timestamps
     date +"# Started: %c - @%s"
     local start_time=$(date +%s)
-    "$@"
+    "${@:-$(cat)}"
     local retcode=$?
     local end_time=$(date +%s)
     date +"# Ended  : %c - @%s - Elapsed: $((end_time - start_time))s"
@@ -206,6 +206,16 @@ alias tkcon='tkcon -load Tk'
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
 rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
+find_constants () {
+    find "${@:-$(cat)}" -print0 \
+        | xargs -0 perl -wne 'while ($_ =~ /[^\w]([A-Z][A-Z0-9_]+)[^\w]/g) {print $1."\n"}' \
+        | sort | uniq -c | sort | awk '{if ($1 > 1) print}'
+}
+find_constants_values () {
+    find "${@:-$(cat)}" -print0 \
+        | xargs -0 perl -wne 'while ($_ =~ /[^\w]([A-Z][A-Z0-9_]+\s+=\s+.*)/g) {print $1."\n"}' \
+        | sort | uniq
+}
 
 alias perl='rlwrap --remember --multi-line --substitute-prompt "> " $(type -P perl)' # Also, use the debugger: perl -d -e 1
 alias node='env NODE_NO_READLINE=1 rlwrap --remember --multi-line $(type -P node)'
@@ -237,7 +247,7 @@ iconv_help () {
     echo tail --bytes=+4 UTF8WithBom.txt \> UTF8WithoutBom.txt
 }
 alias utf8=iconv_help
-nocrlf () { perl -pe 's/\r//g' "$@"; } # also: dos2unix
+nocrlf () { perl -pe 's/\r//g' "${@:-/dev/stdin}"; } # also: dos2unix
 alias json_fmt='python -mjson.tool' # don't work well with non ascii
 
 alias funiq="awk '"'{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'"'" # faster than 'sort | uniq -c' BUT output is not sorted. Also, it's very easy to swap the output columns
@@ -325,7 +335,7 @@ findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while 
 # - VALID: file.py: a adhoc-python2.7 script text executable
 
 notabs () { # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces
-    for f in $(findTxt "$@"); do
+    for f in $(findTxt "${@:-$(cat)}"); do
         perl -pi -e 's/\t/    /g' "$f"
         perl -pi -e 's/[\t\r ]*$//g' "$f"
         # 'perl -p' is more portable than sed (e.g. \t\n does not work under OSX)

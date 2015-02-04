@@ -45,3 +45,45 @@ ___|___|___
    |   |
    |   |
 
+
+Vous avez 9 boules de métal indiscernables au toucher, dont l’une est plus lourde que les autres. Vous disposez d’une balance traditionnelle à fléaux.
+Comment trouver la plus lourde en deux pesées comparatives ?
+
+
+Sachant que :
+    8809 -> 6
+    7111 -> 0
+    2172 -> 0
+    6666 -> 4
+    1111 -> 0
+    3213 -> 0
+    7662 -> 2
+    9312 -> 1
+    0000 -> 4
+    2222 -> 0
+    3333 -> 0
+    5555 -> 0
+    8193 -> 3
+    8096 -> 5
+    7777 -> 0
+    9999 -> 4
+    7756 -> 1
+    6855 -> 3
+    9881 -> 5
+    5531 -> 0
+
+Déduire le résultat :
+    2581 -> ?
+
+
+Touche pas ça touche.
+Touche ne touche pas.
+Mars touche alors que Terre ne touche pas.
+
+
+Monsieur X visitait un des nombreux châteaux d’Europe. Le guide expliquait que l’un des moyens de défense les plus utilisés à l’époque était les douves. Celles que Monsieur X visitait formaient un immense carré, de 10 mètres de large et de 15 mètres de profondeur.
+Monsieur X se vanta de pouvoir les traverser sans se mouiller en utilisant deux planches de 9 mètres et rien d’autre.
+Comment a-t-il fait ?
+
+
+Vous avez besoin d'un litre d'eau, exactement un litre. Vous disposez pour cela d'un récipient de capacité trois litres et d'un autre de cinq litres. Combien de fois devez-vous remplir un récipient au robinet ?

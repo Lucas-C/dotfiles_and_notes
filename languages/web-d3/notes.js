@@ -221,6 +221,7 @@ hex_md5('string') // crypt/md5.js
 lazy.js, lodash > underscore.js // Functional prog libs
 moment.js > sugar.js // parse, validate, manipulate, and display dates
 
+webpack, browserify // module bundlers
 npm install // Node Packaged Modules
 
 substack/minimist // argument options parser - Alt: chevex/yargs, harthur/nomnom
@@ -245,10 +246,12 @@ node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/39
 JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
 
 karma-runner/karma > JsTestDriver > Qunit // Testing libs
+Sinon.js // test spies, stubs and mocks - framwork agnostic & no dependencies
+Vows.js // asynchronous BDD for Node.js
 
 // E4X is an official JavaScript standard that adds direct support for XML
 
-Google Closure Compiler, Library & Linter // Optimize JS code
+Google Closure Compiler, Library & Linter //  Markdown Optimize JS code
 Google V8 // Open Source high perf JS engine written in C++. Features :
 // - Hidden classes
 // - Dynamic machine code generation
@@ -260,7 +263,7 @@ Brython, RapydScript, Pyjamas, PythonJS // for Python
 
 Esprima // ECMAScript parser
 
-CommonMark // https://github.com/jgm/stmd/blob/master/js/stmd.js
+CommonMark // "Standard" Markdown https://github.com/jgm/stmd/blob/master/js/stmd.js
 cemerick/jsdifflib
 
 sweetalert // pretty replacement for 'alert'

@@ -42,7 +42,7 @@ SE = software entity : class, module, function...
 - Open/Closed Principle : SE should be open for extension, but closed for modification
 - Common Closure Principle : any change to the software should only have a very local impact
 
-On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI]
+On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/1481](http://imgs.xkcd.com/comics/api.png)
 
 On microservices : [AwkwardMicroservicesQuestions]
 

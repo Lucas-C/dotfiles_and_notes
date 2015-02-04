@@ -59,6 +59,7 @@ write / mesg # 2nd control write access
 wall # broadcast message
 
 ttyrec, ipbt, ttygif, playitagainsam, KeyboardFire/mkcast # record & playback terminal sessions - Last one provides a JS player
+licecap # record any screen interaction as GIF - cf. http://superuser.com/a/657800/255048
 
 export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # Alt: GNU parallel, mfisk/filemap 'fm' Map-Reduce command
 
@@ -633,6 +634,7 @@ vim /etc/apache2/sites-available/default-ssl
 service apache2 restart
 tail -F /var/log/apache2/*.log
 a2enmod / a2dismod $modname  # enable / disable std modules
+ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking
 
 
 =cCcCcCc=
@@ -760,12 +762,14 @@ rpmbuild file.spec
 alien # transformer un .rpm en .deb
 
 init q # Reload upstart config : /etc/inittab, /etc/init.d, /etc/init/*.conf -> can be really simple & useful
+init-checkconf # check upstart script syntax
 initctl list # list active upstart services
 chkconfig, service # control & check upstart scripts
+# Alt & init.d example: http://support.ghost.org/deploying-ghost/
 # /etc/init/ script example:
 start on startup
 script
-    set -o pipefail -o errexit -o nounset -o xtrace
+    set -o errexit -o nounset -o xtrace # NOT -o pipefail or script won't start
     cd $dir
     exec >> etherpad-upstart.log
     exec 2>> etherpad-upstart.log
