@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+# Install modules
+cpan Modern::Perl
+
 # http://lhullier.developpez.com/tutoriels/perl/intro/
 
 $\="\n"; $,=" "; # User-friendly separators

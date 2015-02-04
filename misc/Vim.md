@@ -40,7 +40,8 @@ Formatting
 ==========
 - __CTRL+q__ : comment/uncomment selection
 - __\<select\>__+*u*/*U* : lowercase / uppercase selection - Alt: *guu*/*gUU* : lowercase / uppercase whole line
-- __\<select\>__+__{tabs count}__*>* : indent
+- __\<select\>__+__N__*>* : indent by tabs
+- __\<select\>__+*:s/^/*+__N__*>* : indent by spaces
 - *=* : auto (re)indent selection
 - *=G* : auto (re)indent whole file
 

@@ -181,6 +181,8 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     "To force to omni: "<C-X><C-O>"
     set omnifunc=syntaxcomplete#Complete
 
+    Plugin 'othree/html5.vim'
+
     call vundle#end()
 endif
 filetype plugin indent on
