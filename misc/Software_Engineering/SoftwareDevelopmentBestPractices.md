@@ -17,6 +17,8 @@
 - [DistributedSystemsAndTheEndOfTheAPI](http://writings.quilt.org/2014/05/12/distributed-systems-and-the-end-of-the-api/)
 - [AwkwardMicroservicesQuestions](http://blog.oshineye.com/2015/01/awkward-microservices-questions.html)
 - [Functional Programming Patterns](http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt)
+- [MicroservicesIncreaseOuterArchitectureComplexity](http://blogs.gartner.com/gary-olliffe/2015/01/30/microservices-guts-on-the-outside/)
+- [How API schemas help you make web sites fast](http://gilesbowkett.blogspot.be/2015/01/why-panda-strike-wrote-fastest-json.html#apis-and-json-schema)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -43,8 +45,9 @@ SE = software entity : class, module, function...
 - Common Closure Principle : any change to the software should only have a very local impact
 
 On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/1481](http://imgs.xkcd.com/comics/api.png)
++ use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 
-On microservices : [AwkwardMicroservicesQuestions]
+On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity] : they add moving parts and interdependencies
 
 ## Design smells
 - "Thin" classes. Ideally, a class should have a very simple interface that hides a lot of functionality and internal complexity. [SDP]

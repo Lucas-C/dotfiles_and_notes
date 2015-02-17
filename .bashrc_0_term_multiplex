@@ -1,4 +1,4 @@
-ps -p $PPID | grep -Eq 'tilda|su' && return
+ps --pid $PPID --no-headers --format comm | grep -Eq 'pew|tilda|su' && return
 
 if [ -e $BASHRC_DIR/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
     type tmux >/dev/null 2>&1 || return 

@@ -224,7 +224,7 @@ moment.js > sugar.js // parse, validate, manipulate, and display dates
 webpack, browserify // module bundlers
 npm install // Node Packaged Modules
 
-substack/minimist // argument options parser - Alt: chevex/yargs, harthur/nomnom
+substack/minimist // argument options parser - Alt: chevex/yargs, harthur/nomnom, divarvel/cliparse-node
 
 var http = require('http');
 http.createServer(function (req, res) {
@@ -243,11 +243,19 @@ fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
 node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/3944507 - Browser -> $host:8080/debug?port=5858 - Need the following iptables rules:
 // for chain in INPUT OUTPUT; do iptables -A $chain -p tcp -m tcp --dport 8080 -j ACCEPT; done
 
-JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
+plato // source code visualization, static analysis, and complexity tool 
+FGRibreau/check-build // includes:
+    JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
+    JSCS // code style checker
+    jsinspect // check for code duplication
+    buddy.js // detect magic numbers
+    David // check for package updates
+    Nsp // detect security vulnerabilities
 
 karma-runner/karma > JsTestDriver > Qunit // Testing libs
 Sinon.js // test spies, stubs and mocks - framwork agnostic & no dependencies
 Vows.js // asynchronous BDD for Node.js
+admc/wd // node.js client for webdriver/selenium 2
 
 // E4X is an official JavaScript standard that adds direct support for XML
 
@@ -258,7 +266,8 @@ Google V8 // Open Source high perf JS engine written in C++. Features :
 // - Profiler : d8 --prof script.js
 
 // Languages that compile to JS:
-CoffeeScript, TypeScript, Flow // Last two provide static type checking
+CoffeeScript // Compared to ES6 ? -> discourse point of view: https://meta.discourse.org/t/is-it-better-for-discourse-to-use-javascript-or-coffeescript/3153/2
+TypeScript, Flow // provide static type checking
 Brython, RapydScript, Pyjamas, PythonJS // for Python
 
 Esprima // ECMAScript parser

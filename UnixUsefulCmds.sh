@@ -283,7 +283,7 @@ echo -e "00 00 * * * $USER cmd >> cmd.log 2&>1\n" | sudo tee /etc/crond.d/cronta
 sudo grep crontask /var/log/cron.log 
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
-while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick
+while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick - Alt: ayancey/dirmon
 huptime --exec $cmd # zero downtime restarts of unmodified (networking) programs, intercept bind(2) and accept(2) calls
 
 # Launch command at a specified time or when load average is under 0.8
@@ -350,7 +350,7 @@ sed -n '/FOO/,/BAR/p' # Print lines starting with one containing FOO and ending 
 sed -e "9r rabbit.ascii" -e "6iTITLE" template.html # insert a file + a specific text line in another file
 perl -ne '/(error|warn)(?!negative-look-ahead-string-to-not-match-just-after)/i'
 perl -ne '/r[eg](ex)p+/ && print "$1\n"' # print only matching groups
-grep | cut -c1-200 # ignore lines with length > 200 chars
+grep | cut -c1-200 # truncate results to 200 characters
 pyp # pip install --user pyp : alternative to sed, awk, cut & perl - Alt: pyped, Russell91/pythonpy
 
 pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py OR pdftk OR LibreOffice Draw
@@ -364,6 +364,7 @@ type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
 # this is also a crazy hack : put the output in ORIG_CMD, then redefine ssh_setup () { eval $ORIG_CMD $@; ... }
 
 perl -ne 'if (length > $w) { $w = length; print $ARGV.":".$_ };  END {print "$w\n"}' *.py # Longest line of code
+$cmd | awk '{print length, $0}' | sort -rn # sort by line length
 cloc # count lines of code
 
 comm -12 #or uniq -d - Sets intersec - See also: "Set Operations in the Unix Shell" - Alt: moreutils/combine
@@ -381,6 +382,7 @@ tac # reverse lines
 
 perl -pe 's/\s+/\n/g' # Break on word per line
 awk [-F":|="] '{ print $NF }' # Print last column. Opposite: awk '{$NF=""; print $0}'. Only last elems: awk -F' ' '{for (i = 3; i <= NF; i++) printf "%s ",$i; print ""}'
+mawk # faster awk
 fold # breaks lines to proper width
 fmt # reformat lines into paragraphs
 printf "%-8s\n" "${value}" # 8 spaces output formatting
@@ -390,7 +392,8 @@ csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # pip i
 
 jq -r '..|objects|.name//empty' # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
 echo '{"A1":"a1","A2":"b2","B1":"b2"}' | jq '"A." as $regex | del(.[keys[]|select(match($regex))])'
-echo '{"A0":["a1","a2","a3"], "B0":["b1","b2","b3"], "c3":[]}' | jq '".[^3]" as $regex | to_entries|map(select(.key|match($regex)))|map(.value|=map(select(match($regex))))|from_entries'
+echo '{"A0":["a1","a2","a3"], "B0":["b1","b2","b3"], "c3":[]}' | jq '".[^3]" as $regex|to_entries|map(select(.key|match($regex)))|map(.value|=map(select(match($regex))))|from_entries'
+source <(jq -r 'to_entries|.[]|"SAUCE_\(.key|ascii_upcase)=\(.value)"' .saucelabs_auth.json )
 pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
@@ -598,7 +601,7 @@ urlwatch --urls=urls-list.txt | ifne mutt -s "Page change detected" $email_addre
 
 
 _'_"_'_"_'_"_'_"_'_"_'_"_
-#    ssh@  SSH  :ssh    #
+#    ssh@  SSL  :ssh    #
 -"-'-"-'-"-'-"-'-"-'-"-'-
 keithw/mosh # faster 'ssh' replacement that allows the client and server to "roam" and change IP addresses, while keeping the connection alive
 liftoff/GateOne # HTML5-powered terminal emulator and SSH client - Also: http://en.wikipedia.org/wiki/Comparison_of_SSH_clients#Platform
@@ -625,6 +628,7 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
  -h rpi-1 rpi-2 \ # hostnames
  -c "$cmd"
 
+
 </-/--------------\-\>
 <!<! Apapapapache !>!>
 <\-\--------------/-/>
@@ -634,7 +638,7 @@ vim /etc/apache2/sites-available/default-ssl
 service apache2 restart
 tail -F /var/log/apache2/*.log
 a2enmod / a2dismod $modname  # enable / disable std modules
-ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking
+ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking - Alt: tarekziade/boom
 
 
 =cCcCcCc=

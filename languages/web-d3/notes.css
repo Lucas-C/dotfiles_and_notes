@@ -12,7 +12,7 @@ a, a:visited, a:hover, a:active {
   color: inherit;
   text-decoration: inherit;
 }
-/* Responsive design tables */
+/* Responsive design tables - FROM: http://lehollandaisvolant.net/?mode=links&id=20140107205810 */
 table, tbody { display: block; }
 tr { display: table; }
 td { display: table-row; }

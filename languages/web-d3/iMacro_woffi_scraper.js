@@ -26,7 +26,7 @@
         LOGS.push(msg);
     },
     main = function () {
-        var goto_indices = range(0, 60, 25);
+        var goto_indices = range(0, 212, 25);
         log('Indices: ' + goto_indices.join(','));
         //sleep(3);
         for (var i = 0; i < goto_indices.length; i++) {

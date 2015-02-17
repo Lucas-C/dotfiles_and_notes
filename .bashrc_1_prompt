@@ -13,6 +13,7 @@ export C_nowrite='0;31' # red
 export C_error='1;31' # bold red
 export C_branch='0;33' # yellow
 export C_chrooted='0;36' # cyan
+export C_virtualenv='0;34' # blue
 
 export DIRCOLOR=$T_normal
 export EXIT_CODE=0
@@ -24,17 +25,18 @@ export HOST_COLOR='1;35' # magenta
 # FROM: http://stackoverflow.com/a/88716
 ROOT_INODE=$(stat -c %i /)
 if [ $ROOT_INODE -ne 2 -a $ROOT_INODE -ne 128 ] && [ -z "${WINDIR:-}" ]; then
-    IS_CHROOTED_PROMPT='(chrooted)'
+    IS_CHROOTED_PROMPT='{chrooted}'
 else
-    IS_CHROOTED_PROMPT=''
+    IS_CHROOTED_PROMPT='{}'
 fi
 
 export PS1=\
-'\[\e[${C_chrooted}m\]${IS_CHROOTED_PROMPT}\[\e[${T_normal}m\]'\
 '\[\e[${USER_STYLE}m\]\u\[\e[${T_normal}m\]'\
 '@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]'\
-'\[\e[${C_branch}m\]${GIT_BRANCH}\[\e[${T_normal}m\]:'\
-'\[\e[${DIRCOLOR}m\]\W\[\e[${T_normal}m\]'\
+'\[\e[${C_chrooted}m\]${IS_CHROOTED_PROMPT}\[\e[${T_normal}m\]'\
+'\[\e[${C_branch}m\][${GIT_BRANCH}]\[\e[${T_normal}m\]'\
+'\[\e[${C_virtualenv}m\]('$(basename "${VIRTUAL_ENV:-}")')\[\e[${T_normal}m\]'\
+':\[\e[${DIRCOLOR}m\]\W\[\e[${T_normal}m\]'\
 '\[\e[${CODE_COLOR}m\]$CODE_STRING\[\e[${T_normal}m\]\$ '
 
 export PROMPT_COMMAND=prompt_command
@@ -65,9 +67,6 @@ prompt_command()
 
     if [ -z "${WINDIR:-}" ]; then
         GIT_BRANCH=$(git branch --no-color 2>/dev/null | sed -ne 's/^* //p')
-        if [ -n "$GIT_BRANCH" ]; then
-            GIT_BRANCH="[$GIT_BRANCH]"
-        fi
     fi
 
     history -a # flush history => shared between term sessions

@@ -4,13 +4,15 @@
 (load-file "lt/objs/cli.cljs")
 (.log js/console (pr-str [1 2 3]))
 
+clj ; custom interpreter using clojure.jar - http://en.wikibooks.org/wiki/Clojure_Programming/Getting_Started#Enhancing_Clojure_REPL_with_rlwrap
+
 ;;;;;;;;
 ; LIBS
 ;;;;;;;;
 Datomic ; time-based elastic ACID DB
 Langohr ; RabbitMQ client
 Enlive ; web scraping, templating and transformation system
-clj-webdriver ; API for Selenium-WebDriver 
+clj-webdriver ; API for Selenium-WebDriver - Alt: BrightNorth/examinant
 
 ;;;;;;;;;
 ; DEBUG

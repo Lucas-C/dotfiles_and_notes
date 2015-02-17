@@ -160,7 +160,8 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     Bundle 'guns/vim-clojure-static'
     Bundle 'JuliaLang/julia-vim'
     Bundle 'Glench/Vim-Jinja2-Syntax'
-    "Bundle 'plasticboy/vim-markdown' " disabled because of https://github.com/plasticboy/vim-markdown/issues/79
+    Bundle 'plasticboy/vim-markdown'
+    " disabled because of https://github.com/plasticboy/vim-markdown/issues/79
     let g:vim_markdown_folding_disabled=1
     Bundle 'scrooloose/syntastic'
     " To know what's going on :SyntasticInfo ; to invoke it manually :SyntasticCheck

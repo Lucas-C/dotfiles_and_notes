@@ -18,8 +18,9 @@ with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as U
     for line in open_file.readlines():
         yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
 with io.open('my_file', 'w', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
-intern(str) # internal representation - useful for enums/atoms
+intern(str) # internal representation - useful for enums/atoms + cf. http://stackoverflow.com/a/15541556
 
+<module>.__file__ # can refer to .py OR .pyc !!
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
 
@@ -88,6 +89,7 @@ parser.parse(date_string_with_tz, tzinfos=_tzinfos_pytz_pst_func).astimezone(pyt
 pytz.timezone('America/Los_Angeles').localize(parser.parse(date_string_without_tz)).astimezone(pytz.utc)
 
 globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class creation
+module = sys.modules[base_class.__module__].__dict__; module[name] = new.classobj(name, (base_class,), class_attributes) # cleaner Alt
 # !!WARNING!! 'type()' uses the current global __name__ as the __module__, unless it calls a metaclass constructor
 # -> http://stackoverflow.com/questions/14198979/python-inheritance-metaclasses-and-type-function
 
@@ -151,8 +153,8 @@ class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
 class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
     __slots__ = ()
 
-LOG_FORMAT = "%(asctime)s - %(process)s [%(levelname)s] %(filename)s %(lineno)d %(message)s"
-def create_logger(): # Also: logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
+LOG_FORMAT = "%(asctime)s - pid:%(process)s %(filename)s:%(lineno)d [%(levelname)s] %(message)s"
+def create_logger(): # Also: logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT, stream=sys.stderr)
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
     file_handler = logging.handlers.RotatingFileHandler('proxy.log', maxBytes=1024*1024, backupCount=10) # Also: TimedRotatingFileHandler
@@ -297,6 +299,7 @@ class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/r
     __setattr__ = dict.__setitem__
 
 ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
+jab/bidict # provide key -> value & value -> key access
 
 ultrajson >faster> simplejson >faster> json
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
@@ -356,7 +359,7 @@ from functools import partial, reduce # for Py3+ compatibility
 sum(list_of_lists, []) # flatten a list of lists - Alt: list(itertools.chain.from_iterable(l_o_l)) OR reduce(operator.concat, l_o_l)
 
 # Extra libs
-dakerfp/patterns # AST modification at runtime : real DSL ; http://www.slideshare.net/dakerfp/functional-pattern-matching
+dakerfp/patterns # functional pattern matching through real DSL made by modifying the AST ; http://www.slideshare.net/dakerfp/functional-pattern-matching
 toolz # brings: pluck, tail, compose, pipe, memoize - Even faster: CyToolz
 suor/funcy
 kachayev/fn.py
@@ -375,6 +378,7 @@ import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueEr
 import doctest # include tests as part of the documentation
 AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
 behave # Behavior Driven Development
+brodie/cram # generic command-line app testing
 import capsys # capture stdin/out
 import monkeypatch # modify an object that will be restored after the unit test
 import tmpdir # generate a tmp dir for the time of the unit test
@@ -422,10 +426,6 @@ inspect.getsource(foo_func) # if implemented in C, use punchagan/cinspect
 frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
 sys._getframe(1).f_locals['foo'] = 'overriding caller local variable!'
 
-<module>.__file__ # can refer to .py OR .pyc !!
-
-o.__class__.__bases__ # Get class parents
-
 # http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
 def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
 # Example:
@@ -458,6 +458,7 @@ from dis import dis; dis(myfunc) # get dissassembly
 uncompyle2 prog.pyc # bytecode -> python code
 neuroo/equip # bytecode instrumentation, e.g. insert call counters logic into .pyc
 foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')) # bytecode evil alteration
+astor / astunparse # AST 'unparse' : tree -> source
 
 import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
 # SUPER powerful to hack python code and sniff values
@@ -492,6 +493,21 @@ ctypes.POINTER(c_int).from_address(0)[0] # SEGFAULT
 def deref(addr, typ):
     return ctypes.cast(addr, ctypes.POINTER(typ))
 deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index to the ob_ival field in a PyIntObject - In Python3 this index is '6'
+
+
+""""""""""""""""""""""""""
+"" Libs & tools for DEVS !
+""""""""""""""""""""""""""
+pew > virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
+pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
+pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
+pip freeze > requirements.txt # dumps all the virtualenv dependencies
+pip install --user $USER --src . -r requirements.txt
+pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt
+
+liftoff/pyminifier # code minifier, obfuscator, and compressor
+pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)
+pyreverse # UML diagrams
 
 
 """""""""""""""""""""""""""""
@@ -550,11 +566,6 @@ PyInline # put source code from other programming languages (e.g. C) directly "i
 Pyrex # write code that mixes Python and C data types and compiles it into a C extension
 Nuitka # converts Python code into C++ code (targetting VisualStudio, MinGW or Clang/LLVM compilers)
 
-pew > virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
-pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
-pip install --src . -r requirements.txt
-pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
-
 multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
 SimPy # Process Interaction
 threading.Thread().deamon = True # The entire Python program exits when no alive non-daemon threads are left.
@@ -569,7 +580,7 @@ def _make_file_read_nonblocking(f):
     flags = fcntl.fcntl(fd, fcntl.F_GETFL)
     fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
 from gevent import monkey; monkey.patch_all() # Greenlets
-Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
+saucelabs/monocle, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 numbapro # for CUDA
@@ -581,7 +592,7 @@ asynchat, irc, sleekxmpp, embolalia/willie
 mailr, mailbox, imaplib, smtpd, smptplib
 paramiko # remote SSH/SFTP connexion
 
-celery # distributed task queue ; montoring: mher/flower; alt: pyres
+celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
 sched # event scheduler ; alt: fengsp/plan, crontabber, dagobah/schedule
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
@@ -597,10 +608,6 @@ pyparsing # create and execute simple grammars instead of regex/lex/yacc - http:
 import uuid # generate unique IDs
 
 resource # limit a process resources: SPU time, heap size, stack size...
-
-liftoff/pyminifier # code minifier, obfuscator, and compressor
-pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)
-pyreverse # UML diagrams
 
 shlex.split('--f "a b"') # tokenize parameters properly
 import sh # sh.py - AWESOME for shell scripting - Alt: gawel/chut
@@ -618,7 +625,7 @@ def function_with_docstring(foo): # sphinx
     """
     return False
 
-twobraids/configman > argparse > optparse # Alt: docopt, clize, click - Also compatible with argparse: chriskiehl/Gooey for a quick GUI
+twobraids/configman > argparse > optparse # Alt: docopt, clize, click - Also: neat quick GUI compatible with argparse: chriskiehl/Gooey
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve')
 parser_group = parser.add_mutually_exclusive_group(required=True)
 parser_group.add_argument(... type=argparse.FileType('r'))
@@ -659,7 +666,11 @@ element.getparent().remove(element)
 BeautifulSoup('html string').prettify() # newlines+tabs formatted dump - Alt, less pretty: lxml.html.tostring(element) / lxml.etree.tostring
 
 urlparse.urljoin, urllib.quote_plus # urlencoding & space -> +
-requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also: aiohttp for asyncio-based equivalent, and requests-futures for asynchronous (non-blocking) HTTP requests
+requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also:
+    aiohttp # for asyncio-based equivalent
+    requests-futures # for asynchronous (non-blocking) HTTP requests
+    txrequests # Twistted asynchronous requests
+    requests-cache
 requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)
 status_string = requests.status_codes._codes[404][0]; status_string = ' '.join(w.capitalize() for w in status_string.split('_')) # Alt: httplib.responses, cf. HTTP_STATUS_LINES in Bottle code: http://bottlepy.org/docs/dev/bottle.py
 wget # equivalent lib to the command-line tool
