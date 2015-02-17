@@ -21,6 +21,7 @@ $if Bash
 $endif
 set show-all-if-ambiguous on
 set completion-ignore-case on
+set blink-matching-paren on
 
 # <CTRL>+left/right arrows
 # WHEN xterm-keys on, e.g. inside Tmux (already in /etc/inputrc):

@@ -14,13 +14,15 @@ java -jar archive.jar # Maybe -cp .
 // To be sure you're using the correct Java : namei $(which java)
 */
 
-// Java scripting
+drip // JVM launcher with faster startup times - Alt: Nailgun, Cake
+
+// Scripting
 jrunscript // Javascript engine based on Mozilla's Rhino - Java 6-7 - Uses javax.script module
 jjs // Nashborn Javascript engine - Java 8
 
 java -cp junit.jar:. org.junit.runner.JUnitCore path.to.pkg.AllTests// JUnit
 JContractS (formerly iContract), cofoja // Design By Contract libs
-findbugs, error-prone // code checking tools
+findbugs, google/error-prone // code checking tools
 cobertura // code coverage
 jdb // debugger
 javap, JD // .class dissassembler & Java decompiler, include a GUI
@@ -29,6 +31,7 @@ jmap -histo:live <pid> // Object-type histogram on a running jvm
 
 JLine // console input handling like BSD editline / GNU readline
 SLF4J // logging API, then pick a logging engine: java.util.logging for basic stuff, Log4j2 else
+Swrve/rate-limited-logger // an SLF4J-compatible, simple, fluent API for rate-limited logging in Java
 Metrics // perf & health monitoring
 
 OpenJDK JMH // Benchmark tool

@@ -7,13 +7,17 @@
 - [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
 - [5EPSQ] : [Five essential phone screen questions](https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions)
 - [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
-- [InfiniteHows] : http://radar.oreilly.com/2014/11/the-infinite-hows.html
+- [InfiniteHows](http://radar.oreilly.com/2014/11/the-infinite-hows.html)
 - [IT Change Management](http://stephaniekdean.wordpress.com/2011/06/17/cm/)
 - [Event Management](http://stephaniekdean.wordpress.com/2011/04/04/eventmgmt/)
 - [AuthoringStyleGuide](https://github.com/tooling/authoring-styleguide)
 - [TeachDontTell](http://stevelosh.com/blog/2013/09/teach-dont-tell/)
 - [BeautifulDocs](https://github.com/PharkMillups/beautiful-docs)
 - [WriteTheDocs](http://docs.writethedocs.org)
+- [WhatToWrite](http://jacobian.org/writing/what-to-write/)
+- [FrontendJobInterviewQuestions](https://github.com/h5bp/Front-end-Developer-Interview-Questions)
+- [#gamedev Lead Quick Start Guide](http://web.archive.org/web/20140701034212/http://www.altdev.co/2013/11/05/gamedev-lead-quick-start-guide/)
+- [What happens when you type google.com into your browser and press enter?](https://github.com/alex/what-happens-when)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -25,6 +29,9 @@
 - ask people to have lunch with them (force yourself !)
 - ask people for coffee breaks (force yourself !)
 - hang cheat-sheets in home toiles to learn stuff
+
+## Leadership
+cf. [#gamedev Lead Quick Start Guide]
 
 ## Team culture building
 - two main tenets: RESPECT & TRUST people.
@@ -94,7 +101,7 @@ Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
     * include the wiki as part of task processes : sprints, ops, deployments...
     * get a leader whose goal is to motivate & educate others
 - use Doxygen / Docurium for code documentation
-- cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs]
+- cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
 
 ## Recruiting & coaching new hires
 - codility.com & cie
@@ -103,3 +110,5 @@ Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
 - some soft skills: teamwork, conflict resolution, listening, coordination...
 - sample questions:
     * describe me the organisational methods you used on past project to tackle work efficiently. E.g. todo-list, programming journal, task planning software, time & emails management...
+    * cf. [FrontendJobInterviewQuestions]
+    * cf. [What happens when you type google.com into your browser and press enter?]

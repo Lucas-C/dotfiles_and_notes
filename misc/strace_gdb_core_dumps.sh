@@ -88,3 +88,10 @@ end
 (gdb) directory path/to/src/files/dir // link debug symbols with relative paths to source files - For absolute paths: substitue-path
 (gdb) macro expand / info macro // require make KCFLAGS=-ggdb3
 
+set disassembly-flavor intel # Intel syntax is better
+set disassemble-next-line on
+catch syscall ptrace #Catch the syscall.
+commands 1
+set ($eax) = 0
+continue
+end

@@ -1,6 +1,7 @@
 #---------
 # Exports
 #---------
+# DO NOT INHERIT FROM PARENT SHELL $PATH
 export PATH=/bin
 PATH=/sbin:$PATH
 PATH=/usr/bin:$PATH
@@ -11,6 +12,13 @@ PATH=$BASHRC_DIR/bin:$PATH
 
 export GOPATH=~/gocode
 PATH=$GOPATH/bin:$PATH
+
+if [ -n "${VIRTUAL_ENV:-}" ]; then
+    PATH=$VIRTUAL_ENV/bin:$PATH
+fi
+if [ -d ~/.local/bin/ ]; then
+    PATH=~/.local/bin/:$PATH
+fi
 
 export HISTCONTROL=ignoreboth # ignoredups and ignorespace
 shopt -s histappend # append to the history file, don't overwrite it
@@ -272,8 +280,8 @@ stats () { # --no-header | awk '{print $3}'     # Alt: csvstat -H ( pip install 
 #-------------------
 # Command overrides
 #-------------------
-alias df='df -hT'
-alias du='du -sh'
+du () { du --summarize --human-readable "$@" | sort --human-numeric-sort; }
+alias df='df --human-readable --print-type'
 alias pstree='pstree -p'
 
 man () { # colored manual with 'help' as a fallback
@@ -331,8 +339,6 @@ pdf_pages_extract () {
 findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
     find -L "${@:-.}" -type f -exec file {} \; | grep text | sed 's/^\(.*\): .*$/\1/'
 }
-# Tests:
-# - VALID: file.py: a adhoc-python2.7 script text executable
 
 notabs () { # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces
     for f in $(findTxt "${@:-$(cat)}"); do
