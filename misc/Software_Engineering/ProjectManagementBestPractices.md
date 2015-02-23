@@ -7,6 +7,18 @@
 - [NoHourlyTimeTrackingInSoftware](http://bocoup.com/weblog/developer-weeks/)
 - [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
 - [Log-driven programming](http://antirez.com/news/51)
+- [TechnologyRadar](http://nealford.com/memeagora/2013/05/28/build_your_own_technology_radar.html) + [visualization](https://github.com/bdargan/techradar)
+- [ThoughbotPlaybook](http://playbook.thoughtbot.com)
+- [OnUseCasesAndUserStories](http://www.batimes.com/articles/user-stories-and-use-cases-dont-use-both.html)
+
+## Choosing the right techno
+- cf. [TechnologyRadar] & its innovation adoption lifecycle
+
+## Design
+- interface design + decoupling >>more critical>> component design [MVB]
+- start from a POC / MVP. [MVB]: "come with code" -> proof of concept + momentum + build motivation
+- + Diagrams !
+- Team design : Google Ventures' Product Design Sprints, cf. [ThoughbotPlaybook]
 
 ## Requirements
 - write a one-pager summing up:
@@ -27,23 +39,8 @@
     * do: sketches, flows, storyboard, paper prototype, short narratives
     * don't: behavior-Driven Development, pseudo-narrative
     * do if enough time: live prototype, animation
-
-### Documenting methods
-- Alistair Cockburn goal-driven use cases template
-- UML use cases
-
-## Personal tasks management
-<img src="http://edudemic.com/wp-content/uploads/2012/01/distraction.png" style="width:50%"/>
-
-- Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins
-- For tips on priotizating issues of a service: _cf._ [ProductOwnership]
-- [Log-driven programming] > nested-thinking: never interrupt the flow, take notes of subtasks you'll achieve later on
-- Pomodoro Technique: use a timer to break down work into ~25min intervals separated by short breaks
-
-## Team tasks management
-- [EvidenceBasedScheduling]
-- [DieScrum]
-- [NoHourlyTimeTrackingInSoftware]
+- document the vocabulary used in the domain and shared with clients, to avoid ambiguity (from [ThoughbotPlaybook])
+- Agile recommend using user stories over UML use cases (that can be drawn with e.g. PlantUML). Use cases are NOT a form a requirements, just an illustration of them. They are NOT Agile, user stories are. Cf. [OnUseCasesAndUserStories]
 
 ### Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.
@@ -62,3 +59,23 @@ If there is any possibility of misunderstanding what is included, it is sometime
 
 #### Sub-story
 The smallest unit of work that has value for our customers
+
+## Personal tasks management
+<img src="http://edudemic.com/wp-content/uploads/2012/01/distraction.png" style="width:50%"/>
+
+- Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins
+- For tips on priotizating issues of a service: _cf._ [ProductOwnership]
+- [Log-driven programming] > nested-thinking: never interrupt the flow, take notes of subtasks you'll achieve later on
+- Pomodoro Technique: use a timer to break down work into ~25min intervals separated by short breaks
+
+## Team tasks management
+- [EvidenceBasedScheduling]
+- [DieScrum]
+- [NoHourlyTimeTrackingInSoftware]
+- la [Roue de Deming](https://fr.wikipedia.org/wiki/Roue_de_Deming) : Plan-Do-Check-Act
+- To evaluate a project progress : SEMAT Essence (Software Engineering Method and Theory)
+cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
+![](http://semat.org/wp-content/uploads/2013/03/spiral.png)
+
+## User-testing
+- User Interviews & Usability Testing: cf. [ThoughbotPlaybook]

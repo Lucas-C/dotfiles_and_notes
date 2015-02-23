@@ -18,6 +18,7 @@
 - [FrontendJobInterviewQuestions](https://github.com/h5bp/Front-end-Developer-Interview-Questions)
 - [#gamedev Lead Quick Start Guide](http://web.archive.org/web/20140701034212/http://www.altdev.co/2013/11/05/gamedev-lead-quick-start-guide/)
 - [What happens when you type google.com into your browser and press enter?](https://github.com/alex/what-happens-when)
+- [JoeStumpTechnicalInterviewQuestions](http://stu.mp/2012/10/my-patent-pending-3-question-technical-interview.html)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -28,7 +29,7 @@
     * Use the information you acquire as effectively as possible
 - ask people to have lunch with them (force yourself !)
 - ask people for coffee breaks (force yourself !)
-- hang cheat-sheets in home toiles to learn stuff
+- hang cheat-sheets in home toilets to learn stuff
 
 ## Leadership
 cf. [#gamedev Lead Quick Start Guide]
@@ -55,11 +56,6 @@ It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, 
 - What are your commitments for the week / progression / changes due to blockers or higher priorities
 
 In general, limit meetings by making them informal chats or doing them properly: agenda (skip if empty), few participants, time-boxed, clustered on some days in the week, take notes & record team decisions [MVB]
-
-## Design
-- interface design + decoupling >>more critical>> component design [MVB]
-- start from a POC / MVP. [MVB]: "come with code" -> proof of concept + momentum + build motivation
-- + Diagrams !
 
 ## Define team metrics
 - customer satisfaction
@@ -103,7 +99,11 @@ Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
 - use Doxygen / Docurium for code documentation
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
 
-## Recruiting & coaching new hires
+## Coaching new hires & bringing them up to speed
+- Write docs: cf. Valve & thoughbot handbooks, Amazon wiki
+- assign a "buddy" in the team & a "mentor" in the company
+
+## Recruiting
 - codility.com & cie
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [5EPSQ]
 - STAR -> Probe -> Chalenge
@@ -112,3 +112,4 @@ Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
     * describe me the organisational methods you used on past project to tackle work efficiently. E.g. todo-list, programming journal, task planning software, time & emails management...
     * cf. [FrontendJobInterviewQuestions]
     * cf. [What happens when you type google.com into your browser and press enter?]
+    * cf. [JoeStumpTechnicalInterviewQuestions]

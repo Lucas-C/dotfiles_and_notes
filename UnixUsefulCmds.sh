@@ -595,6 +595,7 @@ pjscrape, PhantomJS, SlimerJS, CasperJS
 GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
 Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, binux/pyspider # python crawling libs
 kimono, import.io
+parklemotion/nokogiri # Ruby gem
 
 python -m webbrowser -t "$url"
 urlwatch --urls=urls-list.txt | ifne mutt -s "Page change detected" $email_address
