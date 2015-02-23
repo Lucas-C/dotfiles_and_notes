@@ -70,6 +70,9 @@ The CAP theorem: Consistency, Availability, and Partition tolerance, pick at mos
 First proposed by Eric Brewer in 1998, then proved by Gilbert and Lynch. See also ACID, BASE & [AOSA_NoSQL]
 => Daniel Abadi suggested a more nuanced classification system, PACELC
 
+## PostgreSQL
+http://www.postgresql.fr/guidedemarragerapide
+
 ## NoSQL DBs
 
 - E.g. MongoDB, CouchDB, Riak, Redis, Gizzard... cf. [AOSA_NoSQL]
@@ -78,6 +81,8 @@ and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra whi
 - cockroachdb/cockroach # NewSQL
 
 ## SQL DBs
+
+![](http://www.codeproject.com/KB/database/Visual_SQL_Joins/Visual_SQL_JOINS_orig.jpg)
 
 LIKE >faster> REGEXP
 

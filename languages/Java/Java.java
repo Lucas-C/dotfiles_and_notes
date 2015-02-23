@@ -1,3 +1,5 @@
+Consider Groovy > Java
+
 /**EXPORT:
 //1-Compile
 rm -rf bin/*

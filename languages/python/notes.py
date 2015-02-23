@@ -472,6 +472,7 @@ https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like 
 http://mg.pov.lt/objgraph # explore Python object graphs
 snakefood # draw code base dependency graphs
 what-studio/profiling # live profiling
+PyVmMonitor # profiler with graphs
 
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
 timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000)
@@ -593,7 +594,7 @@ mailr, mailbox, imaplib, smtpd, smptplib
 paramiko # remote SSH/SFTP connexion
 
 celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
-sched # event scheduler ; alt: fengsp/plan, crontabber, dagobah/schedule
+sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
 

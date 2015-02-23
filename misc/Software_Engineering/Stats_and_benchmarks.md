@@ -32,6 +32,8 @@ For other measure of dispersion: https://en.wikipedia.org/wiki/Statistical_dispe
 
 Spearman’s rank correlation coefficient: a number between 1 and -1 indicating if two lists of items are ordered the same, in reverse, or not in the same order at all
 
+HdrHistogram: a better latency capture method 
+
 
 RESSOURCES:
 [1] : HOW TO NOT TO LIE WITH STATISTICS: THE CORRECT WAY TO SUMMARIZE BENCHMARK RESULTS (PHILIP J. FLEMING and JOHN J. WALLACE)
