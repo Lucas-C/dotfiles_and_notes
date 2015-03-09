@@ -1,5 +1,6 @@
 // In Firefox Web Console
 javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
+document.body.contentEditable='true'; // makes everything editable (IE: document.designMode='on')
 
 $$("#articleContent ul li").length
 

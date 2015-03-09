@@ -1,7 +1,7 @@
 [Software development is a collaborative game](http://blog.codinghorror.com/software-development-as-a-collaborative-game/)
 
 ## References
-- [MVB] : [Miniumn Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)
+- [MVB] : [Minimum Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)
 - [GoodAtOps] : [How to be Good at Ops in 40min](https://adamhjk.github.io/good-at-ops/#/8)
 - [ShittyDashboards](http://attackwithnumbers.com/the-laws-of-shitty-dashboard)
 - [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
@@ -19,6 +19,7 @@
 - [#gamedev Lead Quick Start Guide](http://web.archive.org/web/20140701034212/http://www.altdev.co/2013/11/05/gamedev-lead-quick-start-guide/)
 - [What happens when you type google.com into your browser and press enter?](https://github.com/alex/what-happens-when)
 - [JoeStumpTechnicalInterviewQuestions](http://stu.mp/2012/10/my-patent-pending-3-question-technical-interview.html)
+- [TrekOps](https://medium.com/@jpaulreed/trouble-with-devops-try-trekops-fb69f7e554fd)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -36,7 +37,7 @@ cf. [#gamedev Lead Quick Start Guide]
 
 ## Team culture building
 - two main tenets: RESPECT & TRUST people.
-How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [MVB]
+How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [MVB] + [TrekOps]
 - write down team tenets as guidelines for priorities
 - define clear team goals with deadlines
 - build a team brand: catching name, logo, slogan... [PP]
@@ -81,6 +82,9 @@ In general, limit meetings by making them informal chats or doing them properly:
 - post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management]
 Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
 - use a chatbot for real time alerts
+
+## Deployments
+From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented"
 
 ## Documentation:
 - Tenets:

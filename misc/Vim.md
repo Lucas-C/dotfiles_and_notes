@@ -104,6 +104,7 @@ Display
 More tips
 =========
 - git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim && vim +PluginInstall +qall
+- print to .ps with syntax coloring: *TERM=xterm-256color vim '+hardcopy >out.ps' +q src_file*
 - gvim over ssh: grantm/bcvi
 - *:set spell spelllang=fr* : enable vim 7.0+ spell checker
 - *vimtutor*

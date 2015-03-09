@@ -1,6 +1,7 @@
 #!/bin/bash
 # Allow for 'py 27' or 'py -3.4', and else simply execute $file if invoked as 'py $file'
 # Testing:
+#   py -3.4 -m pip install --user mypy-lang
 #   echo -e '#!/usr/bin/env python3.4\nimport sys; print(sys.version_info, sys.argv)' > test.py
 #   chmod u+x test.py
 #   py test.py # -> uses python3.4
