@@ -87,3 +87,11 @@ Comment a-t-il fait ?
 
 
 Vous avez besoin d'un litre d'eau, exactement un litre. Vous disposez pour cela d'un récipient de capacité trois litres et d'un autre de cinq litres. Combien de fois devez-vous remplir un récipient au robinet ?
+
+[Enigme du trésor des pirates](http://www.enigmasters.com/2007/06/enigme-logique-le-tresor-des-pirates.html)
+
+[Enigme des 100 prisonniers et de l'ampoule](http://submoon.freeshell.org/fr/sphinx/lightbulb.html)
+
+[Enigme des 100 chapeaux noir ou blanc](http://www.think-underground.com/post/2008/10/05/Enigme-difficile-%3A-les-100-chapeaux)
+
+[How to communicate six bits of information by the flip of a single coin?](http://datagenetics.com/blog/december12014/index.html)

@@ -138,6 +138,9 @@ try
 catch
 endtry
 
+"""Pretty printing with :hardcopy
+set printfont=:h9
+set printoptions=number:y,left:5pc
 
 """PLUGINS
 if isdirectory($HOME."/.vim/bundle/Vundle.vim")

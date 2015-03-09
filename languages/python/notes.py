@@ -4,6 +4,7 @@
 """""""""""
 # grep-like one-liners:
 python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).groups())+"\n" for line in sys.stdin])'
+antiboredom/audiogrep
 
 _ # result of the last expression evaluated (in an interpreter only)
 
@@ -11,6 +12,7 @@ r'''Raw string literal: no need to double escape \{0}\{one:.5f}'''.format("zero"
 u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0) # for formatting with a defaultdict, use string.Formatter().vformat
 from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII - Gotchas: http://stackoverflow.com/a/827449/636849
 unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
+eyalr/unicode_mayo # detect unicode corruption
 chardet.detect(str) # Mozilla encoding detection
 str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters - Also: str.decode('utf8')
 PYTHONIOENCODING=utf_8 # http://daveagp.wordpress.com/2010/10/26/what-a-character/
@@ -374,6 +376,7 @@ import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coo
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
+c-oreills/before_after # provides utilities to help test race conditions
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 import doctest # include tests as part of the documentation
 AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
@@ -559,7 +562,7 @@ modulefinder # determine the set of modules imported by a script
 
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler. Also: PyPy-STM
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
-Cython # .pyx : superset of Python with static optional static types, can invoke C/C++ and compile down to C
+Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C
 Jython / Py4J # intercommunicate with Java
 Numba # NumPy aware dynamic Python compiler using LLVM
 Pyston # VM using LLVM JIT
@@ -594,7 +597,7 @@ mailr, mailbox, imaplib, smtpd, smptplib
 paramiko # remote SSH/SFTP connexion
 
 celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
-sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab
+sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, Jenkins
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
 
@@ -631,6 +634,7 @@ parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.R
 parser_group = parser.add_mutually_exclusive_group(required=True)
 parser_group.add_argument(... type=argparse.FileType('r'))
 return parser.parse_args()
+argcomplete # command line tab completion
 
 ConfigParser, configobj # std configuration files format
 csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
@@ -678,7 +682,13 @@ wget # equivalent lib to the command-line tool
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 kevin1024/vcrpy # record / replay HTTP interactions
 
-bottle, pyramid, flask, web.py # Web frameworks
+# Web frameworks (from barcamp@AFPY):
+bottle # include server, only 1 file long
+CherryPy # good prod server, very easy to launch
+flask # good for simple APIs
+Django # template engin -- (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
+pyramid # more modular alternative to Django
++ web.py
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
 import re, SimpleHTTPServer, SocketServer
@@ -773,12 +783,14 @@ sys.version_info[0] >= 3
 from __future__ import division, print_function
 print('string', file=sys.stderr, end='')
 
-from typecheck import typecheck, dict_of
+from typecheck import typecheck, dict_of # prechelt/typecheck-decorator
 @typecheck
 def foo(x: between(3, 10), y: is_int) -> is_int:
     return x * y
 # Function annotations, see the following SO question that point to PEP 3107 & 0362 (function signatures):
 # http://stackoverflow.com/questions/3038033/what-are-good-uses-for-python3s-function-annotations
+http://code.activestate.com/recipes/426123/ # Port to Python 2.7
+mypy # Alt static type checker: py -3.4 -m pip install --user mypy-lang; mypy $script.py
 
 b'I am an immutable basic byte array of type "bytes"'
 bytearray(b"I am mutable")

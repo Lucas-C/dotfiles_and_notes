@@ -21,6 +21,7 @@ drip // JVM launcher with faster startup times - Alt: Nailgun, Cake
 // Scripting
 jrunscript // Javascript engine based on Mozilla's Rhino - Java 6-7 - Uses javax.script module
 jjs // Nashborn Javascript engine - Java 8
+Java Native Architecture // To call C code, used by Selenium Web Driver
 
 java -cp junit.jar:. org.junit.runner.JUnitCore path.to.pkg.AllTests// JUnit
 JContractS (formerly iContract), cofoja // Design By Contract libs

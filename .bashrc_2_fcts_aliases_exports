@@ -335,6 +335,14 @@ pdf_pages_extract () {
         -dFirstPage=$first_page -dLastPage=$last_page \
         -sOutputFile="${filename%.pdf}_p${first_page}-p${last_page}.pdf" "$filename"
 }
+src2pdf () {  
+    local noext="${1%.*}"
+    pygmentize -O full -o "$noext.html" "$1"
+    # enabling line wrapping in <pre> blocks
+    perl -i -wpe '/<style.*>$/&&($_.="pre{white-space:pre-wrap;}\n")' "$noext.html"
+    wkhtmltopdf "$noext.html" "$noext.pdf"
+    rm "$noext.html"
+}
 
 findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
     find -L "${@:-.}" -type f -exec file {} \; | grep text | sed 's/^\(.*\): .*$/\1/'
@@ -368,7 +376,7 @@ progress_bar () { # receive a serie of integers in {1..100} as input and update 
     echo
 }
 
-proc_read_fd_progress () { # args: $pid [$fd]
+proc_read_fd_progress () { # args: $pid [$fd] - To simply get a list of FDs: ll /proc/$pid/fd/
     # FROM: https://blogs.oracle.com/ksplice/entry/solving_problems_with_proc
     local pid=${1:?'Missing pid first argument'}
     ! [ -e /proc/$pid/ ] && echo "No process found with PID=$pid" >&2 && return 1

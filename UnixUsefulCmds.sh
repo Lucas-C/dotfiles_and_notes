@@ -569,7 +569,7 @@ grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
 
 # Non portable tools
-slurm, iptraf, ntop, iftop, nethogs
+slurm, iptraf, ntop, iftop, nethogs # this last one can show per-process bandwidth used
 iperf # measure throughput between 2 points / saturate a network connection -> useful for testing
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 
@@ -633,6 +633,7 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
 </-/--------------\-\>
 <!<! Apapapapache !>!>
 <\-\--------------/-/>
+h5bp/server-configs-apache # boilerplate config
 source /etc/apache2/envvars && apache2 -V # -l -L -M
 sudo bash -c 'source /etc/apache2/envvars && apache2 -t && apache2ctl -S' # check config
 vim /etc/apache2/sites-available/default-ssl
@@ -640,6 +641,7 @@ service apache2 restart
 tail -F /var/log/apache2/*.log
 a2enmod / a2dismod $modname  # enable / disable std modules
 ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking - Alt: tarekziade/boom
+watch 'elinks -dump http://0.0.0.0/server-status | sed -n "32,70p"' # Watch Apache status (lynx cannot dump because of SSL issue)
 
 
 =cCcCcCc=
@@ -973,6 +975,7 @@ cache:$url
 define:$term
 related:$url
 link:$url # Search for pages that link to a URL
+https://www.google.fr/search?q=5%2B(-sqrt(1-x^2-(y-abs(x))^2))*sin(100*((10-x^2-(y-abs(x))^2))),+x+is+from+-1+to+1,+y+is+from+-1+to+1.5,+z+is+from+1+to+6 # 3D heart surface
 
 youtube-dl --ignore-errors --extract-audio FLF8xTv55ZmwikWWmWLPEAZQ # download playlist as .m4a files - in case of HTTP error 500, try -f18
 

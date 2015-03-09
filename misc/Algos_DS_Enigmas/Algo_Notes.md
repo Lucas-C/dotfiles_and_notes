@@ -25,6 +25,7 @@ Succint data structures: use an amount of space that is "close" to the informati
 
 Hashing:
 - 'fuzzy' hashing that gaves same result for inputs that have homologies : http://www.forensicswiki.org/wiki/Context_Triggered_Piecewise_Hashing
+- selection from "Bloomin' Marvellous" slides: MurmurHash3, xxhash, SipHash
 
 Compression:
 - Google Snappy (10x faster, 50% worse compression than LZ)
@@ -40,5 +41,7 @@ HMAC > a hash with a salt, in term of security
 VCDIFF : format & algorithm for delta encoding
 
 Fisher-Yates shuffle : O(n) complexity, guaranteed uniformity, optimal asymptotic time & space complexity
+
+product-matrix-MSR codes > Reed-Solomon codes, for fault tolerance (cf. jmason)
 
 [Exponential Backoff algorithm](http://en.wikipedia.org/wiki/Exponential_backoff#Binary_exponential_backoff_.2F_truncated_exponential_backoff) + [applied to web-sockets](http://blog.johnryding.com/post/78544969349/how-to-reconnect-web-sockets-in-a-realtime-web-app)

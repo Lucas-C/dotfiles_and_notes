@@ -47,6 +47,7 @@ SE = software entity : class, module, function...
 
 On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/1481](http://imgs.xkcd.com/comics/api.png), [How to design a rest API]
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
++ similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG...
 
 On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity] : they add moving parts and interdependencies
 
@@ -147,6 +148,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 * A mock has expectations about the way it should be called, and a test should fail if it’s not called that way. Mocks are used to test interactions between objects.
 * A fake doesn’t use a mocking framework: it’s a lightweight implementation of an API that behaves like the real implementation, but isn't suitable for production.
 * test your code opening files with /dev/full that always returns error code ENOSPC (meaning “No space left on device”)
+* GUI testing, e.g. with Selenium: Capybara, SauceLabs, RobotFramework
 
 ### Why unit tests ? [PP-Chapt34]
 - build trust in your code
@@ -236,3 +238,6 @@ sed ${1}q
 - the phrase software "patch" is from a physical patch applied to Mark 1 paper tape to modify the program: https://chezsoi.org/lucas/ThePatch.jpg
 - "Object-oriented programming is an exceptionally bad idea which could only have originated in California" - E.W. Dijkstra
 "You probably know that arrogance, in computer science, is measured in nanodijkstras" - Alan Kay
+- "Expertise is not about picking good solution, it is about picking the future bad one at the right time." Eric Bréhault, Makina Corpus
+- "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
+- [The Parable of the Two Programmers](http://www.csd.uwo.ca/~magi/personal/humour/Computer_Audience/The%20Parable%20of%20the%20Two%20Programmers.html)
