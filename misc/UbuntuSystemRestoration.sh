@@ -2,6 +2,7 @@ apt-get install aptitude
 aptitude install vim tilda git svn screen tmux g++ openjdk-7-jdk vlc chgwall
 aptitude install strace traceroute mtr
 aptitude install nautilus-open-terminal scite grisbi texlive graphviz doxygen doxygen-gui libsdl-mixer1.2* mtpaint gaupol timidity-interfaces-extra timidity freepats most
+sudo apt-get --purge remove tex.\*-doc$ # can save 700 MB of disk space
 # Fix for tilda on maverick : echo "export TERM=xterm" | sudo tee /etc/profile.d/set_term.sh && source /etc/profile
 # (Système>Préférence>Clavier->Agencements->Options de l'agencement : espace insecable à tout niveau SINON pbs avec barre espace)
 aptitude install tkcon libsdl1.2debian-all libaudiere-1.9.4

@@ -166,6 +166,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 cf. [Functional Programming Patterns]
 - _"Don't trust the name - trust the signature"_
 - "Domain modelling pattern" : use types to represent constraints, _avoid "primitive obsession"_
+- Tail Call Optimization (TCO) : sometimes implemented with a _trampoline_ design pattern
 
 ## General
 - Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()

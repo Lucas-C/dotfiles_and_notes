@@ -238,8 +238,7 @@ def n_grams(a, n): # sliding window: [(1, 2, 3), (2, 3, 4), (3, 4, 5), (4, 5, 6)
     z = [iter(a[i:]) for i in range(n)]
     return zip(*z)
 
-# Cool standard functions to work on lists
-zip, reduce, all, any, min, max, sum
+zip, reduce, all, any, min, max, sum # Cool standard functions to work on lists
 # generators > list-comprehensions
 def stop(): raise StopIteration
 list(e if e != "BREAK" else stop() for e in iterable)
@@ -248,8 +247,7 @@ class CustomGenerator(object): # minimal generator protocol
         yield stuff
         #OR
         return self # then must implement 'next(self)' (__next__ in Python3)
-# Coroutines == generators
-@coroutine # equivalent to a first call to .next()
+@coroutine # == generator. This decorator is equivalent to a first call to .next()
 def printer():
     while True:
         value = (yield 'waiting')
@@ -299,6 +297,8 @@ dict(y, **x) # union of dicts, duplicates are resolved in favor of x
 class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
+def Tree(): # fs = Tree(); fs['all']['the']['way']['down'] 
+    return defaultdict(Tree)
 
 ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
 jab/bidict # provide key -> value & value -> key access
@@ -471,6 +471,7 @@ gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
 pycallgraph graphviz -- ./mypythonscript.py # Alt for recursion tree: carlsborg/rcviz
 kernprof.py --line-by-line myscript.py # line_profiler
 pyprof2calltree # use kcachegrind
+python-flamegraph # FlameGraph profiler
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
 http://mg.pov.lt/objgraph # explore Python object graphs
 snakefood # draw code base dependency graphs
@@ -597,7 +598,7 @@ mailr, mailbox, imaplib, smtpd, smptplib
 paramiko # remote SSH/SFTP connexion
 
 celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
-sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, Jenkins
+sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, Jenkins, huginn
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
 

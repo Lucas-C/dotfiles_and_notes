@@ -20,6 +20,7 @@
 - [What happens when you type google.com into your browser and press enter?](https://github.com/alex/what-happens-when)
 - [JoeStumpTechnicalInterviewQuestions](http://stu.mp/2012/10/my-patent-pending-3-question-technical-interview.html)
 - [TrekOps](https://medium.com/@jpaulreed/trouble-with-devops-try-trekops-fb69f7e554fd)
+- [CodeVisualizationTools](https://softvis.wordpress.com/tools/)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -31,6 +32,7 @@
 - ask people to have lunch with them (force yourself !)
 - ask people for coffee breaks (force yourself !)
 - hang cheat-sheets in home toilets to learn stuff
+- grasp the whole architecture using [CodeVisualizationTools]
 
 ## Leadership
 cf. [#gamedev Lead Quick Start Guide]
@@ -69,7 +71,7 @@ In general, limit meetings by making them informal chats or doing them properly:
 ![](http://blog.sei.cmu.edu/assets/content/Traceability-Model.png)
 
 - "**Empathy** allows software makers and operators to help each other deliver the best possible functionality and operability on behalf of their customers." [Katherine Daniels](http://devopsdays.org/events/2014-minneapolis/proposals/Devops%20Is%20Dead/)
-- monitor everything ! CPU, openFD, procCount... For services: throughput + delay + completness (% of potential src data processed). And store historical data !
+- monitor everything ! CPU, openFD, procCount... For services: throughput + delay + completness (% of potential src data processed). And store historical data ! Distributed tracing tools: Twitter’s Zipkin, Google’s Dapper
 - zero config: config is hard to document, hard to update, hard to set up, its persistent state can overlaps with other data
 - emails are evil: no guarantee it will be actioned + no guarantee anyone is subscribed + sense of false security as it works from time to time
 - when an alarm is raised, alerting tools should give a maximum of *context* on the system state and what triggered it
@@ -81,7 +83,7 @@ In general, limit meetings by making them informal chats or doing them properly:
 - CMs: cf. [IT Change Management]
 - post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management]
 Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
-- use a chatbot for real time alerts
+- use a chatbot for real time alerts (e.g. Hubot, can integrate with Jenkins via Janky)
 
 ## Deployments
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented"

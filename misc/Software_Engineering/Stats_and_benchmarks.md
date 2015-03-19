@@ -1,3 +1,5 @@
+Tools for server banchmarking aka stress / load / performances testing: cf. bookmarks
+
 # REPEAT your tests !
 
 Gil Tene (Mr. Java HdrHistogram): always "calibrate" latency tools with ^Z tests. If ^Z results don't make sense, don't use tool.

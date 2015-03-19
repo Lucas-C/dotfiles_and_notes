@@ -1,4 +1,29 @@
-## English
+## DevSlang
+grok
+
+## Irish slang
+Aye
+Acting the maggot
+Arse
+Bananas
+Banjaxed
+Black Stuff
+Bollocks
+Craic
+Deadly
+Eejit
+Feck
+Gobshite
+Guard
+Mentaller
+Mot
+Off the drink
+Savage
+to Shag
+Shenanagans
+Sound
+
+## English idioms
 - bikeshedding
 - to burn the midnight oil
 - easy as pie

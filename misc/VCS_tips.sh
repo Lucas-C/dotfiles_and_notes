@@ -123,6 +123,8 @@ git co mainline
 gri
 git push
 
+.git/hooks/post-receive # any executable, e.g. bash script
+
 
 ++++++
 + p4 +
