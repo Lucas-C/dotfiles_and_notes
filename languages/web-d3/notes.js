@@ -236,6 +236,11 @@ http.createServer(function (req, res) {
   res.end('');
 }).listen(8181, '127.0.0.1');
 console.log('Server running at http://127.0.0.1:8181/');
+// Alt: npm install connect serve-static && node server.js # that contains:
+var connect = require('connect');
+var serveStatic = require('serve-static');
+connect().use(serveStatic(__dirname)).listen(8080);
+// Alt: npm install http-server -g && http-server
 
 var fs = require("fs"); // Node.js
 fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {

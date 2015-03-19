@@ -356,6 +356,7 @@ pyp # pip install --user pyp : alternative to sed, awk, cut & perl - Alt: pyped,
 pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py OR pdftk OR LibreOffice Draw
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: -dFirstPage=X -dLastPage=Y - Alt: http://compress.smallpdf.com
 pdfjam file1.pdf file2.pdf 1, 3- `# optional selector` --nup 2x1 --landscape --outfile out.pdf # printer-friendly version - Also: pdf290 to rotate
+xournal # edit PDF as background images, and export to PDF. To manipulate its vectorial data, with the risk of skewed visual output: LibreOfficeDraw / PDFEdit
 
 tr -c '[:alnum:]' _
 
@@ -576,6 +577,11 @@ mininet # realistic virtual network, running real kernel, switch and application
 ipcalc < cidr $ip/X # get netmask, network address - FROM http://fossies.org/linux/privat/cidr-2.3.2.tar.gz/
 
 /etc/ssmtp/{revaliases,ssmtp.conf} # Configure 'mail' command - Alt: mutt -> fake FROM with EMAIL en var : http://stackoverflow.com/a/12158550
+# Check if email address exists
+telnet $mail_server 25
+HELO
+MAIL FROM: <f@ke.com>
+RCPT TO: <address-to-check@domain.com>
 
 w3m > elinks > links > lynx # http://askubuntu.com/questions/15988/browse-internet-inside-terminal
 lynx -dump -stdin # convert HTML to text
@@ -590,11 +596,12 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: 
 curl --fail --insecure --request POST --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html - Alt: jakubroztocil/httpie
 # Web scrapping:
 httrack
-Xdummy > Xvfb # in-memory X11 display server that doesn't render to screen 
+Xdummy > Xvfb # in-memory X11 display server that doesn't render to screen
 pjscrape, PhantomJS, SlimerJS, CasperJS
+Netflix/sketchy # takes screenshots and scrap text using PhantomJS & Celery
 GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
 Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, binux/pyspider # python crawling libs
-kimono, import.io
+kimono, import.io # web services
 parklemotion/nokogiri # Ruby gem
 
 python -m webbrowser -t "$url"
@@ -837,6 +844,8 @@ xdg-mime default lighttable.desktop text/x-markdown # Also: mimetype $file
 
 sudo lsof -s | grep deleted | grep -Ev '/dev/|/run/' | awk '$5 == "REG"' | sort -n -r -k 7,7 # find deleted files that are still using space on disk
 
+sudo ntpdate time.nist.gov # sync/update Ubuntu clock from Internet
+
 
 FFFFFFFFFFFFFFF
 F i r e f o x
@@ -943,6 +952,7 @@ log "HELLO WORLD !"
 # Scripts: http://www.fmwconcepts.com/imagemagick/
 display $img_file
 convert img.png -adaptive-resize 800x600 -auto-orient -crop 50x100+10+20 img.jpg
+convert $img1 $im2 -append $out_img # join images into a column; +append to stack images horizontally
 mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
 identify -v $img_file # get PPI: -format "%w x %h %x x %y"
 import -display :0.0 -window root screenshot.png # Alt: gnome-screenshot --interactive # Or Gimp

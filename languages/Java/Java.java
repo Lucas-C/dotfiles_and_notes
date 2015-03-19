@@ -1,4 +1,4 @@
-Consider Groovy > Java
+Consider Groovy (/Grails?) > Java
 
 /**EXPORT:
 //1-Compile
@@ -25,7 +25,7 @@ Java Native Architecture // To call C code, used by Selenium Web Driver
 
 java -cp junit.jar:. org.junit.runner.JUnitCore path.to.pkg.AllTests// JUnit
 JContractS (formerly iContract), cofoja // Design By Contract libs
-findbugs, google/error-prone // code checking tools
+checkstyle, findbugs, google/error-prone // code checking tools
 cobertura // code coverage
 jdb // debugger
 javap, JD // .class dissassembler & Java decompiler, include a GUI
@@ -38,6 +38,8 @@ Swrve/rate-limited-logger // an SLF4J-compatible, simple, fluent API for rate-li
 Metrics // perf & health monitoring
 
 OpenJDK JMH // Benchmark tool
+
+Buildr, Fradle > ant, maven // build systems
 
 sudo update-alternatives --config java
 

@@ -214,6 +214,7 @@ alias tkcon='tkcon -load Tk'
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
 rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
+py_mod_cd () { cd "$(python -c "import os.path as _, ${1}; print(_.dirname(_.realpath(${1}.__file__[:-1])))")"; }
 find_constants () {
     find "${@:-$(cat)}" -print0 \
         | xargs -0 perl -wne 'while ($_ =~ /[^\w]([A-Z][A-Z0-9_]+)[^\w]/g) {print $1."\n"}' \
@@ -280,7 +281,7 @@ stats () { # --no-header | awk '{print $3}'     # Alt: csvstat -H ( pip install 
 #-------------------
 # Command overrides
 #-------------------
-du () { du --summarize --human-readable "$@" | sort --human-numeric-sort; }
+du () { /usr/bin/du --summarize --human-readable "$@" | sort --human-numeric-sort; }
 alias df='df --human-readable --print-type'
 alias pstree='pstree -p'
 
