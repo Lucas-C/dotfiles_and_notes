@@ -18,6 +18,7 @@
 - Dining Philosophers
 
 ## Architecture patterns
+- REST = Representational State Transfer
 - PubSub aka Publish/Subscribe aka message bus.
     * Examples: AMQP, MQTT, DDS, JMS, CORBA (with either push/pull mode)
     * https://encrypted.google.com/books?id=RxsyCBr9eLMC
@@ -88,3 +89,5 @@ Thread.stop Thread.suspend // DEPRECATED ! Do not use them
 Fibers // Simple Lightweight Concurrency
 
 JCTools // Bounded lock free queues, SPSC/MPSC/SPMC/MPMC variations for concurrent queues, Offheap concurrent ring buffer for ITC/IPC purposes
+
+ben-manes/caffeine : a Java 8 based concurrency library that provides specialized data structures, such as a high performance cache

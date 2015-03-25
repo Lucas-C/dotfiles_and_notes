@@ -13,11 +13,11 @@ PATH=$BASHRC_DIR/bin:$PATH
 export GOPATH=~/gocode
 PATH=$GOPATH/bin:$PATH
 
-if [ -n "${VIRTUAL_ENV:-}" ]; then
-    PATH=$VIRTUAL_ENV/bin:$PATH
-fi
 if [ -d ~/.local/bin/ ]; then
     PATH=~/.local/bin/:$PATH
+fi
+if [ -n "${VIRTUAL_ENV:-}" ]; then
+    PATH=$VIRTUAL_ENV/bin:$PATH
 fi
 
 export HISTCONTROL=ignoreboth # ignoredups and ignorespace

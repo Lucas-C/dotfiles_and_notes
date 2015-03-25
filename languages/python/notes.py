@@ -8,7 +8,8 @@ antiboredom/audiogrep
 
 _ # result of the last expression evaluated (in an interpreter only)
 
-r'''Raw string literal: no need to double escape \{0}\{one:.5f}'''.format("zero", one=1)
+r'''Raw string literal: no need to double escape \{0}\{one:.5f}'''.format("zero", one=1) # raw string: treat backslashes as literal characters
+'My name is {0[firstname]} {0[lastname]}'.format({'firstname': 'Jack', 'lastname': 'Vance'})
 u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0) # for formatting with a defaultdict, use string.Formatter().vformat
 from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII - Gotchas: http://stackoverflow.com/a/827449/636849
 unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
@@ -30,6 +31,9 @@ __slots__ = ("attr1_name")
 # Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots." It also slightly slows down lookup time
 # !! Redefining a 'slot' in a child class is UNDEFINED BEHAVIOUR ! cf. https://docs.python.org/2/reference/datamodel.html#__slots__
 
+__unicode__ # return characters
+def __str__(self): # return bytes
+    return unicode(self).encode('utf-8') # calls __unicode__
 __repr__ # unambigous, as possible 'eval'uable
 "MyClass(this=%r,that=%r)" % (self.this,self.that)
 
@@ -239,9 +243,9 @@ def n_grams(a, n): # sliding window: [(1, 2, 3), (2, 3, 4), (3, 4, 5), (4, 5, 6)
     return zip(*z)
 
 zip, reduce, all, any, min, max, sum # Cool standard functions to work on lists
-# generators > list-comprehensions
-def stop(): raise StopIteration
+# generators expression > list-comprehensions
 list(e if e != "BREAK" else stop() for e in iterable)
+def stop(): raise StopIteration
 class CustomGenerator(object): # minimal generator protocol
     def __iter__(self):
         yield stuff
@@ -306,6 +310,8 @@ jab/bidict # provide key -> value & value -> key access
 ultrajson >faster> simplejson >faster> json
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
+
+nicolaiarocci/cerberus # validation tool for dictionaries, e.g. type checking
 
 
 """""""""""""""""""
@@ -514,6 +520,8 @@ liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)
 pyreverse # UML diagrams
 
+Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
+
 
 """""""""""""""""""""""""""""
 "" Libs & tools for SCIENCE !
@@ -687,7 +695,7 @@ kevin1024/vcrpy # record / replay HTTP interactions
 bottle # include server, only 1 file long
 CherryPy # good prod server, very easy to launch
 flask # good for simple APIs
-Django # template engin -- (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
+Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
 + web.py
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
@@ -722,6 +730,7 @@ tn.read_until("login: ")
 tn.write(user + "\n")
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google, maxmind/geoip-api-python, pierrrrrrre/PyGeoIpMap # this latest one provide a useful command-line tool
+OpenTransitTools/gtfsdb # GTFS (General Transit Feed Specification) DB : public transportation schedules and associated geographic information
 
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
@@ -759,6 +768,23 @@ cffi # C Foreign Function Interface for Python : call compiled C code from inter
 struct # pack/unpack binary formats
 binascii.hexkify # display binary has hexadecimal
 
+""""""""
+"" Django
+""""""""
+django-admin.py startproject demelons_django
+./manage.py syncdb
+./manage.py migrate # v1.7 migrations, previously handled by e.g. South
+# Also: makemigrations -> create new migrations based on the changes you have made to your models ; sqlmigrate -> displays the SQL statements for a migration
+./manage.py runserver
+./manage.py startapp profiles
+./manage.py dumpdata auth.User --indent 4
+./manage.py testserver fixtures/initial_data.yaml
+./manage.py test animals.tests.AnimalTestCase.test_animals_can_speak # --pattern="tests_*.py" # --keepdb
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
+
+stripe # payments app
 
 """"""""
 "" Fun
@@ -796,9 +822,11 @@ mypy # Alt static type checker: py -3.4 -m pip install --user mypy-lang; mypy $s
 b'I am an immutable basic byte array of type "bytes"'
 bytearray(b"I am mutable")
 
+__bytes__() and __str__()
+
 nonlocal
 
-first, *rest = range(5) # extended iterable unpacking
+first, *rest, last = range(5) # extended iterable unpacking
 
 with concurrent.futures.ProcessPoolExecutor() as executor: # Asynchronous
     processed_args = list(executor.map(big_calculation, args)) # faster than without 'executor'
