@@ -36,7 +36,7 @@
 - don't fall into the specifications spiral [PP]. A tech lead primary contribution is to say NO to features that are not needed [NN]
 - formal methods (CASE, waterfall, spiral model, UML...) have some serious shortcomings [PP]
 - [VisualSpec]
-    * do: sketches, flows, storyboard, paper prototype, short narratives
+    * do: sketches, flows, storyboard, paper prototype, short narratives, wireframe (e.g. as Thib did with Keynote)
     * don't: behavior-Driven Development, pseudo-narrative
     * do if enough time: live prototype, animation
 - document the vocabulary used in the domain and shared with clients, to avoid ambiguity (from [ThoughbotPlaybook])
