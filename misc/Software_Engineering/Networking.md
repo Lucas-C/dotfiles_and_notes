@@ -1,3 +1,6 @@
+Networking
+==========
+
 ## HTTP
 - to check if a page exists without downloading it: use an HEAD request OR use an Etag + "If-None-Match" request -> HTTP 404 Not modified
 - [URI Templates](http://www.rfcreader.com/#rfc6570) : http://example.com/{term:3}/search{?q,lang}

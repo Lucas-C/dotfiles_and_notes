@@ -1,3 +1,6 @@
+Project management best practices
+=================================
+
 ## References
 - [PP] : The Pragmatic Programmer : Chapter 7 "Before the project" - Andrew Hunt & David Thomas
 - [VisualSpec](http://www.targetprocess.com/articles/visual-specifications.html)
@@ -10,9 +13,14 @@
 - [TechnologyRadar](http://nealford.com/memeagora/2013/05/28/build_your_own_technology_radar.html) + [visualization](https://github.com/bdargan/techradar)
 - [ThoughbotPlaybook](http://playbook.thoughtbot.com)
 - [OnUseCasesAndUserStories](http://www.batimes.com/articles/user-stories-and-use-cases-dont-use-both.html)
+- [ChooseBoringTechnology](http://mcfunley.com/choose-boring-technology)
 
 ## Choosing the right techno
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
+- [ChooseBoringTechnology] :
+    - "let's say every company gets about three innovation tokens"
+    - "Your job is keeping the company in business, god damn it. And the "best" tool is the one that occupies the "least worst" position for as many of your problems as possible. It is basically always the case that the long-term costs of keeping a system working reliably vastly exceed any inconveniences you encounter while building it. Mature and productive developers understand this."
+    - "Technology for its own sake is snake oil"
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]
@@ -61,8 +69,6 @@ If there is any possibility of misunderstanding what is included, it is sometime
 The smallest unit of work that has value for our customers
 
 ## Personal tasks management
-<img src="http://edudemic.com/wp-content/uploads/2012/01/distraction.png" style="width:50%"/>
-
 - Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins
 - For tips on priotizating issues of a service: _cf._ [ProductOwnership]
 - [Log-driven programming] > nested-thinking: never interrupt the flow, take notes of subtasks you'll achieve later on

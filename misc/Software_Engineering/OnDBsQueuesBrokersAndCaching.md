@@ -1,7 +1,10 @@
-# References
+On DBs, Queues, Brokers and Caching
+===================================
+
+## References
 - [AOSA_NoSQL] : [The Architecture of Open Source Applications](http://www.aosabook.org) chapter dedicated to NoSQL
 
-# Memory caching system
+## Memory caching system
 _memcached_
 
 - for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
@@ -32,7 +35,7 @@ psobot/till # cache server for immutable, time-limited object storage providing 
 
 Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], recommended in [this blog post by JMason](//swrveengineering.wordpress.com/2014/10/14/how-we-increased-our-ec2-event-throughput-by-50-for-free/)
 
-# Queues
+## Queues
 - mkfifo, man mq_overview : POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code
 - D-Bus : unix message bus system, with bindings in Java, Python...
 - beanstalkd : KISS fast work queue, with lots of existing tools & libs in various languages
@@ -48,7 +51,7 @@ Some queues property from [Redis author](http://antirez.com/news/78):
 - handle, during normal operations, messages as a FIFO
 - auto cleanup of the internal data structures
 
-# Storage layer for numeric data series over time
+## Storage layer for numeric data series over time
 RRDtool (the ancestor) and its followers:
 
 - RRDCached
@@ -63,24 +66,30 @@ Visualization :
 - Graphitus
 - Facette
 
-# DBs
+## DBs
 ![](https://raw.githubusercontent.com/cockroachdb/cockroach/master/resources/doc/sql-nosql-newsql.png "SQL - NoSQL - NewSQL Capabilities")
 
 The CAP theorem: Consistency, Availability, and Partition tolerance, pick at most two.
 First proposed by Eric Brewer in 1998, then proved by Gilbert and Lynch. See also ACID, BASE & [AOSA_NoSQL]
 => Daniel Abadi suggested a more nuanced classification system, PACELC
 
-## PostgreSQL
-http://www.postgresql.fr/guidedemarragerapide
+### PostgreSQL
+http://www.postgresql.org/docs/current/interactive/app-psql.html#APP-PSQL-META-COMMANDS
 
-## NoSQL DBs
+    \? # and \h $cmd
+    \dt+ # list tables - There are many other \d... commands
+    \x auto # expanded display mode - \x on for v<9.2 
+
+### NoSQL DBs
+
+![](http://martinfowler.com/bliki/images/polyglotPersistence/polyglot.png)
 
 - E.g. MongoDB, CouchDB, Riak, Redis, Gizzard... cf. [AOSA_NoSQL]
 and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra which takes inspiration from both.
 - more BerkeleyDB, SQLite, LMDB, RocksDB > LevelDB # embedded database
 - cockroachdb/cockroach # NewSQL
 
-## SQL DBs
+### SQL DBs
 
 ![](http://www.codeproject.com/KB/database/Visual_SQL_Joins/Visual_SQL_JOINS_orig.jpg)
 
@@ -88,14 +97,14 @@ LIKE >faster> REGEXP
 
     -- {..} /*...*/ # comments
 
-### SQL*PLus
+#### SQL*PLus
 
     # in login.sql
     SET TIMING ON
     SET SERVEROUTPUT ON
     SET LINESIZE 180 PAGESIZE 1000
 
-### SQLite
+#### SQLite
 
     sqlite3 extensions.sqlite 'select id, optionsURL from addon;' # Firefox extensions
     sqlite3 cookies.sqlite 'select name,value,path,expiry,creationTime from moz_cookies where name = "PHPSESSID";'
@@ -110,7 +119,7 @@ LIKE >faster> REGEXP
     .mode column
     .headers on
 
-### MySQL
+#### MySQL
 MariaDB / Percona / Drizzle # https://blog.mozilla.org/it/2013/03/08/different-mysql-forks-for-different-folks/
 
 Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' is enabled on database and table names.
@@ -141,7 +150,7 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
     kill $thread_to_be_killed;
     select user,host from mysql.user;
 
-#### How to start a file to make it executable AND runnable with mysql < FILE.mysql
+##### How to start a file to make it executable AND runnable with mysql < FILE.mysql
 
     /*/cat <<NOEND | mysql #*/
     USE ...;

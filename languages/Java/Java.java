@@ -71,6 +71,7 @@ JDBC // Java Database Connectivity : API that defines how a client may access a 
 H2 // small fast in-memory SQL DB, useful for testing queries
 
 -Xss64kb // set stack size
+-XX:+PerfDisableSharedMem // disable JVM exporting statistics to a file in /tmp, causing pauses of 0.1-1s during garbage collection
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
 
 // String / ByteString correct conversion :
@@ -185,7 +186,7 @@ for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
     System.out.println(ste);
 }
 
-// Use shutdown hooks for behavior that must occur before the VM exist (a simply 'finally' block won't be executed in case of a System.exit
+// Use shutdown hooks for behavior that must occur before the VM exist (a simple 'finally' block won't be executed in case of a System.exit
 Runtime.getRuntime().addShutdownHook(new Thread() { public void run() { /* clean-up */ } });
 
 /* Useful standard runtime exceptions:

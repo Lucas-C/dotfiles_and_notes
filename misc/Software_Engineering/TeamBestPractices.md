@@ -1,4 +1,4 @@
-[Software development is a collaborative game](http://blog.codinghorror.com/software-development-as-a-collaborative-game/)
+# [Software development is a collaborative game](http://blog.codinghorror.com/software-development-as-a-collaborative-game/)
 
 ## References
 - [MVB] : [Minimum Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)
@@ -21,6 +21,8 @@
 - [JoeStumpTechnicalInterviewQuestions](http://stu.mp/2012/10/my-patent-pending-3-question-technical-interview.html)
 - [TrekOps](https://medium.com/@jpaulreed/trouble-with-devops-try-trekops-fb69f7e554fd)
 - [CodeVisualizationTools](https://softvis.wordpress.com/tools/)
+- [ThePowerOfStableTeams](http://firstround.com/review/Twitter-Engineering-SVP-Chris-Fry-on-the-Power-of-Stable-Teams/)
+- [MAPP] : Management Autonome de la Performance et du Progrès - [MichelinManufacturingWay](https://www.youtube.com/watch?v=ztsGX4YNkQ4)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -33,13 +35,14 @@
 - ask people for coffee breaks (force yourself !)
 - hang cheat-sheets in home toilets to learn stuff
 - grasp the whole architecture using [CodeVisualizationTools]
+- get along with HR and plan out-of-the-box projetcs with them that will make your team happier
 
 ## Leadership
 cf. [#gamedev Lead Quick Start Guide]
 
 ## Team culture building
 - two main tenets: RESPECT & TRUST people.
-How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [MVB] + [TrekOps]
+How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [MVB] + [TrekOps] + [MAPP] on trust, autonomy & Agile methods in Michelin
 - write down team tenets as guidelines for priorities
 - define clear team goals with deadlines
 - build a team brand: catching name, logo, slogan... [PP]
@@ -50,6 +53,11 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
 - whiteboard sessions
 - coding style reference, tools to enforce it, code reviews
 - regular emails with tips. Or put a one-pager in the toilets, as Google is doing
+- [ThePowerOfStableTeams] :
+    - Getting teams to sit together
+    - Making someone responsible
+    - Clarifying mission
+    - Knowing your role as an executive: beeing a support for the team
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [DieScrum]
@@ -70,6 +78,8 @@ In general, limit meetings by making them informal chats or doing them properly:
 ## Ops
 ![](http://blog.sei.cmu.edu/assets/content/Traceability-Model.png)
 
+![](/Agile_vs_CI_vs_CD_vs_DevOps.jpg)
+
 - "**Empathy** allows software makers and operators to help each other deliver the best possible functionality and operability on behalf of their customers." [Katherine Daniels](http://devopsdays.org/events/2014-minneapolis/proposals/Devops%20Is%20Dead/)
 - monitor everything ! CPU, openFD, procCount... For services: throughput + delay + completness (% of potential src data processed). And store historical data ! Distributed tracing tools: Twitter’s Zipkin, Google’s Dapper
 - zero config: config is hard to document, hard to update, hard to set up, its persistent state can overlaps with other data
@@ -83,7 +93,7 @@ In general, limit meetings by making them informal chats or doing them properly:
 - CMs: cf. [IT Change Management]
 - post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management]
 Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
-- use a chatbot for real time alerts (e.g. Hubot, can integrate with Jenkins via Janky)
+- use a chatbot for real time alerts (e.g. Hubot, can integrate with Jenkins via Janky - Also: Slack looks awesome)
 
 ## Deployments
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented"

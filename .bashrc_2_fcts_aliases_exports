@@ -114,7 +114,7 @@ if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias less=colorless
 fi
 
-alias tF='tail -F'      # Alt: less + /search + SHIFT-F
+alias tF='less +F'      # Alt: tail -F / less + SHIFT-F - http://www.brianstorti.com/stop-using-tail
 
 #---------------
 # Alias control
@@ -211,9 +211,10 @@ alias a=assert
 # Languages
 #----------
 alias tkcon='tkcon -load Tk'
+alias djshell='PYTHONSTARTUP=$HOME/.pythonrc ./manage.py shell_plus --use-pythonrc'
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
-rmpyc () { find -L ${1:-.} -name "*.pyc" | xargs rm -f; }
+rmpyc () { find -L ${@:-.} -name "*.pyc" | xargs rm -f; }
 py_mod_cd () { cd "$(python -c "import os.path as _, ${1}; print(_.dirname(_.realpath(${1}.__file__[:-1])))")"; }
 find_constants () {
     find "${@:-$(cat)}" -print0 \

@@ -180,7 +180,7 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     " Annotations for git changes
     Bundle 'airblade/vim-gitgutter'
 
-    Bundle 'davidhalter/jedi-vim'
+    "Bundle 'davidhalter/jedi-vim'
     Bundle 'ervandew/supertab'
     let g:SuperTabDefaultCompletionType = "context"
     "To force to omni: "<C-X><C-O>"
