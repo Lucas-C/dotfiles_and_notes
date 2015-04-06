@@ -3,7 +3,7 @@
 ~°~°~°~°~°~°~°~°~°~°~
 ### SHELL & misc  ###
 ~°~°~°~°~°~°~°~°~°~°~
-<CTRL>+e : perform shell-"Expansnon" on cmd-line - cf. .inputrc
+<CTRL>+e : perform shell-"Expansion" on cmd-line - cf. .inputrc
 <CTRL>+u : remove part of current line "a gaUche"
 <CTRL>+k : remove "Klosing" part of current line
 <CTRL>+w : cut the "Word" before the cursor to the clipboard
@@ -106,7 +106,7 @@ date "+%F %T,%N" | cut -c-23 # Standard logs date
 date -u +%s # Seconds since EPOCH
 date -d @$seconds_since_epoch "+%F" # under OSX: date -jf "%s" $secs "+%F"
 
-# !! aliases used in functions definitions are immediately substituted,
+# !!GOTCHA!! aliases used in functions definitions are immediately substituted,
 # NOT resolved dynamically !
 alias foo='echo A'
 bar () { foo; }
@@ -1054,9 +1054,10 @@ http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdat
 <CTRL>+3 : node color
 <CTRL>+<SHIFT>+3 : node background color
 
-$$$$$$$$$$
-$ Heroku $
-$$$$$$$$$$
+
+)o)o)o)o)o
+) Heroku
+)o)o)o)o)o
 heroku login
 heroku create
 heroku logs -t # --ps worker.1

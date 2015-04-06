@@ -45,3 +45,7 @@ Fisher-Yates shuffle : O(n) complexity, guaranteed uniformity, optimal asymptoti
 product-matrix-MSR codes > Reed-Solomon codes, for fault tolerance (cf. jmason)
 
 [Exponential Backoff algorithm](http://en.wikipedia.org/wiki/Exponential_backoff#Binary_exponential_backoff_.2F_truncated_exponential_backoff) + [applied to web-sockets](http://blog.johnryding.com/post/78544969349/how-to-reconnect-web-sockets-in-a-realtime-web-app)
+
+[RAPTOR](http://research.microsoft.com/apps/pubs/default.aspx?id=156567) : Round-Based Public Transit Routing
+-> compute all Pareto-optimal journeys in a dynamic public transit network for two criteria: arrival time and number of transfers
+-> used by Navitia

@@ -277,6 +277,8 @@ items = d.iteritems() # dicts ( iteritems > items )
 """""""""""""
 # Extremely fast as long as < one million elems
 
+dict.viewitems() # immutables, not consumable like generators but still very fast
+
 d.setdefault('key', []).append(42) # add element to list, create it if needed
 collections.defaultdict # autovivification: def tree(): return defaultdict(tree)
 
@@ -355,6 +357,12 @@ issubclass(list, object) # True
 issubclass(object, collections.Hashable) # True
 issubclass(list, collections.Hashable) # False - There are 1449 such triplets (4.3% of all eligible triplets) in Python 2.7.3 std lib
 
+f = 100 * -0.016462635 / -0.5487545  # observed on the field, in a real-world situation
+print 'float     f:', f              # 3.0
+print 'int       f:', int(f)         # 2
+print 'floor     f:', floor(f)       # 2.0
+print 'floor+int f:', int(floor(f))  # 2
+
 
 """""""""""""""""""""""""""
 "" Functional Programming
@@ -381,6 +389,7 @@ faulthandler.enable() # dump stacktrace on SIGSEGV, SIGABRT... signals ; python2
 import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code...
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
+py.test -k 'TestClass and test_methode_name' # selective test execution
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
 c-oreills/before_after # provides utilities to help test race conditions
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
@@ -514,7 +523,7 @@ pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buil
 pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
 pip freeze > requirements.txt # dumps all the virtualenv dependencies
 pip install --user $USER --src . -r requirements.txt
-pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt
+pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt ; ./manage.py pipchecker
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)
@@ -606,7 +615,7 @@ mailr, mailbox, imaplib, smtpd, smptplib
 paramiko # remote SSH/SFTP connexion
 
 celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
-sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, Jenkins, huginn
+sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
 
@@ -768,6 +777,7 @@ cffi # C Foreign Function Interface for Python : call compiled C code from inter
 struct # pack/unpack binary formats
 binascii.hexkify # display binary has hexadecimal
 
+
 """"""""
 "" Django
 """"""""
@@ -780,11 +790,42 @@ django-admin.py startproject demelons_django
 ./manage.py dumpdata auth.User --indent 4
 ./manage.py testserver fixtures/initial_data.yaml
 ./manage.py test animals.tests.AnimalTestCase.test_animals_can_speak # --pattern="tests_*.py" # --keepdb
+./manage.py loaddata fixtures/initial_data.yaml
+djshell --settings=debug # use IPython shell from django-extensions
+
+pip install pyparsing==1.5.7 && pip install pydot && ./manage.py graph_models -a -g -o pretty_models_visualization.png
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns += staticfiles_urlpatterns()
 
+AppConfig.ready() # to perform initialization tasks (such as registering signals); called as soon as the registry is fully populated; !! AVOID INTERACTING WITH THE DB !! -> use migrations and e.g. RunPython to populate the DB with initial data
+
+djangocolors_formatter.py # one-file recipe
+django-debug-toolbar
+django-toolbelt
 stripe # payments app
+Tastypie # webservice framework to creating REST-style APIs, e.g. for an autocompletion service
+factoryboy # > fixtures for DB testing (personnal opinion: several fixtures can sometimes be simpler AND avoid dangerous over-mocking)
+
+all_users_cache = list(User.objects.all()) # force QuerySet evaluation => DB query
+.save() / .bulk_create() / .objects.update_or_create()
+
+from django import template
+register = template.Library()
+@register.filter(is_safe=True)
+def hasattribute(obj, attr_name):
+    return hasattr(obj, attr_name)
+
+# debug.py - USAGE: ./manage.py runserver --settings=debug
+from demelons_django.settings import *
+DEBUG = True
+TEMPLATE_DEBUG = True
+class InvalidVarException(object):
+    ...
+TEMPLATE_STRING_IF_INVALID = InvalidVarException()
+
+<pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
+
 
 """"""""
 "" Fun

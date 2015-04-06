@@ -24,6 +24,7 @@ Shenanagans
 Sound
 
 ## English idioms
+- snake oil
 - bikeshedding
 - to burn the midnight oil
 - easy as pie

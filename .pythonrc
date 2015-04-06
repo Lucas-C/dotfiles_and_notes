@@ -15,4 +15,30 @@ else:
     else:
         readline.parse_and_bind("tab: complete")
 
-import json, os, re, sys
+import atexit, json, os, re, sys
+
+
+try:
+    from django import test
+    from django.db import connection
+    from django.core.management import call_command
+    DJANGO_TEST_DB = None
+    def load_fixture(filename):
+        global DJANGO_TEST_DB
+        if DJANGO_TEST_DB:
+            print('A Django test DB already exists, please first call django_testdb_teardown()')
+            return
+        atexit.register(django_testdb_teardown)
+        test.utils.setup_test_environment()
+        DJANGO_TEST_DB = connection.creation.create_test_db()
+        call_command('loaddata', filename)
+    def django_testdb_teardown():
+        global DJANGO_TEST_DB
+        if not DJANGO_TEST_DB:
+            return
+        connection.creation.destroy_test_db(DJANGO_TEST_DB)
+        test.utils.teardown_test_environment()
+except ImportError:
+    pass
+
+print('.pythonrc LOADED')

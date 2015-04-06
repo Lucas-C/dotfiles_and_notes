@@ -1,3 +1,6 @@
+Software Development Best Practices
+===================================
+
 ## References
 - [CC-\\w\\d+] : Clean Code - Robert C. Martin - Ed. Prentice Hall
 - [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley : http://blog.codinghorror.com/a-pragmatic-quick-reference/
@@ -31,6 +34,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
     similar algorithm            -> template method / strategy pattern
 - Code Fearlessly & implement alternative code versions in parallel [JC-PP]
 - "About 97% of the time: **premature optimization is the root of all evil**." - Donald Knuth, 1974
+"Optimization work is so appealing, with incremental and objective rewards, but it is easy to overestimate value relative to other tasks" - John Carmack, 2015
 - "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
 - " Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
 - Tony Hoare null "billion-dollar mistake"
@@ -227,12 +231,12 @@ cf. [Functional Programming Patterns]
 ## Fun quotes
 - OCTDD : Obsessive Compulsive Test Driven Development
 - Doug McIlroy replacement for Donald Knuth's 10+ pages of Pascal illustrating literate programming: 6 lines of shell
-tr -cs A-Za-z '\n' |
-tr A-Z a-z |
-sort |
-uniq -c |
-sort -rn |
-sed ${1}q
+    tr -cs A-Za-z '\n' |
+    tr A-Z a-z |
+    sort |
+    uniq -c |
+    sort -rn |
+    sed ${1}q
 - "The bearing of a child takes nine months, no matter how many women are assigned. Adding manpower to a late software project makes it later." Fred Brooks - "The Mythical Man-Month"
 - "Programmers always confuse Halloween with Christmas because Oct 31 == Dec 25"
 - "La Cathédrale et le Bazar" - Essai on Open Source & Proprietary Software
@@ -242,3 +246,13 @@ sed ${1}q
 - "Expertise is not about picking good solution, it is about picking the future bad one at the right time." Eric Bréhault, Makina Corpus
 - "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
 - [The Parable of the Two Programmers](http://www.csd.uwo.ca/~magi/personal/humour/Computer_Audience/The%20Parable%20of%20the%20Two%20Programmers.html)
+- [The story of Mel](http://www.catb.org/jargon/html/story-of-mel.html) :
+"I have often felt that programming is an art form,
+whose real value can only be appreciated
+by another versed in the same arcane art;
+there are lovely gems and brilliant coups
+hidden from human view and admiration, sometimes forever,
+by the very nature of the process.
+You can learn a lot about an individual
+just by reading through his code,
+even in hexadecimal."

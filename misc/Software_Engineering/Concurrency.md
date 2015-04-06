@@ -1,3 +1,6 @@
+Concurrency
+===========
+
 !! Asynchrone != Parallel != Concurrent
 
 ## References:
@@ -47,34 +50,30 @@
 - "splay" : add jitter (== random delay) into timed events (e.g. cache expiration) to prevent a shit storm when all parts of a distributed system see the event at the same time (done at Youtube, Facebook, AWS... cf. https://news.ycombinator.com/item?id=3757456 ) Alt: use prime numbers / exponentially distributed delays
 
 
-# Java
+## Java
 Built-in parallelism the easy way : [ExecutorService](http://www.nurkiewicz.com/2014/11/executorservice-10-tips-and-tricks.html)
 
 Synchronized method/code blocks to handle concurrent access:
 - Keep synchronized sections as small as possible
 - More than one per class is a code smell !
 
-## Standard classes
+### Standard classes
 - ConcurrentHashMap > HashMap
 - ReentrantLock : a lock that can be acquired in one method an released in another
 - Semaphore : classic implementation, with lock count
 - CountDownLatch : a lock that waits for a number of events before releasing all threads waiting on it
 
-Full list of already existing constructs:
+Already existing constructs:
 
-- http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/package-summary.html
-- http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/eventbus/package-summary.html
+- [java.util.concurrent](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/package-summary.html)
+- [com.google.common.eventbus](http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/eventbus/package-summary.html)
     * @Subscribe
     * @AllowConcurrentEvents
     * DeadEvent
-- http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/util/concurrent/package-summary.html
+- [com.google.common.util.concurrent](http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/util/concurrent/package-summary.html)
     * Futures.addCallback(ListenableFuture)
     * TimeLimiter
     * AtomicDouble
-
-std Atomic* class references > volatile
-
-lib Fork/Join
 
 Example Java checkpoints (sync points):
 
@@ -84,10 +83,14 @@ Example Java checkpoints (sync points):
 4. Thread A writes to a volatile variable and thread B reads it
 5. Placing, retrieving an object in a shared zone
 
-Thread.stop Thread.suspend // DEPRECATED ! Do not use them
+Thread.stop Thread.suspend // **DEPRECATED** ! Do not use them
+
+std Atomic* class references > volatile
+
+lib Fork/Join
 
 Fibers // Simple Lightweight Concurrency
 
 JCTools // Bounded lock free queues, SPSC/MPSC/SPMC/MPMC variations for concurrent queues, Offheap concurrent ring buffer for ITC/IPC purposes
 
-ben-manes/caffeine : a Java 8 based concurrency library that provides specialized data structures, such as a high performance cache
+ben-manes/caffeine // a Java 8 based concurrency library that provides specialized data structures, such as a high performance cache
