@@ -25,7 +25,7 @@ Concurrency
 - PubSub aka Publish/Subscribe aka message bus.
     * Examples: AMQP, MQTT, DDS, JMS, CORBA (with either push/pull mode)
     * https://encrypted.google.com/books?id=RxsyCBr9eLMC
-- MVC. Can be chained, i.e. the view on one layer can be the model of another one
+- MVC. Comes from Smalltalk. Can be chained, i.e. the view on one layer can be the model of another one
     * Model : abstract data model, has no knowledge of views or controllers
     * View : a way to interpret the model, it subscribes to change in the model and logical events from the controller
     * Controller : control the view and provide the model with new data; publishes events to both the model and the view
