@@ -64,6 +64,10 @@
     assume   = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
     assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+	cp = cherry-pick
+	cl = clone
+	unstage = reset HEAD --
+	dc = diff --cached
 
 [branch]
     autosetuprebase = always
@@ -80,7 +84,17 @@
     editor = vim
     pager = less -FMRiX
 	trustctime = false
+	filemode = false
 
 [user]
     name = Lucas Cimon
     email = lucas.cimon@gmail.com
+[credential]
+	helper = cache --timeout=3600
+[merge]
+	tool = vimdiff
+[mergetool]
+	keeptemporaries = false
+	keepbackups = false
+	prompt = false
+	trustexitcode = false

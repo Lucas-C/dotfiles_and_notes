@@ -1,5 +1,10 @@
 [ -r "/cygdrive/c/Program Files (x86)" ] && export X86=\ \(x86\)
 
+if ! [ -r ~/.dir_colors ]; then
+	curl -s 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > ~/.dir_colors
+fi
+eval $(dircolors ~/.dir_colors)
+
 unfuncalias touch
 
 convertWinArgs () {
