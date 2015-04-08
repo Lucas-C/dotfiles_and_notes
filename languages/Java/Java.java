@@ -37,6 +37,8 @@ SLF4J // logging API, then pick a logging engine: java.util.logging for basic st
 Swrve/rate-limited-logger // an SLF4J-compatible, simple, fluent API for rate-limited logging in Java
 Metrics // perf & health monitoring
 
+Jersey // RESTful Web Services
+
 OpenJDK JMH // Benchmark tool
 
 Buildr, Fradle > ant, maven // build systems
@@ -48,6 +50,7 @@ jcmd [$process] // without args to list running Java processes
 mariusaeriksen/heapster // Google perftools for the JVM
 
 JSP (JavaServer Pages) is an alternative to PHP
+	-> JSTL (JSP Standard Tag Library) : XML, SQL queries, Internationalisation...
 JavaFX / OpenJFX // bytecode compiled non-dynamic language providing GUI and app packaging
 Packr // Package .jar & assets for any distrib (most suited for GUI apps)
 Capsule // dead-Simple packaging and deployment for JVM apps
@@ -69,6 +72,8 @@ service:jmx:rmi:///jndi/rmi://$host:9876/jmxrmi
 
 JDBC // Java Database Connectivity : API that defines how a client may access a relational database
 H2 // small fast in-memory SQL DB, useful for testing queries
+Hibernate // framework SQL
+MyBatis // data mapper framework, ORM for SQL DBs using a XML descriptor or annotations
 
 -Xss64kb // set stack size
 -XX:+PerfDisableSharedMem // disable JVM exporting statistics to a file in /tmp, causing pauses of 0.1-1s during garbage collection
