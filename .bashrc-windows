@@ -18,7 +18,7 @@ convertWinArgs () {
 }
 
 npp () {
-	"`cygpath -u "C:\Program Files\Notepad++\notepad++.exe"`" `convertWinArgs $@`
+	"`cygpath -u "C:\Program Files$X86\Notepad++\notepad++.exe"`" `convertWinArgs $@`
 }
 
 pspad () {

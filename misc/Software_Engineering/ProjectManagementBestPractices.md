@@ -21,6 +21,12 @@ Project management best practices
     - "let's say every company gets about three innovation tokens"
     - "Your job is keeping the company in business, god damn it. And the "best" tool is the one that occupies the "least worst" position for as many of your problems as possible. It is basically always the case that the long-term costs of keeping a system working reliably vastly exceed any inconveniences you encounter while building it. Mature and productive developers understand this."
     - "Technology for its own sake is snake oil"
+- compare projects on their maturity / current activity & liveliness / community :
+	#commits
+	creation date
+	last commit date
+	#issues
+	#contributors
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]
@@ -40,14 +46,13 @@ Project management best practices
 - separate policy concerns from requirements [PP]
 - don't **overspecify**. Good requirements remain _abstract_. They are not archictecture, design nor UI. They are **needs** [PP]
 - keep track of requirements growth to spot features creep/bloat [PP]
-- maintain a project glossary [PP]
 - don't fall into the specifications spiral [PP]. A tech lead primary contribution is to say NO to features that are not needed [NN]
 - formal methods (CASE, waterfall, spiral model, UML...) have some serious shortcomings [PP]
 - [VisualSpec]
     * do: sketches, flows, storyboard, paper prototype, short narratives, wireframe (e.g. as Thib did with Keynote)
     * don't: behavior-Driven Development, pseudo-narrative
     * do if enough time: live prototype, animation
-- document the vocabulary used in the domain and shared with clients, to avoid ambiguity (from [ThoughbotPlaybook])
+- maintain a project glossary [PP]. Document the vocabulary used in the domain and shared with clients, to avoid ambiguity (from [ThoughbotPlaybook])
 - Agile recommend using user stories over UML use cases (that can be drawn with e.g. PlantUML). Use cases are NOT a form a requirements, just an illustration of them. They are NOT Agile, user stories are. Cf. [OnUseCasesAndUserStories]
 
 ### Stories
