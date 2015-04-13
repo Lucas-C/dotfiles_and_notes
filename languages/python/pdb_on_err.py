@@ -4,7 +4,7 @@
 # USAGE:
 #   python -m pdb_on_err script.py arg1 arg2
 #   python -m pdb_on_err -c 'import sys; print sys.argv[0]' 0
-#   import pdb_on_err # in a script.py
+#   from pdb_on_err import launch_pdb_on_exception # to invoke manually as a 'with' context block
 # FROM: http://stackoverflow.com/questions/242485/starting-python-debugger-automatically-on-error
 from imp import find_module
 import sys

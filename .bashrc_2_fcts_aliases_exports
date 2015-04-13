@@ -463,6 +463,11 @@ if ! type -p timeout >/dev/null; then
     }
 fi
 
+audio_record () { # voice/sound recorder through the computer mike
+    local out_filename="${1:-$(date +"${HOSTNAME}_%Y-%m-%d_%Hh%Mm%Ss")_audiorecord.wav}"
+    avconv -f pulse -i default "${out_filename}"
+}
+
 whiteboard_picture_cleaner () { # args: $original_img_file $output_file - use ImageMagick - FROM: https://gist.github.com/lelandbatey/8677901
     convert "$1" -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 "$2";
 }
