@@ -262,6 +262,7 @@ karma-runner/karma > JsTestDriver > Qunit // Testing libs
 Sinon.js // test spies, stubs and mocks - framwork agnostic & no dependencies
 Vows.js // asynchronous BDD for Node.js
 admc/wd // node.js client for webdriver/selenium 2
+Protractor // Framework for Selenium testing of AngularJS apps
 
 // E4X is an official JavaScript standard that adds direct support for XML
 

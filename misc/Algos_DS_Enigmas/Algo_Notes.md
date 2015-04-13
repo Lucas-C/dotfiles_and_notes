@@ -49,3 +49,5 @@ product-matrix-MSR codes > Reed-Solomon codes, for fault tolerance (cf. jmason)
 [RAPTOR](http://research.microsoft.com/apps/pubs/default.aspx?id=156567) : Round-Based Public Transit Routing
 -> compute all Pareto-optimal journeys in a dynamic public transit network for two criteria: arrival time and number of transfers
 -> used by Navitia
+
+[A collection of links for streaming algorithms and data structures](https://gist.github.com/debasishg/8172796): hyperloglog, minhash, Q-digest, t-digest, Count-Min Sketch, sliding windows, frugal streaming...
