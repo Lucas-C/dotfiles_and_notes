@@ -44,14 +44,24 @@ where "Design" = Architecture / Organisation of the software logic
 
 SE = software entity : class, module, function...
 
+SOLID:
 - Single Responsability Principle : every SE should have a single responsibility, and that responsibility should be entirely encapsulated by the SE
-- Law of Demeter : each SE should have only limited knowledge about other SEs. Write "shy code". Talk to friends; Don’t talk to strangers [CC-G36]
+	Aka Common Closure Principle : any change to the software should only have a very local impact
 - Open/Closed Principle : SE should be open for extension, but closed for modification
-- Common Closure Principle : any change to the software should only have a very local impact
+- Liskov substitution principle: objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.
+- Interface segregation principle: many client-specific interfaces are better than one general-purpose interface
+- Dependency inversion principle: one should depend upon Abstractions, do not depend upon concretions.
+
+Law of Demeter : each SE should have only limited knowledge about other SEs. Write "shy code". Talk to friends; Don’t talk to strangers [CC-G36]
+
+DTO/DAO:
+- Data Transfer Object : used to transfer the data between classes and modules of your application. DTO should only contain private fields for your data, getters, setters and constructors. It is not recommended to add business logic methods to such classes, but it is OK to add some util methods.
+- Data Access Object encapsulate the logic for retrieving, saving and updating data in your data storage (a database, a file-system, whatever).
 
 On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/1481](http://imgs.xkcd.com/comics/api.png), [How to design a rest API]
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 + similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG...
++ Swagger framework / representation for RESTful APIs
 
 On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity] : they add moving parts and interdependencies
 

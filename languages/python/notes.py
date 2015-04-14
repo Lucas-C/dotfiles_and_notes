@@ -21,6 +21,7 @@ with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as U
     for line in open_file.readlines():
         yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
 with io.open('my_file', 'w', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
+fileutils.atomic_save # from mahmoud/boltons
 intern(str) # internal representation - useful for enums/atoms + cf. http://stackoverflow.com/a/15541556
 
 <module>.__file__ # can refer to .py OR .pyc !!
@@ -178,7 +179,7 @@ try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err: # see chain_errors module
     logger.exception("Additional info: %s", 42) # Exception will be automagically logged
     logging.warn("Hello %(world)r!", world=earth)
-    import traceback; traceback.print_exc() # or .extract_stack()
+    import traceback; traceback.print_exc() # or .extract_stack() - Also: tbutils.TracebackInfo from mahmoud/boltons
 else: pass
 finally: pass
 
@@ -208,9 +209,11 @@ import bisect # binary search
 import heapq # min-heap: .nlargest .nsmallest
 
 collections.deque # double-ended queue, with optional maximum length
+queueutils.PriorityQueue # from mahmoud/boltons
 
 collections.Counter([...]).most_common(1) # dict subclass for integer values
 unique_id_map = collections.defaultdict(itertools.count().next) # will always return the same unique int when called on an object: unique_id_map['a'] == unique_id_map['a'] != unique_id_map['b']
+iterutils.windowed, iterutils.Chunked # iteration from mahmoud/boltons
 
 DanielStutzbach/blist > std list # kind of a rope
 pyropes # rope: binary tree-based data structure for efficiently storing and manipulating a very long string
@@ -308,6 +311,7 @@ def Tree(): # fs = Tree(); fs['all']['the']['way']['down']
 
 ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
 jab/bidict # provide key -> value & value -> key access
+dictutils.OrderedMultiDict # from mahmoud/boltons
 
 ultrajson >faster> simplejson >faster> json
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
@@ -432,6 +436,7 @@ pdbpp # prettier PDB
 google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
 import rpdb; rpdb.set_trace() # remote debugging
 from pdb_clone import pdb; pdb.set_trace_remote() # then pdb-attach : remote-debugging - Also: pdbhandler.register() to enter at any time a running program
+boltons.debugutils.pdb_on_signal
 
 from pprint import pprint # indent=4
 
@@ -896,6 +901,6 @@ from enum import Enum, IntEnum
 from functools import \
     singledispatch, \
     total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
-    lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property
+    lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property ; or boltons.cacheutils.LRI / boltons.cacheutils.LRU
 
 collections.ChainMap # view of multiple dicts - Hidden Py2.7 backport: from ConfigParser import _Chainmap as ChainMap - Alt: Py2ChainMap

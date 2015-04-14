@@ -22,7 +22,7 @@ dir %WINDIR%\Microsoft.Net\Framework\v* /O:-N /B &:: Check .NET version
 icacls * /T /Q /C /RESET &:: reset files permissions
 :: Default .dll owner : NT SERVICE\TrustedInstaller
 
-pskill, pslist... &:: Sysinternals Process Utilities
+pskill, pslist, TCPView... &:: Sysinternals Process Utilities
 handle.exe -a | grep ': Key\|pid:' | grep 'COMPONENTS\|pid:' | grep -B1 'COMPONENTS' &:: Find all PIDs of processes using RegKeys containing 'COMPONENTS'
 
 ::: Usual cleanup steps

@@ -5,6 +5,7 @@ CRUD = Create, Read, Update, Delete -> opérations de base pour la persistance d
 DBA = DataBase Administrator
 DSI = Direction/Directeur des Systèmes d'Information
 ERP = Entreprise Resource Planning (== PGI: progiciel de gestion intégré)
+ETP = Equivalent Temps Plein, correspond le plus souvent à une semaine de 5 jours
 ESN = SSII
 GUI = Graphical User Interface == IHM
 IHM = Interface Homme-Machine == GUI

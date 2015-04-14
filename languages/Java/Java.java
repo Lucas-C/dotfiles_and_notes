@@ -1,4 +1,4 @@
-Consider Groovy (/Grails?) > Java
+Consider Groovy (& framework Grails) > Java
 
 /**EXPORT:
 //1-Compile

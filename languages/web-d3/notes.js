@@ -251,7 +251,7 @@ node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/39
 
 plato // source code visualization, static analysis, and complexity tool 
 FGRibreau/check-build // includes:
-    JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
+    ESLint > JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
     JSCS // code style checker
     jsinspect // check for code duplication
     buddy.js // detect magic numbers
