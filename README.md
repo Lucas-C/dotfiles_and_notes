@@ -19,6 +19,9 @@ Clone the repository and create symlinks from your $HOME to :
 
 * .tmux.conf
 
+   for f in .bashrc .gitconfig .inputrc .vimrc; do ln -s linux_configuration/$f; done
+   echo 'exec /bin/bash' > .profile
+
 To use **screen**, create a *~/.use_screen* file. Similarly, you can create *~/.use_tmux*.
 
 As an alternative setup, you can source the versioned .bashrc from your own ~/.bashrc :

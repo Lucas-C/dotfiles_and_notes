@@ -53,7 +53,7 @@ zip () {
 	7z a $@
 }
 
-unalias pdf
+unfuncalias pdf
 pdf () {
 	"`cygpath -u "C:\Program Files$X86\SumatraPDF\SumatraPDF"`" `convertWinArgs $@`
 }
