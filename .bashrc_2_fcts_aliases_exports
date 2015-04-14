@@ -54,10 +54,10 @@ md2html () {
 locate_img_and_preview () {
     local feh_opts='-d -F'
     [ "$1" = "-t" ] && shift && feh_opts=-t # thumbnails mode
-    feh $feh_opts -f <(locate -0 -i "${@:-$(cat)}" | xargs -0 -n 1 file | grep image | cut -d: -f1)
+    locate -0 -i "${@:-$(cat)}" | xargs -0 -n 1 file | grep image | cut -d: -f1 | feh $feh_opts -f
 }
 
-vimhelp () { md2man <(sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md); }
+vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md | md2man; }
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -232,8 +232,8 @@ alias perl='rlwrap --remember --multi-line --substitute-prompt "> " $(type -P pe
 #alias node='env NODE_NO_READLINE=1 rlwrap --remember --multi-line "$(type -P node)"' #broken under Cygwin
 alias lua='rlwrap --remember --multi-line --always-readline $(type -P lua)'
 alias lua5.2='rlwrap --remember --multi-line --always-readline $(type -P lua5.2)'
-cljs-rhino () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline cljsbuild repl-rhino "$@"; }
-cljs-node () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline noderepl "$@"; }
+cljs_rhino () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline cljsbuild repl-rhino "$@"; }
+cljs_node () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline noderepl "$@"; }
 
 # Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
 alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'
@@ -360,8 +360,8 @@ notabs () { # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces
 }
 
 fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[2]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
-ext-ip () { dig +short myip.opendns.com @resolver1.opendns.com; } # faster than HTTP, e.g. ipecho.net/plain checkip.dyndns.org ifconfig.me
-int-ips () { /sbin/ifconfig $1 | grep "inet[^0-9]" | sed 's/.*[^0-9]\([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\)[^0-9].*/\1/' | grep -v '127\.0\.0\.1'; }
+ext_ip () { dig +short myip.opendns.com @resolver1.opendns.com; } # faster than HTTP, e.g. ipecho.net/plain checkip.dyndns.org ifconfig.me
+int_ips () { /sbin/ifconfig $1 | grep "inet[^0-9]" | sed 's/.*[^0-9]\([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\)[^0-9].*/\1/' | grep -v '127\.0\.0\.1'; }
 
 mtr_proto () {
     local host=$1

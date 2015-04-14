@@ -23,11 +23,12 @@ export USER_STYLE=$T_normal
 export HOST_COLOR='1;35' # magenta
 
 # FROM: http://stackoverflow.com/a/88716
-ROOT_INODE=$(stat -c %i /)
-if [ $ROOT_INODE -ne 2 -a $ROOT_INODE -ne 128 ] && [ -z "${WINDIR:-}" ]; then
-    IS_CHROOTED_PROMPT='{chrooted}'
-else
-    IS_CHROOTED_PROMPT='{}'
+IS_CHROOTED_PROMPT='{}'
+if stat -c %i / >/dev/null 2>&1; then # Ensuring 'stat' command exists (it is not under boot2docker)
+	ROOT_INODE=$(stat -c %i /)
+	if [ $ROOT_INODE -ne 2 -a $ROOT_INODE -ne 128 ] && [ -z "${WINDIR:-}" ]; then
+		IS_CHROOTED_PROMPT='{chrooted}'
+	fi
 fi
 
 export PS1=\
