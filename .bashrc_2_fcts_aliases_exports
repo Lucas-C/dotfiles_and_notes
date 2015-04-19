@@ -33,6 +33,7 @@ export LOG=1 # for notify-osd
 # The following is better than a blunt 'export LANG=C',
 # that would also break support for non-ASCII caracters in the terminal.
 # TODO: compare the roles of LANG / LC_ALL : are they redundant ?
+alias comm='LANG=C LC_ALL=C comm' # needs to be coherent with 'sort'
 alias grep='LANG=C LC_ALL=C grep'
 alias sed='LANG=C LC_ALL=C sed'
 alias awk='LANG=C LC_ALL=C awk'
@@ -169,7 +170,8 @@ lse () { # group files by their extension
 # grep
 #------
 alias g='grep -i --color=always'
-gn () { cd $BASHRC_DIR; grep --color=always "${@:-$(cat)}" $(git ls-files); }
+NOTES_FILES=$(cd $BASHRC_DIR && git ls-files)
+gn () { ( cd $BASHRC_DIR && grep --color=always "${@:-$(cat)}" $NOTES_FILES ); }
 alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
 alias bzg='bzgrep -i --color=always'
 zgr () {

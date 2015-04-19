@@ -7,21 +7,26 @@ from __future__ import print_function
 try:
     import readline
 except ImportError:
-    print("Module readline not available.")
+    print('Module readline not available.')
 else:
     import rlcompleter
     if 'libedit' in readline.__doc__:
-        readline.parse_and_bind("bind ^I rl_complete")
+        readline.parse_and_bind('bind ^I rl_complete')
     else:
-        readline.parse_and_bind("tab: complete")
+        readline.parse_and_bind('tab: complete')
 
-import atexit, json, os, re, sys
-
+# Automatically importing useful standard libs
+import json, os, re, sys
 
 try:
     from django import test
     from django.db import connection
     from django.core.management import call_command
+    import atexit
+
+    # Providing a handy 'load_fixture' function in the Django shell,
+    # and registering a cleanup function executed when exiting the shell
+    # FROM: http://testedwebdev.blogspot.ru/2012/05/django-shell-testing.html
     DJANGO_TEST_DB = None
     def load_fixture(filename):
         global DJANGO_TEST_DB
@@ -38,7 +43,17 @@ try:
             return
         connection.creation.destroy_test_db(DJANGO_TEST_DB)
         test.utils.teardown_test_environment()
+
+    # We are in django shell, hence we store the command history in a dedicated file
+    # (this has to be done manually, as by defaukt nothing is read/stored in any file)
+    # FROM: http://jpadilla.com/post/59673924412/python-shell-history
+    DJANGO_HISTORY_FILE = os.path.join(os.environ['HOME'], '.django_history')
+    try:
+        readline.read_history_file(DJANGO_HISTORY_FILE)
+    except IOError:
+        pass
+    atexit.register(readline.write_history_file, DJANGO_HISTORY_FILE)
 except ImportError:
     pass
 
-print('.pythonrc LOADED')
+print('.pythonrc successfully LOADED')

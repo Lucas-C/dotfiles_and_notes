@@ -30,3 +30,7 @@ Engagement de moyens / de résultats
 Projet au forfait / travail en régie
 
 http://fr.wikipedia.org/wiki/Jargon_informatique
+
+## Frenchisms
+moulinette
+bouchonné

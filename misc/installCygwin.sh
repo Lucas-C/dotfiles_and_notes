@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -o pipefail -o errexit -o nounset -o xtrace
 
+if [ -n "${1:-}" ]; then # misc/installCygwin.sh $USER
+    cd /cygdrive/d/code
+    chown -R $DOTFILES_USER .bash* .current_pwd/ .git* .i* .j* .lighttable.user.* .minttyrc .p* .s* .S* .tmux.conf .vimrc .zshrc
+fi
+
 if [ "$TERM" = "cygwin" ]; then
     echo 'Use MinTTY ! Create a Windows shortcut to "D:\devhome\tools\cygwin\bin\mintty.exe /bin/sh --login -i"'
     exit 1
