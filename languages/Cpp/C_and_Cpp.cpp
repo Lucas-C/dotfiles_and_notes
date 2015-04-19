@@ -54,6 +54,7 @@ int a=41; a++ && printf("%d\n", a); // 42
 int a=41; if (a++ < 42) printf("%d\n", a); // 42
 int a=41; a = a++; printf("%d\n", a); // undefined
 
+!bool1 ??!??! func() // http://stackoverflow.com/questions/7825055
 
 /***********/
 // C++ only
