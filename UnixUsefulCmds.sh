@@ -395,6 +395,7 @@ jq -r '..|objects|.name//empty' # JSON syntax highlighting + sed-like processing
 echo '{"A1":"a1","A2":"b2","B1":"b2"}' | jq '"A." as $regex | del(.[keys[]|select(match($regex))])'
 echo '{"A0":["a1","a2","a3"], "B0":["b1","b2","b3"], "c3":[]}' | jq '".[^3]" as $regex|to_entries|map(select(.key|match($regex)))|map(.value|=map(select(match($regex))))|from_entries'
 source <(jq -r 'to_entries|.[]|"SAUCE_\(.key|ascii_upcase)=\(.value)"' .saucelabs_auth.json )
+jq '[.[] | {contentUrl, imgUrl, description: .contentUrl|sub(".*/";"")}]' imgur_imgs.json > imgur_imgs_with_desc.json
 pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
@@ -1071,3 +1072,9 @@ heroku run bash
 heroku config # can be defined in .env
 heroku pg # PostgreSQL terminal summary dashboard
 heroku pg:psql
+
+
+###################
+## Tiny Core Linux (used by boot2docker)
+###################
+tce-load -w -i appbrowser-cli.tcz bash.vcz vim.vcz # Installing TinyCore AppBrowser CLI - USAGE: TERM=xterm-color appbrowser-cli

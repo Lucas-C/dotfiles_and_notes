@@ -115,7 +115,12 @@ if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias less=colorless
 fi
 
-alias tF='less +F'      # Alt: tail -F / less + SHIFT-F - http://www.brianstorti.com/stop-using-tail
+alias tF='tail -F'
+if less -F +q /etc/hosts 2>/dev/null; then
+	alias tF='less +F'      # Alt: less + SHIFT-F - http://www.brianstorti.com/stop-using-tail
+fi
+
+wrf () { wr "$@" fren; }
 
 #---------------
 # Alias control

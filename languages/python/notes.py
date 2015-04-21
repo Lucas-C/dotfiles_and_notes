@@ -28,7 +28,7 @@ intern(str) # internal representation - useful for enums/atoms + cf. http://stac
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
 
-__slots__ = ("attr1_name")
+__slots__ = ("attr1_name") # flyweight design pattern
 # Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots." It also slightly slows down lookup time
 # !! Redefining a 'slot' in a child class is UNDEFINED BEHAVIOUR ! cf. https://docs.python.org/2/reference/datamodel.html#__slots__
 
@@ -404,6 +404,7 @@ brodie/cram # generic command-line app testing
 import capsys # capture stdin/out
 import monkeypatch # modify an object that will be restored after the unit test
 import tmpdir # generate a tmp dir for the time of the unit test
+import hypothesis # feed you test with known to break edge cases
 
 module_name=code
 code_module_path=$(python -c "import $module_name; print $module_name.__file__" | sed 's/pyc$/py/')
