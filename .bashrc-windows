@@ -5,6 +5,7 @@ eval $(dircolors ~/.dir_colors)
 
 unfuncalias touch
 
+alias psf='ps -ef'
 alias sudo='cygstart --action=runas'
 
 [ -r "/cygdrive/c/Program Files (x86)" ] && export X86=\ \(x86\)
