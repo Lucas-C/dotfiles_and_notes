@@ -1,7 +1,7 @@
 ps -p $PPID >/dev/null 2>&1 || return # (ps is not standard under boot2docker)
 ps -p $PPID | grep -Eq 'pew|tilda|su' && return # SHOULD BE: --no-headers --format comm BUT NOT PORTABLE UNDER CYGWIN
 
-if [ -e $BASHRC_DIR/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
+if [ -e ~/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
     type tmux >/dev/null 2>&1 || return 
     if [[ $(ps -p $PPID -o comm=) =~ tmux ]]; then # Alreay running in TMUX
         return
