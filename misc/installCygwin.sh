@@ -16,10 +16,9 @@ if [ "$(stat -c '%U' /proc)" != "$USER" ]; then
 fi
 
 lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
-sed -i 's/md5sum/sha512sum/g' apt-cyg
-install apt-cyg ~/bin
+install apt-cyg ~/bin && rm apt-cyg
 apt-cyg install wget
-apt-cyg install bind curl git rlwrap unzip vim
+apt-cyg install bind curl git make python rlwrap unzip vim
 
 wget https://bootstrap.pypa.io/ez_setup.py -O - | python
 easy_install pip

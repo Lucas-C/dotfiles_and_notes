@@ -1,5 +1,5 @@
 if ! [ -r ~/.dir_colors ]; then
-	curl -s 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > ~/.dir_colors
+    curl -s 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > ~/.dir_colors
 fi
 eval $(dircolors ~/.dir_colors)
 
@@ -11,59 +11,61 @@ alias sudo='cygstart --action=runas'
 [ -r "/cygdrive/c/Program Files (x86)" ] && export X86=\ \(x86\)
 
 convertWinArgs () {
-	while [ "$1" ]; do
-		case $1 in
-		/*) echo "`cygpath -w $1`" ;;
-		*) echo "`cygpath -w $PWD/$1`" ;;
-		esac
-		shift
-	done
+    while [ "$1" ]; do
+        case $1 in
+        /*) echo "$(cygpath -w $1)" ;;
+        *) echo "$(cygpath -w $PWD/$1)" ;;
+        esac
+        shift
+    done
 }
 
+alias node=cyg-node
+
 npp () {
-	"`cygpath -u "C:\Program Files$X86\Notepad++\notepad++.exe"`" `convertWinArgs $@`
+    "/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe" $(convertWinArgs "$@")
 }
 
 pspad () {
-	"`cygpath -u "C:\Program Files$X86\PSPad editor\PSPad"`" `convertWinArgs $@`
+    "/cygdrive/c/Program Files$X86/PSPad editor/PSPad" $(convertWinArgs "$@")
 }
 
 bat () {
-	cmd /c "set PATH=%OLD_PATH% && $@"
+    cmd /c "set PATH=%OLD_PATH% && $@"
 }
 
 cdw () {
-	cd $(cygpath "$1")
+    cd $(cygpath "$1")
 }
 
 firefox () {
-	"`cygpath -u "C:\Program Files$X86\Mozilla Firefox\firefox"`" `convertWinArgs $@`
+    "/cygdrive/c/Program Files$X86/Mozilla Firefox/firefox" $(convertWinArgs "$@")
 }
 
 freeplane () {
-	"`cygpath -u "C:\Program Files$X86\Freeplane\freeplane"`" `convertWinArgs $@`
+    "/cygdrive/c/Program Files$X86/Freeplane/freeplane" $(convertWinArgs "$@")
 }
 
 unfuncalias nav
 nav () {
-	DIR=`pwd`/$1
-	explorer /select,`cygpath -w $DIR/$(ls $DIR | head -1)`
+    DIR=$PWD/$1
+    explorer /select,$(cygpath -w $DIR/$(ls $DIR | head -1))
 }
 
 zip () {
-	7z a $@
+    7z a $@
 }
 
 unfuncalias pdf
 pdf () {
-	"`cygpath -u "C:\Program Files$X86\SumatraPDF\SumatraPDF"`" `convertWinArgs $@`
+    "/cygdrive/c/Program Files$X86/SumatraPDF/SumatraPDF" $(convertWinArgs "$@")
 }
 
 #FROM: http://smecsia.me/blog/65/killall+for+cygwin
 killall () {
-	if [ "$1" = "-9" ]; then
-		taskkill /F /IM $2.exe
-	else
-		taskkill /IM $1.exe
-	fi
+    if [ "$1" = "-9" ]; then
+        taskkill /F /IM $2.exe
+    else
+        taskkill /IM $1.exe
+    fi
 }

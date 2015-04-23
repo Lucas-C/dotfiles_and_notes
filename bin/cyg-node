@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$1"
+shift
+NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)/node_modules" "$(type -P node)" $(cygpath -w "$SCRIPT_PATH") "$@"
