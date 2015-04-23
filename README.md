@@ -7,33 +7,20 @@ Compatible for Ubuntu, Red Hat, OSX and Cygwin.
 
 ### INSTALLATION
 
-Clone the repository and create symlinks from your $HOME to :
+    CONFIG_DIR=~/linux_configuration/
+    cd
+    for f in .gitconfig .inputrc .vimrc; do ln -s $CONFIG_DIR/$f; done
+    echo "source $CONFIG_DIR/.bashrc" > .bashrc
+    echo 'exec /bin/bash' > .profile
 
-* .bashrc
+Any .bashrc_* file in $CONFIG_DIR will be sourced.
 
-* .gitconfig
-
-* .inputrc
-
-* .vimrc
-
-* .tmux.conf
-
-   for f in .bashrc .gitconfig .inputrc .vimrc; do ln -s linux_configuration/$f; done
-   echo 'exec /bin/bash' > .profile
-
-To use **screen**, create a *~/.use_screen* file. Similarly, you can create *~/.use_tmux*.
-
-As an alternative setup, you can source the versioned .bashrc from your own ~/.bashrc :
-
-    source /path/to/.bashrc
-
-    alias a=alias # added alias
-
-Any other .bashrc_* file in the same directory will be sourced.
+To use **screen**, create an empty *~/.use_screen* file. Similarly, you can create *~/.use_tmux*.
 
 The .zshrc file is here to invoke _bash_ even if _zsh_ is the default shell.
 
+<!--
 #### ToDo ####
 
 Move all .* files in a subdir.
+-->

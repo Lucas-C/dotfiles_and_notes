@@ -548,6 +548,9 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
+ldapsearch -LLL -u -x "(uid=$username)"   
+ldapsearch -x -d 1 # simple command for basic diagnosis
+    
 iptables -A INPUT -s $host -j DROP
 iptables -A INPUT -p tcp -m tcp --dport 8888 -j ACCEPT
 iptables -nvL --line-numbers # Also: iptables-save

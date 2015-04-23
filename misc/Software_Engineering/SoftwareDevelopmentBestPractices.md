@@ -231,6 +231,7 @@ cf. [Functional Programming Patterns]
     * [Planning Fallacy](//en.wikipedia.org/wiki/Planning_fallacy)
     * [Belief bias](//en.wikipedia.org/wiki/Belief_bias)
     * [Confirmation bias](//en.wikipedia.org/wiki/Confirmation_bias) & [Experimenter's bias](//en.wikipedia.org/wiki/Experimenter%27s_bias)
+    * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy)
 
 ### The Ten Commandments of Egoless Programming
 - Understand and accept that you will make mistakes.
