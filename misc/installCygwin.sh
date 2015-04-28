@@ -16,7 +16,7 @@ if [ "$(stat -c '%U' /proc)" != "$USER" ]; then
 fi
 
 lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
-install apt-cyg ~/bin && rm apt-cyg
+install apt-cyg $BASHRC_DIR/bin && rm apt-cyg
 apt-cyg install wget
 apt-cyg install bind curl git make python rlwrap unzip vim
 
