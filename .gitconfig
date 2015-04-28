@@ -87,8 +87,8 @@
 	filemode = false
 
 [user]
-    name = Lucas Cimon
-    email = lucas.cimon@gmail.com
+	name = LCM
+	email = LCimon.prestataire@voyages-sncf.com
 [credential]
 	helper = cache --timeout=3600
 [merge]

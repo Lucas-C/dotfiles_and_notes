@@ -5,6 +5,8 @@ eval $(dircolors ~/.dir_colors)
 
 unfuncalias touch
 
+alias java_home_win_exec='JAVA_HOME=$(cygpath -w "$JAVA_HOME") '
+
 alias psf='ps -ef'
 alias sudo='cygstart --action=runas'
 
