@@ -30,7 +30,7 @@ done; unset f
 #------
 if [ -r ${BASHRC_DIR}/.bash_dirs ]; then
     for pass in one two; do
-        while read unexDir; do
+        while read unexDir; do # last line won't be read if file does not end with a newline
             dir=$(eval echo "${unexDir}")
             export "$dir"
             eval alias ${dir/=/=\'cd \"}\"\'

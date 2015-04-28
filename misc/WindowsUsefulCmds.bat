@@ -3,6 +3,11 @@
 F8 at start-up &:: Safe mode / Mode sans echec
 F7 in cmd.exe -> history &:: BUT better use Cmder or at least PowerShell ISE
 
+<CMD>+Left/Right &:: Vertically maximize a windows on the side
+<CTRL>+<ALT>+<UP> &:: Invert screen upside down
+
+cmd /c mklink &:: call cmd.exe builtins, e.g. the symlinker
+
 where %cmd% &:: 'which' equivalent
 ipconfig /displaydns
 
@@ -22,7 +27,7 @@ dir %WINDIR%\Microsoft.Net\Framework\v* /O:-N /B &:: Check .NET version
 icacls * /T /Q /C /RESET &:: reset files permissions
 :: Default .dll owner : NT SERVICE\TrustedInstaller
 
-pskill, pslist, TCPView... &:: Sysinternals Process Utilities
+junction (directory symbolic links), pskill, pslist, TCPView... &:: Sysinternals Process Utilities
 handle.exe -a | grep ': Key\|pid:' | grep 'COMPONENTS\|pid:' | grep -B1 'COMPONENTS' &:: Find all PIDs of processes using RegKeys containing 'COMPONENTS'
 
 ::: Usual cleanup steps
@@ -75,3 +80,13 @@ for /l %%x in (1, 1, 100) do echo %%x
 for /r %%f in (file_A file_B) do if exist "%%f" echo %%f &:: paths are relative to the local dir
 for /f "delims=" %%l in (%file%) do set /a counter+=1 &:: /a => evaluate numeric expression
 for /f "tokens=1,* delims=:" %%i in ('findstr /n /r . file.txt') do if %%i geq 10 if %%i leq 20 echo %%j
+
+attrib filename +s +h &:: Set as hidden file
+bitsadmin /transfer Prank /download /priority normal http://someurl.com %PWD%
+start "webpage name" "http://someurl.com" &:: open with default browser
+
+:foo   - here starts a function identified by its label
+echo.  FOO
+goto:eof
+
+call:foo
