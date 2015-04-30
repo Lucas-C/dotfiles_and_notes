@@ -215,6 +215,8 @@ collections.Counter([...]).most_common(1) # dict subclass for integer values
 unique_id_map = collections.defaultdict(itertools.count().next) # will always return the same unique int when called on an object: unique_id_map['a'] == unique_id_map['a'] != unique_id_map['b']
 iterutils.windowed, iterutils.Chunked # iteration from mahmoud/boltons
 
+pyrsistent PVector, PMap, PSet, Precord, PClass, PBag, PList, Pdeque
+
 DanielStutzbach/blist > std list # kind of a rope
 pyropes # rope: binary tree-based data structure for efficiently storing and manipulating a very long string
 bitarray # array of booleans
@@ -318,7 +320,7 @@ def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # o
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
 
 nicolaiarocci/cerberus # validation tool for dictionaries, e.g. type checking
-
+pyrsistent PMap and PREcord  # immutable/functional with invariants and optional types
 
 """""""""""""""""""
 "" Quirks & Gotchas

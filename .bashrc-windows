@@ -50,8 +50,9 @@ freeplane () {
 
 unfuncalias nav
 nav () {
-    DIR=$PWD/$1
-    explorer /select,$(cygpath -w $DIR/$(ls $DIR | head -1))
+    local dir="$1"
+    [[ $dir == /* ]] || dir="$PWD/$dir"
+    explorer /select,$(cygpath -w "$dir/$(ls "$dir" | head -1)")
 }
 
 zip () {
