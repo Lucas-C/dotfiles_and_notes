@@ -90,3 +90,10 @@ echo.  FOO
 goto:eof
 
 call:foo
+
+
+'''''''''''''
+'' VBScript
+'''''''''''''
+WScript.CreateObject("WScript.Shell").SendKeys "^%{DOWN}"
+CreateObject("SAPI.SpVoice").speak "Hello"

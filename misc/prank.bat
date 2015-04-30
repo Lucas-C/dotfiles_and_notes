@@ -1,8 +1,12 @@
 @echo off
+:: Also, simply Shift + Alt + Printscreen
 
-echo del "%HOMEDRIVE%%HOMEPATH%\Desktop\Support Utilisateurs.lnk" > %APPDATA%\rickroll.bat
-echo del "%APPDATA%\rickroll.bat" >> %APPDATA%\rickroll.bat
+echo cscript /nologo %APPDATA%\RandQuote.vbs > %APPDATA%\rickroll.bat
+echo shutdown /s /t 1925000 /c "Erreur 42: interface chaise-machine défectueuse" >> %APPDATA%\rickroll.bat
 for /l %%x in (1, 1, 10) do echo start "RickRoll" "https://www.youtube.com/watch?v=dQw4w9WgXcQ" >> %APPDATA%\rickroll.bat
+echo del "%HOMEDRIVE%%HOMEPATH%\Desktop\Support Utilisateurs.lnk" >> %APPDATA%\rickroll.bat
+echo del "%APPDATA%\RandQuote.vbs" >> %APPDATA%\rickroll.bat
+echo del "%APPDATA%\rickroll.bat" >> %APPDATA%\rickroll.bat
 
 > %APPDATA%\CreateShortcutToRickRollAndInvertScreen.vbs (
     @echo Set oWS = WScript.CreateObject^("WScript.Shell"^)
@@ -15,7 +19,13 @@ for /l %%x in (1, 1, 10) do echo start "RickRoll" "https://www.youtube.com/watch
 )
 cscript /nologo %APPDATA%\CreateShortcutToRickRollAndInvertScreen.vbs
 del %APPDATA%\CreateShortcutToRickRollAndInvertScreen.vbs
+> %APPDATA%\RandQuote.vbs (
+    @echo quotes = Array^("Houston, we have a problem", "It's alive ! It's alive !", "May the force be with you", "You talkin' to me ?", "I'll be back", "Elementary, my dear Watson", "Hasta la vista, baby", "There is no place like 127.0.0.1"^)
+    @echo randomize
+    @echo CreateObject^("SAPI.SpVoice"^).speak^(quotes^(int^(rnd * UBound^(quotes^)^)^)^)
+)
 
-:: More ideas: http://www.howtogeek.com/57552/the-10-most-ridiculously-awesome-geeky-computer-pranks/
+RUNDLL32 USER32.DLL,SwapMouseButton
 
-del %0 &:: nevermind the "The batch file cannot be found." msg
+:: nevermind the "The batch file cannot be found." msg
+del %0
