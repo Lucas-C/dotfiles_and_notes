@@ -1,11 +1,12 @@
 #!/usr/bin/env python2.7
+# Blog post: https://chezsoi.org/lucas/blog/2015/04/19/en-django-tips/
 # Initial idea from http://stackoverflow.com/a/1843657/636849
 import os, django, errno, glob, sys
 from StringIO import StringIO
 from colorama import Fore, Style
 from django.core.handlers.wsgi import WSGIRequest
 from django.template import RequestContext
-from django.template.loader import Context, get_template
+from django.template.loader import get_template
 from django.template.base import VariableNode
 from django.template.defaulttags import ForNode
 from django.template.loader_tags import ExtendsNode, IncludeNode

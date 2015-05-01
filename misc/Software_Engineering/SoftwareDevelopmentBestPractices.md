@@ -67,7 +67,7 @@ DTO/DAO:
 On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/1481](http://imgs.xkcd.com/comics/api.png), [How to design a rest API]
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 + similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG...
-+ Swagger framework / representation for RESTful APIs
++ representation for RESTful APIs: Swagger / RAML / API Blueprint
 
 On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity] : they add moving parts and interdependencies
 

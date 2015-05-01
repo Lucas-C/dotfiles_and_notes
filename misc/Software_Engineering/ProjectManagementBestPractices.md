@@ -14,6 +14,7 @@ Project management best practices
 - [ThoughbotPlaybook](http://playbook.thoughtbot.com)
 - [OnUseCasesAndUserStories](http://www.batimes.com/articles/user-stories-and-use-cases-dont-use-both.html)
 - [ChooseBoringTechnology](http://mcfunley.com/choose-boring-technology)
+- [RetrospectiveWiki](retrospectivewiki.org/index.php?title=Main_Page)
 
 ## Choosing the right techno
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
@@ -22,11 +23,11 @@ Project management best practices
     - "Your job is keeping the company in business, god damn it. And the "best" tool is the one that occupies the "least worst" position for as many of your problems as possible. It is basically always the case that the long-term costs of keeping a system working reliably vastly exceed any inconveniences you encounter while building it. Mature and productive developers understand this."
     - "Technology for its own sake is snake oil"
 - compare projects on their maturity / current activity & liveliness / community :
-	#commits
+	commits count
 	creation date
 	last commit date
-	#issues
-	#contributors
+	issues count
+	contributors count
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]
@@ -54,6 +55,9 @@ Project management best practices
     * do if enough time: live prototype, animation
 - maintain a project glossary [PP]. Document the vocabulary used in the domain and shared with clients, to avoid ambiguity (from [ThoughbotPlaybook])
 - Agile recommend using user stories over UML use cases (that can be drawn with e.g. PlantUML). Use cases are NOT a form a requirements, just an illustration of them. They are NOT Agile, user stories are. Cf. [OnUseCasesAndUserStories]
+
+## Agile
+Retrospectives: cf. [RetrospectiveWiki
 
 ### Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.
@@ -87,6 +91,11 @@ The smallest unit of work that has value for our customers
 - To evaluate a project progress : SEMAT Essence (Software Engineering Method and Theory)
 cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
 ![](http://semat.org/wp-content/uploads/2013/03/spiral.png)
+
+### Méthodologies
+- CMMI = Capability Maturity Model Integration
+- RUP = Rational Unified Process, and its lightweight Agile version: OpenUP
+- 2TUP = 2 Tracks Unified Process, aka cycle en Y
 
 ## User-testing
 - User Interviews & Usability Testing: cf. [ThoughbotPlaybook]

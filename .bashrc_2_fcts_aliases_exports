@@ -117,7 +117,7 @@ if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
 fi
 
 alias tF='tail -F'
-if less -F +q /etc/hosts 2>/dev/null; then
+if less --help | grep -q '\-F'; then
 	alias tF='less +F'      # Alt: less + SHIFT-F - http://www.brianstorti.com/stop-using-tail
 fi
 
