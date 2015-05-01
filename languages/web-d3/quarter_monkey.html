@@ -48,7 +48,7 @@ var diagonal = d3.svg.diagonal()
 if (!String.prototype.format) {
     String.prototype.format = function() {
         var args = arguments;
-        return this.replace(/{(\d+)}/g, function(match, nbr) { 
+        return this.replace(/{(\d+)}/g, function(match, nbr) {
             return typeof args[nbr] != 'undefined' ? args[nbr] : match;
         });
     };
@@ -79,7 +79,7 @@ function create_display() {
 
 function update_display(tree, vis_tree) {
     var svgContainer = d3.select("#canvas");
-    
+
     var firstNode = true;
     var origPos = {};
     svgContainer.selectAll(".node").each(function(node) {
@@ -95,7 +95,7 @@ function update_display(tree, vis_tree) {
     if (max_depth <= 2) {
         nodes.forEach(function(d) { d.y = d.depth * SVG_HEIGHT / 3; });
     } else {
-        nodes.forEach(function(d) { d.y = d.depth * SVG_HEIGHT / max_depth; }); 
+        nodes.forEach(function(d) { d.y = d.depth * SVG_HEIGHT / max_depth; });
     }
     d3.select("label").text(max_depth);
 
@@ -191,7 +191,7 @@ function compute_primes_starting_with(nbr) {
     return primes;
 }
 function isPrime(n) {
-    if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false; 
+    if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false;
     if (n==leastFactor(n)) return true;
     return false;
 }
@@ -201,12 +201,12 @@ function isPrime(n) {
 //      0  if n=0
 //      1  if n=1, n=-1, or n is not an integer
 function leastFactor() {
-    if (isNaN(n) || !isFinite(n)) return NaN;  
-    if (n==0) return 0;  
+    if (isNaN(n) || !isFinite(n)) return NaN;
+    if (n==0) return 0;
     if (n%1 || n*n<2) return 1;
-    if (n%2==0) return 2;  
-    if (n%3==0) return 3;  
-    if (n%5==0) return 5;  
+    if (n%2==0) return 2;
+    if (n%3==0) return 3;
+    if (n%5==0) return 5;
     var m = Math.sqrt(n);
     for (var i=7;i<=m;i+=30) {
         if (n%i==0)      return i;

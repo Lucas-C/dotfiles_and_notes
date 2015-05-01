@@ -45,7 +45,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - " Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
 - Tony Hoare null "billion-dollar mistake"
 
-## Design principles 
+## Design principles
 where "Design" = Architecture / Organisation of the software logic
 
 SE = software entity : class, module, function...

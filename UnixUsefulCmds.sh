@@ -280,7 +280,7 @@ logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call
 # !! $@ not supported if < v.7.5
 
 echo -e "00 00 * * * $USER cmd >> cmd.log 2&>1\n" | sudo tee /etc/crond.d/crontask # don't forget the newline at the end, don't use % symbols, don't put a dot '.' in its filename, use 644 permissions owned by root, and note that the $USER arg is not present in /etc/crontab files
-sudo grep crontask /var/log/cron.log 
+sudo grep crontask /var/log/cron.log
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
 while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick - Alt: ayancey/dirmon
@@ -445,7 +445,7 @@ umask # Control the permissions a process will give by default to files it creat
 setfacl -Rm u:"$user":rwx "$HOME/$dir" && setfacl -Rm d:u:"$user":rwx "$HOME/$dir" # Selectively gives access to another user - Also: getfacl
 sudo chattr +i [-R] $file # Forbid file deletion - To check a file attributes: lsattr. Also: getfattr/setfattr
 
-tune2fs # control extX file system parameters, e.g. reclaim disk space reserved to root 
+tune2fs # control extX file system parameters, e.g. reclaim disk space reserved to root
 debugfs -R "stat <$(ls -i $file | awk '{print $1}')>" $(df $file | tail -n 1 | awk '{print $1}') # Get $file creation time ('crtime') on ext4 filesystems
 
 # Bring back deleted file from limbo (ONLY if still in use in another process)
@@ -548,9 +548,9 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
-ldapsearch -LLL -u -x "(uid=$username)"   
+ldapsearch -LLL -u -x "(uid=$username)"
 ldapsearch -x -d 1 # simple command for basic diagnosis
-    
+
 iptables -A INPUT -s $host -j DROP
 iptables -A INPUT -p tcp -m tcp --dport 8888 -j ACCEPT
 iptables -nvL --line-numbers # Also: iptables-save
@@ -681,7 +681,7 @@ traceroute $ip
  =SYSTEM=
 -%-%-%-%-%-
 
-powertop # diagnose issues with power consumption 
+powertop # diagnose issues with power consumption
 sysctl
 
 cat /etc/*-release
@@ -970,7 +970,7 @@ tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
 barcode -b "Hello World !" -o out.ps && convert out.ps -trim out.png
 pngquant ## 70% lossy compression
-jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs 
+jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs
 identify -verbose $jpg | grep -Fq 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg
 mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata
 feh -F -d -D 3 --cycle-once * # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
@@ -1031,7 +1031,7 @@ http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdat
 /server list[full] [server]
 /connect freenode
 /nick dr_max_kurt
-/join #laquadrature 
+/join #laquadrature
 /set irc.server.freenode.autoconnect on
 /set irc.server.freenode.nicks "dr_max_kurt"
 /set irc.server.freenode.sasl_ ...

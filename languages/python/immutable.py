@@ -18,7 +18,7 @@ def recur_freeze_containers(mutable_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
     elif is_set(mutable_obj):
         return frozenset(mutable_obj)
     elif isinstance(mutable_obj, ignoredtypes):
-        return mutable_obj 
+        return mutable_obj
     else:
         raise TypeError("Cannot freeze {!r} of unsupported data type {}".format(mutable_obj, type(mutable_obj)))
 
@@ -45,7 +45,7 @@ def recur_unfreeze_containers(frozen_obj, ignoredtypes=_PYTHON_PRIMITIVE_TYPES):
     elif is_set(frozen_obj):
         return set(frozen_obj)
     elif isinstance(frozen_obj, ignoredtypes):
-        return frozen_obj 
+        return frozen_obj
     else:
         raise TypeError("Cannot unfreeze {!r} of unsupported data type {}".format(frozen_obj, type(frozen_obj)))
 
@@ -85,7 +85,7 @@ def freeze_dict(original_dict):
         original_dict = dict(original_dict)
     for key in _DICTPROXY_EXTRA_KEYS:
         if key in original_dict:
-            raise ValueError("frozendict cannot contain '{}' as a key (blacklisted keys : {})".format(key, _DICTPROXY_EXTRA_KEYS)) 
+            raise ValueError("frozendict cannot contain '{}' as a key (blacklisted keys : {})".format(key, _DICTPROXY_EXTRA_KEYS))
     dict_proxy = type('',(),original_dict).__dict__
     class TmpFrozenDict(Mapping):
         def __getitem__(self, key):

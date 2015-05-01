@@ -18,7 +18,7 @@ Test set membership aka sketching data structures:
 (Frugal) streaming algorithms:
 - Space-efficient quantiles computation / moving_window median algorithms
     * [Space-Efficient Online Computation of Quantile Summaries](http://infolab.stanford.edu/~datar/courses/cs361a/papers/quantiles.pdf)
-    * [Quantiles on Streams](http://www.cs.ucsb.edu/~suri/psdir/ency.pdf) 
+    * [Quantiles on Streams](http://www.cs.ucsb.edu/~suri/psdir/ency.pdf)
     * [Some moving window median algos comparison](https://github.com/kwgoodman/roly) in Python, including a double heap solution
 
 Succint data structures: use an amount of space that is "close" to the information-theoretic lower bound but still allow for efficient query operations, by encoding data very efficiently in-place, so that it does not need to be decompressed to be used.

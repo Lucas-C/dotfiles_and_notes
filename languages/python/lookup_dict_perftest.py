@@ -1,4 +1,4 @@
-import cProfile 
+import cProfile
 from immutable import freeze_dict
 
 def init_dict(obj_count):
@@ -32,10 +32,10 @@ for obj_count in (100000, 1000000):
     sl = init_classSlot(obj_count)
     print  "Measuring '__slots__' based class lookup perfs"
     cProfile.run("lookup_classSlot(sl, %i)"%obj_count)
-    dp = type('',(),d).__dict__ 
+    dp = type('',(),d).__dict__
     print  "Measuring dictproxy lookup perfs"
     cProfile.run("lookup_dict(dp, %i)"%obj_count)
-    di = freeze_dict(d) 
+    di = freeze_dict(d)
     print  "Measuring frozen dict lookup perfs"
     cProfile.run("lookup_dict(di, %i)"%obj_count)
 

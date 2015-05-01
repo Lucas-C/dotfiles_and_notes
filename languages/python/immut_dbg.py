@@ -4,7 +4,7 @@
 
     On objects, it replaces their class by an almost entirely identical one,
     with its setters triggering an error.
-    
+
     HOWEVER, for frozen objects:
         type(frozen_o) != type(orig_o)
         not isinstance(frozen_o, orig_o.__class__)

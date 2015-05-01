@@ -78,7 +78,7 @@ http://www.postgresql.org/docs/current/interactive/app-psql.html#APP-PSQL-META-C
 
     \? # and \h $cmd
     \dt+ # list tables - There are many other \d... commands
-    \x auto # expanded display mode - \x on for v<9.2 
+    \x auto # expanded display mode - \x on for v<9.2
 
 ### NoSQL DBs
 
