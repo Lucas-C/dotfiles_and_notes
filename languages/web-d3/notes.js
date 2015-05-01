@@ -160,7 +160,7 @@ requestAnimationFrame > setInterval OR setTimeout // For smart animating, recomm
 (0 === -0) && (0 === +0) // positive/negative zeros just equal 0
 
 if (new Boolean(false)) // not 'false' because this is an object wrapper !
-// The only false values are NaN, false, 0, null, undefined, and ''. 
+// The only false values are NaN, false, 0, null, undefined, and ''.
 // One can use 'Boolean' without 'new' to properly convert any value to its matching boolean value
 // That's because calling primitive wrapper constructors without new returns primitive values
 
@@ -249,7 +249,7 @@ fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
 node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/3944507 - Browser -> $host:8080/debug?port=5858 - Need the following iptables rules:
 // for chain in INPUT OUTPUT; do iptables -A $chain -p tcp -m tcp --dport 8080 -j ACCEPT; done
 
-plato // source code visualization, static analysis, and complexity tool 
+plato // source code visualization, static analysis, and complexity tool
 FGRibreau/check-build // includes:
     ESLint > JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
     JSCS // code style checker

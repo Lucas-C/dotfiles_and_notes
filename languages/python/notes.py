@@ -308,7 +308,7 @@ dict(y, **x) # union of dicts, duplicates are resolved in favor of x
 class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
-def Tree(): # fs = Tree(); fs['all']['the']['way']['down'] 
+def Tree(): # fs = Tree(); fs['all']['the']['way']['down']
     return defaultdict(Tree)
 
 ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
@@ -768,7 +768,7 @@ pyexiv2 # images EXIF manipulation
 EasyDialogs, optparse_gui, EasyGui > Tkinter
 
 urwid # console user interface lib
-code.InteractiveConsole().interact() # interactive python prompt 
+code.InteractiveConsole().interact() # interactive python prompt
 pyreadline, readline, rlcompleter
 termcolor, colorama # cross-platform colored terminal text
 tqdm # KISS progress bar

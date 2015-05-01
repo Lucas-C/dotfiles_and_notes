@@ -2,7 +2,7 @@
 if (!String.prototype.format) {
     String.prototype.format = function() {
         var args = arguments;
-        return this.replace(/{(\d+)}/g, function(match, nbr) { 
+        return this.replace(/{(\d+)}/g, function(match, nbr) {
             return typeof args[nbr] != 'undefined' ? args[nbr] : match;
         });
     };
@@ -44,7 +44,7 @@ function save_inputs_to_file() {
     var answers_list = get_all_input_values();
     var date_str = (new Date()).toString()
     var answers = {answers:answers_list, date:date_str}
-    
+
     // Prompt user to save the file
     location.href = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(answers));
     // The .bin file can then be pretty-printed with 'python -mjson.tool'

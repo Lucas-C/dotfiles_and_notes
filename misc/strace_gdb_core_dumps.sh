@@ -42,7 +42,7 @@ add-auto-load-safe-path $(locate python-gdb.py)
 ## Persistent history
 set history save
 set history filename ~/.gdb_history
-## Colored prompt, trick src: http://dirac.org/linux/gdb/ - Alt: http://reverse.put.as/gdbinit/ 
+## Colored prompt, trick src: http://dirac.org/linux/gdb/ - Alt: http://reverse.put.as/gdbinit/
 set prompt \001\033[1;32m\002(gdb)\001\033[0m\002\040
 END
 sudo chown root:root ~/.gdbinit
@@ -83,7 +83,7 @@ end
 (gdb) where [full] // aka 'backtrace'
 (gdb) up/down // also: 'frame $frame_id'
 (gdb) call foo(42) // also: 'jump $position'
-(gdb) return [$value] 
+(gdb) return [$value]
 (gdb) kill
 (gdb) directory path/to/src/files/dir // link debug symbols with relative paths to source files - For absolute paths: substitue-path
 (gdb) macro expand / info macro // require make KCFLAGS=-ggdb3

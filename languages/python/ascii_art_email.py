@@ -28,7 +28,7 @@ def send_emails(from_user, to_user, username, password, servername, subject_alte
         msg.attach(MIMEText(html_body, 'html'))
         server.sendmail(from_user, to_user, msg.as_string())
     server.quit()
-    
+
 def ascii_lines_generator(image_name, height, width):
     screen = aalib.AsciiScreen(width=width, height=height)
     image = Image.open(image_name).convert('L').resize(screen.virtual_size)

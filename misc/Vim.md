@@ -109,5 +109,5 @@ More tips
 - *:set spell spelllang=fr* : enable vim 7.0+ spell checker
 - *vimtutor*
 - *ggg?G* : rot13 whole file
-- :help!  - :help 42  - :help bar  -  :help holy-grail  -  :Ni! 
+- :help!  - :help 42  - :help bar  -  :help holy-grail  -  :Ni!
 
