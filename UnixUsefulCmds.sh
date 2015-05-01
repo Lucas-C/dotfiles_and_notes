@@ -279,7 +279,7 @@ mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken
 logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
 # !! $@ not supported if < v.7.5
 
-echo -e "00 00 * * * $USER cmd >> cmd.log 2&>1\n" | sudo tee /etc/crond.d/crontask # don't forget the newline at the end, don't use % symbols, don't put a dot '.' in its filename, use 644 permissions owned by root, and note that the $USER arg is not present in /etc/crontab files
+echo -e "00 00 * * * $USER cmd >> cmd.log 2&>1\n" | sudo tee /etc/cron.d/crontask # don't forget the newline at the end, don't use % symbols, don't put a dot '.' in its filename, use 644 permissions owned by root, and note that the $USER arg is not present in /etc/crontab files
 sudo grep crontask /var/log/cron.log
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation

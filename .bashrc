@@ -10,7 +10,7 @@ set -o pipefail
 
 stty -ixon # disable C-s & C-q being caught by 'flow control' artifact feature
 
-if readlink -f ${BASH_SOURCE[0]} >/dev/null 2>&1; then
+if readlink -f ${BASH_SOURCE[0]} >/dev/null 2>&1; then  # if 'readlink' command exists
     export BASHRC_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}" )" )"
 else
     export BASHRC_DIR="$(builtin cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"

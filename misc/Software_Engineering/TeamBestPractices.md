@@ -45,7 +45,7 @@ cf. [#gamedev Lead Quick Start Guide]
 How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [MVB] + [TrekOps] + [MAPP] on trust, autonomy & Agile methods in Michelin
 - write down team tenets as guidelines for priorities
 - define clear team goals with deadlines
-- build a team brand: catching name, logo, slogan... [PP]
+- build a team brand: catchy name, logo, slogan... [PP]
 - small is good: 2-pizzas team
 - make decisions based on data
 - allocate some hack time
@@ -105,13 +105,14 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
     * trouble is, documentation goes out of date -> _instrumentation_ reflects the reality of the system as it exists
     * it is possible to have too little info, or too much, or present it badly
 - minimum doc: how to install, how to create and ship changes, roadmap, changelog, glossary, where to get help
-- wiki are great !
+- wiki are great ! cf. "Lessons Learned" of AOSA chapter on SocialCalc: "I was able to catch up and start contributing in less than a week, simply due to the fact that **everything is in the wiki**"
     * store meeting notes, tasks list, team & members pages, build processes, design docs, software architecture diagrams...
     * + use it to share useful links, and try to encourage using this instead of individual bookmarks
     * ++ Ops Docs !
     * +++ DASHBOARD !! But dont create [ShittyDashboards]
     * include the wiki as part of task processes : sprints, ops, deployments...
     * get a leader whose goal is to motivate & educate others
+    * templaaaaates are awesome. Alt: script page generation (e.g. for dashboards depending on parameters: IP, hostnames...)
 - use Doxygen / Docurium for code documentation
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
 
@@ -120,6 +121,7 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
 - assign a "buddy" in the team & a "mentor" in the company
 
 ## Recruiting
+- prebrief, debrief, assigned competences, bar raiser
 - codility.com & cie
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [5EPSQ]
 - STAR -> Probe -> Chalenge

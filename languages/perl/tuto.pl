@@ -420,6 +420,9 @@ sub AUTOLOAD {
 
 # Perl Archiver to bundle dependancies : http://perltraining.com.au/tips/2008-05-23.html
 
+Devel:NYTProf # per-function, per-line, per-block  & per-opcode profiler with call-graph visualiation provided by nytprofcg
+Perl DTrace # real-time stats on function entry & exit
+
 # Switch (given and when) 
 
 # http://www.perl.com/pub/2007/06/07/better-code-through-destruction.html
