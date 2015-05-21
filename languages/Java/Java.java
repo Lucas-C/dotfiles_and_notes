@@ -42,6 +42,7 @@ Jersey // RESTful Web Services
 OpenJDK JMH // Benchmark tool
 
 Buildr, Fradle > ant, maven // build systems
+mvn dependency:tree -Dverbose
 
 sudo update-alternatives --config java
 
@@ -118,6 +119,11 @@ import java.lang.reflect.Method;
 java.lang.refect.Constructor.newInstance > MyClass.newInstance // it can throw undeclared checked exceptions !
 
 // Methods/attribute privacy only true at compile time : if one recompile a class into bytecode with all private, it will still work !
+
+Map<String , Object> params = new HashMap<String , Object>() {{
+    put("A", 42);
+    put("b", null);
+}};
 
 // Google Guava, + cf. Concurrency.md
 Optional<> : Optional.of(...), Optional.absent(), opt.isPresent(), opt.get()

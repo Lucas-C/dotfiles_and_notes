@@ -2,15 +2,19 @@
 
 HTML section to include:
 
+    <link rel="stylesheet" href="css/theme/moon.css" id="theme"><!-- Choices: Black (default) - White - League - Sky - Beige - Simple Serif - Night - Moon - Solarized -->
+    
     <div class="slides">
-        <section data-markdown="../reveal.js.md" data-separator="^\n\n\n" data-vertical="^\n\n" data-notes="^Note:" data-charset="iso-8859-15"/>
+        <section data-markdown="../reveal.js.md" data-separator="^\n\n\n" data-vertical="^\n\n" data-notes="^Note:" data-charset="iso-8859-15"/><-- Or: utf-8 -->
     </div>
 
     Reveal.initialize({
-        slideNumber: true,
-
-        theme: 'night',
         transition: 'none',
+        progress: true,
+        slideNumber: false,
+        controls: false,
+        history: true,
+        center: true,
 
 
 
@@ -45,7 +49,7 @@ _&lt;em&gt;mphasized text_
 <ul>
     <li class="fragment">Press 's' to open speaker-notes pop-up window</li>
     <li class="fragment">Press ESC to enter the slide overview</li>
-    <li class="fragment">Press 'b' to fade out to blac screen</li>
+    <li class="fragment">Press 'b' to fade out to black screen</li>
     <li class="fragment">Change the background on a slide: <code>data-background="#007777"</code></li>
     <li class="fragment">[PDF export instructions](https://github.com/hakimel/reveal.js#pdf-export) using Chrome, + append 'index.html?print-pdf' and scroll to the end before printing</li>
     <li class="fragment">[Online visual editor](http://slid.es)</em></li>

@@ -14,13 +14,17 @@ ipconfig /displaydns
 powercfg -h off/on &:: as admin, delete hiberfil.sys
 schtasks &:: task scheduler
 msinfo32 &:: info composants
-services.msc &:: Services windows
 magnify.exe &:: Loupe
 clipbrd.exe &:: Display clipboard
 regsvr32 %dll_file% &:: register dll
 vssadmin list shadows &:: list available Volume Shadow Copies aka restore points, cf. http://superuser.com/a/165576)
+services.msc &:: Services windows
+
+nssm64.exe edit service_name &:: then nssm64.exe start service_name - Powerful wrapper around builtin sc create service_name binpath= c:\bla\bla\bla.exe start= auto type= own
 
 robocopy "C:\Source" "E:\Destination" /E /PURGE &:: Backup
+
+psr &:: builtin users action recorder - Also: LICEcap to record actions as a GIF
 
 dir %WINDIR%\Microsoft.Net\Framework\v* /O:-N /B &:: Check .NET version
 

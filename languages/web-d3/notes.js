@@ -118,6 +118,7 @@ function isNumber(n) {
 // Watch property changes
 var o = { foo:42 };
 o.watch('foo', function (id, oldval, newval) { ... });
+document.location.watch('hash', console.trace)
 o.foo = "42";
 // Define getter - Alt: Object.defineProperty(window, "myVariable", { get: function () { ...
 o.__defineGetter__('x', function(){ return 7 } ) // one can even o.__lookupGetter__
@@ -255,7 +256,7 @@ FGRibreau/check-build // includes:
     JSCS // code style checker
     jsinspect // check for code duplication
     buddy.js // detect magic numbers
-    David // check for package updates
+    David // check for package updates - Also, equivalent for bower: bower list
     Nsp // detect security vulnerabilities
 
 karma-runner/karma > JsTestDriver > Qunit // Testing libs

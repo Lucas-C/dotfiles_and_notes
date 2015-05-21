@@ -255,6 +255,7 @@ cf. [Functional Programming Patterns]
     sort -rn |
     sed ${1}q
 - "The bearing of a child takes nine months, no matter how many women are assigned. Adding manpower to a late software project makes it later." Fred Brooks - "The Mythical Man-Month"
+- "Hofstadter's Law: It always takes longer than you expect, even when you take into account Hofstadter's Law" - GEB
 - "Programmers always confuse Halloween with Christmas because Oct 31 == Dec 25"
 - "La Cathédrale et le Bazar" - Essai on Open Source & Proprietary Software
 - the phrase software "patch" is from a physical patch applied to Mark 1 paper tape to modify the program: https://chezsoi.org/lucas/ThePatch.jpg

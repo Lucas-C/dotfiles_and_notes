@@ -14,7 +14,8 @@ Project management best practices
 - [ThoughbotPlaybook](http://playbook.thoughtbot.com)
 - [OnUseCasesAndUserStories](http://www.batimes.com/articles/user-stories-and-use-cases-dont-use-both.html)
 - [ChooseBoringTechnology](http://mcfunley.com/choose-boring-technology)
-- [RetrospectiveWiki](retrospectivewiki.org/index.php?title=Main_Page)
+- [RetrospectiveWiki](retrospectivewiki.org/index.php?title=Main_Page)<!--_-->
+- [TheFailureOfAgileAndGROWS](http://blog.toolshed.com/2015/05/the-failure-of-agile.html)
 
 ## Choosing the right techno
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
@@ -57,7 +58,8 @@ Project management best practices
 - Agile recommend using user stories over UML use cases (that can be drawn with e.g. PlantUML). Use cases are NOT a form a requirements, just an illustration of them. They are NOT Agile, user stories are. Cf. [OnUseCasesAndUserStories]
 
 ## Agile
-Retrospectives: cf. [RetrospectiveWiki
+[TheFailureOfAgileAndGROWS]
+Retrospectives: cf. [RetrospectiveWiki]
 
 ### Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.

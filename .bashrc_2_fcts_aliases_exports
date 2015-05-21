@@ -184,7 +184,7 @@ zgr () {
     shift
     find -L $@ -type f | xargs zg $pattern
 }
-alias ag='ag --color-path="1;35" --color-line-number 32' #E.g. --ignore=.idea --ignore=*-target -F -s $case_Sensitive_string
+alias ag='ag --color-path="1;35" --color-line-number 32 --hidden' #E.g. --ignore=.idea --ignore=*-target -F -s $case_Sensitive_string
 
 
 #-----

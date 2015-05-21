@@ -72,6 +72,7 @@ Visualization :
 The CAP theorem: Consistency, Availability, and Partition tolerance, pick at most two.
 First proposed by Eric Brewer in 1998, then proved by Gilbert and Lynch. See also ACID, BASE & [AOSA_NoSQL]
 => Daniel Abadi suggested a more nuanced classification system, PACELC
+=> also: [The CAP theorem is too simplistic and too widely misunderstood to be of much use for characterizing systems](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)
 
 ### PostgreSQL
 http://www.postgresql.org/docs/current/interactive/app-psql.html#APP-PSQL-META-COMMANDS

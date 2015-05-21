@@ -329,7 +329,7 @@ pyrsistent PMap and PREcord  # immutable/functional with invariants and optional
 
 bool(datetime.time(0,0,0)) # False
 
-# DO NOT use other default parameter values than None, + initialization is static
+# DO NOT use other default parameter values than None (or at worst an immutable datastructure), + initialization is static
 def foo(x = []):
     x.append('do')
     return x
