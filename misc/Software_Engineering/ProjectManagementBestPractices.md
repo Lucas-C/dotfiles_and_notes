@@ -17,6 +17,15 @@ Project management best practices
 - [RetrospectiveWiki](retrospectivewiki.org/index.php?title=Main_Page)<!--_-->
 - [TheFailureOfAgileAndGROWS](http://blog.toolshed.com/2015/05/the-failure-of-agile.html)
 
+### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
+- Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
+- Regrouper les gens par centre d'intérêt plutôt que par hiérarchie, créer des communautés
+- Un/des dej par semaine open avec les collaborateurs en one-to-one
+- Evolution de projet/carrière/etc. fréquente.
+- 1 journée par mois en mode "quicky/échange/etc."
+- Fêter les petites victoires comme les grandes !
+- Processus de recrutement exigent : coding, 2h de review, etc.
+
 ## Choosing the right techno
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
 - [ChooseBoringTechnology] :

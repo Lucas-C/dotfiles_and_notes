@@ -683,7 +683,7 @@ from getpass import getpass # get password without echoing it
 
 lz4, bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp # to unpack any archive
 archive = zipfile.ZipFile('foo.zip', mode='w')
-for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy
+for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy - And benhoyt/scandir is faster and now in the Python 3.5 stdlib
     for name in files:
         archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
 

@@ -28,7 +28,7 @@ JContractS (formerly iContract), cofoja // Design By Contract libs
 checkstyle, findbugs, google/error-prone // code checking tools
 cobertura // code coverage
 jdb // debugger
-javap, JD // .class dissassembler & Java decompiler, include a GUI
+javap, JD // .class dissassembler & Java decompiler, include a GUI + cf. https://developer.jboss.org/people/ozizka/blog/2014/05/06/java-decompilers-a-sad-situation-of
 Konloch/bytecode-viewer // Bytecode viewer, decompiler & debugger
 jmap -histo:live <pid> // Object-type histogram on a running jvm
 
@@ -156,6 +156,27 @@ static enum Action {
 }
 EnumSet.range() .allOf() .clone() .removeAll() .size()
 
+// Infinite Java generator
+public static Iterator<Pin> dummyPinGenerator() {
+    return new Iterator<Pin>() {
+        private SecureRandom random = new SecureRandom(DUMMY_GENERATOR_SEED);
+        @Override
+        public boolean hasNext() { return true; }
+        @Override
+        public Pin next() {
+            String str = new BigInteger(130, random).toString(32);
+            return new Pin("dummy-" + str, "http://" + str + ".com", "", str, "");
+        }
+    };
+}
+// Usage with Mockito
+when(this.twitterScraper.makePin(anyString(), anyObject())).thenAnswer(new Answer<Pin>() {
+    Iterator<Pin> pinIterator = dummyPinGenerator();
+    public Pin answer(InvocationOnMock invocation) {
+        return pinIterator.next();
+    }
+});
+
 Client client = injector.getInstance(params.action.client);
 Method action = Client.class.getMethod(params.action.toString().toLowerCase());
 action.invoke(client);
@@ -231,3 +252,21 @@ Arrays.parallelSort(myArray) // break up the collection into several parts sorte
 concurrent Adders > Atomics
 SecureRandom.getInstanceStrong() // Secure random generator 
 Optional<T>
+
+// Streaming API:
+Map<String, String[]> DICT = new HashMap<String, String[]>() {{
+    put("A", new String[]{"x", "y"});
+    put("B", new String[0]);
+    put("C", new String[]{"z"});
+}};
+List<Thing> things = DICT.entrySet().stream()
+        .map(e -> makeThing(e.getKey(), Arrays.stream(e.getValue())))
+        .collect(Collectors.toList());
+// FROM & MORE AT: http://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
+IntStream.range(1, 4)
+    .mapToObj(i -> new Foo("Foo" + i))
+    .peek(f -> IntStream.range(1, 4)
+        .mapToObj(i -> new Bar("Bar" + i + " <- " f.name))
+        .forEach(f.bars::add))
+    .flatMap(f -> f.bars.stream())
+    .forEach(b -> System.out.println(b.name));
