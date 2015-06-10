@@ -16,6 +16,7 @@ Project management best practices
 - [ChooseBoringTechnology](http://mcfunley.com/choose-boring-technology)
 - [RetrospectiveWiki](retrospectivewiki.org/index.php?title=Main_Page)<!--_-->
 - [TheFailureOfAgileAndGROWS](http://blog.toolshed.com/2015/05/the-failure-of-agile.html)
+- [Les développeurs Heisenberg](http://blog.ticabri.com/blog/2015/04/21/les-developpeurs-heisenberg/) - TL;DR Vous ne pouvez pas observer un développeur sans en altérer son comportement.
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)

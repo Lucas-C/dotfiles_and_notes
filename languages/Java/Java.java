@@ -138,6 +138,16 @@ System.out.println("a" + "b"); System.out.format("a%s", "b");
 org.json.JSONObject, Argo, Gson, Jackson, JSON.simple
 JavaCC // parser generator
 
+// Apache Commons quick implementations of 'equals' & 'hashCode':
+@Override
+public boolean equals(Object obj) {
+    return EqualsBuilder.reflectionEquals(this, obj);
+}
+@Override
+public int hashCode() {
+    return HashCodeBuilder.reflectionHashCode(this);
+}
+
 static enum Action {
     PUT(ClientPut.class),
     GET(ClientGet.class),
@@ -198,14 +208,26 @@ static Settings parseCommandLineArguments(String[] args) {
     return params;
 }
 
-// Java exception handling (use only RuntimeExceptions !!)
+// Java exception handling (use only RuntimeExceptions CHILD CLASSES !!)
+public class CommandInvocationException extends RuntimeException {
+  private static final String MSG_PREFIX = "Execution failed";
+  public CommandInvocationException(String msg) {
+    super(MSG_PREFIX + " : " + msg);
+  }
+  public CommandInvocationException(String msg, Throwable cause) {
+    super(MSG_PREFIX + " : " + msg, cause);
+  }
+  public CommandInvocationException(Throwable cause) {
+    super(MSG_PREFIX, cause);
+  }
+}
 public static void main(String[] args) {
     LOG.info("{} starting with args ", PROG_NAME, Arrays.toString(args));
     try {
         run(args);
     } catch (InvocationTargetException e) {
-        throw (RuntimeException)e.getTargetException();
-    } catch (RuntimeException e) {
+        throw new CommandInvocationException(e.getTargetException());
+    } catch (CommandInvocationException e) {
         StringWriter stackTrace = new StringWriter();
         e.printStackTrace(new PrintWriter(stackTrace));
         LOG.error(stackTrace.toString());

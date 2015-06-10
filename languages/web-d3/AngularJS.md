@@ -5,6 +5,7 @@
 "Use the scope option to create isolate scopes when making **components** that you want to **reuse** throughout your app."
 
     var scope = $('div.vboardPinboard').scope()
+    var $rootScope = $(document.body).scope() // if <body> has the 'ng-app' attribute
     $('div.vboardPinboard').controller()
     scope.$$watchers // useful to debug ng-repeat perf issues
 

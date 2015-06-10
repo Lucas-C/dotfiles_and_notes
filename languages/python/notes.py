@@ -612,6 +612,7 @@ def _make_file_read_nonblocking(f):
 from gevent import monkey; monkey.patch_all() # Greenlets
 saucelabs/monocle, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
+python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 numbapro # for CUDA
 

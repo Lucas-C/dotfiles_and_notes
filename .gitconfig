@@ -27,7 +27,7 @@
     genignore = "!echo .gitignore,nohup.out,.project,.classpath,*.pyc,*.o,*.class,*~ | tr , \\\\n"
 
 # Get the full history of the changes affecting a given line, using a regular expression
-# !WARNING! git blame only returns the 1st REGEX match, if multiple matches exist the recursion may 'jump' to follow another line 
+# !WARNING! git blame only returns the 1st REGEX match, if multiple matches exist the recursion may 'jump' to follow another line
 # USAGE: git rblame -M -n -L '/REGEX/,+1' FILE
     rblame      = "!bash -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); echo $line; done' dumb_param"
     rblameshow  = "!bash -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); git show $commit; done' dumb_param"
@@ -64,16 +64,16 @@
     assume   = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
     assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
-	cp = cherry-pick
-	cl = clone
-	unstage = reset HEAD --
-	dc = diff --cached
+    cp = cherry-pick
+    cl = clone
+    unstage = reset HEAD --
+    dc = diff --cached
 
 [branch]
     autosetuprebase = always
 
 [push]
-	default = matching
+    default = matching
 
 # I don't care about whitespace changes
 [apply]
@@ -83,18 +83,17 @@
     whitespace = -blank-at-eol,-blank-at-eof
     editor = vim
     pager = less -FMRiX
-	trustctime = false
-	filemode = false
+    trustctime = false
+    filemode = false
 
-[user]
-	name = LCM
-	email = LCimon.prestataire@voyages-sncf.com
+[include]
+    path = .gitconfig_user
 [credential]
-	helper = cache --timeout=3600
+    helper = cache --timeout=3600
 [merge]
-	tool = vimdiff
+    tool = vimdiff
 [mergetool]
-	keeptemporaries = false
-	keepbackups = false
-	prompt = false
-	trustexitcode = false
+    keeptemporaries = false
+    keepbackups = false
+    prompt = false
+    trustexitcode = false

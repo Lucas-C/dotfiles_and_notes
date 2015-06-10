@@ -287,3 +287,4 @@ sweetalert // pretty replacement for 'alert'
 
 ywng/Progressive-News-Cloud, jasondavies/d3-cloud // word clouds generators
 
+esprima // JS AST manipulation: parsing, rewrite, refactoring ; + escodegen for code generation

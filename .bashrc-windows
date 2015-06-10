@@ -24,6 +24,8 @@ convertWinArgs () {
 
 alias node=cyg-node
 
+win_hosts=$(cygpath -w "C:\Windows\System32\drivers\etc\hosts")
+
 npp () {
     "/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe" $(convertWinArgs "$@")
 }

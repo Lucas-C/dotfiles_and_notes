@@ -653,6 +653,7 @@ tail -F /var/log/apache2/*.log
 a2enmod / a2dismod $modname  # enable / disable std modules
 ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking - Alt: tarekziade/boom
 watch 'elinks -dump http://0.0.0.0/server-status | sed -n "32,70p"' # Watch Apache status (lynx cannot dump because of SSL issue)
+httpd -M # list installed modules under Windows
 
 
 =cCcCcCc=
@@ -1003,8 +1004,8 @@ curl -s "https://www.googleapis.com/customsearch/v1?key=${api_key}&cx=${cse_id}&
  'AWS': "cli"
 }]}]}]}]}]}]}]}
 aws configure # eu-west-1
-aws iam list-user-policies --user-name lucas # Also: aws iam list-roles
-aws s3 cp $file s3://lucas-pail/ # Other cmds: mb rb ls rm mv
+aws iam list-user-policies --user-name $USER # Also: aws iam list-roles
+aws s3 cp $file s3://$USER-pail/ # Other cmds: mb rb ls rm mv
 # AWS Lambda - mostly from http://alestic.com/mt/mt-search.cgi?blog_id=1&tag=AWS%20Lambda
 aws lambda list-functions
 aws lambda invoke-async --function-name $function --region us-east-1 --invoke-args inputfile.json --debug
@@ -1024,7 +1025,7 @@ http://www.ircbeginner.com/ircinfo/ircc-commands.html
 
 # Weechat - Alt: irssi bitlbee or mcabber for Jabber only
 weechat --run-command '/set;/quit' > ~/dump-weechat-config
-tF /home/lucas/.weechat/weechat.log /home/lucas/.weechat/logs/*
+tF ~/.weechat/weechat.log ~/.weechat/logs/*
 http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdata.py' - Also: hdata_update.py
 /script search iset # then 'i' to install
 

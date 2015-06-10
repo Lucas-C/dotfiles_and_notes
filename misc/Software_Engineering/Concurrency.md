@@ -57,6 +57,8 @@ Synchronized method/code blocks to handle concurrent access:
 - Keep synchronized sections as small as possible
 - More than one per class is a code smell !
 
+Orbit Async : implements async-await methods
+
 ### Standard classes
 - ConcurrentHashMap > HashMap
 - ReentrantLock : a lock that can be acquired in one method an released in another

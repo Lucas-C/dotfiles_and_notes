@@ -75,6 +75,7 @@ git reflog # To list all actions done on the git repo ( not only the commits, bu
 git reset --hard HEAD@{3} # To rewind the repo back to the state of HEAD@{3} in the reflog lists.
 
 git ls-files # list versioned files. Alt: git ls-tree -r --name-only HEAD
+git update-index --assume-unchanged .gitconfig # ignore changes in tracked file
 
 git log --format='%aN %aE' | sort -u # List git commiters
 
