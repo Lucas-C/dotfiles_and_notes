@@ -15,6 +15,7 @@ Project management best practices
 - [OnUseCasesAndUserStories](http://www.batimes.com/articles/user-stories-and-use-cases-dont-use-both.html)
 - [ChooseBoringTechnology](http://mcfunley.com/choose-boring-technology)
 - [RetrospectiveWiki](retrospectivewiki.org/index.php?title=Main_Page)
+- [10 reasons not to adopt this new toy techno in production](https://translate.google.fr/translate?sl=auto&tl=en&js=y&prev=_t&hl=fr&ie=UTF-8&u=http%3A%2F%2Feax.me%2Favoid-new-toys%2F&edit-text=)
 
 ## Choosing the right techno
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
@@ -23,11 +24,12 @@ Project management best practices
     - "Your job is keeping the company in business, god damn it. And the "best" tool is the one that occupies the "least worst" position for as many of your problems as possible. It is basically always the case that the long-term costs of keeping a system working reliably vastly exceed any inconveniences you encounter while building it. Mature and productive developers understand this."
     - "Technology for its own sake is snake oil"
 - compare projects on their maturity / current activity & liveliness / community :
-	commits count
-	creation date
-	last commit date
-	issues count
-	contributors count
+    commits count
+    creation date
+    last commit date
+    issues count
+    contributors count
+- cf. [10 reasons not to adopt this new toy techno in production]
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]

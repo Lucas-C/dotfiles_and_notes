@@ -2,6 +2,7 @@
 
 F8 at start-up &:: Safe mode / Mode sans echec
 F7 in cmd.exe -> history &:: BUT better use Cmder or at least PowerShell ISE
+chcp 65001 in cmd.exe -> support UTF-8
 
 <CMD>+Left/Right &:: Vertically maximize a windows on the side
 <CTRL>+<ALT>+<UP> &:: Invert screen upside down
@@ -23,6 +24,9 @@ vssadmin list shadows &:: list available Volume Shadow Copies aka restore points
 robocopy "C:\Source" "E:\Destination" /E /PURGE &:: Backup
 
 dir %WINDIR%\Microsoft.Net\Framework\v* /O:-N /B &:: Check .NET version
+:: Disable Java updater installiing Ask search bar
+reg add HKLM\software\javasoft /v "SPONSORS" /t REG_SZ /d "DISABLE" /f
+reg add HKLM\SOFTWARE\Wow6432Node\JavaSoft /v "SPONSORS" /t REG_SZ /d "DISABLE" /f
 
 icacls * /T /Q /C /RESET &:: reset files permissions
 :: Default .dll owner : NT SERVICE\TrustedInstaller

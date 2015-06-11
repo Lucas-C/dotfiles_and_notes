@@ -45,6 +45,8 @@ bzr add $file / commit $files -m $msg
 curl 'https://raw.githubusercontent.com/eacousineau/util/master/git-new-workdir.sh' > .git-new-workdir.sh
 curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > .bashrc_git_completion # buggy with TMUX
 
+gitg > gitk
+
 # use HTTPS protocol instead of git one (e.g. to bypass a firefall):
 git config --global url."https://".insteadOf git://
 
@@ -104,6 +106,8 @@ git remote set-url origin https://github.com/Lucas-C/... # change a remote URL, 
 git branch -av
 git remote show origin
 
+git fetch upstream && git rebase upstream/master # Sync a fork
+
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:
 git co -b $branch_name --track origin/mainline # checkout -b <=> create branch && checkout
@@ -124,6 +128,7 @@ gri
 git push
 
 .git/hooks/post-receive # any executable, e.g. bash script
+pre-commit/pre-commit # great hooks manager + cf. https://github.com/Yelp/venv-update/blob/a5960acab7101a1e70c57945b2038fef9d005aed/.pre-commit-config.yaml#L15-L22
 
 
 ++++++

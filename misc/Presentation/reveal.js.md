@@ -1,42 +1,18 @@
 # Markdown Demo
 
-HTML section to include:
-
-    <div class="slides">
-        <section data-markdown="../reveal.js.md" data-separator="^\n\n\n" data-vertical="^\n\n" data-notes="^Note:" data-charset="iso-8859-15"/>
-    </div>
-
-    Reveal.initialize({
-        slideNumber: true,
-
-        theme: 'night',
-        transition: 'none',
-
-
-
-## Concise colored text
-
 <link rel="stylesheet" href="../md-tags.css"/>
 
-_&lt;em&gt;mphasized text_
+<link rel="stylesheet" href="md-tags.css"/>
 
-**&lt;strong&gt; text**
+<span class=red>RED red Red</span>
 
-<cite>Citation: &lt;cite&gt;</cite>
+<span class=ocre>OCRE ocre Ocre</span>
 
-<dfn>Definition term: &lt;dfn&gt;</dfn>
+<span class=yellow>YELLOW yellow Yellow</span>
 
-<i>Alternate voice or mood: &lt;i&gt;</i>
+<span class=green>GREEN green Green</span>
 
-<kbd>Keyboard input: &lt;kbd&gt;</kbd>
-
-<mark>Highlight: &lt;mark&gt;</mark>
-
-<q>Is this a question ? &lt;q&gt;</q>
-
-<samp>Sample output: &lt;samp&gt;</samp>
-
-<var>Variable: &lt;var&gt;</var>
+<span class=blue>BLUE blue Blue</span>
 
 
 

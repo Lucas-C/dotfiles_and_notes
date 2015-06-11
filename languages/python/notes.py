@@ -140,7 +140,7 @@ from tputil import make_proxy # Pypy transparent proxy : can record/intercept/mo
 # Descriptors
 class Property(object):
     def __init__(self, fget):
-	    self.__doc__ = getattr(fget, '__doc__')
+        self.__doc__ = getattr(fget, '__doc__')
         self.fget = fget
 
     def __get__(self, obj, type):
@@ -326,6 +326,8 @@ pyrsistent PMap and PREcord  # immutable/functional with invariants and optional
 "" Quirks & Gotchas
 """""""""""""""""""
 # !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
+
+[] = () # is OK, but not: () = []
 
 bool(datetime.time(0,0,0)) # False
 
@@ -665,7 +667,7 @@ argcomplete # command line tab completion
 
 ConfigParser, configobj # std configuration files format
 csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
-yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
+aspy.yaml, yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 cPickle # binary format, generic, fast & lighweight.
 # + PyCloud make it possible to pickle functions dependencies
 

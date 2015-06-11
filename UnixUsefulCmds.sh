@@ -279,11 +279,11 @@ mv --backup=numbered new target # !! --suffix/SIMPLE_BACKUP_SUFFIX can be broken
 logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call in a cron job) Examples: http://www.thegeekstuff.com/2010/07/logrotate-examples/
 # !! $@ not supported if < v.7.5
 
-echo -e "00 00 * * * $USER cmd >> cmd.log 2&>1\n" | sudo tee /etc/cron.d/crontask # don't forget the newline at the end, don't use % symbols, don't put a dot '.' in its filename, use 644 permissions owned by root, and note that the $USER arg is not present in /etc/crontab files
+echo -e "00 00 * * * $USER cmd >> cmd.log 2>&1\n" | sudo tee /etc/cron.d/crontask # don't forget the newline at the end, don't use % symbols, don't put a dot '.' in its filename, use 644 permissions owned by root, and note that the $USER arg is not present in /etc/crontab files
 sudo grep crontask /var/log/cron.log
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
-while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick - Alt: ayancey/dirmon
+while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick - Alt: ayancey/dirmon and gordonsyme/tdaemon to rerun tests automatically on code change
 huptime --exec $cmd # zero downtime restarts of unmodified (networking) programs, intercept bind(2) and accept(2) calls
 
 # Launch command at a specified time or when load average is under 0.8
@@ -414,7 +414,7 @@ sleuthkit/scalpel # > foremost, file carving tool, cf. http://www.forensicswiki.
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
 find -D rates ... # details success rates of each match logic term
-find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: man agedu (-s $dir then -w / -t) ; + all tools listed in http://dev.yorhel.nl/ncdu
+find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: man agedu (-s $dir then -w / -t) ; + all tools listed in http://dev.yorhel.nl/ncdu + ruiqi/wcleaner
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -l "{}" # list files by modification time
@@ -955,7 +955,7 @@ log "HELLO WORLD !"
 # - identify -version # to check HDRI is enabled
 # Scripts: http://www.fmwconcepts.com/imagemagick/
 display $img_file
-convert img.png -adaptive-resize 800x600 -auto-orient -crop 50x100+10+20 img.jpg
+convert img.png -adaptive-resize 800x600 -auto-orient -crop 50x100+10+20 img.jpg # Auto-orient is VERY IMPORTANT: http://stackoverflow.com/a/19475281
 convert $img1 $im2 -append $out_img # join images into a column; +append to stack images horizontally
 mogrify ... *.jpg # for f in *.jpg; do convert $f ... ; done
 identify -v $img_file # get PPI: -format "%w x %h %x x %y"

@@ -43,7 +43,6 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
     - Rule 5. Data dominates. If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident. Data structures, not algorithms, are central to programming.
 - "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
 - " Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
-- Tony Hoare null "billion-dollar mistake"
 
 ## Design principles
 where "Design" = Architecture / Organisation of the software logic
@@ -52,7 +51,7 @@ SE = software entity : class, module, function...
 
 SOLID:
 - Single Responsability Principle : every SE should have a single responsibility, and that responsibility should be entirely encapsulated by the SE
-	Aka Common Closure Principle : any change to the software should only have a very local impact
+    Aka Common Closure Principle : any change to the software should only have a very local impact
 - Open/Closed Principle : SE should be open for extension, but closed for modification
 - Liskov substitution principle: objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.
 - Interface segregation principle: many client-specific interfaces are better than one general-purpose interface
@@ -232,6 +231,7 @@ cf. [Functional Programming Patterns]
     * [Belief bias](//en.wikipedia.org/wiki/Belief_bias)
     * [Confirmation bias](//en.wikipedia.org/wiki/Confirmation_bias) & [Experimenter's bias](//en.wikipedia.org/wiki/Experimenter%27s_bias)
     * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy)
++ [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
 
 ### The Ten Commandments of Egoless Programming
 - Understand and accept that you will make mistakes.
@@ -257,6 +257,7 @@ cf. [Functional Programming Patterns]
 - "The bearing of a child takes nine months, no matter how many women are assigned. Adding manpower to a late software project makes it later." Fred Brooks - "The Mythical Man-Month"
 - "Programmers always confuse Halloween with Christmas because Oct 31 == Dec 25"
 - "La Cathédrale et le Bazar" - Essai on Open Source & Proprietary Software
+- "If you can not measure it, you can not improve it." Lord Kelvin
 - the phrase software "patch" is from a physical patch applied to Mark 1 paper tape to modify the program: https://chezsoi.org/lucas/ThePatch.jpg
 - "Object-oriented programming is an exceptionally bad idea which could only have originated in California" - E.W. Dijkstra
 "You probably know that arrogance, in computer science, is measured in nanodijkstras" - Alan Kay

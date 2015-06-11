@@ -1,3 +1,5 @@
+Simpler DSL / higher level layers: c3.js b3.js d4.js a3.js (for 3D)
+
 d3.select("css-selector").append("elem") // Also: selectAll
 
 // Joins

@@ -7,7 +7,7 @@
 #   from pdb_on_err import launch_pdb_on_exception # to invoke manually as a 'with' context block
 # FROM: http://stackoverflow.com/questions/242485/starting-python-debugger-automatically-on-error
 from imp import find_module
-import sys
+import os, sys
 
 def ret_except(func, *args, **kwargs):
     """
@@ -48,7 +48,7 @@ except ImportError:
         sys.__excepthook__(type, value, tb)
 
 def main():
-    sys.argv = sys.argv[1:]
+    prog_name = sys.argv.pop(0)
     cmdstr = get_arg_value_if_next(sys.argv, '-c')
     if cmdstr:
         exec(cmdstr)
@@ -56,8 +56,11 @@ def main():
     modname = get_arg_value_if_next(sys.argv, '-m')
     if modname:
         filename = find_module(modname)[1]
+        if os.path.isdir(filename):
+            filename = os.path.join(filename, '__main__.py')
     else:
         filename = sys.argv[0]
+    sys.argv.insert(0, prog_name)  # else command-line args passed will be shifted
     execfile(filename, {'__name__':'__main__', '__file__':filename})
 
 def get_arg_value_if_next(argv, flag):

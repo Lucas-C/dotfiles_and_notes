@@ -1,9 +1,17 @@
 - repo: git://github.com/pre-commit/pre-commit-hooks
-  sha: cedcea550c495d536247ca23115035b17074cac7
+  sha: cf550fcab3f12015f8676b8278b30e1a5bc10e70
   hooks:
-  - id: trailing-whitespace
   - id: check-json
+  - id: trailing-whitespace
 - repo: git://github.com/Lucas-C/pre-commit-hooks
-  sha: 9822cc88c700eacf9fae27d8d1f44fd309e25cca
+  sha: 36289c7ad32b317c98ad41fd48c7cb367145588b
   hooks:
   - id: remove-crlf
+  - id: forbid-tabs
+- repo: local
+  hooks:
+  - id: do_not_commit
+    name: Block if "DO NOT COMMIT" is found
+    entry: DO NOT COMMIT
+    language: pcre
+    files: ''
