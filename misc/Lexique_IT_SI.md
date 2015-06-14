@@ -1,6 +1,7 @@
 AMOA = Assistance à Maîtrise d'OuvrAge
 API
 BDD
+CAF = Capacité A Faire
 CRUD = Create, Read, Update, Delete -> opérations de base pour la persistance des données (ex: en BDD) - Also: SCRUDS
 DBA = DataBase Administrator
 DSI = Direction/Directeur des Systèmes d'Information

@@ -57,6 +57,8 @@ Synchronized method/code blocks to handle concurrent access:
 - Keep synchronized sections as small as possible
 - More than one per class is a code smell !
 
+Orbit Async : implements async-await methods
+
 ### Standard classes
 - ConcurrentHashMap > HashMap
 - ReentrantLock : a lock that can be acquired in one method an released in another
@@ -91,6 +93,9 @@ lib Fork/Join
 
 Fibers // Simple Lightweight Concurrency
 
+// Queues:
 JCTools // Bounded lock free queues, SPSC/MPSC/SPMC/MPMC variations for concurrent queues, Offheap concurrent ring buffer for ITC/IPC purposes
+Java Chronicle Queue // Inter Process Communication ( IPC ) with sub millisecond latency and able to store every message
+MappedBus // Java based low latency, high throughput message bus, built on top of a memory mapped file
 
 ben-manes/caffeine // a Java 8 based concurrency library that provides specialized data structures, such as a high performance cache

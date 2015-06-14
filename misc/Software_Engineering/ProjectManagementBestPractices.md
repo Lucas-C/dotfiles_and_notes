@@ -16,6 +16,17 @@ Project management best practices
 - [ChooseBoringTechnology](http://mcfunley.com/choose-boring-technology)
 - [RetrospectiveWiki](retrospectivewiki.org/index.php?title=Main_Page)
 - [10 reasons not to adopt this new toy techno in production](https://translate.google.fr/translate?sl=auto&tl=en&js=y&prev=_t&hl=fr&ie=UTF-8&u=http%3A%2F%2Feax.me%2Favoid-new-toys%2F&edit-text=)
+- [TheFailureOfAgileAndGROWS](http://blog.toolshed.com/2015/05/the-failure-of-agile.html)
+- [Les développeurs Heisenberg](http://blog.ticabri.com/blog/2015/04/21/les-developpeurs-heisenberg/) - TL;DR Vous ne pouvez pas observer un développeur sans en altérer son comportement.
+
+### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
+- Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
+- Regrouper les gens par centre d'intérêt plutôt que par hiérarchie, créer des communautés
+- Un/des dej par semaine open avec les collaborateurs en one-to-one
+- Evolution de projet/carrière/etc. fréquente.
+- 1 journée par mois en mode "quicky/échange/etc."
+- Fêter les petites victoires comme les grandes !
+- Processus de recrutement exigent : coding, 2h de review, etc.
 
 ## Choosing the right techno
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
@@ -59,7 +70,8 @@ Project management best practices
 - Agile recommend using user stories over UML use cases (that can be drawn with e.g. PlantUML). Use cases are NOT a form a requirements, just an illustration of them. They are NOT Agile, user stories are. Cf. [OnUseCasesAndUserStories]
 
 ## Agile
-Retrospectives: cf. [RetrospectiveWiki
+[TheFailureOfAgileAndGROWS]
+Retrospectives: cf. [RetrospectiveWiki]
 
 ### Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.

@@ -1,7 +1,5 @@
 # Markdown Demo
 
-<link rel="stylesheet" href="../md-tags.css"/>
-
 <link rel="stylesheet" href="md-tags.css"/>
 
 <span class=red>RED red Red</span>
@@ -15,13 +13,12 @@
 <span class=blue>BLUE blue Blue</span>
 
 
-
 ## Features
 
 <ul>
     <li class="fragment">Press 's' to open speaker-notes pop-up window</li>
     <li class="fragment">Press ESC to enter the slide overview</li>
-    <li class="fragment">Press 'b' to fade out to blac screen</li>
+    <li class="fragment">Press 'b' to fade out to black screen</li>
     <li class="fragment">Change the background on a slide: <code>data-background="#007777"</code></li>
     <li class="fragment">[PDF export instructions](https://github.com/hakimel/reveal.js#pdf-export) using Chrome, + append 'index.html?print-pdf' and scroll to the end before printing</li>
     <li class="fragment">[Online visual editor](http://slid.es)</em></li>

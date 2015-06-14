@@ -86,9 +86,8 @@
     trustctime = false
     filemode = false
 
-[user]
-	name = LCM
-	email = LCimon.prestataire@voyages-sncf.com
+[include]
+    path = ~/.gitconfig_user
 [credential]
     helper = cache --timeout=3600
 [merge]

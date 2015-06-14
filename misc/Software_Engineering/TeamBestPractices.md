@@ -80,8 +80,8 @@ In general, limit meetings by making them informal chats or doing them properly:
 
 ![](/Agile_vs_CI_vs_CD_vs_DevOps.jpg)
 
-- "**Empathy** allows software makers and operators to help each other deliver the best possible functionality and operability on behalf of their customers." [Katherine Daniels](http://devopsdays.org/events/2014-minneapolis/proposals/Devops%20Is%20Dead/)
-- monitor everything ! CPU, openFD, procCount... For services: throughput + delay + completness (% of potential src data processed). And store historical data ! Distributed tracing tools: Twitter’s Zipkin, Google’s Dapper
+- "**Empathy** allows software makers and operators to help each other deliver the best possible functionality and operability on behalf of their customers." [Jeff Sussna & Katherine Daniels](http://blog.ingineering.it/post/72964480807/empathy-the-essence-of-devops)
+- monitor everything ! CPU, openFD, procCount... For services: throughput + delay + completness (% of potential src data processed). And store historical data ! Distributed tracing tools: Twitter’s Zipkin and compatible Apache HTrace, Google’s Dapper
 - zero config: config is hard to document, hard to update, hard to set up, its persistent state can overlaps with other data
 - emails are evil: no guarantee it will be actioned + no guarantee anyone is subscribed + sense of false security as it works from time to time
 - when an alarm is raised, alerting tools should give a maximum of *context* on the system state and what triggered it

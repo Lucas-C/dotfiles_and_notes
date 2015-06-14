@@ -50,7 +50,7 @@ jcmd [$process] // without args to list running Java processes
 mariusaeriksen/heapster // Google perftools for the JVM
 
 JSP (JavaServer Pages) is an alternative to PHP
-	-> JSTL (JSP Standard Tag Library) : XML, SQL queries, Internationalisation...
+    -> JSTL (JSP Standard Tag Library) : XML, SQL queries, Internationalisation...
 JavaFX / OpenJFX // bytecode compiled non-dynamic language providing GUI and app packaging
 Packr // Package .jar & assets for any distrib (most suited for GUI apps)
 Capsule // dead-Simple packaging and deployment for JVM apps
@@ -207,7 +207,7 @@ Runtime.getRuntime().addShutdownHook(new Thread() { public void run() { /* clean
  *  - ClassCastException
  * Less useful but worth knowing:
  *  - BufferOverflowException / BufferUnderflowException
- *  - WrongMethodTypeException 
+ *  - WrongMethodTypeException
  *  - AnnotationTypeMismatchException(Method element, String foundType) / IncompleteAnnotationException(Class<? extends Annotation> annotationType, String elementName)
  *  - EnumConstantNotPresentException
  *  - ArrayStoreException
@@ -223,5 +223,5 @@ http://docs.oracle.com/javase/tutorial/uiswing/components/componentlist.html
 // Java8
 Arrays.parallelSort(myArray) // break up the collection into several parts sorted independently across a number of cores. Will be less efficient on a loaded machine, depending on its architecture
 concurrent Adders > Atomics
-SecureRandom.getInstanceStrong() // Secure random generator 
+SecureRandom.getInstanceStrong() // Secure random generator
 Optional<T>

@@ -23,6 +23,7 @@ Software Development Best Practices
 - [MicroservicesIncreaseOuterArchitectureComplexity](http://blogs.gartner.com/gary-olliffe/2015/01/30/microservices-guts-on-the-outside/)
 - [How API schemas help you make web sites fast](http://gilesbowkett.blogspot.be/2015/01/why-panda-strike-wrote-fastest-json.html#apis-and-json-schema)
 - [How to design a rest API](http://blog.octo.com/en/design-a-rest-api/) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
+- [RESTful API design refcard](http://blog.octo.com/wp-content/uploads/2014/10/RESTful-API-design-OCTO-Quick-Reference-Card-2.2.pdf)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -43,6 +44,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
     - Rule 5. Data dominates. If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident. Data structures, not algorithms, are central to programming.
 - "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
 - " Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
+- Tony Hoare null "billion-dollar mistake"
 
 ## Design principles
 where "Design" = Architecture / Organisation of the software logic
@@ -63,9 +65,10 @@ DTO/DAO:
 - Data Transfer Object : used to transfer the data between classes and modules of your application. DTO should only contain private fields for your data, getters, setters and constructors. It is not recommended to add business logic methods to such classes, but it is OK to add some util methods.
 - Data Access Object encapsulate the logic for retrieving, saving and updating data in your data storage (a database, a file-system, whatever).
 
-On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/1481](http://imgs.xkcd.com/comics/api.png), [How to design a rest API]
+On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/1481](http://imgs.xkcd.com/comics/api.png), [How to design a rest API], [RESTful API design refcard]
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 + similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG...
++ WSDL = Web Service Description Language (in xml, often used with SOAP)
 + representation for RESTful APIs: Swagger / RAML / API Blueprint
 
 On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity] : they add moving parts and interdependencies
@@ -255,6 +258,7 @@ cf. [Functional Programming Patterns]
     sort -rn |
     sed ${1}q
 - "The bearing of a child takes nine months, no matter how many women are assigned. Adding manpower to a late software project makes it later." Fred Brooks - "The Mythical Man-Month"
+- "Hofstadter's Law: It always takes longer than you expect, even when you take into account Hofstadter's Law" - GEB
 - "Programmers always confuse Halloween with Christmas because Oct 31 == Dec 25"
 - "La Cathédrale et le Bazar" - Essai on Open Source & Proprietary Software
 - "If you can not measure it, you can not improve it." Lord Kelvin

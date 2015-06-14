@@ -3,7 +3,7 @@ set -o pipefail -o errexit -o nounset -o xtrace
 
 if [ -n "${1:-}" ]; then # misc/installCygwin.sh $USER
     cd /cygdrive/d/code
-    chown -R $DOTFILES_USER .bash* .current_pwd/ .git* .i* .j* .lighttable.user.* .minttyrc .p* .s* .S* .tmux.conf .vimrc .zshrc
+    chown -R $1 .bash* .current_pwd/ .git* .i* .j* .lighttable.user.* .minttyrc .p* .s* .S* .tmux.conf .vimrc .zshrc
 fi
 
 if [ "$TERM" = "cygwin" ]; then

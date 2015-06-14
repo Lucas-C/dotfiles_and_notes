@@ -331,7 +331,7 @@ pyrsistent PMap and PREcord  # immutable/functional with invariants and optional
 
 bool(datetime.time(0,0,0)) # False
 
-# DO NOT use other default parameter values than None, + initialization is static
+# DO NOT use other default parameter values than None (or at worst an immutable datastructure), + initialization is static
 def foo(x = []):
     x.append('do')
     return x
@@ -614,6 +614,7 @@ def _make_file_read_nonblocking(f):
 from gevent import monkey; monkey.patch_all() # Greenlets
 saucelabs/monocle, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
+python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 numbapro # for CUDA
 
@@ -685,7 +686,7 @@ from getpass import getpass # get password without echoing it
 
 lz4, bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp # to unpack any archive
 archive = zipfile.ZipFile('foo.zip', mode='w')
-for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy
+for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy - And benhoyt/scandir is faster and now in the Python 3.5 stdlib
     for name in files:
         archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
 

@@ -118,7 +118,7 @@ fi
 
 alias tF='tail -F'
 if less --help | grep -q '\-F'; then
-	alias tF='less +F'      # Alt: less + SHIFT-F - http://www.brianstorti.com/stop-using-tail
+    alias tF='less +F'      # Alt: less + SHIFT-F - http://www.brianstorti.com/stop-using-tail
 fi
 
 wrf () { wr "$@" fren; }
@@ -184,7 +184,7 @@ zgr () {
     shift
     find -L $@ -type f | xargs zg $pattern
 }
-alias ag='ag --color-path="1;35" --color-line-number 32' #E.g. --ignore=.idea --ignore=*-target -F -s $case_Sensitive_string
+alias ag='ag --color-path="1;35" --color-line-number 32 --hidden' #E.g. --ignore=.idea --ignore=*-target -F -s $case_Sensitive_string
 
 
 #-----
@@ -347,7 +347,7 @@ pdf_pages_extract () {
         -dFirstPage=$first_page -dLastPage=$last_page \
         -sOutputFile="${filename%.pdf}_p${first_page}-p${last_page}.pdf" "$filename"
 }
-src2pdf () {  
+src2pdf () {
     local noext="${1%.*}"
     pygmentize -O full -o "$noext.html" "$1"
     # enabling line wrapping in <pre> blocks
@@ -458,7 +458,7 @@ assert () { # args: cmd arg*
 
 if ! type -p timeout >/dev/null; then
     timeout () { # Alternative to coreutils 'timeout'
-        if [ "${1:-}" = "-h" -o "${1:-}" = "--help" ]; then 
+        if [ "${1:-}" = "-h" -o "${1:-}" = "--help" ]; then
             printf "USAGE: timeout [--no-msg] \$delay_in_seconds \$cmd\n  \$cmd can start with 'exec' to avoid creating a new process\n"
             return
         fi
@@ -482,7 +482,7 @@ whiteboard_picture_cleaner () { # args: $original_img_file $output_file - use Im
     convert "$1" -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 "$2";
 }
 
-gif_framecount_reducer () { # args: $gif_path $frames_reduction_factor  
+gif_framecount_reducer () { # args: $gif_path $frames_reduction_factor
     local orig_gif="${1?'Missing GIF filename parameter'}"
     local reduction_factor=${2?'Missing reduction factor parameter'}
     # Extracting the delays between each frames

@@ -6,7 +6,7 @@ sudo apt-get --purge remove tex.\*-doc$ # can save 700 MB of disk space
 # Fix for tilda on maverick : echo "export TERM=xterm" | sudo tee /etc/profile.d/set_term.sh && source /etc/profile
 # (Système>Préférence>Clavier->Agencements->Options de l'agencement : espace insecable à tout niveau SINON pbs avec barre espace)
 aptitude install tkcon libsdl1.2debian-all libaudiere-1.9.4
-#							(tastystatic)	(asciiportal)
+#                            (tastystatic)    (asciiportal)
 # Tkcon avec wish 8.5 : modifier /usr/share/tcltk/tkcon2.5/tkcon.tcl -> remplacer "wish" l.3 par "/usr/bin/wish8.5"
 aptitude install ballz holotz-castle val-and-rick jumpnbump einstein sgt-puzzles teeworlds teeworlds-server unrar
 aptitude install lua5.2 mercurial
@@ -21,10 +21,10 @@ sudo pip install requests lxml beautifulsoup scrapy coverage nose numpy scipy pa
 
 # VLC Préferences->audio->sortie OSS pour UNIX
 
-# Aide installation :	http://www.siteduzero.com/tutoriel-3-12827-reprenez-le-controle-avec-linux.html
-#						http://www.breizh-ardente.fr/article/avant-l-installation-les-pre-requis
+# Aide installation :    http://www.siteduzero.com/tutoriel-3-12827-reprenez-le-controle-avec-linux.html
+#                        http://www.breizh-ardente.fr/article/avant-l-installation-les-pre-requis
 
-# Partage Firefox (idem Thunderbird) :	http://doc.ubuntu-fr.org/tutoriel/comment_partager_ses_marques-page_entre_linux_et_windows_avec_firefox
+# Partage Firefox (idem Thunderbird) :    http://doc.ubuntu-fr.org/tutoriel/comment_partager_ses_marques-page_entre_linux_et_windows_avec_firefox
 # http://doc.ubuntu-fr.org/network-manager#eviter_les_saisies_du_mot_de_passe
 # Thunderbird : smtp.orange.fr port 587 non sécurisé + suivre étapes wiki IMAG
 
@@ -100,6 +100,6 @@ radiotray # Radios FR: http://www.xcfa.tuxfamily.org/static5/liens#RadioTray
 sudo dpkg-reconfigure postfix # -> then configure local emails only => create /etc/postfix/main.cf
 sudo aptitude install mailutils # provides 'mail' command
 
-/home/lucas/.config/variety/variety.conf # wallpaper changer minor change: gsettings set org.cinnamon.background picture-options centered
+~/.config/variety/variety.conf # wallpaper changer minor change: gsettings set org.cinnamon.background picture-options centered
 
 sudo apt-get install pepperflashplugin-nonfree # Flash in chromium : http://askubuntu.com/a/449266
