@@ -126,12 +126,22 @@ def incr(i):
 inner.counter = 0 # Function attribute
 obj.method = types.MethodType(function, obj) # binding functions into methods
 
-@functools.wraps # Decorator with args (deep dive on them on http://blog.dscpl.com.au/2014/01/implementing-universal-decorator.html)
-def my_decorator(decorator_args):
-    def tmp_decorator(orig_func):
-        new_func = orig_func
-        return new_func
-    return tmp_decorator
+# For a decorator that takes no arg, just get rid of the enclosing function. Deep dive on them at: http://blog.dscpl.com.au/2014/01/implementing-universal-decorator.html
+def trace_exec_time(repeat=1, result_strategy=lambda results: results[-1]):
+    """
+    Valid strategies are: min, max, statistics.mean. Default is to keep only the last result
+    """
+    def decorator(func):
+        @functools.wraps(func)  # TODO: use wrapt.decorator
+        def wrapper(*args, **kwargs):
+            ret_vals = []
+            def exec_func():
+                nonlocal ret_vals
+                ret_vals.append(func(*args, **kwargs))
+            print(func.__name__, args, kwargs, timeit.timeit(exec_func, number=repeat))
+            return result_strategy(ret_vals)
+        return wrapper
+    return decorator
 @wrapt.decorator # Proper decorators by Graham Dumpleton - Also: proxy = wrapt.ObjectProxy(original)
 def pass_through(wrapped, instance, args, kwargs):
     return wrapped(*args, **kwargs) # 'splat' operator
@@ -905,7 +915,7 @@ obj.__qualname__
 from enum import Enum, IntEnum
 
 from functools import \
-    singledispatch, \
+        singledispatch, \ @foo.register(int) def _(obj, verbose=False): ...
     total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
     lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property ; or boltons.cacheutils.LRI / boltons.cacheutils.LRU
 
