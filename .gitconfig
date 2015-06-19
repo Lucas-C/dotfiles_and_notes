@@ -86,8 +86,6 @@
     trustctime = false
     filemode = false
 
-[include]
-    path = ~/.gitconfig_user
 [credential]
     helper = cache --timeout=3600
 [merge]
@@ -97,3 +95,7 @@
     keepbackups = false
     prompt = false
     trustexitcode = false
+
+# won't be sourced if this file is used as global .gitconfig
+[include]
+    path = ~/.gitconfig_user

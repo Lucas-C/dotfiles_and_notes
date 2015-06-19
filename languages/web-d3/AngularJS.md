@@ -29,3 +29,9 @@ href="javascript:$.noop"
     });
     deferred.resolve();
     //deferred.reject(new Error('REJECTED'));
+
+Returning several values from `then` (so that you can chain it with `then(function (a, b) {...})`):
+
+    }).then(function (data) {
+        return $q(function (resolve) { resolve(data[0], data[1]); });
+    }).then (function (d0, d1) { ...

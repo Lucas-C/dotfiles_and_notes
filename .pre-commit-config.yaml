@@ -7,6 +7,7 @@
     sha: 1320d84cf315728e6ac6cca83bd80e3c732f53df
     hooks:
     -   id: remove-crlf
+        exclude: npp/shortcuts.xml
     -   id: forbid-tabs
 -   repo: local
     hooks:

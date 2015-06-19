@@ -8,16 +8,18 @@ chcp 65001 in cmd.exe -> support UTF-8
 <CTRL>+<ALT>+<UP> &:: Invert screen upside down
 
 cmd /c mklink &:: call cmd.exe builtins, e.g. the symlinker
+subst z: b:\user\betty\forms &:: creates a virtual drive Z for the path B:\User\Betty\Forms
 
 where %cmd% &:: 'which' equivalent
 ipconfig /displaydns
 
 powercfg -h off/on &:: as admin, delete hiberfil.sys
 schtasks &:: task scheduler
-msinfo32 &:: info composants
+msinfo32 &:: info computer composants
+msconfig &:: System Configuration -> can disable or re-enable software, device drivers and Windows services that run at startup, or change boot parameters
 services.msc &:: Services windows
-magnify.exe &:: Loupe
-clipbrd.exe &:: Display clipboard
+magnify &:: Loupe
+clipbrd &:: Display clipboard
 regsvr32 %dll_file% &:: register dll
 vssadmin list shadows &:: list available Volume Shadow Copies aka restore points, cf. http://superuser.com/a/165576)
 mstsc &:: builtin but less secure TeamViewer-like

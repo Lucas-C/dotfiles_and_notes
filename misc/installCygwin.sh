@@ -29,3 +29,13 @@ pip install --user service_identity scrapy
 cd /
 [ -e /c ] || ln -s /cygdrive/c
 [ -e /d ] || ln -s /cygdrive/d
+
+echo "Cygwin services configured:"
+cygrunsrv --list
+
+# In case of "child_info_fork::abort: unable to map **.dll, Win32 error 126"
+# As admin:
+#    G:\devhome\tools\cygwin\bin\ash.exe -c '/usr/bin/rebaseall -v'
+#    G:\devhome\tools\cygwin\bin\ash.exe -c '/bin/peflagsall -v'
+# If pip issue "OSError: [Errno 11] Resource temporarily unavailable",
+# simply "pip uninstall $dependency_pkg && pip install $pkg" already saved my ass once

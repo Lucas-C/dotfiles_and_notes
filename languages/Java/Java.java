@@ -225,3 +225,21 @@ Arrays.parallelSort(myArray) // break up the collection into several parts sorte
 concurrent Adders > Atomics
 SecureRandom.getInstanceStrong() // Secure random generator
 Optional<T>
+
+// Streaming API:
+Map<String, String[]> DICT = new HashMap<String, String[]>() {{
+    put("A", new String[]{"x", "y"});
+    put("B", new String[0]);
+    put("C", new String[]{"z"});
+}};
+List<Thing> things = DICT.entrySet().stream()
+        .map(e -> makeThing(e.getKey(), Arrays.stream(e.getValue())))
+        .collect(Collectors.toList());
+// FROM & MORE AT: http://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
+IntStream.range(1, 4) // Another use example: IntStream.iterate(0, i -> i + 2).limit(3)
+    .mapToObj(i -> new Foo("Foo" + i))
+    .peek(f -> IntStream.range(1, 4)
+        .mapToObj(i -> new Bar("Bar" + i + " <- " f.name))
+        .forEach(f.bars::add))
+    .flatMap(f -> f.bars.stream())
+    .forEach(b -> System.out.println(b.name));

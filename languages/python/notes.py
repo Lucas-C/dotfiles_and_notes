@@ -215,7 +215,7 @@ zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: z
 """"""""""""""""""
 "" Data structures
 """"""""""""""""""
-import bisect # binary search
+from bisect import bisect_left # binary/dichotomic search on lists
 import heapq # min-heap: .nlargest .nsmallest
 
 collections.deque # double-ended queue, with optional maximum length
@@ -339,7 +339,13 @@ pyrsistent PMap and PREcord  # immutable/functional with invariants and optional
 
 [] = () # is OK, but not: () = []
 
-bool(datetime.time(0,0,0)) # False
+assert bool(datetime.time(0,0,0)) is False
+
+x = 2000
+y = 2000
+assert (x is y) is False
+x = 2000; y = 2000
+assert (x is y) is True
 
 # DO NOT use other default parameter values than None (or at worst an immutable datastructure), + initialization is static
 def foo(x = []):
@@ -544,6 +550,7 @@ pip --editable $path_or_git_url # Install a project in editable mode (i.e. setup
 pip freeze > requirements.txt # dumps all the virtualenv dependencies
 pip install --user $USER --src . -r requirements.txt
 pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt ; ./manage.py pipchecker
+pex # self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)

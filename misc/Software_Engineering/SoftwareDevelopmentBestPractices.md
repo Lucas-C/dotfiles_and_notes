@@ -24,6 +24,7 @@ Software Development Best Practices
 - [How API schemas help you make web sites fast](http://gilesbowkett.blogspot.be/2015/01/why-panda-strike-wrote-fastest-json.html#apis-and-json-schema)
 - [How to design a rest API](http://blog.octo.com/en/design-a-rest-api/) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
 - [RESTful API design refcard](http://blog.octo.com/wp-content/uploads/2014/10/RESTful-API-design-OCTO-Quick-Reference-Card-2.2.pdf)
+- [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development](http://neverworkintheory.org/2011/08/31/comparing-the-defect-reduction-benefits-of-code-inspection-and-test-driven-development.html)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -179,6 +180,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - explicitely details the code behaviour on corner cases
 
 ## Code review > TDD [CRoTDD]
+cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development]
 * You **need** TDD !! (or at least some kind of automated systematic testing) [QETDDM]
 * TDD: automated, easy to follow, autonomously done
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
