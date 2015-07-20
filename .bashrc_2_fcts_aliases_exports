@@ -356,8 +356,16 @@ src2pdf () {
     rm "$noext.html"
 }
 
+findByFilePattern () {
+    local pattern="$1"
+    shift
+    find -L "${@:-.}" -type f -exec file {} \; | grep $pattern | cut -d':' -f1
+}
 findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
-    find -L "${@:-.}" -type f -exec file {} \; | grep text | sed 's/^\(.*\): .*$/\1/'
+    findByFilePattern text "$@"
+}
+findImg () {
+    findByFilePattern image "$@"
 }
 
 notabs () { # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces

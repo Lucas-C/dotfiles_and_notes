@@ -856,7 +856,7 @@ FFFFFFFFFFFFFFF
 F i r e f o x
 FFFFFFFFFFFFFFF
 ~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
-find Cache/ -type f -exec file {} \; | grep image | cut -d':' -f1 # all cached images
+findImg Cache/ # all cached images
 about:cache # Firefox cache infos: location, size, number of entries
 about:memory # Firefox memory allocation details
 about:about # all the about: pages e.g. :crashes :healthreport :permissions :plugins :sessionrestore
@@ -974,7 +974,7 @@ pngquant ## 70% lossy compression
 jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs
 identify -verbose $jpg | grep -Fq 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg
 mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata
-feh -F -d -D 3 --cycle-once * # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
+feh -F -d -D 3 --cycle-once <(findImg .) # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 
 
 $$$$$$$$$$$$$$$

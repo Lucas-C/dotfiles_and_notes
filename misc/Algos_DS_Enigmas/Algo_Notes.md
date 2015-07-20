@@ -3,6 +3,7 @@ Merge sort : stable, O(n) space on arrays / constant space on linked lists, wors
 TimSort: used by Python, mix of merge sort & insertion sort, perform well on real-word data
 IntroSort: C++ std::sort, a variation over QuickSort which "degenerates" to HeapSort when the recursion goes too deep
 Radix / Counting sort: the best for ints
+-> cf. include/linux/radix-tree.h / lib/radix-tree.c from the linux kernel (detailed in "linux-insides")
 -> Algorithmic complexity attack, e.g. McIlroy sort killer, which build an input to make any sorting quadratic in time
 
 Trie / directed acyclic graph can be + efficient than binary search trees / hash tables
@@ -51,3 +52,14 @@ product-matrix-MSR codes > Reed-Solomon codes, for fault tolerance (cf. jmason)
 -> used by Navitia
 
 [A collection of links for streaming algorithms and data structures](https://gist.github.com/debasishg/8172796): hyperloglog, minhash, Q-digest, t-digest, Count-Min Sketch, sliding windows, frugal streaming...
+
+Double-linked list C implementation in the linux kernel (detailed in "linux-insides"):
+    struct list_head {
+        struct  list_head   *next,  *prev;
+    };
+    // Usage example:
+    struct nmi_desc {
+        spinlock_t  lock;
+        struct  list_head   head;
+    };
+

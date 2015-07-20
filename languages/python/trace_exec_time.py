@@ -1,5 +1,3 @@
-#!/usr/bin/python3.4
-
 import gc
 from contextlib import contextmanager
 from functools import wraps

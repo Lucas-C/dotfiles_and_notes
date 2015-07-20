@@ -103,3 +103,7 @@ sudo aptitude install mailutils # provides 'mail' command
 ~/.config/variety/variety.conf # wallpaper changer minor change: gsettings set org.cinnamon.background picture-options centered
 
 sudo apt-get install pepperflashplugin-nonfree # Flash in chromium : http://askubuntu.com/a/449266
+
+echo 'application/x-shockwave-flash       swf swfl' > ~/.mime.types #open SWF files with Firefox
+
+dvd+rw-mediainfo /dev/sr0 # get DVD info, alt: wodim dev=/dev/sr0 -checkdrive

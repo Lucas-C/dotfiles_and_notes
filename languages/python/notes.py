@@ -557,6 +557,7 @@ pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8,
 pyreverse # UML diagrams
 
 Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
+lobocv/crashreporter #store and send crash reports directly to the devlopers
 
 
 """""""""""""""""""""""""""""
