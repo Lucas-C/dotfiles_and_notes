@@ -75,6 +75,19 @@ del file
 "L'ordinal 459 est introuvable dans la bibliothèque de liens dynamiques urlmon.dll" -> uninstall MAJ KB2847204
 
 
+<############
+## PowerShell
+############>
+Remove-Item $file
+Get-Help Remove-Item -full
+Get-Service | ConvertTo-HTML -Property Name, Status > C:\services.htm
+Get-Service | Select-Object Name, Status | Export-CSV c:\service.csv
+Get-EventLog -Log "Application"
+Get-Process # list processes
+Stop-Process -Name notepad # or -ID 2668
+Get-Acl $file | Format-List
+
+
 ::::::::::
 :: Batch
 ::::::::::

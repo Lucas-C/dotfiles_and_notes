@@ -129,6 +129,11 @@ ImmutableMap.Builder<K,V>
 // http://docs.oracle.com/javase/tutorial/essential/io/formatting.html
 System.out.println("a" + "b"); System.out.format("a%s", "b");
 
+// Spring
+has support for events
+
+// Dozer : forbidden @VSCT -> bad experiences
+
 org.json.JSONObject, Argo, Gson, Jackson, JSON.simple
 JavaCC // parser generator
 
@@ -232,6 +237,7 @@ Map<String, String[]> DICT = new HashMap<String, String[]>() {{
     put("B", new String[0]);
     put("C", new String[]{"z"});
 }};
+List.forEach(x -> p -> { System.out.println(p); })
 List<Thing> things = DICT.entrySet().stream()
         .map(e -> makeThing(e.getKey(), Arrays.stream(e.getValue())))
         .collect(Collectors.toList());

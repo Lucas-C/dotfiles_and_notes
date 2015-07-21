@@ -18,10 +18,9 @@ fi
 lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
 install apt-cyg $BASHRC_DIR/bin && rm apt-cyg
 apt-cyg install wget
-apt-cyg install bind curl git make python rlwrap unzip vim
+apt-cyg install bind curl git make python3 rlwrap unzip vim
 
-wget https://bootstrap.pypa.io/ez_setup.py -O - | python
-easy_install pip
+python3 -m ensurepip
 
 apt-cyg install gcc-g++ libffi-devel libxml2-devel libxslt-devel openssl-devel
 pip install --user service_identity scrapy

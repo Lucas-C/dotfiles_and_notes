@@ -60,8 +60,9 @@ def main():
             filename = os.path.join(filename, '__main__.py')
     else:
         filename = sys.argv[0]
-    sys.argv.insert(0, prog_name)  # else command-line args passed will be shifted
-    execfile(filename, {'__name__':'__main__', '__file__':filename})
+    with open(filename) as open_file:
+        code = compile(open_file.read(), filename, 'exec')
+        exec(code, {'__name__':'__main__', '__file__':filename})
 
 def get_arg_value_if_next(argv, flag):
     try:

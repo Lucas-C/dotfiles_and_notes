@@ -75,9 +75,11 @@ jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object (std in Python 3
 os.stat("filename").st_ino # get inode
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 
+watchdog # + cmd watchmedo -> monitor/observe files changes - FROM: S&M
+
 from distutils import spawn
 cmd_path = spawn.find_executable('cmd') # shutil.which in Python3
-subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT)
+subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT, input=bytes(some_text,, 'UTF-8')) # last param added in 3.4 : https://hg.python.org/cpython/file/877f47ca3b79/Lib/subprocess.py#l614
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
 
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
@@ -387,6 +389,13 @@ print 'int       f:', int(f)         # 2
 print 'floor     f:', floor(f)       # 2.0
 print 'floor+int f:', int(floor(f))  # 2
 
+# Name mangling:
+class Yo(object):
+    def __init__(self):
+        self.__bitch = True
+Yo().__bitch  # AttributeError: 'Yo' object has no attribute '__bitch'
+Yo()._Yo__bitch  # True
+
 
 """""""""""""""""""""""""""
 "" Functional Programming
@@ -583,6 +592,7 @@ scipy
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
     matplotlib, prettyplotlib, mpld3, bokeh, vispy # 2d plotting
 
+jhcepas/ete # tree epxloration & visualisation
 riccardoscalco/Pykov # markov chains
 
 SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect

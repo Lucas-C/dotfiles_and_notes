@@ -283,7 +283,7 @@ echo -e "00 00 * * * $USER cmd >> cmd.log 2>&1\n" | sudo tee /etc/cron.d/crontas
 sudo grep crontask /var/log/cron.log
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
-while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick - Alt: ayancey/dirmon and gordonsyme/tdaemon to rerun tests automatically on code change
+while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick - Alt: watchdog & watchmedo in Python, ayancey/dirmon and gordonsyme/tdaemon to rerun tests automatically on code change
 huptime --exec $cmd # zero downtime restarts of unmodified (networking) programs, intercept bind(2) and accept(2) calls
 
 # Launch command at a specified time or when load average is under 0.8
@@ -642,7 +642,7 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
 
 
 </-/--------------\-\>
-<!<! Apapapapache !>!>
+<!<! Apapapapache !>!> & PHP
 <\-\--------------/-/>
 h5bp/server-configs-apache # boilerplate config
 source /etc/apache2/envvars && apache2 -V # -l -L -M
@@ -655,6 +655,11 @@ ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking - Alt: tarekzia
 watch 'elinks -dump http://0.0.0.0/server-status | sed -n "32,70p"' # Watch Apache status (lynx cannot dump because of SSL issue)
 httpd -M # list installed modules under Windows
 ServerName localhost:80 # makes httpd startup waaay faster !
+php -r 'print(php_ini_loaded_file()."\n");' # find dout php.ini file used
+ForensicLog logs/forensic.log # requires mod_log_forensic enabled
+drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
+http://xdebug.org/wizard.php
+
 
 =cCcCcCc=
 # Cisco #
@@ -746,6 +751,7 @@ awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd # List system us
 
 sudo su -l # login as user root
 sudo -K # Remove sudo time stamp => no more sudo rights
+env -i $prog # --ignore-environment : start with an empty environment
 fakeroot # runs a command in an environment wherein it appears to have root privileges for file manipulation
 chroot $path_to_fake_root $cmd # 'chroot jail' => changes the apparent root directory
 

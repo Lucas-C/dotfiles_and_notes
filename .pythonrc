@@ -2,7 +2,7 @@
 # USAGE: export PYTHONSTARTUP="$HOME/.pythonrc"
 # vim: set ft=python :
 
-from __future__ import print_function
+from __future__ import unicode_literals, print_function, absolute_import
 
 try:
     import readline
@@ -17,6 +17,11 @@ else:
 
 # Automatically importing useful standard libs
 import json, os, re, sys
+from pprint import pprint
+
+# quick aliases
+p = print
+pp = pprint
 
 try:
     from django import test
