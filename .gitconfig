@@ -1,30 +1,12 @@
-# Thx to Justin Mason for that
-
-[diff]
-    renames = true
-
-[color]
-    ui = true
-
 [alias]
-    new-workdir = !~/.git-new-workdir.sh
-
-# Some obvious short-form aliases
     st = status
     co = checkout
-    ci = commit
-    ca = commit -a
-    br = branch
-    p = pull
 
     wdiff = diff --word-diff
     wshow = show --word-diff
 
     mvbranch = branch -m
     unadd = reset HEAD
-
-# Output the basic content of a .gitignore file
-    genignore = "!echo .gitignore,nohup.out,.project,.classpath,*.pyc,*.o,*.class,*~ | tr , \\\\n"
 
 # Get the full history of the changes affecting a given line, using a regular expression
 # !WARNING! git blame only returns the 1st REGEX match, if multiple matches exist the recursion may 'jump' to follow another line
@@ -39,13 +21,12 @@
     l = log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color
 
 # Better UI for common diff command: diff against upstream, use color & pager
-    d =!git diff --patience --color origin/mainline | less -cR
+    diff2 =!git diff --patience --color origin/mainline | less -cR
 
 # See diffstat(1) for info about what this looks like
     diffstat = diff --stat -r
 
-# Show info about the last commit
-    last = log -1 HEAD
+    diffcached = diff --cached
 
 # Generate a ReviewBoard-compatible diff
     rb = diff --no-color -U999999
@@ -64,20 +45,24 @@
     assume   = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
     assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
-    cp = cherry-pick
-    cl = clone
     unstage = reset HEAD --
-    dc = diff --cached
+    
+# USAGE: you can pass an optional file extension like .py or .c to only limit stats to files ending like this. FROM: http://stackoverflow.com/a/13687302
+    authors-stats = "!bash -c 'git ls-tree -r -z --name-only HEAD -- */*$1 | xargs -0 -n1 git blame --line-porcelain HEAD |grep  \"^author \"|sort|uniq -c|sort -nr' dumb_param"
+    
+# List files by commit count to detect "hotspots"
+    commits-heatmap = "!git ls-tree -r -z --name-only HEAD | xargs -0 -n1 -I{} sh -c 'echo $(git rev-list HEAD --count {}) {}' | sort -n"
+
+    
+# I don't care about whitespace changes
+[apply]
+    whitespace = nowarn
 
 [branch]
     autosetuprebase = always
 
-[push]
-    default = matching
-
-# I don't care about whitespace changes
-[apply]
-    whitespace = nowarn
+[color]
+    ui = true
 
 [core]
     whitespace = -blank-at-eol,-blank-at-eof
@@ -88,8 +73,16 @@
 
 [credential]
     helper = cache --timeout=3600
+
+[diff]
+    renames = true
+
+[push]
+    default = matching
+
 [merge]
     tool = vimdiff
+
 [mergetool]
     keeptemporaries = false
     keepbackups = false
@@ -99,3 +92,6 @@
 # won't be sourced if this file is used as global .gitconfig
 [include]
     path = ~/.gitconfig_user
+[user]
+    email = lucas.cimon@gmail.com
+    name = Lucas Cimon

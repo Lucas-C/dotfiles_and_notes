@@ -191,7 +191,7 @@ try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err: # see chain_errors module
     logger.exception("Additional info: %s", 42) # Exception will be automagically logged
     logging.warn("Hello %(world)r!", world=earth)
-    import traceback; traceback.print_exc() # or .extract_stack() - Also: tbutils.TracebackInfo from mahmoud/boltons
+    import traceback; error_msg = ''.join(traceback.format_exception(*sys.exc_info())) # Also: tbutils.TracebackInfo from mahmoud/boltons
 else: pass
 finally: pass
 
@@ -519,7 +519,7 @@ import gc; gc.get_objects() # Returns a list of all objects tracked by the garba
 python -m cProfile myscript.py -o output.pstats # cProfile.Profile().dump_stats(filename)
 gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
 pycallgraph graphviz -- ./mypythonscript.py # Alt for recursion tree: carlsborg/rcviz
-kernprof.py --line-by-line myscript.py # line_profiler
+kernprof.py --line-by-line myscript.py # line_profiler great pip package
 pyprof2calltree # use kcachegrind
 python-flamegraph # FlameGraph profiler
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers

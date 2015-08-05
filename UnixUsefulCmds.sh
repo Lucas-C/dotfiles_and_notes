@@ -980,7 +980,7 @@ pngquant ## 70% lossy compression
 jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs
 identify -verbose $jpg | grep -Fq 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg
 mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata
-feh -F -d -D 3 --cycle-once <(findImg .) # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
+feh -F -d -D 3 --cycle-once -f <(findImg .) # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 
 
 $$$$$$$$$$$$$$$

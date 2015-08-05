@@ -45,6 +45,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
     - Rule 5. Data dominates. If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident. Data structures, not algorithms, are central to programming.
 - "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
 - " Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
+- write greppable code
 - Tony Hoare null "billion-dollar mistake"
 
 ## Design principles
@@ -70,7 +71,7 @@ On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/14
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 + similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG...
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
-+ representation for RESTful APIs: Swagger / RAML / API Blueprint
++ representation for RESTful APIs: Swagger / RAML / API Blueprint / APIDOC
 
 On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity] : they add moving parts and interdependencies
 

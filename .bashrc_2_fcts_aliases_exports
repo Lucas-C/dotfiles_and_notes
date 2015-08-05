@@ -8,7 +8,6 @@ PATH=/usr/bin:$PATH
 PATH=/usr/sbin:$PATH
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/sbin:$PATH
-PATH=~/.local/bin:$PATH
 PATH=$BASHRC_DIR/bin:$PATH
 
 export GOPATH=~/gocode

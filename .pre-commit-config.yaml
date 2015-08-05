@@ -1,11 +1,12 @@
 -   repo: git://github.com/pre-commit/pre-commit-hooks
-    sha: 0d88124ef6343fbbc6c9d2872853f73546c98a3f
+    sha: c2992bd3a11e3c0c2533ee370c26ac2b12d3a1b3
     hooks:
     -   id: check-json
     -   id: trailing-whitespace
-        args: ['--no-markdown-linebreak-ext']
+        args:
+        - --no-markdown-linebreak-ext
 -   repo: git://github.com/Lucas-C/pre-commit-hooks
-    sha: 1320d84cf315728e6ac6cca83bd80e3c732f53df
+    sha: 181a63c511691da58116fa19a7241956018660bc
     hooks:
     -   id: remove-crlf
         exclude: npp/shortcuts.xml

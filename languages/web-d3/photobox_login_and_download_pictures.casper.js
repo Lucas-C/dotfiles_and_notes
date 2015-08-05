@@ -7,9 +7,9 @@
 
 var system = require('system'),
     casper = require('casper').create({
-    verbose: true,
-    logLevel: 'debug'
-});
+        verbose: true,
+        logLevel: 'debug'
+    });
 
 casper.start('http://www.photobox.fr/mon-espace');
 
@@ -34,7 +34,7 @@ casper.then(function () {
     while (!system.stdin.atEnd()) {
         var id = system.stdin.readLine();
         // We cannot define a function directly here as we are inside a loop
-        casper.open('http://www.photobox.fr/mon-espace/photo/agrandie?photo_id=' + id).then(img_downloader(id));
+        casper.then(img_downloader(id));
     }
 });
 
@@ -48,9 +48,11 @@ function check_login_succeeded () {
 
 function img_downloader (id) {
     return function () {
-        var img_src = casper.evaluate(function () { return document.querySelector('body > img').src; });
-        casper.echo(img_src + ' ' + id + '.jpg');
-        casper.download(img_src, id + '.jpg');
+        casper.open('http://www.photobox.fr/mon-espace/photo/agrandie?photo_id=' + id).then(function () {
+            var img_src = casper.evaluate(function () { return document.querySelector('body > img').src; });
+            casper.echo(img_src + ' ' + id + '.jpg');
+            casper.download(img_src, id + '.jpg');
+        });
     };
 }
 
