@@ -10,6 +10,8 @@ chcp 65001 in cmd.exe -> support UTF-8
 cmd /c mklink &:: call cmd.exe builtins, e.g. the symlinker
 subst z: b:\user\betty\forms &:: creates a virtual drive Z for the path B:\User\Betty\Forms
 
+pkgmgr /iu:"TelnetClient" &:: install `telnet` command. Also available: TelnetServer, DNS-Server-Tools, SimpleTCP for echo & daytime
+
 where %cmd% &:: 'which' equivalent
 ipconfig /displaydns
 

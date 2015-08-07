@@ -1,3 +1,6 @@
+https://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message
++ adopt a convention in the shortname, like a prefix: [$issue_number] - DEV|BUGFIX - ...
+
 #-----#
 # SVN #
 #-----#
@@ -108,7 +111,7 @@ git remote set-url origin https://github.com/Lucas-C/... # change a remote URL, 
 git branch -av
 git remote show origin
 
-git fetch upstream && git rebase upstream/master # Sync a fork
+git fetch upstream && git rebase upstream/master && git pusg --force # Sync a fork
 
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:
@@ -131,6 +134,10 @@ git push
 
 .git/hooks/post-receive # any executable, e.g. bash script
 pre-commit/pre-commit # great hooks manager + cf. https://github.com/Yelp/venv-update/blob/a5960acab7101a1e70c57945b2038fef9d005aed/.pre-commit-config.yaml#L15-L22
+
+# Only checkout a subdirectory
+git config core.sparsecheckout true
+echo subdir/path/ >> .git/info/sparse-checkout
 
 
 ++++++

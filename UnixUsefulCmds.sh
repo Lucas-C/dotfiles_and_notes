@@ -396,6 +396,7 @@ echo '{"A1":"a1","A2":"b2","B1":"b2"}' | jq '"A." as $regex | del(.[keys[]|selec
 echo '{"A0":["a1","a2","a3"], "B0":["b1","b2","b3"], "c3":[]}' | jq '".[^3]" as $regex|to_entries|map(select(.key|match($regex)))|map(.value|=map(select(match($regex))))|from_entries'
 source <(jq -r 'to_entries|.[]|"SAUCE_\(.key|ascii_upcase)=\(.value)"' .saucelabs_auth.json )
 jq '[.[] | {contentUrl, imgUrl, description: .contentUrl|sub(".*/";"")}]' imgur_imgs.json > imgur_imgs_with_desc.json
+jq -r 'map(select(.joblink == ""))' < $json_filename
 pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
@@ -657,8 +658,31 @@ httpd -M # list installed modules under Windows
 ServerName localhost:80 # makes httpd startup waaay faster !
 php -r 'print(php_ini_loaded_file()."\n");' # find dout php.ini file used
 ForensicLog logs/forensic.log # requires mod_log_forensic enabled
-drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
 http://xdebug.org/wizard.php
+
+wget http://ftp.drupal.org/files/projects/drupal-7.38.zip && unzip drupal-7.38.zip && mv drupal-7.38 $INSTALL_DRUPAL
+drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
+drush pml # pm-list -> list modules & themes
+drush site-install standard -y --account-pass=admin --db-url='mysql://root:root@localhost/my_pretty_db' --site-name=$sitename
+drush en -y ckeditor ckeditor_image # pm-enable - Opposite: drush dis[able]
+drush en -y cshs ctools date entity features uuid_features field_group wysiwyg imce imce_wysiwyg clone search_api views date_popup uuid workflow workflow_admin_ui workflowfield elasticsearch_connector elasticsearch_connector_easy_install elasticsearch_connector_search_api
+drush en -y ldap_authentication ldap_authorization ldap_query ldap_servers ldap_test ldap_user
+drush ne-export --type=$content_type --file=$out_file.php
+drush ne-import --uid $user_uid --file=$in_file.php
+drush cc all # clear-cache
+drush vget $var_name
+drush watchdog-show
+drush watchdog-delete all
+drush updatedb
+drush feature-update / feature-revert
+
+chmod a+w sites/default/settings.php sites/default/files/
+cat <<EOF >> sites/default/settings.php
+
+if (file_exists(dirname(__FILE__) . '/custom_settings.php')) {
+    include('custom_settings.php');
+}
+EOF
 
 
 =cCcCcCc=
@@ -752,6 +776,7 @@ awk -F":" '{ print "username: " $1 "\t\tuid:" $3 }' /etc/passwd # List system us
 sudo su -l # login as user root
 sudo -K # Remove sudo time stamp => no more sudo rights
 env -i $prog # --ignore-environment : start with an empty environment
+export $(xargs < .env) # source & export environment variables from a file
 fakeroot # runs a command in an environment wherein it appears to have root privileges for file manipulation
 chroot $path_to_fake_root $cmd # 'chroot jail' => changes the apparent root directory
 

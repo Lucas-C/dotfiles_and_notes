@@ -7,6 +7,8 @@ $$("#articleContent ul li").length
 debugger // breakpoint for debugger
 performance.timing // and performance.memory : useful debugging informations
 
+while (e.firstChild) { e.removeChild(e.firstChild); } >>faster>> e.innerHTML = ''
+
 <script id='loadarea' type='text/javascript'></script>
 document.getElementById('loadarea').src = '.../test.cgi?js';
 

@@ -18,9 +18,11 @@ chardet.detect(str) # Mozilla encoding detection
 str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters - Also: str.decode('utf8')
 PYTHONIOENCODING=utf_8 # http://daveagp.wordpress.com/2010/10/26/what-a-character/
 with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as UTF8
-    for line in open_file.readlines():
+    for line in open_file.readlines(): # Drawback: no encoding can be specified
         yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
 with io.open('my_file', 'w', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
+for line in fileinput.input([filename], inplace=True):
+    print(line.strip())
 fileutils.atomic_save # from mahmoud/boltons
 intern(str) # internal representation - useful for enums/atoms + cf. http://stackoverflow.com/a/15541556
 
@@ -798,7 +800,7 @@ pyexiv2 # images EXIF manipulation
 
 EasyDialogs, optparse_gui, EasyGui > Tkinter
 
-urwid # console user interface lib
+urwid # console user interface lib - Alt: snack, NPyScreen
 code.InteractiveConsole().interact() # interactive python prompt
 pyreadline, readline, rlcompleter
 termcolor, colorama # cross-platform colored terminal text

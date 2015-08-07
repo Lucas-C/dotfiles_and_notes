@@ -22,3 +22,10 @@ td { display: table-row; }
 //github.com/tomgenoni/cssdig # analyze, refactor, standardize and maintain your CSS
 
 for(i=0;A=$$("*")[i++];)A.style.outline="solid hsl("+(A+A).length*9+",99%,50%)1px" // CSS debuggung one-liner - Alt: pesticide.io
+
+background-size: cover
+
+List CSS classes used in HTML files:
+
+    html_files=$(find -not -path '*/bower_components/*' -not -path '*/node_modules/*' -name '*.html')
+    grep -h -o 'class="[^"]*"' $html_files | sed 's/class="\(.*\)"/\1/' | grep -v '^{.*}$' | tr ' ' '\n' | sort | uniq -c | sort
