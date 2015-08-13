@@ -22,6 +22,8 @@ const int * const p;    // const pointer to const int
 // Don’t use:
 int const *p;
 
+#define add(a, b) _Generic(a, int: addi, char*: adds)(a, b) // function overloading since gcc 4.9
+
 // GCC optimization
 if(__builtin_expect(entity->extremely_unlikely_flag,0))
     // code that is rarely run

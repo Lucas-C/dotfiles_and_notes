@@ -151,6 +151,10 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
     kill $thread_to_be_killed;
     select user,host from mysql.user;
 
+Human-readable dump by shortening the 'INSERT' statements:
+
+    perl -pe 's/^(INSERT INTO .*? VALUES).*/\1 .../' $dump.sql | less  # using perl because of its non-greedy wildcar match
+
 ##### How to start a file to make it executable AND runnable with mysql < FILE.mysql
 
     /*/cat <<NOEND | mysql #*/

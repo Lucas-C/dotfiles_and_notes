@@ -26,8 +26,9 @@ look # find English words (or lines in a file) beginning with a string
 
 # 'top' < 'htop'
 * display full command path of processes : "c"
+* sort column highlighting : Press "x"
+* sorting : Pick a column with "<" & ">"
 * killing : Press "k", then pid, then signal (15, 9...)
-* sorting : press "O" and select the column
 * display /cores stats : "1"
 * colors : 'Z'; then save config: 'W'
 VIRT: how much memory the program is able to access at the present moment
@@ -101,7 +102,7 @@ source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stack
 
 readonly EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # Script file parent dir
 readonly LOG_FILE="$EXEC_DIR/logs/$(basename $0).log.$(date +%Y-%m-%d-%H)"
-exec > >(tee -a $LOG_FILE); exec 2>&1
+exec > >(tee -a $LOG_FILE); exec 2>&1 # > >(cmd) constructs did not work under cygwin with v4.3.33. Of course, it also won't work if `sh` is the interpreter
 date "+%F %T,%N" | cut -c-23 # Standard logs date
 date -u +%s # Seconds since EPOCH
 date -d @$seconds_since_epoch "+%F" # under OSX: date -jf "%s" $secs "+%F"
@@ -281,6 +282,7 @@ logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call
 
 echo -e "00 00 * * * $USER cmd >> cmd.log 2>&1\n" | sudo tee /etc/cron.d/crontask # don't forget the newline at the end, don't use % symbols, don't put a dot '.' in its filename, use 644 permissions owned by root, and note that the $USER arg is not present in /etc/crontab files
 sudo grep crontask /var/log/cron.log
+/var/spool/cron/$USER # per-user cron jobs
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
 while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick - Alt: watchdog & watchmedo in Python, ayancey/dirmon and gordonsyme/tdaemon to rerun tests automatically on code change
@@ -642,21 +644,22 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
  -c "$cmd"
 
 
-</-/--------------\-\>
-<!<! Apapapapache !>!> & PHP
-<\-\--------------/-/>
+</-/--------------------\-\>
+<!<! Apapapapache & PHP !>!>
+<\-\--------------------/-/>
 h5bp/server-configs-apache # boilerplate config
 source /etc/apache2/envvars && apache2 -V # -l -L -M
 sudo bash -c 'source /etc/apache2/envvars && apache2 -t && apache2ctl -S' # check config
 vim /etc/apache2/sites-available/default-ssl
 service apache2 restart
-tail -F /var/log/apache2/*.log
 a2enmod / a2dismod $modname  # enable / disable std modules
 ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking - Alt: tarekziade/boom
 watch 'elinks -dump http://0.0.0.0/server-status | sed -n "32,70p"' # Watch Apache status (lynx cannot dump because of SSL issue)
 httpd -M # list installed modules under Windows
 ServerName localhost:80 # makes httpd startup waaay faster !
-php -r 'print(php_ini_loaded_file()."\n");' # find dout php.ini file used
+php -r "print(php_ini_loaded_file());" # find dout php.ini file used
+php -r "print(phpinfo());" | grep log
+tail -F /var/log/apache2/*.log
 ForensicLog logs/forensic.log # requires mod_log_forensic enabled
 http://xdebug.org/wizard.php
 
@@ -902,6 +905,36 @@ https://developer.mozilla.org/en-US/docs/Tools/Web_Console
 - cd("#frame1"); # get into a specific iframe
 - $("css selector") or $$() for ALL matches; $x("xpath expression")
 //div[contains(concat(' ',normalize-space(@class),' '),' foo ')] # http://pivotallabs.com/xpath-css-class-matching/
+
+# Enable HTTP logging - Also works un Windows by using the 'set' instead of 'export' and %TEMP% instead of /tmp
+export NSPR_LOG_MODULES=timestamp,nsHttp:5,nsSocketTransport:5,nsStreamPump:5,nsHostResolver:5
+export NSPR_LOG_FILE=/tmp/firefox_http.log
+./firefox
+
+
+g@g@g@g@g
+@ github
+g@g@g@g@g
+https://github.com/explore
+https://github.com/notifications
+https://github.com/issues
+https://github.com/pulls
+
+#L53-L60 -> lines highlighting: to select ranges, hold shift before clicking
+Add ?w=1 to the URL to see the diff with whitespace ignored
+
+Keyboard shortcuts:
+* s -> focus the search bar
+* t -> repo files search
+* l -> jump to a code line
+
+Any of the keywords fix/fixes/fixed, close/closes/closed or resolve/resolves/resolved, followed by the issue number, will close the issue once it is committed to the master branch.
+
+Tasks lists -> displayed as checkboxes:
+- [ ] A
+  - [x] B
+  - [ ] C
+
 
 =\/=/\=\/=/\=\/=
 =  Virtualbox
