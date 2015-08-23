@@ -687,8 +687,8 @@ resource # limit a process resources: SPU time, heap size, stack size...
 
 shlex.split('--f "a b"') # tokenize parameters properly
 import sh, sys # sh.py - AWESOME for shell scripting - Alt: gawel/chut
-shell = sh(_err=sys.stderr,_out=sys.stdout)
-from shell import bzcat, tar
+sh = sh(_err=sys.stderr,_out=sys.stdout)
+from sh import bzcat, tar
 (import [sh [cat grep wc]]) # in Hy, aka Python with Lisp syntax
 (-> (cat "/usr/share/dict/words") (grep "-E" "^hy") (wc "-l"))
 

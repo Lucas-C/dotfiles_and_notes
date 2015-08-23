@@ -2,6 +2,11 @@ import binascii, os, struct, sys, zlib
 
 # Heavily inspired by Python2.7 gzip.py
 # RFC: http://www.gzip.org/zlib/rfc-gzip.html#member-format
+# QA TODO:
+#   - CLI options: --quiet --explain --optional-fields
+#   - return code if check fails
+#   - dissociate GzipHeader object building from printing
+# +ideally, merge this into gunzip
 
 FTEXT, FHCRC, FEXTRA, FNAME, FCOMMENT = 1, 2, 4, 8, 16
 KNOWN_OS = {
@@ -25,6 +30,7 @@ FIXED_HEADER_SIZE = 10
 FIXED_FOOTER_SIZE = 8
 
 def main(gzip_filename):
+    print('[zlib C lib version (used by Python zlib module): {}]'.format(zlib.ZLIB_VERSION))
     gzip_file_size = os.path.getsize(gzip_filename)  # in bytes
     with open(gzip_filename, 'rb') as gzip_file:
         id1, id2 = ord(gzip_file.read(1)), ord(gzip_file.read(1))
@@ -80,25 +86,29 @@ def main(gzip_filename):
             print('CRC16: {}'.format(crc16))
             header_size += 2
         compressed_data_size = gzip_file_size - header_size - FIXED_FOOTER_SIZE
-        print('Compressed data length: {} bytes'.format(compressed_data_size))
         compressed_data = gzip_file.read(compressed_data_size)
-        uncompressed_data = zlib.decompressobj(-zlib.MAX_WBITS).decompress(compressed_data)
+        #uncompressed_data = zlib.decompress(compressed_data, -zlib.MAX_WBITS)  # => same result
+        decompress_obj = zlib.decompressobj(-zlib.MAX_WBITS)
+        uncompressed_data = decompress_obj.decompress(compressed_data)
         crc32 = struct.unpack('<I', gzip_file.read(4))[0]
         print('CRC32: {}'.format(crc32))
-        print('  COMPUTED FROM DECOMPRESSED DATA: {}'.format(binascii.crc32(uncompressed_data) & 0xffffffff))
+        print('    (32bits cyclic redundancy check of the original (uncompressed) input data)')
+        print('  -> CRC32 COMPUTED FROM DECOMPRESSED DATA: {}'.format(binascii.crc32(uncompressed_data) & 0xffffffff))
         isize = struct.unpack('<I', gzip_file.read(4))[0]
-        print('ISIZE: {}'.format(isize))
+        print('ISIZE: {} bytes'.format(isize))
         print('    (size of the original (uncompressed) input data modulo 2^32)')
-        print('  ACTUAL DECOMPRESSED DATA SIZE: {}'.format(len(uncompressed_data)))
+        print('  -> ACTUAL COMPRESSED DATA LENGTH: {} bytes'.format(compressed_data_size))
+        print('  -> ACTUAL DECOMPRESSED DATA LENGTH: {} bytes'.format(len(uncompressed_data)))
+        print('  -> ZLIB: len(unused_data)={}'.format(len(decompress_obj.unused_data)))
 
 def read_null_terminated_string(file_stream):
     chars = []
     while True:
         char = file_stream.read(1)
-        if not char or char == '\000':
+        if not char or char == b'\000':
             break
         chars.append(char)
-    return ''.join(chars)
+    return b''.join(chars).decode("latin1")
 
 def read_extra_field(file_stream, length):
     """NON TESTED"""

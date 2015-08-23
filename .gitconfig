@@ -60,7 +60,7 @@
     whitespace = nowarn
 
 [branch]
-    autosetuprebase = always
+    autosetuprebase = always # + git config branch.$branch.rebase true
 
 [color]
     ui = true
