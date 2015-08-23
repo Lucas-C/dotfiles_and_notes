@@ -21,7 +21,7 @@ cmd2 | cmd1 /dev/stdin # aka /proc/self/fd/0 aka /dev/fd/0 - Useful when a comma
 
 time read # chrono
 man ascii # display ASCII table
-cal # quick calendar - Also: calcurse, wyrd
+cal / ncal -w # quick calendar - Also: calcurse, wyrd
 look # find English words (or lines in a file) beginning with a string
 
 # 'top' < 'htop'
@@ -149,7 +149,7 @@ local argv=("$@") # Convert to array
 "${argv[*]}" # expands to a single word with the value of each array member separated by the first character of the IFS variable
 "${name[@]}" # expands each element of name to a separate word
 ${#argv[@]} != ${#argv} # array size VS char-length of 1st elem
-${argv[@]:(-1)} # last element
+~/.$(IFS='/' path=($SHELL); echo ${path[@]:(-1)})rc # -1 => last array element
 echo ${argv[@]:1:2} # Array slice
 unset argv[0] # remove element, WITHOUT-INDEX-SHIFTING
 
@@ -612,6 +612,8 @@ parklemotion/nokogiri # Ruby gem
 python -m webbrowser -t "$url"
 urlwatch --urls=urls-list.txt | ifne mutt -s "Page change detected" $email_address
 
+localtunnel.me / ngrok # Internet tunnels to localhost
+
 
 _'_"_'_"_'_"_'_"_'_"_'_"_
 #    ssh@  SSL  :ssh    #
@@ -664,9 +666,7 @@ wget http://ftp.drupal.org/files/projects/drupal-7.38.zip && unzip drupal-7.38.z
 drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
 drush pml # pm-list -> list modules & themes
 drush site-install standard -y --account-pass=admin --db-url='mysql://root:root@localhost/my_pretty_db' --site-name=$sitename
-drush en -y ckeditor ckeditor_image # pm-enable - Opposite: drush dis[able]
-drush en -y cshs ctools date entity features uuid_features field_group wysiwyg imce imce_wysiwyg clone search_api views date_popup uuid workflow workflow_admin_ui workflowfield elasticsearch_connector elasticsearch_connector_easy_install elasticsearch_connector_search_api
-drush en -y ldap_authentication ldap_authorization ldap_query ldap_servers ldap_test ldap_user
+drush en -y $modules # pm-enable - Opposite: drush dis[able]
 drush ne-export --type=$content_type --file=$out_file.php
 drush ne-import --uid $user_uid --file=$in_file.php
 drush cc all # clear-cache

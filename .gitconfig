@@ -46,14 +46,15 @@
     unassume = update-index --no-assume-unchanged
     assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
     unstage = reset HEAD --
-    
+
 # USAGE: you can pass an optional file extension like .py or .c to only limit stats to files ending like this. FROM: http://stackoverflow.com/a/13687302
-    authors-stats = "!bash -c 'git ls-tree -r -z --name-only HEAD -- */*$1 | xargs -0 -n1 git blame --line-porcelain HEAD |grep  \"^author \"|sort|uniq -c|sort -nr' dumb_param"
-    
+    authors-stats = "!sh -c 'git ls-tree -r -z --name-only HEAD -- */*$1 | xargs -0 -n1 git blame --line-porcelain HEAD | grep  \"^author \"|sort|uniq -c|sort -nr' dumb_param"
+
 # List files by commit count to detect "hotspots"
     commits-heatmap = "!git ls-tree -r -z --name-only HEAD | xargs -0 -n1 -I{} sh -c 'echo $(git rev-list HEAD --count {}) {}' | sort -n"
 
-    
+    ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'%h %<(24)%cr {}' {}^{commit}"
+
 # I don't care about whitespace changes
 [apply]
     whitespace = nowarn

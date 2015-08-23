@@ -227,6 +227,7 @@ moment.js > sugar.js // parse, validate, manipulate, and display dates
 
 webpack, browserify // module bundlers
 npm install // Node Packaged Modules
+npm shrinkwrap // locks down the versions of a package's dependencies
 
 substack/minimist // argument options parser - Alt: chevex/yargs, harthur/nomnom, divarvel/cliparse-node
 

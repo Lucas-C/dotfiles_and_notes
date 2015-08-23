@@ -336,6 +336,7 @@ json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatt
 nicolaiarocci/cerberus # validation tool for dictionaries, e.g. type checking
 pyrsistent PMap and PREcord  # immutable/functional with invariants and optional types
 
+
 """""""""""""""""""
 "" Quirks & Gotchas
 """""""""""""""""""
@@ -397,6 +398,14 @@ class Yo(object):
         self.__bitch = True
 Yo().__bitch  # AttributeError: 'Yo' object has no attribute '__bitch'
 Yo()._Yo__bitch  # True
+
+class O(object): pass
+O() == O()             # False
+O() is O()             # False
+hash(O()) == hash(O()) # True !
+id(O()) == id(O())     # True !!!
+# ANSWER: http://stackoverflow.com/a/3877275/636849
+
 
 
 """""""""""""""""""""""""""
@@ -674,7 +683,9 @@ import uuid # generate unique IDs
 resource # limit a process resources: SPU time, heap size, stack size...
 
 shlex.split('--f "a b"') # tokenize parameters properly
-import sh # sh.py - AWESOME for shell scripting - Alt: gawel/chut
+import sh, sys # sh.py - AWESOME for shell scripting - Alt: gawel/chut
+shell = sh(_err=sys.stderr,_out=sys.stdout)
+from shell import bzcat, tar
 (import [sh [cat grep wc]]) # in Hy, aka Python with Lisp syntax
 (-> (cat "/usr/share/dict/words") (grep "-E" "^hy") (wc "-l"))
 
@@ -706,9 +717,10 @@ peewee, SQLAlchemy # ORM DB
 from playhouse.sqlite_ext import SqliteExtDatabase; db = SqliteExtDatabase(':memory:') # in-memory SQLite DB with peewee
 anydbm: dbhash else gdbm else dbm else dumbdbm
 sqlite3 # std DB, persistent in a file || can be created in RAM
+python-lsm-db(like LevelDB), unqlite-python(like MongoDB), vedis-python(like Redis) # Other embedded NoSQL DBs
 pyMySQL, noplay/python-mysql-replication
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
-stephenmcd/hot-redis
+stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring
 
 hmac, hashlib.md5('string').hexdigest()
 dropbox/python-zxcvbn # password strength estimation
@@ -745,7 +757,7 @@ kevin1024/vcrpy # record / replay HTTP interactions
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long
 CherryPy # good prod server, very easy to launch
-flask # good for simple APIs
+flask # good for simple APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
 + web.py
