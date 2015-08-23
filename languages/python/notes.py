@@ -80,7 +80,7 @@ os.stat("filename").st_ino # get inode
 watchdog # + cmd watchmedo -> monitor/observe files changes - FROM: S&M
 
 from distutils import spawn
-cmd_path = spawn.find_executable('cmd') # shutil.which in Python3
+cmd_path = spawn.find_executable('cmd') # shutil.which in Python3 / shutilwhich backport else
 subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT, input=bytes(some_text,, 'UTF-8')) # last param added in 3.4 : https://hg.python.org/cpython/file/877f47ca3b79/Lib/subprocess.py#l614
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
 
@@ -344,12 +344,15 @@ pyrsistent PMap and PREcord  # immutable/functional with invariants and optional
 
 [] = () # is OK, but not: () = []
 
-assert bool(datetime.time(0,0,0)) is False
+assert bool(datetime.time(0,0,0)) is False # before 3.5
 
-x = 2000
-y = 2000
+x = 256
+y = 256
+assert (x is y) is True
+x = 257
+y = 257
 assert (x is y) is False
-x = 2000; y = 2000
+x = 257; y = 257
 assert (x is y) is True
 
 # DO NOT use other default parameter values than None (or at worst an immutable datastructure), + initialization is static
