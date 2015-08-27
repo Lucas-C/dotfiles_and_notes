@@ -118,7 +118,7 @@ bar # echo A
 set - A B C
 
 : ${1:?'Missing or empty parameter'}
-: ${var:="new value set if empty"}
+: ${var:="new value set if empty"} # !! -> this defines a global variable
 local var=${1:-"default value"}
 foo () { local x=$(false); echo $?; }; foo # -> 0 !!GOTCHA!! 'local' is also a command, and its return code shadows the one of the cmd invoked
 
@@ -196,6 +196,7 @@ hdestroy() { rm -rf "/dev/shm/hashmap.$1" ; }
 # Powerful regex
 [[ "some string" =~ "$regex" ]]
 group1="${BASH_REMATCH[1]}"
+[[ 'A B' =~ "A.B" ]] # !!GOTCHA!! evaluates to 1, while [[ 'A B' =~ A.B ]] evaluates to 0: "since 3.2, quoted strings and substrings are matched as literals by default"
 
 # Simulating 'pipefail', from gzip:zgrep source code
 r=$(
@@ -252,7 +253,7 @@ shopt -s extglob # http://www.linuxjournal.com/content/bash-extended-globbing
 shopt [-o] # list options values. Alt: $- E.g. check if shell is interactive: [[ $- =~ i ]] - Also, is stdin open in a terminal: [ -t 0 ]
 
 ( set -o posix; set ) # List all defined variables
-foo=bar; foo () { :; } ; unset foo # !!GOTCHA!! the variable is unset first, then the function if called a 2nd time
+foo=bar; foo () { echo FOO; }; unset foo # !!GOTCHA!! the variable is unset first
 # Get all commands prefixed by (useful for unit tests)
 compgen -abck unit_test_ # control readline auto-completion (help complete), can be enable by '-e' flag of 'read'
 complete -f -X '!*.ext' command # exclude files using a filter
@@ -391,7 +392,7 @@ fmt # reformat lines into paragraphs
 printf "%-8s\n" "${value}" # 8 spaces output formatting
 | xargs -n 1 sh -c 'echo ${0:0:3}' # 3 first characters of $string
 
-csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # pip install csvkit
+csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # pip install csvkit -Alt: mlr (Miller)
 
 jq -r '..|objects|.name//empty' # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
 echo '{"A1":"a1","A2":"b2","B1":"b2"}' | jq '"A." as $regex | del(.[keys[]|select(match($regex))])'
@@ -420,7 +421,6 @@ find -D rates ... # details success rates of each match logic term
 find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: man agedu (-s $dir then -w / -t) ; + all tools listed in http://dev.yorhel.nl/ncdu + ruiqi/wcleaner
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
-find . \( ! -path '*/.*' \) -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -l "{}" # list files by modification time
 find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long' - Alt to mtime: -newer $than_this_file
 fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte - Also: findimagedupes
 

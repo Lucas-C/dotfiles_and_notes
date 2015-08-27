@@ -236,7 +236,7 @@ find_constants_values () {
         | sort | uniq
 }
 
-alias perl='rlwrap --remember --multi-line --substitute-prompt "> " $(type -P perl)' # Also, use the debugger: perl -d -e 1
+#alias perl='rlwrap --remember --multi-line --substitute-prompt "> " $(type -P perl)' # Also, use the debugger: perl -d -e 1
 #alias node='env NODE_NO_READLINE=1 rlwrap --remember --multi-line "$(type -P node)"' #broken under Cygwin
 alias lua='rlwrap --remember --multi-line --always-readline $(type -P lua)'
 alias lua5.2='rlwrap --remember --multi-line --always-readline $(type -P lua5.2)'
@@ -245,6 +245,17 @@ cljs_node () { rlwrap --remember --multi-line --quote-characters '"' --break-cha
 
 # Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
 alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'
+
+jar_java_version () {
+    local jar=$(readlink -f $1)
+    cd /tmp
+    local a_class=$(jar tf "$jar" | grep '^[^$]\+.class$' | head -n 1)
+    local a_class_main_dir=$(echo "$a_class" | tr '/' '\n' | head -n 1)
+    jar xf "$jar" "$a_class"
+    javap -v "$a_class" | grep version
+    rm -r $a_class_main_dir
+    cd - >/dev/null
+}
 
 
 #------------------
@@ -266,7 +277,27 @@ iconv_help () {
     echo tail --bytes=+4 UTF8WithBom.txt \> UTF8WithoutBom.txt
 }
 alias utf8=iconv_help
-nocrlf () { perl -pe 's/\r//g' "${@:-/dev/stdin}"; } # also: dos2unix
+
+nocrlf () { # also: dos2unix
+    perl -pe 's/\r//g' "${@:-/dev/stdin}"
+}
+notabs () { # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces
+    for f in $(findTxt "${@:-$(cat)}"); do
+        perl -pi -e 's/\t/    /g' "$f"
+        perl -pi -e 's/[\t\r ]*$//g' "$f"
+        # 'perl -p' is more portable than sed (e.g. \t\n does not work under OSX)
+    done
+}
+nonascii () {
+    g -P -n "[\x80-\xFF]" "$@"
+}
+has_unicode_non_breaking_space () {
+    perl -ne 'print if $m = /\xc2\xa0/; $t ||= $m; END{exit !$t}' "$@"
+}
+remove_unicode_non_breaking_spaces () {
+    perl -pi -e '$t ||= s/\xc2\xa0/ /g; END{ exit !$t}' "$@"
+}
+
 alias json_fmt='python -mjson.tool' # don't work well with non ascii
 
 alias funiq="awk '"'{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'"'" # faster than 'sort | uniq -c' BUT output is not sorted. Also, it's very easy to swap the output columns
@@ -366,13 +397,8 @@ findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while 
 findImg () {
     findByFilePattern image "$@"
 }
-
-notabs () { # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces
-    for f in $(findTxt "${@:-$(cat)}"); do
-        perl -pi -e 's/\t/    /g' "$f"
-        perl -pi -e 's/[\t\r ]*$//g' "$f"
-        # 'perl -p' is more portable than sed (e.g. \t\n does not work under OSX)
-    done
+findAndSortByDate () {
+    find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
 }
 
 fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[2]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match

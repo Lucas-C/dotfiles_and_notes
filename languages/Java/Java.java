@@ -1,5 +1,8 @@
 Consider Groovy (& framework Grails) > Java
 
+// Find a .class Java version
+javap -v $file.class | grep version
+
 /**EXPORT:
 //1-Compile
 rm -rf bin/*
@@ -229,7 +232,7 @@ http://docs.oracle.com/javase/tutorial/uiswing/components/componentlist.html
 Arrays.parallelSort(myArray) // break up the collection into several parts sorted independently across a number of cores. Will be less efficient on a loaded machine, depending on its architecture
 concurrent Adders > Atomics
 SecureRandom.getInstanceStrong() // Secure random generator
-Optional<T>
+Optional<T> -> Optional.ofNullable often better than Optional.of that may throw a NullPointerException
 
 // Streaming API:
 Map<String, String[]> DICT = new HashMap<String, String[]>() {{
@@ -249,3 +252,8 @@ IntStream.range(1, 4) // Another use example: IntStream.iterate(0, i -> i + 2).l
         .forEach(f.bars::add))
     .flatMap(f -> f.bars.stream())
     .forEach(b -> System.out.println(b.name));
+    
+// try-with-resources: any object that implements java.lang.AutoCloseable, which includes java.io.Closeable ones:
+try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+    return br.readLine();
+}

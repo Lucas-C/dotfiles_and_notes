@@ -2,10 +2,6 @@
 """""""""""
 "" Tricks
 """""""""""
-# grep-like one-liners:
-python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).groups())+"\n" for line in sys.stdin])'
-antiboredom/audiogrep
-
 _ # result of the last expression evaluated (in an interpreter only)
 
 r'''Raw string literal: no need to double escape \{0}\{one:.5f}'''.format("zero", one=1) # raw string: treat backslashes as literal characters
@@ -78,11 +74,6 @@ os.stat("filename").st_ino # get inode
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 
 watchdog # + cmd watchmedo -> monitor/observe files changes - FROM: S&M
-
-from distutils import spawn
-cmd_path = spawn.find_executable('cmd') # shutil.which in Python3 / shutilwhich backport else
-subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT, input=bytes(some_text,, 'UTF-8')) # last param added in 3.4 : https://hg.python.org/cpython/file/877f47ca3b79/Lib/subprocess.py#l614
-# AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
 
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
     foo = kwargs.pop('foo')
@@ -564,6 +555,46 @@ def deref(addr, typ):
 deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index to the ob_ival field in a PyIntObject - In Python3 this index is '6'
 
 
+"""""""""""""""""""""""""
+"" Subprocesses & shell
+"""""""""""""""""""""""""
+# grep-like one-liners:
+python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).groups())+"\n" for line in sys.stdin])'
+
+from distutils import spawn
+cmd_path = spawn.find_executable('cmd') # shutil.which in Python3 / shutilwhich backport else
+subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT, input=bytes(some_text,, 'UTF-8')) # last param added in 3.4 : https://hg.python.org/cpython/file/877f47ca3b79/Lib/subprocess.py#l614
+# AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
+
+platform # python version, OS / machine / proc info...
+resource # limit a process resources: SPU time, heap size, stack size...
+
+shlex.split('--f "a b"') # tokenize parameters properly
+
+### sh.py tips & tricks
+# Alt (but less pythonic/simple imho): gawel/chut, plumbum, sarge
+# Special keyword args: https://amoffat.github.io/sh/special_arguments.html#special-arguments
+- all commands are checked at 'from sh import' time so they are guaranteed to exist
+- `print()` is NEEDED to display command output
+- Always use `_err=sys.stderr` ou `_err_to_out=True` because default is to discard commands stderr
+- `_iter` : creates a line generator => you can chain lazy functions taking a 'input_iterator' as input & output
+
+import pip
+pip.main(['install', '--proxy=' + PROXY, 'requests==2.7.0', 'retrying==1.3.3', 'sh==1.11'])
+
+import sh, sys
+sh = sh(_err=sys.stderr, _out=None)  # setting default commands redirections
+sh.bzcat(...)
+
+if len(argv) > 1:
+    pipe = cat(argv[1], _iter=True, _err=stderr)  # `pipe` is an input_lines_iterator
+else:
+    pipe = cat(_in=stdin, _iter=True, _err=stderr)
+
+(import [sh [cat grep wc]]) # in Hy, aka Python with Lisp syntax
+(-> (cat "/usr/share/dict/words") (grep "-E" "^hy") (wc "-l"))
+
+
 """"""""""""""""""""""""""
 "" Libs & tools for DEVS !
 """"""""""""""""""""""""""
@@ -682,15 +713,6 @@ pyparsing # create and execute simple grammars instead of regex/lex/yacc - http:
 @retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
 
 import uuid # generate unique IDs
-
-resource # limit a process resources: SPU time, heap size, stack size...
-
-shlex.split('--f "a b"') # tokenize parameters properly
-import sh, sys # sh.py - AWESOME for shell scripting - Alt: gawel/chut
-sh = sh(_err=sys.stderr,_out=sys.stdout)
-from sh import bzcat, tar
-(import [sh [cat grep wc]]) # in Hy, aka Python with Lisp syntax
-(-> (cat "/usr/share/dict/words") (grep "-E" "^hy") (wc "-l"))
 
 def function_with_docstring(foo): # sphinx
     """Do this and that, similar to :func:`a_function_name`
@@ -812,6 +834,7 @@ AAlib # ASCII rendering
 fogleman/Tiling # pavages
 graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
+antiboredom/audiogrep
 
 EasyDialogs, optparse_gui, EasyGui > Tkinter
 
@@ -822,8 +845,6 @@ termcolor, colorama # cross-platform colored terminal text
 tqdm # KISS progress bar
 PrettyTable # pretty ASCII tables output
 bashplotlib # terminal plotting of histograms / scatterplots from list of coordinates
-
-platform # python version, OS / machine / proc info...
 
 ctypes.cdll.LoadLibrary("libc.so.6")
 libc = ctypes.CDLL("libc.so.6")

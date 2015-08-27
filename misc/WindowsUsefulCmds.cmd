@@ -1,14 +1,17 @@
 @echo "This file is not supposed to be executed" & pause & exit &:: this is an inline comment
 
+Use .cmd > .bat : http://stackoverflow.com/questions/148968/windows-batch-files-bat-vs-cmd
+
+<CMD>+R &:: command launcher, shell:startup -> open folder listing progs to launch at startup
 F8 at start-up &:: Safe mode / Mode sans echec
 F7 in cmd.exe -> history &:: BUT better use Cmder or at least PowerShell ISE
-chcp 65001 in cmd.exe -> support UTF-8
+chcp 65001 in cmd.exe &:: -> support for UTF-8
 
 <CMD>+Left/Right &:: Vertically maximize a windows on the side
 <CTRL>+<ALT>+<UP> &:: Invert screen upside down
 
 cmd /c mklink &:: call cmd.exe builtins, e.g. the symlinker
-subst z: b:\user\betty\forms &:: creates a virtual drive Z for the path B:\User\Betty\Forms
+subst Z: C:\path\to\wonderland &:: creates a virtual drive Z pointing to the directory given
 
 pkgmgr /iu:"TelnetClient" &:: install `telnet` command. Also available: TelnetServer, DNS-Server-Tools, SimpleTCP for echo & daytime
 
@@ -26,6 +29,7 @@ regsvr32 %dll_file% &:: register dll
 vssadmin list shadows &:: list available Volume Shadow Copies aka restore points, cf. http://superuser.com/a/165576)
 mstsc &:: builtin but less secure TeamViewer-like
 secpol.msc &:: Security Policy Editor -> can for example gives permision to a user to create symlinks
+rundll32 sysdm.cpl,EditEnvironmentVariables &:: user env variables
 
 nssm64.exe edit service_name &:: then nssm64.exe start service_name - Powerful wrapper around builtin sc create service_name binpath= c:\bla\bla\bla.exe start= auto type= own
 
@@ -40,6 +44,9 @@ reg add HKLM\SOFTWARE\Wow6432Node\JavaSoft /v "SPONSORS" /t REG_SZ /d "DISABLE" 
 
 icacls * /T /Q /C /RESET &:: reset files permissions
 :: Default .dll owner : NT SERVICE\TrustedInstaller
+:: In case some files are owned by System, and you modify their owner / permissions: -> tip from: http://eurekamoment.eu/?p=737
+psexec -i -s -d cmd &:: "run as" System user
+takeown /a /r /f pita_directory &:: recurively give ownership of files to Admin
 
 junction (directory symbolic links), pskill, pslist, TCPView... &:: Sysinternals Process Utilities
 handle.exe -a | grep ': Key\|pid:' | grep 'COMPONENTS\|pid:' | grep -B1 'COMPONENTS' &:: Find all PIDs of processes using RegKeys containing 'COMPONENTS'
@@ -88,6 +95,13 @@ Get-EventLog -Log "Application"
 Get-Process # list processes
 Stop-Process -Name notepad # or -ID 2668
 Get-Acl $file | Format-List
+
+#FROM: https://software.intel.com/en-us/blogs/2014/06/17/giving-powershell-a-persistent-history-of-commands + include how to have a persistent cmds history
+set-executionpolicy remotesigned
+(new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
+import-module PsGet
+install-module PsUrl
+install-module PSReadline
 
 
 ::::::::::

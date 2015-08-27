@@ -45,6 +45,8 @@ bzr add $file / commit $files -m $msg
 *******
 = Git =
 *******
+Next/previous commits: $commit^ (first parent) & $commit~ (first child)
+
 curl 'https://raw.githubusercontent.com/eacousineau/util/master/git-new-workdir.sh' > .git-new-workdir.sh
 curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > .bashrc_git_completion # buggy with TMUX
 curl 'https://api.github.com/repos/Lucas-C/linux_configuration/commits?per_page=100&page=4' | jq -r '.[].sha' # GitHub APi usage example

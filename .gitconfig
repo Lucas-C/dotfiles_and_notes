@@ -66,11 +66,9 @@
     ui = true
 
 [core]
-    whitespace = -blank-at-eol,-blank-at-eof
     editor = vim
     pager = less -FMRiX
     trustctime = false
-    filemode = false
 
 [credential]
     helper = cache --timeout=3600

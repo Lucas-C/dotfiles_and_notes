@@ -23,6 +23,9 @@ Dr. Leonard Richardson put together a maturity model that interprets various lev
 - Symetrically, it tries to improve the rate by performing, on packets ACK, addititive increases of the number of unacknowledged packets that are sent over the network.
 - TCP starts with a slow rate, but ramp up quickly. It also sleeps for Xms between sends.
 
+Pb de latence rencontré -> dû au TCP Segementation offload: https://forum.ivorde.com/linux-tso-tcp-segmentation-offload-what-it-means-and-how-to-enable-disable-it-t19721.html
+    /sbin/ethtool -K eth0 tso off
+
 ## UDP
 - no reception check, packets unordered, faster
 - faster than TCP, better for voice over IP, video streaming

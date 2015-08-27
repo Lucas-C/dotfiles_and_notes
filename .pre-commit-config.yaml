@@ -10,7 +10,7 @@
     hooks:
     -   id: remove-crlf
         exclude: npp/shortcuts.xml
-    -   id: forbid-tabs
+    -   id: remove-tabs
 -   repo: local
     hooks:
     -   id: do_not_commit_unmerged

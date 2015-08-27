@@ -74,3 +74,15 @@ killall () {
         taskkill /IM $1.exe
     fi
 }
+
+jar_java_version () {
+    local jar=$(readlink -f $1)
+    cd /tmp
+    local a_class=$(jar tf "$(cygpath -w "$jar")" | grep '^[^$]\+.class$' | head -n 1)
+    local a_class_main_dir=$(echo "$a_class" | tr '/' '\n' | head -n 1)
+    jar xf "$(cygpath -w "$jar")" "$a_class"
+    javap -v "$a_class" | grep version
+    rm -r $a_class_main_dir
+    cd - >/dev/null
+}
+
