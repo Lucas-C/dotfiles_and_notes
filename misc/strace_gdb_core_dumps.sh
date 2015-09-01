@@ -33,21 +33,22 @@ Hex-Rays IDA, Radare # disassemblers
 #          GDB
 # 0xBADDCAFE 0xD15EA5E
 # Alt: Oracle dbx
-curl --silent http://svn.python.org/projects/python/trunk/Misc/gdbinit > ~/.gdbinit
+curl https://hg.python.org/cpython/raw-file/default/Tools/gdb/libpython.py > ~/gdb_libpython.py
+curl https://hg.python.org/cpython/raw-file/default/Misc/gdbinit > ~/.gdbinit # Latest is http://svn.python.org/projects/python/trunk/Misc/gdbinit but it gives a 'No symbol "_PyUnicode_AsString" in current context'
 sed -i 's/printf "%d", $__li/printf "%d", $__li + 1/' ~/.gdbinit
 cat <<END >> ~/.gdbinit
 
 # Custom configuration by USER=$USER
-add-auto-load-safe-path $(locate python-gdb.py)
+add-auto-load-safe-path ~/gdb_libpython.py
 ## Persistent history
 set history save
 set history filename ~/.gdb_history
 ## Colored prompt, trick src: http://dirac.org/linux/gdb/ - Alt: http://reverse.put.as/gdbinit/
 set prompt \001\033[1;32m\002(gdb)\001\033[0m\002\040
 END
-sudo chown root:root ~/.gdbinit
+sudo chown root:root ~/.gdbinit  # May solve some issues
 
-sudo chmod +s /usr/bin/gdb # in case GDB fails attaching to a process with "ptrace: Operation not permitted"
+echo 0 > /proc/sys/kernel/yama/ptrace_scope # in case GDB fails attaching to a process with "ptrace: Operation not permitted". >>>better>>than>> sudo chmod +s /usr/bin/gdb
 
 gdb -p $pid # attach gdb
 pystack # get the python stack trace

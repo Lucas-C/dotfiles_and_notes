@@ -27,6 +27,8 @@ TRA = Tierce Recette Applicative
 
 SaaS / PaaS / IaaS
 
+Contrôle de surface / surfacique
+
 Engagement de moyens / de résultats
 Projet au forfait / travail en régie
 

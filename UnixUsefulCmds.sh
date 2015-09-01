@@ -121,6 +121,17 @@ set - A B C
 : ${var:="new value set if empty"} # !! -> this defines a global variable
 local var=${1:-"default value"}
 foo () { local x=$(false); echo $?; }; foo # -> 0 !!GOTCHA!! 'local' is also a command, and its return code shadows the one of the cmd invoked
+bar () {  # Best practice, or use getopt (singular) - USAGE: bar x [y=...]
+    local x y # necessary to define as local parameters not passed in afunction call (=> with default values)
+    local "$@"  # does not behave like `eval`, e.g. with x=y;z
+    : ${x?'parameter "x" is missing'}
+    : ${y:='default y value'}
+}
+
+x=42 foo # !!GOTCHA!! Actually "leaks" CONST_X : it will be defined after this line, even if not exported:
+# actually, it WILL be exported but only for the command executed: `x=42 sh -c 'echo $x'` -> '42'  !=  `x=42;sh -c 'echo $x'` -> ''
+# but IF foo is a shell function, it does not care about exported variables, so it is STRICLY equivalent to `x=42; foo`
+
 
 echo ${PWD//\//-} # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 ${var%?} # Remove the final character of var
@@ -163,7 +174,7 @@ for arg in "$@"; do
     esac
 done
 # http://wiki.bash-hackers.org/howto/getopts_tutorial
-while getopts ":ab:" opt; do
+while getopts ":ab:" opt; do # getopts is a builtin != getopt (singular)
     case $opt in
     a) echo "-a was triggered." >&2 ;;
     b) echo "-b was triggered. Parameter: $OPTARG" >&2 ;;
@@ -658,6 +669,7 @@ a2enmod / a2dismod $modname  # enable / disable std modules
 ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking - Alt: tarekziade/boom
 watch 'elinks -dump http://0.0.0.0/server-status | sed -n "32,70p"' # Watch Apache status (lynx cannot dump because of SSL issue)
 httpd -M # list installed modules under Windows
+apachectl status
 ServerName localhost:80 # makes httpd startup waaay faster !
 php -r "print(php_ini_loaded_file());" # find dout php.ini file used
 php -r "print(phpinfo());" | grep log
@@ -666,6 +678,7 @@ ForensicLog logs/forensic.log # requires mod_log_forensic enabled
 http://xdebug.org/wizard.php
 
 wget http://ftp.drupal.org/files/projects/drupal-7.38.zip && unzip drupal-7.38.zip && mv drupal-7.38 $INSTALL_DRUPAL
+drush --debug ...
 drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
 drush pml # pm-list -> list modules & themes
 drush site-install standard -y --account-pass=admin --db-url='mysql://root:root@localhost/my_pretty_db' --site-name=$sitename
@@ -678,6 +691,7 @@ drush watchdog-show
 drush watchdog-delete all
 drush updatedb
 drush feature-update / feature-revert
+drush sql-cli  # Test the connection to DB. Alt: `sql-connect` : display the SQL command used for the connection
 
 chmod a+w sites/default/settings.php sites/default/files/
 cat <<EOF >> sites/default/settings.php
@@ -1140,6 +1154,13 @@ heroku run bash
 heroku config # can be defined in .env
 heroku pg # PostgreSQL terminal summary dashboard
 heroku pg:psql
+
+
+[~~][~~][~~][~~]
+[~~ IntelliJ ~~]
+[~~][~~][~~][~~]
+Ctrl + Shift + A -> search functionalities
+Ctrl + Shift + U -> UPPERCASE
 
 
 ###################

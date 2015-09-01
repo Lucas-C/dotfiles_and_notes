@@ -26,6 +26,12 @@ alias node=cyg-node
 
 win_hosts=$(cygpath -w "C:\Windows\System32\drivers\etc\hosts")
 
+swap_win_hosts () {
+    mv $win_hosts.bak tmp
+    mv $win_hosts $win_hosts.bak
+    mv tmp $win_hosts
+}
+
 npp () {
     "/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe" $(convertWinArgs "$@")
 }
@@ -86,3 +92,6 @@ jar_java_version () {
     cd - >/dev/null
 }
 
+# Trick from https://github.com/drush-ops/drush/issues/375
+# but USING DRUSH WITH CYGWIN IS A BAD IDEA
+alias drush='DRUSH_PHP=php drush'

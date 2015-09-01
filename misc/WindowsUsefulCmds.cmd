@@ -15,7 +15,7 @@ subst Z: C:\path\to\wonderland &:: creates a virtual drive Z pointing to the dir
 
 pkgmgr /iu:"TelnetClient" &:: install `telnet` command. Also available: TelnetServer, DNS-Server-Tools, SimpleTCP for echo & daytime
 
-where %cmd% &:: 'which' equivalent
+where %cmd% &:: UNIX 'which' equivalent
 ipconfig /displaydns
 
 powercfg -h off/on &:: as admin, delete hiberfil.sys

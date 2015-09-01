@@ -113,7 +113,7 @@ git remote set-url origin https://github.com/Lucas-C/... # change a remote URL, 
 git branch -av
 git remote show origin
 
-git fetch upstream && git rebase upstream/master && git pusg --force # Sync a fork
+git fetch upstream && git rebase upstream/master && git push --force # Sync a fork
 
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:

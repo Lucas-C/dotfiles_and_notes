@@ -254,8 +254,8 @@ def n_grams(a, n): # sliding window: [(1, 2, 3), (2, 3, 4), (3, 4, 5), (4, 5, 6)
 
 zip, reduce, all, any, min, max, sum # Cool standard functions to work on lists
 # generators expression > list-comprehensions
-list(e if e != "BREAK" else stop() for e in iterable)
 def stop(): raise StopIteration
+list((stop() if e == "BREAK" else e) for e in iterable)
 class CustomGenerator(object): # minimal generator protocol
     def __iter__(self):
         yield stuff
@@ -335,7 +335,7 @@ pyrsistent PMap and PREcord  # immutable/functional with invariants and optional
 
 [] = () # is OK, but not: () = []
 
-assert bool(datetime.time(0,0,0)) is False # before 3.5
+assert bool(datetime.time(0,0,0)) is False # before 3.5 - cf. "a false midnight" http://lwn.net/Articles/590299/
 
 x = 256
 y = 256
@@ -572,12 +572,16 @@ resource # limit a process resources: SPU time, heap size, stack size...
 shlex.split('--f "a b"') # tokenize parameters properly
 
 ### sh.py tips & tricks
-# Alt (but less pythonic/simple imho): gawel/chut, plumbum, sarge
+# Caveat: does not work under Windows
+# Alt (but less pythonic/simple IMHO): gawel/chut, plumbum, sarge
 # Special keyword args: https://amoffat.github.io/sh/special_arguments.html#special-arguments
 - all commands are checked at 'from sh import' time so they are guaranteed to exist
-- `print()` is NEEDED to display command output
 - Always use `_err=sys.stderr` ou `_err_to_out=True` because default is to discard commands stderr
+- `print()` is NEEDED to display command output (or you need to use `_out=sys.stdout`)
+- `_piped='direct'` is useful to connect processes without consuming any memory
 - `_iter` : creates a line generator => you can chain lazy functions taking a 'input_iterator' as input & output
+- a command invocation return a `RunningCommand` object, on which you can wait for the text output (by calling `str()` on it)
+or get a list of output lines (by calling `list()` on it)
 
 import pip
 pip.main(['install', '--proxy=' + PROXY, 'requests==2.7.0', 'retrying==1.3.3', 'sh==1.11'])
@@ -838,6 +842,7 @@ antiboredom/audiogrep
 
 EasyDialogs, optparse_gui, EasyGui > Tkinter
 
+fmoo/python-editor # programmatically open a text editor, captures the result
 urwid # console user interface lib - Alt: snack, NPyScreen
 code.InteractiveConsole().interact() # interactive python prompt
 pyreadline, readline, rlcompleter
