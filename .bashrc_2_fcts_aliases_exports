@@ -65,9 +65,9 @@ vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md
 diff_alt () {
     cat <<EOF
 ${_UNDER}ALT:${_END} \
+colordiff -rC3 --exclude=.git; \
 diffs ${_UNDER}# == 'diff -U2 ... | diffstat' ${_END}; \
 sdiff ${_UNDER}# == 'diff --side-by-side', but faster${_END} ; \
-diff -r --exclude=.git ; \
 vimdiff ${_UNDER}# colored side-by-side${_END} ; \
 diff3 ; \
 jeffkaufman/icdiff ; \

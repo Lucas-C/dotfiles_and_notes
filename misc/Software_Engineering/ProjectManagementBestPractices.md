@@ -105,6 +105,7 @@ The smallest unit of work that has value for our customers
 - To evaluate a project progress : SEMAT Essence (Software Engineering Method and Theory)
 cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
 ![](http://semat.org/wp-content/uploads/2013/03/spiral.png)
+- la règles des 3 emails: au délà, téléphonez ou déplacer vous pour discuter en personne
 
 ### Méthodologies
 - CMMI = Capability Maturity Model Integration

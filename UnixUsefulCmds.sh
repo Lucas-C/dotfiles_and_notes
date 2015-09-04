@@ -676,11 +676,18 @@ php -r "print(phpinfo());" | grep log
 tail -F /var/log/apache2/*.log
 ForensicLog logs/forensic.log # requires mod_log_forensic enabled
 http://xdebug.org/wizard.php
+error_log(print_r($variable, TRUE));
+new Exception()->getTraceAsString() # get a stack trace
+
+
+curl https://raw.githubusercontent.com/php/php-src/PHP-$php_version/.gdbinit >> ~/.gdbinit
+gdb -p $php_script_pid
+dump_bt executor_globals.current_execute_data # where is my PHP script hanging ? -> dump stacktrace
 
 wget http://ftp.drupal.org/files/projects/drupal-7.38.zip && unzip drupal-7.38.zip && mv drupal-7.38 $INSTALL_DRUPAL
 drush --debug ...
 drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
-drush pml # pm-list -> list modules & themes
+drush pm-list [--type=module --status=enabled] # -> list modules & themes
 drush site-install standard -y --account-pass=admin --db-url='mysql://root:root@localhost/my_pretty_db' --site-name=$sitename
 drush en -y $modules # pm-enable - Opposite: drush dis[able]
 drush ne-export --type=$content_type --file=$out_file.php
@@ -691,7 +698,8 @@ drush watchdog-show
 drush watchdog-delete all
 drush updatedb
 drush feature-update / feature-revert
-drush sql-cli  # Test the connection to DB. Alt: `sql-connect` : display the SQL command used for the connection
+$(drush sql-connect) / drush sql-cli  # Connection to DB
+drush dl diff && drush en -y diff && drush features-diff $feature_name
 
 chmod a+w sites/default/settings.php sites/default/files/
 cat <<EOF >> sites/default/settings.php
@@ -813,6 +821,7 @@ smartctl -a /dev/sdb2 # scan a device - Alt: gsmartcontrol or above
 # Find what package a command belong to:
 apt-file search /path/to/anyfile
 yum provides $cmd
+debuginfo-install $package # install debuginfo packages and their dependencies, provided by yum-utils
 dpkg -S /path/to/cmd
 rpm -qif $(which cmd)
 rpm -Uvh pkg.rpm # upgrade RPM
@@ -1159,8 +1168,15 @@ heroku pg:psql
 [~~][~~][~~][~~]
 [~~ IntelliJ ~~]
 [~~][~~][~~][~~]
-Ctrl + Shift + A -> search functionalities
-Ctrl + Shift + U -> UPPERCASE
+<CTRL>+<SHIFT>+A -> search functionalities
+<CTRL>+<SHIFT>+U -> UPPERCASE
+
+
+[=.+.+.+.=]
+[= Excel =]
+[=.+.+.+.=]
+<CTRL>+<+> -> insert a line
+<CTRL>+<-> -> Remove a line
 
 
 ###################

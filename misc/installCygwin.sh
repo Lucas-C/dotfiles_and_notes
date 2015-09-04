@@ -19,7 +19,7 @@ lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
 install apt-cyg $BASHRC_DIR/bin && rm apt-cyg
 apt-cyg install wget
 apt-cyg install procps # provides 'watch'
-apt-cyg install bind curl git make python3 rlwrap unzip vim
+apt-cyg install bind colordiff curl git make python3 rlwrap unzip vim
 
 python3 -m ensurepip
 
