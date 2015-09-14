@@ -174,7 +174,7 @@ def create_logger(): # Also: logging.basicConfig(level=logging.DEBUG, format=LOG
     logger.addHandler(file_handler)
     return logger
 # Lazy logger: http://stackoverflow.com/a/4149231
-@deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/
+@deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/ - Alt: OpenStack debtcollector
 Twangist/log_calls # logging & func calls profiling
 # Support for {} / %(keyword)s format syntaxex:
 # - https://docs.python.org/3/howto/logging-cookbook.html#formatting-styles
@@ -532,17 +532,19 @@ http://mg.pov.lt/objgraph # explore Python object graphs
 snakefood # draw code base dependency graphs
 what-studio/profiling # live profiling
 PyVmMonitor # profiler with graphs
+objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
 
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
 timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000)
 
-# Get memory usage
+# Get memory usage (+ cf. resource below)
 from guppy import hpy
 h = hpy()
 h.heap()
 h.iso(...objects...).sp
 # Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
-# And: https://pympler.readthedocs.org/en/latest/related.html - asizeof is the simplest one
+asizeof # the simplest solution from: https://pympler.readthedocs.org/en/latest/related.html
+rogerhu/gdb-heap
 import tracemalloc # Python3
 
 def get_refcount(obj):
@@ -568,6 +570,7 @@ subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT, inp
 
 platform # python version, OS / machine / proc info...
 resource # limit a process resources: SPU time, heap size, stack size...
+print('Memory usage: {} (kb)'.format(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))  # get process memory usage
 
 shlex.split('--f "a b"') # tokenize parameters properly
 
@@ -729,7 +732,7 @@ def function_with_docstring(foo): # sphinx
     """
     return False
 
-twobraids/configman > argparse > optparse # Alt: docopt, clize, click - Also: neat quick GUI compatible with argparse: chriskiehl/Gooey
+twobraids/configman > argparse > optparse # Alt: begins > docopt, clize, click - Also: neat quick GUI compatible with argparse: chriskiehl/Gooey
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve')
 parser_group = parser.add_mutually_exclusive_group(required=True)
 parser_group.add_argument(... type=argparse.FileType('r'))
@@ -784,7 +787,7 @@ HTTPretty # Testing HTTP requests without any server, acting at socket-level
 kevin1024/vcrpy # record / replay HTTP interactions
 
 # Web frameworks (from barcamp@AFPY):
-bottle # include server, only 1 file long
+bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod server, very easy to launch
 flask # good for simple APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level

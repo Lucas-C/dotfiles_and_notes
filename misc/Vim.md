@@ -61,6 +61,7 @@ Insertion
 =========
 - __TAB__ : autocomplete ; use __TAB__+__SPACE__ for real tabs, and __TAB__+__TAB__ to cancel completion
 - __F2__ : 'set paste' mode
+- __SHIFT+INSERT__ : paste OS clipboard
 - *o*/*O* : insert mode on newline after/before current line
 - *:ci"* or *ci<* or *ci(* : delete everything on the line in-between "..."/<...>/(...) and enter insert mode
 

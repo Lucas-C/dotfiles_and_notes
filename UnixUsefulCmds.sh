@@ -679,6 +679,8 @@ http://xdebug.org/wizard.php
 error_log(print_r($variable, TRUE));
 new Exception()->getTraceAsString() # get a stack trace
 
+require('/path/to/psysh');
+eval(\Psy\sh());
 
 curl https://raw.githubusercontent.com/php/php-src/PHP-$php_version/.gdbinit >> ~/.gdbinit
 gdb -p $php_script_pid
@@ -698,8 +700,10 @@ drush watchdog-show
 drush watchdog-delete all
 drush updatedb
 drush feature-update / feature-revert
-$(drush sql-connect) / drush sql-cli  # Connection to DB
+drush sql-cli / $(drush sql-connect) -e "$query"  # Connection to DB
 drush dl diff && drush en -y diff && drush features-diff $feature_name
+dpm / dvm / ddebug_backtrace # devel module
+elasticsearch_connector/modules/elasticsearch_connector_search_api/service.inc : SearchApiElasticsearchConnector->indexItems()
 
 chmod a+w sites/default/settings.php sites/default/files/
 cat <<EOF >> sites/default/settings.php
@@ -1172,11 +1176,23 @@ heroku pg:psql
 <CTRL>+<SHIFT>+U -> UPPERCASE
 
 
-[=.+.+.+.=]
-[= Excel =]
-[=.+.+.+.=]
-<CTRL>+<+> -> insert a line
-<CTRL>+<-> -> Remove a line
+[]= + + + =[]
+[]= Excel =[]
+[]= + + + =[]
+<CTRL>+<+> -> insert a line / colmun
+<CTRL>+<-> -> remove a line / column
+<CTRL>+<SPACE> -> select the whole colmun
+<SHIFT>+<SPACE> -> select the whole line
+
+
+{
+.puppet
+}
+puppet apply --debug --verbose
+!! future parser
+puppetlabs-stdlib
+$content = inline_template("...Hurrah ! Ruby code !...")
+notify { "var: ${var}": }
 
 
 ###################

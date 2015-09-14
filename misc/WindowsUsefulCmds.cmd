@@ -4,8 +4,10 @@ Use .cmd > .bat : http://stackoverflow.com/questions/148968/windows-batch-files-
 
 <CMD>+R &:: command launcher, shell:startup -> open folder listing progs to launch at startup
 F8 at start-up &:: Safe mode / Mode sans echec
-F7 in cmd.exe -> history &:: BUT better use Cmder or at least PowerShell ISE
+
 chcp 65001 in cmd.exe &:: -> support for UTF-8
+F7 in cmd.exe -> history &:: BUT better use Cmder or at least PowerShell ISE
+!!WARNING!! Cmder define HOME, PATH, TMP & TEMP env variables with Unix-like paths
 
 <CMD>+Left/Right &:: Vertically maximize a windows on the side
 <CTRL>+<ALT>+<UP> &:: Invert screen upside down

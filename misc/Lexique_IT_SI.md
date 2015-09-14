@@ -10,6 +10,7 @@ ETP = Equivalent Temps Plein, correspond le plus souvent à une semaine de 5 jou
 ESN = SSII
 GUI = Graphical User Interface == IHM
 IHM = Interface Homme-Machine == GUI
+iSCSI = Internet Small Computer System Interface
 MCO = Maintien en condition opérationnelle
 MEP = Mise En Production
 MOA = Maîtrise d'OuvrAge -> définition budget & délais
