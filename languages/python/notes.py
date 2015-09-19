@@ -608,7 +608,7 @@ else:
 "" Libs & tools for DEVS !
 """"""""""""""""""""""""""
 pew > virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
-pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
+pip # NEVER sudo !! > easyinstall - Distutils2 has been abandoned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
 pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
 pip freeze > requirements.txt # dumps all the virtualenv dependencies
 pip install --user $USER --src . -r requirements.txt
