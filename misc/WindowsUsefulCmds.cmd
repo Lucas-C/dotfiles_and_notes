@@ -105,6 +105,9 @@ import-module PsGet
 install-module PsUrl
 install-module PSReadline
 
+PSCX # PowerShell Community Extensions
+iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')) # install chocolatey - Some pkgs: https://github.com/berdario/dotfiles/blob/master/chocsoftware.ps1
+
 
 ::::::::::
 :: Batch

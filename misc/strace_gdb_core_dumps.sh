@@ -16,7 +16,7 @@ cat /proc/$pid/maps # memory map, useful to now which libs are loaded
 cat /proc/$pid/smaps # get resources infos
 pmap -x $pid # get memory usage
 valgrind --tool=massif $cmd # get memory usage with details & graph
-valgrind --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
+valgrind --db-attach=yes --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
 oprofile
 
 hexdump -c $file # aka 'hd', use 'bvi' for editing. Alt: od -Ax -tx1z -v $file

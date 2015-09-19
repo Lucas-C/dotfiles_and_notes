@@ -23,6 +23,10 @@
 - [CodeVisualizationTools](https://softvis.wordpress.com/tools/)
 - [ThePowerOfStableTeams](http://firstround.com/review/Twitter-Engineering-SVP-Chris-Fry-on-the-Power-of-Stable-Teams/)
 - [MAPP] : Management Autonome de la Performance et du Progrès - [MichelinManufacturingWay](https://www.youtube.com/watch?v=ztsGX4YNkQ4)
+- [Bringing Novice Developers Up To Speed](https://www.mendix.com/think-tank/tips-for-bringing-novice-developers-up-to-speed/)
+- [Criticism and Ineffective Feedback](https://www.kateheddleston.com/blog/criticism-and-ineffective-feedback)
+- [Onboarding and the Cost of Team Debt](https://kateheddleston.com/blog/onboarding-and-the-cost-of-team-debt)
+- [Things I was unprepared for as a lead developer](http://dev-human.com/entries/2015/09/07/things-i-was-unprepared-for/)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -38,7 +42,8 @@
 - get along with HR and plan out-of-the-box projetcs with them that will make your team happier
 
 ## Leadership
-cf. [#gamedev Lead Quick Start Guide]
+cf. [#gamedev Lead Quick Start Guide] & [Things I was unprepared for as a lead developer]
+"tell people what you want them to do instead of detailing what they’re doing wrong" [Criticism and Ineffective Feedback]
 
 ## Team culture building
 - two main tenets: RESPECT & TRUST people.
@@ -117,8 +122,14 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
 
 ## Coaching new hires & bringing them up to speed
+- [Onboarding and the Cost of Team Debt] = "when employees aren't properly trained, integrated, or managed, they are operating at less than optimal efficiency and "team debt" is accrued"
+    * Productivity = Σ of talent * teamwork
+    * To improve onboarding:
+        - distribute the load of onboarding
+        - focus on technical skills, knowledge of company processes, and personal development
 - Write docs: cf. Valve & thoughbot handbooks, Amazon wiki
 - assign a "buddy" in the team & a "mentor" in the company
+- [Bringing Novice Developers Up To Speed] + bookmarks on coaching an intern
 
 ## Recruiting
 - prebrief, debrief, assigned competences, bar raiser

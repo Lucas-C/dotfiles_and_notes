@@ -1094,6 +1094,7 @@ curl -s "https://www.googleapis.com/customsearch/v1?key=${api_key}&cx=${cse_id}&
 {[{[{[{[{[{[{[{
  'AWS': "cli"
 }]}]}]}]}]}]}]}
+# Alt: achiku/jungle
 aws configure # eu-west-1
 aws iam list-user-policies --user-name $USER # Also: aws iam list-roles
 aws s3 cp $file s3://$USER-pail/ # Other cmds: mb rb ls rm mv

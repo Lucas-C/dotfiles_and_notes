@@ -25,6 +25,7 @@ Software Development Best Practices
 - [How to design a rest API](http://blog.octo.com/en/design-a-rest-api/) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
 - [RESTful API design refcard](http://blog.octo.com/wp-content/uploads/2014/10/RESTful-API-design-OCTO-Quick-Reference-Card-2.2.pdf)
 - [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development](http://neverworkintheory.org/2011/08/31/comparing-the-defect-reduction-benefits-of-code-inspection-and-test-driven-development.html)
+- [John Carmack discusses the art and science of software engineering](https://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/): "It’s about social interactions between the programmers or even between yourself spread over time" + "we talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineer­ing there, these are all best practices, and these are things that have shown to be helpful in the past, but really are only helpful when people are making certain classes of mistakes" + daily code reviews + the code you write may well exist a decade from now
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -80,7 +81,7 @@ On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterA
     Too much information : hide you data, hide your utility functions, hide your constants & temporaries, concentrate on keeping small interfaces to keep coupling low [CC-G8]
 - Code at wrong level of abstraction : e.g. functions should descend only one level of abstraction [CC-G6] [CC-G34]
 - Classes designed around algorithms or time order (i.e. collect all the things that happen at one point in time into a single class) : design classes around INFORMATION [SDP]
-    "It is almost always incorrect to begin the decomposition of a system into modules on the basis of a flowchart. We propose instead that one begins with a list of difficult design decisions or design decisions which are likely to change." - On the criteria to be used in decomposing systems into modules, D. Parnas
+- "It is almost always incorrect to begin the decomposition of a system into modules on the basis of a flowchart. We propose instead that one begins with a list of difficult design decisions or design decisions which are likely to change." - [On the criteria to be used in decomposing systems into modules](http://web.archive.org/web/20121017182047/http://sunnyday.mit.edu/16.355/parnas-criteria.html), D. Parnas -> introduces the idea that we should use modularity to hide design decisions - things which could change.
 - Base classes depending on their derivatives [CC-G7]
 - Logical dependencies are not physical : avoid assumptions on other modules behaviour, make it explicit + expose objects modifications (functional programing) [CC-G22] [CC-G31]
 - Artifical coupling / Misplaced responsability [CC-G13] [CC-G14] [CC-G17]

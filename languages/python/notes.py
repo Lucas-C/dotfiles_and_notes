@@ -58,8 +58,10 @@ def CtxtMgr(object):
 @contextlib.contextmanager
 def foobar():
     # __enter__ code
-    yield
-    # __exit__ code
+    try:
+        yield
+    finally:
+        # __exit__ code
 
 os.makedirs(dir_path) # + ignore OSError where .errno == errno.EEXIST and os.path.isdir(dir_path) # mkdir -p
 tempfile.gettempdir()
@@ -234,7 +236,7 @@ ahocorasick, acora # Aho-Corasick automaton : quick multiple-keyword search acro
 
 kayzh/LSHash # locality sensitive hashing
 
-bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra/, xmonader/pybloomfilter
+bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra, xmonader/pybloomfilter, TerbiumLabs/pyblume
 svpcom/hyperloglog # Super and Hyper Log Log Sketches
 jesperborgstrup/Py-IBLT # Invertible Bloom filter - Alt: http://code.activestate.com/recipes/577684-bloom-filter/
 
@@ -482,7 +484,7 @@ inspect.getargspec(foo_func) # get signature
 inspect.getfile(my_module)
 inspect.getsource(foo_func) # if implemented in C, use punchagan/cinspect
 frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
-sys._getframe(1).f_locals['foo'] = 'overriding caller local variable!'
+inspect.currentframe(1).f_locals['foo'] = 'overriding caller local variable!'
 
 # http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
 def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
@@ -836,6 +838,7 @@ Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) e
 cairo # graphics library outputting .ps .pdf .svg & more
 wand (ImageMagick binding), pillow > pil # Python Image Library
 ufoym/cropman # face-aware image cropping
+andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
 lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
 AAlib # ASCII rendering
 fogleman/Tiling # pavages

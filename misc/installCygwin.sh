@@ -23,6 +23,7 @@ apt-cyg install bind colordiff curl git make python3 rlwrap unzip vim
 
 python3 -m ensurepip
 
+apt-cyg install GraphicsMagick  # Provides `gm identify`, `gm convert`...
 apt-cyg install gcc-g++ libffi-devel libxml2-devel libxslt-devel openssl-devel
 pip install --user service_identity scrapy
 
