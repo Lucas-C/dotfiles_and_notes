@@ -1,3 +1,4 @@
+# Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
 # FROM: http://dlo.me/archives/2014/09/08/pythonrc/
 # USAGE: export PYTHONSTARTUP="$HOME/.pythonrc"
 # vim: set ft=python :

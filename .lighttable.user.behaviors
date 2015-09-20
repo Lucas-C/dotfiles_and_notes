@@ -1,3 +1,4 @@
+; Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
 ; ln -s $PWD/.lighttable.user.behaviors $HOME/.config/LightTable/User/user.behaviors
 ; Files mime-type binding: https://github.com/LightTable/LightTable/blob/master/deploy/settings/default/default.behaviors#L270
 ; Plugins:

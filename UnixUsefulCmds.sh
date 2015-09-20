@@ -1,3 +1,4 @@
+# Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
 <CTRL>+<SUPER>+<LEFT>/<RIGHT> # half-maximize a window on one side, in Ubuntu
 
 ~°~°~°~°~°~°~°~°~°~°~
@@ -946,6 +947,9 @@ https://github.com/explore
 https://github.com/notifications
 https://github.com/issues
 https://github.com/pulls
+
+curl 'https://api.github.com/repos/Lucas-C/linux_configuration/commits?per_page=100&page=4' | jq -r '.[].sha' # GitHub API usage example
+curl -H 'Accept: application/vnd.github.3.raw' 'https://api.github.com/repos/evanbrumley/spyfall/contents/spyfall/i18n/fr.i18n.json' # "for unauthenticated requests, the rate limit is 60 requests per hour"
 
 #L53-L60 -> lines highlighting: to select ranges, hold shift before clicking
 Add ?w=1 to the URL to see the diff with whitespace ignored

@@ -339,7 +339,7 @@ man () { # colored manual with 'help' as a fallback
     help "$@" >/dev/null 2>&1 && help "$@" | less
 }
 
-touch () { # touch [EPOCH] [+/-$modifier] $files
+touch () { # touch [EPOCH] [+/-$days_count] $files
     local yymm=$(date +%y%m) dd=$(date +%d) HHMM=$(date +%H%M)
     if [ "$(echo $1 | lower)" = "epoch" ]; then
         yymm=7001

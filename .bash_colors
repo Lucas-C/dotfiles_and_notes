@@ -2,7 +2,7 @@
 # (hence it does not provide striked/italic text)
 # For a more portable solution: man tput && man terminfo
 # Usage example: echo "${_BOLD}${_UNDER}${_ICYAN}Hello World${_END}"
-# Author: Lucas Cimon
+# Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
 
 _END=$'\x1b[0m'
 _BOLD=$'\x1b[1m'

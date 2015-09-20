@@ -1,3 +1,4 @@
+" Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
 if has("multi_byte")
   set encoding=utf-8
   setglobal fileencoding=utf-8

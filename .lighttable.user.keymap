@@ -1,3 +1,4 @@
+; Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
 ; ln -s $PWD/.lighttable.user.keymap $HOME/.config/LightTable/User/user.keymap
 ; Some docs: https://github.com/LightTable/LightTable/wiki/For-Users
 ; Defaults: https://github.com/LightTable/LightTable/blob/master/deploy/settings/default/default.keymap

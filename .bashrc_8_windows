@@ -1,3 +1,10 @@
+####################################
+# SPECIFIC conf for Windows (Cygwin or Git Bash)
+[[ $(uname -s) =~ ^CYGWIN_NT ]] \
+    || [[ $(uname -s) =~ ^MINGW32_NT ]] \
+    || return 0
+####################################
+
 if ! [ -r ~/.dir_colors ]; then
     curl -s 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > ~/.dir_colors
 fi
@@ -5,12 +12,10 @@ eval $(dircolors ~/.dir_colors)
 
 unfuncalias touch
 
-alias java_home_win_exec='JAVA_HOME=$(cygpath -w "$JAVA_HOME") '
-
 alias psf='ps -ef'
+alias node=cyg-node  # in ~/bin
 alias sudo='cygstart --action=runas'
-
-[ -r "/cygdrive/c/Program Files (x86)" ] && export X86=\ \(x86\)
+alias java_home_win_exec='JAVA_HOME=$(cygpath -w "$JAVA_HOME") '
 
 convertWinArgs () {
     while [ "$1" ]; do
@@ -22,8 +27,6 @@ convertWinArgs () {
     done
 }
 
-alias node=cyg-node
-
 win_hosts=$(cygpath -w "C:\Windows\System32\drivers\etc\hosts")
 
 swap_win_hosts () {
@@ -31,6 +34,8 @@ swap_win_hosts () {
     mv $win_hosts $win_hosts.bak
     mv tmp $win_hosts
 }
+
+[ -r "/cygdrive/c/Program Files (x86)" ] && export X86=\ \(x86\)
 
 npp () {
     "/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe" $(convertWinArgs "$@")

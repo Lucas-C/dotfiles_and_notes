@@ -1,3 +1,4 @@
+# Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
 [alias]
     st = status
     co = checkout
