@@ -29,3 +29,7 @@ List CSS classes used in HTML files:
 
     html_files=$(find -not -path '*/bower_components/*' -not -path '*/node_modules/*' -name '*.html')
     grep -h -o 'class="[^"]*"' $html_files | sed 's/class="\(.*\)"/\1/' | grep -v '^{.*}$' | tr ' ' '\n' | sort | uniq -c | sort
+
+Responsive square dive:
+- use the viewport unit, eg. 50vh
+- use padding-bottom = % of width : http://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/

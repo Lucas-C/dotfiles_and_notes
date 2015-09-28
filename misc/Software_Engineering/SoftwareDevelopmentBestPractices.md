@@ -25,6 +25,7 @@ Software Development Best Practices
 - [How to design a rest API](http://blog.octo.com/en/design-a-rest-api/) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
 - [RESTful API design refcard](http://blog.octo.com/wp-content/uploads/2014/10/RESTful-API-design-OCTO-Quick-Reference-Card-2.2.pdf)
 - [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development](http://neverworkintheory.org/2011/08/31/comparing-the-defect-reduction-benefits-of-code-inspection-and-test-driven-development.html)
+- [TestPyramid](http://martinfowler.com/bliki/TestPyramid.html) & [IceCreamConeAntipattern](http://watirmelon.com/2012/01/31/introducing-the-software-testing-ice-cream-cone/)
 - [John Carmack discusses the art and science of software engineering](https://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/): "It’s about social interactions between the programmers or even between yourself spread over time" + "we talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineer­ing there, these are all best practices, and these are things that have shown to be helpful in the past, but really are only helpful when people are making certain classes of mistakes" + daily code reviews + the code you write may well exist a decade from now
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
@@ -174,6 +175,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 * A fake doesn’t use a mocking framework: it’s a lightweight implementation of an API that behaves like the real implementation, but isn't suitable for production.
 * test your code opening files with /dev/full that always returns error code ENOSPC (meaning “No space left on device”)
 * GUI testing, e.g. with Selenium: Capybara, SauceLabs, RobotFramework
+* the [TestPyramid]: ![](http://martinfowler.com/bliki/images/testPyramid/pyramid.png) : more low-level tests than high level end-to-end tests
 
 ### Why unit tests ? [PP-Chapt34]
 - build trust in your code

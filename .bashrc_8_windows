@@ -99,4 +99,5 @@ jar_java_version () {
 
 # Trick from https://github.com/drush-ops/drush/issues/375
 # but USING DRUSH WITH CYGWIN IS A BAD IDEA
+# and by the way, it invokes bash through msysgit\bin\sh (MINGW32_NT)
 alias drush='DRUSH_PHP=php drush'

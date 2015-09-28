@@ -45,6 +45,8 @@ Jersey // RESTful Web Services
 OpenJDK JMH // Benchmark tool
 
 Buildr, Fradle > ant, maven // build systems
+mvn dependency:tree
+mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
 
 sudo update-alternatives --config java
 

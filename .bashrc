@@ -22,6 +22,7 @@ fi
 # Downloading .bashrc_* fragments
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 download_bashrc_files () {
+    echo "Downloading .bashrc* from GitHub"
     local bashrc
     for bashrc in .bashrc_0_term_multiplex .bashrc_1_prompt .bashrc_2_fcts_aliases_exports .bashrc_3_ssh .bashrc_8_mac .bashrc_8_windows; do
         curl "https://raw.githubusercontent.com/Lucas-C/linux_configuration/master/$bashrc" > ${BASHRC_DIR}/$bashrc

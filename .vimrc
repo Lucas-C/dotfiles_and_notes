@@ -70,6 +70,9 @@ set wrap
 "Suffixes that get lower priority when doing tab completion for filenames, i.e. files not likely to be edited or read
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.class
 au BufNewFile,BufRead *.wsgi set filetype=python
+au BufNewFile,BufRead *.inc set filetype=php
+au BufNewFile,BufRead *.install set filetype=php
+au BufNewFile,BufRead *.module set filetype=php
 
 "Non-persistent history ? Check ~/.viminfo permissions
 set viminfo='20,\"50         " read/write a .viminfo file, don't store more than 50 lines of registers
@@ -192,4 +195,3 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     call vundle#end()
 endif
 filetype plugin indent on
-

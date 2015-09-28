@@ -987,3 +987,14 @@ from functools import \
     lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property ; or boltons.cacheutils.LRI / boltons.cacheutils.LRU
 
 collections.ChainMap # view of multiple dicts - Hidden Py2.7 backport: from ConfigParser import _Chainmap as ChainMap - Alt: Py2ChainMap
+
+"""""""""""
+" Python 3.5
+"""""""""""
+# PEP448 : unpacking generalized
+l = (1, *[2])
+d = {"j": 9, **{"i": 8}}
+
+async def foo(): ...
+
+python -m zipapp my_project_dir  # generates a .pyz

@@ -29,8 +29,9 @@ Hashing:
 - selection from "Bloomin' Marvellous" slides: MurmurHash3, xxhash, SipHash
 
 Compression:
-- Google Snappy (10x faster, 50% worse compression than LZ)
-- Google Zöpfli (5% more compression, 100x slower than LZ)
+- Google Snappy (10x faster, 50% worse compression than LZMA (7z))
+- Google Zopfli (5% more compression, 100x slower than LZMA (7z))
+- Google Brotli: better than zlib, LZMA (7z) and Snappy/Zopfli in term of speed AND compression ratio
 
 PID controller: control loop feedback mechanism, using the proportional, integral and derivative values,
     that attempts to minimize the error in outputs by adjusting the process control inputs.

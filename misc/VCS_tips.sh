@@ -50,6 +50,10 @@ Next/previous commits: $commit^ (first parent) & $commit~ (first child)
 curl 'https://raw.githubusercontent.com/eacousineau/util/master/git-new-workdir.sh' > .git-new-workdir.sh
 curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > .bashrc_git_completion # buggy with TMUX
 
+curl http://git-punish.io/get -o /usr/local/bin/git-punish
+chmod +x /usr/local/bin/git-punish
+git punish -L135,170 index.js  # generates a URL to a funny page that expires in 24 hours
+
 gitg > gitk
 
 # use HTTPS protocol instead of git one (e.g. to bypass a firefall):

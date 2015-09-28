@@ -57,16 +57,16 @@ Navigation
 - *n*/*N* : next/previous
 - *\** : launch search with __regex__ = word under cursor
 
-Insertion
+Edition
 =========
 - __TAB__ : autocomplete ; use __TAB__+__SPACE__ for real tabs, and __TAB__+__TAB__ to cancel completion
-- __F2__ : 'set paste' mode
-- __SHIFT+INSERT__ : paste OS clipboard
 - *o*/*O* : insert mode on newline after/before current line
 - *:ci"* or *ci<* or *ci(* : delete everything on the line in-between "..."/<...>/(...) and enter insert mode
 
 Copy-paste
 ==========
+- __F2__ : 'set paste' mode
+- __SHIFT+INSERT__ : paste OS clipboard
 - __CTRL+v__ : paste the clipboard
 1. *v* : visual selection (or *q* for vertical selection)
 2. *y*/*d* : copy (yank)/copy & delete
@@ -74,6 +74,8 @@ Copy-paste
 - *dd* : copy & delete line
 - *yy* : copy line
 - __"__+__+__+__y__ : copy line to system clipboard
+- sometimes after a paste, vim keeps the whole document highlighted as if a "match-all" search had been triggered.
+The solution: */* __some_dummy_pattern__
 
 Registers
 =========

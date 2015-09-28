@@ -118,14 +118,14 @@ bar # echo A
 # Set positional parameters $0 $1 ...
 set - A B C
 
-: ${1:?'Missing or empty parameter'}
+local dummy=${1:?'Missing or empty "dummy" parameter'}
 : ${var:="new value set if empty"} # !! -> this defines a global variable
 local var=${1:-"default value"}
 foo () { local x=$(false); echo $?; }; foo # -> 0 !!GOTCHA!! 'local' is also a command, and its return code shadows the one of the cmd invoked
 bar () {  # Best practice, or use getopt (singular) - USAGE: bar x [y=...]
     local x y # necessary to define as local parameters not passed in afunction call (=> with default values)
     local "$@"  # does not behave like `eval`, e.g. with x=y;z
-    : ${x?'parameter "x" is missing'}
+    : ${x?'parameter is missing'}
     : ${y:='default y value'}
 }
 
@@ -520,6 +520,7 @@ ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
 /proc/net/{snmp, netstat, ...} # network counters
 dropwatch # to find out where are packets dropped
 hping # packets crafting
+httpry # simple packet sniffer that logs HTTP traffic (like Apache access logs)
 mitmproxy --host # interactive examination and modification of HTTP traffic - cf. blog.philippheckel.com but no need for -T - Alt: CharlesProxy, BurpProxy, Fiddler on Windows
 mitmdump # tcpdump-like: view, record, and programmatically transform HTTP traffic
 
@@ -563,8 +564,10 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
-ldapsearch -LLL -u -x "(uid=$username)"
 ldapsearch -x -d 1 # simple command for basic diagnosis
+ldapsearch -LLL -u -x "(uid=$username)"
+ldapsearch -x -H "ldaps://$HOSTNAME:51200" -LLL -D "CN=DUPONT Martin,OU=Users,OU=SIGLE,DC=company,DC=com" -b "DC=company,DC=com" -W "(&(sAMAccountName=martin_dupont))" -d 1
+TLS_REQCERT never # in /etc/openldap/ldap.conf
 
 iptables -A INPUT -s $host -j DROP
 iptables -A INPUT -p tcp -m tcp --dport 8888 -j ACCEPT
@@ -701,7 +704,7 @@ drush watchdog-show
 drush watchdog-delete all
 drush updatedb
 drush feature-update / feature-revert
-drush sql-cli / $(drush sql-connect) -e "$query"  # Connection to DB
+drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
 drush dl diff && drush en -y diff && drush features-diff $feature_name
 dpm / dvm / ddebug_backtrace # devel module
 elasticsearch_connector/modules/elasticsearch_connector_search_api/service.inc : SearchApiElasticsearchConnector->indexItems()
@@ -1193,7 +1196,8 @@ heroku pg:psql
 {
 .puppet
 }
-puppet apply --debug --verbose
+puppet apply --debug --verbose [--graph]  # graphs are generated in /var/lib/puppet/state/graphs by default
+dot -Tsvg $dot_graph -o ${dot_graph%*.dot}.svg  # >>> PNG-export, as it did not handle fonts correctly under Cygwin - Alt: dot -Tx11 $dot_graph for a terminal display
 !! future parser
 puppetlabs-stdlib
 $content = inline_template("...Hurrah ! Ruby code !...")

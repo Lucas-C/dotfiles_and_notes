@@ -32,6 +32,7 @@ vssadmin list shadows &:: list available Volume Shadow Copies aka restore points
 mstsc &:: builtin but less secure TeamViewer-like
 secpol.msc &:: Security Policy Editor -> can for example gives permision to a user to create symlinks
 rundll32 sysdm.cpl,EditEnvironmentVariables &:: user env variables
+rundll32 "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ImageView_Fullscreen $path_to_img_without_quotes &:: Open Windows Image Viewer
 
 nssm64.exe edit service_name &:: then nssm64.exe start service_name - Powerful wrapper around builtin sc create service_name binpath= c:\bla\bla\bla.exe start= auto type= own
 

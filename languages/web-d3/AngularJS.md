@@ -78,3 +78,8 @@ With only jQuery:
         ).then(done);
     });
 
+
+### Protractor
+
+Pros: http://pascalprecht.github.io/slides/e2e-testing-with-protractor
+Cons: http://googletesting.blogspot.fr/2015/04/just-say-no-to-more-end-to-end-tests.html
