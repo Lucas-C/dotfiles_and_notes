@@ -47,6 +47,7 @@ OpenJDK JMH // Benchmark tool
 Buildr, Fradle > ant, maven // build systems
 mvn dependency:tree
 mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
+gradle dependencies
 
 sudo update-alternatives --config java
 
@@ -74,6 +75,8 @@ ssh -D 43210 -N $host
 jconsole -J-DsocksProxyHost=localhost -J-DsocksProxyPort=43210
 // 4. Use the following JMX url
 service:jmx:rmi:///jndi/rmi://$host:9876/jmxrmi
+
+Byteman // insert extra Java code into your application, either as it is loaded during JVM startup or even after it has already started running: https://developer.jboss.org/wiki/ABytemanTutorial
 
 JDBC // Java Database Connectivity : API that defines how a client may access a relational database
 H2 // small fast in-memory SQL DB, useful for testing queries
@@ -115,7 +118,7 @@ Collections.shuffle(myList)
 
 assert *<condition>* : *<object>* // Don't forget to -enableassertions
 
-System.nanoTime() // 30 ns latency. Use it wisely: the latency, granularity, and scalability effects introduced may and will affect your measurements
+System.nanoTime() // 30 ns latency. Use it wisely: the latency, granularity, and scalability effects introduced may and will affect your measurements -> probably not true anymore in Java8
 
 // Reflection
 import java.lang.reflect.Field;
