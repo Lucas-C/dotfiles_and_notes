@@ -18,6 +18,7 @@ Project management best practices
 - [10 reasons not to adopt this new toy techno in production](https://translate.google.fr/translate?sl=auto&tl=en&js=y&prev=_t&hl=fr&ie=UTF-8&u=http%3A%2F%2Feax.me%2Favoid-new-toys%2F&edit-text=)
 - [TheFailureOfAgileAndGROWS](http://blog.toolshed.com/2015/05/the-failure-of-agile.html)
 - [Les développeurs Heisenberg](http://blog.ticabri.com/blog/2015/04/21/les-developpeurs-heisenberg/) - TL;DR Vous ne pouvez pas observer un développeur sans en altérer son comportement.
+- "flow-breaking interruptions & effectiveness of an org / number of engineers devoted to an Engineering Effectiveness team" : http://www.gigamonkeys.com/flowers/
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -107,7 +108,7 @@ cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
 ![](http://semat.org/wp-content/uploads/2013/03/spiral.png)
 - la règles des 3 emails: au délà, téléphonez ou déplacer vous pour discuter en personne
 
-### Méthodologies
+### Methodologies
 - CMMI = Capability Maturity Model Integration
 - RUP = Rational Unified Process, and its lightweight Agile version: OpenUP
 - 2TUP = 2 Tracks Unified Process, aka cycle en Y

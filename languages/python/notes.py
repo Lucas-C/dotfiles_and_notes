@@ -178,7 +178,7 @@ def create_logger(): # Also: logging.basicConfig(level=logging.DEBUG, format=LOG
 # Lazy logger: http://stackoverflow.com/a/4149231
 @deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/ - Alt: OpenStack debtcollector
 Twangist/log_calls # logging & func calls profiling
-# Support for {} / %(keyword)s format syntaxex:
+# Support for {} / %(keyword)s format syntaxes:
 # - https://docs.python.org/3/howto/logging-cookbook.html#formatting-styles
 # - vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
 logger = logging.getLogger(__name__)
@@ -308,8 +308,8 @@ set operators : | & - ^
 
 dict.__missing__ # invoked for missing items
 
+*{'a':0,'b':1}  # ('a', 'b')
 assert d == dict(**d)
-
 dict(y, **x) # union of dicts, duplicates are resolved in favor of x
 
 class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308
@@ -376,17 +376,18 @@ def create_multipliers(n):
 for multiplier in create_multipliers(2):
     print multiplier(3) # Late Binding Closure : prints 6 twice
 
-i, a[i] = 1, 10 # https://news.ycombinator.com/item?id=8091943 - Original blog post from http://jw2013.github.io
+i = 0; a = ['', '']
+i, a[i] = 1, 10
+print a  # -> ['', 10] - cf. https://news.ycombinator.com/item?id=8091943 - Original blog post from http://jw2013.github.io
 
 issubclass(list, object) # True
 issubclass(object, collections.Hashable) # True
 issubclass(list, collections.Hashable) # False - There are 1449 such triplets (4.3% of all eligible triplets) in Python 2.7.3 std lib
 
 f = 100 * -0.016462635 / -0.5487545  # observed on the field, in a real-world situation
-print 'float     f:', f              # 3.0
-print 'int       f:', int(f)         # 2
-print 'floor     f:', floor(f)       # 2.0
-print 'floor+int f:', int(floor(f))  # 2
+print '            f:', f              # 3.0
+print '       int(f):', int(f)         # 2
+print '     floor(f):', floor(f)       # 2.0
 
 # Name mangling:
 class Yo(object):
@@ -402,6 +403,19 @@ hash(O()) == hash(O()) # True !
 id(O()) == id(O())     # True !!!
 # ANSWER: http://stackoverflow.com/a/3877275/636849
 
+# The following are taken from cosmologicon Python wats quiz. All assertions are True
+'abc'.count('') == 4
+1000000 < ''
+False == False in [False]
+
+l = ([1],)
+l[0] += [2]  # -> raises a TypeError, but l has changed: ([1, 2],)
+
+[4][0.0]   # raises a TypeError
+{0:4}[0.0] # evaluates to: 4
+
+[3,2,1] < [1,3]  # False
+[1,2,3] < [1,3]  # True
 
 
 """""""""""""""""""""""""""
@@ -419,6 +433,8 @@ dakerfp/patterns # functional pattern matching through real DSL made by modifyin
 toolz # brings: pluck, tail, compose, pipe, memoize - Even faster: CyToolz
 suor/funcy
 kachayev/fn.py
+
+JulienPalard/Pipe # fib() | where(lambda x: x % 2 == 0) | take_while(lambda x: x < 4000000) | add
 
 
 """""""""""""""""
@@ -817,6 +833,7 @@ make html # Pelican static HTML files generation, using Jinja2 templates
 make serve # preview Pelican articles in localhost, with optional autoreload on edit
 sitemap, extract-toc, Tipue-search # plugins
 
+locust # load testing simulating millions of simultaneous users
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 scapy # packet injection/manipulation for many network protocols

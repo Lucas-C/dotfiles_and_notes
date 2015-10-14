@@ -6,7 +6,7 @@ Software Development Best Practices
 - [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley : http://blog.codinghorror.com/a-pragmatic-quick-reference/
 - [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) - Amy Brown & Greg Wilson
 - [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter - Ed. Addison-Wesley
-- [SDP] : [Software Design Philosophy - John Ousterhout](https://ramcloud.stanford.edu/wiki/display/ramcloud/Software+Design+Philosophy)
+- [SDP] : [Software Design Philosophy - John Ousterhout](//ramcloud.stanford.edu/wiki/display/ramcloud/Software+Design+Philosophy)
 - [97TEPSK] : [97 Things Every Programmer Should Know](http://programmer.97things.oreilly.com/wiki/index.php/Contributions_Appearing_in_the_Book)
 - [DOM] : [Don't overuse mocks](http://googletesting.blogspot.com/2013/05/testing-on-toilet-dont-overuse-mocks.html)
 - [KYTD] : [Know your test doubles](http://googletesting.blogspot.com/2013/07/testing-on-toilet-know-your-test-doubles.html)
@@ -16,7 +16,7 @@ Software Development Best Practices
 - [The Problems With Acceptance Testing](http://www.jamesshore.com/Blog/The-Problems-With-Acceptance-Testing.html)
 - [Cyclomatic] : [Quantifying the effect of TDD](http://www.keithbraithwaite.demon.co.uk/professional/presentations/2008/qcon/MeasureForMeasure.pdf) & [Cyclomatic complexity measure](http://www.keithbraithwaite.demon.co.uk/professional/software)
 - [CRTP] : [Code review - Tools an process](http://www.slideshare.net/rantav/code-review) slides
-- [BuildingADecentAPI](https://philsturgeon.uk/blog/2013/07/building-a-decent-api/)
+- [BuildingADecentAPI](//philsturgeon.uk/blog/2013/07/building-a-decent-api/)
 - [DistributedSystemsAndTheEndOfTheAPI](http://writings.quilt.org/2014/05/12/distributed-systems-and-the-end-of-the-api/)
 - [AwkwardMicroservicesQuestions](http://blog.oshineye.com/2015/01/awkward-microservices-questions.html)
 - [Functional Programming Patterns](http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt)
@@ -26,7 +26,8 @@ Software Development Best Practices
 - [RESTful API design refcard](http://blog.octo.com/wp-content/uploads/2014/10/RESTful-API-design-OCTO-Quick-Reference-Card-2.2.pdf)
 - [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development](http://neverworkintheory.org/2011/08/31/comparing-the-defect-reduction-benefits-of-code-inspection-and-test-driven-development.html)
 - [TestPyramid](http://martinfowler.com/bliki/TestPyramid.html) & [IceCreamConeAntipattern](http://watirmelon.com/2012/01/31/introducing-the-software-testing-ice-cream-cone/)
-- [John Carmack discusses the art and science of software engineering](https://blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/): "It’s about social interactions between the programmers or even between yourself spread over time" + "we talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineer­ing there, these are all best practices, and these are things that have shown to be helpful in the past, but really are only helpful when people are making certain classes of mistakes" + daily code reviews + the code you write may well exist a decade from now
+- [John Carmack discusses the art and science of software engineering](//blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/): "It’s about social interactions between the programmers or even between yourself spread over time" + "we talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineer­ing there, these are all best practices, and these are things that have shown to be helpful in the past, but really are only helpful when people are making certain classes of mistakes" + daily code reviews + the code you write may well exist a decade from now
+- [The microservices cargo cult](http://www.stavros.io/posts/microservices-cargo-cult/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -75,7 +76,7 @@ On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/14
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
 + representation for RESTful APIs: Swagger / RAML / API Blueprint / APIDOC
 
-On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity] : they add moving parts and interdependencies
+On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
 
 ## Design smells
 - "Thin" classes. Ideally, a class should have a very simple interface that hides a lot of functionality and internal complexity. [SDP]
@@ -240,6 +241,7 @@ cf. [Functional Programming Patterns]
     * [Belief bias](//en.wikipedia.org/wiki/Belief_bias)
     * [Confirmation bias](//en.wikipedia.org/wiki/Confirmation_bias) & [Experimenter's bias](//en.wikipedia.org/wiki/Experimenter%27s_bias)
     * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy)
+    * [Cargo cult](//en.wikipedia.org/wiki/Cargo_cult) of a new technology / design pattern
 + [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
 
 ### The Ten Commandments of Egoless Programming

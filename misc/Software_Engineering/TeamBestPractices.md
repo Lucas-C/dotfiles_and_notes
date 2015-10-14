@@ -44,6 +44,10 @@
 ## Leadership
 cf. [#gamedev Lead Quick Start Guide] & [Things I was unprepared for as a lead developer]
 "tell people what you want them to do instead of detailing what they’re doing wrong" [Criticism and Ineffective Feedback]
+Daniel Pink motivational building blocks from "The puzzle of motivation" :
+- autonomy: to direct our own lives
+- mastery: to get better and better at something that matters
+- purpose: to do what we do in the service of something larger than ourselves
 
 ## Team culture building
 - two main tenets: RESPECT & TRUST people.
