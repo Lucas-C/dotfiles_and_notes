@@ -49,6 +49,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
 - " Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
 - write greppable code
+- fail fast
 - Tony Hoare null "billion-dollar mistake"
 
 ## Design principles
@@ -242,6 +243,7 @@ cf. [Functional Programming Patterns]
     * [Confirmation bias](//en.wikipedia.org/wiki/Confirmation_bias) & [Experimenter's bias](//en.wikipedia.org/wiki/Experimenter%27s_bias)
     * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy)
     * [Cargo cult](//en.wikipedia.org/wiki/Cargo_cult) of a new technology / design pattern
+    * [Groupthink symptoms](//en.wikipedia.org/wiki/Groupthink#Symptoms)
 + [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
 
 ### The Ten Commandments of Egoless Programming

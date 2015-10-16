@@ -7,6 +7,7 @@ Radix / Counting sort: the best for ints
 -> Algorithmic complexity attack, e.g. McIlroy sort killer, which build an input to make any sorting quadratic in time
 
 Trie / directed acyclic graph can be + efficient than binary search trees / hash tables
+qp-trie > crit-bit trie > Patricia trie: http://fanf.livejournal.com/137283.html
 
 Test set membership aka sketching data structures:
 - HyperLogLog: [original paper](http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf), [2013 paper from Google](http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40671.pdf) and [an explanation](http://research.neustar.biz/2012/10/25/sketch-of-the-day-hyperloglog-cornerstone-of-a-big-data-infrastructure/)

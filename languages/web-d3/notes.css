@@ -33,3 +33,14 @@ List CSS classes used in HTML files:
 Responsive square dive:
 - use the viewport unit, eg. 50vh
 - use padding-bottom = % of width : http://www.dwuser.com/education/content/creating-responsive-tiled-layout-with-pure-css/
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/**************/
+/* Flex boxes */
+/**************/
+http://alsacreations.com/tuto/lire/1493-css3-flexbox-layout-module.html
+https://github.com/philipwalton/flexbugs

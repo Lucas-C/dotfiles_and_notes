@@ -678,7 +678,7 @@ ServerName localhost:80 # makes httpd startup waaay faster !
 php -r "print(php_ini_loaded_file());" # find dout php.ini file used
 php -r "print(phpinfo());" | grep log
 tail -F /var/log/apache2/*.log
-ForensicLog logs/forensic.log # requires mod_log_forensic enabled
+ForensicLog logs/forensic.log # requires: LoadModule log_forensic_module modules/mod_log_forensic.so
 http://xdebug.org/wizard.php
 error_log(print_r($variable, TRUE));
 new Exception()->getTraceAsString() # get a stack trace
@@ -693,7 +693,7 @@ dump_bt executor_globals.current_execute_data # where is my PHP script hanging ?
 wget http://ftp.drupal.org/files/projects/drupal-7.38.zip && unzip drupal-7.38.zip && mv drupal-7.38 $INSTALL_DRUPAL
 drush --debug ...
 drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
-drush pm-list [--type=module --status=enabled] # -> list modules & themes
+drush pm-list --type=module --status=enabled # -> list modules & themes
 drush site-install standard -y --account-pass=admin --db-url='mysql://root:root@localhost/my_pretty_db' --site-name=$sitename
 drush en -y $modules # pm-enable - Opposite: drush dis[able]
 drush ne-export --type=$content_type --file=$out_file.php
@@ -707,6 +707,7 @@ drush feature-update / feature-revert
 drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
 drush dl diff && drush en -y diff && drush features-diff $feature_name
 dpm / dvm / ddebug_backtrace # devel module
+drush fn-hook $hook_name # list hook implementations - Require: drush en devel -y
 elasticsearch_connector/modules/elasticsearch_connector_search_api/service.inc : SearchApiElasticsearchConnector->indexItems()
 
 chmod a+w sites/default/settings.php sites/default/files/
@@ -950,6 +951,7 @@ https://github.com/explore
 https://github.com/notifications
 https://github.com/issues
 https://github.com/pulls
+https://github.com/$user/$repo/compare/$tag...master # list commits between 2 versions
 
 curl 'https://api.github.com/repos/Lucas-C/linux_configuration/commits?per_page=100&page=4' | jq -r '.[].sha' # GitHub API usage example
 curl -H 'Accept: application/vnd.github.3.raw' 'https://api.github.com/repos/evanbrumley/spyfall/contents/spyfall/i18n/fr.i18n.json' # "for unauthenticated requests, the rate limit is 60 requests per hour"

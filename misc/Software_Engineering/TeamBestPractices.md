@@ -27,6 +27,7 @@
 - [Criticism and Ineffective Feedback](https://www.kateheddleston.com/blog/criticism-and-ineffective-feedback)
 - [Onboarding and the Cost of Team Debt](https://kateheddleston.com/blog/onboarding-and-the-cost-of-team-debt)
 - [Things I was unprepared for as a lead developer](http://dev-human.com/entries/2015/09/07/things-i-was-unprepared-for/)
+- [DefendingYourTime](https://blog.barricade.io/defending-your-time/)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -67,6 +68,7 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
     - Making someone responsible
     - Clarifying mission
     - Knowing your role as an executive: beeing a support for the team
+- [DefendingYourTime] : protect from bad planning and burnout.
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [DieScrum]

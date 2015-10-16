@@ -233,7 +233,10 @@ Runtime.getRuntime().addShutdownHook(new Thread() { public void run() { /* clean
 // GUI: Swing easy to customize color picker, editable text pane, file chooser, password field, progress bar, spreadsheet table, hierarchical tree...
 http://docs.oracle.com/javase/tutorial/uiswing/components/componentlist.html
 
-// Java8
+
+/*********/
+// Java 8
+/*********/
 Arrays.parallelSort(myArray) // break up the collection into several parts sorted independently across a number of cores. Will be less efficient on a loaded machine, depending on its architecture
 concurrent Adders > Atomics
 SecureRandom.getInstanceStrong() // Secure random generator
@@ -262,3 +265,5 @@ IntStream.range(1, 4) // Another use example: IntStream.iterate(0, i -> i + 2).l
 try (BufferedReader br = new BufferedReader(new FileReader(path))) {
     return br.readLine();
 }
+
+Function<InputType, ReturnType>.apply(arg) .compose(before) .andThen(after) & static identity()

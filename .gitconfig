@@ -1,7 +1,8 @@
 # Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
 [alias]
-    st = status
+    br = branch
     co = checkout
+    st = status
 
     wdiff = diff --word-diff
     wshow = show --word-diff
@@ -9,54 +10,58 @@
     mvbranch = branch -m
     unadd = reset HEAD
 
-# Get the full history of the changes affecting a given line, using a regular expression
-# !WARNING! git blame only returns the 1st REGEX match, if multiple matches exist the recursion may 'jump' to follow another line
-# USAGE: git rblame -M -n -L '/REGEX/,+1' FILE
+    # USAGE: git g [-shortOps] $pattern [$files...]
+    g = "!bash -c 'opts=; while [[ $1 =~ -.+ ]]; do opts=\"$opts $1\"; shift; done; opts=\"$opts $1\"; shift; git grep --ignore-case --break --heading --color=always --line-number $opts $(git rev-list --all) \"$@\" | git subst-sha1 | less --RAW-CONTROL-CHARS' dumb_param"
+    # Utility sub-routine: replace long SHA-1 hashes by a short hash & the committer ISO 8601 date
+    subst-sha1 = "!bash -c 'while read line; do sha1=$(echo \"$line\" | grep -o \"[a-z0-9]\\{40\\}\"); if [ -z \"$sha1\" ]; then echo \"$line\"; else subst=$(git show --no-patch --format=format:\"%h %ci\" $sha1); echo \"$line\" | sed \"s/$sha1/$subst/\"; fi; done' dumb_param"
+
+    # Get the full history of the changes affecting a given line, using a regular expression
+    # !WARNING! git blame only returns the 1st REGEX match, if multiple matches exist the recursion may 'jump' to follow another line
+    # USAGE: git rblame -M -n -L '/REGEX/,+1' FILE
     rblame      = "!bash -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); echo $line; done' dumb_param"
     rblameshow  = "!bash -c 'while line=$(git blame \"$@\" $commit 2>/dev/null); do commit=${line:0:8}^; [ 00000000^ = $commit ] && commit=$(git rev-parse HEAD); git show $commit; done' dumb_param"
 
-# colored logs, one per line - Alt: -p to get full patch diff
+    # colored logs, one per line - Alt: -p to get full patch diff
     dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-# Log using color, pager, and a graphical representation of branches/merges
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # Log using color, pager, and a graphical representation of branches/merges
     l = log --pretty=format:'%Cred---------------------------------------------------------------%n%C(red)%h %C(yellow)%d %Cgreen(%ci) %C(red)<%ae>%Creset%n%s%n%n%b%n' --abbrev-commit --date=relative --graph --date-order --stat --color
 
-# Better UI for common diff command: diff against upstream, use color & pager
+    # Better UI for common diff command: diff against upstream, use color & pager
     diff2 =!git diff --patience --color origin/mainline | less -cR
 
-# See diffstat(1) for info about what this looks like
+    # See diffstat(1) for info about what this looks like
     diffstat = diff --stat -r
 
     diffcached = diff --cached
 
-# Generate a ReviewBoard-compatible diff
+    # Generate a ReviewBoard-compatible diff
     rb = diff --no-color -U999999
 
-# Show the "upstream" remote branch which the local branch is tracking
+    # Show the "upstream" remote branch which the local branch is tracking
     origin =!git for-each-ref --format='%(upstream:short)' $(git symbolic-ref HEAD)
 
-# When 'you can’t quite fit what you’ve done into a commit but daren’t stray too far from now without a backup'
+    # When 'you can’t quite fit what you’ve done into a commit but daren’t stray too far from now without a backup'
     snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
 
     startfeature  = checkout -bi # Start a new feature on a new branch
     refresh =!git fetch origin && git rebase origin/mainline # Occasionally update from remote mainline
     finishfeature =!git fetch && git rebase origin/mainline && git checkout mainline && git merge –no-ff @{-1} # Update and Merge to local mainline
 
-# To avoid commiting changes to tracked files
+    # To avoid commiting changes to tracked files
     assume   = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
     assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
     unstage = reset HEAD --
 
-# USAGE: you can pass an optional file extension like .py or .c to only limit stats to files ending like this. FROM: http://stackoverflow.com/a/13687302
+    # USAGE: you can pass an optional file extension like .py or .c to only limit stats to files ending like this. FROM: http://stackoverflow.com/a/13687302
     authors-stats = "!sh -c 'git ls-tree -r -z --name-only HEAD -- */*$1 | xargs -0 -n1 git blame --line-porcelain HEAD | grep  \"^author \"|sort|uniq -c|sort -nr' dumb_param"
 
-# List files by commit count to detect "hotspots" - Alt: garybernhardt/dotfiles/bin/git-churn
+    # List files by commit count to detect "hotspots" - Alt: garybernhardt/dotfiles/bin/git-churn
     commits-heatmap = "!git ls-tree -r -z --name-only HEAD | xargs -0 -n1 -I{} sh -c 'echo $(git rev-list HEAD --count {}) {}' | sort -n"
 
-    ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'%h %<(24)%cr {}' {}^{commit}"
+    ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'{}  %h  %cr\n' {}^{commit} | sort"
 
-# I don't care about whitespace changes
 [apply]
     whitespace = nowarn
 
@@ -78,7 +83,7 @@
     renames = true
 
 [push]
-    default = matching
+    default = matching # +>+>+ more secure than "simple"
 
 [merge]
     tool = vimdiff

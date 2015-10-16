@@ -7,6 +7,15 @@ On DBs, Queues, Brokers and Caching
 ## Memory caching system
 DO NOT "underestimate the complexities and issues caching brings along with it" : [You're probably wrong about caching](http://msol.io/blog/tech/youre-probably-wrong-about-caching/)
 
+JCache API caching strategies (https://dzone.com/refcardz/java-caching):
+
+  FACTOR                  |  STRATEGY
+------------------------- | ---------------------------------------
+ Cache topology           | Standalone, Distributed, Replicated
+ Cache modes              | Embedded cache or Isolated cache
+ Transparent cache access | Read-Through and Write-Through caching
+ Cache data quality       | Expiry / Eviction policy fine tuning
+
 _memcached_
 
 - for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf

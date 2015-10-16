@@ -175,7 +175,7 @@ lse () { # group files by their extension
 #------
 alias g='grep -i --color=always'
 NOTES_FILES=$(cd $BASHRC_DIR && git ls-files)
-gn () { ( cd $BASHRC_DIR && grep --color=always "${@:-$(cat)}" $NOTES_FILES ); }
+gn () { ( cd $BASHRC_DIR && grep -I --color=always "${@:-$(cat)}" $NOTES_FILES ); }
 alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
 alias bzg='bzgrep -i --color=always'
 zgr () {
