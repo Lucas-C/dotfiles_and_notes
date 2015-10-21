@@ -10,7 +10,7 @@ Compatible for Ubuntu, Red Hat, OSX and Cygwin.
     BASHRC_DIR=$PWD/linux_configuration
     cd $HOME
     for f in .gitconfig .inputrc .vimrc; do ln -s $BASHRC_DIR/$f; done
-    echo "source $BASHRC_DIR/.bashrc" > .bashrc
+    echo "source $BASHRC_DIR/.bashrc" >> .bashrc
     echo 'exec /bin/bash' > .profile
 
 Any .bashrc_* file in $BASHRC_DIR will be sourced.
