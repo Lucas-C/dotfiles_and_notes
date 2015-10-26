@@ -2,7 +2,7 @@ Software Development Best Practices
 ===================================
 
 ## References
-- [CC-\\w\\d+] : Clean Code - Robert C. Martin - Ed. Prentice Hall
+- [CC-\\w\\d+](http://fr.slideshare.net/hebel/clean-code-vortrag032009pdf) : Clean Code - Robert C. Martin - Ed. Prentice Hall
 - [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley : http://blog.codinghorror.com/a-pragmatic-quick-reference/
 - [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) - Amy Brown & Greg Wilson
 - [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter - Ed. Addison-Wesley
@@ -28,6 +28,8 @@ Software Development Best Practices
 - [TestPyramid](http://martinfowler.com/bliki/TestPyramid.html) & [IceCreamConeAntipattern](http://watirmelon.com/2012/01/31/introducing-the-software-testing-ice-cream-cone/)
 - [John Carmack discusses the art and science of software engineering](//blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/): "It’s about social interactions between the programmers or even between yourself spread over time" + "we talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineer­ing there, these are all best practices, and these are things that have shown to be helpful in the past, but really are only helpful when people are making certain classes of mistakes" + daily code reviews + the code you write may well exist a decade from now
 - [The microservices cargo cult](http://www.stavros.io/posts/microservices-cargo-cult/)
+- [LatencyNumbersEveryProgrammerShouldKnow](https://gist.github.com/hellerbarde/2843375)
+- [ResponseTimes-The3ImportantLimits](http://www.nngroup.com/articles/response-times-3-important-limits/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -210,6 +212,14 @@ cf. [Functional Programming Patterns]
 - Avoid multiple languages in one source file [CC-G1]
 - Use the idioms of the programming language employed, aka "Don't write C code in Java"
 - When debugging, **THINK** before going on step-by-step debug mode [RobPikeKenThompson]. [A longer quote on ptrint-traces debugging VS debuggers](http://taint.org/2007/01/08/155838a.html)
+
+- know the order of magnitude it takes to perform various operations on a computer : cf. [LatencyNumbersEveryProgrammerShouldKnow] & [ResponseTimes-The3ImportantLimits] :
+    * 0.1 second is about the limit for having the user feel that the system is reacting instantaneously, meaning that no special feedback is necessary except to display the result.
+    * 1.0 second is about the limit for the user's flow of thought to stay uninterrupted, even though the user will notice the delay.
+    Normally, no special feedback is necessary during delays of more than 0.1 but less than 1.0 second, but the user does lose the feeling of operating directly on the data.
+    * 10 seconds is about the limit for keeping the user's attention focused on the dialogue.
+    For longer delays, users will want to perform other tasks while waiting for the computer to finish, so they should be given feedback indicating when the computer expects to be done.
+    Feedback during the delay is especially important if the response time is likely to be highly variable, since users will then not know what to expect.
 
 ## The UNIX Philosophy by Mike Gancarz
 1. Small is beautiful.

@@ -619,6 +619,8 @@ else:
 (import [sh [cat grep wc]]) # in Hy, aka Python with Lisp syntax
 (-> (cat "/usr/share/dict/words") (grep "-E" "^hy") (wc "-l"))
 
+n1nj4sec/memorpy  # search/edit Windows programs memory
+
 
 """"""""""""""""""""""""""
 "" Libs & tools for DEVS !
@@ -630,6 +632,7 @@ pip freeze > requirements.txt # dumps all the virtualenv dependencies
 pip install --user $USER --src . -r requirements.txt
 pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt ; ./manage.py pipchecker
 pex # self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
+pybuilder # continuous build tool, a bit like a Makefile with many plugins
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)
@@ -673,6 +676,7 @@ cvxopt # convex optimization
 
 mmap # memory-mapped files
 joblib # memoize computations by keeping cache files on disk
+petl # extract, transform and load tables of data (ETL)
 
 rpy2 # acces to R
 

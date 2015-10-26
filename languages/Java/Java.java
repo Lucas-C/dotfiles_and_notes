@@ -27,6 +27,7 @@ jjs // Nashborn Javascript engine - Java 8
 Java Native Architecture // To call C code, used by Selenium Web Driver
 
 java -cp junit.jar:. org.junit.runner.JUnitCore path.to.pkg.AllTests// JUnit
+com.jayway.restassured && its spring-mock-mvc : great testing of REST controllers, by making real HTTP resqests on a local host
 JContractS (formerly iContract), cofoja // Design By Contract libs
 checkstyle, findbugs, google/error-prone // code checking tools
 cobertura // code coverage
@@ -119,6 +120,7 @@ Collections.shuffle(myList)
 assert *<condition>* : *<object>* // Don't forget to -enableassertions
 
 System.nanoTime() // 30 ns latency. Use it wisely: the latency, granularity, and scalability effects introduced may and will affect your measurements -> probably not true anymore in Java8
+Joda.time
 
 // Reflection
 import java.lang.reflect.Field;
@@ -139,6 +141,12 @@ System.out.println("a" + "b"); System.out.format("a%s", "b");
 
 // Spring
 has support for events
+SpringFox to auto-generate Swagger from REST controllers @annotations
+<!-- DEBUG: provides /info /mappings /trace /env /configprops /metrics /health /dump /beans -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
 
 // Dozer : forbidden @VSCT -> bad experiences
 

@@ -243,8 +243,12 @@ alias lua5.2='rlwrap --remember --multi-line --always-readline $(type -P lua5.2)
 cljs_rhino () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline cljsbuild repl-rhino "$@"; }
 cljs_node () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline noderepl "$@"; }
 
-# Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
-alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main'
+alias js='java -cp js.jar org.mozilla.javascript.tools.shell.Main' # Rhino: http://www.mikechambers.com/blog/2003/12/06/shell-scripting-on-os-x-with-ecma-javascript/
+
+# To install ${JYTHON_HOME}bin/jython: java -jar jython_installer-2.7.0.jar - comes with a pip command too, but you can also always jython -m ensurepip
+alias ngjy-server='java -server -Dpython.home=$JYTHON_HOME -Dpython.executable=${JYTHON_HOME}bin/jython -jar $NAILGUN_SERVER_JAR' # wget http://search.maven.org/remotecontent?filepath=com/martiansoftware/nailgun-server/0.9.1/nailgun-server-0.9.1.jar
+alias ngjy='ng jython' # git clone git://github.com/martylamb/nailgun.git && cd nailgun/nailgun-client && gcc ng.c -o ng && cp ng ~/bin && ng ng-cp ${JYTHON_HOME}jython.jar && ng ng-alias jython org.python.util.jython
+alias djy='drip -jar ${JYTHON_HOME}jython.jar' # cf. curl @ https://github.com/ninjudd/drip#installation
 
 jar_java_version () {
     local jar=$(readlink -f $1)

@@ -686,6 +686,10 @@ new Exception()->getTraceAsString() # get a stack trace
 require('/path/to/psysh');
 eval(\Psy\sh());
 
+# PHP reference variables !!GOTCHA!!
+php -r '$a = array("b" => array(0 => 42)); $x = $a["b"]; $x[0] = 7; print_r($a);'
+php -r '$a = array("b" => array(0 => 42)); $x = &$a["b"]; $x[0] = 7; print_r($a);'
+
 curl https://raw.githubusercontent.com/php/php-src/PHP-$php_version/.gdbinit >> ~/.gdbinit
 gdb -p $php_script_pid
 dump_bt executor_globals.current_execute_data # where is my PHP script hanging ? -> dump stacktrace
