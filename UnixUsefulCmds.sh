@@ -616,6 +616,7 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: 
   -c --continue : continue getting a partially-downloaded file
   --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
 curl --fail --insecure --request POST --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html - Alt: jakubroztocil/httpie
+wget --curl -H "Cache-Control: no-cache" / wget --no-cache # Force a proxy fetch, e.g. for Squid
 # Web scrapping:
 httrack
 Xdummy > Xvfb # in-memory X11 display server that doesn't render to screen

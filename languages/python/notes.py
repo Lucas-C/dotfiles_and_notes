@@ -22,6 +22,14 @@ for line in fileinput.input([filename], inplace=True):
 fileutils.atomic_save # from mahmoud/boltons
 intern(str) # internal representation - useful for enums/atoms + cf. http://stackoverflow.com/a/15541556
 
+def find_usage(string):  # simili-grep
+    for dirpath, dnames, fnames in os.walk(STATICS_SRC_DIR):
+        for file_name in [os.path.join(dirpath, f) for f in fnames if any(f.endswith(ext) for ext in TARGET_FILES_EXTENSIONS)]:  # compatible Python 2 & 3
+            with io.open(file_name, 'r', encoding='utf-8') as open_file:  # compatible Python 2 & 3
+                for line_number, line in enumerate(open_file.readlines(), 1):
+                    if string in line:
+                        yield line, line_number
+
 <module>.__file__ # can refer to .py OR .pyc !!
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
@@ -485,6 +493,7 @@ import pdb; foo(42); pdb.pm() # enter debugger post-mortem using:
 sys.last_traceback / sys.last_value # non-handled exception info
 from IPython.core.debugger import Pdb; Pdb().set_trace()
 ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
+zestyping/q  # quick and dirty debugging that inc. time : q/ & q| @q (inc. return values) q.d() (~pdb)
 pdbpp # prettier PDB
 google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
 import rpdb; rpdb.set_trace() # remote debugging

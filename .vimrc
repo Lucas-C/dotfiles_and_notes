@@ -33,14 +33,22 @@ set softtabstop=4         " Why are tabs so big?  This fixes it
 set tabstop=4
 
 """Other options
-set autochdir
+if exists("&autochdir")
+  set autochdir
+endif
 set backspace=2           " allow backspacing over everything in insert mode
 set bs=2                  " http://vimdoc.sourceforge.net/htmldoc/options.html#%27bs%27
 set diffopt=filler,iwhite " keep files synced and ignore whitespace
 set fo=croq               " http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
-set foldcolumn=2          " set a column incase we need it
-set foldlevel=0           " show contents of all folds
-set foldmethod=indent     " use indent unless overridden
+if exists("&foldcolumn")
+  set foldcolumn=2        " set a column incase we need it
+endif
+if exists("&foldlevel")
+  set foldlevel=0         " show contents of all folds
+endif
+if exists("&foldmethod")
+  set foldmethod=indent   " use indent unless overridden
+endif
 set helpfile=$VIMRUNTIME/doc/help.txt
 set hidden                " hide buffers instead of closing
 set history=500           " keep 50 lines of command line history
@@ -53,7 +61,9 @@ set matchtime=10          " Time to flash the brack with showmatch
 set nobackup              " Don't keep a backup file
 "set noswapfile              " this guy is really annoying sometimes
 set nocompatible          " Use Vim defaults (much better!)
-set nofen                 " disable folds
+if exists("&nofen")
+  set nofen               " disable folds
+endif
 set notimeout             " i like to be pokey
 set path+=.,..,../..,../../..,../../../..,/usr/include
 set scrolloff=1           " dont let the curser get too close to the edge
@@ -100,7 +110,9 @@ map!  
 
 map <C-s> :w<CR>
 
-set mouse=a
+if has('mouse')
+  set mouse=a
+endif
 
 set pastetoggle=<F2>         "http://vim.wikia.com/wiki/Toggle_auto-indenting_for_code_paste
 "set wrapmargin=80           " When pasteing, use this, because textwidth becomes 0 ; wrapmargin inserts breaks if you exceed its value

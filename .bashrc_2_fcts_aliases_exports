@@ -401,6 +401,9 @@ findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while 
 findImg () {
     findByFilePattern image "$@"
 }
+findCRLF () {
+    findByFilePattern CRLF "$@"
+}
 findAndSortByDate () {
     find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
 }

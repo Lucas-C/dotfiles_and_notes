@@ -11,7 +11,7 @@
     unadd = reset HEAD
 
     # USAGE: git g [-shortOps] $pattern [$files...]
-    g = "!bash -c 'opts=; while [[ $1 =~ -.+ ]]; do opts=\"$opts $1\"; shift; done; opts=\"$opts $1\"; shift; git grep --ignore-case --break --heading --color=always --line-number $opts $(git rev-list --all) \"$@\" | git subst-sha1 | less --RAW-CONTROL-CHARS' dumb_param"
+    g = "!bash -c 'opts=; while [[ $1 =~ -.+ ]]; do opts=\"$opts $1\"; shift; done; opts=\"$opts $1\"; shift; git grep --ignore-case --break --heading --color=always --line-number $opts $(git rev-list --all) \"$@\" | git subst-sha1' dumb_param"
     # Utility sub-routine: replace long SHA-1 hashes by a short hash & the committer ISO 8601 date
     subst-sha1 = "!bash -c 'while read line; do sha1=$(echo \"$line\" | grep -o \"[a-z0-9]\\{40\\}\"); if [ -z \"$sha1\" ]; then echo \"$line\"; else subst=$(git show --no-patch --format=format:\"%h %ci\" $sha1); echo \"$line\" | sed \"s/$sha1/$subst/\"; fi; done' dumb_param"
 
