@@ -52,4 +52,3 @@ if [ -r ${BASHRC_DIR}/.bash_dirs ]; then
         unset unexDir
     done; unset pass
 fi
-

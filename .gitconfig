@@ -83,7 +83,7 @@
     renames = true
 
 [push]
-    default = matching # +>+>+ more secure than "simple"
+    default = simple # +>+>+ more secure than "matching", especially to avoid erasing remote changes on master when you push --force on a dev branch
 
 [merge]
     tool = vimdiff

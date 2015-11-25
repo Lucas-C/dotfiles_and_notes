@@ -75,6 +75,7 @@ a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a ' # Quine
 
 dig +short TXT google-public-dns-a.google.com # check without 'TXT'
 dig +short TXT istheinternetonfire.com
+m57/dnsteal  # DNS Exfiltration tool for stealthily sending files over DNS requests
 traceroute -m 60 216.81.59.173; telnet towel.blinkenlights.nl # Star Wars
 
 echo "You can simulate on-screen typing just like in the movies" | pv -qL 10

@@ -77,7 +77,7 @@ tempfile.mkdtemp()
 tempfile.NamedTemporaryFile() # file automagically deleted on close()
 tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
 
-StringIO # fake file
+StringIO # fake file from string - in module StringIO in Python 2, in io in Python 3
 glob, fnmatch # manipulate unix-like file patterns
 jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object (std in Python 3), and a handy walkfiles()
 os.stat("filename").st_ino # get inode
@@ -212,6 +212,8 @@ PYTHONHOME : Python interpreter directory
 PYTHONCASEOK : case insensitive module names (usefule under Windows)
 PYTHONIOENCODING : force default encoding for stdin/stdout/stderr
 PYTHONHASHSEED : change seed hash() (=> more secure VM)
+
+sys.meta_path  # a list of *finder* objects that have their find_module() methods called to see if one of the objects can find the module to be imported - cf. PEP 302
 
 __main__.py # code executed in case of 'python my_pkg/' or 'python -m my_pkg'
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil
@@ -360,7 +362,7 @@ assert (x is y) is True
 def foo(x = []):
     x.append('do')
     return x
-foo();foo()
+foo();foo()  # cf. foo.__defaults__
 
 tuple(obj) # !! PITFALL: fail for None, will parse any sequence like a basestring and won't work on single value
 def to_tuple(t):
@@ -413,7 +415,7 @@ id(O()) == id(O())     # True !!!
 
 # The following are taken from cosmologicon Python wats quiz. All assertions are True
 'abc'.count('') == 4
-1000000 < ''
+1000000 < '' and () > []  # "objects of different types except numbers are ordered by their type names"
 False == False in [False]
 
 l = ([1],)
@@ -510,6 +512,16 @@ inspect.getfile(my_module)
 inspect.getsource(foo_func) # if implemented in C, use punchagan/cinspect
 frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
 inspect.currentframe(1).f_locals['foo'] = 'overriding caller local variable!'
+
+def get_instance_var_name(method_frame, instance):
+    parent_frame = method_frame.f_back
+    matches = {k: v for k,v in parent_frame.f_globals.items() if v is instance}
+    assert len(matches) < 2
+    return matches.keys()[0] if matches else None
+class Bar:
+    def foo(self):
+        print get_instance_var_name(inspect.currentframe(), self)
+bar = Bar(); bar.foo(); nested = lambda: bar.foo(); nested(); Bar().foo()
 
 # http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
 def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
@@ -617,7 +629,7 @@ import pip
 pip.main(['install', '--proxy=' + PROXY, 'requests==2.7.0', 'retrying==1.3.3', 'sh==1.11'])
 
 import sh, sys
-sh = sh(_err=sys.stderr, _out=None)  # setting default commands redirections
+sh = sh(_err=sys.stderr, _out=sys.stdout.buffer)  # setting default commands redirections - Accessing the .buffer is needed under Python 3, cf. https://github.com/amoffat/sh/issues/242
 sh.bzcat(...)
 
 if len(argv) > 1:
@@ -645,7 +657,8 @@ pybuilder # continuous build tool, a bit like a Makefile with many plugins
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)
-pyreverse # UML diagrams
+pyreverse # UML diagrams, integrated in pylint
+openstack/bandit  # Python AST-based security linter
 
 Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
 lobocv/crashreporter #store and send crash reports directly to the devlopers
@@ -804,6 +817,16 @@ html_tree = lxml.etree.ElementTree(html_root) # Alt: lxml.etree.parse(some_file_
 html_tree.getpath(element)
 element.getparent().remove(element)
 BeautifulSoup('html string').prettify() # newlines+tabs formatted dump - Alt, less pretty: lxml.html.tostring(element) / lxml.etree.tostring
+
+KNOWN_HTML_ATTRS = defs.link_attrs | defs.event_attrs | defs.safe_attrs | frozenset(['content', 'http-equiv', 'placeholder', 'role'])
+def iter_html_non_standard_attributes(html_file):
+    for _, elem in lxml.etree.iterparse(html_file, html=True, remove_comments=True):
+        attribute_names = elem.attrib.keys()
+        for attribute_name in attribute_names:
+            if not any([attribute_name in KNOWN_HTML_ATTRS,
+                        attribute_name.startswith('data-'),
+                        attribute_name.startswith('aria-')]):
+                yield attribute_name
 
 urlparse.urljoin, urllib.quote_plus # urlencoding & space -> +
 requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also:

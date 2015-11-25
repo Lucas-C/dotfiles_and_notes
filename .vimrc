@@ -61,7 +61,7 @@ set matchtime=10          " Time to flash the brack with showmatch
 set nobackup              " Don't keep a backup file
 "set noswapfile              " this guy is really annoying sometimes
 set nocompatible          " Use Vim defaults (much better!)
-if exists("&nofen")
+if exists("&fen")
   set nofen               " disable folds
 endif
 set notimeout             " i like to be pokey
