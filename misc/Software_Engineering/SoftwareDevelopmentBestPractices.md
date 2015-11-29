@@ -254,6 +254,7 @@ cf. [Functional Programming Patterns]
     * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy)
     * [Cargo cult](//en.wikipedia.org/wiki/Cargo_cult) of a new technology / design pattern
     * [Groupthink symptoms](//en.wikipedia.org/wiki/Groupthink#Symptoms)
+    * Spurious correlations: Correlation != causality, aka "post hoc ergo propter hoc" aka "effet cigogne" (cf. eponymous website & e-penser video "le lieu le plus dangereux de France" = le lit)
 + [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
 
 ### The Ten Commandments of Egoless Programming

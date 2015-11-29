@@ -109,6 +109,9 @@ folly::fbvector > std::vector + other useful libs in facebook/folly // https://g
   * set_assign.h
   * static_mem_pool.h
 
+GSL = GNU Scientific Library // numerical calculus library
+FFTW // to compute the discrete Fourier transform (DFT) in one or more dimensions, of arbitrary input size, and of both real and complex data
+
 // POGO: Profile Guided Optimizations : optimization is done offline, based on profiling information, but once the binary is shipped there is no ongoing optimization, != JIT runtime optimization
 // This is a general technic, but provided by Visual Studio (+ Mpgo.exe & Ngen.exe)
 Nana C++ // GUI programming

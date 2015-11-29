@@ -190,6 +190,8 @@ Twangist/log_calls # logging & func calls profiling
 # - https://docs.python.org/3/howto/logging-cookbook.html#formatting-styles
 # - vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
 logger = logging.getLogger(__name__)
+
+import exceptions # contains the list of all std ones
 try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err: # see chain_errors module
     logger.exception("Additional info: %s", 42) # Exception will be automagically logged
@@ -239,12 +241,14 @@ pyropes # rope: binary tree-based data structure for efficiently storing and man
 bitarray # array of booleans
 
 Banyan, mozman/bintrees, pytst, rbtree, scipy-spatial # binary, redblack, AVL, ternary-search & k-d trees
+conceptsandtraining/libtree # deal with large, hierarchical data sets. Runs on top of PostgreSQL
 
 marisa-trie, datrie, chartrie, hat-trie, pyjudy, biopython # Tries comparison: http://kmike.ru/python-data-structures/
 kmicke/DAWG # Directed Acyclic Word Graphs
 ahocorasick, acora # Aho-Corasick automaton : quick multiple-keyword search across text
 
 kayzh/LSHash # locality sensitive hashing
+JohannesBuchner/imagehash  # perceptual hashes lib, supports: average hashing (aHash), perception hashing (pHash), difference hashing (dHash)
 
 bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra, xmonader/pybloomfilter, TerbiumLabs/pyblume
 svpcom/hyperloglog # Super and Hyper Log Log Sketches
@@ -468,8 +472,6 @@ import monkeypatch # modify an object that will be restored after the unit test
 import tmpdir # generate a tmp dir for the time of the unit test
 import hypothesis # feed you test with known to break edge cases
 
-module_name=code
-code_module_path=$(python -c "import $module_name; print $module_name.__file__" | sed 's/pyc$/py/')
 python -mtrace --ignore-module=codeop,__future__ --trace [ $file | $code_module_path ] # trace all code lines run when executing a file / in interactive console
 dhellmann/smiley # application tracer, record & report, inspired by rad2py/wiki/QdbRemotePythonDebugger
 
@@ -511,7 +513,7 @@ inspect.getargspec(foo_func) # get signature
 inspect.getfile(my_module)
 inspect.getsource(foo_func) # if implemented in C, use punchagan/cinspect
 frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
-inspect.currentframe(1).f_locals['foo'] = 'overriding caller local variable!'
+inspect.currentframe().f_back.f_locals['foo'] = 'overriding caller local variable!'  # does NOT work, but ok with f_globals
 
 def get_instance_var_name(method_frame, instance):
     parent_frame = method_frame.f_back
@@ -629,7 +631,7 @@ import pip
 pip.main(['install', '--proxy=' + PROXY, 'requests==2.7.0', 'retrying==1.3.3', 'sh==1.11'])
 
 import sh, sys
-sh = sh(_err=sys.stderr, _out=sys.stdout.buffer)  # setting default commands redirections - Accessing the .buffer is needed under Python 3, cf. https://github.com/amoffat/sh/issues/242
+sh = sh(_err=sys.stderr, _out=sys.stdout.buffer if sys.version_info[0] == 3 else sys.stdout)  # setting default commands redirections - Accessing the .buffer is needed under Python 3, cf. https://github.com/amoffat/sh/issues/242
 sh.bzcat(...)
 
 if len(argv) > 1:
@@ -654,6 +656,7 @@ pip install --user $USER --src . -r requirements.txt
 pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt ; ./manage.py pipchecker
 pex # self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
 pybuilder # continuous build tool, a bit like a Makefile with many plugins
+setuptools_scm  # manage your setup.py versions by scm tags
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last tim I tried)
@@ -685,7 +688,7 @@ scipy
     numpy # n-dimensional arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
-    matplotlib, prettyplotlib, mpld3, bokeh, vispy # 2d plotting
+    matplotlib, prettyplotlib, mpld3, bokeh, vispy, seaborn, pygal, folium (-> Leaflet.js maps) # data viz 2d plotting
 
 jhcepas/ete # tree epxloration & visualisation
 riccardoscalco/Pykov # markov chains
@@ -700,7 +703,7 @@ mmap # memory-mapped files
 joblib # memoize computations by keeping cache files on disk
 petl # extract, transform and load tables of data (ETL)
 
-rpy2 # acces to R
+rpy2 # acces to R + cf. https://www.dataquest.io/blog/python-vs-r/
 
 from cryptography.fernet import Fernet # symmetric encryption
 mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments by signing content
@@ -715,7 +718,7 @@ modulefinder # determine the set of modules imported by a script
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler. Also: PyPy-STM
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
 Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C
-Jython / Py4J # intercommunicate with Java
+Jython / Py4J # intercommunicate with Java -> Jython has pip, but won't support lib depending on multiprocessing - however, it has excellent support for built-in Java threads: http://www.jython.org/jythonbook/en/1.0/Concurrency.html
 Numba # NumPy aware dynamic Python compiler using LLVM
 Pyston # VM using LLVM JIT
 PyInline # put source code from other programming languages (e.g. C) directly "inline" in Python code
@@ -736,7 +739,7 @@ def _make_file_read_nonblocking(f):
     flags = fcntl.fcntl(fd, fcntl.F_GETFL)
     fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
 from gevent import monkey; monkey.patch_all() # Greenlets
-saucelabs/monocle, Stackless, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
+saucelabs/monocle, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
@@ -785,8 +788,12 @@ argcomplete # command line tab completion
 
 ConfigParser, configobj # std configuration files format
 csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
+writer = csvkit.writer(sys.stdout)
+with open(sys.argv[1]) as csv_file:
+    for row in csvkit.reader(csv_file):
+        writer.writerow(row)
 aspy.yaml, yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
-cPickle # binary format, generic, fast & lighweight.
+cPickle # binary format, generic, fast & lighweight - DO NOT USE IT ! -> "untrusted pickles can execute arbitrary Python code" + "you can’t even easily tell which classes are baked forever into your pickles" -> Alt: eeve/camel PyYaml-based serialization (inc. versionning & use YAML metadata)
 # + PyCloud make it possible to pickle functions dependencies
 
 peewee, SQLAlchemy # ORM DB
@@ -796,7 +803,7 @@ sqlite3 # std DB, persistent in a file || can be created in RAM
 python-lsm-db(like LevelDB), unqlite-python(like MongoDB), vedis-python(like Redis) # Other embedded NoSQL DBs
 pyMySQL, noplay/python-mysql-replication
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
-stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring
+stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring, fengsp/rc.Cache
 
 hmac, hashlib.md5('string').hexdigest()
 dropbox/python-zxcvbn # password strength estimation
@@ -893,14 +900,16 @@ wand (ImageMagick binding), pillow > pil # Python Image Library
 ufoym/cropman # face-aware image cropping
 andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
 lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
-AAlib # ASCII rendering
+AAlib, legofy # ASCII/Lego rendering
 fogleman/Tiling # pavages
 graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
 antiboredom/audiogrep
 
 EasyDialogs, optparse_gui, EasyGui > Tkinter
+Kivy # GUI inc. multi-touch support
 
+pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff
 fmoo/python-editor # programmatically open a text editor, captures the result
 urwid # console user interface lib - Alt: snack, NPyScreen
 code.InteractiveConsole().interact() # interactive python prompt

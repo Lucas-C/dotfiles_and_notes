@@ -6,6 +6,9 @@ Radix / Counting sort: the best for ints
 -> cf. include/linux/radix-tree.h / lib/radix-tree.c from the linux kernel (detailed in "linux-insides")
 -> Algorithmic complexity attack, e.g. McIlroy sort killer, which build an input to make any sorting quadratic in time
 
+To get a better locality of reference (= elements accessed in sequence are located in memory addresses close to each other),
+binary search trees are better implemented using a contiguous array following a red-black tree's breadth-first order (like a heap basically)
+
 Trie / directed acyclic graph can be + efficient than binary search trees / hash tables
 qp-trie > crit-bit trie > Patricia trie: http://fanf.livejournal.com/137283.html
 

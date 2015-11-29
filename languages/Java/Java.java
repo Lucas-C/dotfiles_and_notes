@@ -64,6 +64,8 @@ Capsule // dead-Simple packaging and deployment for JVM apps
 
 dex2jar // Convert an Android .apk into .jar
 
+JavaCPP Presets // provide bindings for the following C++ libs: OpenCV, FFmpeg, FlyCapture, libdc1394, libfreenect, videoInput, ARToolKitPlus, Chilitags, flandmark, FFTW, GSL, LLVM, Leptonica, Tesseract, Caffe, CUDA
+
 VisualVM, jmxterm // GUI & CLI for JMX (Java Management Extensions that specifies simple Java objects called MBeans)
 // Alt profilers: byteman, JVM Monitor (free Eclipse plugin), jprofiler (non free), Java Flight Recorder (baked into the HotSpot VM) & Java Mission Control, YourKit Java Profiler
 Jolokia, hawtio // Provide JMX HTTP REST access

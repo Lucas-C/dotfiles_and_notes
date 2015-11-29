@@ -24,6 +24,7 @@ powercfg -h off/on &:: as admin, delete hiberfil.sys
 schtasks &:: task scheduler
 msinfo32 &:: info computer composants
 msconfig &:: System Configuration -> can disable or re-enable software, device drivers and Windows services that run at startup, or change boot parameters
+tasklist /svc &:: list Service Host (svchost.exe) services running, with their PIDs
 services.msc &:: Services windows
 magnify &:: Loupe
 clipbrd &:: Display clipboard
@@ -60,7 +61,7 @@ handle.exe -a | grep ': Key\|pid:' | grep 'COMPONENTS\|pid:' | grep -B1 'COMPONE
 - cleanmgr.exe
 - CCCleaner
 - Malwarebytes (+ possibly HijackThis)
-- perfmon.exe / resmon.exe / Sysinternals ProcessExplorer
+- perfmon.exe / resmon.exe / Sysinternals ProcessExplorer (select File > "Show Details for All Processes" to display network usage)
 - Microsoft Securit Scanner : http://www.microsoft.com/security/scanner
 - Farbar Service Scanner : http://www.bleepingcomputer.com/download/farbar-service-scanner/dl/62
 - Defrag
@@ -108,6 +109,10 @@ install-module PSReadline
 
 PSCX # PowerShell Community Extensions
 iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')) # install chocolatey - Some pkgs: https://github.com/berdario/dotfiles/blob/master/chocsoftware.ps1
+
+(New-Object –ComObject SAPI.SPVoice).Speak(“This is a test”)
+Add-Type -AssemblyName System.speech; $speaker = New-Object System.Speech.Synthesis.SpeechSynthesizer; $speaker.Speak(“This is a test”)
+
 
 
 ::::::::::

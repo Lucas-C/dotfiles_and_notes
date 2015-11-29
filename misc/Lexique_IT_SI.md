@@ -8,6 +8,7 @@ DSI = Direction/Directeur des Systèmes d'Information
 ERP = Entreprise Resource Planning (== PGI: progiciel de gestion intégré)
 ETP = Equivalent Temps Plein, correspond le plus souvent à une semaine de 5 jours
 ESN = SSII
+FAQ = Foire aux Questions = Frequently Asked Questions
 GUI = Graphical User Interface == IHM
 IHM = Interface Homme-Machine == GUI
 iSCSI = Internet Small Computer System Interface
@@ -23,6 +24,7 @@ SCRUDS = Search, Create, Read, Update, Delete -> cf. CRUD
 SLA = Service Level Agreement (~ Engagement de Service)
 SI = Système d'information == IT
 SSII / SS2I
+TJM = Taux Journalier Moyen
 TMA = Tierce Maintenance Applicative
 TRA = Tierce Recette Applicative
 

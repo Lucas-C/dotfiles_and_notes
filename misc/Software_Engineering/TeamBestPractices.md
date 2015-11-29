@@ -104,10 +104,10 @@ In general, limit meetings by making them informal chats or doing them properly:
 - CMs: cf. [IT Change Management]
 - post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management]
 Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
-- use a chatbot for real time alerts (e.g. Hubot, can integrate with Jenkins via Janky - Also: Slack looks awesome)
+- use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err for Python)
 
 ## Deployments
-From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented"
+From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
 
 ## Documentation:
 - Tenets:

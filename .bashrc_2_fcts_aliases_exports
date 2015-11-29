@@ -224,7 +224,12 @@ alias djshell='PYTHONSTARTUP=$HOME/.pythonrc ./manage.py shell_plus --use-python
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
 rmpyc () { find -L ${@:-.} -name "*.pyc" | xargs rm -f; }
-py_mod_cd () { cd "$(python -c "import os.path as _, ${1}; print(_.dirname(_.realpath(${1}.__file__[:-1])))")"; }
+py_module_path () {
+    python -c "import $1; print $1.__file__ if hasattr($1, '__file__') else 'builtin'" | sed 's/pyc$/py/'
+}
+py_module_dir () {
+    dirname $(py_module_path $1)
+}
 find_constants () {
     find "${@:-$(cat)}" -print0 \
         | xargs -0 perl -wne 'while ($_ =~ /[^\w]([A-Z][A-Z0-9_]+)[^\w]/g) {print $1."\n"}' \

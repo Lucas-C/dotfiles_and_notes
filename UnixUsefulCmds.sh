@@ -413,6 +413,7 @@ echo '{"A0":["a1","a2","a3"], "B0":["b1","b2","b3"], "c3":[]}' | jq '".[^3]" as 
 source <(jq -r 'to_entries|.[]|"SAUCE_\(.key|ascii_upcase)=\(.value)"' .saucelabs_auth.json )
 jq '[.[] | {contentUrl, imgUrl, description: .contentUrl|sub(".*/";"")}]' imgur_imgs.json > imgur_imgs_with_desc.json
 jq -r 'map(select(.joblink == ""))' < $json_filename
+jq input_filename,input_line_number *.json
 pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
@@ -774,12 +775,13 @@ dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom" # In case of OOM,
 watch -d -n 1 "cat /proc/$pid/status | grep ctxt_switches" # mostly nonvoluntary context switches => CPU bound / else IO bound - FROM: https://blogs.oracle.com/ksplice/entry/solving_problems_with_proc
 
 # Monitoring
+![The Tracing Landscape - Sep 2015](http://www.brendangregg.com/blog/images/2015/tracing_landscape_sep2015.png) : sysdig, ftrace, perf, dtrace, ktrap, stap, eBPF, bcc - cf. http://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html
 iostat # ! '%util' & 'svctm' are misleading + iotop, non portable + brendangregg/perf-tools/blob/master/iosnoop
 mpstat 5 # cpu usage stats every 5sec
 monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
 dstat
 pt-summary, glances, psdash, conky
-collectd, perfwatcher
+collectd, perfwatcher, diamond, fullerite
 hdparm -tT /dev/sda # Check a disk read/write speed
 
 stap # SystemTap
