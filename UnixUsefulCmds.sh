@@ -1079,8 +1079,9 @@ tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
 barcode -b "Hello World !" -o out.ps && convert out.ps -trim out.png
 pngquant ## 70% lossy compression
-jpegtran -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs
-identify -verbose $jpg | grep -Fq 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg
+jpegtran -perfect -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs - better than ImageMagick, cf. http://www.imagemagick.org/discourse-server/viewtopic.php?t=22141
+identify -verbose $jpg | grep -E 'Image:|Quality:' # get JPEG compression level
+identify -verbose $jpg | grep 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg
 mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata
 feh -F -d -D 3 --cycle-once -f <(findImg .) # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 

@@ -4,9 +4,9 @@
 """""""""""
 _ # result of the last expression evaluated (in an interpreter only)
 
-r'''Raw string literal: no need to double escape \{0}\{one:.5f}'''.format("zero", one=1) # raw string: treat backslashes as literal characters
+r'Raw string literal: no need to double escape \{0}\{one:.5f}'.format("zero", one=1) # raw string: treat backslashes as literal characters
 'My name is {0[firstname]} {0[lastname]}'.format({'firstname': 'Jack', 'lastname': 'Vance'})
-u"""Unicode string {obj.__class__} {obj!r}""".format(obj=0) # for formatting with a defaultdict, use string.Formatter().vformat
+u"Unicode string {obj.__class__} {obj!r}".format(obj=0) # for formatting with a defaultdict, use string.Formatter().vformat
 from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII - Gotchas: http://stackoverflow.com/a/827449/636849
 unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
 eyalr/unicode_mayo # detect unicode corruption
@@ -513,7 +513,7 @@ inspect.getargspec(foo_func) # get signature
 inspect.getfile(my_module)
 inspect.getsource(foo_func) # if implemented in C, use punchagan/cinspect
 frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
-inspect.currentframe().f_back.f_locals['foo'] = 'overriding caller local variable!'  # does NOT work, but ok with f_globals
+inspect.currentframe().f_back.f_globals['foo'] = 'overriding caller local variable!'  # ONLY works with f_globals, not f_locals (unless they are equal) due to the FASTLOCALS cache / instruction
 
 def get_instance_var_name(method_frame, instance):
     parent_frame = method_frame.f_back
@@ -524,6 +524,7 @@ class Bar:
     def foo(self):
         print get_instance_var_name(inspect.currentframe(), self)
 bar = Bar(); bar.foo(); nested = lambda: bar.foo(); nested(); Bar().foo()
+# Alt, even more robust: use parent_frame.f_code.co_code & the dis module
 
 # http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
 def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
@@ -850,6 +851,7 @@ kevin1024/vcrpy # record / replay HTTP interactions
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod server, very easy to launch
+Falcon, nameko  # minimalist WSGI / microservices frameworks to build HTTP APIs
 flask # good for simple APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
