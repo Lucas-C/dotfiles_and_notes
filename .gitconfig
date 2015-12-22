@@ -84,6 +84,7 @@
 
 [push]
     default = simple # +>+>+ more secure than "matching", especially to avoid erasing remote changes on master when you push --force on a dev branch
+    followtags = true # Reason: http://stackoverflow.com/a/26438076/636849
 
 [merge]
     tool = vimdiff

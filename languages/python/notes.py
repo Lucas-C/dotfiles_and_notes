@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-"""""""""""
-"" Tricks
-"""""""""""
+# To list this file sections: $ grep '^"" ' notes.py
+
 _ # result of the last expression evaluated (in an interpreter only)
 
 r'Raw string literal: no need to double escape \{0}\{one:.5f}'.format("zero", one=1) # raw string: treat backslashes as literal characters
@@ -218,7 +217,6 @@ PYTHONHASHSEED : change seed hash() (=> more secure VM)
 sys.meta_path  # a list of *finder* objects that have their find_module() methods called to see if one of the objects can find the module to be imported - cf. PEP 302
 
 __main__.py # code executed in case of 'python my_pkg/' or 'python -m my_pkg'
-zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil
 
 
 """"""""""""""""""
@@ -333,15 +331,14 @@ def Tree(): # fs = Tree(); fs['all']['the']['way']['down']
     return defaultdict(Tree)
 
 ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
+nicolaiarocci/cerberus # validation tool for dictionaries, e.g. type checking
+pyrsistent PMap and PREcord  # immutable/functional with invariants and optional types
 jab/bidict # provide key -> value & value -> key access
 dictutils.OrderedMultiDict # from mahmoud/boltons
 
 ultrajson >faster> simplejson >faster> json
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
-
-nicolaiarocci/cerberus # validation tool for dictionaries, e.g. type checking
-pyrsistent PMap and PREcord  # immutable/functional with invariants and optional types
 
 
 """""""""""""""""""
@@ -634,6 +631,8 @@ pip.main(['install', '--proxy=' + PROXY, 'requests==2.7.0', 'retrying==1.3.3', '
 import sh, sys
 sh = sh(_err=sys.stderr, _out=sys.stdout.buffer if sys.version_info[0] == 3 else sys.stdout)  # setting default commands redirections - Accessing the .buffer is needed under Python 3, cf. https://github.com/amoffat/sh/issues/242
 sh.bzcat(...)
+with open(filename, 'a') as file:
+    sh.ls(_out=file) # to append stuff at the end, aka >>
 
 if len(argv) > 1:
     pipe = cat(argv[1], _iter=True, _err=stderr)  # `pipe` is an input_lines_iterator
@@ -652,11 +651,11 @@ n1nj4sec/memorpy  # search/edit Windows programs memory
 pew > virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
 pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
 pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
-pip freeze > requirements.txt # dumps all the virtualenv dependencies
+pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages
 pip install --user $USER --src . -r requirements.txt
 pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt ; ./manage.py pipchecker
 pex # self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
-pybuilder # continuous build tool, a bit like a Makefile with many plugins
+pybuilder, invoke # build tools, like Makefile with many plugins
 setuptools_scm  # manage your setup.py versions by scm tags
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
@@ -664,8 +663,10 @@ pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8,
 pyreverse # UML diagrams, integrated in pylint
 openstack/bandit  # Python AST-based security linter
 
+zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil - Note: .wheel > .egg
+dh-virtualenv # the ultimate way of deploying python apps, over pex & wheels
 Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
-lobocv/crashreporter #store and send crash reports directly to the devlopers
+lobocv/crashreporter # store and send crash reports directly to the devlopers
 
 
 """""""""""""""""""""""""""""
@@ -686,10 +687,10 @@ statistics # Python 3
 kwgoodman/roly # moving window median algorithms - Also: quantile sketches algos in Algo_Notes.md
 
 scipy
-    numpy # n-dimensional arrays
+    numpy # n-dimensional arrays, vectorized operations and broadcasting : faster than CPython for large arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
-    matplotlib, prettyplotlib, mpld3, bokeh, vispy, seaborn, pygal, folium (-> Leaflet.js maps) # data viz 2d plotting
+    matplotlib, prettyplotlib, mpld3, bokeh, plotly, vispy, seaborn, pygal, folium (-> Leaflet.js maps) # data viz 2d graphing/plotting
 
 jhcepas/ete # tree epxloration & visualisation
 riccardoscalco/Pykov # markov chains
@@ -706,33 +707,107 @@ petl # extract, transform and load tables of data (ETL)
 
 rpy2 # acces to R + cf. https://www.dataquest.io/blog/python-vs-r/
 
-from cryptography.fernet import Fernet # symmetric encryption
-mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments by signing content
 
+""""""""""""""""""
+"" High perfs & C
+""""""""""""""""""
+Optimization guide:
+- measure first (line_profiler !)
+- improve algorithms ? data structures (for lightweight objects, use namedtuples) ? use a cache ?
+- Numpy (vectorized operations are way faster than Pyhton slow loops) + Cython (or faster: Numba)
 
-"""""""""""""""""""""
-"" Other libs & tools
-"""""""""""""""""""""
-reload(module)
-modulefinder # determine the set of modules imported by a script
-
+Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler. Also: PyPy-STM
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
-Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C
 Jython / Py4J # intercommunicate with Java -> Jython has pip, but won't support lib depending on multiprocessing - however, it has excellent support for built-in Java threads: http://www.jython.org/jythonbook/en/1.0/Concurrency.html
-Numba # NumPy aware dynamic Python compiler using LLVM
+Numba # NumPy aware dynamic Python compiler using LLVM - Also: numbapro # for targeting the GPU & writing CUDA code in Python
 Pyston # VM using LLVM JIT
 PyInline # put source code from other programming languages (e.g. C) directly "inline" in Python code
 Pyrex # write code that mixes Python and C data types and compiles it into a C extension
 Nuitka # converts Python code into C++ code (targetting VisualStudio, MinGW or Clang/LLVM compilers)
 
-multiprocessing, Pyro > threading # as Python can only have on thread because of the GIL + using multiprocessing => everything should be pickable
-SimPy # Process Interaction
+ctypes.cdll.LoadLibrary("libc.so.6")
+libc = ctypes.CDLL("libc.so.6")
+libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
+
+cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
+
+struct # pack/unpack binary formats
+binascii.hexkify # display binary has hexadecimal
+
+
+""""""""""""""""""""""""""""""
+"" DBs, queues & schedulers
+""""""""""""""""""""""""""""""
+celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
+sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn - Also:
+luigi, Oozie, Azkaban, Drake, Pinball, Airflow # workflow managers
+zeromq, aiozmq, mrq # distributed app / msg passing framework
+ampqlib, haigha, puka # AMPQ libs
+
+mrjob, luigi # Hadoop / AWS map-reduce jobs
+
+peewee, SQLAlchemy # ORM DB
+from playhouse.sqlite_ext import SqliteExtDatabase; db = SqliteExtDatabase(':memory:') # in-memory SQLite DB with peewee
+anydbm: dbhash else gdbm else dbm else dumbdbm
+sqlite3 # std DB, persistent in a file || can be created in RAM
+python-lsm-db(like LevelDB), unqlite-python(like MongoDB), vedis-python(like Redis) # Other embedded NoSQL DBs
+pyMySQL, noplay/python-mysql-replication
+shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
+stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring, fengsp/rc.Cache
+
+
+""""""""""""""""""""""""""""""""""""""""""
+"" CLI & arguments parsing
+""""""""""""""""""""""""""""""""""""""""""
+twobraids/configman > argparse > optparse # Alt: begins > docopt, clize, click - Also: neat quick GUI compatible with argparse: chriskiehl/Gooey
+parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve')
+parser_group = parser.add_mutually_exclusive_group(required=True)
+parser_group.add_argument(... type=argparse.FileType('r'))
+return parser.parse_args()
+
+code.InteractiveConsole().interact() # interactive python prompt
+
+argcomplete # command line tab completion
+pyreadline, readline, rlcompleter
+
+termcolor, colorama # cross-platform colored terminal text
+tqdm # KISS progress bar
+PrettyTable # pretty ASCII tables output
+bashplotlib # terminal plotting of histograms / scatterplots from list of coordinates
+urwid # console user interface lib - Alt: snack, NPyScreen
+
+
+""""""""""""
+"" Graphics
+""""""""""""
+pyglet # windowing and multimedia lib
+pysoy # 3D game engine
+Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
+cairo # graphics library outputting .ps .pdf .svg & more
+wand (ImageMagick binding), pillow > pil # Python Image Library
+ufoym/cropman # face-aware image cropping
+andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
+lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
+AAlib, legofy # ASCII/Lego rendering
+fogleman/Tiling # pavages
+graphviz # graphs generation and export as images
+pyexiv2 # images EXIF manipulation
+
+EasyDialogs, optparse_gui, EasyGui > Tkinter
+Kivy # GUI inc. multi-touch support
+
+
+""""""""""""""""""""""""""""""""""""""
+"" Multi-threads/processes & async
+""""""""""""""""""""""""""""""""""""""
+multiprocessing, Pyro > threading # as Python can only have one thread because of the GIL - Using multiprocessing => everything should be pickable
 threading.Thread().deamon = True # The entire Python program exits when no alive non-daemon threads are left.
 threading.Event # for threads communication, including stopping: Thread.run(self): while not self.stop_event: ...
 # Kill a thread ? -> http://stackoverflow.com/a/325528/636849
 from multiprocessing.dummy import Pool as ThreadPool # Threads using multiprocessing API
 pool = ThreadPool(4); results = pool.map(foo, args); pool.close(); pool.join()
+SimPy # process-based discrete-event simulation framework
 
 select # efficient I/O
 def _make_file_read_nonblocking(f):
@@ -744,79 +819,17 @@ saucelabs/monocle, libevent, libuv, Twisted, Tornado, asyncore # other ASync lib
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
-numbapro # for CUDA
 
+
+""""""""""""""""""""""""""""""""
+"" Web: HTTP, HTML & networking
+""""""""""""""""""""""""""""""""
 autobanh, crossbar.io # WAMP in Python
 pywebsocket
 xmlrpclib / xmlrpc.client # XML-RPC via HTTP
-asynchat, irc, sleekxmpp, embolalia/willie
-mailr, mailbox, imaplib, smtpd, smptplib
-paramiko # remote SSH/SFTP connexion
-
-celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
-sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn - Also:
-luigi, Oozie, Azkaban, Drake, Pinball, Airflow # workflow managers
-zeromq, aiozmq, mrq # distributed app / msg passing framework
-ampqlib, haigha, puka # AMPQ libs
-
-mrjob, luigi # Hadoop / AWS map-reduce jobs
-
-scales # metrics for Python
-
-pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing
-
-@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
-
-import uuid # generate unique IDs
-
-def function_with_docstring(foo): # sphinx
-    """Do this and that, similar to :func:`a_function_name`
-    Used in module :mod:`amodulename`
-    :param foo: Something
-    :type count: :class:`MyClass`
-    :returns: True if users are happy
-    :rtype: boolean
-    :raises: KeyError
-    """
-    return False
-
-twobraids/configman > argparse > optparse # Alt: begins > docopt, clize, click - Also: neat quick GUI compatible with argparse: chriskiehl/Gooey
-parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve')
-parser_group = parser.add_mutually_exclusive_group(required=True)
-parser_group.add_argument(... type=argparse.FileType('r'))
-return parser.parse_args()
-argcomplete # command line tab completion
-
-ConfigParser, configobj # std configuration files format
-csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
-writer = csvkit.writer(sys.stdout)
-with open(sys.argv[1]) as csv_file:
-    for row in csvkit.reader(csv_file):
-        writer.writerow(row)
-aspy.yaml, yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
-cPickle # binary format, generic, fast & lighweight - DO NOT USE IT ! -> "untrusted pickles can execute arbitrary Python code" + "you can’t even easily tell which classes are baked forever into your pickles" -> Alt: eeve/camel PyYaml-based serialization (inc. versionning & use YAML metadata)
-# + PyCloud make it possible to pickle functions dependencies
-
-peewee, SQLAlchemy # ORM DB
-from playhouse.sqlite_ext import SqliteExtDatabase; db = SqliteExtDatabase(':memory:') # in-memory SQLite DB with peewee
-anydbm: dbhash else gdbm else dbm else dumbdbm
-sqlite3 # std DB, persistent in a file || can be created in RAM
-python-lsm-db(like LevelDB), unqlite-python(like MongoDB), vedis-python(like Redis) # Other embedded NoSQL DBs
-pyMySQL, noplay/python-mysql-replication
-shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html
-stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring, fengsp/rc.Cache
-
-hmac, hashlib.md5('string').hexdigest()
-dropbox/python-zxcvbn # password strength estimation
-from getpass import getpass # get password without echoing it
-
-lz4, bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp # to unpack any archive
-archive = zipfile.ZipFile('foo.zip', mode='w')
-for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy - And benhoyt/scandir is faster and now in the Python 3.5 stdlib
-    for name in files:
-        archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
 
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
+tinycss2 > tinycss > cssutils  # CSS parsers
 hickford/MechanicalSoup
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
 import lxml.etree, lxml.html
@@ -883,52 +896,9 @@ mininet # realistic virtual network, running real kernel, switch and application
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 scapy # packet injection/manipulation for many network protocols
 wifi # wrapper around iwlist and /etc/network/interfaces
-webbrowser.open_new_tab # Firefox/Opera/Chrome instrumentation
 tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
-
-pygeoip, mitsuhiko/python-geoip, python-geoip@code.google, maxmind/geoip-api-python, pierrrrrrre/PyGeoIpMap # this latest one provide a useful command-line tool
-OpenTransitTools/gtfsdb # GTFS (General Transit Feed Specification) DB : public transportation schedules and associated geographic information
-
-pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
-jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
-
-pyglet # windowing and multimedia lib
-pysoy # 3D game engine
-Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
-cairo # graphics library outputting .ps .pdf .svg & more
-wand (ImageMagick binding), pillow > pil # Python Image Library
-ufoym/cropman # face-aware image cropping
-andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
-lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
-AAlib, legofy # ASCII/Lego rendering
-fogleman/Tiling # pavages
-graphviz # graphs generation and export as images
-pyexiv2 # images EXIF manipulation
-antiboredom/audiogrep
-
-EasyDialogs, optparse_gui, EasyGui > Tkinter
-Kivy # GUI inc. multi-touch support
-
-pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff
-fmoo/python-editor # programmatically open a text editor, captures the result
-urwid # console user interface lib - Alt: snack, NPyScreen
-code.InteractiveConsole().interact() # interactive python prompt
-pyreadline, readline, rlcompleter
-termcolor, colorama # cross-platform colored terminal text
-tqdm # KISS progress bar
-PrettyTable # pretty ASCII tables output
-bashplotlib # terminal plotting of histograms / scatterplots from list of coordinates
-
-ctypes.cdll.LoadLibrary("libc.so.6")
-libc = ctypes.CDLL("libc.so.6")
-libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
-
-cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
-
-struct # pack/unpack binary formats
-binascii.hexkify # display binary has hexadecimal
 
 
 """"""""
@@ -980,6 +950,71 @@ TEMPLATE_STRING_IF_INVALID = InvalidVarException()
 <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
 
 
+"""""""""""""""""""""
+"" Other libs & tools
+"""""""""""""""""""""
+webbrowser.open_new_tab # Firefox/Opera/Chrome instrumentation
+fmoo/python-editor # programmatically open a text editor, captures the result
+pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff
+
+reload(module)
+modulefinder # determine the set of modules imported by a script
+
+asynchat, irc, sleekxmpp, embolalia/willie # IRC/XMPP bots
+mailr, mailbox, imaplib, smtpd, smptplib # for emails
+paramiko # remote SSH/SFTP connexion
+
+scales # metrics for Python
+
+pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing
+
+@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
+
+daviddrysdale/python-phonenumbers # port of Google's libphonenumber to validate phone numbers
+
+import uuid # generate unique IDs
+
+def function_with_docstring(foo): # sphinx
+    """Do this and that, similar to :func:`a_function_name`
+    Used in module :mod:`amodulename`
+    :param foo: Something
+    :type count: :class:`MyClass`
+    :returns: True if users are happy
+    :rtype: boolean
+    :raises: KeyError
+    """
+    return False
+
+from getpass import getpass # get password without echoing it
+hmac, hashlib.md5('string').hexdigest()
+dropbox/python-zxcvbn # password strength estimation
+from cryptography.fernet import Fernet # symmetric encryption
+mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments by signing content
+
+ConfigParser, configobj # std configuration files format
+csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
+writer = csvkit.writer(sys.stdout)
+with open(sys.argv[1]) as csv_file:
+    for row in csvkit.reader(csv_file):
+        writer.writerow(row)
+aspy.yaml, yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
+cPickle # binary format, generic, fast & lighweight - DO NOT USE IT ! -> "untrusted pickles can execute arbitrary Python code" + "you can’t even easily tell which classes are baked forever into your pickles" -> Alt: eeve/camel PyYaml-based serialization (inc. versionning & use YAML metadata)
+# + PyCloud make it possible to pickle functions dependencies
+
+lz4, bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp # to unpack any archive
+archive = zipfile.ZipFile('foo.zip', mode='w')
+for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even better to crawl a directory tree / files hierarchy - And benhoyt/scandir is faster and now in the Python 3.5 stdlib
+    for name in files:
+        archive.write(os.path.join(root, name), compress_type=zipfile.ZIP_DEFLATED)
+
+pygeoip, mitsuhiko/python-geoip, python-geoip@code.google, maxmind/geoip-api-python, pierrrrrrre/PyGeoIpMap # this latest one provide a useful command-line tool
+OpenTransitTools/gtfsdb # GTFS (General Transit Feed Specification) DB : public transportation schedules and associated geographic information
+
+pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
+jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
+antiboredom/audiogrep
+
+
 """"""""
 "" Fun
 """"""""
@@ -996,9 +1031,9 @@ import antigravity
 a='a=%s;print a%%`a`';print a%`a` # Quine
 
 
-"""""""""""
-" Python 3
-"""""""""""
+""""""""""""
+"" Python 3
+""""""""""""
 sys.version_info[0] >= 3
 
 from __future__ import division, print_function
@@ -1052,9 +1087,9 @@ from functools import \
 
 collections.ChainMap # view of multiple dicts - Hidden Py2.7 backport: from ConfigParser import _Chainmap as ChainMap - Alt: Py2ChainMap
 
-"""""""""""
-" Python 3.5
-"""""""""""
+""""""""""""
+"" Python 3.5
+""""""""""""
 # PEP448 : unpacking generalized
 l = (1, *[2])
 d = {"j": 9, **{"i": 8}}

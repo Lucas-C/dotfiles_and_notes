@@ -22,12 +22,16 @@ One-time bindings: {{::color}}
 href="javascript:$.noop"
 
     var deferred = $q.defer();
-    deferred.promise.then(function () {
-        throw new Error('then: DAMN! ' + arguments); // Will be logged in chrome console, AND be caught below
-    }).catch(function () {
-        console.log('FAILURE', arguments);
+    deferred.promise.then(function (input) {
+        throw new Error(input); // Will be logged in chrome console, AND be caught below
+        return 'INITIAL PROMISE OK: ' + input;
+    }).catch(function (error) {
+        console.log('ERROR', error);
+        return 'ERROR CAUGHT: ' + error;
+    }).then(function (result) {
+        console.log('END RESULT:', result);
     });
-    deferred.resolve();
+    deferred.resolve('START');
     //deferred.reject(new Error('REJECTED'));
 
 Returning several values from `then` (so that you can chain it with `then(function (a, b) {...})`):

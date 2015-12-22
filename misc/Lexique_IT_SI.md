@@ -1,5 +1,7 @@
+ABI = Application Binary Interface = binary compatibility
 AMOA = Assistance à Maîtrise d'OuvrAge
 API
+ARD = Adaptative Responsive Design
 BDD
 CAF = Capacité A Faire
 CRUD = Create, Read, Update, Delete -> opérations de base pour la persistance des données (ex: en BDD) - Also: SCRUDS
@@ -27,6 +29,7 @@ SSII / SS2I
 TJM = Taux Journalier Moyen
 TMA = Tierce Maintenance Applicative
 TRA = Tierce Recette Applicative
+WRD / WR = Web Responsive (Design)
 
 SaaS / PaaS / IaaS
 

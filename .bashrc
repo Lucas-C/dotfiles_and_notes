@@ -17,6 +17,7 @@ if readlink -f ${BASH_SOURCE[0]} >/dev/null 2>&1; then  # if 'readlink' command 
 else  # fallback
     export BASHRC_DIR="$(builtin cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
 fi
+# !! When using `pew`, $BASHRC_DIR will be /tmp/tmp??????
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # Downloading .bashrc_* fragments
@@ -31,14 +32,6 @@ download_bashrc_files () {
 }
 [ -z "$(ls ${BASHRC_DIR}/.bashrc_*)" ] && download_bashrc_files
 
-##############################
-# Sourcing .bashrc_* fragments
-##############################
-for f in ${BASHRC_DIR}/.bashrc_*; do
-    source $f
-done; unset f
-source ${BASHRC_DIR}/.bash_colors
-
 #------------------------------
 # Directory aliases / variables
 #------------------------------
@@ -52,3 +45,12 @@ if [ -r ${BASHRC_DIR}/.bash_dirs ]; then
         unset unexDir
     done; unset pass
 fi
+
+##############################
+# Sourcing .bashrc_* fragments
+##############################
+for f in ${BASHRC_DIR}/.bashrc_*; do
+    source $f
+done; unset f
+
+[ -r ${BASHRC_DIR}/.bash_colors ] && source ${BASHRC_DIR}/.bash_colors

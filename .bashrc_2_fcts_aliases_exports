@@ -155,7 +155,7 @@ alias_r () { # recursively resolve an alias, handle pipes and nested aliases
 #----
 # ls
 #----
-alias l='LANG=en_US.UTF-8 ls -BF --color=always'
+alias l='LANG=en_US.UTF-8 ls -BF --color=always --group-directories-first'
 alias la='l -A'
 alias ll='l -lhA'
 alias lk='ll -rS'       # sort by size, smallest first
@@ -173,8 +173,9 @@ lse () { # group files by their extension
 #------
 # grep
 #------
+# --mmap, if available, can make it even faster - cf. https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html
 alias g='grep -i --color=always'
-NOTES_FILES=$(cd $BASHRC_DIR && git ls-files)
+[ -d $BASHRC_DIR/.git ] && NOTES_FILES=$(cd $BASHRC_DIR && git ls-files)
 gn () { ( cd $BASHRC_DIR && grep -I --color=always "${@:-$(cat)}" $NOTES_FILES ); }
 alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
 alias bzg='bzgrep -i --color=always'
@@ -183,7 +184,7 @@ zgr () {
     shift
     find -L $@ -type f | xargs zg $pattern
 }
-alias ag='ag --follow --color-path="1;35" --color-line-number 32 --hidden' #E.g. --ignore=.idea --ignore=*-target -F -s $case_Sensitive_string
+alias ag='ag --follow --color-path="1;35" --color-line-number 32 --hidden --ignore=.git' #E.g. --ignore=.idea --ignore=*-target -F -s $case_Sensitive_string
 
 
 #-----
@@ -225,7 +226,7 @@ alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
 rmpyc () { find -L ${@:-.} -name "*.pyc" | xargs rm -f; }
 py_module_path () {
-    python -c "import $1; print $1.__file__ if hasattr($1, '__file__') else 'builtin'" | sed 's/pyc$/py/'
+    python2 -c "import $1; print $1.__file__ if hasattr($1, '__file__') else 'builtin'" | sed 's/pyc$/py/'
 }
 py_module_dir () {
     dirname $(py_module_path $1)

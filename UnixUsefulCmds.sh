@@ -63,7 +63,7 @@ wall # broadcast message
 ttyrec, ipbt, ttygif, playitagainsam, KeyboardFire/mkcast # record & playback terminal sessions - Last one provides a JS player
 licecap # record any screen interaction as GIF - cf. http://superuser.com/a/657800/255048
 
-export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@"' _ {} # Alt: GNU parallel, mfisk/filemap 'fm' Map-Reduce command
+export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@" || exit 255' _ {} # "if the command exits with a status of 255, xargs will stop immediately" => fail fast - Alt: GNU parallel, mfisk/filemap 'fm' Map-Reduce command
 
 cd // # broken PWD
 
@@ -90,6 +90,8 @@ echo 'main(t){for(;;t++)putchar(((t<<1)^((t<<1)+(t>>7)&t>>12))|t>>(4-(1^7&(t>>19
   Bash scripting
 ##################
 figlist | sed '1,/Figlet fonts/d;/:/,$d' | xargs -I{} figlet -f {} Hello # ASCII banner fonts
+fc-scan fc-list fc-validate ... # standard unix commands to manage and get info on fonts
+otfinfo & cie # lcdf-typetools utilities for manipulating PostScript Type 1, Type 1 Multiple Master, OpenType, and TrueType fonts
 xmessage -center "$(figlet ERRORMSG 42)", notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
 mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
 
@@ -508,6 +510,7 @@ echo hello | nc -u -w 1 127.0.0.1 5000
 # Port scanning
 nmap -sS -O 127.0.0.1 # Guess OS !! Also try -A - Alt: p0f
 nmap $host -p $port --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping, only scanning
+nmap -P0 -sT -p0-65535 $host # scan all TCP ports, e.g. for HTTP(s) servers
 nmap 192.168.1.* # Or 192.168.1.0/24, scan entire subnet
 nmap -DdecoyIP1,decoyIP2 ... # cloak your scan
 
@@ -566,7 +569,7 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
-ldapsearch -x -d 1 # simple command for basic diagnosis
+ldapsearch -x -d 1 # simple command for basic diagnosis - from pkg openldap-clients
 ldapsearch -LLL -u -x "(uid=$username)"
 ldapsearch -x -H "ldaps://$HOSTNAME:51200" -LLL -D "CN=DUPONT Martin,OU=Users,OU=SIGLE,DC=company,DC=com" -b "DC=company,DC=com" -W "(&(sAMAccountName=martin_dupont))" -d 1
 TLS_REQCERT never # in /etc/openldap/ldap.conf
@@ -617,7 +620,7 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: 
   -l --level=depth : default = 5
   -c --continue : continue getting a partially-downloaded file
   --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
-curl --fail --insecure --request POST --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html - Alt: jakubroztocil/httpie
+curl --fail --insecure --head --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html - Alt: jakubroztocil/httpie
 wget --curl -H "Cache-Control: no-cache" / wget --no-cache # Force a proxy fetch, e.g. for Squid
 # Web scrapping:
 httrack
@@ -1107,6 +1110,8 @@ youtube-dl --ignore-errors --format best --extract-audio FLF8xTv55ZmwikWWmWLPEAZ
 cse_id=003799500572498885021:6zbuscnifvi
 curl -s "https://www.googleapis.com/customsearch/v1?key=${api_key}&cx=${cse_id}&fields=items(snippet)&q=define%20${term}"
 # DOCS: https://developers.google.com/custom-search/json-api/v1/using_rest https://developers.google.com/custom-search/json-api/v1/performance#partial
+
+$user+spamfilter@gmail.com # nice trick to trace how is your address communicated to other websites
 
 
 {[{[{[{[{[{[{[{

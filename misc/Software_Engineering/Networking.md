@@ -26,7 +26,7 @@ Dr. Leonard Richardson put together a maturity model that interprets various lev
 Pb de latence rencontré -> dû au TCP Segementation offload: https://forum.ivorde.com/linux-tso-tcp-segmentation-offload-what-it-means-and-how-to-enable-disable-it-t19721.html
     /sbin/ethtool -K eth0 tso off
 
-John Nagle, author of the tinigram prevention aka Nagle algorithm, recommendation: always set TCP_QUICKACK (from: https://news.ycombinator.com/item?id=10608356)
+John Nagle, author of the tinigram prevention aka Nagle algorithm, recommendation: always set TCP_QUICKACK (from: https://news.ycombinator.com/item?id=10608356) _
 
 ## UDP
 - no reception check, packets unordered, faster
@@ -40,3 +40,6 @@ Also cf. **software_defined_networking.md**
 ## Other protocols
 - [SCTP](http://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol)
 - [UDP](http://en.wikipedia.org/wiki/UDP-based_Data_Transfer_Protocol)
+
+## Monitoring tools
+Cacti, Smokeping

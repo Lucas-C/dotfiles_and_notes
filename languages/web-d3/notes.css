@@ -25,6 +25,12 @@ for(i=0;A=$$("*")[i++];)A.style.outline="solid hsl("+(A+A).length*9+",99%,50%)1p
 
 background-size: cover
 
+'pointer-events: none' prevents:
+- click actions from doing anything
+- the default cursor pointer from displaying
+- CSS hover and active state triggering
+- JavaScript click events from firing
+
 List CSS classes used in HTML files:
 
     html_files=$(find -not -path '*/bower_components/*' -not -path '*/node_modules/*' -name '*.html')

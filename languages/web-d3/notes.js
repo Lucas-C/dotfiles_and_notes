@@ -26,6 +26,16 @@ Object.freeze / Object.seal
 
 Object.create > mutating .protoype // cf. https://github.com/mbostock/d3/issues/1805
 
+.classList.add('myCssClass') / .classList.remove('myCssClass') / .classList.toggle('myCssClass')  // min IE version: 10
+function addCSSRule(sheet, selector, rules, index) {
+    if(sheet.addRule) { // slightly faster
+        sheet.addRule(selector, rules, index /* default: -1*/);
+    } else {
+        sheet.insertRule(selector + "{" + rules + "}", index /* default: -1*/);
+    }
+}
+addCSSRule(document.styleSheets[0], "header", "float: left");
+
 $._data($(elem).get(0), "events") // get events binded to 'elem' in JQuery
 
 format = function (string) { // Provide both {0} & {keyword} substitutions, '<C3><A0> la Python' - Alt: _.template
