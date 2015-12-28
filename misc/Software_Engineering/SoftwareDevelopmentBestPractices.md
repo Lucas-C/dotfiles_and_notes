@@ -194,6 +194,31 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
 * Do it well: use proper tools, including automated static analysis (findbugs, ArtisticStyle for C/C++/Java, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
 
+### Code reviews guidelines (from @scharrier)
+Pour tout le monde
+- je fais preuve d’empathie
+- je reste humble
+- je ne suis pas ironique
+- je n’insulte pas
+
+Je suis reviewer:
+- je ne suis pas directif
+- je suis explicite
+- je montre le positif
+
+Je suis reviewé:
+- je suis reconnaissant
+- je ne prends pas pour moi
+- j’explique mes choix
+- je réponds à tout
+- je n’abandonne pas
+
+Vous n’êtes pas d’accord ?
+Discutez de visu,ou demandez à un tiers.
+
+In fine, celui qui maintient DÉCIDE,
+Quitte à refaire une PR après.
+
 ## Functional programming
 cf. [Functional Programming Patterns]
 - _"Don't trust the name - trust the signature"_
@@ -299,3 +324,4 @@ by the very nature of the process.
 You can learn a lot about an individual
 just by reading through his code,
 even in hexadecimal."
+

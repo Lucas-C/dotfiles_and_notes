@@ -77,6 +77,10 @@ pdf () {
     "/cygdrive/c/Program Files$X86/SumatraPDF/SumatraPDF" $(convertWinArgs "$@")
 }
 
+img () {
+    rundll32 "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ImageView_Fullscreen $(convertWinArgs "$@")
+}
+
 #FROM: http://smecsia.me/blog/65/killall+for+cygwin
 killall () {
     if [ "$1" = "-9" ]; then

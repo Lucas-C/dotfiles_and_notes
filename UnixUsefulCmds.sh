@@ -416,6 +416,7 @@ source <(jq -r 'to_entries|.[]|"SAUCE_\(.key|ascii_upcase)=\(.value)"' .saucelab
 jq '[.[] | {contentUrl, imgUrl, description: .contentUrl|sub(".*/";"")}]' imgur_imgs.json > imgur_imgs_with_desc.json
 jq -r 'map(select(.joblink == ""))' < $json_filename
 jq input_filename,input_line_number *.json
+q # command line tool that allows direct execution of SQL-like queries on CSVs/TSVs
 pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
@@ -690,7 +691,7 @@ error_log(print_r($variable, TRUE));
 new Exception()->getTraceAsString() # get a stack trace
 
 require('/path/to/psysh');
-eval(\Psy\sh());
+eval(\Psy\sh()); # ensure register_argc_argv=on is set !
 
 # PHP reference variables !!GOTCHA!!
 php -r '$a = array("b" => array(0 => 42)); $x = $a["b"]; $x[0] = 7; print_r($a);'
@@ -838,18 +839,13 @@ dmidecode
 shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck - Alt:
 smartctl -a /dev/sdb2 # scan a device - Alt: gsmartcontrol or above
 
-# Find what package a command belong to:
-apt-file search /path/to/anyfile
-yum provides $cmd
-debuginfo-install $package # install debuginfo packages and their dependencies, provided by yum-utils
-dpkg -S /path/to/cmd
-rpm -qif $(which cmd)
-rpm -Uvh pkg.rpm # upgrade RPM
-apt-get source $pkg
+dpkg -S /path/to/cmd # to find what package a command belong to - Alt: apt-file search /path/to/cmd / yum provides $cmd / rpm -qif $(which cmd)
+dpkg -L $pkg # list files installed by a package on the system - Alt: apt-get list $pkg
+rpm -q --whatrequires $pkg # list dependencies - Alt: apt-cache rdepends $pkg
 apt-cache search $keyword
-apt-cache rdepends $pkg # list dependencies
-rpm -q --whatrequires $pkg # list dependencies
-
+apt-get source $pkg
+debuginfo-install $package # install debuginfo packages and their dependencies, provided by yum-utils
+rpm -Uvh pkg.rpm # upgrade RPM
 apt-key fingerprint # display imported keys fingerprints
 sudo dpkg -D1 -i *.deb
 

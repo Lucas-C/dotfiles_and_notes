@@ -72,7 +72,7 @@ Ubuntu Software Center : Ubuntu restricted extras, System Load Indicator # or pk
 
 # Clean-up unused kernels
 # FROM: http://markmcb.com/2013/02/04/cleanup-unused-linux-kernels-in-ubuntu/
-dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge
+dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | grep -v linux-libc-dev | xargs sudo apt-get -y purge
 sudo update-grub2
 
 # Disable overlay Scrollbars (then restart lightdm)

@@ -45,7 +45,7 @@ alias sort='LANG=C LC_ALL=C sort'
 export EDITOR=vim
 mkdir -p ~/.vim/undodir
 
-md2man () { pandoc -s -f markdown -t man "$1" | man -l -; }
+md2man () { pandoc -s -f markdown -t man "$@" | man -l -; }
 md2html () {
     pandoc --include-in-header ~/minimal-md3.css --include-in-header $code/misc/Presentation/md-tags.css \
         -s -S --toc -f markdown -t html "$1" > "${1%%.md}.html" && firefox "${1%%.md}.html" &
@@ -204,7 +204,6 @@ alias gpr='git pull --rebase'
 # One-letter
 #------------
 alias e='$EDITOR'
-alias b='cd -'
 f () { ( nohup firefox "${@:-$(cat)}" >~/firefox.log 2>&1 & ); }
 t () { # Execute some cmd with start/end timestamps
     date +"# Started: %c - @%s"
@@ -215,7 +214,6 @@ t () { # Execute some cmd with start/end timestamps
     date +"# Ended  : %c - @%s - Elapsed: $((end_time - start_time))s"
     $(exit $retcode)
 }
-alias a=assert
 
 #---------
 # Languages
@@ -378,10 +376,11 @@ alias ps_codes='man ps | grep -A18 "^PROCESS STATE CODES$"'
 
 nav () { nautilus "${1:-$PWD}/"; }
 
-alias pdf='evince'
-pdf_pages_extract () {
+type eog >/dev/null 2>&1 && alias img=eog
+type evince >/dev/null 2>&1 && alias pdf=evince
+pdf_pages_extract () {  # USAGE: pdf_pages_extract $file $first_page [$last_page]
     local filename=${1:?'Missing or empty filename'}
-    local first_page=${2:?'Missing or empty page range'}
+    local first_page=${2:?'Missing or empty pages range'}
     local last_page=${3:-$first_page}
     gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
         -dFirstPage=$first_page -dLastPage=$last_page \

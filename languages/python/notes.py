@@ -244,6 +244,7 @@ conceptsandtraining/libtree # deal with large, hierarchical data sets. Runs on t
 marisa-trie, datrie, chartrie, hat-trie, pyjudy, biopython # Tries comparison: http://kmike.ru/python-data-structures/
 kmicke/DAWG # Directed Acyclic Word Graphs
 ahocorasick, acora # Aho-Corasick automaton : quick multiple-keyword search across text
+JaredMHall/reline # CLI tool to reformat a text into a specified number of words per line/characters per line
 
 kayzh/LSHash # locality sensitive hashing
 JohannesBuchner/imagehash  # perceptual hashes lib, supports: average hashing (aHash), perception hashing (pHash), difference hashing (dHash)
@@ -336,7 +337,7 @@ pyrsistent PMap and PREcord  # immutable/functional with invariants and optional
 jab/bidict # provide key -> value & value -> key access
 dictutils.OrderedMultiDict # from mahmoud/boltons
 
-ultrajson >faster> simplejson >faster> json
+ultrajson >faster> simplejson >faster> json  # Also: mitghi/cyjson
 def sets_converter(obj): list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
 
