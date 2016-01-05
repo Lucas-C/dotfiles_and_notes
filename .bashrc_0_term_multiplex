@@ -3,10 +3,10 @@ ps -p $PPID | grep -Eq 'pew|tilda|su' && return # SHOULD BE: --no-headers --form
 
 if [ -e ~/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug (typically on grep | grep cmds)
     type tmux >/dev/null 2>&1 || return 
-    if [[ $(ps -p $PPID -o comm=) =~ tmux ]]; then # Alreay running in TMUX
+    if ps -p $PPID | grep -q tmux; then # Alreay running in TMUX
         return
     fi
-    if ! ps -eo comm | grep -q '^tmux$'; then
+    if ! ps -e | grep -q tmux; then
         touch $BASHRC_DIR/.tmux_window_0_needs_to_be_restored
         tmux new -d -s tmux_$USER
     fi
@@ -14,12 +14,12 @@ if [ -e ~/.use_tmux ]; then ## use TMUX > SCREEN, because of its "no flush" bug 
         killall -10 tmux
         tmux attach -t tmux_$USER
     fi
-elif [ -e $BASHRC_DIR/.use_screen ]; then
+elif [ -e ~/.use_screen ]; then
     type screen >/dev/null 2>&1 || return 
-    if [[ $(ps -p $PPID -o comm=) =~ screen ]]; then # Alreay running in SCREEN
+    if ps -p $PPID | grep -q screen; then # Alreay running in SCREEN
         return
     fi
-    if ! ps -eo comm | grep -q '^screen$'; then
+    if ! ps -e | grep -q screen; then
         screen -wipe
         screen -c $BASHRC_DIR/.screenrc -d -m
     fi

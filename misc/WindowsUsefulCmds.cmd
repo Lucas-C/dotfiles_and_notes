@@ -58,7 +58,7 @@ handle.exe -a | grep ': Key\|pid:' | grep 'COMPONENTS\|pid:' | grep -B1 'COMPONE
 ::: Usual cleanup steps
 - create a restoration point
 - AVG/Avast scan
-- cleanmgr.exe
+- cleanmgr.exe &:: Click the Clean up System Files button & enable the Windows Update Cleanup option !
 - CCCleaner
 - Malwarebytes (+ possibly HijackThis)
 - perfmon.exe / resmon.exe / Sysinternals ProcessExplorer (select File > "Show Details for All Processes" to display network usage)

@@ -619,7 +619,7 @@ shlex.split('--f "a b"') # tokenize parameters properly
 # Alt (but less pythonic/simple IMHO): gawel/chut, plumbum, sarge
 # Special keyword args: https://amoffat.github.io/sh/special_arguments.html#special-arguments
 - all commands are checked at 'from sh import' time so they are guaranteed to exist
-- Always use `_err=sys.stderr` ou `_err_to_out=True` because default is to discard commands stderr
+- Always use `_err=sys.stderr` or `_err_to_out=True` because default is to discard commands stderr
 - `print()` is NEEDED to display command output (or you need to use `_out=sys.stdout`)
 - `_piped='direct'` is useful to connect processes without consuming any memory
 - `_iter` : creates a line generator => you can chain lazy functions taking a 'input_iterator' as input & output
@@ -630,7 +630,10 @@ import pip
 pip.main(['install', '--proxy=' + PROXY, 'requests==2.7.0', 'retrying==1.3.3', 'sh==1.11'])
 
 import sh, sys
-sh = sh(_err=sys.stderr, _out=sys.stdout.buffer if sys.version_info[0] == 3 else sys.stdout)  # setting default commands redirections - Accessing the .buffer is needed under Python 3, cf. https://github.com/amoffat/sh/issues/242
+if sys.version_info[0] < 3:
+    sh = sh(_err=sys.stderr, _out=sys.stdout)  # setting default commands redirections
+else:
+    sh = sh(_err=sys.stderr.buffer, _out=sys.stdout.buffer)  # Accessing the .buffer is needed under Python 3, cf. https://github.com/amoffat/sh/issues/242
 sh.bzcat(...)
 with open(filename, 'a') as file:
     sh.ls(_out=file) # to append stuff at the end, aka >>

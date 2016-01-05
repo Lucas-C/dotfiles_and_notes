@@ -36,6 +36,7 @@ if (errno == EACCES) // or e.g. when an 'open' function return NULL
 
 jemalloc > alloca > malloc
 stdlib 'realloc' : change the size of an already allocated memory block
+Cello // Garbage Collection in C
 
 mmap // File in memomry mapping, to optimize paging operations
 // GOTCHAS: https://bugzilla.mozilla.org/show_bug.cgi?id=1015957#c2

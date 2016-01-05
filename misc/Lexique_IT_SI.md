@@ -21,6 +21,7 @@ MOE = Maîtrise d'OEuvre -> compétences techniques
 MVP = Minimum Viable Product
 PAQ = Plan d'Assurance Qualité -> définit une TMA: périmètre pris en charge, gouvernance...
 POC = Proof Of Concept : prototype
+REX = Retour d'EXpérience
 RTFM = Read The Fucking Manual
 SCRUDS = Search, Create, Read, Update, Delete -> cf. CRUD
 SLA = Service Level Agreement (~ Engagement de Service)
@@ -38,6 +39,7 @@ Contrôle de surface / surfacique
 Engagement de moyens / de résultats
 Projet au forfait / travail en régie
 
+Also: wtf command & /usr/share/games/bsdgames/acronyms*
 http://fr.wikipedia.org/wiki/Jargon_informatique
 
 ## Frenchisms

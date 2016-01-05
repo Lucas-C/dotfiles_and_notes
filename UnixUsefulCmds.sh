@@ -65,6 +65,10 @@ licecap # record any screen interaction as GIF - cf. http://superuser.com/a/6578
 
 export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@" || exit 255' _ {} # "if the command exits with a status of 255, xargs will stop immediately" => fail fast - Alt: GNU parallel, mfisk/filemap 'fm' Map-Reduce command
 
+
+¤§¤§¤§¤§¤§¤§¤§¤§¤§¤
+ Fun & hidden gems
+¤§¤§¤§¤§¤§¤§¤§¤§¤§¤
 cd // # broken PWD
 
 : () { : | : & } ; : # Fork bomb
@@ -81,9 +85,15 @@ traceroute -m 60 216.81.59.173; telnet towel.blinkenlights.nl # Star Wars
 echo "You can simulate on-screen typing just like in the movies" | pv -qL 10
 
 rainbow_cursor_worm () { a=1;x=1;y=1;xd=1;yd=1;while true;do if [[ $x == $LINES || $x == 0 ]]; then xd=$(( $xd *-1 )) ; fi ; if [[ $y == $COLUMNS || $y == 0 ]]; then yd=$(( $yd * -1 )) ; fi ; x=$(( $x + $xd )); y=$(( $y + $yd )); printf "\33[%s;%sH\33[48;5;%sm \33[0m" $x $y $(($a%199+16)) ;a=$(( $a + 1 )) ; sleep 0.001 ;done; } # FROM: http://www.climagic.org/coolstuff/cursor-tricks.html
+worms -d 20; rain -d 20 # from bsdgames
 
 ( play -q -n synth sine F2 sine C3 remix - fade 0 4 .1 norm -4 bend 0.5,2399,2 fade 0 4.0 0.5 & )
 echo 'main(t){for(;;t++)putchar(((t<<1)^((t<<1)+(t>>7)&t>>12))|t>>(4-(1^7&(t>>19)))|t>>7);}' | cc -x c - -o crowd && ./crowd | aplay
+
+bcd, ppt, morse # reformat input as punch cards, paper tape or morse code - from bsdgames package
+bastet (tetris), myman (pacman)
+csokoban, cmines & cblocks # from cgames: the 1st can only be played in CTRL+ALT+F1 terminal, the 2nd is Mines Sweeper, the 3rd is played by mouse
+curseofwar -i4 -q1 -dee -W16 -H16 # awesome real-time RTS
 
 
 ##################
@@ -1073,7 +1083,7 @@ compare img1 img2
 composite # merge images
 
 gifsicle "$gif" -I | sed -ne 's/.* \([0-9]\+\) images/\1/p' # frames count + cf. stopmo_logo/gen_anim.sh
-convert $(for f in *.png; do echo -delay 5 $f; done; ) -rotate -90 -resize 50% -loop 0 out.gif
+convert -delay 20 -loop 0 -dispose background -rotate -90 -resize 50% -loop 0 *.png out.gif
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
 barcode -b "Hello World !" -o out.ps && convert out.ps -trim out.png
