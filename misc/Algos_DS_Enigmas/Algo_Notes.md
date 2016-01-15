@@ -68,3 +68,10 @@ Double-linked list C implementation in the linux kernel (detailed in "linux-insi
         struct  list_head   head;
     };
 
+
+## Crypto
+
+encrypting a file with its hash as the key, aka convergent encryption :
+https://www.reddit.com/r/crypto/comments/40kq5x/what_are_the_ramifications_of_encrypting_a_file/
+Benefit: you can easily check the file integrity
+Benefit 2: if no random prefix/suffix is added (=> weaker security), it can be used as unique identifier for deduping

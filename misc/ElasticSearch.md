@@ -6,12 +6,16 @@ http://makina-corpus.com/blog/metier/2015/elasticsearch-tips-and-best-practices-
 - use explicit mappings
 - aggregate field and explicit search field
 - asynchronus indexation
+An ElasticSearch dev talk: https://speakerdeck.com/elasticsearch/maintaining-performance-in-distributed-systems
 
 ## Useful plugins / tools
+- vagrant-elasticsearch-cluster : Create an ElasticSearch cluster with a simple single bash command
 - http://bigdesk.org/v/2.4.0/#nodes
 - plugin marvel (> plugin head)
 
 ## Config recommandations
+How to choose the number of nodes in a cluster: http://blog.overnetcity.com/2014/04/24/elasticsearch-the-split-brain-problem/
+
 cf. https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-performance/
 
     bootstrap.mlockall: true

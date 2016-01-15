@@ -21,6 +21,8 @@ One-time bindings: {{::color}}
 
 href="javascript:$.noop"
 
+    $interpolate('Hello {{name | uppercase}}!')({name:'Angular'})
+
     var deferred = $q.defer();
     deferred.promise.then(function (input) {
         throw new Error(input); // Will be logged in chrome console, AND be caught below
@@ -80,6 +82,38 @@ With only jQuery:
             $.getJSON('base/src/test/specs/testdata/all_offers.json', function (data) { allTestOffers = data; }),
             $.getJSON('base/src/test/specs/testdata/some_specific_offers.json', function (data) { someSpecificTestOffers = data; })
         ).then(done);
+    });
+
+    angular.module('myApp').factory('MyAppNavigationHistory', function ($location, $rootScope) {
+        var navigationHistory = {
+            visited: []
+        };
+        $rootScope.$on('$locationChangeSuccess', function () {
+            navigationHistory.visited.push($location.url());
+        });
+        navigationHistory.lastStuffUrlVisited = function () {
+            return _.last(navigationHistory.visited.filter(function (url) {
+                return _.startsWith(url, '/stuff');
+            }));
+        };
+        return navigationHistory;
+    });
+
+    /* Enabled with $httpProvider.interceptors.push('NsrErrorInterceptor');
+     * The .disableErrorInterceptor flag makes it possible to define $resources that don't trigger the error interceptor:
+     * var MyCrudResource = $resource(MY_API_ENDPOINT + '/path/:id/something', {}, {
+     *     getWithoutErrorInterceptor: { method: 'GET',  disableErrorInterceptor: true},
+     * });
+     */
+    angular.module('myApp').factory('MyAppErrorInterceptor', function ($q, $location) {
+        return {
+            responseError: function (rejection) {
+                if (rejection.config && !rejection.config.disableErrorInterceptor && rejection.config.url.indexOf(MY_API_ENDPOINT) === 0) {
+                    $location.path('/error/' + rejection.status);
+                }
+                return $q.reject(rejection);
+            }
+        };
     });
 
 

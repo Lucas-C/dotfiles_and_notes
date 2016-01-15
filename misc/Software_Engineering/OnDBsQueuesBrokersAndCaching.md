@@ -30,7 +30,7 @@ _Redis_
     redis-cli ping
     redis-cli info keyspace # Also: memory
     redis-cli -h HOST -p PORT -n DATABASE_NUMBER llen QUEUE_NAME
-    redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*
+    redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*   #_
 
     maxmemory 2mb
     maxmemory-policy noeviction # Or LRU...
@@ -47,7 +47,7 @@ psobot/till # cache server for immutable, time-limited object storage providing 
 Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], recommended in [this blog post by JMason](//swrveengineering.wordpress.com/2014/10/14/how-we-increased-our-ec2-event-throughput-by-50-for-free/)
 
 ## Queues
-- mkfifo, man mq_overview : POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code
+- mkfifo, man mq_overview : POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code   _
 - D-Bus : unix message bus system, with bindings in Java, Python...
 - beanstalkd : KISS fast work queue, with lots of existing tools & libs in various languages
 - ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ : Message queues using AMPQ
@@ -103,7 +103,7 @@ and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra whi
 
 ### SQL DBs
 
-![](http://www.codeproject.com/KB/database/Visual_SQL_Joins/Visual_SQL_JOINS_orig.jpg)
+![](http://www.codeproject.com/KB/database/Visual_SQL_Joins/Visual_SQL_JOINS_orig.jpg)   <!--_-->
 
 LIKE >faster> REGEXP
 
@@ -119,7 +119,7 @@ LIKE >faster> REGEXP
 #### SQLite
 
     sqlite3 extensions.sqlite 'select id, optionsURL from addon;' # Firefox extensions
-    sqlite3 cookies.sqlite 'select name,value,path,expiry,creationTime from moz_cookies where name = "PHPSESSID";'
+    sqlite3 cookies.sqlite 'select name,value,path,expiry,creationTime from moz_cookies where name = "PHPSESSID";'   #_
     sqlite3 places.sqlite "SELECT b.title, b.type, b.parent, a.url FROM moz_places AS a, moz_bookmarks AS b WHERE a.id=b.fk;" # Firefox, type: 1 => URL, 2 => tag/folder
     SELECT folder.title, COUNT(bookmark.id) FROM moz_bookmarks AS folder, moz_bookmarks AS bookmark WHERE bookmark.parent=folder.id AND folder.parent!=4 GROUP BY folder.title; # List only folders. folder.parent=4 => tag
 
@@ -127,11 +127,13 @@ LIKE >faster> REGEXP
     .tables
     .schema moz_places
     pragma table_info(moz_places)
-    # Display columns:
+    #_ Display columns:
     .mode column
     .headers on
 
 #### MySQL
+[5 subtle ways you're using MySQL as a queue, and why it'll bite you](https://blog.engineyard.com/2011/5-subtle-ways-youre-using-mysql-as-a-queue-and-why-itll-bite-you)
+
 MariaDB / Percona / Drizzle # https://blog.mozilla.org/it/2013/03/08/different-mysql-forks-for-different-folks/
 
 Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' is enabled on database and table names.
@@ -146,7 +148,7 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
 
     cd $MYSQL_BASE_DIR
     bin/mysql_install_db --datadir=$OLDPWD/data
-    bin/mysqld_safe --datadir=$OLDPWD/data &
+    bin/mysqld_safe --datadir=$OLDPWD/data &   #_
     bin/mysql test < db-dump.sql
 
     mysql -h $HOST -u $USER -p [--ssl-ca=$file.pem] DBNAME -e 'cmd ending with ; or \G' # default port 3306
@@ -159,7 +161,7 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
     show columns from $table; # or just: desc $table
     show create table $table;
     show processlist;
-    kill $thread_to_be_killed;
+    kill $thread_to_be_killed;   #_
     select user,host from mysql.user;
 
 Human-readable dump by shortening the 'INSERT' statements:

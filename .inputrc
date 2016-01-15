@@ -20,8 +20,8 @@ $if Bash
     set expand-tilde on
     Space: magic-space
 
-    # <CTRL>+e : perform shell-expansion on the current cmd-line, i.e. expand aliases, history & shell variables
-    "\C-e": shell-expand-line
+    # <CTRL>+<SPACE> : perform shell-expansion on the current cmd-line, i.e. expand aliases, history & shell variables
+    C-SPACE: shell-expand-line
 $endif
 set show-all-if-ambiguous on
 set completion-ignore-case on

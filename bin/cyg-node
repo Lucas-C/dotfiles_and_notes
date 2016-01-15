@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-if [ -n "$1" ] && ! [[ $1 =~ -.+ ]]; then
-    SCRIPT_PATH=$(cygpath -w "$1")
-    shift
+if [ -z "$1" ] || [[ $1 =~ ^-(i|-interactive|h|-help|v|-version)$ ]]; then
+    "$(type -P node)" "$@"
+    exit $?
 fi
-NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)/node_modules" "$(type -P node)" $SCRIPT_PATH "$@"
+SCRIPT_PATH=$(cygpath -w "$1")
+shift
+NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)\node_modules" "$(type -P node)" "$SCRIPT_PATH" "$@"

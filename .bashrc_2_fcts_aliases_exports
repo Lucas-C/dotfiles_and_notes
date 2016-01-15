@@ -409,6 +409,10 @@ findImg () {
 findCRLF () {
     findByFilePattern CRLF "$@"
 }
+findISO-8859-1 () {
+    findByFilePattern ISO-8859 "$@"
+}
+alias findLatin1=findISO-8859-1
 findAndSortByDate () {
     find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
 }
@@ -559,3 +563,12 @@ tstp () { # timestamp converter
     # Or date -d @$TIMESTAMP but neither work on OSX
 }
 
+pre_commit_cache_repos () {  # Requires PyYaml & sqlite3
+    < $(git rev-parse --show-toplevel)/.pre-commit-config.yaml \
+        python -c "from __future__ import print_function; import sys, yaml; print('\n'.join(h['repo']+' '+h['sha'] for h in yaml.load(sys.stdin) if h['repo'] != 'local'))" \
+        | while read repo sha; do \
+            echo $repo; \
+            sqlite3 ~/.pre-commit/db.db "SELECT path FROM repos WHERE ref = '$sha';"; \
+            echo; \
+        done
+}

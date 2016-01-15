@@ -81,6 +81,8 @@ On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/14
 
 On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
 
+CQRS = CommandQuerySeparation : split the code & logic between the Query path (DB -> UI) & Command path (UI -> DB)
+
 ## Design smells
 - "Thin" classes. Ideally, a class should have a very simple interface that hides a lot of functionality and internal complexity. [SDP]
     Too much information : hide you data, hide your utility functions, hide your constants & temporaries, concentrate on keeping small interfaces to keep coupling low [CC-G8]

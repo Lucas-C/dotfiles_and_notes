@@ -16,6 +16,11 @@ Dr. Leonard Richardson put together a maturity model that interprets various lev
 ## HTTP
 - to check if a page exists without downloading it: use an HEAD request OR use an Etag + "If-None-Match" request -> HTTP 404 Not modified
 - [URI Templates](http://www.rfcreader.com/#rfc6570) : http://example.com/{term:3}/search{?q,lang}
+- HTTP server push solutions:
+    * HTTP Long-Polling: Tte connection is held open until the server has new information
+    * Streaming: the connection is held open and new pieces of information can be pushed over that existing connection, from server to client, without the connection being closed and re-opened as it is with HTTP Long-Polling
+    * HTTP/2 Server Push: these are known as "pushed responses" and the browser may cache these
+    * WebSockets: Full bi-directional and full duplex communication over a single TCP connection within a web browser (or any web client)
 
 ## TCP
 - reception acknowledged, packets ordered

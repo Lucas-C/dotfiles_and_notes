@@ -102,10 +102,12 @@ curseofwar -i4 -q1 -dee -W16 -H16 # awesome real-time RTS
 figlist | sed '1,/Figlet fonts/d;/:/,$d' | xargs -I{} figlet -f {} Hello # ASCII banner fonts
 fc-scan fc-list fc-validate ... # standard unix commands to manage and get info on fonts
 otfinfo & cie # lcdf-typetools utilities for manipulating PostScript Type 1, Type 1 Multiple Master, OpenType, and TrueType fonts
+fontforge # std pkg (exist in Cygwin) to convert fonts formats: OTF, TTF, EOT - used by zoltan-dulac/css3FontConverter
 xmessage -center "$(figlet ERRORMSG 42)", notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
 mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
+fail () { echo "$1"; $(exit "${2:-1}"); }  # to exit the script with a given message & optional error code (default: 1)
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 
 bash -n $script # Check syntax without executing
@@ -136,10 +138,9 @@ local dummy=${1:?'Missing or empty "dummy" parameter'}
 local var=${1:-"default value"}
 foo () { local x=$(false); echo $?; }; foo # -> 0 !!GOTCHA!! 'local' is also a command, and its return code shadows the one of the cmd invoked
 bar () {  # Best practice, or use getopt (singular) - USAGE: bar x [y=...]
-    local x y # necessary to define as local parameters not passed in afunction call (=> with default values)
+    local x y=default_Y # necessary to define as local parameters not passed in afunction call (=> with default values)
     local "$@"  # does not behave like `eval`, e.g. with x=y;z
     : ${x?'parameter is missing'}
-    : ${y:='default y value'}
 }
 
 x=42 foo # !!GOTCHA!! Actually "leaks" CONST_X : it will be defined after this line, even if not exported:
@@ -307,7 +308,7 @@ logrotate -s /var/log/logstatus /etc/logrotate.conf [-d -f] # Logrotate (to call
 # !! $@ not supported if < v.7.5
 
 echo -e "00 00 * * * $USER cmd >> cmd.log 2>&1\n" | sudo tee /etc/cron.d/crontask # don't forget the newline at the end, don't use % symbols, don't put a dot '.' in its filename, use 644 permissions owned by root, and note that the $USER arg is not present in /etc/crontab files
-sudo grep crontask /var/log/cron.log
+grep -E 'crontask|RELOAD' /var/log/cron.log
 /var/spool/cron/$USER # per-user cron jobs
 flock -n /pathi/to/lockfile -c cmd # run cmd only if lock acquired, useful for cron jobs
 lockfile-create/remove/check # file locks manipulation
@@ -497,7 +498,7 @@ rsync -v --progress --dry-run --compress $src_dir/ $dst_dir # Alt: rdiff-backup
 tar -czvf "$archive.tgz" "$dir_without_trailing_slash" # Extract: tar -xzvf $archive
 tar -J... # instead of -z, .xz compression format support
 pax > cpio > tar # http://dpk.io/pax
-zipinfo $file.zip
+zipinfo $file.zip # To get more info on its content, like creation time, CRC, comment... :  python -c "import json, sys, zipfile; json.dump([{k: str(getattr(i, k)) for k in zipfile.ZipInfo.__slots__} for i in zipfile.ZipFile(sys.argv[1]).infolist()], sys.stdout)" $file.zip | jq .
 pigz # paralell gzip, do not compress folders
 yum install p7zip # for .7z files
 lzop, lz4 # faster, use less CPU
@@ -676,68 +677,6 @@ mussh \ # MUltihost SSH Wrapper - Also: fabfile.org
  -m 2 \ # run on two hosts concurrently
  -h rpi-1 rpi-2 \ # hostnames
  -c "$cmd"
-
-
-</-/--------------------\-\>
-<!<! Apapapapache & PHP !>!>
-<\-\--------------------/-/>
-h5bp/server-configs-apache # boilerplate config
-source /etc/apache2/envvars && apache2 -V # -l -L -M
-sudo bash -c 'source /etc/apache2/envvars && apache2 -t && apache2ctl -S' # check config
-vim /etc/apache2/sites-available/default-ssl
-service apache2 restart
-a2enmod / a2dismod $modname  # enable / disable std modules
-ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking - Alt: tarekziade/boom
-watch 'elinks -dump http://0.0.0.0/server-status | sed -n "32,70p"' # Watch Apache status (lynx cannot dump because of SSL issue)
-httpd -M # list installed modules under Windows
-apachectl status
-ServerName localhost:80 # makes httpd startup waaay faster !
-php -r "print(php_ini_loaded_file());" # find dout php.ini file used
-php -r "print(phpinfo());" | grep log
-tail -F /var/log/apache2/*.log
-ForensicLog logs/forensic.log # requires: LoadModule log_forensic_module modules/mod_log_forensic.so
-http://xdebug.org/wizard.php
-error_log(print_r($variable, TRUE));
-new Exception()->getTraceAsString() # get a stack trace
-
-require('/path/to/psysh');
-eval(\Psy\sh()); # ensure register_argc_argv=on is set !
-
-# PHP reference variables !!GOTCHA!!
-php -r '$a = array("b" => array(0 => 42)); $x = $a["b"]; $x[0] = 7; print_r($a);'
-php -r '$a = array("b" => array(0 => 42)); $x = &$a["b"]; $x[0] = 7; print_r($a);'
-
-curl https://raw.githubusercontent.com/php/php-src/PHP-$php_version/.gdbinit >> ~/.gdbinit
-gdb -p $php_script_pid
-dump_bt executor_globals.current_execute_data # where is my PHP script hanging ? -> dump stacktrace
-
-wget http://ftp.drupal.org/files/projects/drupal-7.38.zip && unzip drupal-7.38.zip && mv drupal-7.38 $INSTALL_DRUPAL
-drush --debug ...
-drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
-drush pm-list --type=module --status=enabled # -> list modules & themes
-drush site-install standard -y --account-pass=admin --db-url='mysql://root:root@localhost/my_pretty_db' --site-name=$sitename
-drush en -y $modules # pm-enable - Opposite: drush dis[able]
-drush ne-export --type=$content_type --file=$out_file.php
-drush ne-import --uid $user_uid --file=$in_file.php
-drush cc all # clear-cache
-drush vget $var_name
-drush watchdog-show
-drush watchdog-delete all
-drush updatedb
-drush feature-update / feature-revert
-drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
-drush dl diff && drush en -y diff && drush features-diff $feature_name
-dpm / dvm / ddebug_backtrace # devel module
-drush fn-hook $hook_name # list hook implementations - Require: drush en devel -y
-elasticsearch_connector/modules/elasticsearch_connector_search_api/service.inc : SearchApiElasticsearchConnector->indexItems()
-
-chmod a+w sites/default/settings.php sites/default/files/
-cat <<EOF >> sites/default/settings.php
-
-if (file_exists(dirname(__FILE__) . '/custom_settings.php')) {
-    include('custom_settings.php');
-}
-EOF
 
 
 =cCcCcCc=

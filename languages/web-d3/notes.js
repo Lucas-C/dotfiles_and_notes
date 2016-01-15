@@ -36,7 +36,8 @@ function addCSSRule(sheet, selector, rules, index) {
 }
 addCSSRule(document.styleSheets[0], "header", "float: left");
 
-$._data($(elem).get(0), "events") // get events binded to 'elem' in JQuery
+$._data($(elem).get(0), "events") // get events binded to 'elem' in jQuery
+tipsy // Facebook style tooltips for jQuery
 
 format = function (string) { // Provide both {0} & {keyword} substitutions, '<C3><A0> la Python' - Alt: _.template
     var output = string,
@@ -156,6 +157,16 @@ arguments.callee.caller.toString()
 foo.toSource(2) // get function code source, with comments !
 
 requestAnimationFrame > setInterval OR setTimeout // For smart animating, recommended by Mozilla
+
+// most portable way to get width / height:
+height: function () {
+    var boundingRect = document.documentElement.getBoundingClientRect(); // most portable standard function
+    return boundingRect.bottom - boundingRect.top;
+},
+width: function () {
+    var boundingRect = document.documentElement.getBoundingClientRect(); // most portable standard function
+    return boundingRect.right - boundingRect.left;
+}
 
 
 //~~//~~//~~//

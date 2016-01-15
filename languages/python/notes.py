@@ -694,7 +694,7 @@ scipy
     numpy # n-dimensional arrays, vectorized operations and broadcasting : faster than CPython for large arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
-    matplotlib, prettyplotlib, mpld3, bokeh, plotly, vispy, seaborn, pygal, folium (-> Leaflet.js maps) # data viz 2d graphing/plotting
+    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps) # data viz 2d graphing/plotting - Also: pyplot.xkcd() is awesome
 
 jhcepas/ete # tree epxloration & visualisation
 riccardoscalco/Pykov # markov chains
@@ -718,10 +718,10 @@ rpy2 # acces to R + cf. https://www.dataquest.io/blog/python-vs-r/
 Optimization guide:
 - measure first (line_profiler !)
 - improve algorithms ? data structures (for lightweight objects, use namedtuples) ? use a cache ?
-- Numpy (vectorized operations are way faster than Pyhton slow loops) + Cython (or faster: Numba)
+- Numba (faster than Cython, which is faster than Pypy) + Numpy (vectorized operations are way faster than Pyhton slow loops - use: ufuncs, aggregates, broadcasting, slicing & masking)
 
 Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C
-PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler. Also: PyPy-STM
+PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler, but does not support C extensions. Also: PyPy-STM
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
 Jython / Py4J # intercommunicate with Java -> Jython has pip, but won't support lib depending on multiprocessing - however, it has excellent support for built-in Java threads: http://www.jython.org/jythonbook/en/1.0/Concurrency.html
 Numba # NumPy aware dynamic Python compiler using LLVM - Also: numbapro # for targeting the GPU & writing CUDA code in Python
@@ -744,6 +744,7 @@ binascii.hexkify # display binary has hexadecimal
 "" DBs, queues & schedulers
 """"""""""""""""""""""""""""""
 celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
+dask  # task scheduling and blocked algorithms for parallel processing
 sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn - Also:
 luigi, Oozie, Azkaban, Drake, Pinball, Airflow # workflow managers
 zeromq, aiozmq, mrq # distributed app / msg passing framework
@@ -754,7 +755,7 @@ mrjob, luigi # Hadoop / AWS map-reduce jobs
 peewee, SQLAlchemy # ORM DB
 from playhouse.sqlite_ext import SqliteExtDatabase; db = SqliteExtDatabase(':memory:') # in-memory SQLite DB with peewee
 anydbm: dbhash else gdbm else dbm else dumbdbm
-sqlite3 # std DB, persistent in a file || can be created in RAM
+sqlite3 # std DB, persistent in a file || can be created in RAM - Alt: rogerbinns/apsw +> both allow to create custom SQL functions, aggregate functions, and collations
 python-lsm-db(like LevelDB), unqlite-python(like MongoDB), vedis-python(like Redis) # Other embedded NoSQL DBs
 pyMySQL, noplay/python-mysql-replication
 shelve # other data persistence using pickle, full list of alt: http://docs.python.org/2/library/persistence.html

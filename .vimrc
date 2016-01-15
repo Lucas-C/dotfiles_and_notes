@@ -106,7 +106,7 @@ if !exists(":W")
     command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 endif
 
-map!  
+map!                     "Make delete act like backspace
 
 map <C-s> :w<CR>
 

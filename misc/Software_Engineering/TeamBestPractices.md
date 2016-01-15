@@ -29,6 +29,8 @@
 - [Things I was unprepared for as a lead developer](http://dev-human.com/entries/2015/09/07/things-i-was-unprepared-for/)
 - [DefendingYourTime](https://blog.barricade.io/defending-your-time/)
 - [Alarm design: From nuclear power to WebOps](http://humanisticsystems.com/2015/10/16/fit-for-purpose-questions-about-alarm-system-design-from-theory-and-practice/)
+- [Climbing out of the software death spiral](http://tinyletter.com/programming-beyond-practices/letters/beginning-to-climb-out-of-the-software-death-spiral)
+- [Interviewing is broken](http://www.stilldrinking.org/interviewing-is-broken)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -107,6 +109,10 @@ In general, limit meetings by making them informal chats or doing them properly:
 Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
 - use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err for Python)
 - useful questions to ask yourself when designing an alarms system : [Alarm design: From nuclear power to WebOps]
+- [Climbing out of the software death spiral] -> either :
+    * comprehensive backlog audit
+    * issue bankruptcy
+    * new dev "work queue"
 
 ## Deployments
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
@@ -150,3 +156,4 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
     * cf. [FrontendJobInterviewQuestions]
     * cf. [What happens when you type google.com into your browser and press enter?]
     * cf. [JoeStumpTechnicalInterviewQuestions]
+- cf. [Interviewing is broken] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."

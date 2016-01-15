@@ -152,6 +152,8 @@ SpringFox to auto-generate Swagger from REST controllers @annotations
 
 // Dozer : forbidden @VSCT -> bad experiences
 
+SIGAR  // == df du free ifconfig iostat netstat ps route top ulimit uptime who : portable interface for gathering system information, used by ElasticSearch
+
 org.json.JSONObject, Argo, Gson, Jackson, JSON.simple
 JavaCC // parser generator
 
@@ -277,3 +279,5 @@ try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 }
 
 Function<InputType, ReturnType>.apply(arg) .compose(before) .andThen(after) & static identity()
+
+CompletableFuture > Future

@@ -101,6 +101,7 @@ git blame -L '/REGEX/',+1 FILE # 'rblame' to get an history of the changes on a 
 git log --pickaxe-all --pickaxe-regex -S$regex $file # To get only the additions / deletions (ignore the small changes)
 git grep $keyword $(git rev-list $rev1..$rev2) $file # or rev-list --all Also: -function-context to show the whole function as context that was affected by a change
 
+git submodule update --init # initialize a repo that has .gitmodules
 git submodule add URL DIRNAME # Incorporate a repo in another repo - http://git-scm.com/book/en/Git-Tools-Submodules
 
 git tag # Add vX.Y tags to commits
@@ -143,6 +144,8 @@ pre-commit/pre-commit # great hooks manager + cf. https://github.com/Yelp/venv-u
 # Only checkout a subdirectory
 git config core.sparsecheckout true
 echo subdir/path/ >> .git/info/sparse-checkout
+
+git cherry-pick $sha # copy a commit from another branch into the current branch
 
 
 ++++++
