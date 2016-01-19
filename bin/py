@@ -16,7 +16,7 @@ py () {
             version_flag="${version_flag:1}"
         fi
         for exec_name in python$version_flag python${version_flag:0:1}.${version_flag:1:2}; do
-            if which $exec_name >/dev/null; then
+            if which $exec_name >/dev/null 2>&1; then
                 shift
                 py_exec=$exec_name
             fi

@@ -8,7 +8,7 @@ http://xdebug.org/wizard.php
 new Exception()->getTraceAsString() # get a stack trace - For improved PHP exceptions formatting : jTraceEx recipe at http://php.net/manual/fr/exception.getmessage.php, that support chained exceptions and is formatted in a Java-like manner
 
 require('/path/to/psysh');
-eval(\Psy\sh()); # ensure register_argc_argv=on is set !
+eval(\Psy\sh()); # ensure register_argc_argv=on is set if using an old version of psysh, cf. issue #237
 
 # PHP reference variables !!GOTCHA!!
 php -r '$a = array("b" => array(0 => 42)); $x = $a["b"]; $x[0] = 7; print_r($a);'

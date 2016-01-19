@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python2
 # Original idea: http://sametmax.com/floodsport
 # Max gmail subject width on my display: 74
 

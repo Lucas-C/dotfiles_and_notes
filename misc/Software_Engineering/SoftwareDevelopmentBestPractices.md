@@ -30,6 +30,7 @@ Software Development Best Practices
 - [The microservices cargo cult](http://www.stavros.io/posts/microservices-cargo-cult/)
 - [LatencyNumbersEveryProgrammerShouldKnow](https://gist.github.com/hellerbarde/2843375)
 - [ResponseTimes-The3ImportantLimits](http://www.nngroup.com/articles/response-times-3-important-limits/)
+- [What happens when the Board Of Directors begins to panic?](http://www.smashcompany.com/business/what-happens-when-the-board-of-directors-begins-to-panic)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -278,11 +279,14 @@ cf. [Functional Programming Patterns]
     * [Planning Fallacy](//en.wikipedia.org/wiki/Planning_fallacy)
     * [Belief bias](//en.wikipedia.org/wiki/Belief_bias)
     * [Confirmation bias](//en.wikipedia.org/wiki/Confirmation_bias) & [Experimenter's bias](//en.wikipedia.org/wiki/Experimenter%27s_bias)
-    * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy)
+    * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy) : misgivings about "wasting" resources, feeling you have to do something because you've passed the point of no return
     * [Cargo cult](//en.wikipedia.org/wiki/Cargo_cult) of a new technology / design pattern
     * [Groupthink symptoms](//en.wikipedia.org/wiki/Groupthink#Symptoms)
     * Spurious correlations: Correlation != causality, aka "post hoc ergo propter hoc" aka "effet cigogne" (cf. eponymous website & e-penser video "le lieu le plus dangereux de France" = le lit)
+    * [Dunning-Kruger Effect](//en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect) : "relatively unskilled individuals suffer from illusory superiority, mistakenly assessing their ability to be much higher than it really is"
 + [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
+
+"When facing extremely short, ambitious deadlines, one knows there are a dozen good things one can do, but very little feels justifiable in the face of a crisis, except writing code as fast as possible." [What happens when the Board Of Directors begins to panic?]
 
 ### The Ten Commandments of Egoless Programming
 - Understand and accept that you will make mistakes.

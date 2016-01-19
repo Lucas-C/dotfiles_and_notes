@@ -27,6 +27,10 @@ set show-all-if-ambiguous on
 set completion-ignore-case on
 set blink-matching-paren on
 
+# Makes Home/End keys work under vim in gnome-terminal (and tmux)
+"\e[1~": "\eOH"
+"\e[4~": "\eOF"
+
 # <CTRL>+left/right arrows
 # WHEN xterm-keys on, e.g. inside Tmux (already in /etc/inputrc):
 "\e[1;5C": forward-word

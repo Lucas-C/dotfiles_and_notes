@@ -132,9 +132,7 @@ obj.method = types.MethodType(function, obj) # binding functions into methods
 
 # For a decorator that takes no arg, just get rid of the enclosing function. Deep dive on them at: http://blog.dscpl.com.au/2014/01/implementing-universal-decorator.html
 def trace_exec_time(repeat=1, result_strategy=lambda results: results[-1]):
-    """
-    Valid strategies are: min, max, statistics.mean. Default is to keep only the last result
-    """
+    "Valid strategies are: min, max, statistics.mean. Default is to keep only the last result"
     def decorator(func):
         @functools.wraps(func)  # TODO: use wrapt.decorator
         def wrapper(*args, **kwargs):
@@ -213,6 +211,10 @@ PYTHONHOME : Python interpreter directory
 PYTHONCASEOK : case insensitive module names (usefule under Windows)
 PYTHONIOENCODING : force default encoding for stdin/stdout/stderr
 PYTHONHASHSEED : change seed hash() (=> more secure VM)
+
+# Cheap virtualenv
+PYTHONUSERBASE=.pip/ pip install --user $pkh
+PYTHONUSERBASE=.pip/ python -m $pkg
 
 sys.meta_path  # a list of *finder* objects that have their find_module() methods called to see if one of the objects can find the module to be imported - cf. PEP 302
 
@@ -487,6 +489,14 @@ cd /a/path
 from IPython.display import HTML, SVG; HTML(html_string) # render HTML, SVG
 ipython notebook # D3 support : wrobstory/sticky
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
+jq -r '.worksheets[0].cells[].input' < $file.ipynb
+
+from io import BytesIO
+img_bytes = BytesIO(); img.save(img_bytes, format='png')  # img is a PIL.Image
+from base64 import b64encode
+img_base64 = b64encode(img_bytes.getvalue()).decode('utf-8')
+from IPython.display import HTML
+HTML('<img src="data:image/png;base64,{0}"/>'.format(img_base64))
 
 # PDB tricks
 !p = ... # make it possible to start a cmdline with pdb shorthands
@@ -778,7 +788,7 @@ pyreadline, readline, rlcompleter
 
 termcolor, colorama # cross-platform colored terminal text
 tqdm # KISS progress bar
-PrettyTable # pretty ASCII tables output
+PrettyTable, Leviathan1995/Pylsy # pretty ASCII tables output
 bashplotlib # terminal plotting of histograms / scatterplots from list of coordinates
 urwid # console user interface lib - Alt: snack, NPyScreen
 
@@ -791,10 +801,11 @@ pysoy # 3D game engine
 Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
 cairo # graphics library outputting .ps .pdf .svg & more
 wand (ImageMagick binding), pillow > pil # Python Image Library
+exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags
 ufoym/cropman # face-aware image cropping
 andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
 lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
-AAlib, legofy # ASCII/Lego rendering
+AAlib, legofy # ASCII/Lego rendering, cf. ascii_art_email.py
 fogleman/Tiling # pavages
 graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
@@ -831,7 +842,9 @@ python -m twisted.conch.stdio # Twisted REPL
 """"""""""""""""""""""""""""""""
 autobanh, crossbar.io # WAMP in Python
 pywebsocket
-xmlrpclib / xmlrpc.client # XML-RPC via HTTP
+import xmlrpc.client # XML-RPC via HTTP
+server = xmlrpc.client.ServerProxy("http://www.pythonchallenge.com/pc/phonebook.php")
+print(server.system.getCapabilities())  # Also: .listMethods() .methodSignature(...) .methodHelp(...)
 
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 tinycss2 > tinycss > cssutils  # CSS parsers
@@ -962,11 +975,13 @@ webbrowser.open_new_tab # Firefox/Opera/Chrome instrumentation
 fmoo/python-editor # programmatically open a text editor, captures the result
 pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff
 
+filemagic, ahupp/python-magic # interfaces to libmagic file type identification, aka the "file" command under Unix : it identifies file types by checking their headers according to a predefined list of file types
+
 reload(module)
 modulefinder # determine the set of modules imported by a script
 
 asynchat, irc, sleekxmpp, embolalia/willie # IRC/XMPP bots
-mailr, mailbox, imaplib, smtpd, smptplib # for emails
+mailr, mailbox, imaplib, smtpd, smptplib # for emails, cf. ascii_art_email.py
 paramiko # remote SSH/SFTP connexion
 
 scales # metrics for Python

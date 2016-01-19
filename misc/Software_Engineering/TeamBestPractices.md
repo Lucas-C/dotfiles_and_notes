@@ -105,9 +105,9 @@ In general, limit meetings by making them informal chats or doing them properly:
     * this week's priorities: deployments, hand-over of burning tickets or tickets failing over SLA
 - frequently determine operational excellence goals: eliminate the top root cause of tickets, create a runbook/dashboard for a service...
 - CMs: cf. [IT Change Management]
-- post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management]
+- post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management] + trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
 Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
-- use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err for Python)
+- use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err or Zulip for Python)
 - useful questions to ask yourself when designing an alarms system : [Alarm design: From nuclear power to WebOps]
 - [Climbing out of the software death spiral] -> either :
     * comprehensive backlog audit

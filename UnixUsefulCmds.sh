@@ -446,7 +446,7 @@ sleuthkit/scalpel # > foremost, file carving tool, cf. http://www.forensicswiki.
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
 find -D rates ... # details success rates of each match logic term
-find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files IGNORING other partitions - One can safely ignore /proc/kcore - Alt: man agedu (-s $dir then -w / -t) ; + all tools listed in http://dev.yorhel.nl/ncdu + ruiqi/wcleaner
+find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files on disk IGNORING other partitions - One can safely ignore /proc/kcore - Alt: man agedu (-s $dir then -w / -t) ; + all tools listed in http://dev.yorhel.nl/ncdu + ruiqi/wcleaner + paul-nechifor/ohmu
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long' - Alt to mtime: -newer $than_this_file
@@ -469,7 +469,8 @@ sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000 # Create f
 truncate -s $size_in_bytes $file # from coreutils
 
 # setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
-# setgid: Setting the setgid permission on a directory (chmod g+s) causes new files and subdirectories created within it to inherit its group ID
+chmod a+rX # gives read permissions to all, + execute on directeries and files that are already executable ONLY
+chmod a+s # setting the setgid on a directory causes new files and subdirectories created within it to inherit its group ID
 setcap # man capabilities
 umask # Control the permissions a process will give by default to files it creates; useful to avoid temporarily having world-readable files before 'chmoding' them
 
@@ -498,6 +499,8 @@ rsync -v --progress --dry-run --compress $src_dir/ $dst_dir # Alt: rdiff-backup
 tar -czvf "$archive.tgz" "$dir_without_trailing_slash" # Extract: tar -xzvf $archive
 tar -J... # instead of -z, .xz compression format support
 pax > cpio > tar # http://dpk.io/pax
+gzip --best/--fast # control compression quality VS speed
+kzip # build smaller, zip-compatible archives, but takes x80 more time
 zipinfo $file.zip # To get more info on its content, like creation time, CRC, comment... :  python -c "import json, sys, zipfile; json.dump([{k: str(getattr(i, k)) for k in zipfile.ZipInfo.__slots__} for i in zipfile.ZipFile(sys.argv[1]).infolist()], sys.stdout)" $file.zip | jq .
 pigz # paralell gzip, do not compress folders
 yum install p7zip # for .7z files
@@ -1026,6 +1029,7 @@ convert -delay 20 -loop 0 -dispose background -rotate -90 -resize 50% -loop 0 *.
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
 barcode -b "Hello World !" -o out.ps && convert out.ps -trim out.png
+image_optimi # Optimize (lossless compress, optionally lossy) images (jpeg, png, gif, svg) using external utilities: advpng gifsicle jhead jpegoptim jpeg-recompress jpegtran optipng pngcrush pngout pngquant svgo
 pngquant ## 70% lossy compression
 jpegtran -perfect -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs - better than ImageMagick, cf. http://www.imagemagick.org/discourse-server/viewtopic.php?t=22141
 identify -verbose $jpg | grep -E 'Image:|Quality:' # get JPEG compression level

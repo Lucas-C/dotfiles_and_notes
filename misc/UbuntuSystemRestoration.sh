@@ -107,3 +107,5 @@ sudo apt-get install pepperflashplugin-nonfree # Flash in chromium : http://asku
 echo 'application/x-shockwave-flash       swf swfl' > ~/.mime.types #open SWF files with Firefox
 
 dvd+rw-mediainfo /dev/sr0 # get DVD info, alt: wodim dev=/dev/sr0 -checkdrive
+
+Gimp -> Window -> Single Window Mode

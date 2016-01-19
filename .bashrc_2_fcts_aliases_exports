@@ -223,8 +223,8 @@ alias djshell='PYTHONSTARTUP=$HOME/.pythonrc ./manage.py shell_plus --use-python
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
 rmpyc () { find -L ${@:-.} -name "*.pyc" | xargs rm -f; }
-py_module_path () {
-    python2 -c "import $1; print $1.__file__ if hasattr($1, '__file__') else 'builtin'" | sed 's/pyc$/py/'
+py_module_path () { # USAGE: py_module_path $module_name [$py_version]
+    python${2:-} -c "from __future__ import print_function; import $1; print($1.__file__ if hasattr($1, '__file__') else 'builtin')" | sed 's/pyc$/py/'
 }
 py_module_dir () {
     dirname $(py_module_path $1)

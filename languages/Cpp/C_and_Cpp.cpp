@@ -7,6 +7,7 @@ gperftools: -ltcmalloc, HEAPCHECK, HEAPPROFILE, pprof // thread-caching malloc, 
 plasma-umass/coz // a profiler spotted by jmason
 GNU complexity // Alternative to pmccabe to evaluate code complexity
 indent // GNU C source beautifier
+clang-format -style="{BasedOnStyle: llvm, IndentWidth: 4, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}" -i *.{c,h,cc,cpp,hpp,cxx} // "has the best defaults of any automatic C formatter and is still actively developed"
 
 re2c // tool generating fast code for regular expressions matching
 gperf // GNU Perfect Hash Function Generator - http://www.ibm.com/developerworks/library/l-gperf/
