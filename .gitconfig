@@ -75,6 +75,7 @@
     editor = vim
     pager = less -FMRiX
     trustctime = false
+    autocrlf = input # Even better to shar the settings: echo '*.txt -crlf' > .gitattributes
 
 [credential]
     helper = cache --timeout=3600

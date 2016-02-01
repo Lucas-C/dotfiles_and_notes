@@ -53,5 +53,6 @@ Also: wtf command & /usr/share/games/bsdgames/acronyms*
 http://fr.wikipedia.org/wiki/Jargon_informatique
 
 ## Frenchisms
+grappe JSON
 moulinette
 bouchonné

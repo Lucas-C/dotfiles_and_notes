@@ -4,7 +4,7 @@
 
 "Use the scope option to create isolate scopes when making **components** that you want to **reuse** throughout your app."
 
-    var scope = angular.element($('div.vboardPinboard')).scope()
+    var scope = angular.element($0).scope()
     var $rootScope = angular.element(document.body).scope() // if <body> has the 'ng-app' attribute
     angular.element($('div.vboardPinboard')).controller()
     scope.$$watchers // useful to debug ng-repeat perf issues

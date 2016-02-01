@@ -76,7 +76,7 @@ DTO/DAO:
 
 On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/1481](http://imgs.xkcd.com/comics/api.png), [How to design a rest API], [RESTful API design refcard]
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
-+ similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG...
++ similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
 + representation for RESTful APIs: Swagger / RAML / API Blueprint / APIDOC
 

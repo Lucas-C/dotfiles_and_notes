@@ -14,7 +14,7 @@ Project management best practices
 - [ThoughbotPlaybook](http://playbook.thoughtbot.com)
 - [OnUseCasesAndUserStories](http://www.batimes.com/articles/user-stories-and-use-cases-dont-use-both.html)
 - [ChooseBoringTechnology](http://mcfunley.com/choose-boring-technology)
-- [RetrospectiveWiki](retrospectivewiki.org/index.php?title=Main_Page)
+- [RetrospectiveWiki](http://retrospectivewiki.org/index.php?title=Main_Page)
 - [10 reasons not to adopt this new toy techno in production](https://translate.google.fr/translate?sl=auto&tl=en&js=y&prev=_t&hl=fr&ie=UTF-8&u=http%3A%2F%2Feax.me%2Favoid-new-toys%2F&edit-text=)
 - [TheFailureOfAgileAndGROWS](http://blog.toolshed.com/2015/05/the-failure-of-agile.html)
 - [Les développeurs Heisenberg](http://blog.ticabri.com/blog/2015/04/21/les-developpeurs-heisenberg/) - TL;DR Vous ne pouvez pas observer un développeur sans en altérer son comportement.

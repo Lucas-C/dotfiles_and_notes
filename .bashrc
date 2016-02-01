@@ -30,7 +30,7 @@ download_bashrc_files () {
     done
     curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > ${BASHRC_DIR}/.bashrc_git_completion
 }
-[ -z "$(ls ${BASHRC_DIR}/.bashrc_*)" ] && download_bashrc_files
+[ -z "$(ls ${BASHRC_DIR}/.bashrc_* 2>/dev/null)" ] && download_bashrc_files
 
 #------------------------------
 # Directory aliases / variables

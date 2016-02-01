@@ -169,7 +169,7 @@ class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
 # Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
 
 # For multiple inheritance with namedtuple, combine fields + use specific inheritance order:
-class Immut3DPoint(namedtuple('_Immut3DPoiint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
+class Immut3DPoint(namedtuple('_Immut3DPoint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
     __slots__ = ()
 
 LOG_FORMAT = "%(asctime)s - pid:%(process)s %(filename)s:%(lineno)d [%(levelname)s] %(message)s"
@@ -666,7 +666,7 @@ pew > virtualenv # sandbox. To move an existing environment: virtualenv --reloca
 pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
 pip --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
 pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages
-pip install --user $USER --src . -r requirements.txt
+pip install --user $USER --src . -r requirements.txt --require-hashes # CLI tool to help with retrieving correct hashes : hashin
 pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt ; ./manage.py pipchecker
 pex # self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
 pybuilder, invoke # build tools, like Makefile with many plugins
@@ -779,7 +779,7 @@ twobraids/configman > argparse > optparse # Alt: begins > docopt, clize, click -
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve')
 parser_group = parser.add_mutually_exclusive_group(required=True)
 parser_group.add_argument(... type=argparse.FileType('r'))
-return parser.parse_args()
+return parser.parse_args(sys.argv[1:])
 
 code.InteractiveConsole().interact() # interactive python prompt
 
@@ -855,7 +855,14 @@ html_root = lxml.html.fromstring('html string') # Alt: html_tree.getroot()
 html_tree = lxml.etree.ElementTree(html_root) # Alt: lxml.etree.parse(some_file_like_object)
 html_tree.getpath(element)
 element.getparent().remove(element)
-BeautifulSoup('html string').prettify() # newlines+tabs formatted dump - Alt, less pretty: lxml.html.tostring(element) / lxml.etree.tostring
+BeautifulSoup('html string').prettify() # newlines+tabs formatted dump - Alt, less pretty: lxml.html.tostring(element, pretty_print=True) / lxml.etree.tostring
+for elem in xml_tree.xpath('//*[count(ancestor::*)>2]'): # truncating the tree
+    elem.getparent().remove(elem)
+with open('my_schema.xsd', 'rb') as xsd:
+    xsd_schema = etree.XMLSchema(etree.parse(xsd))
+parser = etree.XMLParser(schema = xsd_schema, dtd_validation=True, remove_blank_text=True) # the last parameter is needed for pretty_print to work
+with open('my_data.xml', 'rb') as xml:
+    etree.parse(xml, parser) # validate that data is conform to XSD schema + DTD structure
 
 KNOWN_HTML_ATTRS = defs.link_attrs | defs.event_attrs | defs.safe_attrs | frozenset(['content', 'http-equiv', 'placeholder', 'role'])
 def iter_html_non_standard_attributes(html_file):

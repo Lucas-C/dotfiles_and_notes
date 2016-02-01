@@ -20,6 +20,14 @@ if [ -n "${VIRTUAL_ENV:-}" ]; then
     PATH=$VIRTUAL_ENV/bin:$PATH
 fi
 
+# USAGE: echo -n "$PATH" | paths_without_user | paths_without_whitespaces
+paths_without_whitespaces () { # remove paths that include whitespaces
+    tr : '\n' | grep -vF ' ' | head -c-1 | tr '\n' :
+}
+paths_without_user () { # remove paths that include the current (or specified) username
+    tr : '\n' | grep -vF "${1:-$USER}" | head -c-1 | tr '\n' :
+}
+
 export HISTCONTROL=ignoreboth # ignoredups and ignorespace
 shopt -s histappend # append to the history file, don't overwrite it
 export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
@@ -222,6 +230,7 @@ alias tkcon='tkcon -load Tk'
 alias djshell='PYTHONSTARTUP=$HOME/.pythonrc ./manage.py shell_plus --use-pythonrc'
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
+alias pew='PATH=$(echo -n "$PATH" | paths_without_user | paths_without_whitespaces) $(type -P pew)' # without "type -P" Cygwin throws a "command not found"
 rmpyc () { find -L ${@:-.} -name "*.pyc" | xargs rm -f; }
 py_module_path () { # USAGE: py_module_path $module_name [$py_version]
     python${2:-} -c "from __future__ import print_function; import $1; print($1.__file__ if hasattr($1, '__file__') else 'builtin')" | sed 's/pyc$/py/'
@@ -229,6 +238,7 @@ py_module_path () { # USAGE: py_module_path $module_name [$py_version]
 py_module_dir () {
     dirname $(py_module_path $1)
 }
+
 find_constants () {
     find "${@:-$(cat)}" -print0 \
         | xargs -0 perl -wne 'while ($_ =~ /[^\w]([A-Z][A-Z0-9_]+)[^\w]/g) {print $1."\n"}' \
@@ -398,7 +408,7 @@ src2pdf () {
 findByFilePattern () {
     local pattern="$1"
     shift
-    find -L "${@:-.}" -type f -exec file {} \; | grep $pattern | cut -d':' -f1
+    find -L "${@:-.}" -type f -exec file {} \; | grep "$pattern" | cut -d':' -f1
 }
 findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
     findByFilePattern text "$@"

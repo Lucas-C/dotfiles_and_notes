@@ -198,7 +198,9 @@ static Settings parseCommandLineArguments(String[] args) {
 
 // Java exception handling (use only RuntimeExceptions !!)
 public static void main(String[] args) {
-    LOG.info("{} starting with args ", PROG_NAME, Arrays.toString(args));
+    if (this.logger.isDebugEnabled()) {
+        this.logger.debug("{} starting with JSON: {}", varName, costlyMethodCallThatGeneratesJsonOnlyInDebug());
+    }
     try {
         run(args);
     } catch (InvocationTargetException e) {
@@ -206,10 +208,10 @@ public static void main(String[] args) {
     } catch (RuntimeException e) {
         StringWriter stackTrace = new StringWriter();
         e.printStackTrace(new PrintWriter(stackTrace));
-        LOG.error(stackTrace.toString());
+        this.logger.error(stackTrace.toString());
         throw e;
     }
-    LOG.info("{} exited sucessfully", PROG_NAME);
+    this.logger.info("{} exited sucessfully", PROG_NAME);
 }
 // Print stack trace outside a 'catch'
 for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
