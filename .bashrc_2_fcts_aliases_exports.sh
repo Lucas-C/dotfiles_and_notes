@@ -227,6 +227,8 @@ t () { # Execute some cmd with start/end timestamps
 # Languages
 #----------
 alias tkcon='tkcon -load Tk'
+
+export PIP_DOWNLOAD_CACHE=$HOME/.pip_download_cache/
 alias djshell='PYTHONSTARTUP=$HOME/.pythonrc ./manage.py shell_plus --use-pythonrc'
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'

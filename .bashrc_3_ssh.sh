@@ -7,8 +7,8 @@ SSH_AUTH_SOCK_LINK=~/.ssh/ssh-agent-auth-sock
 SSH_AGENT_CONFIG_FILE_REL=.ssh/ssh-agent.sh
 SSH_AGENT_CONFIG_FILE=~/$SSH_AGENT_CONFIG_FILE_REL
 
-# TODO/FLAWS: make up to FOUR ssh connections (with 'visit') 
-# Will create a remote $HOME dir if needed 
+# TODO/FLAWS: make up to FOUR ssh connections (with 'visit')
+# Will create a remote $HOME dir if needed
 # If it fails, config files will still be kept int remote $SSH_EXPORT_TMP_DIR
 # DO NOT use sshl in that cmd.
 exportSshFiles () {      # export $SSH_EXPORT_FILES to a remote host $1

@@ -244,6 +244,7 @@ hex_md5('string') // crypt/md5.js
 // davidshimjs/qrcodejs
 
 lazy.js, lodash > underscore.js // Functional prog libs
+Immutable // Facebook JS lib
 moment.js > sugar.js // parse, validate, manipulate, and display dates
 
 webpack, browserify // module bundlers

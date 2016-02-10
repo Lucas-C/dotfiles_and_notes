@@ -75,10 +75,19 @@
     editor = vim
     pager = less -FMRiX
     trustctime = false
-    autocrlf = input # Even better to shar the settings: echo '*.txt -crlf' > .gitattributes
+    autocrlf = input # Even better to share the settings: echo '*.txt -crlf' > .gitattributes
+    #eol = lf
 
 [credential]
     helper = cache --timeout=3600
+
+# for $deity's sake, check that anything we're getting is complete and sane on a regular basis
+[transfer]
+    fsckobjects = true
+[fetch]
+    fsckobjects = true
+[receive]
+    fsckObjects = true
 
 [diff]
     renames = true
