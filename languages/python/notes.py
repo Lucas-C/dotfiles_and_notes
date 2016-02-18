@@ -464,7 +464,7 @@ import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coo
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no --showlocals --exitfirst -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
-pytest-bdd, pytest-benchmark, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins
+pytest-bdd, pytest-benchmark, python.cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
 c-oreills/before_after # provides utilities to help test race conditions
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
@@ -486,6 +486,7 @@ cd /a/path
 %quickref
 %load script.py # and %%file to write to a file
 %save $filename # save session - Alt: %history -> dump it. Stored in ~/.config/ipython/profile_default/history.sqlite - used by pdb too
+%paste # if it fails because Tkinter is not available, use %cpaste
 %pdb # Automatic pdb calling
 %timeit do_something()
 %debug # post_mortem

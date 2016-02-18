@@ -233,7 +233,7 @@ alias djshell='PYTHONSTARTUP=$HOME/.pythonrc ./manage.py shell_plus --use-python
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
 alias pew='PATH=$(echo -n "$PATH" | paths_without_user | paths_without_whitespaces) $(type -P pew)' # without "type -P" Cygwin throws a "command not found"
-rmpyc () { find -L ${@:-.} -name "*.pyc" | xargs rm -f; }
+rmpyc () { find -L ${@:-.} -name "*.pyc" -o -name __pycache__ | xargs rm -rf; }
 py_module_path () { # USAGE: py_module_path $module_name [$py_version]
     python${2:-} -c "from __future__ import print_function; import $1; print($1.__file__ if hasattr($1, '__file__') else 'builtin')" | sed 's/pyc$/py/'
 }
@@ -583,4 +583,15 @@ pre_commit_cache_repos () {  # Requires PyYaml & sqlite3
             sqlite3 ~/.pre-commit/db.db "SELECT path FROM repos WHERE ref = '$sha';"; \
             echo; \
         done
+}
+
+font_dflt_fix () {  # cf. https://chezsoi.org/lucas/blog/2016/02/11/en-fixing-fonts-that-raise-a-dflt-table-error-in-firefox/
+    local input_fontfile=${1?}
+    local fontfile_basename=${input_fontfile%.*}
+    local tmpttx_fontfile_name="tmp_$fontfile_basename.ttx"
+    ttx -o "$tmpttx_fontfile_name" "$input_fontfile" || return 1
+    local ttx_fontfile_name="$fontfile_basename.ttx"
+    tr '\n' ' ' < "$tmpttx_fontfile_name" | sed 's~\(<GSUB>.\+<ScriptTag value="DFLT"/>.\+</DefaultLangSys>\)\s\+<!-- LangSysCount=1 -->\s\+<LangSysRecord.\+</LangSysRecord>~\1~' > "$ttx_fontfile_name" || return 1
+    ttx -o "$input_fontfile" "$ttx_fontfile_name" || return 1
+    rm "$tmpttx_fontfile_name"
 }

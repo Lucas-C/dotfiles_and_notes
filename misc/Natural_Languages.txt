@@ -24,6 +24,7 @@ Shenanagans
 Sound
 
 ## English idioms
+- neither fish nor fowl
 - snake oil
 - bikeshedding
 - to burn the midnight oil

@@ -99,12 +99,15 @@ curseofwar -i4 -q1 -dee -W16 -H16 # awesome real-time RTS
 ##################
   Bash scripting
 ##################
+
+xmessage -center "$(figlet ERRORMSG 42)", notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
+mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
 figlist | sed '1,/Figlet fonts/d;/:/,$d' | xargs -I{} figlet -f {} Hello # ASCII banner fonts
+
 fc-scan fc-list fc-validate ... # standard unix commands to manage and get info on fonts
 otfinfo & cie # lcdf-typetools utilities for manipulating PostScript Type 1, Type 1 Multiple Master, OpenType, and TrueType fonts
 fontforge # std pkg (exist in Cygwin) to convert fonts formats: OTF, TTF, EOT - used by zoltan-dulac/css3FontConverter
-xmessage -center "$(figlet ERRORMSG 42)", notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
-mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
+pip install --user brotlipy fonttools # provide the `ttx` that convert otf/ttf files into editable XML ones
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
 fail () { echo "$1"; $(exit "${2:-1}"); }  # to exit the script with a given message & optional error code (default: 1)
