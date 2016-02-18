@@ -99,12 +99,15 @@ curseofwar -i4 -q1 -dee -W16 -H16 # awesome real-time RTS
 ##################
   Bash scripting
 ##################
+
+xmessage -center "$(figlet ERRORMSG 42)", notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
+mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
 figlist | sed '1,/Figlet fonts/d;/:/,$d' | xargs -I{} figlet -f {} Hello # ASCII banner fonts
+
 fc-scan fc-list fc-validate ... # standard unix commands to manage and get info on fonts
 otfinfo & cie # lcdf-typetools utilities for manipulating PostScript Type 1, Type 1 Multiple Master, OpenType, and TrueType fonts
 fontforge # std pkg (exist in Cygwin) to convert fonts formats: OTF, TTF, EOT - used by zoltan-dulac/css3FontConverter
-xmessage -center "$(figlet ERRORMSG 42)", notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
-mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
+pip install --user brotlipy fonttools # provide the `ttx` that convert otf/ttf files into editable XML ones
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
 fail () { echo "$1"; $(exit "${2:-1}"); }  # to exit the script with a given message & optional error code (default: 1)
@@ -822,7 +825,7 @@ script
 end script
 
 xev # Listen to keyboard events
-loadkeys fr # Change keyboard to FR
+loadkeys fr # Change keyboard to FR - Alt: setxkmap fr
 setxkbmap -print # print keyboard config
 numlockx # Toggle numpad key locking
 
@@ -1037,6 +1040,8 @@ identify -verbose $jpg | grep 'Interlace: JPEG' # is JPEG progressive ? Alt: gre
 mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata
 feh -F -d -D 3 --cycle-once -f <(findImg .) # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 
+mapio/GraphvizAnim # animated graphs
+
 
 $$$$$$$$$$$$$$$
 $ Google APIs $
@@ -1054,6 +1059,7 @@ link:$url # Search for pages that link to a URL
 https://www.google.fr/search?q=5%2B(-sqrt(1-x^2-(y-abs(x))^2))*sin(100*((10-x^2-(y-abs(x))^2))),+x+is+from+-1+to+1,+y+is+from+-1+to+1.5,+z+is+from+1+to+6 # 3D heart surface
 
 youtube-dl --ignore-errors --format best --extract-audio FLF8xTv55ZmwikWWmWLPEAZQ # download playlist as .m4a files - in case of HTTP error 500, try -f18
+normalize-audio *.mp3
 
 # Snippet-search
 cse_id=003799500572498885021:6zbuscnifvi
@@ -1173,3 +1179,10 @@ notify { "var: ${var}": }
 ## Tiny Core Linux (used by boot2docker)
 ###################
 tce-load -w -i appbrowser-cli.tcz bash.vcz vim.vcz # Installing TinyCore AppBrowser CLI - USAGE: TERM=xterm-color appbrowser-cli
+
+
+###################
+## Kali
+###################
+toor # default password
+setxkmap fr

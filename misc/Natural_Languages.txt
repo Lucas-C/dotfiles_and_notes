@@ -24,6 +24,19 @@ Shenanagans
 Sound
 
 ## English idioms
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+- Bob's your uncle
+=======
+- neither fish nor fowl
+>>>>>>> 92b151d... Adding ShipIt.md
+=======
+- neither fish nor fowl
+>>>>>>> 92b151d... Adding ShipIt.md
+=======
+- neither fish nor fowl
+>>>>>>> 92b151d0a5c8b68f17654fdb4b8f90430d0b9b62
 - snake oil
 - bikeshedding
 - to burn the midnight oil
@@ -54,3 +67,4 @@ Gabacho # foreigner, pejorativaly used for French - comes from catalan 'gavatx'
 ## Arabe
 hassanet
 sadaka
+

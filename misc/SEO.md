@@ -10,3 +10,7 @@ Generic HTML structure advices:
 - have a <h1> in your <body>
 - page <title> & <meta> descriptions are important
 - use img alt texts
+
+## Google Webmaster Tools / Search console
+- il est important d'y spécifier un sitemap.xml
+- en cas de duplicatas d'URL dans les résultats de recherche (ex: ?rfrr=...), utiliser le menu "Crawl > URL Parameters" pour les exclure

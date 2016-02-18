@@ -310,8 +310,8 @@
             <WordsStyle name="KEYWORDS" styleID="5" fgColor="859900" bgColor="042029" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
             <WordsStyle name="TRIPLE" styleID="6" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="TRIPLEDOUBLE" styleID="7" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="CLASSNAME" styleID="8" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="DEFNAME" styleID="9" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="CLASSNAME" styleID="8" fgColor="008000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="DEFNAME" styleID="9" fgColor="008000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="859900" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="IDENTIFIER" styleID="11" fgColor="268BD2" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENTBLOCK" styleID="12" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
@@ -391,7 +391,7 @@
             <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
-        <LexerType name="bash" desc="bash" ext="">
+        <LexerType name="bash" desc="bash" ext="bashrc">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="ERROR" styleID="1" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="INSTRUCTION WORD" styleID="4" fgColor="D11C24" bgColor="042029" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
@@ -454,7 +454,7 @@
             <WordsStyle name="STRINGEOL" styleID="13" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="EXT INSTRUCTION" styleID="14" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" keywordClass="type4" />
         </LexerType>
-        <LexerType name="ruby" desc="Ruby" ext="">
+        <LexerType name="ruby" desc="Ruby" ext="pp">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="ERROR" styleID="1" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENTLINE" styleID="2" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />

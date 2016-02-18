@@ -8,7 +8,7 @@
 if ! [ -r ~/.dir_colors ]; then
     curl -s 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > ~/.dir_colors
 fi
-eval $(dircolors ~/.dir_colors)
+eval $(SHELL=$SHELL dircolors ~/.dir_colors)
 
 unfuncalias touch
 

@@ -2,6 +2,7 @@ import random
 import math
 
 import pygame
+from pygame.locals import *
 
 _WHITE = (255, 255, 255)
 _DEFAULT_COLOR = _WHITE
@@ -34,4 +35,9 @@ def cone(center, peak, radius, nb_branches=_DEFAULT_NB_BRANCHES, color=_DEFAULT_
         pygame.draw.line(window, color, peak, tip)
     flip()
 
-
+while True:
+    snowflake((100, 100), 50)
+    cone((150, 50), (150, 200), 100)
+    pt()
+    pt()
+    pt()

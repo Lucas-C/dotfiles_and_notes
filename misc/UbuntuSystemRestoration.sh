@@ -109,3 +109,5 @@ echo 'application/x-shockwave-flash       swf swfl' > ~/.mime.types #open SWF fi
 dvd+rw-mediainfo /dev/sr0 # get DVD info, alt: wodim dev=/dev/sr0 -checkdrive
 
 Gimp -> Window -> Single Window Mode
+
+Theme Solarized Dark pour gedit: https://github.com/mattcan/solarized-gedit

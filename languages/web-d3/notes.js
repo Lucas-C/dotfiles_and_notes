@@ -244,10 +244,12 @@ hex_md5('string') // crypt/md5.js
 // davidshimjs/qrcodejs
 
 lazy.js, lodash > underscore.js // Functional prog libs
+Immutable // Facebook JS lib
 moment.js > sugar.js // parse, validate, manipulate, and display dates
 
 webpack, browserify // module bundlers
 npm install // Node Packaged Modules
+npm view $pkg_name [dist.tarball] // get URL of a package tarball
 npm shrinkwrap // locks down the versions of a package's dependencies
 
 substack/minimist // argument options parser - Alt: chevex/yargs, harthur/nomnom, divarvel/cliparse-node

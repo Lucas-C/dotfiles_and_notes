@@ -18,6 +18,11 @@ curl https://raw.githubusercontent.com/php/php-src/PHP-$php_version/.gdbinit >> 
 gdb -p $php_script_pid
 dump_bt executor_globals.current_execute_data # where is my PHP script hanging ? -> dump stacktrace
 
+system("zip ...") >>FASTER>> standard ZipArchive lib
+
+</-/--------------\-\>
+<!<! Drupapapapal !>!>
+<\-\--------------/-/>
 wget http://ftp.drupal.org/files/projects/drupal-7.38.zip && unzip drupal-7.38.zip && mv drupal-7.38 $INSTALL_DRUPAL
 drush --debug ...
 drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
