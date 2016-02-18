@@ -6,7 +6,7 @@ print("getmetatable(_G):", getmetatable(_G))
 
 
 a = 1
-local newgt = {}		-- create new environment
+local newgt = {}        -- create new environment
 setmetatable(newgt, {__index = _G})
-setfenv(1, newgt)		-- set it
-print(a)				--> 1
+setfenv(1, newgt)        -- set it
+print(a)                --> 1

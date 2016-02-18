@@ -6,8 +6,8 @@ $ ghci:
     :t func                             -- get type
     :k                                  -- get kind (meta-type)
     :m + Data.List Data.Map Data.Set    -- load modules
-	:cd e:\code
-	:module								-- "set the context for expression evaluation"
+    :cd e:\code
+    :module                                -- "set the context for expression evaluation"
     :info <whatever>
 
 $ ghc-pkg list

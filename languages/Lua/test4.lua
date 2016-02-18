@@ -17,9 +17,9 @@ TermSize = {w = 80, h = 24}
 function plot (f)
   eraseTerminal()
   for i=1,TermSize.w do
-	 local x = (i/TermSize.w)*2 - 1
-	 local y = (f(x) + 1)/2 * TermSize.h
-	 mark(i, y)
+     local x = (i/TermSize.w)*2 - 1
+     local y = (f(x) + 1)/2 * TermSize.h
+     mark(i, y)
   end
   io.read()  -- wait before spoiling the screen
 end

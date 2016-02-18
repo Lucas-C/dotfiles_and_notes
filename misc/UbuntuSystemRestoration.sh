@@ -111,3 +111,14 @@ dvd+rw-mediainfo /dev/sr0 # get DVD info, alt: wodim dev=/dev/sr0 -checkdrive
 Gimp -> Window -> Single Window Mode
 
 Theme Solarized Dark pour gedit: https://github.com/mattcan/solarized-gedit
+
+
+## Install from mini.iso : get network connectivity
+sudo ifconfig wlan up # really needed ?
+sudo killall wpa_supplicant
+wpa_passphrase $SSID $WPA_KEY > wpa_passphrase.conf
+sudo wpa_supplicant -iwlan0 -Dwext -fwpa_passphrase.conf
+sudo dhclient -v wlan0 # dans un autre terminal
+iw wlan0 link # check connexion
+
+sudo apt-get install ubuntu-desktop

@@ -2,7 +2,7 @@
 
 \documentclass[a4paper,11pt]{article}
 
-\usepackage[utf8]{inputenc}				% encodage UTF-8
+\usepackage[utf8]{inputenc}                % encodage UTF-8
 \usepackage[T1]{fontenc}
 \usepackage[francais]{babel}
 
@@ -54,18 +54,18 @@ la semaine ». Saurez-vous retrouver son raisonnement ?
 \section*{Solution}
 %%%%%%%%%%%%%
 
-	\paragraph {}
+    \paragraph {}
 La première chose qui choque dans ce problème, c'est la très haute probabilité donnée en solution. Cependant, il s'agit là de la probabilité au terme d'une semaine d'essais. Cette valeur est bien plus raisonnable (du moins, en dessous du seuil psychologique des 50\%) lorsque l'on en déduit les chances de succès sur une journée : $1 - \sqrt[7]{1 - \frac{9}{10}}$. D'après l'énoncé, la solution du problème doit donc être approximativement de \textbf{28,03 \%} de probabilité de succès par jour.
 
-	\paragraph {}
+    \paragraph {}
 Dans la suite du raisonnement, on généralise le problème à un nombre de casiers-étudiants \textbf{n} pair quelconque.
 
 Nous n'allons pas démontrer quelle est la meilleure stratégie, mais qu'une stratégie particulière donne le résultat escompté. Cette stratégie, nommons-la "\textit{Suiveur}", est la suivante : chaque étudiant ouvre le tiroir correspondant à son numéro puis celui indiqué par le numéro trouvé à l'intérieur et ainsi de suite jusqu'à avoir trouvé le sien ou atteint les 250 essais.
 
-	\paragraph {}
+    \paragraph {}
 Notre approche pour démontrer les chances de succès de cette stratégie est de calculer le nombre de dispositions des tiroirs entraînant un échec. Ces permutations peuvent être caractérisées ainsi : elle contiennent un \textit{cycle} de taille supérieure à $\frac{n}{2}$. Il s'agit là de la clef du problème : en effet, si la distribution ne contient pas de tel cycle, chaque étudiant est assurée de trouver le papier indiquant le numéro de son casier de départ (donc le sien) avant le nombre d'essais maximum authorisé ($\frac{n}{2}$).
 
-	\paragraph {}
+    \paragraph {}
 Effectuons leur décompte : \textbf{NC}(\textit{p, n}) est le nombre de cycles de taille \textit{p} existant pour \textit{n} tiroirs. On a entres autres :
 
 $$ NC(n,n) = (n - 1)!$$

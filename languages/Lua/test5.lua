@@ -5,9 +5,9 @@
 function newCounter ()
   local i = 0
   return function ()   -- anonymous function
-		   i = i + 1
-		   return i
-		 end
+           i = i + 1
+           return i
+         end
 end
 
 c1 = newCounter()

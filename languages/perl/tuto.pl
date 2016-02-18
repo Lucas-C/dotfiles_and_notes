@@ -99,9 +99,9 @@ print "@t";
 print "\n** Functions **";
 
 sub foo {
-	my $p1 = shift;
-	my ($p2, $p3) = @_;
-	return ($p1, $p2, $p3);
+    my $p1 = shift;
+    my ($p2, $p3) = @_;
+    return ($p1, $p2, $p3);
 }
 
 @t = foo @l;
@@ -113,7 +113,7 @@ print "\n** Hash tables **";
 my %h = ( "Bob" => 42.666, Sam => "23579");
 $h{Tom} = "-<>/\\";
 if( reverse($h{"Bob"}) eq "666.24" ) {
-	print "test OK";
+    print "test OK";
 }
 
 $\=""; $,=""; # Restauring default separators
@@ -157,37 +157,37 @@ print "Unique values: @t";
 
 # Open perl test file directory
 if ( $0 =~ m/^(.*)\\.*/ ) {
-	chdir($1) or die("$!");
+    chdir($1) or die("$!");
 }
 
 print for <*>, <.*>; # equivalent to glob('*')
 
 my $timeout = 1; #seconds
 eval {
-	local $SIG{ALRM} = sub { die "ALRM: $!" };
-	alarm $timeout;
-	sleep 5; #seconds
-	alarm 0;
+    local $SIG{ALRM} = sub { die "ALRM: $!" };
+    alarm $timeout;
+    sleep 5; #seconds
+    alarm 0;
 };
 if ($@) {
-	if ( $@ =~ /^ALRM/ ) {
-		print "Time out";
-	} else {
-		print "Unexpected error";
-	}
+    if ( $@ =~ /^ALRM/ ) {
+        print "Time out";
+    } else {
+        print "Unexpected error";
+    }
 } else {
-	print "Normal behaviour";
+    print "Normal behaviour";
 }
 # Various failure modes: die, carp, cluck, croak, confess - http://www.tutorialspoint.com/perl/perl_error_handeling.htm
 
 my $fail_file = ".not_readable.txt";
 eval {
-	print "$fail_file is ".(-r $fail_file ? '' : 'un')."readable: ";
+    print "$fail_file is ".(-r $fail_file ? '' : 'un')."readable: ";
     # Better use 3-args 'open' form to avoid any strange filename impact
     # + use a reference counted filehandle
     open($fic,'<',$fail_file) or die("OPEN $!");
-	print("OPEN OK");
-	close($fic);
+    print("OPEN OK");
+    close($fic);
 };
 print "Died $@" if ($@ =~ /^OPEN/ );
 
@@ -203,7 +203,7 @@ close($fic);
 
 open($fic,'<',"ipconfig|");
 while( <$fic> ) {
-	print $1 if m/(\d\d\d\.\d\d\d\.\d\d\d\.\d)/;
+    print $1 if m/(\d\d\d\.\d\d\d\.\d\d\d\.\d)/;
 }
 close($fic);
 
@@ -396,23 +396,23 @@ sub tail {
 }
 =pod
 timethese( 10, {
-		"normal" => sub { normal(500000) },
-		"tail"   => sub {   tail(500000) },
-	}
+        "normal" => sub { normal(500000) },
+        "tail"   => sub {   tail(500000) },
+    }
 );
 =cut
 
 END {
-	print("Execution END : instructions A"); # Could be nested in other block -> same behaviour
+    print("Execution END : instructions A"); # Could be nested in other block -> same behaviour
 }
 END {
-	print("Execution END : instructions B"); # Could be nested in other block -> same behaviour
+    print("Execution END : instructions B"); # Could be nested in other block -> same behaviour
 }
 # Also : UNITCHECK , CHECK and INIT (see: http://perldoc.perl.org/perlmod.html#BEGIN%2C-UNITCHECK%2C-CHECK%2C-INIT-and-END)
 
 bar("This call should crash !");
 sub AUTOLOAD {
-	print "Magic handling undefined subroutine call ^^";
+    print "Magic handling undefined subroutine call ^^";
 }
 # See: http://etutorials.org/Programming/perl+bioinformatics/Part+I+Object-Oriented+Programming+in+Perl/Chapter+3.+Object-Oriented+Programming+in+Perl/3.9+How+AUTOLOAD+Works/
 
@@ -429,17 +429,17 @@ Perl DTrace # real-time stats on function entry & exit
 
 # One-liners tuto : http://articles.mongueurs.net/magazines/linuxmag50.html
 # - Imprime les lignes communes aux deux fichiers (posté par Randal Schwartz sur perlmonks) :
-#		perl -ne 'print if ($seen{$_} .= @ARGV) =~ /10$/' fichier1 fichier2
+#        perl -ne 'print if ($seen{$_} .= @ARGV) =~ /10$/' fichier1 fichier2
 # - Détecte les fichiers texte (un fichier est considéré comme un fichier texte par l'opérateur -T s'il contient plus de 30% de caractères "bizarres" ou un caractère nul (\0) dans le premier bloc) :
-#		perl -le 'for(@ARGV) {print if -f && -T _}' *
+#        perl -le 'for(@ARGV) {print if -f && -T _}' *
 # - Modifie des dates d'accès et de modification du fichier, pour affirmer qu'ils datent d'un mois dans le futur.
-#		perl -e '$X=24*60*60; utime(time(),time() + 30 * $X,@ARGV)' fichier
+#        perl -e '$X=24*60*60; utime(time(),time() + 30 * $X,@ARGV)' fichier
 # - Extrait, trie et imprime les mots d'un fichier
-#		perl -0nal012e '@a{@F}++; print for sort keys %a' fichier
+#        perl -0nal012e '@a{@F}++; print for sort keys %a' fichier
 # - Génère un mot de passe aléatoire :
-#		perl -e 'print chr(32 + rand 95) for 1..8'
+#        perl -e 'print chr(32 + rand 95) for 1..8'
 # - Affiche les lignes du fichier fichier (ou du flux reçu sur l'entrée standard) par ordre croissant d'occurrence :
-#		perl -ne '$c{$_}++;END{print sort { $c{$a}<=>$c{$b} } keys%c}' fichier
+#        perl -ne '$c{$_}++;END{print sort { $c{$a}<=>$c{$b} } keys%c}' fichier
 
 # Installing modules : perl -MCPAN -e 'install Mon::Module'
 
@@ -451,7 +451,7 @@ Perl DTrace # real-time stats on function entry & exit
 unlink "$this_file.7z", "data.dir", "data.pag";
 
 =pod
-	FROM: http://articles.mongueurs.net/magazines/linuxmag52.html
+    FROM: http://articles.mongueurs.net/magazines/linuxmag52.html
 # Dont un joli one-liner : LC_ALL=french perl -e '$! = $_, print 0 + $!, " $!\n" for 1 .. 128'
 
     use English qw(-no_match_vars);

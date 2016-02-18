@@ -16,18 +16,18 @@ our $shared_by_tags = 'tata';
 my $invisible = 'tutu'; # local to package
 
 sub hello {
-	my ($surname) = @_;
-	print "Hello $surname\n";
+    my ($surname) = @_;
+    print "Hello $surname\n";
 }
 
 sub new {
-	my ($class,$param1,$param2) = @_; 
-	$class = ref($class) || $class; # In case constructor is called on Object, not with Class->
-	my $self = {};  # or $class->SUPER::new() if inheritance
-	bless($self, $class); 
-	$self->{PARAM1} = $param1;
-	$self->{_PARAM2} = $param2; # UNDERSCORE => PRIVATE (convention)
-	return $self; 
+    my ($class,$param1,$param2) = @_; 
+    $class = ref($class) || $class; # In case constructor is called on Object, not with Class->
+    my $self = {};  # or $class->SUPER::new() if inheritance
+    bless($self, $class); 
+    $self->{PARAM1} = $param1;
+    $self->{_PARAM2} = $param2; # UNDERSCORE => PRIVATE (convention)
+    return $self; 
 }
 
 sub DESTROY {

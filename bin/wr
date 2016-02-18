@@ -22,7 +22,7 @@ my $url  = "$api_url/$dict/$word";
 my $data = do_request($url);
  
 die color('red'), $data -> {'Note'}, "\n"
-	if $data -> {'Error'};
+    if $data -> {'Error'};
  
 say color('green'), "Main:", color('reset');;
 print_entries($data -> {'term0'} -> {'PrincipalTranslations'});
@@ -30,41 +30,41 @@ print_entries($data -> {'term0'} -> {'AdditionalTranslations'});
 print_entries($data -> {'term0'} -> {'Entries'});
  
 if ($data -> {'original'} -> {'Compounds'}) {
-	say color('blue'), "\nCompounds:", color('reset');
-	print_entries($data -> {'original'} -> {'Compounds'});
+    say color('blue'), "\nCompounds:", color('reset');
+    print_entries($data -> {'original'} -> {'Compounds'});
 }
  
 sub print_entries {
-	my $data = shift;
+    my $data = shift;
  
-	while (my ($id, $info) = each %$data) {
-		my $original = $info -> {'OriginalTerm'} -> {'term'};
-		my $first    = $info -> {'FirstTranslation'} -> {'term'};
-		my $second   = $info -> {'SecondTranslation'} -> {'term'};
+    while (my ($id, $info) = each %$data) {
+        my $original = $info -> {'OriginalTerm'} -> {'term'};
+        my $first    = $info -> {'FirstTranslation'} -> {'term'};
+        my $second   = $info -> {'SecondTranslation'} -> {'term'};
  
-		$first .= " ($second)"
-			if $second;
+        $first .= " ($second)"
+            if $second;
  
-		printf "%-20s => %s\n", $original, $first
-			if $first;
-	}
+        printf "%-20s => %s\n", $original, $first
+            if $first;
+    }
 }
  
 sub do_request {
-	my $url = shift;
+    my $url = shift;
  
-	my $http = HTTP::Tiny -> new;
-	my $response = $http -> get($url);
+    my $http = HTTP::Tiny -> new;
+    my $response = $http -> get($url);
  
-	die color('red'), $response -> {'reason'}, "\n"
-		unless $response -> {'success'};
+    die color('red'), $response -> {'reason'}, "\n"
+        unless $response -> {'success'};
  
-	my $data = decode_json $response -> {'content'};
+    my $data = decode_json $response -> {'content'};
  
-	if ($data -> {'Response'} and $data -> {'Response'} eq 'Redirect') {
-		$url = $api_url.$data -> {'URL'};
-		return do_request($url);
-	}
+    if ($data -> {'Response'} and $data -> {'Response'} eq 'Redirect') {
+        $url = $api_url.$data -> {'URL'};
+        return do_request($url);
+    }
  
-	return $data;
+    return $data;
 }

@@ -1,8 +1,8 @@
 #!/usr/bin/lua
 
 co = coroutine.create(function ()
-	   print("hi")
-	 end)
+       print("hi")
+     end)
 
 print(co)   --> thread: 0x8071d98
 
@@ -20,29 +20,29 @@ end
 
 function producer ()
   return coroutine.create(function ()
-	while true do
-	  local x = io.read()     -- produce new value
-	  send(x)
-	end
+    while true do
+      local x = io.read()     -- produce new value
+      send(x)
+    end
   end)
 end
 
 function filter (prod)
   return coroutine.create(function ()
-	local line = 1
-	while true do
-	  local x = receive(prod)   -- get new value
-	  x = string.format("%5d %s", line, x)
-	  send(x)      -- send it to consumer
-	  line = line + 1
-	end
+    local line = 1
+    while true do
+      local x = receive(prod)   -- get new value
+      x = string.format("%5d %s", line, x)
+      send(x)      -- send it to consumer
+      line = line + 1
+    end
   end)
 end
 
 function consumer (prod)
   while true do
-	local x = receive(prod)   -- get new value
-	io.write(x, "\n")          -- consume new value
+    local x = receive(prod)   -- get new value
+    io.write(x, "\n")          -- consume new value
   end
 end
 
