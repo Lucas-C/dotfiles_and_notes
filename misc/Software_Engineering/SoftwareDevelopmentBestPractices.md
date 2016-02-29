@@ -31,11 +31,14 @@ Software Development Best Practices
 - [LatencyNumbersEveryProgrammerShouldKnow](https://gist.github.com/hellerbarde/2843375)
 - [ResponseTimes-The3ImportantLimits](http://www.nngroup.com/articles/response-times-3-important-limits/)
 - [What happens when the Board Of Directors begins to panic?](http://www.smashcompany.com/business/what-happens-when-the-board-of-directors-begins-to-panic)
+- [Why code review beats testing: evidence from decades of programming research](https://kev.inburke.com/kevin/the-best-ways-to-find-bugs-in-your-code/)
+- [Best practices for code review](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
 ## Main "mantras"
-- Boy Scout Rule & Broken Window Theory
+![](https://chezsoi.org/lucas/wwcb/photos/BoyScoutRule.jpg)
+- [Boy Scout Rule](http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule) & Broken Window Theory
 - KISS & YAGNI : Keep It Simple, Stupid & You Aren't Gonna Need It
 - Duplication : DRY ! Once, and only once. [CC-G5]
     switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
@@ -173,16 +176,16 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - Write learning tests [CC-Chapt8]
 - Use manual try/catch and not @Test(expected) on big tests
 - Don't overuse Mocks [DOM] or they'll become **mockeries**
-* Tests can be harder to understand
-* Tests can be harder to maintain
-* Tests can provide less assurance that your code is working properly
+    * Tests can be harder to understand
+    * Tests can be harder to maintain
+    * Tests can provide less assurance that your code is working properly
 - Know Your Test Doubles [KYTD]
-* A stub has no logic, and only returns what you tell it to return
-* A mock has expectations about the way it should be called, and a test should fail if it’s not called that way. Mocks are used to test interactions between objects.
-* A fake doesn’t use a mocking framework: it’s a lightweight implementation of an API that behaves like the real implementation, but isn't suitable for production.
-* test your code opening files with /dev/full that always returns error code ENOSPC (meaning “No space left on device”)
-* GUI testing, e.g. with Selenium: Capybara, SauceLabs, RobotFramework
-* the [TestPyramid]: ![](http://martinfowler.com/bliki/images/testPyramid/pyramid.png) : more low-level tests than high level end-to-end tests
+    * A stub has no logic, and only returns what you tell it to return
+    * A mock has expectations about the way it should be called, and a test should fail if it’s not called that way. Mocks are used to test interactions between objects.
+    * A fake doesn’t use a mocking framework: it’s a lightweight implementation of an API that behaves like the real implementation, but isn't suitable for production.
+    * test your code opening files with /dev/full that always returns error code ENOSPC (meaning “No space left on device”)
+    * GUI testing, e.g. with Selenium: Capybara, SauceLabs, RobotFramework
+    * the [TestPyramid]: ![](http://martinfowler.com/bliki/images/testPyramid/pyramid.png) : more low-level tests than high level end-to-end tests
 
 ### Why unit tests ? [PP-Chapt34]
 - build trust in your code
@@ -191,11 +194,12 @@ Don't use comments when you can use a function/variable to expresse the intent [
 - explicitely details the code behaviour on corner cases
 
 ## Code review > TDD [CRoTDD]
-cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development]
+cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development] & [Why code review beats testing: evidence from decades of programming research]
 * You **need** TDD !! (or at least some kind of automated systematic testing) [QETDDM]
 * TDD: automated, easy to follow, autonomously done
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
 * Do it well: use proper tools, including automated static analysis (findbugs, ArtisticStyle for C/C++/Java, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
+* cf. [Best practices for code review]
 
 ### Code reviews guidelines (from @scharrier)
 Pour tout le monde

@@ -308,8 +308,8 @@
             <WordsStyle name="STRING" styleID="3" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="CHARACTER" styleID="4" fgColor="3EABA0" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="KEYWORDS" styleID="5" fgColor="859900" bgColor="042029" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
-            <WordsStyle name="TRIPLE" styleID="6" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="TRIPLEDOUBLE" styleID="7" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="TRIPLE" styleID="6" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
+            <WordsStyle name="TRIPLEDOUBLE" styleID="7" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="CLASSNAME" styleID="8" fgColor="008000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="DEFNAME" styleID="9" fgColor="008000" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="OPERATOR" styleID="10" fgColor="859900" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />

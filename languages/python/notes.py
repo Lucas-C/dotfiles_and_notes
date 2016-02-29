@@ -629,6 +629,7 @@ resource # limit a process resources: SPU time, heap size, stack size...
 print('Memory usage: {} (kb)'.format(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))  # get process memory usage
 
 shlex.split('--f "a b"') # tokenize parameters properly
+pipes.quote() # to escape variables - Alt: shlex.quote() for Python3.3+
 
 ### sh.py tips & tricks
 # Caveat: does not work under Windows
@@ -900,7 +901,7 @@ Falcon, nameko  # minimalist WSGI / microservices frameworks to build HTTP APIs
 flask # good for simple APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
-+ web.py # by Aaron Swarz, used by Yandex
++ web.py # very old now, written by Aaron Swarz, used by Yandex
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
 import re, SimpleHTTPServer, SocketServer
@@ -919,9 +920,16 @@ def internal_error(exception):
     raise_chained(exception, 'Error 500: ') # In Python 3: raise XYZ from exception
 # Also, catch-all URL: http://flask.pocoo.org/snippets/57/
 
+def application(env, start_response): # Most basic native WSGI app
+    start_response('200 OK', [('Content-Type', 'text/html')])
+    return ['Hello World!'.encode('ascii')]
+if __name__ == '__main__': # to launch a small WSGI server directly, without uwsgi / gunicorn
+    from wsgiref.simple_server import make_server
+    make_server('localhost', 8088, application).serve_forever()
+
 make html # Pelican static HTML files generation, using Jinja2 templates
 make serve # preview Pelican articles in localhost, with optional autoreload on edit
-sitemap, extract-toc, Tipue-search # plugins
+sitemap, extract-toc, Tipue-search # plugins Pelican
 
 locust # load testing simulating millions of simultaneous users
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
@@ -952,12 +960,14 @@ pip install pyparsing==1.5.7 && pip install pydot && ./manage.py graph_models -a
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns += staticfiles_urlpatterns()
+# Alt: Whitenoise
 
 AppConfig.ready() # to perform initialization tasks (such as registering signals); called as soon as the registry is fully populated; !! AVOID INTERACTING WITH THE DB !! -> use migrations and e.g. RunPython to populate the DB with initial data
 
 djangocolors_formatter.py # one-file recipe
 django-debug-toolbar
 django-toolbelt
+
 stripe # payments app
 Tastypie # webservice framework to creating REST-style APIs, e.g. for an autocompletion service
 factoryboy # > fixtures for DB testing (personnal opinion: several fixtures can sometimes be simpler AND avoid dangerous over-mocking)
@@ -1033,7 +1043,7 @@ writer = csvkit.writer(sys.stdout)
 with open(sys.argv[1]) as csv_file:
     for row in csvkit.reader(csv_file):
         writer.writerow(row)
-aspy.yaml, yaml # beware the inconsistent behaviours: http://pyyaml.org/ticket/355
+aspy.yaml, yaml # !!! yaml.load() is an unsafe operation ! Use yaml.safe_load() - Also: beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 cPickle # binary format, generic, fast & lighweight - DO NOT USE IT ! -> "untrusted pickles can execute arbitrary Python code" + "you can’t even easily tell which classes are baked forever into your pickles" -> Alt: eeve/camel PyYaml-based serialization (inc. versionning & use YAML metadata)
 # + PyCloud make it possible to pickle functions dependencies
 
@@ -1050,14 +1060,14 @@ pygst # GStreamer : media-processing framework : audio & video playback, recordi
 jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
 antiboredom/audiogrep
 
+pyusb  # interfaces to FTDI D2XX drivers to manipulate USB devices
+
 
 """"""""
 "" Fun
 """"""""
-# Funny loop construct (exist also: try/except/else)
 for ...:
-    break
-else:
+else:  # Awkward loop construct (also exist: try/except/else)
 
 from __future__ import braces
 

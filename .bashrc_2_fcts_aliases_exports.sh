@@ -228,7 +228,6 @@ t () { # Execute some cmd with start/end timestamps
 #----------
 alias tkcon='tkcon -load Tk'
 
-export PIP_DOWNLOAD_CACHE=$HOME/.pip_download_cache/
 alias djshell='PYTHONSTARTUP=$HOME/.pythonrc ./manage.py shell_plus --use-pythonrc'
 alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
@@ -421,10 +420,9 @@ findImg () {
 findCRLF () {
     findByFilePattern CRLF "$@"
 }
-findISO-8859-1 () {
+findLatin1 () { # aka ISO-8859-1
     findByFilePattern ISO-8859 "$@"
 }
-alias findLatin1=findISO-8859-1
 findAndSortByDate () {
     find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
 }

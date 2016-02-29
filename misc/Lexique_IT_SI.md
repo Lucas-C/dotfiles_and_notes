@@ -14,6 +14,7 @@ DAO = Data Access Object
 DBA = DataBase Administrator
 DSI = Direction/Directeur des Systèmes d'Information
 DTO = Data Transfer Object
+EDB = Expression De Besoin
 ERP = Entreprise Resource Planning (== PGI: progiciel de gestion intégré)
 ETP = Equivalent Temps Plein, correspond le plus souvent à une semaine de 5 jours
 ESN = SSII
@@ -33,6 +34,7 @@ REX = Retour d'EXpérience
 ROI = Return On Investment
 RTFM = Read The Fucking Manual
 SCRUD = Search, Create, Read, Update, Delete -> cf. CRUD
+SGBD = Système de gestion de base de données
 SLA = Service Level Agreement (~ Engagement de Service)
 SI = Système d'information == IT
 SOLID = Single Responsability Principle + Open/Closed Principle + Liskov substitution principle + Interface segregation principle + Dependency inversion principle
@@ -53,6 +55,7 @@ Also: wtf command & /usr/share/games/bsdgames/acronyms*
 http://fr.wikipedia.org/wiki/Jargon_informatique
 
 ## Frenchisms
-grappe JSON
-moulinette
 bouchonné
+grappe JSON
+marque blanche
+moulinette

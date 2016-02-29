@@ -21,6 +21,7 @@ convertWinArgs () {
     while [ "$1" ]; do
         case $1 in
         /*) echo "$(cygpath -w $1)" ;;
+        [A-Z]:*) echo "$1" ;;
         *) echo "$(cygpath -w $PWD/$1)" ;;
         esac
         shift
@@ -30,9 +31,14 @@ convertWinArgs () {
 win_hosts=$(cygpath -w "C:\Windows\System32\drivers\etc\hosts")
 
 swap_win_hosts () {
-    mv $win_hosts.bak tmp
-    mv $win_hosts $win_hosts.bak
-    mv tmp $win_hosts
+    if ! [ -r $win_hosts.bak ]; then
+        echo "Creating $win_hosts.bak"
+        echo "127.0.0.1       localhost" > $win_hosts.bak
+    fi
+    cp $win_hosts tmp1 || return 1
+    cp $win_hosts.bak tmp2 || return 2
+    mv tmp1 $win_hosts.bak || return 3
+    mv tmp2 $win_hosts || return 4
 }
 
 [ -r "/cygdrive/c/Program Files (x86)" ] && export X86=\ \(x86\)

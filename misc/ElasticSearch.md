@@ -24,6 +24,16 @@ cf. https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-per
     action.disable_delete_all_indices: true
     # safer, disallow curl -XDELETE 'http://localhost:9200/*/'
 
+## Aggregates (formerly facets)
+
+Terms Aggregation: https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html
+
+    "aggregations" : {
+      "agg_name": {
+          "terms" : { "field" : "field_name" }
+      }
+    }
+
 ## Java client
 
     Jest is a great Java client to connect to ELK through HTTP (not with custom protocol on port 9300)
