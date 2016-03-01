@@ -328,8 +328,8 @@ set operators : | & - ^
 dict.__missing__ # invoked for missing items
 
 *{'a':0,'b':1}  # ('a', 'b')
-assert d == dict(**d)
-dict(y, **x) # union of dicts, duplicates are resolved in favor of x
+assert d == dict(**d)  # !!WARNING!! only works if `d` keys are strings
+dict(y, **x) # union of dicts, duplicates are resolved in favor of x !!WARNING!! only works if `d` keys are strings - Prefer the following in 3.5+ : {**defaults, **user}
 
 class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308
     __getattr__ = dict.__getitem__
@@ -1138,7 +1138,8 @@ from functools import \
     total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
     lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property ; or boltons.cacheutils.LRI / boltons.cacheutils.LRU
 
-collections.ChainMap # view of multiple dicts - Hidden Py2.7 backport: from ConfigParser import _Chainmap as ChainMap - Alt: Py2ChainMap
+collections.ChainMap({}, d1, d2) # view of multiple dicts - Hidden Py2.7 backport: from ConfigParser import _Chainmap as ChainMap - Alt: Py2ChainMap
+
 
 """"""""""""
 "" Python 3.5

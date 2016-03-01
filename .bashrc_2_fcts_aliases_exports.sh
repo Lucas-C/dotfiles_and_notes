@@ -184,7 +184,7 @@ lse () { # group files by their extension
 # --mmap, if available, can make it even faster - cf. https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html
 alias g='grep -i --color=always'
 [ -d $BASHRC_DIR/.git ] && NOTES_FILES=$(cd $BASHRC_DIR && git ls-files)
-gn () { ( cd $BASHRC_DIR && grep -I --color=always "${@:-$(cat)}" $NOTES_FILES ); }
+gn () { ( cd ${BASHRC_DIR?} && grep -I --color=always "${@}" ${NOTES_FILES?}; ) } #  $NOTES_FILES can be undefined in case of a virtualenv (eg. with pew)
 alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
 alias bzg='bzgrep -i --color=always'
 zgr () {

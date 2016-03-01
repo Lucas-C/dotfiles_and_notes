@@ -1,4 +1,9 @@
-Source: http://www.ascii-art.de/ascii/ab/boat.txt
+Chuck Norris facts:
+
+    curl -s https://raw.githubusercontent.com/jenkinsci/chucknorris-plugin/master/src/main/java/hudson/plugins/chucknorris/FactGenerator.java | sed '1,37d;s/^ \+"//;s/"..\?$//;115,$d' | shuf -n 1
+
+
+ASCII boats source: http://www.ascii-art.de/ascii/ab/boat.txt
 
       _~
    _~)_)_~
@@ -36,3 +41,14 @@ ___t_________
    \ o.o.o.oY/
     \_______/
   ~~~~~~~~~~~~~~
+
+
+ScroogeMcDuck & MickeyMouse fun facts:
+
+    curl -s https://raw.githubusercontent.com/Lucas-C/linux_configuration/master/misc/Software_Engineering/ScroogeMcDuck-and-MickeyMouse_fun-facts.txt | shuf -n 1
+
+SOURCES:
+- http://www.hiddenmickeys.org/secrets
+- http://www.buzzfeed.com/kristinchirico/things-you-didnt-know-about-scrooge-mcduck
+- http://pmspg.over-blog.com
+- http://disney.wikia.com/wiki/Mickey_Mouse

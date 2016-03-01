@@ -33,6 +33,7 @@ Software Development Best Practices
 - [What happens when the Board Of Directors begins to panic?](http://www.smashcompany.com/business/what-happens-when-the-board-of-directors-begins-to-panic)
 - [Why code review beats testing: evidence from decades of programming research](https://kev.inburke.com/kevin/the-best-ways-to-find-bugs-in-your-code/)
 - [Best practices for code review](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
+- [Why Should Software Architects Write Code](http://blog.ieeesoftware.org/2016/02/why-should-software-architects-write.html)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
