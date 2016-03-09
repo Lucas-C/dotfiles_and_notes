@@ -42,6 +42,7 @@ Project management best practices
     issues count
     contributors count
 - cf. [10 reasons not to adopt this new toy techno in production]
+- OSS projects comparator: https://www.openhub.net/p/_compare?project_0=cURL&project_1=Wget
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]

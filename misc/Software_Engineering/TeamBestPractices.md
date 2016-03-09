@@ -31,6 +31,9 @@
 - [Alarm design: From nuclear power to WebOps](http://humanisticsystems.com/2015/10/16/fit-for-purpose-questions-about-alarm-system-design-from-theory-and-practice/)
 - [Climbing out of the software death spiral](http://tinyletter.com/programming-beyond-practices/letters/beginning-to-climb-out-of-the-software-death-spiral)
 - [Interviewing is broken](http://www.stilldrinking.org/interviewing-is-broken)
+- [What Google Learned From Its Quest to Build the Perfect Team](http://www.nytimes.com/2016/02/28/magazine/what-google-learned-from-its-quest-to-build-the-perfect-team.html?_r=0)
+- [We Hire the Best, Just Like Everyone Else](http://blog.codinghorror.com/we-hire-the-best-just-like-everyone-else/)
+<!--_-->
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -53,7 +56,7 @@ Daniel Pink motivational building blocks from "The puzzle of motivation" :
 - mastery: to get better and better at something that matters
 - purpose: to do what we do in the service of something larger than ourselves
 
-## Team culture building
+## Team culture building & best practices
 - two main tenets: RESPECT & TRUST people.
 How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [MVB] + [TrekOps] + [MAPP] on trust, autonomy & Agile methods in Michelin
 - write down team tenets as guidelines for priorities
@@ -72,6 +75,17 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
     - Clarifying mission
     - Knowing your role as an executive: beeing a support for the team
 - [DefendingYourTime] : protect from bad planning and burnout.
+- draw a technical/functional skills matrix of you team
+- [What Google Learned From Its Quest to Build the Perfect Team] :
+    * Two behaviors that all the good teams generally shared:
+        - First, on the good teams, members spoke in roughly the same proportion. " if only one person or a small group spoke all the time, the collective intelligence declined".
+        - Second, the good teams all had high "average social sensitivity".
+    * Psychological safety is "a sense of confidence that the team will not embarrass, reject or punish someone for speaking up".
+    It describes a team climate characterized by interpersonal trust and mutual respect in which people are comfortable being themselves.
+    * Everyone [shared] something personal about themselves. The team found it easier to speak honestly about the things that had been bothering them, their small frictions and everyday annoyances.
+    They agreed to adopt some new norms: from now on, [the team leader] would make an extra effort to let the team members know how their work fit into [the company's] larger mission; they agreed to try harder to notice when someone on the team was feeling excluded or down.
+    * No one wants to put on a ‘‘work face’’ when they get to the office.
+    To be fully present at work, to feel ‘‘psychologically safe,’’ we must know that we can be free enough, sometimes, to share the things that scare us without fear of recriminations. We must be able to talk about what is messy or sad, to have hard conversations with colleagues who are driving us crazy. We can’t be focused just on efficiency.
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [DieScrum]
@@ -107,7 +121,7 @@ In general, limit meetings by making them informal chats or doing them properly:
 - CMs: cf. [IT Change Management]
 - post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management] + trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
 Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
-- use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err or Zulip for Python)
+- use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err or Zulip for Python, cog for Slack / HipChat)
 - useful questions to ask yourself when designing an alarms system : [Alarm design: From nuclear power to WebOps]
 - [Climbing out of the software death spiral] -> either :
     * comprehensive backlog audit
@@ -156,4 +170,4 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
     * cf. [FrontendJobInterviewQuestions]
     * cf. [What happens when you type google.com into your browser and press enter?]
     * cf. [JoeStumpTechnicalInterviewQuestions]
-- cf. [Interviewing is broken] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."
+- cf. [Interviewing is broken] & [We Hire the Best, Just Like Everyone Else] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."

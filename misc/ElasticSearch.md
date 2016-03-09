@@ -24,6 +24,8 @@ cf. https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-per
     action.disable_delete_all_indices: true
     # safer, disallow curl -XDELETE 'http://localhost:9200/*/'
 
+    bootstrap.mlockall: true # prevents the memory from being swapped by the OS
+
 ## Aggregates (formerly facets)
 
 Terms Aggregation: https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html
@@ -58,6 +60,12 @@ Terms Aggregation: https://www.elastic.co/guide/en/elasticsearch/reference/curre
 
 
 ## Issues experienced
+
+### By default, ELS does NOT provide exact string matching
+
+You need to flag your field as "not_analyzed" : https://www.elastic.co/guide/en/elasticsearch/guide/current/_finding_exact_values.html
+
+This can be set as a default for all string fields: http://stackoverflow.com/a/27571721
 
 ### "SearchPhaseExecutionException[Failed to execute phase [query_fetch], all shards failed]"
 

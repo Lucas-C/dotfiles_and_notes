@@ -1,6 +1,6 @@
 Chuck Norris facts:
 
-    curl -s https://raw.githubusercontent.com/jenkinsci/chucknorris-plugin/master/src/main/java/hudson/plugins/chucknorris/FactGenerator.java | sed '1,37d;s/^ \+"//;s/"..\?$//;115,$d' | shuf -n 1
+    curl -s https://raw.githubusercontent.com/jenkinsci/chucknorris-plugin/master/src/main/java/hudson/plugins/chucknorris/FactGenerator.java | sed '1,/FACTS = {/d;s/^ \+"//;s/"..\?$//;/^$/,$d' | shuf -n 1
 
 
 ASCII boats source: http://www.ascii-art.de/ascii/ab/boat.txt
@@ -45,7 +45,7 @@ ___t_________
 
 ScroogeMcDuck & MickeyMouse fun facts:
 
-    curl -s https://raw.githubusercontent.com/Lucas-C/linux_configuration/master/misc/Software_Engineering/ScroogeMcDuck-and-MickeyMouse_fun-facts.txt | shuf -n 1
+    curl -s https://raw.githubusercontent.com/Lucas-C/linux_configuration/master/misc/Software_Engineering/ScroogeMcDuck-and-MickeyMouse-fun-facts.txt | shuf -n 1
 
 SOURCES:
 - http://www.hiddenmickeys.org/secrets

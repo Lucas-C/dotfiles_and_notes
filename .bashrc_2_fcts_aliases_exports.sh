@@ -427,7 +427,7 @@ findAndSortByDate () {
     find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
 }
 
-fqdn () { python -c "import socket ; print socket.gethostbyaddr(\"$@\")[2]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
+fqdn () { python2 -c "import socket ; print socket.gethostbyaddr(\"$@\")[2]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
 ext_ip () { dig +short myip.opendns.com @resolver1.opendns.com; } # faster than HTTP, e.g. ipecho.net/plain checkip.dyndns.org ifconfig.me
 int_ips () { /sbin/ifconfig $1 | grep "inet[^0-9]" | sed 's/.*[^0-9]\([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\)[^0-9].*/\1/' | grep -v '127\.0\.0\.1'; }
 

@@ -441,7 +441,10 @@ Perl DTrace # real-time stats on function entry & exit
 # - Affiche les lignes du fichier fichier (ou du flux reçu sur l'entrée standard) par ordre croissant d'occurrence :
 #        perl -ne '$c{$_}++;END{print sort { $c{$a}<=>$c{$b} } keys%c}' fichier
 
-# Installing modules : perl -MCPAN -e 'install Mon::Module'
+$ perl -MCPAN -e 'install Mon::Module' # To install modules - Sometimes the `cpan` command works better, eg: perl -MCPAN -e 'install YAML' Can't locate object method "install" via package "YAML" at -e line 1.
+# Updating all outdated Perl modules (FROM: https://www.nu42.com/2012/05/updating-all-outdated-perl-modules.html)
+$ cpanm --self-upgrade
+$ cpan-outdated |cpanm
 
 # Advanced : Attributes
 # -> http://perldoc.perl.org/attributes.html

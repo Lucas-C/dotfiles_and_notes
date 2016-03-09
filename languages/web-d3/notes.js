@@ -314,3 +314,5 @@ sweetalert // pretty replacement for 'alert'
 ywng/Progressive-News-Cloud, jasondavies/d3-cloud // word clouds generators
 
 esprima // JS AST manipulation: parsing, rewrite, refactoring ; + escodegen for code generation
+
+Sencha Ext JS // framework for building feature-rich cross-platform web applications targeting desktop, tablets, and smartphones - Commercial / GPLv3 license

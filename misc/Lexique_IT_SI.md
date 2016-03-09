@@ -23,10 +23,12 @@ GUI = Graphical User Interface == IHM
 IDL = Interface Description Language
 IHM = Interface Homme-Machine == GUI
 iSCSI = Internet Small Computer System Interface
+MCD = Modèle Conceptuel de Données (SGBD)
 MCO = Maintien en condition opérationnelle
 MEP = Mise En Production
 MOA = Maîtrise d'OuvrAge -> définition budget & délais
 MOE = Maîtrise d'OEuvre -> compétences techniques
+MCD = Modèle Physique de Données (SGBD)
 MVP = Minimum Viable Product
 PAQ = Plan d'Assurance Qualité -> définit une TMA: périmètre pris en charge, gouvernance...
 POC = Proof Of Concept : prototype

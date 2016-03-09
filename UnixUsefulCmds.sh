@@ -423,6 +423,7 @@ fold # breaks lines to proper width
 fmt # reformat lines into paragraphs
 printf "%-8s\n" "${value}" # 8 spaces output formatting
 | xargs -n 1 sh -c 'echo ${0:0:3}' # 3 first characters of $string
+var=$(echo "$var" | xargs echo) # Remove leading/trailing whitespaces
 
 csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # pip install csvkit -Alt: mlr (Miller)
 
@@ -509,6 +510,7 @@ gzip --best/--fast # control compression quality VS speed
 kzip # build smaller, zip-compatible archives, but takes x80 more time
 zipinfo $file.zip # To get more info on its content, like creation time, CRC, comment... :  python -c "import json, sys, zipfile; json.dump([{k: str(getattr(i, k)) for k in zipfile.ZipInfo.__slots__} for i in zipfile.ZipFile(sys.argv[1]).infolist()], sys.stdout)" $file.zip | jq .
 pigz # paralell gzip, do not compress folders
+lbzip2 # paralell bzip
 yum install p7zip # for .7z files
 lzop, lz4 # faster, use less CPU
 

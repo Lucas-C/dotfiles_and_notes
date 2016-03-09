@@ -40,3 +40,5 @@ cygrunsrv --list
 #    G:\devhome\tools\cygwin\bin\ash.exe -c '/bin/peflagsall -v'
 # If pip issue "OSError: [Errno 11] Resource temporarily unavailable",
 # simply "pip uninstall $dependency_pkg && pip install $pkg" already saved my ass once
+
+# Cygwin bug with tar: "If you add test.exe and test to a tar archive in that order, you lose test.exe on extraction" - https://www.nu42.com/2016/03/tar-anomaly.html

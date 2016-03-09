@@ -695,6 +695,7 @@ lobocv/crashreporter # store and send crash reports directly to the devlopers
 "" Libs & tools for SCIENCE !
 """""""""""""""""""""""""""""
 nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
+LuminosoInsight/wordfreq # Access a database of word frequencies, in various natural languages.
 topia.termextract
 difflib # compare text/strings/sequences
 fuzzywuzzy # fuzzy string comparison ratios, token ratios...
@@ -765,7 +766,7 @@ binascii.hexkify # display binary has hexadecimal
 celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
 dask  # task scheduling and blocked algorithms for parallel processing
 sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn - Also:
-luigi, Oozie, Azkaban, Drake, Pinball, Airflow # workflow managers
+luigi, Oozie, Azkaban, Drake, Pinball, Airflow, viewflow # workflow managers
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
 
@@ -810,6 +811,7 @@ Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) e
 cairo # graphics library outputting .ps .pdf .svg & more
 wand (ImageMagick binding), pillow > pil # Python Image Library
 exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags
+python-thumbnails # generates images thumbnails, e.g. for your website
 ufoym/cropman # face-aware image cropping
 andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
 lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
@@ -897,11 +899,12 @@ kevin1024/vcrpy # record / replay HTTP interactions
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod server, very easy to launch
-Falcon, nameko  # minimalist WSGI / microservices frameworks to build HTTP APIs
+Falcon, nameko, featherweight # minimalist WSGI / microservices frameworks to build HTTP APIs
 flask # good for simple APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
 + web.py # very old now, written by Aaron Swarz, used by Yandex
+pyswagger # generates a Python client from a JSON formatted Swagger (Open API) schema
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
 import re, SimpleHTTPServer, SocketServer
