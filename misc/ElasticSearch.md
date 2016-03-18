@@ -16,6 +16,8 @@ An ElasticSearch dev talk: https://speakerdeck.com/elasticsearch/maintaining-per
 ## Config recommandations
 How to choose the number of nodes in a cluster: http://blog.overnetcity.com/2014/04/24/elasticsearch-the-split-brain-problem/
 
+5 Lessons Learned From A Year Of Elasticsearch In Production : https://tech.scrunch.com/blog/lessons-learned-from-a-year-of-running-elasticsearch-in-production/
+
 cf. https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-performance/
 
     bootstrap.mlockall: true
@@ -35,6 +37,8 @@ Terms Aggregation: https://www.elastic.co/guide/en/elasticsearch/reference/curre
           "terms" : { "field" : "field_name" }
       }
     }
+
+!! Terms aggs are also subjects to "not_analyzed" parsing control
 
 ## Java client
 
@@ -66,6 +70,8 @@ Terms Aggregation: https://www.elastic.co/guide/en/elasticsearch/reference/curre
 You need to flag your field as "not_analyzed" : https://www.elastic.co/guide/en/elasticsearch/guide/current/_finding_exact_values.html
 
 This can be set as a default for all string fields: http://stackoverflow.com/a/27571721
+
+!! Defining a mapping for a unique field will deactivate ALL dynamic mapping
 
 ### "SearchPhaseExecutionException[Failed to execute phase [query_fetch], all shards failed]"
 

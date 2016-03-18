@@ -64,7 +64,7 @@ git rebase --interactive # squash commits. For initial commit, use: git reset HE
 # Fix commit already pushed - FROM: http://blog.jacius.info/2008/6/22/git-tip-fix-a-mistake-in-a-previous-commit/
 git commit --all --amend
 gri HEAD^
-git push -f origin master # you DON'T want to do that if others have already pulled you last commit
+git push --force-with-lease origin master # --force-with-lease >>> --force : if there are new remote commits, --force-with-lease will fail
 
 git reset HEAD^ # Git 'uncommit', as 'don't-change-any-files-but-cancel-last-commit'
 
@@ -117,7 +117,7 @@ git remote set-url origin https://github.com/Lucas-C/... # change a remote URL, 
 git branch -av
 git remote show origin
 
-git fetch upstream && git rebase upstream/master && git push --force # Sync a fork
+git fetch upstream && git rebase upstream/master && git push --force-with-lease # Sync a fork
 
 ### Best-practice: work on feature branches rather than mainline
 # Create a new feature branch:

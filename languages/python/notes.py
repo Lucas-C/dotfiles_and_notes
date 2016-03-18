@@ -29,6 +29,7 @@ def find_usage(string):  # simili-grep
                     if string in line:
                         yield line, line_number
 
+os.chdir(os.path.dirname(os.path.realpath(__file__))) # useful at beginning of a script : change the current directory to the script parent directory
 <module>.__file__ # can refer to .py OR .pyc !!
 __all__ = ['bar', 'foo']
 # list of symbol to export from module. Default: all symbol not starting with _
@@ -187,6 +188,7 @@ def create_logger():
 # Lazy logger: http://stackoverflow.com/a/4149231
 @deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/ - Alt: OpenStack debtcollector
 Twangist/log_calls # logging & func calls profiling
+string.Template # $-based substitutions
 # Support for {} / %(keyword)s format syntaxes:
 # - https://docs.python.org/3/howto/logging-cookbook.html#formatting-styles
 # - vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
@@ -503,6 +505,7 @@ from base64 import b64encode
 img_base64 = b64encode(img_bytes.getvalue()).decode('utf-8')
 from IPython.display import HTML
 HTML('<img src="data:image/png;base64,{0}"/>'.format(img_base64))
+colorsys # rgb / yiq / hls / hsv conversions
 
 # PDB tricks
 !p = ... # make it possible to start a cmdline with pdb shorthands
@@ -625,7 +628,7 @@ subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT, inp
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
 
 platform # python version, OS / machine / proc info...
-resource # limit a process resources: SPU time, heap size, stack size...
+resource # limit a process resources: SPU time, heap size, stack size... Example of context manager to limit memory usage: http://stackoverflow.com/a/14024198
 print('Memory usage: {} (kb)'.format(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))  # get process memory usage
 
 shlex.split('--f "a b"') # tokenize parameters properly
@@ -787,8 +790,15 @@ stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring, fengsp/rc.Cache, col
 twobraids/configman > argparse > optparse # Alt: begins > docopt, clize, click - Also: neat quick GUI compatible with argparse: chriskiehl/Gooey
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve')
 parser_group = parser.add_mutually_exclusive_group(required=True)
-parser_group.add_argument(... type=argparse.FileType('r'))
+parser_group.add_argument(... type=argparse.FileType('r')) # or with the helper func below: action=argparse_store_command(func_do_cmd1) and after parsing: args.command(args)
 return parser.parse_args(sys.argv[1:])
+def argparse_store_command(callback, attr_name='command'):
+    class StoreCommandAction(argparse.Action):
+        def __init__(self, option_strings, dest, nargs=0, **kwargs):
+            super(StoreCommandAction, self).__init__(option_strings, dest, nargs=0, **kwargs)
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, attr_name, callback)
+    return StoreCommandAction
 
 code.InteractiveConsole().interact() # interactive python prompt
 
@@ -856,6 +866,7 @@ import xmlrpc.client # XML-RPC via HTTP
 server = xmlrpc.client.ServerProxy("http://www.pythonchallenge.com/pc/phonebook.php")
 print(server.system.getCapabilities())  # Also: .listMethods() .methodSignature(...) .methodHelp(...)
 
+rtfd/CommonMark-py # Markdown parser
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 tinycss2 > tinycss > cssutils  # CSS parsers
 hickford/MechanicalSoup
@@ -1039,9 +1050,10 @@ from cryptography.fernet import Fernet # symmetric encryption
 mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments by signing content
 import bcrypt, hmac; hashed = bcrypt.hashpw(password, bcrypt.gensalt()) # Secure Password Storage in 2016
 if (hmac.compare_digest(bcrypt.hashpw(password, hashed), hashed)): ...  # Login successful
+hmac.compare_digest(a, b) # String equality check that prevent timing analysis
 
 ConfigParser, configobj # std configuration files format
-csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python
+csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python, csvx
 writer = csvkit.writer(sys.stdout)
 with open(sys.argv[1]) as csv_file:
     for row in csvkit.reader(csv_file):

@@ -129,6 +129,7 @@ Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
     * new dev "work queue"
 
 ## Deployments
+[Immutable Server](http://martinfowler.com/bliki/ImmutableServer.html) pattern.
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
 
 ## Documentation:

@@ -17,18 +17,20 @@ if readlink -f ${BASH_SOURCE[0]} >/dev/null 2>&1; then  # if 'readlink' command 
 else  # fallback
     export BASHRC_DIR="$(builtin cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
 fi
-# !! When using `pew`, $BASHRC_DIR will be /tmp/tmp??????
+# !! When using `pew`, $BASHRC_DIR will be /tmp or pip install pre-commit && pre-commit install -f/tmp/tmp??????
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # Downloading .bashrc_* fragments
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 download_bashrc_files () {
-    echo "Downloading .bashrc* from GitHub"
-    local bashrc
-    for bashrc in .bashrc_0_term_multiplex .bashrc_1_prompt .bashrc_2_fcts_aliases_exports .bashrc_3_ssh .bashrc_8_mac .bashrc_8_windows; do
-        curl "https://raw.githubusercontent.com/Lucas-C/linux_configuration/master/$bashrc" > ${BASHRC_DIR}/$bashrc
+    local fragment bashrc
+    for fragment in 0_term_multiplex 1_prompt 2_fcts_aliases_exports 3_ssh 8_mac 8_windows; do
+        bashrc=.bashrc_${fragment}.sh
+        echo "# Downloading $bashrc from GitHub"
+        curl -s "https://raw.githubusercontent.com/Lucas-C/linux_configuration/master/$bashrc" > ${BASHRC_DIR}/$bashrc
     done
-    curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > ${BASHRC_DIR}/.bashrc_git_completion
+    echo "# Downloading git-completion.bash from GitHub"
+    curl -s 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > ${BASHRC_DIR}/.bashrc_git_completion
 }
 [ -z "$(ls ${BASHRC_DIR}/.bashrc_* 2>/dev/null)" ] && download_bashrc_files
 

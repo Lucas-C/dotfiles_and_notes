@@ -1014,7 +1014,7 @@ log "HELLO WORLD !"
 
 
 ]_]_]_]_]_]_]_]
-] ImageMagick
+] ImageMagick & other images processing tools
 ]_]_]_]_]_]_]_]
 # Compile IM with HDRI:
 # - http://www.imagemagick.org/script/install-source.php
@@ -1042,6 +1042,7 @@ pngquant ## 70% lossy compression
 jpegtran -perfect -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs - better than ImageMagick, cf. http://www.imagemagick.org/discourse-server/viewtopic.php?t=22141
 identify -verbose $jpg | grep -E 'Image:|Quality:' # get JPEG compression level
 identify -verbose $jpg | grep 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg
+exiv2 # extract EXIF, IPTC & XMP image metadata
 mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata
 feh -F -d -D 3 --cycle-once -f <(findImg .) # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 
