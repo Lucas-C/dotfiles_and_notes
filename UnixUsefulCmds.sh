@@ -656,6 +656,7 @@ GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF exten
 Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, pyspider # python crawling libs
 kimono, import.io # web services
 parklemotion/nokogiri # Ruby gem
+bslatkin/dpxdt # Depicted makes continuous deployment safe by comparing before and after webpage screenshots for each release, and showing you when any visual, perceptual differences found
 
 python -m webbrowser -t "$url"
 urlwatch --urls=urls-list.txt | ifne mutt -s "Page change detected" $email_address
@@ -912,6 +913,9 @@ https://developer.mozilla.org/en-US/docs/Tools/Web_Console
 export NSPR_LOG_MODULES=timestamp,nsHttp:5,nsSocketTransport:5,nsStreamPump:5,nsHostResolver:5
 export NSPR_LOG_FILE=/tmp/firefox_http.log
 ./firefox
+
+# Chrome
+sqlite3 "$LOCALAPPDATA/Google/Chrome/User Data/Default/databases/chrome-extension_loljledaigphbcpfhfmgopdkppkifgno_0/"* 'select * from fields;' # Inspect Lazarus form recovery DB
 
 
 g@g@g@g@g

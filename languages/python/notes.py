@@ -904,7 +904,9 @@ requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock 
     requests-futures # for asynchronous (non-blocking) HTTP requests
     txrequests # Twistted asynchronous requests
     requests-cache
-requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)
+response = requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)  # WARNING on POST params usage: json= != data=
+if 400 <= response.status_code < 600:
+    raise requests.HTTPError(str(response.status_code) + '\n' + response.text)
 status_string = requests.status_codes._codes[404][0]; status_string = ' '.join(w.capitalize() for w in status_string.split('_')) # Alt: httplib.responses, cf. HTTP_STATUS_LINES in Bottle code: http://bottlepy.org/docs/dev/bottle.py
 wget # equivalent lib to the command-line tool
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
@@ -913,7 +915,7 @@ kevin1024/vcrpy # record / replay HTTP interactions
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod server, very easy to launch
-Falcon, nameko, featherweight # minimalist WSGI / microservices frameworks to build HTTP APIs
+Falcon, nameko, featherweight, mozilla-services/cliquet # minimalist WSGI / microservices frameworks to build HTTP APIs
 flask # good for simple APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django

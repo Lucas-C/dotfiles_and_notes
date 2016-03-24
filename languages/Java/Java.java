@@ -48,7 +48,27 @@ OpenJDK JMH // Benchmark tool
 Buildr, Fradle > ant, maven // build systems
 mvn dependency:tree
 mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
+mvn buildplan:list # shows how goals are bound to phases - buildplan-maven-plugin from fr.jcgay.maven.plugins
 gradle dependencies
+
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-antrun-plugin</artifactId>
+    <version>1.1</version>
+    <executions>
+        <execution>
+            <phase>validate</phase>
+            <goals>
+                <goal>run</goal>
+            </goals>
+            <configuration>
+                <tasks>
+                    <echo>PATH=${env.PATH}</echo>
+                </tasks>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
 
 sudo update-alternatives --config java
 
