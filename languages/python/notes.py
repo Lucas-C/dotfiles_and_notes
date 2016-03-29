@@ -256,6 +256,7 @@ JaredMHall/reline # CLI tool to reformat a text into a specified number of words
 
 kayzh/LSHash # locality sensitive hashing
 JohannesBuchner/imagehash  # perceptual hashes lib, supports: average hashing (aHash), perception hashing (pHash), difference hashing (dHash)
+pavlovml/match # Scalable reverse image search built on Kubernetes and Elasticsearch
 
 bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra, xmonader/pybloomfilter, TerbiumLabs/pyblume
 svpcom/hyperloglog # Super and Hyper Log Log Sketches
@@ -318,7 +319,7 @@ collections.defaultdict # autovivification: def tree(): return defaultdict(tree)
 isinstance(obj, collections.Hashable)
 
 collections.OrderedDict # remember insertion order
-OrderedDict(sorted(d.iteritems(), key=lambda (k,v): (v,k))) # sort a dict by its values
+OrderedDict(sorted(d.iteritems(), key=lambda e: e[1])) # sort a dict by its values
 grantjenks/sorted_containers # faster: SortedList, SortedDict, SortedSet
 
 from itertools import groupby
@@ -775,6 +776,7 @@ ampqlib, haigha, puka # AMPQ libs
 
 mrjob, luigi # Hadoop / AWS map-reduce jobs
 
+kennethreitz/records # by the author of requests
 peewee, SQLAlchemy # ORM DB
 from playhouse.sqlite_ext import SqliteExtDatabase; db = SqliteExtDatabase(':memory:') # in-memory SQLite DB with peewee
 anydbm: dbhash else gdbm else dbm else dumbdbm
@@ -803,7 +805,7 @@ def argparse_store_command(callback, attr_name='command'):
 code.InteractiveConsole().interact() # interactive python prompt
 
 argcomplete # command line tab completion
-pyreadline, readline, rlcompleter
+pyreadline, readline, rlcompleter, python-prompt-toolkit
 
 termcolor, colorama # cross-platform colored terminal text
 tqdm # KISS progress bar
@@ -950,6 +952,7 @@ mininet # realistic virtual network, running real kernel, switch and application
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 scapy # packet injection/manipulation for many network protocols
 wifi # wrapper around iwlist and /etc/network/interfaces
+danmcinerney/wifijammer # How to kick everyone around you off wifi with python
 tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
@@ -1029,6 +1032,7 @@ pyparsing # create and execute simple grammars instead of regex/lex/yacc - http:
 @retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
 
 daviddrysdale/python-phonenumbers # port of Google's libphonenumber to validate phone numbers
+TwilioLookupsClient().phone_numbers.get("15108675309", include_carrier_info=True) # Twilio API phone number validation
 
 import uuid # generate unique IDs
 

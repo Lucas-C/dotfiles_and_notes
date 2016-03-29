@@ -101,6 +101,7 @@ sudo dpkg-reconfigure postfix # -> then configure local emails only => create /e
 sudo aptitude install mailutils # provides 'mail' command
 
 ~/.config/variety/variety.conf # wallpaper changer minor change: gsettings set org.cinnamon.background picture-options centered
+# Alt, ran only once: gsettings set org.gnome.desktop.background picture-options centered
 
 sudo apt-get install pepperflashplugin-nonfree # Flash in chromium : http://askubuntu.com/a/449266
 

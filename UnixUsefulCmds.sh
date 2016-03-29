@@ -300,7 +300,8 @@ hash # frequently used commands cache
 syslogd -m 0 -r -SS # port: 514
 logger -is -t SCRIPT_NAME -p user.warn "Message"
 echo "<15>My logline" | nc -u -w 1 $HOSTNAME 514 # <15> means 'user.debug', see RFC3164: Facility*8 + Severity, default:13 <-> user.notice
-time tcpdump udp and dst port 514 | awk '{print $3" "$7}' | sed 's/\.syslog//' > noisy_devices
+time tcpdump udp and dst port 514 | awk '{print $3" "$7}' | sed 's/\.syslog//' > noisy_devices # or -w record.pcap for later inspection with wireshark
+tshark # wireshark on the CLI
 logcheck, logtail
 petit --hash /var/log/messages # Cmdline log analyze, also --wordcount. Alt: lnav ; sysdig -c spy_syslog
 
@@ -449,6 +450,7 @@ stmd foo.md | lynx -stdin # standard replacement for original 'markdown' command
 #=#=#=#=#=#
 
 sleuthkit/scalpel # > foremost, file carving tool, cf. http://www.forensicswiki.org/wiki/Tools:Data_Recovery
+testdisk & photorec # Files recovery tools
 
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
@@ -651,7 +653,7 @@ Xdummy > Xvfb # in-memory X11 display server that doesn't render to screen
 pjscrape, PhantomJS, SlimerJS, CasperJS
 Netflix/sketchy # takes screenshots and scrap text using PhantomJS & Celery
 GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
-Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, binux/pyspider # python crawling libs
+Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, pyspider # python crawling libs
 kimono, import.io # web services
 parklemotion/nokogiri # Ruby gem
 
@@ -785,6 +787,7 @@ env -i $prog # --ignore-environment : start with an empty environment
 export $(xargs < .env) # source & export environment variables from a file
 fakeroot # runs a command in an environment wherein it appears to have root privileges for file manipulation
 chroot $path_to_fake_root $cmd # 'chroot jail' => changes the apparent root directory
+p-e-w/maybe # execute a program and only log any syscalls that modify the FS, using ptrace
 
 faketime $time_spec $cmd
 

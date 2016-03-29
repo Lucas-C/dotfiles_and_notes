@@ -50,7 +50,7 @@ Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], re
 - mkfifo, man mq_overview : POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code   _
 - D-Bus : unix message bus system, with bindings in Java, Python...
 - beanstalkd : KISS fast work queue, with lots of existing tools & libs in various languages
-- ActiveMQ, RQ(Redis), RestMQ(Redis), RabittMQ : Message queues using AMPQ
+- ActiveMQ, RQ(RedisQueue), RestMQ(Redis), RabittMQ : Message queues using AMPQ
 - Celery/Kombu : Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
 - Nameko : python framework for building service orientated software
 - fritzy/thoonk.js / fritzy/thoonk.py : Persistent and fast push feeds, queues, and jobs

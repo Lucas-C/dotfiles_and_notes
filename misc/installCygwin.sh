@@ -42,3 +42,8 @@ cygrunsrv --list
 # simply "pip uninstall $dependency_pkg && pip install $pkg" already saved my ass once
 
 # Cygwin bug with tar: "If you add test.exe and test to a tar archive in that order, you lose test.exe on extraction" - https://www.nu42.com/2016/03/tar-anomaly.html
+
+minidumper --nokill $FILENAME $WIN32PID # create a minidump of a running Windows process
+
+pldd $PID # List dynamic shared objects loaded into a process
+
