@@ -21,3 +21,5 @@ FontHeight=12
 BoldAsFont=no
 RightClickAction=paste
 Term=xterm-256color
+Locale=fr_FR
+Charset=UTF-8

@@ -68,6 +68,10 @@ Double-linked list C implementation in the linux kernel (detailed in "linux-insi
         struct  list_head   head;
     };
 
+Interesting algo to query for the min/max of a N elements collection, with 2*N space complexity & logN complexity: languages/python/battledev_regionsjobs_isograd_2016-03-22/challenge5_soluce.py
+    rmq = RangeMaxQuery(heights)
+    highest = rmq.max_in_range(start, end)
+
 
 ## Crypto
 

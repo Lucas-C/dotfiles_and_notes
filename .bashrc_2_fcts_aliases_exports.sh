@@ -568,7 +568,7 @@ gif_framecount_reducer () { # args: $gif_path $frames_reduction_factor
     rm "$tmp_frames_prefix"*.gif "$sel_frames_prefix"*.gif
 }
 
-tstp () { # timestamp converter
+timestamp_converter () {
     echo $@ | gawk '{print strftime("%c", $0)}'
     # Or date -d @$TIMESTAMP but neither work on OSX
 }

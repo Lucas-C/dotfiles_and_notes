@@ -107,6 +107,17 @@ jar_java_version () {
     cd - >/dev/null
 }
 
+convert_win_cmd_output_encoding () { # USAGE: _ netstat --help
+    local stdout=$(mktemp)
+    local stderr=$(mktemp)
+    "$@" >$stdout 2>$stderr
+    iconv -f cp850 -t utf8 <$stdout
+    iconv -f cp850 -t utf8 <$stderr >&2
+}
+alias _=convert_win_cmd_output_encoding
+
+alias tcpdump="WinDump.exe" # Or http://www.nirsoft.net/utils/smsniff.html for a friendlier GUI
+
 # Trick from https://github.com/drush-ops/drush/issues/375
 # but USING DRUSH WITH CYGWIN IS A BAD IDEA
 # and by the way, it invokes bash through msysgit\bin\sh (MINGW32_NT)

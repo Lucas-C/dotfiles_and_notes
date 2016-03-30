@@ -528,7 +528,7 @@ paris-traceroute > traceroute
 
 socat > nc (netcat) > telnet # prefix with rlwrap ! Alt: stone -> a TCP/IP packet repeater in the application layer, avoid forking for each packet received
 socat - udp4-listen:5000,fork # create server redirecting listening on port 5000 output to terminal
-nc -l -u -k -w 1 5000
+nc -l [-u] -k 5000
 echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
 echo hello | nc -u -w 1 127.0.0.1 5000
 

@@ -37,6 +37,12 @@ Pb de latence rencontré -> dû au TCP Segementation offload: https://forum.ivor
 
 John Nagle, author of the tinigram prevention aka Nagle algorithm, recommendation: always set TCP_QUICKACK (from: https://news.ycombinator.com/item?id=10608356) _
 
+> For 'send`, although the documentation for the call indicates that the return value (if positive) is the "number of [bytes] sent", this is just plain wrong.
+> All that the return value tells you is the number of bytes that the TCP stack in your underlying OS accepted into its outgoing buffer.
+> After this point, the OS will try its best to deliver those bytes to the recipient that you initially made a connection with. But this may never happen,
+> so it does not mean you can count on those bytes being sent!
+FROM: http://stackoverflow.com/a/10269715/636849
+
 ## UDP
 - no reception check, packets unordered, faster
 - faster than TCP, better for voice over IP, video streaming

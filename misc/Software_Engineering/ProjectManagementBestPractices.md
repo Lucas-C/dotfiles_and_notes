@@ -19,6 +19,7 @@ Project management best practices
 - [TheFailureOfAgileAndGROWS](http://blog.toolshed.com/2015/05/the-failure-of-agile.html)
 - [Les développeurs Heisenberg](http://blog.ticabri.com/blog/2015/04/21/les-developpeurs-heisenberg/) - TL;DR Vous ne pouvez pas observer un développeur sans en altérer son comportement.
 - "flow-breaking interruptions & effectiveness of an org / number of engineers devoted to an Engineering Effectiveness team" : http://www.gigamonkeys.com/flowers/
+- [No bullshit : What is Scrum ?](https://www.youtube.com/watch?v=jNhRX-RBs_4)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)

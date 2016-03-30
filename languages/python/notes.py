@@ -464,6 +464,7 @@ JulienPalard/Pipe # fib() | where(lambda x: x % 2 == 0) | take_while(lambda x: x
 faulthandler.enable() # dump stacktrace on SIGSEGV, SIGABRT... signals ; python2 -X faulthandler script.py
 
 import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code...
+minimaxir/big-list-of-naughty-strings
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no --showlocals --exitfirst -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
@@ -761,7 +762,7 @@ libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
 cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
 
 struct # pack/unpack binary formats
-binascii.hexkify # display binary has hexadecimal
+binascii.hexlify # display binary has hexadecimal
 
 
 """"""""""""""""""""""""""""""

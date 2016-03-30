@@ -88,6 +88,9 @@ On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterA
 
 CQRS = CommandQuerySeparation : split the code & logic between the Query path (DB -> UI) & Command path (UI -> DB)
 
+POLA = Principle of least astonishment (or surprise => POLS) : "People are part of the system. The design should match the user's experience, expectations, and mental models.
+    If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature."
+
 ## Design smells
 - "Thin" classes. Ideally, a class should have a very simple interface that hides a lot of functionality and internal complexity. [SDP]
     Too much information : hide you data, hide your utility functions, hide your constants & temporaries, concentrate on keeping small interfaces to keep coupling low [CC-G8]
