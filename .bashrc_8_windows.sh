@@ -116,7 +116,7 @@ convert_win_cmd_output_encoding () { # USAGE: _ netstat --help
 }
 alias _=convert_win_cmd_output_encoding
 
-alias tcpdump="WinDump.exe" # Or http://www.nirsoft.net/utils/smsniff.html for a friendlier GUI
+alias tcpdump="WinDump.exe" # or RawCap + Wireshark
 
 # Trick from https://github.com/drush-ops/drush/issues/375
 # but USING DRUSH WITH CYGWIN IS A BAD IDEA

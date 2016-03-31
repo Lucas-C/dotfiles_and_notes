@@ -41,7 +41,8 @@ If such file exists, it will be sourced from the main _.gitconfig_.
 
 As admin:
 
-    for f in $BASHRC_DIR/npp/*.xml; do cmd /c mklink $(cygpath -w $h/AppData/Roaming/Notepad++/$(basename $f) $(cygpath -w $f); done
+    for f in $BASHRC_DIR/npp/*.xml; do cmd /c mklink $(cygpath -w $HOME/AppData/Roaming/Notepad++/)$(basename $f) $(cygpath -w $BASHRC_DIR/$f); done
+    cmd /c mklink /d $(cygpath -w $h/AppData/Roaming/Notepad++/themes) $(cygpath -w $BASHRC_DIR/npp/themes)
 
 <!--
 #### ToDo ####
