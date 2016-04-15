@@ -5,6 +5,10 @@
     || return 0
 ####################################
 
+PATH=$PATH:/c/Windows/System32
+PATH=$PATH:/c/Windows
+PATH=$PATH:/d/Utilitaires/dev/upx391w
+
 if ! [ -r ~/.dir_colors ]; then
     curl -s 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > ~/.dir_colors
 fi
@@ -84,7 +88,11 @@ pdf () {
 }
 
 img () {
-    rundll32 "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ImageView_Fullscreen $(convertWinArgs "$@")
+    if [ -f "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ]; then
+        rundll32 "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ImageView_Fullscreen $(convertWinArgs "$@")
+    else
+        rundll32 "C:\Program Files\Windows Photo Gallery\PhotoViewer.dll" ImageView_Fullscreen $(convertWinArgs "$@")
+    fi
 }
 
 #FROM: http://smecsia.me/blog/65/killall+for+cygwin

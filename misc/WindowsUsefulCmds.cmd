@@ -35,6 +35,8 @@ secpol.msc &:: Security Policy Editor -> can for example gives permision to a us
 rundll32 sysdm.cpl,EditEnvironmentVariables &:: user env variables
 rundll32 "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ImageView_Fullscreen $path_to_img_without_quotes &:: Open Windows Image Viewer
 
+upx -9 my_homemade_cmd.exe &:: executable packer/compressor/optimizer
+
 nssm64.exe edit service_name &:: then nssm64.exe start service_name - Powerful wrapper around builtin sc create service_name binpath= c:\bla\bla\bla.exe start= auto type= own
 
 robocopy "C:\Source" "E:\Destination" /E /PURGE &:: Backup

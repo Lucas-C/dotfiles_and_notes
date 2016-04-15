@@ -166,7 +166,7 @@ bar () {  # Best practice, or use getopt (singular) - USAGE: bar x [y=...]
 x=42 sh -c 'echo $x' # $x is export just for the time of the command execution
 
 echo ${PWD//\//-} # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
-${var%?} # Remove the final character of var
+${var%?} # Remove the final character of var - Useful alt: ${path%/} -> removes a potenial trailing whitespace
 
 for pair in $whatever; do key=${pair%:*}; value=${pair#*:}; ...
 for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.cumulonim.biz/BashPitfalls.html - no "continue" => !!GOTCHA!!

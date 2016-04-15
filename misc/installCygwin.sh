@@ -38,6 +38,8 @@ cd /
 echo "Cygwin services configured:"
 cygrunsrv --list
 
+exit 0
+
 # In case of "child_info_fork::abort: unable to map **.dll, Win32 error 126"
 # As admin:
 #    G:\devhome\tools\cygwin\bin\ash.exe -c '/usr/bin/rebaseall -v'

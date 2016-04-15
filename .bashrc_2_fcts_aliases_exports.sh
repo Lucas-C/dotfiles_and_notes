@@ -203,10 +203,9 @@ alias gau='git add --update .'
 alias gdh='git diff HEAD'
 alias gdc='git diff --cached'
 alias gdp='git diff -U999999999 --no-color HEAD'
-alias gl='git log'
-alias gll='git log HEAD' # local commits only
 alias gri='git rebase --interactive'
 alias gpr='git pull --rebase'
+alias gpp='git pull --rebase && git push'
 
 #------------
 # One-letter
@@ -233,6 +232,7 @@ python () {
         PYTHONSTARTUP=$BASHRC_DIR/.pythonrc python
     else
         python "$@"
+    fi
 }
 alias djshell='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ./manage.py shell_plus --use-pythonrc'
 alias ipy='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ipython --pdb'
