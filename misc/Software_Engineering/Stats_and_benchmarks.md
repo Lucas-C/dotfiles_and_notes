@@ -39,6 +39,7 @@ Spearman’s rank correlation coefficient: a number between 1 and -1 indicating 
 
 HdrHistogram: a better latency capture method
 
+[Statistics for Engineers : Applying statistical techniques to operations data](http://queue.acm.org/detail.cfm?id=2903468) : include the name of a useful "barcode" graph : the rug plot
 
 RESSOURCES:
 [1] : HOW TO NOT TO LIE WITH STATISTICS: THE CORRECT WAY TO SUMMARIZE BENCHMARK RESULTS (PHILIP J. FLEMING and JOHN J. WALLACE)

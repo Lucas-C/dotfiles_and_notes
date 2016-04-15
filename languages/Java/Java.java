@@ -88,6 +88,8 @@ JavaCPP Presets // provide bindings for the following C++ libs: OpenCV, FFmpeg, 
 
 VisualVM, jmxterm // GUI & CLI for JMX (Java Management Extensions that specifies simple Java objects called MBeans)
 // Alt profilers: byteman, JVM Monitor (free Eclipse plugin), jprofiler (non free), Java Flight Recorder (baked into the HotSpot VM) & Java Mission Control, YourKit Java Profiler
+Visual VM // -> Monitor, profile, take thread dumps, browse heap dumps
+Using jemalloc to get to the bottom of a memory leak : https://gdstechnology.blog.gov.uk/2015/12/11/using-jemalloc-to-get-to-the-bottom-of-a-memory-leak/
 Jolokia, hawtio // Provide JMX HTTP REST access
 // 1. Make JVM accept JMX connections
 -Dcom.sun.management.jmxremote.port=9876 // can be any port
@@ -107,6 +109,7 @@ Hibernate // framework SQL
 MyBatis // data mapper framework, ORM for SQL DBs using a XML descriptor or annotations
 
 -Xss64kb // set stack size
+-XX:+HeapDumpOnOutOfMemoryError // get a heap dump at the point the application crashes
 -XX:+PerfDisableSharedMem // disable JVM exporting statistics to a file in /tmp, causing pauses of 0.1-1s during garbage collection
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
 

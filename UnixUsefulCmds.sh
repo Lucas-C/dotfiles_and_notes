@@ -88,7 +88,7 @@ rainbow_cursor_worm () { a=1;x=1;y=1;xd=1;yd=1;while true;do if [[ $x == $LINES 
 worms -d 20; rain -d 20 # from bsdgames
 
 ( play -q -n synth sine F2 sine C3 remix - fade 0 4 .1 norm -4 bend 0.5,2399,2 fade 0 4.0 0.5 & )
-echo 'main(t){for(;;t++)putchar(((t<<1)^((t<<1)+(t>>7)&t>>12))|t>>(4-(1^7&(t>>19)))|t>>7);}' | cc -x c - -o crowd && ./crowd | aplay
+echo 'main(t){for(;;t++)putchar(((t<<1)^((t<<1)+(t>>7)&t>>12))|t>>(4-(1^7&(t>>19)))|t>>7);}' | cc -x c - -o crowd && ./crowd | aplay # or `play -r 8000 -c 1 -t u8 <(... && ./crowd)` from sox package - FROM: http://canonical.org/~kragen/bytebeat/
 
 bcd, ppt, morse # reformat input as punch cards, paper tape or morse code - from bsdgames package
 bastet (tetris), myman (pacman)
@@ -96,10 +96,21 @@ csokoban, cmines & cblocks # from cgames: the 1st can only be played in CTRL+ALT
 curseofwar -i4 -q1 -dee -W16 -H16 # awesome real-time RTS
 
 
+()()()()()()()()()()
+() Synthèse vocale
+()()()()()()()()()()
+espeak -s 180 -p 40 "Hey ! Look behind you"
+espeak -s 180 -p 40 -ven+12 "Hi ! My name is Colossus."
+espeak -s 150 -p 20 -vfr "Je vais te péter la gueule"
+espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mbrola/voices/fr1 - -.au | aplay
+#FROM:   http://doc.ubuntu-fr.org/synthese_vocale
+#        http://linux.byexamples.com/archives/303/text-to-speech-synthesizer/
+#        http://cookerspot.tuxfamily.org/wikka.php?wakka=SyntheseVocaleEspeak
+
+
 ##################
   Bash scripting
 ##################
-
 xmessage -center "$(figlet ERRORMSG 42)", notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
 mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
 figlist | sed '1,/Figlet fonts/d;/:/,$d' | xargs -I{} figlet -f {} Hello # ASCII banner fonts
@@ -110,8 +121,13 @@ fontforge # std pkg (exist in Cygwin) to convert fonts formats: OTF, TTF, EOT - 
 pip install --user brotlipy fonttools # provide the `ttx` that convert otf/ttf files into editable XML ones
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS
-fail () { echo "$1"; $(exit "${2:-1}"); }  # to exit the script with a given message & optional error code (default: 1)
+fail () { echo "$1"; return ${2:-1}; }  # to exit the script with a given message & optional error code (default: 1) - Rely on `set -o errexit`
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
+
+ok_or_ko () { return 1; }; ok_or_ko
+ok_or_ko () { return; }; ok_or_ko
+ok_or_ko () { return 256; }; ok_or_ko # !!GOTCHA!!
+ok_or_ko () { return -1; }; ok_or_ko
 
 bash -n $script # Check syntax without executing
 bash --debugger $script
@@ -122,6 +138,7 @@ source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stack
 readonly EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # Script file parent dir
 readonly LOG_FILE="$EXEC_DIR/logs/$(basename $0).log.$(date +%Y-%m-%d-%H)"
 exec > >(tee -a $LOG_FILE); exec 2>&1 # > >(cmd) constructs did not work under cygwin with v4.3.33. Of course, it also won't work if `sh` is the interpreter
+exec 5>&1; out=$(echo -e "A\nB" | tee /dev/fd/5) # capture a command output while still sending it to stdout - FROM: http://stackoverflow.com/a/16292136/636849
 date "+%F %T,%N" | cut -c-23 # Standard logs date
 date -u +%s # Seconds since EPOCH
 date -d @$seconds_since_epoch "+%F" # under OSX: date -jf "%s" $secs "+%F"
@@ -146,16 +163,13 @@ bar () {  # Best practice, or use getopt (singular) - USAGE: bar x [y=...]
     : ${x?'parameter is missing'}
 }
 
-x=42 foo # !!GOTCHA!! Actually "leaks" CONST_X : it will be defined after this line, even if not exported:
-# actually, it WILL be exported but only for the command executed: `x=42 sh -c 'echo $x'` -> '42'  !=  `x=42;sh -c 'echo $x'` -> ''
-# but IF foo is a shell function, it does not care about exported variables, so it is STRICLY equivalent to `x=42; foo`
-
+x=42 sh -c 'echo $x' # $x is export just for the time of the command execution
 
 echo ${PWD//\//-} # Variables substitutions (http://tldp.org/LDP/abs/html/parameter-substitution.html)
 ${var%?} # Remove the final character of var
 
 for pair in $whatever; do key=${pair%:*}; value=${pair#*:}; ...
-for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.cumulonim.biz/BashPitfalls.html
+for f in ./*.txt; do; [[ -f "$f" ]] || continue # Safe 'for' loop - http://bash.cumulonim.biz/BashPitfalls.html - no "continue" => !!GOTCHA!!
 
 readonly CONST=42 # works with arrays & functions too - Beautiful hack to unset: http://stackoverflow.com/a/21294582
 
@@ -354,10 +368,9 @@ tail -F $log_file | grep $keyword | pv --line-mode --numeric >/dev/null 2>$in_da
 gnuplot $loop_cfg_file # real-time ASCII graphing !
 
 
-+++++++++++++++
-| Text stream |
-+++++++++++++++
-
+++++++++++++++++
+| Text streams |
+++++++++++++++++
 cat -vET # shows non-printing characters as ascii escapes.
 printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalent, BUT:
 # echo $'A\0B' -> A
@@ -394,7 +407,12 @@ gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer
 pdfjam file1.pdf file2.pdf 1, 3- `# optional selector` --nup 2x1 --landscape --outfile out.pdf # printer-friendly version - Also: pdf290 to rotate
 xournal # edit PDF as background images, and export to PDF. To manipulate its vectorial data, with the risk of skewed visual output: LibreOfficeDraw / PDFEdit
 
-tr -c '[:alnum:]' _
+tr -c '[:alnum:]' _ # slugify by replacing non alphanumeric characters
+function capitalize () {
+    local string="${@:-$(cat)}"
+    echo $(echo ${string:0:1} | tr '[:lower:]' '[:upper:]')$(echo ${string:1} | tr '[:upper:]' '[:lower:]'})
+}
+
 
 # filter outpout : not lines 1-3 and last one
 type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
@@ -448,7 +466,6 @@ stmd foo.md | lynx -stdin # standard replacement for original 'markdown' command
 =#=#=#=#=#=
    FILES
 #=#=#=#=#=#
-
 sleuthkit/scalpel # > foremost, file carving tool, cf. http://www.forensicswiki.org/wiki/Tools:Data_Recovery
 testdisk & photorec # Files recovery tools
 
@@ -522,7 +539,6 @@ sha{1,224,256,384,512}sum, md5sum, cksum
 |°|°|°|°|°|°|°|°
 == NETWORKING
 |°|°|°|°|°|°|°|°
-
 mtr $host > ping / traceroute
 paris-traceroute > traceroute
 
@@ -646,6 +662,22 @@ wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: 
   -c --continue : continue getting a partially-downloaded file
   --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
 curl --fail --insecure --head --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html - Alt: jakubroztocil/httpie
+curl_with_error_code () { # Better than curl --fail as the response body is still sent to stdout
+    _curl_with_error_code "$@" | sed '$d'
+}
+_curl_with_error_code () {    local curl_error_code http_code
+    exec 17>&1
+    http_code=$(curl --write-out '\n%{http_code}\n' "$@" | tee /dev/fd/17 | tail -n 1)
+    curl_error_code=$?
+    exec 17>&-
+    if [ $curl_error_code -ne 0 ]; then
+        return $curl_error_code
+    fi
+    if [ $http_code -ge 400 ] && [ $http_code -lt 600 ]; then
+        echo "HTTP $http_code" >&2
+        return 127
+    fi
+}
 wget --curl -H "Cache-Control: no-cache" / wget --no-cache # Force a proxy fetch, e.g. for Squid
 # Web scrapping:
 httrack
@@ -718,7 +750,6 @@ traceroute $ip
 -%-%-%-%-%-
  =SYSTEM=
 -%-%-%-%-%-
-
 powertop # diagnose issues with power consumption
 sysctl
 
@@ -742,7 +773,7 @@ dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom" # In case of OOM,
 watch -d -n 1 "cat /proc/$pid/status | grep ctxt_switches" # mostly nonvoluntary context switches => CPU bound / else IO bound - FROM: https://blogs.oracle.com/ksplice/entry/solving_problems_with_proc
 
 # Monitoring
-![The Tracing Landscape - Sep 2015](http://www.brendangregg.com/blog/images/2015/tracing_landscape_sep2015.png) : sysdig, ftrace, perf, dtrace, ktrap, stap, eBPF, bcc - cf. http://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html
+![The Tracing Landscape - Sep 2015](http://www.brendangregg.com/blog/images/2015/tracing_landscape_sep2015.png) : sysdig, ftrace, perf, dtrace, ktrap, stap, eBPF, iovisor/bcc - cf. http://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html
 iostat # ! '%util' & 'svctm' are misleading + iotop, non portable + brendangregg/perf-tools/blob/master/iosnoop
 mpstat 5 # cpu usage stats every 5sec
 monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
@@ -958,22 +989,9 @@ $HOME/VirtualBox VMs/{machinename}/Logs
 # Cool features : remote display (VRDS), shared folders & clipboard, seamless mode
 
 
-()()()()()()()()()()
-() Synthèse vocale
-()()()()()()()()()()
-espeak -s 180 -p 40 "Hey ! Look behind you"
-espeak -s 180 -p 40 -ven+12 "Hi ! My name is Colossus."
-espeak -s 150 -p 20 -vfr "Je vais te péter la gueule"
-espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mbrola/voices/fr1 - -.au | aplay
-#FROM:   http://doc.ubuntu-fr.org/synthese_vocale
-#        http://linux.byexamples.com/archives/303/text-to-speech-synthesizer/
-#        http://cookerspot.tuxfamily.org/wikka.php?wakka=SyntheseVocaleEspeak
-
-
 ::=::=::=::
 : MAC OSX :
 ::=::=::=::
-
 curl http://google.com/ | base64 | say # FUN
 
 dns-sd -Q $USER.local # mDNS query
@@ -995,7 +1013,11 @@ sudo dseditgroup -o edit -a $USER -t user $GROUP # Add user to group
 
 find $(ls | grep -Ev 'Library|Documents|Downloads|httrack|phantomjs|vitavermis') \( ! -path '*/.*' \) -type f -print0 | xargs -0 stat -f '%m %N' | sort -k 1nr | while read timestamp file; do echo $(date -jf "%s" $timestamp "+%F") $file; done | less # illustrate how to replace find -printf + timestamp conversion + find non-hidden files only ; GOAL: list files by modification date
 
-# DTrace scripts: man -k dtrace
+
+O*0.O*0.O*0.O*0.O*0.
+O* DTrace scripts 0.
+O*0.O*0.O*0.O*0.O*0.
+man -k dtrace
 iosnoop # or better hfsslower.d from the DTrace book, available online
 execsnoop # trace processes created
 opensnoop -ve # trace open files, also maclife.d from DTrace book to trace files creation/deletion
@@ -1005,13 +1027,19 @@ errinfo # trace system call fail
 bitesize.d # trace I/O
 iotop
 
-# C#
+
+#C#C#C#C#C
+#   C#   #
+#C#C#C#C#C
 NUNITLIB=/Library/Frameworks/Mono.framework/Versions/2.10.11/lib/mono/2.0/nunit.framework.dll
 gmcs -debug -t:library -r:$NUNITLIB *.cs
 nunit-console *.dll
 mono *.exe
 
-# AppleScript
+
+"|"|"|"|"|"|"|"
+| AppleScript |
+"|"|"|"|"|"|"|"
 #!/usr/bin/osascript
 on log(msg)
   set log_line to (do shell script "date  +'%Y-%m-%d %H:%M:%S'" as string) & " " & msg
@@ -1080,6 +1108,11 @@ curl -s "https://www.googleapis.com/customsearch/v1?key=${api_key}&cx=${cse_id}&
 # DOCS: https://developers.google.com/custom-search/json-api/v1/using_rest https://developers.google.com/custom-search/json-api/v1/performance#partial
 
 $user+spamfilter@gmail.com # nice trick to trace how is your address communicated to other websites
+
+# Easter eggs
+do a barrel roll
+Answer to the Ultimate Question of Life, the Universe, and Everything
+https://www.google.com/imghp : atari breakout
 
 
 {[{[{[{[{[{[{[{

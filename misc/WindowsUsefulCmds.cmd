@@ -27,7 +27,7 @@ msconfig &:: System Configuration -> can disable or re-enable software, device d
 tasklist /svc &:: list Service Host (svchost.exe) services running, with their PIDs
 services.msc &:: Services windows
 magnify &:: Loupe
-clipbrd &:: Display clipboard
+cmd | clip &:: copy to clipboard
 regsvr32 %dll_file% &:: register dll
 vssadmin list shadows &:: list available Volume Shadow Copies aka restore points, cf. http://superuser.com/a/165576)
 mstsc &:: builtin but less secure TeamViewer-like

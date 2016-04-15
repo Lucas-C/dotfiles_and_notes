@@ -33,7 +33,7 @@
 - [Interviewing is broken](http://www.stilldrinking.org/interviewing-is-broken)
 - [What Google Learned From Its Quest to Build the Perfect Team](http://www.nytimes.com/2016/02/28/magazine/what-google-learned-from-its-quest-to-build-the-perfect-team.html?_r=0)
 - [We Hire the Best, Just Like Everyone Else](http://blog.codinghorror.com/we-hire-the-best-just-like-everyone-else/)
-<!--_-->
+- [Google SREs](http://www.wired.com/2016/04/google-ensures-services-almost-never-go/)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -127,6 +127,7 @@ Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
     * comprehensive backlog audit
     * issue bankruptcy
     * new dev "work queue"
+- [Google SRE] : "no SRE could spent more than 50 percent of his or her time on traditional operations as opposed to coding"
 
 ## Deployments
 [Immutable Server](http://martinfowler.com/bliki/ImmutableServer.html) pattern.
@@ -172,3 +173,5 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
     * cf. [What happens when you type google.com into your browser and press enter?]
     * cf. [JoeStumpTechnicalInterviewQuestions]
 - cf. [Interviewing is broken] & [We Hire the Best, Just Like Everyone Else] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."
+- [Foursquare](http://engineering.foursquare.com/2016/04/04/improving-our-engineering-interview-process/) :
+> "We forgo technical phone interviews whenever possible. They’re typically unpleasant for everyone involved and we felt like the environment of a phone screen wasn’t conducive to learning about a candidate’s abilities comprehensively. Instead we give out a take-home exercise that takes about three hours."

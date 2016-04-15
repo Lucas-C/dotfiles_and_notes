@@ -33,7 +33,7 @@
             <Keywords name="Keywords6"></Keywords>
             <Keywords name="Keywords7"></Keywords>
             <Keywords name="Keywords8"></Keywords>
-            <Keywords name="Delimiters">00` 01\ 02` 03[ 04\ 05] 06** 07\ 08** 09__ 10\ 11__ 12_ 13\ 14_ 15 16 17 18 19 20 21 22 23</Keywords>
+            <Keywords name="Delimiters">00` 01\ 02` 03[ 04\ 05] 06** 07\ 08** 09__ 10\ 11__ 12 13 14 15 16 17 18 19 20 21 22 23</Keywords>
         </KeywordLists>
         <Styles>
             <WordsStyle name="DEFAULT" fgColor="A9B1AC" bgColor="293134" fontName="" fontStyle="0" nesting="0" />

@@ -168,6 +168,12 @@ Human-readable dump by shortening the 'INSERT' statements:
 
     perl -pe 's/^(INSERT INTO .*? VALUES).*/\1 .../' $dump.sql | less  # using perl because of its non-greedy wildcar match
 
+Log all queries in mysql without restart (FROM: http://stackoverflow.com/questions/303994/log-all-queries-in-mysql/20485975#20485975)
+
+    SET global log_output = 'FILE';
+    SET global general_log_file='/Applications/MAMP/logs/mysql_general.log';
+    SET global general_log = 1;
+
 ##### How to start a file to make it executable AND runnable with mysql < FILE.mysql
 
     /*/cat <<NOEND | mysql #*/

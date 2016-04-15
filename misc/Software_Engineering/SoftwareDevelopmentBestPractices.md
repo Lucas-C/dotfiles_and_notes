@@ -292,6 +292,7 @@ cf. [Functional Programming Patterns]
     * [Groupthink symptoms](//en.wikipedia.org/wiki/Groupthink#Symptoms)
     * Spurious correlations: Correlation != causality, aka "post hoc ergo propter hoc" aka "effet cigogne" (cf. eponymous website & e-penser video "le lieu le plus dangereux de France" = le lit)
     * [Dunning-Kruger Effect](//en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect) : "relatively unskilled individuals suffer from illusory superiority, mistakenly assessing their ability to be much higher than it really is"
+    * [Simpson’s Paradox](//blog.forrestthewoods.com/my-favorite-paradox-14fab39524da)
 + [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
 
 "When facing extremely short, ambitious deadlines, one knows there are a dozen good things one can do, but very little feels justifiable in the face of a crisis, except writing code as fast as possible." [What happens when the Board Of Directors begins to panic?]

@@ -97,7 +97,7 @@ def _tzinfos_pytz_pst_func(tzname, tzoffset):
     if tzoffset:
         tzdata += timedelta(seconds=tzoffset)
     return tzdata
-parser.parse(date_string_with_tz, tzinfos=_tzinfos_pytz_pst_func).astimezone(pytz.utc) # !! Won't work for DST ! Else:
+parser.parse(date_string_with_tz, tzinfos=_tzinfos_pytz_pst_func).astimezone(pytz.utc) # !! Won't work for DST ! "Unfortunately using the tzinfo argument of the standard datetime constructors ‘’does not work’’ with pytz for many timezones."-> Alt:
 pytz.timezone('America/Los_Angeles').localize(parser.parse(date_string_without_tz)).astimezone(pytz.utc)
 
 globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class creation
@@ -481,6 +481,8 @@ import monkeypatch # modify an object that will be restored after the unit test
 import tmpdir # generate a tmp dir for the time of the unit test
 import hypothesis # feed you test with known to break edge cases
 
+with capture_stderrout() as (stdout, stderr): # Recipe from http://stackoverflow.com/a/17981937/636849
+
 python -mtrace --ignore-module=codeop,__future__ --trace [ $file | $code_module_path ] # trace all code lines run when executing a file / in interactive console
 dhellmann/smiley # application tracer, record & report, inspired by rad2py/wiki/QdbRemotePythonDebugger
 
@@ -527,6 +529,7 @@ from pprint import pprint # indent=4
 
 vars(obj), dir(obj)
 
+[modname for importer, modname, ispkg in pkgutil.iter_modules(mypkg.__path__)] # list modules of package
 inspect.getmembers(obj)
 inspect.getargspec(foo_func) # get signature
 inspect.getfile(my_module)
