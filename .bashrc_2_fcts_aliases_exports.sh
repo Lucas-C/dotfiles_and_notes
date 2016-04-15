@@ -228,9 +228,15 @@ t () { # Execute some cmd with start/end timestamps
 #----------
 alias tkcon='tkcon -load Tk'
 
-alias djshell='PYTHONSTARTUP=$HOME/.pythonrc ./manage.py shell_plus --use-pythonrc'
-alias ipy='PYTHONSTARTUP=$HOME/.pythonrc ipython --pdb'
-alias ipy3='PYTHONSTARTUP=$HOME/.pythonrc ipython3 --pdb'
+python () {
+    if [ -z "$@" ]; then
+        PYTHONSTARTUP=$BASHRC_DIR/.pythonrc python
+    else
+        python "$@"
+}
+alias djshell='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ./manage.py shell_plus --use-pythonrc'
+alias ipy='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ipython --pdb'
+alias ipy3='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ipython3 --pdb'
 alias pew='PATH=$(echo -n "$PATH" | paths_without_user | paths_without_whitespaces) $(type -P pew)' # without "type -P" Cygwin throws a "command not found"
 rmpyc () { find -L ${@:-.} -name "*.pyc" -o -name __pycache__ | xargs rm -rf; }
 py_module_path () { # USAGE: py_module_path $module_name [$py_version]
