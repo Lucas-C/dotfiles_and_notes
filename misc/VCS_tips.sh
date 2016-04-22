@@ -147,6 +147,10 @@ echo subdir/path/ >> .git/info/sparse-checkout
 
 git cherry-pick $sha # copy a commit from another branch into the current branch
 
+git update-index --assume-unchanged $file # ignore changes to a file that's already tracked in the repository
+
+git diff --no-color -U999999 --no-prefix HEAD^ | crucible.py $CR_ID --newpatch # https://confluence.atlassian.com/crucible/creating-reviews-from-the-command-line-335479612.html#Creatingreviewsfromthecommandline-InstallingtheReviewCLItool
+
 
 ++++++
 + p4 +

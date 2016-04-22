@@ -32,7 +32,7 @@ set blink-matching-paren on
 "\e[4~": "\eOF"
 
 # <CTRL>+left/right arrows
-# WHEN xterm-keys on, e.g. inside Tmux (already in /etc/inputrc):
+# WHEN xterm-keys on, e.g. inside Tmux (already in /etc/inputrc) + needed for Cygwin:
 "\e[1;5C": forward-word
 "\e[1;5D": backward-word
 # WHEN xterm-keys off: -> SANITY-CHECK-TEST: it can make readline (e.g. in python interpreter) jump words simply by pressing the arrow keys, under tmux but not tilda
@@ -57,5 +57,3 @@ $endif
 # Under RHEL
 "\e[5A": history-search-backward
 "\e[5B": history-search-forward
-
-

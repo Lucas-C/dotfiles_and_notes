@@ -317,7 +317,12 @@ echo "<15>My logline" | nc -u -w 1 $HOSTNAME 514 # <15> means 'user.debug', see 
 time tcpdump udp and dst port 514 | awk '{print $3" "$7}' | sed 's/\.syslog//' > noisy_devices # or -w record.pcap for later inspection with wireshark
 tshark # wireshark on the CLI
 logcheck, logtail
-petit --hash /var/log/messages # Cmdline log analyze, also --wordcount. Alt: lnav ; sysdig -c spy_syslog
+petit --hash /var/log/messages # OR: --sgraph --verbose - Cmdline log analyzer, also --wordcount. Alt: lnav ; sysdig -c spy_syslog
+$ wget https://github.com/fatherlinux/petit/archive/master.tar.gz
+$ tar xzvf petit-master.tar.gz
+$ alias petit="PYTHONPATH=$PWD/petit-master/petit/src/lib $PWD/petit-master/petit/src/bin/petit"
+!! Recognized timestamps: grep 'Look for' $PWD/petit-master/petit/src/lib/crunchtools/CrunchLog.py
+!! Beware of: grep ' max_sample_lines = ' $PWD/petit-master/petit/src/lib/crunchtools/CrunchLog.py
 
 #   --reject doesn't apply to the whole path, only to the filename/query
 mv $file ${file%.*}.bak # Change extension
@@ -480,10 +485,9 @@ fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte - Also: f
 
 rename \  _ * # Replace whitespaces by underscores
 
-# To see all files open in a directory structure:
-lsof +D /some/dir
-# To see all files jeff has open:
-sudo lsof -u jeff
+lsof +D /some/dir # To see all files open in a directory structure
+lsof +L1 # find out which processes are using deleted (unlinked) files
+sudo lsof -u $USER # To see all files a $USER has open
 # Additional useful option : -r $t : repeat the listing every $t second
 fuser $dir # identify processes using files or sockets
 
@@ -492,7 +496,7 @@ namei / readlink -f # Shows Where a File/Directory Comes From (links, etc.)
 killall -HUP $process_name # To tell a process to reload its file descriptors, e.g. when deleting a log file
 
 sudo dd if=/dev/urandom of=FAKE-2012Oct23-000000.rdb bs=1M count=6000 # Create fake file
-truncate -s $size_in_bytes $file # from coreutils
+truncate --size $size_in_bytes $file # from coreutils
 
 # setuid: When an executable file has been given the setuid attribute, normal users on the system who have permission to execute this file gain the privileges of the user who owns the file within the created process.
 chmod a+rX # gives read permissions to all, + execute on directeries and files that are already executable ONLY
@@ -946,7 +950,7 @@ export NSPR_LOG_FILE=/tmp/firefox_http.log
 ./firefox
 
 # Chrome
-sqlite3 "$LOCALAPPDATA/Google/Chrome/User Data/Default/databases/chrome-extension_loljledaigphbcpfhfmgopdkppkifgno_0/"* 'select * from fields;' # Inspect Lazarus form recovery DB
+sqlite3 "$(cygpath $LOCALAPPDATA)/Google/Chrome/User Data/Default/databases/chrome-extension_loljledaigphbcpfhfmgopdkppkifgno_0/"* 'select * from fields;' # Inspect Lazarus form recovery DB
 
 
 g@g@g@g@g

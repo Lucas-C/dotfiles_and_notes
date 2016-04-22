@@ -34,6 +34,7 @@
 - [What Google Learned From Its Quest to Build the Perfect Team](http://www.nytimes.com/2016/02/28/magazine/what-google-learned-from-its-quest-to-build-the-perfect-team.html?_r=0)
 - [We Hire the Best, Just Like Everyone Else](http://blog.codinghorror.com/we-hire-the-best-just-like-everyone-else/)
 - [Google SREs](http://www.wired.com/2016/04/google-ensures-services-almost-never-go/)
+- [Learning Through Blameless Reviews](http://fr.slideshare.net/joelchippindale/learning-through-blameless-reviews)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -120,7 +121,7 @@ In general, limit meetings by making them informal chats or doing them properly:
 - frequently determine operational excellence goals: eliminate the top root cause of tickets, create a runbook/dashboard for a service...
 - CMs: cf. [IT Change Management]
 - post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management] + trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
-Learning is the goal during post-mortems + questiosn examples : [InfiniteHows]
+Learning is the goal during post-mortems (cf. [Learning Through Blameless Reviews] for a nice quick slideshow) + questions examples : [InfiniteHows]
 - use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err or Zulip for Python, cog for Slack / HipChat)
 - useful questions to ask yourself when designing an alarms system : [Alarm design: From nuclear power to WebOps]
 - [Climbing out of the software death spiral] -> either :

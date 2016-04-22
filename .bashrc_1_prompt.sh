@@ -1,5 +1,11 @@
 # INSPIRATION: jeremy-bash@batray.net ; http://www.dreaming.org/~giles/bashprompt/prompts/dan.html
 
+
+# Minimal PS1 to copy/paste on machines without this .bashrc :
+#  prompt_command() { EXIT_CODE=${?/#0/}; }; export PROMPT_COMMAND=prompt_command; export PS1='\[\e[0;34m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[0;32m\]\W\[\e[0m\]\[\e[1;31m\] $EXIT_CODE\[\e[0m\]\$ '
+
+
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -15,12 +21,10 @@ export C_branch='0;33' # yellow
 export C_chrooted='0;36' # cyan
 export C_virtualenv='0;34' # blue
 
-export DIRCOLOR=$T_normal
-export EXIT_CODE=0
-export CODE_COLOR=$T_normal
-export CODE_STRING=
-export USER_STYLE=$T_normal
 export HOST_COLOR='1;35' # magenta
+export DIRCOLOR=$T_normal
+export USER_STYLE=$T_normal
+export EXIT_CODE=0
 
 # FROM: http://stackoverflow.com/a/88716
 IS_CHROOTED_PROMPT='{}'
@@ -38,12 +42,12 @@ export PS1=\
 '\[\e[${C_branch}m\][${GIT_BRANCH}]\[\e[${T_normal}m\]'\
 '\[\e[${C_virtualenv}m\]('$(basename "${VIRTUAL_ENV:-}")')\[\e[${T_normal}m\]'\
 ':\[\e[${DIRCOLOR}m\]\W\[\e[${T_normal}m\]'\
-'\[\e[${CODE_COLOR}m\]$CODE_STRING\[\e[${T_normal}m\]\$ '
+'\[\e[${C_error}m\] $EXIT_CODE\[\e[${T_normal}m\]\$ '
 
 export PROMPT_COMMAND=prompt_command
-prompt_command()
+prompt_command ()
 {
-    EXIT_CODE=$?
+    EXIT_CODE=${?/#0/}
     DIRCOLOR=$T_normal
     if [ -O "$PWD" ]; then
         DIRCOLOR=$C_owner
@@ -51,13 +55,6 @@ prompt_command()
         DIRCOLOR=$C_write
     else
         DIRCOLOR=$C_nowrite
-    fi
-    if [ $EXIT_CODE -ne 0 ]; then
-        CODE_COLOR=$C_error
-        CODE_STRING=\ $EXIT_CODE
-    else
-        CODE_COLOR=$T_normal
-        CODE_STRING=
     fi
 
     if [ -S "$SSH_AUTH_SOCK" ]; then # exists and is a socket
@@ -107,8 +104,6 @@ cd () {                 # zsh-like, USAGE: cd $path | cd $old_path_snippet $new_
     [ "$PWD" != "$HOME" ] && pwd > $CURRENT_PWD_DIR/last_pwd
     return 0
 }
-alias ..="cd .."
-alias ...="cd ../.."
 
 set_term_window_name () {  # Valid for Tmux AND Screen
     [ "${TERM:-}" = screen ] && printf "\033k$@\033\\"

@@ -688,6 +688,30 @@ pex # self-contained executable virtual environments : carefully constructed zip
 pybuilder, invoke # build tools, like Makefile with many plugins
 setuptools_scm  # manage your setup.py versions by scm tags
 
+def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unverified=()):  # to use pip-compile (from pip-tools) programmatically
+    from tempfile import NamedTemporaryFile
+    with NamedTemporaryFile('w') as tmp_file:
+        tmp_file.write('\n'.join(reqfile_lines))
+        tmp_file.flush()
+        from pip.req import parse_requirements
+        from pip.download import PipSession
+        constraints = list(parse_requirements(tmp_file.name, session=PipSession()))
+    from piptools.scripts.compile import PipCommand
+    pip_options = PipCommand()
+    import pip
+    pip.cmdoptions.make_option_group(pip.cmdoptions.index_group, pip_options.parser)
+    import optparse
+    pip_options.parser.add_option(optparse.Option('--pre', action='store_true', default=False))
+    pip_options, _ = pip_options.parse_args(pip_args)
+    from piptools.repositories import LocalRequirementsRepository, PyPIRepository
+    repository = LocalRequirementsRepository(existing_pins=dict(), proxied_repository=PyPIRepository(pip_options))
+    repository.finder.allow_all_external = allow_all_external
+    repository.finder.allow_unverified = allow_unverified  # exhaustive list of pkg names listed in --find-links resources
+    from piptools.resolver import Resolver
+    resolver = Resolver(constraints, repository)
+    results = resolver.resolve()
+    return [str(ireq.req) for ireq in results]
+
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried)
 pyreverse # UML diagrams, integrated in pylint

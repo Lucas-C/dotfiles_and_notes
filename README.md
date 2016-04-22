@@ -9,7 +9,7 @@ Compatible for Ubuntu, Red Hat, OSX and Cygwin.
     git clone https://github.com/Lucas-C/linux_configuration.git
     BASHRC_DIR=$PWD/linux_configuration
     cd $HOME
-    for f in .gemrc .gitconfig .inputrc .minttyrc .vimrc; do ln -s $BASHRC_DIR/$f; done
+    for f in .gemrc .gitconfig .inputrc .minttyrc .vimrc; do [ -e $f ] && echo "Backing up $f" && mv $f{,.bak}; ln -s $BASHRC_DIR/$f; done
     echo "source $BASHRC_DIR/.bashrc" >> .bashrc
     echo 'exec /bin/bash' > .profile
 

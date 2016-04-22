@@ -111,6 +111,7 @@ MyBatis // data mapper framework, ORM for SQL DBs using a XML descriptor or anno
 -Xss64kb // set stack size
 -XX:+HeapDumpOnOutOfMemoryError // get a heap dump at the point the application crashes
 -XX:+PerfDisableSharedMem // disable JVM exporting statistics to a file in /tmp, causing pauses of 0.1-1s during garbage collection
+-Xloggc:logfilename.log // log GC status to a file with time stamps
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
 
 // String / ByteString correct conversion :

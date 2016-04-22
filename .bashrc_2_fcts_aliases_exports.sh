@@ -152,13 +152,9 @@ alias_r () { # recursively resolve an alias, handle pipes and nested aliases
 # ls
 #----
 alias l='LANG=en_US.UTF-8 ls -BF --color=always --group-directories-first'
-alias la='l -A'
 alias ll='l -lhA'
 alias lk='ll -rS'       # sort by size, smallest first
 alias lt='ll -rt'       # sort by date, oldest first
-alias lc='ll -rtc'      # sort by and show change time, oldest first
-alias lu='ll -rtu'      # sort by and show access time, oldest first
-alias lr='ll -R'        # recursive ls
 lsp () { # group files by their prefix
     LANG=en_US.UTF-8 ls -AB1 $@ | sed 's/\(.[^.]\+\).*/\1/' | sort | uniq -c
 }
@@ -211,6 +207,8 @@ t () { # Execute some cmd with start/end timestamps
     date +"# Ended  : %c - @%s - Elapsed: $((end_time - start_time))s"
     $(exit $retcode)
 }
+alias ..="cd .."
+alias ...="cd ../.."
 
 
 #---------
@@ -220,7 +218,7 @@ alias tkcon='tkcon -load Tk'
 
 python () {
     if [ -z "$1" ]; then
-        PYTHONSTARTUP=$BASHRC_DIR/.pythonrc python
+        PYTHONSTARTUP=$BASHRC_DIR/.pythonrc $(type -P python)
     else
         $(type -P python) "$@"
     fi
@@ -319,9 +317,7 @@ iconv_help () {
 }
 alias utf8=iconv_help
 
-nocrlf () { # also: dos2unix
-    perl -pe 's/\r//g' "${@:-/dev/stdin}"
-}
+alias nocrlf="echo 'Use dos2unix'"
 notabs () { # INPLACE Replace tabs by 4 spaces & remove trailing ones & spaces
     for f in $(findTxt "${@:-$(cat)}"); do
         perl -pi -e 's/\t/    /g' "$f"
@@ -604,4 +600,31 @@ font_dflt_fix () {  # cf. https://chezsoi.org/lucas/blog/2016/02/11/en-fixing-fo
     tr '\n' ' ' < "$tmpttx_fontfile_name" | sed 's~\(<GSUB>.\+<ScriptTag value="DFLT"/>.\+</DefaultLangSys>\)\s\+<!-- LangSysCount=1 -->\s\+<LangSysRecord.\+</LangSysRecord>~\1~' > "$ttx_fontfile_name" || return 1
     ttx -o "$input_fontfile" "$ttx_fontfile_name" || return 1
     rm "$tmpttx_fontfile_name"
+}
+
+
+execute_C_code () {
+    local return_code
+    echo "${1?}" | gcc -w -xc -o tmp_exec - # options meaning: no warnings, language=C
+    ./tmp_exec
+    return_code=$?
+    rm tmp_exec
+    return $?
+}
+
+# Faster than wc -l or LANG=C LC_ALL=C grep -cF '\n'
+count_chars () {  # USAGE: count_chars '\n' < $file - FROM: http://superuser.com/questions/485800/whats-the-quickest-way-to-count-the-number-of-each-character-in-a-file
+    local chars="${1?}"
+    execute_C_code "$(cat <<EOF
+int cache[256], x, y;
+char buf[4096], letters[] = "$chars";
+int main() {
+    while ((x=read(0, buf, sizeof buf)) > 0)
+        for (y=0; y<x; y++)
+            cache[(unsigned char)buf[y]]++;
+    for (x=0; x<sizeof letters-1; x++)
+        printf("'%c' (ASCII char %i) appears %d times\n", letters[x], letters[x], cache[letters[x]]);
+}
+EOF
+)"
 }
