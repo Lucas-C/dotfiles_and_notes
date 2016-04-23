@@ -34,6 +34,7 @@ Software Development Best Practices
 - [Why code review beats testing: evidence from decades of programming research](https://kev.inburke.com/kevin/the-best-ways-to-find-bugs-in-your-code/)
 - [Best practices for code review](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
 - [Why Should Software Architects Write Code](http://blog.ieeesoftware.org/2016/02/why-should-software-architects-write.html)
+- [A Guide to Naming Variables](http://a-nickels-worth.blogspot.fr/2016/04/a-guide-to-naming-variables.html)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -138,6 +139,18 @@ Take the time to choose descriptive names. Naming things is a great power, it co
 - Function names should say what they do : you can tell it from a call, without looking at the definition [CC-G20] Common smells:
     * Obvious behaviour is unimplemented [CC-G2]
     * Incorrect behaviour at the boundaries [CC-G3]
+- [A Guide to Naming Variables] :
+    * As coders our job is to communicate to human readers, not computers.
+    * Names should communicate the coder's intent so the reader doesn't have to try to figure it out.
+    * Boilerplate must be minimized, because it drains reviewers' ability to concentrate on the code.
+    * Don't Put the Type in the Name
+    * Use Teutonic Names Most of The Time
+    * Move Simple Comments Into Variable Names: We prefer good names over comments but can't replace all comments.
+    * Avoid Over-used Cliches: val, value, result, res, retval, tmp, temp, count, str
+    * Use Idioms Where Meaning is Obvious
+    * May Use Short Names Over Short Distances When Obvious -> I DISAGREE
+    * Remove Thoughtless One-Time Variables -> I DISAGREE
+    * Use Short OTVs to Break Up Long Lines & Complicated Expressions
 
 ## Functions smells
 - Too long [CC-Chapt2]
@@ -229,6 +242,8 @@ Discutez de visu,ou demandez à un tiers.
 
 In fine, celui qui maintient DÉCIDE,
 Quitte à refaire une PR après.
+
++ [A Guide to Naming Variables] : "minimize distance and boilerplate : as coders our job is to communicate to human readers, not computers."
 
 ## Functional programming
 cf. [Functional Programming Patterns]

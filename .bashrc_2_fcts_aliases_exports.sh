@@ -28,10 +28,10 @@ paths_without_user () { # remove paths that include the current (or specified) u
     tr : '\n' | grep -vF "${1:-$USER}" | head -c-1 | tr '\n' :
 }
 
-export HISTCONTROL=ignoreboth # ignoredups and ignorespace
-shopt -s histappend # append to the history file, don't overwrite it
 export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
 export HISTTIMEFORMAT="%F %T "
+export HISTCONTROL=ignoreboth # ignoredups and ignorespace
+shopt -s histappend # append to the history file, don't overwrite it
 alias r='fc -s' # 'repeat' - USAGE: r [old=new] [cmd] : runs last command [matching $cmd if provided], after performing the OLD=NEW substitution
 
 export DISPLAY=:0 # for xclip, can be checked with 'w' cmd
@@ -53,22 +53,17 @@ alias sort='LANG=C LC_ALL=C sort'
 export EDITOR=vim
 mkdir -p ~/.vim/undodir
 
+vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md | md2man; }
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+alias less='less --ignore-case --LONG-PROMPT'
+
 md2man () { pandoc -s -f markdown -t man "$@" | man -l -; }
 md2html () {
     pandoc --include-in-header ~/minimal-md3.css --include-in-header $code/misc/Presentation/md-tags.css \
         -s -S --toc -f markdown -t html "$1" > "${1%%.md}.html" && firefox "${1%%.md}.html" &
 }
-
-locate_img_and_preview () {
-    local feh_opts='-d -F'
-    [ "$1" = "-t" ] && shift && feh_opts=-t # thumbnails mode
-    locate -0 -i "${@:-$(cat)}" | xargs -0 -n 1 file | grep image | cut -d: -f1 | feh $feh_opts -f
-}
-
-vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md | md2man; }
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 diff_alt () {
     cat <<EOF
@@ -83,15 +78,9 @@ opendiff ${_UNDER}# OSX${_END}
 EOF
 }
 
-alias sudo='sudo ' # Allow aliases with sudo : http://askubuntu.com/a/22043
-alias strings='strings -a' # safer, due to vulnerabilities in libbfd
 alias diff='diff_alt && diff -bB --suppress-common-lines'
 alias sdiff='sdiff -bB --suppress-common-lines'
 diffs () { /usr/bin/diff -U2 "$@" | diffstat; }
-
-alias less='less --ignore-case --LONG-PROMPT'
-alias make='make -j3'
-alias dmesg='dmesg --ctime' # Alt: http://stackoverflow.com/a/19272272
 
 if type grc >/dev/null 2>&1; then # ALT: nojhan/colout
     alias cl='grc --stderr --stdout --colour=auto' # DO NOT SET --color=on
@@ -128,7 +117,6 @@ if less --help | grep -q '\-F'; then
     alias tF='less +F'      # Alt: less + SHIFT-F - http://www.brianstorti.com/stop-using-tail
 fi
 
-wrf () { wr "$@" fren; }
 
 #---------------
 # Alias control
@@ -137,7 +125,6 @@ pa () { # print aliases
     grep --color -h '^[[:space:]]*[[:alnum:]._-]* () {\|^[[:space:]]*alias [[:alnum:]._-]*=' ${BASHRC_DIR}/.bashrc*
     grep --color '[[:alnum:]]*=' ${BASHRC_DIR}/.bash_dirs
 }
-alias pag='pa|g'
 
 alias nofuncalias='type -P'
 unfuncalias () { # undefined any function/alias named as arg
@@ -160,6 +147,7 @@ alias_r () { # recursively resolve an alias, handle pipes and nested aliases
 }
 #TEST: alias ec='echo' ; alias dog='cat' ; alias boo='ec BOO | dog'
 
+
 #----
 # ls
 #----
@@ -177,6 +165,7 @@ lsp () { # group files by their prefix
 lse () { # group files by their extension - Alt: find . -type f -not -path '*/.git/*' -not -path '*/.idea/*' -not -path '*/bower_components/*' -not -path '*/node_modules/*' -not -path '*/target/*' | awk -F'.' '{print $NF}' | sort | uniq -c
     LANG=en_US.UTF-8 ls -AB1 $@ | awk -F'.' '{print $NF}' | sort | uniq -c
 }
+
 
 #------
 # grep
@@ -207,6 +196,7 @@ alias gri='git rebase --interactive'
 alias gpr='git pull --rebase'
 alias gpp='git pull --rebase && git push'
 
+
 #------------
 # One-letter
 #------------
@@ -222,16 +212,17 @@ t () { # Execute some cmd with start/end timestamps
     $(exit $retcode)
 }
 
+
 #---------
 # Languages
 #----------
 alias tkcon='tkcon -load Tk'
 
 python () {
-    if [ -z "$@" ]; then
+    if [ -z "$1" ]; then
         PYTHONSTARTUP=$BASHRC_DIR/.pythonrc python
     else
-        python "$@"
+        $(type -P python) "$@"
     fi
 }
 alias djshell='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ./manage.py shell_plus --use-pythonrc'
@@ -280,6 +271,31 @@ jar_java_version () {
     javap -v "$a_class" | grep version
     rm -r $a_class_main_dir
     cd - >/dev/null
+}
+
+
+#-------------
+# find helpers
+#-------------
+findByFilePattern () {
+    local pattern="$1"
+    shift
+    find -L "${@:-.}" -type f -exec file {} \; | grep "$pattern" | cut -d':' -f1
+}
+findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
+    findByFilePattern text "$@"
+}
+findImg () {
+    findByFilePattern image "$@"
+}
+findCRLF () {
+    findByFilePattern CRLF "$@"
+}
+findLatin1 () { # aka ISO-8859-1
+    findByFilePattern ISO-8859 "$@"
+}
+findAndSortByDate () {
+    find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
 }
 
 
@@ -344,9 +360,15 @@ stats () { # --no-header | awk '{print $3}'     # Alt: csvstat -H ( pip install 
             sum,n,mean,std_dev,a[0],tp(.01),tp(.1),median,tp(.9),tp(.99),a[n-1]}'
 }
 
+
 #-------------------
 # Command overrides
 #-------------------
+alias sudo='sudo ' # Allow aliases with sudo : http://askubuntu.com/a/22043
+alias strings='strings -a' # safer, due to vulnerabilities in libbfd
+alias make='make -j3'
+alias dmesg='dmesg --ctime' # Alt: http://stackoverflow.com/a/19272272
+
 du () { /usr/bin/du --summarize --human-readable "$@" | sort --human-numeric-sort; }
 alias df='df --human-readable --print-type'
 alias pstree='pstree -p'
@@ -386,12 +408,17 @@ touch () { # touch [EPOCH] [+/-$days_count] $files
 #-------
 # Other
 #-------
-
 alias psf='ps -eo user,pid,%cpu,%mem,ppid,tty,stat,rss,etime,start,nice,psr,args --sort=start_time 2>/dev/null'
 alias pg='psf | g'
 alias ps_codes='man ps | grep -A18 "^PROCESS STATE CODES$"'
 
 nav () { nautilus "${1:-$PWD}/"; }
+
+locate_img_and_preview () {
+    local feh_opts='-d -F'
+    [ "$1" = "-t" ] && shift && feh_opts=-t # thumbnails mode
+    locate -0 -i "${@:-$(cat)}" | xargs -0 -n 1 file | grep image | cut -d: -f1 | feh $feh_opts -f
+}
 
 type eog >/dev/null 2>&1 && alias img=eog
 type evince >/dev/null 2>&1 && alias pdf=evince
@@ -410,27 +437,6 @@ src2pdf () {
     perl -i -wpe '/<style.*>$/&&($_.="pre{white-space:pre-wrap;}\n")' "$noext.html"
     wkhtmltopdf "$noext.html" "$noext.pdf"
     rm "$noext.html"
-}
-
-findByFilePattern () {
-    local pattern="$1"
-    shift
-    find -L "${@:-.}" -type f -exec file {} \; | grep "$pattern" | cut -d':' -f1
-}
-findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
-    findByFilePattern text "$@"
-}
-findImg () {
-    findByFilePattern image "$@"
-}
-findCRLF () {
-    findByFilePattern CRLF "$@"
-}
-findLatin1 () { # aka ISO-8859-1
-    findByFilePattern ISO-8859 "$@"
-}
-findAndSortByDate () {
-    find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
 }
 
 fqdn () { python2 -c "import socket ; print socket.gethostbyaddr(\"$@\")[2]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match

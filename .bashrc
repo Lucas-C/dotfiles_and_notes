@@ -32,20 +32,26 @@ download_bashrc_files () {
     echo "# Downloading git-completion.bash from GitHub"
     curl -s 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > ${BASHRC_DIR}/.bashrc_git_completion
 }
-[ -z "$(ls ${BASHRC_DIR}/.bashrc_* 2>/dev/null)" ] && download_bashrc_files
+if [ -z "$(ls ${BASHRC_DIR}/.bashrc_* 2>/dev/null)" ]; then
+    download_bashrc_files
+fi
 
 #------------------------------
 # Directory aliases / variables
 #------------------------------
-if [ -r ${BASHRC_DIR}/.bash_dirs ]; then
+load_directory_variables_and_aliases () {
+    local aliases_file="$1"
+    local pass unexDir dir
     for pass in one two; do
         while read unexDir; do # last line won't be read if file does not end with a newline
             dir=$(eval echo "${unexDir}")
             export "$dir"
             eval alias ${dir/=/=\'cd \"}\"\'
-        done < ${BASHRC_DIR}/.bash_dirs
-        unset unexDir
-    done; unset pass
+        done < "$aliases_file"
+    done
+}
+if [ -r ${BASHRC_DIR}/.bash_dirs ]; then
+    load_directory_variables_and_aliases ${BASHRC_DIR}/.bash_dirs
 fi
 
 ##############################
@@ -55,4 +61,6 @@ for f in ${BASHRC_DIR}/.bashrc_*; do
     source $f
 done; unset f
 
-[ -r ${BASHRC_DIR}/.bash_colors ] && source ${BASHRC_DIR}/.bash_colors
+if [ -r ${BASHRC_DIR}/.bash_colors ]; then
+    source ${BASHRC_DIR}/.bash_colors
+fi
