@@ -13,6 +13,10 @@ var system = require('system'),
 
 casper.start('http://www.photobox.fr/mon-espace');
 
+casper.on('remote.message', function(message) {
+  console.log(message);
+});
+
 casper.then(function () { // DEBUG
     require('utils').dump(casper.steps.map(function(step) {
         return step.toString();
