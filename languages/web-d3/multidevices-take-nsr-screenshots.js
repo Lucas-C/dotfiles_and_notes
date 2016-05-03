@@ -1,6 +1,15 @@
 // DESCRIPTION: Ce script a pour but de garder un historique de screenshots de ce à quoi ressemble NSR au cours de son évolution.
 // AUTHOR: Lucas Cimon
-// INSTALL: sudo npm install -g phantomjs casperjs slimerjs
+// INSTALL: sudo npm install -g casperjs slimerjs
+/*  + sous Cygwin, utiliser ceci :
+casperjs () {
+    local node_path="$(npm list -g 2>/dev/null | head -n 1)\node_modules"
+    local engine=phantomjs
+    [ "$1" = "--engine=slimerjs" ] && engine=slimerjs && shift
+    local script_winpath="$(cygpath -aw "$1")"; shift
+    NODE_PATH=$node_path $engine "$node_path\casperjs\bin\bootstrap.js" --casper-path="$node_path\casperjs" --cli $script_winpath "$@"
+}
+ */
 // USAGE: casperjs --engine=slimerjs multidevices-take-nsr-screenshots.js
 
 const consent_cookie   = {name: 'hasConsent',    value: 'true',                                     domain: 'jobs.voyages-sncf.com'};
@@ -65,4 +74,3 @@ function makeCookie(cookie) {
         'secure':   cookie.secure || false,
     }
 }
-

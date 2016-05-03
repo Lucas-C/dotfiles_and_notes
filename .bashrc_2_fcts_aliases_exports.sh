@@ -612,7 +612,7 @@ execute_C_code () {
     return $?
 }
 
-# Faster than wc -l or LANG=C LC_ALL=C grep -cF '\n'
+# Faster than wc -l or LANG=C LC_ALL=C grep -cF $'\n'
 count_chars () {  # USAGE: count_chars '\n' < $file - FROM: http://superuser.com/questions/485800/whats-the-quickest-way-to-count-the-number-of-each-character-in-a-file
     local chars="${1?}"
     execute_C_code "$(cat <<EOF

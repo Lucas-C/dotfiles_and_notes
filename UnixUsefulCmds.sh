@@ -86,6 +86,7 @@ echo "You can simulate on-screen typing just like in the movies" | pv -qL 10
 
 rainbow_cursor_worm () { a=1;x=1;y=1;xd=1;yd=1;while true;do if [[ $x == $LINES || $x == 0 ]]; then xd=$(( $xd *-1 )) ; fi ; if [[ $y == $COLUMNS || $y == 0 ]]; then yd=$(( $yd * -1 )) ; fi ; x=$(( $x + $xd )); y=$(( $y + $yd )); printf "\33[%s;%sH\33[48;5;%sm \33[0m" $x $y $(($a%199+16)) ;a=$(( $a + 1 )) ; sleep 0.001 ;done; } # FROM: http://www.climagic.org/coolstuff/cursor-tricks.html
 worms -d 20; rain -d 20 # from bsdgames
+nms # Sneakers movie encryption effect FROM: bartobri/no-more-secrets
 
 ( play -q -n synth sine F2 sine C3 remix - fade 0 4 .1 norm -4 bend 0.5,2399,2 fade 0 4.0 0.5 & )
 echo 'main(t){for(;;t++)putchar(((t<<1)^((t<<1)+(t>>7)&t>>12))|t>>(4-(1^7&(t>>19)))|t>>7);}' | cc -x c - -o crowd && ./crowd | aplay # or `play -r 8000 -c 1 -t u8 <(... && ./crowd)` from sox package - FROM: http://canonical.org/~kragen/bytebeat/
@@ -686,8 +687,13 @@ wget --curl -H "Cache-Control: no-cache" / wget --no-cache # Force a proxy fetch
 # Web scrapping:
 httrack
 Xdummy > Xvfb # in-memory X11 display server that doesn't render to screen
-pjscrape, PhantomJS, SlimerJS, CasperJS
+pjscrape, PhantomJS, SlimerJS, CasperJS # PhantomJS alt CDN download: https://cnpmjs.org/downloads
 Netflix/sketchy # takes screenshots and scrap text using PhantomJS & Celery
+pageres, pageres-cli, capturejs # Easily capture website screenshots - An interesting alternative to use FF with casperjs --engine=slimerj: https://gist.github.com/nhoizey/4060568
+new Pageres({filename: '<%= date %>_<%= url %>_<%= size %>'})
+    .src('jobs.voyages-sncf.com', ['1366x768', 'iPad', 'iPhone 6'])
+    .dest(__dirname).run()
+    .catch(function (error) { console.error(error.stack.split('\n')); process.exit(1); });
 GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
 Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, pyspider # python crawling libs
 kimono, import.io # web services

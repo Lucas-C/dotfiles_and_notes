@@ -166,7 +166,7 @@
             <WordsStyle name="COMMENTLINE" styleID="125" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="OPERATOR" styleID="127" fgColor="859900" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="">
+        <LexerType name="javascript" desc="Javascript" ext="json">
             <WordsStyle name="DEFAULT" styleID="41" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="NUMBER" styleID="45" fgColor="D33682" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="WORD" styleID="46" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />

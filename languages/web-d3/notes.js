@@ -248,7 +248,7 @@ Immutable // Facebook JS lib
 moment.js > sugar.js // parse, validate, manipulate, and display dates
 
 webpack, browserify, systemJs // module bundlers
-npm install // Node Packaged Modules
+npm install --loglevel verbose $pkg // Node Packaged Modules
 npm view $pkg_name [dist.tarball] // get URL of a package tarball
 npm shrinkwrap // locks down the versions of a package's dependencies
 
@@ -275,6 +275,7 @@ fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
 });
 node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/3944507 - Browser -> $host:8080/debug?port=5858 - Need the following iptables rules:
 // for chain in INPUT OUTPUT; do iptables -A $chain -p tcp -m tcp --dport 8080 -j ACCEPT; done
+mdb // awesome-looking NodeJs debugger, by Joyent - Alt: http://stackoverflow.com/questions/1911015/how-do-i-debug-node-js-applications/16512303#16512303
 
 plato // source code visualization, static analysis, and complexity tool
 FGRibreau/check-build // includes:

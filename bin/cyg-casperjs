@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+export NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)\node_modules"
+
+ENGINE=phantomjs
+
+[ "$1" = "--engine=slimerjs" ] && ENGINE=slimerjs && shift
+[ -e "$1" ] && SCRIPT_PATH="$(cygpath -aw "$1")" && shift
+
+$ENGINE "$NODE_PATH\casperjs\bin\bootstrap.js" --casper-path="$NODE_PATH\casperjs" --cli $SCRIPT_PATH "$@"

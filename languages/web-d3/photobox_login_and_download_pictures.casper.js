@@ -1,4 +1,4 @@
-// INSTALL: sudo npm install -g phantomjs@1.9.16 && sudo npm install -g casperjs
+// INSTALL: sudo npm install -g phantomjs@1.9.16 casperjs
 //    the latest v1.9.17 version of PhantomJS crashed, so I used the previous one
 // USAGE: casperjs --web-security=no $this --email=$email --password=$password < photobox_photos_ids.txt
 //                 ^ this is to avoid 'casperjs cannot make cross domain ajax requests' errors

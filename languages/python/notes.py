@@ -1052,7 +1052,7 @@ reload(module)
 modulefinder # determine the set of modules imported by a script
 
 asynchat, irc, sleekxmpp, embolalia/willie # IRC/XMPP bots
-mailr, mailbox, imaplib, smtpd, smptplib # for emails, cf. ascii_art_email.py
+mailr, mailbox, imaplib, smtpd, smptplib, kootenpv/yagmail # for emails, cf. ascii_art_email.py
 paramiko # remote SSH/SFTP connexion
 
 scales # metrics for Python

@@ -34,6 +34,7 @@ PAQ = Plan d'Assurance Qualité -> définit une TMA: périmètre pris en charge,
 POC = Proof Of Concept : prototype
 REX = Retour d'EXpérience
 ROI = Return On Investment
+RPO = Recovery Point Objective : maximum targeted period in which data might be lost from an IT service due to a major incident
 RTFM = Read The Fucking Manual
 SCRUD = Search, Create, Read, Update, Delete -> cf. CRUD
 SGBD = Système de gestion de base de données

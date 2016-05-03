@@ -1,11 +1,11 @@
 # [Software development is a collaborative game](http://blog.codinghorror.com/software-development-as-a-collaborative-game/)
 
 ## References
-- [MVB] : [Minimum Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)
-- [GoodAtOps] : [How to be Good at Ops in 40min](https://adamhjk.github.io/good-at-ops/#/8)
+- [Minimum Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)
+- [HowToBeGoodAtOps](https://adamhjk.github.io/good-at-ops/#/8)
 - [ShittyDashboards](http://attackwithnumbers.com/the-laws-of-shitty-dashboard)
-- [DieScrum] : [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
-- [5EPSQ] : [Five essential phone screen questions](https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions)
+- [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
+- [Five essential phone screen questions](https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions)
 - [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
 - [InfiniteHows](http://radar.oreilly.com/2014/11/the-infinite-hows.html)
 - [IT Change Management](http://stephaniekdean.wordpress.com/2011/06/17/cm/)
@@ -35,6 +35,7 @@
 - [We Hire the Best, Just Like Everyone Else](http://blog.codinghorror.com/we-hire-the-best-just-like-everyone-else/)
 - [Google SREs](http://www.wired.com/2016/04/google-ensures-services-almost-never-go/)
 - [Learning Through Blameless Reviews](http://fr.slideshare.net/joelchippindale/learning-through-blameless-reviews)
+- [Process Hacking](http://fr.slideshare.net/ClaireAgutter/process-hacking)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -59,14 +60,14 @@ Daniel Pink motivational building blocks from "The puzzle of motivation" :
 
 ## Team culture building & best practices
 - two main tenets: RESPECT & TRUST people.
-How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [MVB] + [TrekOps] + [MAPP] on trust, autonomy & Agile methods in Michelin
+How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [Minimum Viable Bureaucracy] + [TrekOps] + [MAPP] on trust, autonomy & Agile methods in Michelin
 - write down team tenets as guidelines for priorities
 - define clear team goals with deadlines
 - build a team brand: catchy name, logo, slogan... [PP]
 - small is good: 2-pizzas team
 - make decisions based on data
 - allocate some hack time
-- rotate unwanted responsabilities [MVB]
+- rotate unwanted responsabilities [Minimum Viable Bureaucracy]
 - whiteboard sessions
 - coding style reference, tools to enforce it, code reviews
 - regular emails with tips. Or put a one-pager in the toilets, as Google is doing
@@ -87,15 +88,16 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
     They agreed to adopt some new norms: from now on, [the team leader] would make an extra effort to let the team members know how their work fit into [the company's] larger mission; they agreed to try harder to notice when someone on the team was feeling excluded or down.
     * No one wants to put on a ‘‘work face’’ when they get to the office.
     To be fully present at work, to feel ‘‘psychologically safe,’’ we must know that we can be free enough, sometimes, to share the things that scare us without fear of recriminations. We must be able to talk about what is messy or sad, to have hard conversations with colleagues who are driving us crazy. We can’t be focused just on efficiency.
+- [Process Hacking]: process exploration days, rotation days, problem boards, reward participants
 
 ## Stand-up & meetings
-It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [DieScrum]
+It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [Why Scrum Should Basically Just Die In A Fire]
 - What did you do yesterday?
 - What are you doing today?
 - What is blocking your progress?
 - What are your commitments for the week / progression / changes due to blockers or higher priorities
 
-In general, limit meetings by making them informal chats or doing them properly: agenda (skip if empty), few participants, time-boxed, clustered on some days in the week, take notes & record team decisions [MVB]
+In general, limit meetings by making them informal chats or doing them properly: agenda (skip if empty), few participants, time-boxed, clustered on some days in the week, take notes & record team decisions [Minimum Viable Bureaucracy]
 
 ## Define team metrics
 - customer satisfaction
@@ -109,6 +111,7 @@ In general, limit meetings by making them informal chats or doing them properly:
 
 ![](/Agile_vs_CI_vs_CD_vs_DevOps.jpg)
 
+- [HowToBeGoodAtOps]
 - "**Empathy** allows software makers and operators to help each other deliver the best possible functionality and operability on behalf of their customers." [Jeff Sussna & Katherine Daniels](http://blog.ingineering.it/post/72964480807/empathy-the-essence-of-devops)
 - monitor everything ! CPU, openFD, procCount... For services: throughput + delay + completness (% of potential src data processed). And store historical data ! Distributed tracing tools: Twitter’s Zipkin and compatible Apache HTrace, Google’s Dapper
 - zero config: config is hard to document, hard to update, hard to set up, its persistent state can overlaps with other data
@@ -129,6 +132,7 @@ Learning is the goal during post-mortems (cf. [Learning Through Blameless Review
     * issue bankruptcy
     * new dev "work queue"
 - [Google SRE] : "no SRE could spent more than 50 percent of his or her time on traditional operations as opposed to coding"
+- keep Ops playbooks
 
 ## Deployments
 [Immutable Server](http://martinfowler.com/bliki/ImmutableServer.html) pattern.
@@ -165,7 +169,7 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
 ## Recruiting
 - prebrief, debrief, assigned competences, bar raiser
 - codility.com & cie
-- recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [5EPSQ]
+- recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [Five essential phone screen questions]
 - STAR -> Probe -> Chalenge
 - some soft skills: teamwork, conflict resolution, listening, coordination...
 - sample questions:
