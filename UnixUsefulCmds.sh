@@ -142,7 +142,7 @@ exec > >(tee -a $LOG_FILE); exec 2>&1 # > >(cmd) constructs did not work under c
 exec 5>&1; out=$(echo -e "A\nB" | tee /dev/fd/5) # capture a command output while still sending it to stdout - FROM: http://stackoverflow.com/a/16292136/636849
 date "+%F %T,%N" | cut -c-23 # Standard logs date
 date -u +%s # Seconds since EPOCH
-date -d @$seconds_since_epoch "+%F" # under OSX: date -jf "%s" $secs "+%F"
+date -d @$seconds_since_epoch "+%F" # converts a timestamp - Under OSX: date -jf "%s" $secs "+%F"
 
 # !!GOTCHA!! aliases used in functions definitions are immediately substituted,
 # NOT resolved dynamically !
@@ -1220,9 +1220,9 @@ heroku pg:psql
 <SHIFT>+<SPACE> -> select the whole line
 
 
-{
-.puppet
-}
+{._{._{._
+. puppet
+}_.}_.}_.}
 puppet apply --debug --verbose [--graph]  # graphs are generated in /var/lib/puppet/state/graphs by default
 dot -Tsvg $dot_graph -o ${dot_graph%*.dot}.svg  # >>> PNG-export, as it did not handle fonts correctly under Cygwin - Alt: dot -Tx11 $dot_graph for a terminal display
 !! future parser
@@ -1231,14 +1231,20 @@ $content = inline_template("...Hurrah ! Ruby code !...")
 notify { "var: ${var}": }
 
 
-###################
-## Tiny Core Linux (used by boot2docker)
-###################
+8-8-8-8-8-8
+8- Docker
+8-8-8-8-8-8
+docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
+
+
+µ!µ!µ!µ!µ!µ!µ!µ!µ!µ
+!µ Tiny Core Linux (used by boot2docker)
+µ!µ!µ!µ!µ!µ!µ!µ!µ!µ
 tce-load -w -i appbrowser-cli.tcz bash.vcz vim.vcz # Installing TinyCore AppBrowser CLI - USAGE: TERM=xterm-color appbrowser-cli
 
 
-###################
-## Kali
-###################
+^1^1^1^1^
+^^ Kali
+^1^1^1^1^
 toor # default password
 setxkmap fr

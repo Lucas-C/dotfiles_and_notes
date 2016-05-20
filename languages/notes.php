@@ -1,3 +1,8 @@
+(object) array( // Converts an array into an object
+    'name' => 'name',
+    'parents' => array( 'ptid' )
+),
+
 php -r "print(php_ini_loaded_file());" # find dout php.ini file used
 php -r "print(phpinfo());" | grep log
 
@@ -20,11 +25,37 @@ dump_bt executor_globals.current_execute_data # where is my PHP script hanging ?
 
 system("zip ...") >>FASTER>> standard ZipArchive lib
 
+
+</-/----------\-\>
+<!<! composer !>!>
+<\-\----------/-/>
+
+Ant usage :
+
+  <target name="composer-install" description="Installing PHP dependencies" depends="get-composer">
+    <exec executable="php" failonerror="true">
+      <arg value="${basedir}/composer.phar" />
+      <arg value="install" />
+      <arg value="--prefer-source" />
+      <arg value="--no-interaction" />
+    </exec>
+  </target>
+  <target name="get-composer" description="Downloading composer" depends="check-composer" unless="${composer-phar.present}">
+    <exec executable="wget" failonerror="true">
+      <arg value="https://getcomposer.org/download/1.1.1/composer.phar" />
+    </exec>
+  </target>
+  <target name="check-composer">
+    <available file="composer.phar" property="composer-phar.present"/>
+  </target>
+
+
 </-/--------------\-\>
 <!<! Drupapapapal !>!>
 <\-\--------------/-/>
 wget http://ftp.drupal.org/files/projects/drupal-7.38.zip && unzip drupal-7.38.zip && mv drupal-7.38 $INSTALL_DRUPAL
 drush --debug ...
+drush core-status && drush status-report
 drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
 drush pm-list --type=module --status=enabled # -> list modules & themes
 drush site-install standard -y --account-pass=admin --db-url='mysql://root:root@localhost/my_pretty_db' --site-name=$sitename
@@ -37,6 +68,8 @@ drush watchdog-show
 drush watchdog-delete all
 drush updatedb
 drush feature-update / feature-revert
+drush eval 'var_dump(module_implements("cron"))' # List all defined cron jobs - Also, for Elysia crons: drush eval 'print_r(elysia_cron_module_jobs()); elysia_cron_initialize(); global $elysia_cron_settings_by_channel; print_r($elysia_cron_settings_by_channel)'
+drush sql-query 'SELECT * FROM variable' | grep elysia_cron
 drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
 drush dl diff && drush en -y diff && drush features-diff $feature_name
 dpm / dvm / ddebug_backtrace # devel module

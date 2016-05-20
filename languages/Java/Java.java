@@ -176,6 +176,8 @@ SpringFox to auto-generate Swagger from REST controllers @annotations
 
 // Dozer : forbidden @VSCT -> bad experiences
 
+nilhcem/FakeSMTP // very useful local email server
+
 SIGAR  // == df du free ifconfig iostat netstat ps route top ulimit uptime who : portable interface for gathering system information, used by ElasticSearch
 
 org.json.JSONObject, Argo, Gson, Jackson, JSON.simple

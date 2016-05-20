@@ -24,6 +24,13 @@ from pprint import pprint
 p = print
 pp = pprint
 
+# so you can just use 'quit' to exit - FROM: https://www.reddit.com/r/Python/comments/4ivd2k/what_is_your_favorite_python_error_message/
+class Quit(object):
+    def __repr__(self):
+        exit()
+quit = Quit()
+q = quit
+
 try:
     from django import test
     from django.db import connection

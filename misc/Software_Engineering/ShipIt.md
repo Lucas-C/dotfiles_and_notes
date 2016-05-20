@@ -69,3 +69,4 @@ SOURCES:
 - http://www.buzzfeed.com/kristinchirico/things-you-didnt-know-about-scrooge-mcduck
 - http://pmspg.over-blog.com
 - http://disney.wikia.com/wiki/Mickey_Mouse
+- http://sebsauvage.net/links/?gKjK1A "Un fichier de fortunes récent pour Linux"

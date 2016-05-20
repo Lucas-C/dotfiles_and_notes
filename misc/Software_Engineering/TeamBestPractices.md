@@ -99,6 +99,11 @@ It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, 
 
 In general, limit meetings by making them informal chats or doing them properly: agenda (skip if empty), few participants, time-boxed, clustered on some days in the week, take notes & record team decisions [Minimum Viable Bureaucracy]
 
+## Retrospectives
+cf. [RetrospectiveWiki]
+- Content/Pas content/A améliorer/A continuer/A arrêter/Questions
+- Drop/Add/Keep/Improve
+
 ## Define team metrics
 - customer satisfaction
 - performance, output data quality
@@ -180,3 +185,6 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
 - cf. [Interviewing is broken] & [We Hire the Best, Just Like Everyone Else] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."
 - [Foursquare](http://engineering.foursquare.com/2016/04/04/improving-our-engineering-interview-process/) :
 > "We forgo technical phone interviews whenever possible. They’re typically unpleasant for everyone involved and we felt like the environment of a phone screen wasn’t conducive to learning about a candidate’s abilities comprehensively. Instead we give out a take-home exercise that takes about three hours."
+- clearly define your interview process:
+    - screening for **potential** or **experience** ?
+    - what methodology to use ? what answers are you looking for ?

@@ -227,7 +227,6 @@ alias djshell='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ./manage.py shell_plus --use-
 alias ipy='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ipython3 --pdb'
 alias pew='PATH=$(echo -n "$PATH" | paths_without_user | paths_without_whitespaces) $(type -P pew)' # without "type -P" Cygwin throws a "command not found"
-rmpyc () { find -L ${@:-.} -name "*.pyc" -o -name __pycache__ | xargs rm -rf; }
 py_module_path () { # USAGE: py_module_path $module_name [$py_version]
     python${2:-} -c "from __future__ import print_function; import $1; print($1.__file__ if hasattr($1, '__file__') else 'builtin')" | sed 's/pyc$/py/'
 }
@@ -294,6 +293,13 @@ findLatin1 () { # aka ISO-8859-1
 }
 findAndSortByDate () {
     find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
+}
+
+rmpyc () {
+    find -L ${@:-.} -name "*.pyc" -o -name __pycache__ | xargs rm -rf;
+}
+rmbak () {
+    find -L ${@:-.} -name "*.bak" | xargs rm -rf;
 }
 
 
@@ -461,7 +467,7 @@ proc_read_fd_progress () { # args: $pid [$fd] - To simply get a list of FDs: ll 
     ! [ -e /proc/$pid/ ] && echo "No process found with PID=$pid" >&2 && return 1
     local fd=$2
     if [ -z "${fd:-}" ]; then
-        readlink /proc/$pid/fd/* | nl -v 0
+        readlink /proc/$pid/fd/* | nl -v 0 # Tested on 2016/05/19 : error "readlink: extra operand"
         echo -n "Choose a file descriptor: "
         read fd
     fi
@@ -472,7 +478,7 @@ proc_read_fd_progress () { # args: $pid [$fd] - To simply get a list of FDs: ll 
     local percent_progress=0
     while [ -e $proc_fd ] && [ "$percent_progress" -ne 100 ] && ! read -n 1 -t 1 dummy; do
         local file_read_progress=$(grep ^pos /proc/$pid/fdinfo/$fd | awk '{print $2}')
-        percent_progress=$((100 * $file_read_progress / $fd_size))
+        percent_progress=$((100 * $file_read_progress / $fd_size)) # Tested on 2016/05/19 : -bash: 100 * 0 / 0: division by 0 (error token is "0")
         echo $percent_progress
     done | progress_bar
 }

@@ -74,7 +74,6 @@ Project management best practices
 
 ## Agile
 [TheFailureOfAgileAndGROWS]
-Retrospectives: cf. [RetrospectiveWiki]
 
 ### Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.

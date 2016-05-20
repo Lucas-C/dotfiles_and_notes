@@ -254,6 +254,18 @@ npm shrinkwrap // locks down the versions of a package's dependencies
 
 substack/minimist // argument options parser - Alt: chevex/yargs, harthur/nomnom, divarvel/cliparse-node
 
+var Transform = require('stream').Transform,
+    PassThrough = require('stream').PassThrough;
+function makeStream(src) { // Alt: through2
+  var res = new Transform();
+  res._transform = function (chunk, encoding, callback) { callback() }
+  res._flush = function (callback) {
+    res.push(src)
+    callback()
+  }
+  return res;
+}
+
 var http = require('http');
 http.createServer(function (req, res) {
   console.log('request recieved');
@@ -314,6 +326,6 @@ sweetalert // pretty replacement for 'alert'
 
 ywng/Progressive-News-Cloud, jasondavies/d3-cloud // word clouds generators
 
-esprima // JS AST manipulation: parsing, rewrite, refactoring ; + escodegen for code generation
+esprima // JS AST manipulation: parsing, rewrite, refactoring ; + escodegen for code generation - Also: substack/node-falafel based on acorn
 
 Sencha Ext JS // framework for building feature-rich cross-platform web applications targeting desktop, tablets, and smartphones - Commercial / GPLv3 license

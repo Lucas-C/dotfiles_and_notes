@@ -16,7 +16,7 @@ eval $(SHELL=$SHELL dircolors ~/.dir_colors)
 
 unfuncalias touch
 
-alias ps='echo "Use `pstree -a` or `procps -wwFAH` to display commands arguments !" && ps'
+alias ps='echo "Use \`pstree -a\` or \`procps -wwFAH\` to display commands arguments !" && ps'
 alias psf='ps -ef'
 alias casperjs=cyg-casperjs  # in ~/bin
 alias node=cyg-node  # in ~/bin
@@ -80,10 +80,6 @@ nav () {
     explorer /select,$(cygpath -w "$dir/$(ls "$dir" | head -1)")
 }
 
-zip () {
-    7z a $@
-}
-
 unfuncalias pdf
 pdf () {
     "/cygdrive/c/Program Files$X86/SumatraPDF/SumatraPDF" $(convertWinArgs "$@")
@@ -128,7 +124,12 @@ alias _=convert_win_cmd_output_encoding
 
 alias tcpdump="WinDump.exe" # or RawCap + Wireshark
 
-# Trick from https://github.com/drush-ops/drush/issues/375
-# but USING DRUSH WITH CYGWIN IS A BAD IDEA
-# and by the way, it invokes bash through msysgit\bin\sh (MINGW32_NT)
-alias drush='DRUSH_PHP=php drush'
+
+# USING PHP/COMPOSER/DRUSH WITH CYGWIN IS A BAD IDEA
+# (and by the way, it invokes bash through msysgit\bin\sh == MINGW32_NT)
+#alias composer='php $(cygpath -w $PHP_HOME/composer.phar)'
+#alias drush='DRUSH_PHP=php drush'  # Trick from https://github.com/drush-ops/drush/issues/375
+
+# Cmder conf file: %CMDER_ROOT%\vendor\init.bat
+# -> it works very well with Chocolatey
+# Composer packages dir: %HOME%\AppData\Roaming\Composer\vendor

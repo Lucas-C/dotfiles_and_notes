@@ -153,7 +153,7 @@
             <WordsStyle name="VALUE" styleID="19" fgColor="CB4B16" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="ENTITY" styleID="10" fgColor="CB4B16" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
-        <LexerType name="php" desc="php" ext="">
+        <LexerType name="php" desc="php" ext="inc">
             <WordsStyle name="QUESTION MARK" styleID="18" fgColor="BD3613" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="DEFAULT" styleID="118" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="STRING" styleID="119" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
@@ -301,7 +301,7 @@
             <WordsStyle name="REGSUBST" styleID="18" fgColor="D30102" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="BACKTICKS" styleID="20" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
-        <LexerType name="python" desc="Python" ext="">
+        <LexerType name="python" desc="Python" ext="pythonrc">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENTLINE" styleID="1" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="D33682" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />

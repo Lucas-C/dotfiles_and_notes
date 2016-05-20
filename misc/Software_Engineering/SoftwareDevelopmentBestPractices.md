@@ -355,4 +355,3 @@ by the very nature of the process.
 You can learn a lot about an individual
 just by reading through his code,
 even in hexadecimal."
-

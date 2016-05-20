@@ -121,6 +121,8 @@ GNU Nana // assertion checking, logging and performance measurement
 
 // Logging: g2log > glog > log4c (!! memory eater)
 
+fmtlib {fmt} // open-source formatting library for C++. It can be used as a safe alternative to printf or as a fast alternative to IOStreams.
+
 // MinGW: http://lynix.digitalpulsesoftware.com/2010/06/gcc-4-4-0-sous-windows-avec-mingw/
 
 Check // Unit Testing Framework for C

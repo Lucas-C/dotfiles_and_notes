@@ -13,7 +13,7 @@ F7 in cmd.exe -> history &:: BUT better use Cmder or at least PowerShell ISE
 <CTRL>+<ALT>+<UP> &:: Invert screen upside down
 
 cmd /c mklink &:: call cmd.exe builtins, e.g. the symlinker
-subst Z: C:\path\to\wonderland &:: creates a virtual drive Z pointing to the directory given
+subst Z: C:\path\to\wonderland &:: mount / creates a virtual drive Z pointing to the directory given
 
 pkgmgr /iu:"TelnetClient" &:: install `telnet` command. Also available: TelnetServer, DNS-Server-Tools, SimpleTCP for echo & daytime
 
