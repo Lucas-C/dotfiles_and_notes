@@ -57,6 +57,8 @@ takeown /a /r /f pita_directory &:: recurively give ownership of files to Admin
 junction (directory symbolic links), pskill, pslist, TCPView... &:: Sysinternals Process Utilities
 handle.exe -a | grep ': Key\|pid:' | grep 'COMPONENTS\|pid:' | grep -B1 'COMPONENTS' &:: Find all PIDs of processes using RegKeys containing 'COMPONENTS'
 
+WinSCP / SFTP Net Drive &:: GUI explorer / folder mounting for SCP/FTP/SFTP access
+
 ::: Usual cleanup steps
 - create a restoration point
 - AVG/Avast scan

@@ -35,6 +35,7 @@ Software Development Best Practices
 - [Best practices for code review](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
 - [Why Should Software Architects Write Code](http://blog.ieeesoftware.org/2016/02/why-should-software-architects-write.html)
 - [A Guide to Naming Variables](http://a-nickels-worth.blogspot.fr/2016/04/a-guide-to-naming-variables.html)
+- [Why do record/replay tests of web applications break?](https://blog.acolyer.org/2016/05/30/why-do-recordreplay-tests-of-web-applications-break)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -202,6 +203,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
     * A fake doesn’t use a mocking framework: it’s a lightweight implementation of an API that behaves like the real implementation, but isn't suitable for production.
     * test your code opening files with /dev/full that always returns error code ENOSPC (meaning “No space left on device”)
     * GUI testing, e.g. with Selenium: Capybara, SauceLabs, RobotFramework
+    * [Why do record/replay tests of web applications break?] : "Our data suggests which categories of test breakages merit the greatest attention. Locators caused over 73% of the test breakages we observed, and attribute-based locators caused the majority of these."
     * the [TestPyramid]: ![](http://martinfowler.com/bliki/images/testPyramid/pyramid.png) : more low-level tests than high level end-to-end tests
 
 ### Why unit tests ? [PP-Chapt34]

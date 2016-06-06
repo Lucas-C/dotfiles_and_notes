@@ -458,172 +458,10 @@ kachayev/fn.py
 JulienPalard/Pipe # fib() | where(lambda x: x % 2 == 0) | take_while(lambda x: x < 4000000) | add
 
 
-"""""""""""""""""
-"" Test & Debug
-"""""""""""""""""
-faulthandler.enable() # dump stacktrace on SIGSEGV, SIGABRT... signals ; python2 -X faulthandler script.py
-
-import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code...
-minimaxir/big-list-of-naughty-strings
-import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
-nosetest # -vv --collect-only # for debug
-py.test -vv --capture=no --showlocals --exitfirst -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
-pytest-bdd, pytest-benchmark, python.cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins
-self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
-c-oreills/before_after # provides utilities to help test race conditions
-import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
-import doctest # include tests as part of the documentation
-AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
-behave # Behavior Driven Development
-brodie/cram # generic command-line app testing
-import capsys # capture stdin/out
-import monkeypatch # modify an object that will be restored after the unit test
-import tmpdir # generate a tmp dir for the time of the unit test
-import hypothesis # feed you test with known to break edge cases
-
-with capture_stderrout() as (stdout, stderr): # Recipe from http://stackoverflow.com/a/17981937/636849
-
-python -mtrace --ignore-module=codeop,__future__ --trace [ $file | $code_module_path ] # trace all code lines run when executing a file / in interactive console
-dhellmann/smiley # application tracer, record & report, inspired by rad2py/wiki/QdbRemotePythonDebugger
-
-# IPython tricks
-cd /a/path
-!cmd # shell command
-%quickref
-%load script.py # and %%file to write to a file
-%save $filename # save session - Alt: %history -> dump it. Stored in ~/.config/ipython/profile_default/history.sqlite - used by pdb too
-%paste # if it fails because Tkinter is not available, use %cpaste
-%pdb # Automatic pdb calling
-%timeit do_something()
-%debug # post_mortem
-%bg # run in the background
-%%javascript # and many other languages
-from IPython.display import HTML, SVG; HTML(html_string) # render HTML, SVG
-ipython notebook # D3 support : wrobstory/sticky
-ipython nbconvert --to [html|latex|slides|markdown|rst|python]
-jq -r '.worksheets[0].cells[].input' < $file.ipynb
-
-from io import BytesIO
-img_bytes = BytesIO(); img.save(img_bytes, format='png')  # img is a PIL.Image
-from base64 import b64encode
-img_base64 = b64encode(img_bytes.getvalue()).decode('utf-8')
-from IPython.display import HTML
-HTML('<img src="data:image/png;base64,{0}"/>'.format(img_base64))
-colorsys # rgb / yiq / hls / hsv conversions
-
-# PDB tricks
-!p = ... # make it possible to start a cmdline with pdb shorthands
-debug foo() # step into a function with pdb
-import pdb; foo(42); pdb.pm() # enter debugger post-mortem using:
-sys.last_traceback / sys.last_value # non-handled exception info
-from IPython.core.debugger import Pdb; Pdb().set_trace()
-ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
-zestyping/q  # quick and dirty debugging that inc. time : q/ & q| @q (inc. return values) q.d() (~pdb)
-pdbpp # prettier PDB
-google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
-import rpdb; rpdb.set_trace() # remote debugging
-from pdb_clone import pdb; pdb.set_trace_remote() # then pdb-attach : remote-debugging - Also: pdbhandler.register() to enter at any time a running program
-boltons.debugutils.pdb_on_signal
-
-from pprint import pprint # indent=4
-
-vars(obj), dir(obj)
-
-[modname for importer, modname, ispkg in pkgutil.iter_modules(mypkg.__path__)] # list modules of package
-inspect.getmembers(obj)
-inspect.getargspec(foo_func) # get signature
-inspect.getfile(my_module)
-inspect.getsource(foo_func) # if implemented in C, use punchagan/cinspect
-frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
-inspect.currentframe().f_back.f_globals['foo'] = 'overriding caller local variable!'  # ONLY works with f_globals, not f_locals (unless they are equal) due to the FASTLOCALS cache / instruction
-
-def get_instance_var_name(method_frame, instance):
-    parent_frame = method_frame.f_back
-    matches = {k: v for k,v in parent_frame.f_globals.items() if v is instance}
-    assert len(matches) < 2
-    return matches.keys()[0] if matches else None
-class Bar:
-    def foo(self):
-        print get_instance_var_name(inspect.currentframe(), self)
-bar = Bar(); bar.foo(); nested = lambda: bar.foo(); nested(); Bar().foo()
-# Alt, even more robust: use parent_frame.f_code.co_code & the dis module
-
-# http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
-def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
-# Example:
-def foo(x):
-    def bar():
-        return x + 'STR_CONST'
-    return bar
-b = foo(42)
-get_cell_value(b.func_closure[0])
-b.func_code.co_consts
-# Closure GOTCHAS:
-#- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
-#- http://stackoverflow.com/q/12182176
-
-pids = subprocess.check_output(['pgrep', '-f', 'process_pattern']).splitlines() # more portable ? -> psutil
-for pid in pids:
-    os.kill(int(pid), signal.SIGTERM)
-# Pitfalls of signals: http://thisismiller.github.io/blog/CPython-Signal-Handling/
-# Signal-based handle on a program to debug: http://stackoverflow.com/a/133384/636849
-from rfoo.utils import rconsole
-rconsole.spawn_server()
-$ rconsole
-# And also: http://eventlet.net/doc/modules/backdoor.html
-
-code = "my code bla bla"
-compiled = compile(code)
-exec compiled
-
-from dis import dis; dis(myfunc) # get dissassembly
-uncompyle2 prog.pyc # bytecode -> python code
-neuroo/equip # bytecode instrumentation, e.g. insert call counters logic into .pyc
-foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')) # bytecode evil alteration
-astor / astunparse # AST 'unparse' : tree -> source
-
-import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
-# SUPER powerful to hack python code and sniff values
-
-python -m cProfile myscript.py -o output.pstats # cProfile.Profile().dump_stats(filename)
-gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
-pycallgraph graphviz -- ./mypythonscript.py # Alt for recursion tree: carlsborg/rcviz
-kernprof.py --line-by-line myscript.py # line_profiler great pip package
-pyprof2calltree # use kcachegrind
-python-flamegraph # FlameGraph profiler
-https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
-http://mg.pov.lt/objgraph # explore Python object graphs
-snakefood # draw code base dependency graphs
-what-studio/profiling # live profiling
-PyVmMonitor # profiler with graphs
-objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
-
-python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
-timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000)
-
-# Get memory usage (+ cf. resource below)
-from guppy import hpy
-h = hpy()
-h.heap()
-h.iso(...objects...).sp
-# Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
-asizeof # the simplest solution from: https://pympler.readthedocs.org/en/latest/related.html
-rogerhu/gdb-heap
-import tracemalloc # Python3
-
-def get_refcount(obj):
-    """Valid for CPython implementation only"""
-    return ctypes.c_size_t.from_address(id(obj))
-# FUN FACT: the references to the 'int' [-5 ; 256] are shared
-ctypes.POINTER(c_int).from_address(0)[0] # SEGFAULT
-def deref(addr, typ):
-    return ctypes.cast(addr, ctypes.POINTER(typ))
-deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index to the ob_ival field in a PyIntObject - In Python3 this index is '6'
-
-
 """""""""""""""""""""""""
 "" Subprocesses & shell
 """""""""""""""""""""""""
+xonsh # Python3-ish, BASHwards-looking shell language
 # grep-like one-liners:
 python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).groups())+"\n" for line in sys.stdin])'
 
@@ -724,6 +562,173 @@ zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: z
 dh-virtualenv # the ultimate way of deploying python apps, over wheels & pex == self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
 cx_freeze to make an EXE easily # cf. this example : https://www.reddit.com/r/Python/comments/4if7wj/what_do_you_think_is_more_difficult_in_python/
 deluge-torrent # exemple réussi de GUI + packaging Windows
+
+
+"""""""""""""
+"" Testing
+"""""""""""""
+import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code...
+minimaxir/big-list-of-naughty-strings
+import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
+nosetest # -vv --collect-only # for debug
+py.test -vv --capture=no --showlocals --exitfirst -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
+pytest-bdd, pytest-benchmark, python.cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins
+self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
+c-oreills/before_after # provides utilities to help test race conditions
+import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
+import doctest # include tests as part of the documentation
+AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
+behave # Behavior Driven Development
+brodie/cram # generic command-line app testing
+import capsys # capture stdin/out
+import monkeypatch # modify an object that will be restored after the unit test
+import tmpdir # generate a tmp dir for the time of the unit test
+import hypothesis # feed you test with known to break edge cases
+
+with capture_stderrout() as (stdout, stderr): # Recipe from http://stackoverflow.com/a/17981937/636849
+
+
+"""""""""""""
+"" Debugging
+"""""""""""""
+faulthandler.enable() # dump stacktrace on SIGSEGV, SIGABRT... signals ; python2 -X faulthandler script.py
+
+python -mtrace --ignore-module=codeop,__future__ --trace [ $file | $code_module_path ] # trace all code lines run when executing a file / in interactive console
+dhellmann/smiley # application tracer, record & report, inspired by rad2py/wiki/QdbRemotePythonDebugger
+
+python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
+timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000)
+
+python -m cProfile myscript.py -o output.pstats # cProfile.Profile().dump_stats(filename)
+gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
+pycallgraph graphviz -- ./mypythonscript.py # Alt for recursion tree: carlsborg/rcviz
+kernprof.py --line-by-line myscript.py # line_profiler great pip package
+pyprof2calltree # use kcachegrind
+python-flamegraph # FlameGraph profiler
+https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
+http://mg.pov.lt/objgraph # explore Python object graphs
+snakefood # draw code base dependency graphs
+what-studio/profiling # live profiling
+PyVmMonitor # profiler with graphs
+nvdv/vprof # Visual Python profiler
+objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
+
+from rfoo.utils import rconsole # RPC remote debugging - Alt: signal-based handle on a program to debug: http://stackoverflow.com/a/133384/636849
+rconsole.spawn_server()
+$ rconsole
+# And also: http://eventlet.net/doc/modules/backdoor.html
+
+# IPython tricks
+cd /a/path
+!cmd # shell command
+%quickref
+%load script.py # and %%file to write to a file
+%save $filename # save session - Alt: %history -> dump it. Stored in ~/.config/ipython/profile_default/history.sqlite - used by pdb too
+%paste # if it fails because Tkinter is not available, use %cpaste
+%pdb # Automatic pdb calling
+%timeit do_something()
+%debug # post_mortem
+%bg # run in the background
+%%javascript # and many other languages
+from IPython.display import HTML, SVG; HTML(html_string) # render HTML, SVG
+ipython notebook # D3 support : wrobstory/sticky
+ipython nbconvert --to [html|latex|slides|markdown|rst|python]
+jq -r '.worksheets[0].cells[].input' < $file.ipynb
+
+from io import BytesIO
+img_bytes = BytesIO(); img.save(img_bytes, format='png')  # img is a PIL.Image
+from base64 import b64encode
+img_base64 = b64encode(img_bytes.getvalue()).decode('utf-8')
+from IPython.display import HTML
+HTML('<img src="data:image/png;base64,{0}"/>'.format(img_base64))
+colorsys # rgb / yiq / hls / hsv conversions
+
+# PDB tricks
+!p = ... # make it possible to start a cmdline with pdb shorthands
+debug foo() # step into a function with pdb
+import pdb; foo(42); pdb.pm() # enter debugger post-mortem using:
+sys.last_traceback / sys.last_value # non-handled exception info
+from IPython.core.debugger import Pdb; Pdb().set_trace()
+ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
+zestyping/q  # quick and dirty debugging that inc. time : q/ & q| @q (inc. return values) q.d() (~pdb)
+pdbpp # prettier PDB
+google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
+import rpdb; rpdb.set_trace() # remote debugging
+from pdb_clone import pdb; pdb.set_trace_remote() # then pdb-attach : remote-debugging - Also: pdbhandler.register() to enter at any time a running program
+boltons.debugutils.pdb_on_signal
+
+from pprint import pprint # indent=4
+vars(obj), dir(obj)
+
+[modname for importer, modname, ispkg in pkgutil.iter_modules(mypkg.__path__)] # list modules of package
+inspect.getmembers(obj)
+inspect.getargspec(foo_func) # get signature
+inspect.getfile(my_module)
+inspect.getsource(foo_func) # if implemented in C, use punchagan/cinspect
+frame,filename,line_number,function_name,lines,index=inspect.getouterframes(inspect.currentframe())[1]
+inspect.currentframe().f_back.f_globals['foo'] = 'overriding caller local variable!'  # ONLY works with f_globals, not f_locals (unless they are equal) due to the FASTLOCALS cache / instruction
+
+def get_instance_var_name(method_frame, instance):
+    parent_frame = method_frame.f_back
+    matches = {k: v for k,v in parent_frame.f_globals.items() if v is instance}
+    assert len(matches) < 2
+    return matches.keys()[0] if matches else None
+class Bar:
+    def foo(self):
+        print get_instance_var_name(inspect.currentframe(), self)
+bar = Bar(); bar.foo(); nested = lambda: bar.foo(); nested(); Bar().foo()
+# Alt, even more robust: use parent_frame.f_code.co_code & the dis module
+
+# http://code.activestate.com/recipes/439096-get-the-value-of-a-cell-from-a-closure/
+def get_cell_value(cell): return type(lambda: 0)( (lambda x: lambda: x)(0).func_code, {}, None, None, (cell,) )()
+# Example:
+def foo(x):
+    def bar():
+        return x + 'STR_CONST'
+    return bar
+b = foo(42)
+get_cell_value(b.func_closure[0])
+b.func_code.co_consts
+# Closure GOTCHAS:
+#- http://code.activestate.com/recipes/502271-these-nasty-closures-caveats-for-the-closure-enthu/
+#- http://stackoverflow.com/q/12182176
+
+pids = subprocess.check_output(['pgrep', '-f', 'process_pattern']).splitlines() # more portable ? -> psutil
+for pid in pids:
+    os.kill(int(pid), signal.SIGTERM)
+# Pitfalls of signals: http://thisismiller.github.io/blog/CPython-Signal-Handling/
+
+code = "my code bla bla"
+compiled = compile(code)
+exec compiled
+
+from dis import dis; dis(myfunc) # get dissassembly
+uncompyle2 prog.pyc # bytecode -> python code
+neuroo/equip # bytecode instrumentation, e.g. insert call counters logic into .pyc
+foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')) # bytecode evil alteration
+astor / astunparse # AST 'unparse' : tree -> source
+
+import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
+# SUPER powerful to hack python code and sniff values
+
+# Get memory usage (+ cf. resource below)
+from guppy import hpy
+h = hpy()
+h.heap()
+h.iso(...objects...).sp
+# Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
+asizeof # the simplest solution from: https://pympler.readthedocs.org/en/latest/related.html
+rogerhu/gdb-heap
+import tracemalloc # Python3
+
+def get_refcount(obj):
+    """Valid for CPython implementation only"""
+    return ctypes.c_size_t.from_address(id(obj))
+# FUN FACT: the references to the 'int' [-5 ; 256] are shared
+ctypes.POINTER(c_int).from_address(0)[0] # SEGFAULT
+def deref(addr, typ):
+    return ctypes.cast(addr, ctypes.POINTER(typ))
+deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index to the ob_ival field in a PyIntObject - In Python3 this index is '6'
 
 
 """""""""""""""""""""""""""""

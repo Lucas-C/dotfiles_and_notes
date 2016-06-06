@@ -9,6 +9,25 @@ php -r "print(phpinfo());" | grep log
 error_log(print_r($variable, TRUE));
 
 http://xdebug.org/wizard.php
+php --php-ini xdebug_php.ini -r 'print(xdebug_get_profiler_filename() . "\n");'
+php --php-ini xdebug_php.ini .../path/to/drush.php eval "function_to_profile()"
+wget --no-check-certificate https://raw.githubusercontent.com/xdebug/xdebug/master/contrib/tracefile-analyser.php
+php ./tracefile-analyser.php /tmp/xdebug_trace.* memory-own 20 # cf. https://derickrethans.nl/xdebug-and-tracing-memory-usage.html & https://raw.githubusercontent.com/xdebug/xdebug/master/contrib/tracefile-analyser.php
+cat xdebug_php.ini
+[xdebug]
+zend_extension = /tmp/xdebug-2.4.0/modules/xdebug.so
+xdebug.profiler_enable = on
+xdebug.profiler_output_dir = /tmp
+xdebug.profiler_output_name = callgrind.out.%p.%s.%u
+xdebug.profiler_append = TRUE
+xdebug.auto_trace = 1
+xdebug.trace_output_dir = /tmp
+xdebug.trace_output_name = xdebug_trace.%p.%u
+xdebug.trace_format = 1
+xdebug.collect_params = 4
+xdebug.collect_return = 1
+xdebug.collect_vars = 1
+xdebug.show_mem_delta = 1
 
 new Exception()->getTraceAsString() # get a stack trace - For improved PHP exceptions formatting : jTraceEx recipe at http://php.net/manual/fr/exception.getmessage.php, that support chained exceptions and is formatted in a Java-like manner
 
@@ -29,6 +48,22 @@ system("zip ...") >>FASTER>> standard ZipArchive lib
 </-/----------\-\>
 <!<! composer !>!>
 <\-\----------/-/>
+
+    "require-dev": {
+        "phpmd/phpmd" : "@stable",
+        "mayflower/php-codebrowser": "~1.1",
+        "squizlabs/php_codesniffer": "1.*",
+        "phploc/phploc": "*",
+        "sebastian/phpcpd": "*",
+        "phpunit/phpunit": "4.3.*",
+        "phpunit/phpunit-selenium": ">=1.2",
+        "facebook/webdriver": "dev-master",
+        "pdepend/pdepend": "2.2.*",
+        "drupal/drupal-extension": "1.0.*@stable"
+    },
+    "config": {
+        "bin-dir": ".bin/"
+    }
 
 Ant usage :
 
@@ -62,13 +97,20 @@ drush site-install standard -y --account-pass=admin --db-url='mysql://root:root@
 drush en -y $modules # pm-enable - Opposite: drush dis[able]
 drush ne-export --type=$content_type --file=$out_file.php
 drush ne-import --uid $user_uid --file=$in_file.php
-drush cc all # clear-cache
+drush cc module-list
+drush cc menu # reload hook_menu() /hook_menu_alter()
+drush cc registry # reload hook_form_alter() / hook_node_save()
+drush cc theme-registry / theme-list # for .tpl.php files changes - Also: drush eval 'drupal_rebuild_theme_registry(); print_r(array_keys(theme_get_registry()))'
+drush cc css-js
 drush vget $var_name
 drush watchdog-show
 drush watchdog-delete all
 drush updatedb
 drush feature-update / feature-revert
+drush eval "print (new ReflectionFunction('foo'))->getFileName().PHP_EOL" # Find function source file definition
+drush eval 'print_r(language_list())'
 drush eval 'var_dump(module_implements("cron"))' # List all defined cron jobs - Also, for Elysia crons: drush eval 'print_r(elysia_cron_module_jobs()); elysia_cron_initialize(); global $elysia_cron_settings_by_channel; print_r($elysia_cron_settings_by_channel)'
+drush eval 'elysia_cron_initialize(); elysia_cron_execute_aborted("quotidien")' # Abort an Elysia cron channel before variable_get('elysia_cron_stuck_time', 3600) seconds
 drush sql-query 'SELECT * FROM variable' | grep elysia_cron
 drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
 drush dl diff && drush en -y diff && drush features-diff $feature_name

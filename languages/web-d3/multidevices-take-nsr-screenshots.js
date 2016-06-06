@@ -10,7 +10,10 @@ casperjs () {
     NODE_PATH=$node_path $engine "$node_path\casperjs\bin\bootstrap.js" --casper-path="$node_path\casperjs" --cli $script_winpath "$@"
 }
  */
-// USAGE: casperjs --engine=slimerjs multidevices-take-nsr-screenshots.js
+// USAGE: casperjs --engine=slimerjs --proxy=$PROXY_HOST:$PROXY_PORT --debug=yes multidevices-take-nsr-screenshots.js
+// HEADLESS: avant la commande ci-dessus :
+//    Xvfb :19 -screen 0 1920x1080x16 >/Xvfb.log 2>&1 &
+//    export DISPLAY=:19
 
 const consent_cookie   = {name: 'hasConsent',    value: 'true',                                     domain: 'jobs.voyages-sncf.com'};
 const punchline_cookie = {name: 'nsr_punchline', value: '%22USER_EXPLICITLY_CHOSE_NO_PUNCHLINE%22', domain: 'jobs.voyages-sncf.com'};

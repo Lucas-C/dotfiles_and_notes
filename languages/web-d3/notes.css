@@ -3,6 +3,8 @@ BEM (Blocks, Elements and Modifiers)
 OOCSS (object-oriented CSS)
 
 
+normalize.css
+
 stylelint >> csslint
 sudo sed -i '/output += "\\n" + message.evidence;/i                output += "\\nRule: " + message.rule.id + " - " + message.rule.name;' /usr/local/lib/node_modules/csslint/lib/csslint-node.js
 csslint --ignore=ids,overqualified-elements $css_file
@@ -21,6 +23,10 @@ a, a:visited, a:hover, a:active {
 table, tbody { display: block; }
 tr { display: table; }
 td { display: table-row; }
+
+table {
+  table-layout: fixed; /* The layout is fixed based on the first row. Set the width of those, and the rest of the table follows. */
+}
 
 .transparent { zoom: 1; filter: alpha(opacity=50); opacity: 0.5; } /* CSS Transparency Settings for All Browsers */
 
@@ -58,6 +64,9 @@ cssnext > pleeease
 
 // How to debug an annoying scrollbar caused by an overflow in height ? Find the guily element by traversing your page top-down in your browser DOM debug window, putting on each element a:
 overflow: hidden
+
+// Styling Broken Images
+https://bitsofco.de/styling-broken-images/?utm_source=hashnode.com
 
 
 /**************/

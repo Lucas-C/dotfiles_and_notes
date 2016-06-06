@@ -15,7 +15,7 @@
 !!:n # the nth word of the last cmd-line
 ^command^user^ # repeat last command with word substitution - Alt: alias r='fc -s'; r command=user
 
-less + /search + SHIFT-F # LIKE grep|tail -f !!
+less + /search + ${line}g + SHIFT-F # LIKE grep|tail -f !!
 cmd1 <(cmd2) >(cmd3) # make cmd2 output & cmd3 input look like a file for cmd1 - Alt:
 cmd2 | cmd1 /dev/stdin # aka /proc/self/fd/0 aka /dev/fd/0 - Useful when a command needs a file as parameter, use a symlink if extension matters
 >| # '>' that overrides 'set -o noclobber' == existing regular files cannot be overwritten by redirection of output
@@ -132,6 +132,10 @@ ok_or_ko () { return -1; }; ok_or_ko
 
 bash -n $script # Check syntax without executing
 bash --debugger $script
+
+USAGE="\
+    cmd param1
+    cmd param2"
 
 parent_func=$(caller 0 | cut -d' ' -f2) # "$line $subroutine $filename"
 source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
@@ -260,9 +264,6 @@ is_true () { ! { [ -z "$1" ] || [[ "$1" =~ 0+ ]] || [[ "$1" =~ [Ff][Aa][Ll][Ss][
 
 is_file_open () { lsof | grep $(readlink -f "$1") ; }
 
-cat <<EOF
-EOF
-
 exec 8<>filename # Open file descriptors #8 for reading and writing
 echo BlaBlaBla
 exec 8>&- # Close file descriptor
@@ -278,7 +279,7 @@ for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # colored 
 tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top right corner
 
 select value in choice1 choice2; do break; done # multiple choices
-read -s password # 'silent' user input, no characters are displayed
+read -s password # 'silent' user input, no characters are displayed - Also: -n $chars_count so a <Enter> keypress is not needed
 strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n' # 30 characters password generation
 stty -echo # disable TTY output
 stty -echo -icanon time 0 min 0 # non-blocking read trick FROM: http://stackoverflow.com/a/5297780
@@ -524,7 +525,8 @@ Xfennec/cv # show progress & throughput of all running cp, mv, tar, gzip, cat...
 rsync -v --progress --dry-run --compress $src_dir/ $dst_dir # Alt: rdiff-backup
 --cvs-exclude --exclude=".*"
 --archive # recursive + preserve mtime, permissions...
---delete # remove extra remote files
+--delete # remove extra remote files - Also: --update/--ignore-existing
+--checksum # skip based on checksum, not mod-time & size
 --backup --backup-dir=/var/tmp/rsync # keep a copy of the dst file
 
 tar -czvf "$archive.tgz" "$dir_without_trailing_slash" # Extract: tar -xzvf $archive
@@ -1248,3 +1250,9 @@ tce-load -w -i appbrowser-cli.tcz bash.vcz vim.vcz # Installing TinyCore AppBrow
 ^1^1^1^1^
 toor # default password
 setxkmap fr
+
+
+o=0=o=0=o=0
+= Jenkins =
+o=0=o=0=o=0
+Plugins: AnsiColor, ChuckNorris, InternetMeme, Pipeline, ShiningPanda, jenkins.sitespeed.io
