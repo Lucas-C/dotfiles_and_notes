@@ -138,7 +138,7 @@
             <WordsStyle name="COMMENT" styleID="1" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENT LINE" styleID="2" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
-        <LexerType name="html" desc="HTML" ext="">
+        <LexerType name="html" desc="HTML" ext="hbs">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="COMMENT" styleID="9" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="NUMBER" styleID="5" fgColor="D33682" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />

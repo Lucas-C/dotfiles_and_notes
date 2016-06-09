@@ -6,10 +6,12 @@
 - [ShittyDashboards](http://attackwithnumbers.com/the-laws-of-shitty-dashboard)
 - [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
 - [Five essential phone screen questions](https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions)
-- [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
 - [InfiniteHows](http://radar.oreilly.com/2014/11/the-infinite-hows.html)
+- [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
 - [IT Change Management](http://stephaniekdean.wordpress.com/2011/06/17/cm/)
-- [Event Management](http://stephaniekdean.wordpress.com/2011/04/04/eventmgmt/)
+- [Event Management](http://stephaniekdean.wordpress.com/2011/04/04/eventmgmt/) : it "typically covers a brief description of the issue,
+major points in the timeline of the event, information on trigger, root cause & resolution, lessons learned and short- & long-term action items.
+... Action items must have a clear owner and due date."
 - [AuthoringStyleGuide](https://github.com/tooling/authoring-styleguide)
 - [TeachDontTell](http://stevelosh.com/blog/2013/09/teach-dont-tell/)
 - [BeautifulDocs](https://github.com/PharkMillups/beautiful-docs)
@@ -36,6 +38,7 @@
 - [Google SREs](http://www.wired.com/2016/04/google-ensures-services-almost-never-go/)
 - [Learning Through Blameless Reviews](http://fr.slideshare.net/joelchippindale/learning-through-blameless-reviews)
 - [Process Hacking](http://fr.slideshare.net/ClaireAgutter/process-hacking)
+- [Blameless PostMortems and a Just Culture](https://codeascraft.com/2012/05/22/blameless-postmortems/)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does

@@ -1024,6 +1024,7 @@ xattr -l $file # File listed with '@' => extended attributes
 sudo dseditgroup -o edit -a $USER -t user $GROUP # Add user to group
 
 find $(ls | grep -Ev 'Library|Documents|Downloads|httrack|phantomjs|vitavermis') \( ! -path '*/.*' \) -type f -print0 | xargs -0 stat -f '%m %N' | sort -k 1nr | while read timestamp file; do echo $(date -jf "%s" $timestamp "+%F") $file; done | less # illustrate how to replace find -printf + timestamp conversion + find non-hidden files only ; GOAL: list files by modification date
+find . -type f -print0 | xargs -0 stat -c '%y %N' | sort -k 1r > ordered_files.list
 
 
 O*0.O*0.O*0.O*0.O*0.

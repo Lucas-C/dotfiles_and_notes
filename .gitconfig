@@ -106,9 +106,8 @@
     prompt = false
     trustexitcode = false
 
-# won't be sourced if this file is used as global .gitconfig
-[include]
-    path = ~/.gitconfig_user
 [user]
     email = lucas.cimon@gmail.com
     name = Lucas Cimon
+[include]
+    path = ~/.gitconfig_user

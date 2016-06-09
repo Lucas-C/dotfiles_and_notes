@@ -60,6 +60,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - write greppable code
 - fail fast
 - Tony Hoare null "billion-dollar mistake"
+- less is more : "best code is no code at all" & "complexity is our worst enemy"
 
 ## Design principles
 where "Design" = Architecture / Organisation of the software logic

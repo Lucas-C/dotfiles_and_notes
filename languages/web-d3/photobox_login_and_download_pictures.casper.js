@@ -38,7 +38,7 @@ casper.then(function () {
     while (!system.stdin.atEnd()) {
         var id = system.stdin.readLine();
         // We cannot define a function directly here as we are inside a loop
-        casper.then(img_downloader(id));
+        casper.then(imgDownloader(id));
     }
 });
 
@@ -50,12 +50,12 @@ function check_login_succeeded () {
     casper.log('#pbx_signin text: ' + pbx_signin_text); // Should NOT be 'Mon espace'
 }
 
-function img_downloader (id) {
+function imgDownloader (id) {
     return function () {
         casper.open('http://www.photobox.fr/mon-espace/photo/agrandie?photo_id=' + id).then(function () {
-            var img_src = casper.evaluate(function () { return document.querySelector('body > img').src; });
-            casper.echo(img_src + ' ' + id + '.jpg');
-            casper.download(img_src, id + '.jpg');
+            var imgSrc = casper.evaluate(function () { return document.querySelector('body > img').src; });
+            casper.echo(imgSrc + ' ' + id + '.jpg');
+            casper.download(imgSrc, id + '.jpg');
         });
     };
 }
