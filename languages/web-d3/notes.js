@@ -289,6 +289,10 @@ node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/39
 // for chain in INPUT OUTPUT; do iptables -A $chain -p tcp -m tcp --dport 8080 -j ACCEPT; done
 mdb // awesome-looking NodeJs debugger, by Joyent - Alt: http://stackoverflow.com/questions/1911015/how-do-i-debug-node-js-applications/16512303#16512303
 
+var util = require('util');
+log(util.inspect(process._getActiveRequests()));
+log(util.inspect(process._getActiveHandles()));
+
 plato // source code visualization, static analysis, and complexity tool
 FGRibreau/check-build // includes:
     ESLint > JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis

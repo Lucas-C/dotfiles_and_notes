@@ -16,16 +16,3 @@ Generic HTML structure advices:
 ## Google Webmaster Tools / Search console
 - il est important d'y spécifier un sitemap.xml
 - en cas de duplicatas d'URL dans les résultats de recherche (ex: ?rfrr=...), utiliser le menu "Crawl > URL Parameters" pour les exclure
-
-
-# Accessibility
-
-tabindex: indicate if the element can take input focus and participate to keyboard navigation
-
-RGAA: http://references.modernisation.gouv.fr/rgaa-accessibilite
-
-Contrast check:
-- Tanaguru Contrast-Finder Firefox addon
-- Colour Contrast Analyser (paciellogroup.com) : top !
-- Plugin Chrome: Accessibility Developer Tools
-- Color Oracle (Windows / Linux small tool - no snapshot)

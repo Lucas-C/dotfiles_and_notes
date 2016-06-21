@@ -56,6 +56,8 @@ Responsive square dive:
   margin: 0;
 }
 
+outline VS border : 1st does NOT take space when computing the element bounding box
+
 Style guide generation from comments : KSS, mdcss
 
 zoltan-dulac/css3FontConverter

@@ -103,6 +103,7 @@ Penser à échaper les ":" qui sont des caractères réservés dans la syntax Lu
     curl 'http://localhost:9200/$index/_mapping?pretty' # get list of types
     curl 'http://localhost:9200/_cat/shards?pretty' # shards status
     curl 'http://localhost:9200/_river/_search?pretty&q=*' # list rivers
+    curl 'http://localhost:9200/_cluster/pending_tasks'
 
 ### Adding content & searching
 

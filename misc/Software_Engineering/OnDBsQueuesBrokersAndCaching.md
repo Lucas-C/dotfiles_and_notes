@@ -20,6 +20,9 @@ _memcached_
 
 - for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
 - use a firewall !! -> beware security issues: http://www.slideshare.net/sensepost/cache-on-delivery
+- commands: https://github.com/memcached/memcached/wiki/Commands - Ex:
+
+    echo flush_all | nc localhost 5502
 
 _Redis_
 

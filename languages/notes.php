@@ -98,7 +98,7 @@ drush en -y $modules # pm-enable - Opposite: drush dis[able]
 drush ne-export --type=$content_type --file=$out_file.php
 drush ne-import --uid $user_uid --file=$in_file.php
 drush cc module-list
-drush cc menu # reload hook_menu() /hook_menu_alter()
+drush cc menu # reload hook_menu() / hook_menu_alter()
 drush cc registry # reload hook_form_alter() / hook_node_save()
 drush cc theme-registry / theme-list # for .tpl.php files changes - Also: drush eval 'drupal_rebuild_theme_registry(); print_r(array_keys(theme_get_registry()))'
 drush cc css-js
@@ -112,6 +112,7 @@ drush eval 'print_r(language_list())'
 drush eval 'var_dump(module_implements("cron"))' # List all defined cron jobs - Also, for Elysia crons: drush eval 'print_r(elysia_cron_module_jobs()); elysia_cron_initialize(); global $elysia_cron_settings_by_channel; print_r($elysia_cron_settings_by_channel)'
 drush eval 'elysia_cron_initialize(); elysia_cron_execute_aborted("quotidien")' # Abort an Elysia cron channel before variable_get('elysia_cron_stuck_time', 3600) seconds
 drush sql-query 'SELECT * FROM variable' | grep elysia_cron
+drush sql-query 'SELECT r.name, p.perm FROM role r INNER JOIN permission p ON r.rid = p.rid'
 drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
 drush dl diff && drush en -y diff && drush features-diff $feature_name
 dpm / dvm / ddebug_backtrace # devel module
