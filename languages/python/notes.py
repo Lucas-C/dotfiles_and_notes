@@ -740,7 +740,7 @@ topia.termextract
 difflib # compare text/strings/sequences
 fuzzywuzzy # fuzzy string comparison ratios, token ratios...
 sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && pip install sumy && python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB
-deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .ps ...
+deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .ps ... Alt for PDF: euske/pdfminer/blob/master/tools/pdf2txt.py
 snowballstemmer # supports 15 languages
 
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
@@ -870,6 +870,9 @@ pyexiv2 # images EXIF manipulation
 
 EasyDialogs, optparse_gui, EasyGui > Tkinter
 Kivy # GUI inc. multi-touch support
+wxPython # port of C++ wxWidgets
+
+espeak-ng # open source speech synthesizer supporting 7+ languages, based on the eSpeak engine
 
 
 """"""""""""""""""""""""""""""""""""""

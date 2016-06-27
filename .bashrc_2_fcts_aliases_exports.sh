@@ -246,7 +246,7 @@ find_constants_values () {
 }
 
 #alias perl='rlwrap --remember --multi-line --substitute-prompt "> " $(type -P perl)' # Also, use the debugger: perl -d -e 1
-#alias node='env NODE_NO_READLINE=1 rlwrap --remember --multi-line "$(type -P node)"' #broken under Cygwin
+alias node_repl="env NODE_NO_READLINE=1 rlwrap --remember --multi-line node -e 'require(\"repl\").start({useColors: true})'" # OK under Cygwin, but neither .exit/CTRL+D work, use CTRL+C
 alias lua='rlwrap --remember --multi-line --always-readline $(type -P lua)'
 alias lua5.2='rlwrap --remember --multi-line --always-readline $(type -P lua5.2)'
 cljs_rhino () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline cljsbuild repl-rhino "$@"; }

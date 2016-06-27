@@ -130,3 +130,16 @@ imgOverlappingTextWhenZooming {
 }
 
 Les aveugles n'utilisent JAMAIS la touche tabulation.
+
+Ne pas utiliser l'attribut placeholder:
+- la valeur disparaît au focus
+- contraste identique à disabled => invisible aux malvoyants
+
+Ne pas utiliser de <hX> dans des <form>, mais plutôt des <legend> de <fieldset>
+
+<input> : très important de donner un intitulé explicite et pertinent
+-> si impossible visuellement à cause de la maquette, utiliser un title= ou un label
+
+Changer le titre de la page en cas d'erreur de validation de formulaire
+
+Messages d'erreur (exemple: en-tête en cas d'erreur de contrôle de formulaire) : role="alert"

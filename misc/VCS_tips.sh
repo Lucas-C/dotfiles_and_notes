@@ -151,6 +151,19 @@ git update-index --assume-unchanged $file # ignore changes to a file that's alre
 
 git diff --no-color -U999999 --no-prefix HEAD^ | crucible.py $CR_ID --newpatch # https://confluence.atlassian.com/crucible/creating-reviews-from-the-command-line-335479612.html#Creatingreviewsfromthecommandline-InstallingtheReviewCLItool
 
+# Retrieve a file version (commit) in a git history based on its SHA hash, for example to identify a deployed file
+file=
+target_hash=$(git hash-object $file)
+git log --format="%h %s" $file | while read hash msg; do [ $(git rev-parse $hash:$file) = "$target_hash" ] && echo $hash $msg; done
+git-hash-object () { # substitute when the `git` command is not available
+    local type=blob
+    [ "$1" = "-t" ] && shift && type=$1 && shift
+    # depending on eol/autocrlf settings, you may want to substitute CRLFs by LFs
+    # by using `perl -pe 's/\r$//g'` instead of `cat` in the next 2 commands
+    local size=$(cat $1 | wc -c | sed 's/ .*$//')
+    ( echo -en "$type $size\0"; cat "$1" ) | sha1sum | sed 's/ .*$//'
+}
+
 
 ++++++
 + p4 +

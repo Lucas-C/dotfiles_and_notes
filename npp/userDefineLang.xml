@@ -124,4 +124,37 @@
             <WordsStyle name="DELIMITERS8" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
         </Styles>
     </UserLang>
+    <UserLang name="Scala" ext="scala">
+        <Settings>
+            <Global caseIgnored="no" />
+            <TreatAsSymbol comment="no" commentLine="yes" />
+            <Prefix words1="no" words2="no" words3="no" words4="no" />
+        </Settings>
+        <KeywordLists>
+            <Keywords name="Delimiters">&quot;&apos;0&quot;&apos;0</Keywords>
+            <Keywords name="Folder+">{</Keywords>
+            <Keywords name="Folder-">}</Keywords>
+            <Keywords name="Operators">- ! &quot; # % &amp; @ | ~ + &lt; = &gt;</Keywords>
+            <Keywords name="Comment">1/* 1/** 2*/ 2*/ 0//</Keywords>
+            <Keywords name="Words1">class def extends forSome import object package trait type val var with</Keywords>
+            <Keywords name="Words2">boolean byte char double float int long short false new null super this true</Keywords>
+            <Keywords name="Words3">case catch do else finally for if match requires return throw try while yield</Keywords>
+            <Keywords name="Words4">abstract final implicit lazy override private protected sealed</Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" styleID="11" fgColor="FFFFFF" bgColor="272822" fontName="" fontStyle="0" />
+            <WordsStyle name="FOLDEROPEN" styleID="12" fgColor="FFFFFF" bgColor="272822" fontName="" fontStyle="1" />
+            <WordsStyle name="FOLDERCLOSE" styleID="13" fgColor="FFFFFF" bgColor="272822" fontName="" fontStyle="1" />
+            <WordsStyle name="KEYWORD1" styleID="5" fgColor="AFCE71" bgColor="272822" fontName="Consolas" fontStyle="1" />
+            <WordsStyle name="KEYWORD2" styleID="6" fgColor="AFCE71" bgColor="272822" fontName="Consolas" fontStyle="1" />
+            <WordsStyle name="KEYWORD3" styleID="7" fgColor="AFCE71" bgColor="272822" fontName="Consolas" fontStyle="1" />
+            <WordsStyle name="KEYWORD4" styleID="8" fgColor="AFCE71" bgColor="272822" fontName="Consolas" fontStyle="1" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="00AA00" bgColor="272822" fontName="Consolas" fontStyle="0" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="00AA00" bgColor="272822" fontName="Consolas" fontStyle="0" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="FFF200" bgColor="272822" fontName="Consolas" fontStyle="0" />
+            <WordsStyle name="DELIMINER1" styleID="14" fgColor="FF8040" bgColor="272822" fontName="Consolas" fontStyle="0" />
+            <WordsStyle name="DELIMINER2" styleID="15" fgColor="FF80FF" bgColor="272822" fontName="Consolas" fontStyle="0" />
+            <WordsStyle name="DELIMINER3" styleID="16" fgColor="8080FF" bgColor="272822" fontName="Consolas" fontStyle="0" />
+        </Styles>
+    </UserLang>
 </NotepadPlus>
