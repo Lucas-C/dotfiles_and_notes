@@ -258,7 +258,7 @@ kayzh/LSHash # locality sensitive hashing
 JohannesBuchner/imagehash  # perceptual hashes lib, supports: average hashing (aHash), perception hashing (pHash), difference hashing (dHash)
 pavlovml/match # Scalable reverse image search built on Kubernetes and Elasticsearch
 
-bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra, xmonader/pybloomfilter, TerbiumLabs/pyblume
+bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra, xmonader/pybloomfilter, TerbiumLabs/pyblume, jaybaird/python-bloomfilter
 svpcom/hyperloglog # Super and Hyper Log Log Sketches
 jesperborgstrup/Py-IBLT # Invertible Bloom filter - Alt: http://code.activestate.com/recipes/577684-bloom-filter/
 
@@ -469,6 +469,7 @@ from distutils import spawn
 cmd_path = spawn.find_executable('cmd') # shutil.which in Python3 / shutilwhich backport else
 subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT, input=bytes(some_text,, 'UTF-8')) # last param added in 3.4 : https://hg.python.org/cpython/file/877f47ca3b79/Lib/subprocess.py#l614
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
+# -> I was bitten by PIPE in Cygwin: cf. pre-commit issue 379
 
 platform # python version, OS / machine / proc info...
 resource # limit a process resources: SPU time, heap size, stack size... Example of context manager to limit memory usage: http://stackoverflow.com/a/14024198
@@ -555,13 +556,13 @@ pyreverse # UML diagrams, integrated in pylint
 openstack/bandit  # Python AST-based security linter
 
 Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
-lobocv/crashreporter # store and send crash reports directly to the devlopers
+lobocv/crashreporter # store and send crash reports directly to the developers
 
 # Packaging (cf. https://packaging.python.org)
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil & zipapp to generates .pyz from v3.5 -> those "Python ZIP Applications" are associated to the Python executable under Windows
 dh-virtualenv # the ultimate way of deploying python apps, over wheels & pex == self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
 cx_freeze to make an EXE easily # cf. this example : https://www.reddit.com/r/Python/comments/4if7wj/what_do_you_think_is_more_difficult_in_python/
-deluge-torrent # exemple réussi de GUI + packaging Windows
+deluge-torrent # example of Windows packaging (with bbfreeze) + GUI (with pygtk: http://git.deluge-torrent.org/deluge/tree/win32/deluge-bbfreeze.py#n31)
 
 
 """""""""""""
@@ -611,6 +612,7 @@ snakefood # draw code base dependency graphs
 what-studio/profiling # live profiling
 PyVmMonitor # profiler with graphs
 nvdv/vprof # Visual Python profiler
+memory_profiler
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
 
 from rfoo.utils import rconsole # RPC remote debugging - Alt: signal-based handle on a program to debug: http://stackoverflow.com/a/133384/636849
@@ -806,7 +808,7 @@ binascii.hexlify # display binary has hexadecimal
 celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
 dask  # task scheduling and blocked algorithms for parallel processing
 sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn - Also:
-luigi, Oozie, Azkaban, Drake, Pinball, Airflow, viewflow # workflow managers
+luigi, Oozie, Azkaban, Drake, Pinball, Apache Airflow, viewflow, BD2KGenomics/toil # workflow managers
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
 
@@ -1209,5 +1211,8 @@ l = (1, *[2])
 d = {"j": 9, **{"i": 8}}
 
 async def foo(): ...
+uvloop  # drop-in replacement for asyncio event loop, written in Cython & 2x faster than NodeJS
 
 python -m zipapp my_project_dir  # generates a .pyz
+
+subprocess.run > check_call

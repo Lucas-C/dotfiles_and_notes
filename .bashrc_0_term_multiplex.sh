@@ -25,4 +25,3 @@ elif [ -e ~/.use_screen ]; then
     fi
     screen -A -x
 fi
-

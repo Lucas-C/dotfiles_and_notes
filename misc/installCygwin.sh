@@ -42,8 +42,8 @@ exit 0
 
 # In case of "child_info_fork::abort: unable to map **.dll, Win32 error 126"
 # As admin:
-#    G:\devhome\tools\cygwin\bin\ash.exe -c '/usr/bin/rebaseall -v'
-#    G:\devhome\tools\cygwin\bin\ash.exe -c '/bin/peflagsall -v'
+#    C:\cygwin\bin\ash.exe -c "/usr/bin/rebaseall -v"
+#    C:\cygwin\bin\ash.exe -c "/bin/peflagsall -v"
 # If pip issue "OSError: [Errno 11] Resource temporarily unavailable",
 # simply "pip uninstall $dependency_pkg && pip install $pkg" already saved my ass once
 

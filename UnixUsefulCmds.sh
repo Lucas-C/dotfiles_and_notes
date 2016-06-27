@@ -132,6 +132,7 @@ ok_or_ko () { return -1; }; ok_or_ko
 
 bash -n $script # Check syntax without executing
 bash --debugger $script
+bash --posix # => $POSIXLY_CORRECT=y
 
 USAGE="\
     cmd param1
@@ -460,8 +461,9 @@ source <(jq -r 'to_entries|.[]|"SAUCE_\(.key|ascii_upcase)=\(.value)"' .saucelab
 jq '[.[] | {contentUrl, imgUrl, description: .contentUrl|sub(".*/";"")}]' imgur_imgs.json > imgur_imgs_with_desc.json
 jq -r 'map(select(.joblink == ""))' < $json_filename
 jq input_filename,input_line_number *.json
+ls $dir | jq --raw-input --slurp 'split("\n")[:-1]' # build JSON array from a mutlilines non-JSON input
 q # command line tool that allows direct execution of SQL-like queries on CSVs/TSVs
-pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
+plainas/tq, pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
@@ -785,7 +787,7 @@ dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom" # In case of OOM,
 watch -d -n 1 "cat /proc/$pid/status | grep ctxt_switches" # mostly nonvoluntary context switches => CPU bound / else IO bound - FROM: https://blogs.oracle.com/ksplice/entry/solving_problems_with_proc
 
 # Monitoring
-![The Tracing Landscape - Sep 2015](http://www.brendangregg.com/blog/images/2015/tracing_landscape_sep2015.png) : sysdig, ftrace, perf, dtrace, ktrap, stap, eBPF, iovisor/bcc - cf. http://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html
+![The Tracing Landscape - Sep 2015](http://www.brendangregg.com/blog/images/2015/tracing_landscape_sep2015.png) : draios/sysdig (a draios/falco behavioral activity monitor), ftrace, perf, dtrace, ktrap, stap, eBPF, iovisor/bcc - cf. http://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html
 iostat # ! '%util' & 'svctm' are misleading + iotop, non portable + brendangregg/perf-tools/blob/master/iosnoop
 mpstat 5 # cpu usage stats every 5sec
 monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts

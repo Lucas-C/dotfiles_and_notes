@@ -20,6 +20,10 @@ pkgmgr /iu:"TelnetClient" &:: install `telnet` command. Also available: TelnetSe
 where %cmd% &:: UNIX 'which' equivalent
 ipconfig /displaydns
 
+:: Windows Performance Toolkit, also inc. xbootmgr - TUTOS: http://www.msfn.org/board/topic/140263-how-to-get-the-cause-of-high-cpu-usage-by-dpc-interrupt/ - http://www.msfn.org/board/topic/140264-how-to-get-the-cause-of-high-cpu-usage-caused-by-apps/
+xperf -on latency -stackwalk profile
+xperf -d latency.etl
+
 powercfg -h off/on &:: as admin, delete hiberfil.sys
 schtasks &:: task scheduler
 msinfo32 &:: info computer composants
@@ -116,7 +120,6 @@ iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.p
 
 (New-Object –ComObject SAPI.SPVoice).Speak(“This is a test”)
 Add-Type -AssemblyName System.speech; $speaker = New-Object System.Speech.Synthesis.SpeechSynthesizer; $speaker.Speak(“This is a test”)
-
 
 
 ::::::::::

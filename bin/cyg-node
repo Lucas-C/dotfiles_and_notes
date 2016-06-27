@@ -3,6 +3,5 @@
 if [ -n "$1" ] && [ -r "$1" ]; then
     SCRIPT_PATH=$(cygpath -w "$1")
     shift
-    exec env NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)\node_modules" "$(type -P node)" "$SCRIPT_PATH" "$@"
+    exec env NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)\node_modules" "$(cygpath \"$(type -P node)\")" "$SCRIPT_PATH" "$@"
 fi
-exec "$(type -P node)" "$@"

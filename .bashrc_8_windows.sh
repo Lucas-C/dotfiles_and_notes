@@ -7,7 +7,6 @@
 
 PATH=$PATH:/c/Windows/System32
 PATH=$PATH:/c/Windows
-PATH=$PATH:/d/Utilitaires/dev/upx391w
 
 if ! [ -s ~/.dir_colors ]; then
     curl -s 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > ~/.dir_colors

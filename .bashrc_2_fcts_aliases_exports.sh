@@ -611,12 +611,17 @@ font_dflt_fix () {  # cf. https://chezsoi.org/lucas/blog/2016/02/11/en-fixing-fo
 
 execute_C_code () {
     local return_code
-    echo "${1?}" | gcc -w -xc -o tmp_exec - # options meaning: no warnings, language=C
+    echo -e "${1?}" | gcc -w -o tmp_exec -xc - # options meaning: no warnings, language=C
     ./tmp_exec
     return_code=$?
     rm tmp_exec
-    return $?
+    return $return_code
 }
+# Some usage examples:
+# execute_C_code 'int main() { abort(); }' -> Abandon (core dumped) [exit code: 134]
+# execute_C_code 'int main() { int i = 1 / 0; }' -> Exception en point flottant (core dumped) [exit code: 136]
+# execute_C_code 'int main() { *((unsigned int*)0) = 0xDEADBEEF; }' -> Erreur de segmentation (core dumped) [exit code: 139]
+
 
 # Faster than wc -l or LANG=C LC_ALL=C grep -cF $'\n'
 count_chars () {  # USAGE: count_chars '\n' < $file - FROM: http://superuser.com/questions/485800/whats-the-quickest-way-to-count-the-number-of-each-character-in-a-file

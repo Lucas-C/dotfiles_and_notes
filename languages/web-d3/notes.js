@@ -35,6 +35,16 @@ function addCSSRule(sheet, selector, rules, index) {
     }
 }
 addCSSRule(document.styleSheets[0], "header", "float: left");
+function cssRules(){
+    var rules = {};
+    [].forEach.call(document.styleSheets, function (styleSheet) {
+        [].forEach.call(styleSheet.cssRules, function (cssRule) {
+            rules[cssRule.selectorText] = cssRule;
+        });
+    });
+    return rules;
+};
+cssRules()['.class'].style.X = Y
 
 $._data($(elem).get(0), "events") // get events binded to 'elem' in jQuery
 tipsy // Facebook style tooltips for jQuery
