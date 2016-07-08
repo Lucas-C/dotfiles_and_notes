@@ -124,8 +124,6 @@ RegExp.$1 // 'bcd'
 /whatever/g.test() // ! STATEFUL ! no need for 'g' with .test() or use .exec/.match()
 str.replace(new RegExp('\\{' + key + '\\}', 'g'), value);
 
-for ( let i in function(){ return [1,2,3] }() ) ...
-
 function foo({ name:name, project:project}) { return [name, project] } // optional named args
 var [n, p] = foo({ name:'soubok' }) // unwrapping multiple return values
 
@@ -237,7 +235,8 @@ new, with // NEVER use them as variables ! They're reserved keywords
 <script language="javascript1.6">var js_version="1.6"</script>
 
 // Javascript 1.7
-let > var
+let > var // BUT DO NOT USE IT IN A BROWSER !! -> for(let i=0; i<10000; i++){console.log(typeof null =='undefined')}
+
 array comprehension
 generators
 [a, b] = [b, a] // destructuring assignement
@@ -309,7 +308,7 @@ FGRibreau/check-build // includes:
     JSCS // code style checker
     jsinspect // check for code duplication
     buddy.js // detect magic numbers
-    David // check for package updates - Also, equivalent for bower: bower list
+    David // check for package updates - Also: npm outdated - Equivalent for bower: bower list
     Nsp // detect security vulnerabilities
 
 karma-runner/karma > JsTestDriver > Qunit // Testing libs

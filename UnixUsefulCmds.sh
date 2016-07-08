@@ -975,6 +975,7 @@ https://github.com/$user/$repo/compare/$tag...master # list commits between 2 ve
 curl 'https://api.github.com/repos/Lucas-C/linux_configuration/commits?per_page=100&page=4' | jq -r '.[].sha' # GitHub API usage example
 curl -H 'Accept: application/vnd.github.3.raw' 'https://api.github.com/repos/evanbrumley/spyfall/contents/spyfall/i18n/fr.i18n.json' # "for unauthenticated requests, the rate limit is 60 requests per hour"
 
+path: # specify a path during a SEARCH, ex: https://github.com/python/cpython/search?q=assertRaises+path%3ALib%2Funittest
 #L53-L60 -> lines highlighting: to select ranges, hold shift before clicking
 Add ?w=1 to the URL to see the diff with whitespace ignored
 

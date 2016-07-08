@@ -217,7 +217,7 @@ alias ...="cd ../.."
 alias tkcon='tkcon -load Tk'
 
 python () {
-    if [ -z "$1" ]; then
+    if [ "$#" -eq 0 ]; then
         PYTHONSTARTUP=$BASHRC_DIR/.pythonrc $(type -P python)
     else
         $(type -P python) "$@"
@@ -295,11 +295,14 @@ findAndSortByDate () {
     find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
 }
 
-rmpyc () {
-    find -L ${@:-.} -name "*.pyc" -o -name __pycache__ | xargs rm -rf;
-}
 rmbak () {
     find -L ${@:-.} -name "*.bak" | xargs rm -rf;
+}
+rmcover () {
+    find -L ${@:-.} -name "*,cover" | xargs rm -rf;
+}
+rmpyc () {
+    find -L ${@:-.} -name "*.pyc" -o -name __pycache__ | xargs rm -rf;
 }
 
 

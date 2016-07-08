@@ -79,7 +79,7 @@ tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as lon
 
 StringIO # fake file from string - in module StringIO in Python 2, in io in Python 3
 glob, fnmatch # manipulate unix-like file patterns
-jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object (std in Python 3), and a handy walkfiles()
+jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object (std in Python 3 as pathlib), and a handy walkfiles()
 os.stat("filename").st_ino # get inode
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 
@@ -255,7 +255,7 @@ ahocorasick, acora # Aho-Corasick automaton : quick multiple-keyword search acro
 JaredMHall/reline # CLI tool to reformat a text into a specified number of words per line/characters per line
 
 kayzh/LSHash # locality sensitive hashing
-JohannesBuchner/imagehash  # perceptual hashes lib, supports: average hashing (aHash), perception hashing (pHash), difference hashing (dHash)
+JohannesBuchner/imagehash  # perceptual hashes lib, supports: average hashing (aHash), perception hashing (pHash), difference hashing (dHash), wavelet hashing, like pHash but uses DWT instead of DCT (wHash)
 pavlovml/match # Scalable reverse image search built on Kubernetes and Elasticsearch
 
 bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra, xmonader/pybloomfilter, TerbiumLabs/pyblume, jaybaird/python-bloomfilter
@@ -713,7 +713,7 @@ astor / astunparse # AST 'unparse' : tree -> source
 import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
 # SUPER powerful to hack python code and sniff values
 
-# Get memory usage (+ cf. resource below)
+# Get memory usage (+ cf. resource snippet elsewhere on this page)
 from guppy import hpy
 h = hpy()
 h.heap()
@@ -1202,6 +1202,15 @@ from functools import \
 
 collections.ChainMap({}, d1, d2) # view of multiple dicts - Hidden Py2.7 backport: from ConfigParser import _Chainmap as ChainMap - Alt: Py2ChainMap
 
+from pathlib import Path # e.g. Path('/etc') / 'init.d' / 'reboot'
+def walk_files(directory, only=None):
+    for dirpath, _, filenames in os.walk(directory):
+        dirpath = Path(dirpath)
+        if not only or only == 'directories':
+            yield dirpath.resolve()
+        if not only or (only == 'files'):
+            for filename in filenames:
+                yield (dirpath / filename).resolve()
 
 """"""""""""
 "" Python 3.5

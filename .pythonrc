@@ -35,7 +35,6 @@ try:
     from django import test
     from django.db import connection
     from django.core.management import call_command
-    import atexit
 
     # Providing a handy 'load_fixture' function in the Django shell,
     # and registering a cleanup function executed when exiting the shell
@@ -46,6 +45,7 @@ try:
         if DJANGO_TEST_DB:
             print('A Django test DB already exists, please first call django_testdb_teardown()')
             return
+        import atexit
         atexit.register(django_testdb_teardown)
         test.utils.setup_test_environment()
         DJANGO_TEST_DB = connection.creation.create_test_db()
@@ -61,12 +61,18 @@ try:
     # (this has to be done manually, as by defaukt nothing is read/stored in any file)
     # FROM: http://jpadilla.com/post/59673924412/python-shell-history
     DJANGO_HISTORY_FILE = os.path.join(os.environ['HOME'], '.django_history')
-    try:
+    if os.path.exists(DJANGO_HISTORY_FILE):
         readline.read_history_file(DJANGO_HISTORY_FILE)
-    except IOError:
-        pass
-    atexit.register(readline.write_history_file, DJANGO_HISTORY_FILE)
+        import atexit
+        atexit.register(readline.write_history_file, DJANGO_HISTORY_FILE)
 except ImportError:
     pass
+
+if sys.version_info >= (3, 0) and hasattr(sys, 'real_prefix'): # in a VirtualEnv, we need to manual read/write the history, cf. https://github.com/berdario/pew/issues/90
+    PYTHON_HISTORY_FILE = os.path.join(os.environ['HOME'], '.python_history')
+    if os.path.exists(PYTHON_HISTORY_FILE):
+        readline.read_history_file(PYTHON_HISTORY_FILE)
+        import atexit
+        atexit.register(readline.write_history_file, PYTHON_HISTORY_FILE)
 
 print('.pythonrc successfully LOADED')

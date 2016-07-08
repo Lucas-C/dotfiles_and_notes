@@ -7,7 +7,8 @@
 - [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
 - [Five essential phone screen questions](https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions)
 - [InfiniteHows](http://radar.oreilly.com/2014/11/the-infinite-hows.html)
-- [PostMortems101](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
+- [5WhysWithHumansNotRobots](http://fr.slideshare.net/danmil30/how-to-run-a-5-whys-with-humans-not-robots/27-How_Hindsight_Bias_Shows_up)
+- [PostMortemsPIEIndicator](http://tech.blog.box.com/2014/08/a-tale-of-postmortems/)
 - [IT Change Management](http://stephaniekdean.wordpress.com/2011/06/17/cm/)
 - [Event Management](http://stephaniekdean.wordpress.com/2011/04/04/eventmgmt/) : it "typically covers a brief description of the issue,
 major points in the timeline of the event, information on trigger, root cause & resolution, lessons learned and short- & long-term action items.
@@ -131,9 +132,12 @@ cf. [RetrospectiveWiki]
     * this week's priorities: deployments, hand-over of burning tickets or tickets failing over SLA
 - frequently determine operational excellence goals: eliminate the top root cause of tickets, create a runbook/dashboard for a service...
 - CMs: cf. [IT Change Management]
-- post-mortems, event management & establishing new processes: cf. [PostMortems101] & [Event Management] + trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
+- post-mortems, event management & establishing new processes: cf. [PostMortemsPIEIndicator] (PIE = Probability of recurrence * Impact of recurrence * Ease of addressing) https://www.box.com/blog/a-tale-of-postmortems/
+) & [Event Management] + trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
+  * planning for a future where we're as stupid as we are today [5WhysWithHumansNotRobots]
+  * if we made an incremental improvment in area A or area B, which would prevent the boradest class of problems going ahead ? [5WhysWithHumansNotRobots]
 Learning is the goal during post-mortems (cf. [Learning Through Blameless Reviews] for a nice quick slideshow) + questions examples : [InfiniteHows]
-https://github.com/etsy/morgue : PHP based web application to help manage your postmortems
+https://github.com/etsy/morgue : PHP based web application to help manage your postmortems, made by Etsy
 - use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err or Zulip for Python, cog for Slack / HipChat)
 - useful questions to ask yourself when designing an alarms system : [Alarm design: From nuclear power to WebOps]
 - [Climbing out of the software death spiral] -> either :

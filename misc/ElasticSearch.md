@@ -9,6 +9,7 @@ http://makina-corpus.com/blog/metier/2015/elasticsearch-tips-and-best-practices-
 An ElasticSearch dev talk: https://speakerdeck.com/elasticsearch/maintaining-performance-in-distributed-systems
 
 ## Useful plugins / tools
+- [curator](https://www.elastic.co/blog/curator-tending-your-time-series-indices) : Python script to perform maintenance tasks, e.g. delete indices by total space consumed or by date
 - vagrant-elasticsearch-cluster : Create an ElasticSearch cluster with a simple single bash command
 - http://bigdesk.org/v/2.4.0/#nodes
 - plugin marvel (> plugin head)
@@ -98,12 +99,13 @@ Penser à échaper les ":" qui sont des caractères réservés dans la syntax Lu
 ### General status
 
     curl 'http://localhost:9200/_cluster/health?pretty'
+    curl 'http://localhost:9200/_cluster/state?pretty'
     curl 'http://localhost:9200/_nodes?settings&pretty'
     curl 'http://localhost:9200/_aliases?pretty' # get index list
     curl 'http://localhost:9200/$index/_mapping?pretty' # get list of types
     curl 'http://localhost:9200/_cat/shards?pretty' # shards status
-    curl 'http://localhost:9200/_river/_search?pretty&q=*' # list rivers
-    curl 'http://localhost:9200/_cluster/pending_tasks'
+    curl 'http://localhost:9200/_river/_search?pretty&q=*' # list rivers - DEPRACATED
+    curl 'http://localhost:9200/_cluster/pending_tasks?pretty'
 
 ### Adding content & searching
 
