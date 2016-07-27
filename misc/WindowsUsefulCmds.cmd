@@ -17,6 +17,8 @@ subst Z: C:\path\to\wonderland &:: mount / creates a virtual drive Z pointing to
 
 pkgmgr /iu:"TelnetClient" &:: install `telnet` command. Also available: TelnetServer, DNS-Server-Tools, SimpleTCP for echo & daytime
 
+wmic process where "ProcessID=9760" list <:: OR: get CommandLine, ExecutablePath - cf. https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/ : baseboard bios bootconfig cdrom computersystem cpu datafile dcomapp desktop desktopmonitor diskdrive diskquota environment fsdir group idecontroller irq job loadorder logicaldisk memcache memlogical memphysical netclient netlogin netprotocol netuse nic nicconfig nicconfig nicconfig nicconfig ntdomain ntevent ntevent ntevent onboarddevice os os pagefile pagefileset partition printer printjob process product qfe quotasetting recoveros Registry scsicontroller server service share sounddev startup sysaccount sysdriver systemenclosure systemslot tapedrive timezone useraccount memorychip
+
 where %cmd% &:: UNIX 'which' equivalent
 ipconfig /displaydns
 

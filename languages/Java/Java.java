@@ -50,6 +50,7 @@ mvn dependency:tree
 mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
 mvn buildplan:list # shows how goals are bound to phases - buildplan-maven-plugin from fr.jcgay.maven.plugins
 gradle dependencies
+anthemengineering/infer-maven-plugin # Facebook static analyzer for Java, does not work under Windows
 
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>

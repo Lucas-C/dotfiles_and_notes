@@ -113,6 +113,8 @@ drush eval 'var_dump(module_implements("cron"))' # List all defined cron jobs - 
 drush eval 'elysia_cron_initialize(); elysia_cron_execute_aborted("quotidien")' # Abort an Elysia cron channel before variable_get('elysia_cron_stuck_time', 3600) seconds
 drush sql-query 'SELECT * FROM variable' | grep elysia_cron
 drush sql-query 'SELECT r.name, p.perm FROM role r INNER JOIN permission p ON r.rid = p.rid'
+drush sql-query 'SELECT * FROM users u WHERE u.mail="lcimon@..."' # -> get UID
+drush sql-query 'SELECT r.name FROM users_roles ur LEFT JOIN role r ON r.rid=ur.rid WHERE ur.uid=...' # list a user's roles
 drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
 drush dl diff && drush en -y diff && drush features-diff $feature_name
 dpm / dvm / ddebug_backtrace # devel module

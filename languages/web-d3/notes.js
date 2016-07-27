@@ -304,7 +304,7 @@ log(util.inspect(process._getActiveHandles()));
 
 plato // source code visualization, static analysis, and complexity tool
 FGRibreau/check-build // includes:
-    ESLint > JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
+    eslint --fix > JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
     JSCS // code style checker
     jsinspect // check for code duplication
     buddy.js // detect magic numbers
@@ -316,6 +316,17 @@ Sinon.js // test spies, stubs and mocks - framwork agnostic & no dependencies
 Vows.js // asynchronous BDD for Node.js
 admc/wd // node.js client for webdriver/selenium 2
 Protractor // Framework for Selenium testing of AngularJS apps
+
+var logs = driver.manage().logs(), // driver is a selenium-webdriver instance
+    fetchLogsPromises = _.map(webdriver.logging.Type, logs.get.bind(logs)); // !! native .map does not work here - there are 5 logging.Type defined here: https://github.com/SeleniumHQ/selenium/blob/master/javascript/webdriver/logging.js#L234
+Promise.all(fetchLogsPromises).then(function (fetchedLogs) {
+    fetchedLogs.forEach(function (logs, logIndex) {
+        logs.forEach(function (log) {
+            console.log('\x1b[3%sm[%s] %s\x1b[0m', logIndex + 1, log.level.name, log.message);
+        });
+    });
+    takeScreenshotOnFailure(this.currentTest, feature.title, done);
+});
 
 // E4X is an official JavaScript standard that adds direct support for XML
 

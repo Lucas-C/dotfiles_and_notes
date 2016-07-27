@@ -60,7 +60,7 @@
     # List files by commit count to detect "hotspots" - Alt: garybernhardt/dotfiles/bin/git-churn
     commits-heatmap = "!git ls-tree -r -z --name-only HEAD | xargs -0 -n1 -I{} sh -c 'echo $(git rev-list HEAD --count {}) {}' | sort -n"
 
-    ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'{}  %h  %cr\n' {}^{commit} | sort"
+    ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'{}  %h  %cr\n' {}^{commit} | sort --version-sort"
 
 [apply]
     whitespace = nowarn
