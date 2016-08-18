@@ -16,8 +16,13 @@ with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as U
     for line in open_file.readlines(): # Drawback: no encoding can be specified
         yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
 with io.open('my_file', 'w', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
-for line in fileinput.input([filename], inplace=True):
-    print(line.strip())
+try:
+    for line in fileinput.input([filename], inplace=True, backup='.bak'):
+        print(line.strip())
+except Exception as error:  # e.g. for UnicodeDecodeError
+    os.remove(filename)  # needed on Windows apparently
+    os.replace(filename + '.bak', filename)
+    raise
 fileutils.atomic_save # from mahmoud/boltons
 intern(str) # internal representation - useful for enums/atoms + cf. http://stackoverflow.com/a/15541556
 
@@ -89,6 +94,7 @@ def bar(**kwargs): # != def bar(foo=None, **kwargs):
     foo = kwargs.pop('foo')
 
 arrow, delorean # 'better dates and times' & 'Time Travel Made Easy'
+freach/udatetime # Fast RFC3339 compliant Python date-time library, timezone aware, with strict format
 datetime.utcnow() # better than time.time()
 import pytz # pytz.utc, pytz.all_timezones
 from dateutil import parser # !! ALWAYS pass a Callable as tzinfos so that it won't use the system timezone (time.tzname)
@@ -346,10 +352,12 @@ pyrsistent PMap and PREcord  # immutable/functional with invariants and optional
 jab/bidict # provide key -> value & value -> key access
 dictutils.OrderedMultiDict # from mahmoud/boltons
 
-ultrajson >faster> simplejson >faster> json  # Also: mitghi/cyjson - Note for ultrajson: it can fail silently: https://github.com/esnme/ultrajson/issues/134
+ijson  # battle-tested, fantastically more memory-efficient
+ultrajson >faster> simplejson >faster>(not in my experience on CSC in Py3) json  # Also: mitghi/cyjson - Note for ultrajson: it can fail silently: https://github.com/esnme/ultrajson/issues/134
 def sets_converter(obj): return list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
-
+for error in jsonschema.Draft4Validator(schema).iter_errors(data):
+    print('#/' + '/'.join(map(str, error.path)), error.message)
 
 """""""""""""""""""
 "" Quirks & Gotchas
@@ -437,6 +445,9 @@ l[0] += [2]  # -> raises a TypeError, but l has changed: ([1, 2],)
 
 [3,2,1] < [1,3]  # False
 [1,2,3] < [1,3]  # True
+
+x, y = (0, 1) if True else None, None # -> ((0, 1), None)
+x, y = (0, 1) if True else (None, None) # -> (0, 1)
 
 
 """""""""""""""""""""""""""
@@ -813,6 +824,7 @@ celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: ce
 dask  # task scheduling and blocked algorithms for parallel processing
 sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn - Also:
 luigi, Oozie, Azkaban, Drake, Pinball, Apache Airflow, viewflow, BD2KGenomics/toil # workflow managers
+# the `luigid` daemon should be stopped with the `kill` command that sends a `SIGINT` signal so that it can save its state into `luigi-state.pickle` (cf. https://github.com/spotify/luigi/blob/master/luigi/server.py#L277)
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
 
@@ -943,6 +955,18 @@ def iter_html_non_standard_attributes(html_file):
                 yield attribute_name
 
 urlparse.urljoin, urllib.quote_plus # urlencoding & space -> +
+try:
+    with urllib.request.urlopen(url) as response:
+        return json.load(response)['version_id']
+except urllib.error.HTTPError as http_error:
+    if http_error.code == 404:
+        return None
+    raise
+basic_auth = 'Basic ' + b64encode((username + ':' + password).encode('ascii')).decode("ascii")
+headers = {'Authorization' : args.basic_auth, 'Content-Type': 'application/json; charset=utf-8'}
+data = json.dumps(payload).encode('utf-8')
+urllib.request.urlopen(urllib.request.Request(url, method='PUT', headers=headers, data=data),
+                       context=ssl._create_unverified_context())
 requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also:
     aiohttp # for asyncio-based equivalent
     requests-futures # for asynchronous (non-blocking) HTTP requests

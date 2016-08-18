@@ -158,7 +158,7 @@ alias lt='ll -rt'       # sort by date, oldest first
 lsp () { # group files by their prefix
     LANG=en_US.UTF-8 ls -AB1 $@ | sed 's/\(.[^.]\+\).*/\1/' | sort | uniq -c
 }
-lse () { # group files by their extension - Alt: find . -type f -not -path '*/.git/*' -not -path '*/.idea/*' -not -path '*/bower_components/*' -not -path '*/node_modules/*' -not -path '*/target/*' | awk -F'.' '{print $NF}' | sort | uniq -c
+lse () { # group files by their extension - Alt: find . -type f -not -path '*/.git/*' -not -path '*/.idea/*' -not -path '*/bower_components/*' -not -path '*/node_modules/*' -not -path '*/target/*' | awk -F'.' '{print $NF}' | sort | uniq -c | sort
     LANG=en_US.UTF-8 ls -AB1 $@ | awk -F'.' '{print $NF}' | sort | uniq -c
 }
 

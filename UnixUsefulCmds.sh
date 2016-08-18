@@ -460,6 +460,7 @@ echo '{"A0":["a1","a2","a3"], "B0":["b1","b2","b3"], "c3":[]}' | jq '".[^3]" as 
 source <(jq -r 'to_entries|.[]|"SAUCE_\(.key|ascii_upcase)=\(.value)"' .saucelabs_auth.json )
 jq '[.[] | {contentUrl, imgUrl, description: .contentUrl|sub(".*/";"")}]' imgur_imgs.json > imgur_imgs_with_desc.json
 jq -r 'map(select(.joblink == ""))' < $json_filename
+jq '.dict|with_entries(select(.value.date|contains("29 Jul 2016")))' < $json_filename
 jq input_filename,input_line_number *.json
 ls $dir | jq --raw-input --slurp 'split("\n")[:-1]' # build JSON array from a mutlilines non-JSON input
 q # command line tool that allows direct execution of SQL-like queries on CSVs/TSVs
@@ -1259,4 +1260,5 @@ setxkmap fr
 o=0=o=0=o=0
 = Jenkins =
 o=0=o=0=o=0
-Plugins: AnsiColor, ChuckNorris, InternetMeme, Pipeline, ShiningPanda, jenkins.sitespeed.io
+Plugins: AnsiColor, ChuckNorris, InternetMeme, Pipeline, ShiningPanda, jenkins.sitespeed.io, ThinBackup
+Global Security Authorization: special user "authenticated"

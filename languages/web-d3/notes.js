@@ -322,10 +322,9 @@ var logs = driver.manage().logs(), // driver is a selenium-webdriver instance
 Promise.all(fetchLogsPromises).then(function (fetchedLogs) {
     fetchedLogs.forEach(function (logs, logIndex) {
         logs.forEach(function (log) {
-            console.log('\x1b[3%sm[%s] %s\x1b[0m', logIndex + 1, log.level.name, log.message);
+            console.log('\x1b[3%sm%s [%s] %s\x1b[0m', logIndex + 1, new Date(log.timestamp), log.level.name, log.message);
         });
     });
-    takeScreenshotOnFailure(this.currentTest, feature.title, done);
 });
 
 // E4X is an official JavaScript standard that adds direct support for XML

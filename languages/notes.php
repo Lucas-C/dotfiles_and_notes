@@ -29,6 +29,7 @@ xdebug.collect_return = 1
 xdebug.collect_vars = 1
 xdebug.show_mem_delta = 1
 
+print -r "print(new ReflectionFunction('foo'))->getFileName().PHP_EOL" # Find function source file definition
 new Exception()->getTraceAsString() # get a stack trace - For improved PHP exceptions formatting : jTraceEx recipe at http://php.net/manual/fr/exception.getmessage.php, that support chained exceptions and is formatted in a Java-like manner
 
 require('/path/to/psysh');
@@ -94,7 +95,7 @@ drush core-status && drush status-report
 drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
 drush pm-list --type=module --status=enabled # -> list modules & themes
 drush site-install standard -y --account-pass=admin --db-url='mysql://root:root@localhost/my_pretty_db' --site-name=$sitename
-drush en -y $modules # pm-enable - Opposite: drush dis[able]
+drush pm-enable -y $modules # opposite: drush dis[able]
 drush ne-export --type=$content_type --file=$out_file.php
 drush ne-import --uid $user_uid --file=$in_file.php
 drush cc module-list
@@ -103,23 +104,26 @@ drush cc registry # reload hook_form_alter() / hook_node_save()
 drush cc theme-registry / theme-list # for .tpl.php files changes - Also: drush eval 'drupal_rebuild_theme_registry(); print_r(array_keys(theme_get_registry()))'
 drush cc css-js
 drush vget $var_name
-drush watchdog-show
+drush en -y dblog && drush watchdog-show
 drush watchdog-delete all
 drush updatedb
 drush feature-update / feature-revert
-drush eval "print (new ReflectionFunction('foo'))->getFileName().PHP_EOL" # Find function source file definition
-drush eval 'print_r(language_list())'
-drush eval 'var_dump(module_implements("cron"))' # List all defined cron jobs - Also, for Elysia crons: drush eval 'print_r(elysia_cron_module_jobs()); elysia_cron_initialize(); global $elysia_cron_settings_by_channel; print_r($elysia_cron_settings_by_channel)'
-drush eval 'elysia_cron_initialize(); elysia_cron_execute_aborted("quotidien")' # Abort an Elysia cron channel before variable_get('elysia_cron_stuck_time', 3600) seconds
-drush sql-query 'SELECT * FROM variable' | grep elysia_cron
-drush sql-query 'SELECT r.name, p.perm FROM role r INNER JOIN permission p ON r.rid = p.rid'
-drush sql-query 'SELECT * FROM users u WHERE u.mail="lcimon@..."' # -> get UID
-drush sql-query 'SELECT r.name FROM users_roles ur LEFT JOIN role r ON r.rid=ur.rid WHERE ur.uid=...' # list a user's roles
-drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
 drush dl diff && drush en -y diff && drush features-diff $feature_name
+drush eval 'print_r(language_list())'
 dpm / dvm / ddebug_backtrace # devel module
 drush fn-hook $hook_name # list hook implementations - Require: drush en devel -y
 elasticsearch_connector/modules/elasticsearch_connector_search_api/service.inc : SearchApiElasticsearchConnector->indexItems()
+
+drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
+drush sql-query 'SELECT r.name, p.perm FROM role r INNER JOIN permission p ON r.rid = p.rid'
+drush sql-query 'SELECT * FROM users u WHERE u.mail="lcimon@..."' # -> get UID
+drush sql-query 'SELECT r.name FROM users_roles ur LEFT JOIN role r ON r.rid=ur.rid WHERE ur.uid=...' # list a user's roles
+
+drush eval 'var_dump(module_implements("cron"))' # List all defined cron jobs - Also, for Elysia crons: drush eval 'print_r(elysia_cron_module_jobs()); elysia_cron_initialize(); global $elysia_cron_settings_by_channel; print_r($elysia_cron_settings_by_channel)'
+drush eval 'elysia_cron_initialize(); print(elysia_cron_is_channel_running("default"))' # "channels" have been renamed into "contexts" on the master branch of elysia_cron
+drush eval 'elysia_cron_initialize(); elysia_cron_execute_aborted("default")' # Abort an Elysia cron channel before variable_get('elysia_cron_stuck_time', 3600) seconds
+drush sql-query 'SELECT * FROM elysia_cron'
+drush sql-query 'SELECT * FROM variable' | grep elysia_cron
 
 chmod a+w sites/default/settings.php sites/default/files/
 cat <<EOF >> sites/default/settings.php

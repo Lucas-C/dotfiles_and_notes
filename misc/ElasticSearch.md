@@ -103,7 +103,7 @@ Penser à échaper les ":" qui sont des caractères réservés dans la syntax Lu
     curl 'http://localhost:9200/_nodes?settings&pretty'
     curl 'http://localhost:9200/_aliases?pretty' # get index list
     curl 'http://localhost:9200/$index/_mapping?pretty' # get list of types
-    curl 'http://localhost:9200/_cat/shards?pretty' # shards status
+    curl 'http://localhost:9200/_cat/shards' # shards status
     curl 'http://localhost:9200/_river/_search?pretty&q=*' # list rivers - DEPRACATED
     curl 'http://localhost:9200/_cluster/pending_tasks?pretty'
 
@@ -167,7 +167,46 @@ Penser à échaper les ":" qui sont des caractères réservés dans la syntax Lu
       }
     }' | jq -r .error//.
 
-_
+# Mapping example
+
+    "_default_": {
+        "_source": {
+            "enabled": false
+        },
+        "_all": {
+            "enabled": false
+        },
+        "dynamic_templates": [{
+            "do_not_analyze_strings_by_default": {
+                "match_mapping_type": "string",
+                "mapping": {
+                    "type": "string",
+                    "index":"not_analyzed"
+                },
+            },
+        }]
+    },
+    "city": {
+        "properties": {
+            "location": {"type": "geo_point"},
+            "tags": {"index": "analyzed"},  # the array type is auto-detected by ELS
+            "description": {"enabled": false}
+        }
+    }
+
+OR:
+
+    "_default_": {
+        "dynamic_templates": [{
+            "disabled_all_by_default": {
+                "match_mapping_type": "*",
+                "mapping": {
+                    "type": "object",
+                    "enabled": False
+                },
+            },
+        }]
+    },
 
 # Boost example
 

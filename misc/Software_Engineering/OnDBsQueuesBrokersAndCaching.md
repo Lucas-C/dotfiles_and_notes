@@ -22,7 +22,7 @@ _memcached_
 - use a firewall !! -> beware security issues: http://www.slideshare.net/sensepost/cache-on-delivery
 - commands: https://github.com/memcached/memcached/wiki/Commands - Ex:
 
-    echo flush_all | nc localhost 5502
+    echo flush_all | nc $memcache_host $port
 
 _Redis_
 
@@ -146,6 +146,8 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
 [REST API for v>5.7](www.infoq.com/news/2014/09/MySQL-REST)
 
 [MyWebSQL web admin UI](http://freedif.org/mywebsql-web-based-database-administration-panel/)
+
+[Why Uber Engineering Switched from Postgres to MySQL](https://eng.uber.com/mysql-migration/)
 
     mysqladmin --defaults-file=/etc/mysql/debian.cnf status # mysqladmin config file can be found in /etc/init.d/mysql, along MySQL own one: /etc/mysql/my.cnf
 
