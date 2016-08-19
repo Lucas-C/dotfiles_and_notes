@@ -96,6 +96,8 @@ bastet (tetris), myman (pacman)
 csokoban, cmines & cblocks # from cgames: the 1st can only be played in CTRL+ALT+F1 terminal, the 2nd is Mines Sweeper, the 3rd is played by mouse
 curseofwar -i4 -q1 -dee -W16 -H16 # awesome real-time RTS
 
+vlc --intf dummy http://novazz.ice.infomaniak.ch/novazz-128.mp3 # Nova
+
 
 ()()()()()()()()()()
 () Synthèse vocale

@@ -106,7 +106,7 @@ and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra whi
 
 ### SQL DBs
 
-![](http://www.codeproject.com/KB/database/Visual_SQL_Joins/Visual_SQL_JOINS_orig.jpg)   <!--_-->
+https://blog.jooq.org/2016/07/05/say-no-to-venn-diagrams-when-explaining-joins/
 
 LIKE >faster> REGEXP
 

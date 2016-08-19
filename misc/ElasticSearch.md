@@ -19,6 +19,9 @@ How to choose the number of nodes in a cluster: http://blog.overnetcity.com/2014
 
 5 Lessons Learned From A Year Of Elasticsearch In Production : https://tech.scrunch.com/blog/lessons-learned-from-a-year-of-running-elasticsearch-in-production/
 
+Etsy: http://fr.slideshare.net/avleenvig/elk-mooseively-scaling-your-log-system
+- `action.destructive_requires_name=true`
+
 cf. https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-performance/
 
     bootstrap.mlockall: true

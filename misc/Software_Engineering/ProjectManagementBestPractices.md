@@ -20,6 +20,7 @@ Project management best practices
 - [Les développeurs Heisenberg](http://blog.ticabri.com/blog/2015/04/21/les-developpeurs-heisenberg/) - TL;DR Vous ne pouvez pas observer un développeur sans en altérer son comportement.
 - "flow-breaking interruptions & effectiveness of an org / number of engineers devoted to an Engineering Effectiveness team" : http://www.gigamonkeys.com/flowers/
 - [No bullshit : What is Scrum ?](https://www.youtube.com/watch?v=jNhRX-RBs_4)
+- [AYoungLadysPrimerToTechnicalDecisionMaking](https://speakerdeck.com/charity/a-young-ladys-primer-to-technical-decision-making)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -31,6 +32,7 @@ Project management best practices
 - Processus de recrutement exigent : coding, 2h de review, etc.
 
 ## Choosing the right techno
+- [AYoungLadysPrimerToTechnicalDecisionMaking]
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
 - [ChooseBoringTechnology] :
     - "let's say every company gets about three innovation tokens"

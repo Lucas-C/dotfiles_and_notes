@@ -165,7 +165,7 @@ git-identify () { # USAGE: git-identify file hash
     local hash=${2?}
     git log --format="%h %s" $file | while read commit msg; do
         if [ $(git rev-parse $commit:$file) = "$hash" ]; then
-            echo $commit $(git tag --contains $commit | head -n 1) $msg
+            echo $commit $msg - oldest tag including this commit: $(git tag --contains $commit | head -n 1)
             break
         fi
     done

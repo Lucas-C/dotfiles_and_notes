@@ -8,17 +8,15 @@ PATH=/usr/bin:$PATH
 PATH=/usr/sbin:$PATH
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/sbin:$PATH
+PATH=~/.local/bin/:$PATH
 PATH=$BASHRC_DIR/bin:$PATH
 
-export GOPATH=~/gocode
-PATH=$GOPATH/bin:$PATH
-
-if [ -d ~/.local/bin/ ]; then
-    PATH=~/.local/bin/:$PATH
-fi
 if [ -n "${VIRTUAL_ENV:-}" ]; then
     PATH=$VIRTUAL_ENV/bin:$PATH
 fi
+
+export GOPATH=~/gocode
+PATH=$GOPATH/bin:$PATH
 
 # USAGE: echo -n "$PATH" | paths_without_user | paths_without_whitespaces
 paths_without_whitespaces () { # remove paths that include whitespaces
