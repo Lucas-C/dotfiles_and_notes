@@ -18,13 +18,7 @@ fi
 export GOPATH=~/gocode
 PATH=$GOPATH/bin:$PATH
 
-# USAGE: echo -n "$PATH" | paths_without_user | paths_without_whitespaces
-paths_without_whitespaces () { # remove paths that include whitespaces
-    tr : '\n' | grep -vF ' ' | head -c-1 | tr '\n' :
-}
-paths_without_user () { # remove paths that include the current (or specified) username
-    tr : '\n' | grep -vF "${1:-$USER}" | head -c-1 | tr '\n' :
-}
+export SHELL # needed for pew: https://github.com/berdario/pew/blob/master/pew/pew.py#L169
 
 export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
 export HISTTIMEFORMAT="%F %T "
@@ -224,7 +218,6 @@ python () {
 alias djshell='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ./manage.py shell_plus --use-pythonrc'
 alias ipy='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ipython --pdb'
 alias ipy3='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ipython3 --pdb'
-alias pew='PATH=$(echo -n "$PATH" | paths_without_user | paths_without_whitespaces) $(type -P pew)' # without "type -P" Cygwin throws a "command not found"
 py_module_path () { # USAGE: py_module_path $module_name [$py_version]
     python${2:-} -c "from __future__ import print_function; import $1; print($1.__file__ if hasattr($1, '__file__') else 'builtin')" | sed 's/pyc$/py/'
 }

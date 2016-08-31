@@ -8,6 +8,11 @@ F8 at start-up &:: Safe mode / Mode sans echec
 chcp 65001 in cmd.exe &:: -> support for UTF-8
 F7 in cmd.exe -> history &:: BUT better use Cmder or at least PowerShell ISE
 !!WARNING!! Cmder define HOME, PATH, TMP & TEMP env variables with Unix-like paths
+Cmder conf file: %CMDER_ROOT%\vendor\init.bat
+-> it works very well with Chocolatey
+@if not defined CMDER_START CMDER_START = D:\code
+@set PATH=%PATH%;%HOME%\AppData\Roaming\Python\Scripts
+@set PATH=%PATH%;%HOME%\AppData\Roaming\Composer\vendor
 
 <CMD>+Left/Right &:: Vertically maximize a windows on the side
 <CTRL>+<ALT>+<UP> &:: Invert screen upside down

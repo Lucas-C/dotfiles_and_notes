@@ -128,7 +128,3 @@ alias tcpdump="WinDump.exe" # or RawCap + Wireshark
 # (and by the way, it invokes bash through msysgit\bin\sh == MINGW32_NT)
 #alias composer='php $(cygpath -w $PHP_HOME/composer.phar)'
 #alias drush='DRUSH_PHP=php drush'  # Trick from https://github.com/drush-ops/drush/issues/375
-
-# Cmder conf file: %CMDER_ROOT%\vendor\init.bat
-# -> it works very well with Chocolatey
-# Composer packages dir: %HOME%\AppData\Roaming\Composer\vendor

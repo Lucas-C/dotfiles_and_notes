@@ -2,6 +2,8 @@
     sha: c2992bd3a11e3c0c2533ee370c26ac2b12d3a1b3
     hooks:
     -   id: check-json
+    -   id: check-merge-conflict
+    -   id: check-xml
     -   id: trailing-whitespace
         args:
         - --no-markdown-linebreak-ext
@@ -11,11 +13,3 @@
     -   id: remove-crlf
         exclude: npp/.*.xml
     -   id: remove-tabs
--   repo: local
-    hooks:
-    -   id: do_not_commit_unmerged
-        name: Block if string "<<< HEAD" is found
-        entry: DO NOT COMMIT UNMERGED
-        language: pcre
-        exclude: .pre-commit-config.yaml
-        files: ''
