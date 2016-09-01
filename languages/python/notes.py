@@ -541,6 +541,7 @@ pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pip
 pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt ; ./manage.py pipchecker
 
 pybuilder, invoke # build tools, like Makefile with many plugins
+Yelp/undebt # tool for performing massive, automated code refactoring
 
 coverage erase
 coverage run --source=path/to/python/src -m any_module_eg_behave

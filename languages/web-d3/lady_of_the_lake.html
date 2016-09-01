@@ -22,6 +22,7 @@
 
     var totalLadyDistance = 0;
     var totalLoverDistance = 0;
+    var loverIsGoingClockwise = true;
 
     var lake = document.getElementById("lake");
     var ctx = lake.getContext("2d");
@@ -66,7 +67,7 @@
         }
         var angle = length / radius;
         ctx.beginPath();
-        ctx.arc(LAKE_RADIUS, LAKE_RADIUS*7/8, radius, Math.PI/2, Math.PI/2+angle);
+        ctx.arc(LAKE_RADIUS, LAKE_RADIUS*9/8, radius, Math.PI*3/2-angle, Math.PI*3/2);
         ctx.lineWidth = 2;
         ctx.strokeStyle = 'blue';
         ctx.stroke();
@@ -75,7 +76,14 @@
         return {x: LAKE_RADIUS + LAKE_RADIUS*Math.cos(angle), y: LAKE_RADIUS + LAKE_RADIUS*Math.sin(angle)};
     }
     function posToAngle(pos) {
-        return Math.atan((pos.y - LAKE_RADIUS) / (pos.x - LAKE_RADIUS)) + (pos.x > 0 ? Math.PI : 0);
+        var angle = Math.atan((pos.y - LAKE_RADIUS) / (pos.x - LAKE_RADIUS));
+        if (pos.x < LAKE_RADIUS) {
+            angle += Math.PI;
+        }
+        if (angle < 0 || angle > 2*Math.PI) {
+            throw new Error(angle);
+        }
+        return angle;
     }
     function computeDistance(posA, posB) {
         return Math.sqrt(Math.pow(posB.x - posA.x, 2) + Math.pow(posB.y - posA.y, 2));
@@ -91,30 +99,35 @@
             y: pos.y + (targetPos.y - pos.y) * ratio,
         }
     }
+    function computeLoverDeltaAngle(loverAngle, ladyPos) {
+        if (ladyPos.x === lakeCenter.x && ladyPos.y === lakeCenter.y) { return deltaLoverAngle; }
+        var ladyAngle = posToAngle(ladyPos);
+        if (loverAngle < ladyAngle && ladyAngle < loverAngle + Math.PI) {
+            return deltaLoverAngle;
+        } else {
+            return -deltaLoverAngle;
+        }
+    }
     var tacticChangeLogged = false;
     function computeNewLadyPos(ladyPos, newLoverAngle) {
         var closestCoastPos = translatePos(lakeCenter, ladyPos, LAKE_RADIUS);
         var ladyDistanceToCoast = computeDistance(ladyPos, closestCoastPos);
-        var ladyAngle = posToAngle(closestCoastPos);
-        /*var diff = 4 * ladyDistanceToCoast - (ladyAngle - newLoverAngle) * LAKE_RADIUS;
-        console.log('diff', diff);
-        if (diff < 183) {
-            drawDisk(closestCoastPos, 10, 'purple');
-            console.log('totalLadyDistance BEFORE changing tactic:', totalLadyDistance);
-            console.log('totalLoverDistance BEFORE changing tactic:', totalLoverDistance);
-            console.log('ladyDistanceToCoast:', ladyDistanceToCoast);
-            console.log('closestCoastPos:', closestCoastPos);
-            console.log('lady angle:', ladyAngle);
-            throw new Error();
-        }*/
-        if (SPEED_RATIO * ladyDistanceToCoast < (ladyAngle - newLoverAngle) * LAKE_RADIUS) {
+        var ladyAngle = posToAngle(ladyPos);
+        var distanceForLoverToGetLady = (ladyAngle - newLoverAngle) * LAKE_RADIUS;
+        if (distanceForLoverToGetLady > Math.PI * LAKE_RADIUS) {
+            distanceForLoverToGetLady = 2 * Math.PI * LAKE_RADIUS - distanceForLoverToGetLady;
+        }
+        if (SPEED_RATIO * ladyDistanceToCoast < distanceForLoverToGetLady) {
             if (!tacticChangeLogged) {
+                console.log('Lady TACTIC CHANGE !');
                 drawDisk(closestCoastPos, 10, 'purple');
                 console.log('totalLadyDistance BEFORE tactic change:', totalLadyDistance);
                 console.log('totalLoverDistance BEFORE tactic change:', totalLoverDistance);
-                console.log('ladyDistanceToCoast:', ladyDistanceToCoast);
-                console.log('closestCoastPos:', closestCoastPos);
                 console.log('lady angle:', ladyAngle);
+                console.log('lover angle:', newLoverAngle);
+                console.log('ladyDistanceToCoast:', ladyDistanceToCoast);
+                console.log('distanceForLoverToGetLady:', distanceForLoverToGetLady);
+                console.log('closestCoastPos:', closestCoastPos);
                 tacticChangeLogged = true;
             }
             return translatePos(ladyPos, closestCoastPos, deltaLadyDistance);
@@ -122,6 +135,14 @@
             var oppositeCoastPos = coastAngleToPos(newLoverAngle + Math.PI);
             return translatePos(ladyPos, oppositeCoastPos, deltaLadyDistance);
         }
+    }
+    function computeNewLadyPosDummy(ladyPos, newLoverAngle) {
+        if (ladyPos.x === lakeCenter.x && ladyPos.y === lakeCenter.y) {
+            var newPos = translatePos(ladyPos, {x: LAKE_RADIUS, y: 2*LAKE_RADIUS}, deltaLadyDistance);
+            console.log('1st ladyPos', newPos);
+            return newPos;
+        }
+        return translatePos(ladyPos, {x: 2*LAKE_RADIUS, y: LAKE_RADIUS}, deltaLadyDistance);
     }
 
     var ladyPos = clone(lakeCenter);
@@ -134,7 +155,12 @@
 
     // LOOP
     function computationStep() {
-        var newLoverAngle = loverAngle + deltaLoverAngle; // TODO: test with a lover adapting its position to the lady
+        var loverDeltaAngle = computeLoverDeltaAngle(loverAngle, ladyPos);
+        if (loverIsGoingClockwise !== (loverDeltaAngle > 0)) {
+            console.log('Lover CHANGED DIRECTION: now going' + (loverDeltaAngle > 0 ? '' : 'counter-') + 'clockwise');
+            loverIsGoingClockwise = (loverDeltaAngle > 0);
+        }
+        var newLoverAngle = loverAngle + loverDeltaAngle;
         totalLoverDistance += computeDistance(coastAngleToPos(loverAngle), coastAngleToPos(newLoverAngle));
         var newLadyPos = computeNewLadyPos(ladyPos, newLoverAngle);
         totalLadyDistance += computeDistance(ladyPos, newLadyPos);
