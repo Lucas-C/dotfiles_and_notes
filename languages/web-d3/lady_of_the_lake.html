@@ -1,35 +1,108 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>La lady du lac - Michel Criton - Tangente #171</title>
+    <title>La lady du lac - Tangente #171</title>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body style="margin: 0">
-    <canvas id="lake" width="2000" height="2000" style="max-height: 100vh"></canvas>
+    <div class="well">
+      <form class="form-inline" onsubmit="restartSimulation(); return false">
+        <div class="form-group">
+          <label for="lover-direction">Direction du soupirant: </label>
+          <select name="lover-direction" class="form-control">
+            <option value="invariant">invariante</option>
+            <option value="adaptive">selon la distance à la lady</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="lady-strategy">Stratégie de la lady: </label>
+          <select name="lady-strategy" class="form-control">
+            <option value="theoretical">solution théorique de Tangente</option>
+            <option value="blunt">prend le soupirant à contre-pied</option>
+            <option value="adaptive">se déplace en direction opposée du soupirant</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="speed-ratio">Rapport des vitesses: </label>
+          <input type="number" name="speed-ratio" style="width: 50px" min="1" max="4" step="0.01" value="4"></input>
+          <input type="range" name="speed-ratio-range" min="1" max="4" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="simulation-speed">Pas de la simulation (ms): </label>
+          <input type="number" name="simulation-speed" style="width: 50px" min="1" max="20" step="1" value="10"></input>
+          <input type="range" name="simulation-speed-range" min="1" max="20" step="1">
+        </div>
+        <button type="submit" class="btn btn-default">Restart</button>
+      </form>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; padding: 0 1rem">
+        <canvas id="lake" width="2000" height="2000" style="max-height: 100vh; max-width: 100%; border: 2px black solid"></canvas>
+        <pre id="log" style="margin: 1rem"></pre>
+    </div>
+    <div class="container" style="text-align: justify">
+      <h3>Enoncé</h3>
+      <blockquote cite="http://www.tangente-mag.com/probleme.php?id=2728">
+Une jeune femme était en vacances au bord du lac Circulaire, un grand plan d’eau artificiel ainsi nommé pour sa forme circulaire précise. Pour échapper à un soupirant envahissant qui la harcelait, elle monta dans une barque et rama jusqu’à un radeau ancré au centre du lac. Son poursuivant décida de l’attendre sur le rivage, sachant qu’elle devrait revenir à terre. Il pouvait marcher quatre fois plus vite qu’elle pouvait ramer, et pensait pouvoir la joindre dès que son bateau toucherait le bord du lac.
+Mais la jeune femme, major de mathématiques au Radcliffe College et sportive de haut niveau, savait qu’une fois à terre, elle pourrait distancer le fâcheux. Il était seulement nécessaire de mettre au point une stratégie pour accoster à un point du rivage avant qu’il ne puisse y arriver. Elle trouva rapidement un plan assez simple.
+<strong>Quelle était la stratégie de la jeune femme ?</strong>
+On suppose qu’elle connaît à tout moment sa position exacte sur le lac.
+      </blockquote>
+      <h3>Solution de Tangente</h3>
+      <blockquote>
+Si l'objectif de la jeune femme est de s'échapper en atteignant le rivage le plus rapidement possible, sa meilleure stratégie est de se déplacer vers la rive du lac (de sorte que le centre du lac, matérialisé par le radeau, soit toujours compris entre elle et son poursuivant sur le rivage, les trois points étant alignés). Supposons que l'homme suit sa stratégie optimale, en courant toujours dans le même sens autour du lac (quatre fois plus vite que la jeune femme avance en ramant). Le chemin optimal de la jeune femme est un demi-cercle de rayon de <em>r</em> / 8, où <em>r</em> est le rayon du lac. A l'extrémité de ce demi-cercle, elle sera éloignée de <em>r</em> / 4 du centre. A partir de ce point, elle se dirigera tout droit vers le point le plus proche sur la rive. Elle a une distance 3<em>r</em> / 4 à parcourir. Son poursuivant, lui, doit parcourir &pi;<em>r</em> pour la rejoindre. <strong>Elle lui échappe,</strong> car lorsqu'elle atteint la rive, son poursuivant n'a parcouru que 3<em>r</em> &lt; &pi;<em>r</em>. Si le poursuivant change son sens de course, la jeune femme adopte le parcours symétrique à partir de l'intant du changement de sens.
+      </blockquote>
+    </div>
     <script type="text/javascript">
+    function clone(obj) {
+        return JSON.parse(JSON.stringify(obj));
+    }
+    function log () {
+        var logConsole = document.getElementById('log');
+        logConsole.innerHTML += Array.prototype.map.bind(arguments)(JSON.stringify).join(' ') + '\n';
+    }
+    function clearLogs() {
+        var logConsole = document.getElementById('log');
+        logConsole.innerHTML = '';
+    }
+
     const LAKE_RADIUS = 1000;
-    const DELTA_TIME = 10;
-    const SPEED_RATIO = 3.7; // DOES NOT WORK FOR 4 !!
+    log('Half a lake circumference:', LAKE_RADIUS * Math.PI);
+    const LAKE_CENTER_POS = {x: LAKE_RADIUS, y: LAKE_RADIUS};
     const LADY_SPEED = 1;
-    const LOVER_SPEED = LADY_SPEED * SPEED_RATIO;
 
-    const lakeCenter = {x: LAKE_RADIUS, y: LAKE_RADIUS};
-    const deltaLadyDistance = LADY_SPEED * DELTA_TIME;
-    const deltaLoverDistance = LOVER_SPEED * DELTA_TIME;
-    const deltaLoverAngle = deltaLoverDistance / LAKE_RADIUS;
-    // The following value consider only "jumps" over each arc chords
-    //const deltaLoverAngle = 2 * Math.asin(deltaLoverDistance / 2 / LAKE_RADIUS);
+    function updateInputsNumericalDisplays(event) {
+        if (event.target.name === 'speed-ratio-range') {
+            document.getElementsByName('speed-ratio')[0].value = document.getElementsByName('speed-ratio-range')[0].value;
+        } else {
+            document.getElementsByName('speed-ratio-range')[0].value = document.getElementsByName('speed-ratio')[0].value;
+        }
+        if (event.target.name === 'simulation-speed-range') {
+            document.getElementsByName('simulation-speed')[0].value = document.getElementsByName('simulation-speed-range')[0].value;
+        } else {
+            document.getElementsByName('simulation-speed-range')[0].value = document.getElementsByName('simulation-speed')[0].value;
+        }
+    }
 
-    var totalLadyDistance = 0;
-    var totalLoverDistance = 0;
-    var loverIsGoingClockwise = true;
+    function deltaLadyDistance () {
+        var simulationSpeed = +document.getElementsByName('simulation-speed')[0].value;
+        return LADY_SPEED * simulationSpeed;
+    }
+    function deltaLoverAngle () {
+        var loverSpeed = LADY_SPEED * (+document.getElementsByName('speed-ratio')[0].value);
+        var simulationSpeed = +document.getElementsByName('simulation-speed')[0].value;
+        var deltaLoverDistance = loverSpeed * simulationSpeed;
+        return deltaLoverDistance / LAKE_RADIUS;
+        // The following value consider only "jumps" over each arc chords
+        //return = 2 * Math.asin(deltaLoverDistance / 2 / LAKE_RADIUS);
+    }
 
     var lake = document.getElementById("lake");
     var ctx = lake.getContext("2d");
 
-    function clone(obj) {
-        return JSON.parse(JSON.stringify(obj));
-    }
+    var simulationState = 'STOPPED'; // can be STOPPED, MUST_STOP, RUNNING
+    var ladyPos, loverAngle, totalLadyDistance, totalLoverAngle, totalLoverDistance, loverIsGoingClockwise, ladyTacticChangeLogged;
+
     function drawLake() {
         ctx.beginPath();
         ctx.arc(LAKE_RADIUS, LAKE_RADIUS, LAKE_RADIUS, 0, 2*Math.PI);
@@ -60,36 +133,27 @@
         ctx.strokeStyle = 'red';
         ctx.stroke();
     }
-    function drawTheoreticalSolution(length) {
-        var radius = LAKE_RADIUS/8;
-        if (length > radius * Math.PI) {
-            length = radius * Math.PI;
-        }
-        var angle = length / radius;
-        ctx.beginPath();
-        ctx.arc(LAKE_RADIUS, LAKE_RADIUS*9/8, radius, Math.PI*3/2-angle, Math.PI*3/2);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = 'blue';
-        ctx.stroke();
-    }
+
     function coastAngleToPos(angle) {
         return {x: LAKE_RADIUS + LAKE_RADIUS*Math.cos(angle), y: LAKE_RADIUS + LAKE_RADIUS*Math.sin(angle)};
+    }
+    function mod2Pi(angle) {
+        if (angle < 0) { angle += 2*Math.PI; }
+        if (angle > 2*Math.PI) { angle -= 2*Math.PI; }
+        return angle;
     }
     function posToAngle(pos) {
         var angle = Math.atan((pos.y - LAKE_RADIUS) / (pos.x - LAKE_RADIUS));
         if (pos.x < LAKE_RADIUS) {
             angle += Math.PI;
         }
-        if (angle < 0 || angle > 2*Math.PI) {
-            throw new Error(angle);
-        }
-        return angle;
+        return mod2Pi(angle);
     }
     function computeDistance(posA, posB) {
         return Math.sqrt(Math.pow(posB.x - posA.x, 2) + Math.pow(posB.y - posA.y, 2));
     }
     function computeDistanceToCoast(pos) {
-        return LAKE_RADIUS - computeDistance(pos, lakeCenter);
+        return LAKE_RADIUS - computeDistance(pos, LAKE_CENTER_POS);
     }
     function translatePos(pos, targetPos, distance) {
         var distanceToTarget = computeDistance(pos, targetPos);
@@ -99,68 +163,112 @@
             y: pos.y + (targetPos.y - pos.y) * ratio,
         }
     }
+
     function computeLoverDeltaAngle(loverAngle, ladyPos) {
-        if (ladyPos.x === lakeCenter.x && ladyPos.y === lakeCenter.y) { return deltaLoverAngle; }
+        var loverDirectionType = document.getElementsByName('lover-direction')[0].value;
+        if (loverDirectionType === 'invariant') { return deltaLoverAngle(); }
+        if (ladyPos.x === LAKE_CENTER_POS.x && ladyPos.y === LAKE_CENTER_POS.y) { return deltaLoverAngle(); }
         var ladyAngle = posToAngle(ladyPos);
-        if (loverAngle < ladyAngle && ladyAngle < loverAngle + Math.PI) {
-            return deltaLoverAngle;
+        if (loverAngle > ladyAngle) {
+            sign = ((loverAngle - ladyAngle) < Math.PI) ? -1 : 1;
         } else {
-            return -deltaLoverAngle;
+            sign = ((ladyAngle - loverAngle) < Math.PI) ? 1 : -1;
+        }
+        return sign * deltaLoverAngle();
+    }
+
+    function computeNewLadyPos(ladyPos, newLoverAngle) {
+        var ladyStrategy = document.getElementsByName('lady-strategy')[0].value;
+        switch (ladyStrategy) {
+            case 'blunt':
+                return computeNewLadyPosBlunt(ladyPos, newLoverAngle);
+            case 'adaptive':
+                return computeNewLadyPosAdaptive(ladyPos, newLoverAngle)
+            case 'theoretical':
+                return computeNewLadyPosTheoretical(ladyPos, newLoverAngle);
         }
     }
-    var tacticChangeLogged = false;
-    function computeNewLadyPos(ladyPos, newLoverAngle) {
-        var closestCoastPos = translatePos(lakeCenter, ladyPos, LAKE_RADIUS);
+    function computeNewLadyPosAdaptive(ladyPos, newLoverAngle) {
+        var closestCoastPos = translatePos(LAKE_CENTER_POS, ladyPos, LAKE_RADIUS);
         var ladyDistanceToCoast = computeDistance(ladyPos, closestCoastPos);
         var ladyAngle = posToAngle(ladyPos);
-        var distanceForLoverToGetLady = (ladyAngle - newLoverAngle) * LAKE_RADIUS;
+        var distanceForLoverToGetLady = Math.abs(ladyAngle - newLoverAngle) * LAKE_RADIUS;
         if (distanceForLoverToGetLady > Math.PI * LAKE_RADIUS) {
             distanceForLoverToGetLady = 2 * Math.PI * LAKE_RADIUS - distanceForLoverToGetLady;
         }
-        if (SPEED_RATIO * ladyDistanceToCoast < distanceForLoverToGetLady) {
-            if (!tacticChangeLogged) {
-                console.log('Lady TACTIC CHANGE !');
+        var speedRatio = +document.getElementsByName('speed-ratio')[0].value;
+        if (speedRatio * ladyDistanceToCoast < distanceForLoverToGetLady) {
+            if (!ladyTacticChangeLogged) {
+                log('Lady TACTIC CHANGE !');
                 drawDisk(closestCoastPos, 10, 'purple');
-                console.log('totalLadyDistance BEFORE tactic change:', totalLadyDistance);
-                console.log('totalLoverDistance BEFORE tactic change:', totalLoverDistance);
-                console.log('lady angle:', ladyAngle);
-                console.log('lover angle:', newLoverAngle);
-                console.log('ladyDistanceToCoast:', ladyDistanceToCoast);
-                console.log('distanceForLoverToGetLady:', distanceForLoverToGetLady);
-                console.log('closestCoastPos:', closestCoastPos);
-                tacticChangeLogged = true;
+                log('totalLadyDistance BEFORE tactic change:', totalLadyDistance);
+                log('totalLoverDistance BEFORE tactic change:', totalLoverDistance);
+                log('lady angle:', ladyAngle);
+                log('lover angle:', newLoverAngle);
+                log('ladyDistanceToCoast:', ladyDistanceToCoast);
+                log('distanceForLoverToGetLady:', distanceForLoverToGetLady);
+                log('closestCoastPos:', closestCoastPos);
+                ladyTacticChangeLogged = true;
             }
-            return translatePos(ladyPos, closestCoastPos, deltaLadyDistance);
+            return translatePos(ladyPos, closestCoastPos, deltaLadyDistance());
         } else {
             var oppositeCoastPos = coastAngleToPos(newLoverAngle + Math.PI);
-            return translatePos(ladyPos, oppositeCoastPos, deltaLadyDistance);
+            return translatePos(ladyPos, oppositeCoastPos, deltaLadyDistance());
         }
     }
-    function computeNewLadyPosDummy(ladyPos, newLoverAngle) {
-        if (ladyPos.x === lakeCenter.x && ladyPos.y === lakeCenter.y) {
-            var newPos = translatePos(ladyPos, {x: LAKE_RADIUS, y: 2*LAKE_RADIUS}, deltaLadyDistance);
-            console.log('1st ladyPos', newPos);
+    function computeNewLadyPosBlunt(ladyPos, newLoverAngle) {
+        if (ladyPos.x === LAKE_CENTER_POS.x && ladyPos.y === LAKE_CENTER_POS.y) {
+            var newPos = translatePos(ladyPos, {x: LAKE_RADIUS, y: 2*LAKE_RADIUS}, deltaLadyDistance());
+            log('1st ladyPos', newPos);
             return newPos;
         }
-        return translatePos(ladyPos, {x: 2*LAKE_RADIUS, y: LAKE_RADIUS}, deltaLadyDistance);
+        return translatePos(ladyPos, {x: 2*LAKE_RADIUS, y: LAKE_RADIUS}, deltaLadyDistance());
+    }
+    function computeNewLadyPosTheoretical(ladyPos, newLoverAngle) {
+        var ladyAngleInHalfCircle = totalLoverAngle * 8 / (+document.getElementsByName('speed-ratio')[0].value);
+        if (ladyAngleInHalfCircle < Math.PI) {
+            return {
+                x: LAKE_CENTER_POS.x * (1 + Math.cos(Math.PI/2 + ladyAngleInHalfCircle) / 8),
+                y: LAKE_CENTER_POS.y * (.875 + Math.sin(Math.PI/2 + ladyAngleInHalfCircle) / 8),
+            };
+        } else {
+            return {
+                x: ladyPos.x,
+                y: ladyPos.y - deltaLadyDistance(),
+            };
+        }
     }
 
-    var ladyPos = clone(lakeCenter);
-    var loverAngle = 0;
-    console.log('Half a lake circumference:', LAKE_RADIUS * Math.PI);
-    console.log('Initial Lover pos:', coastAngleToPos(loverAngle));
-    drawLake();
-    drawLady(ladyPos);
-    drawLover(loverAngle);
+    function startSimulation() {
+        clearLogs();
 
-    // LOOP
+        totalLadyDistance = 0;
+        totalLoverAngle = 0;
+        totalLoverDistance = 0;
+
+        loverIsGoingClockwise = true;
+        ladyTacticChangeLogged = false;
+
+        ladyPos = clone(LAKE_CENTER_POS);
+        loverAngle = 0;
+        log('Initial Lover pos:', coastAngleToPos(loverAngle));
+
+        ctx.clearRect(0, 0, 2*LAKE_RADIUS, 2*LAKE_RADIUS);
+        drawLake();
+        drawLady(ladyPos);
+        drawLover(loverAngle);
+
+        simulationState = 'RUNNING';
+        computationStep();
+    }
     function computationStep() {
         var loverDeltaAngle = computeLoverDeltaAngle(loverAngle, ladyPos);
         if (loverIsGoingClockwise !== (loverDeltaAngle > 0)) {
-            console.log('Lover CHANGED DIRECTION: now going' + (loverDeltaAngle > 0 ? '' : 'counter-') + 'clockwise');
+            log('Lover CHANGED DIRECTION: now going ' + (loverDeltaAngle > 0 ? '' : 'counter-') + 'clockwise');
             loverIsGoingClockwise = (loverDeltaAngle > 0);
         }
-        var newLoverAngle = loverAngle + loverDeltaAngle;
+        var newLoverAngle = mod2Pi(loverAngle + loverDeltaAngle);
+        totalLoverAngle += Math.abs(loverDeltaAngle);
         totalLoverDistance += computeDistance(coastAngleToPos(loverAngle), coastAngleToPos(newLoverAngle));
         var newLadyPos = computeNewLadyPos(ladyPos, newLoverAngle);
         totalLadyDistance += computeDistance(ladyPos, newLadyPos);
@@ -170,25 +278,27 @@
         ladyPos = newLadyPos;
         drawLover(loverAngle);
         drawLady(ladyPos);
-        drawTheoreticalSolution(totalLadyDistance);
 
-        if (computeDistanceToCoast(ladyPos) > 1) {
-            setTimeout(computationStep, DELTA_TIME);
+        if (simulationState == 'RUNNING' && computeDistanceToCoast(ladyPos) > 1) {
+            setTimeout(computationStep, +document.getElementsByName('simulation-speed')[0].value);
         } else {
-            console.log('FINAL Lady Pos:', ladyPos);
-            console.log('totalLadyDistance=', totalLadyDistance);
-            console.log('FINAL Lover Angle:', loverAngle);
-            console.log('FINAL Lover Pos:', coastAngleToPos(loverAngle));
-            console.log('totalLoverDistance=', totalLoverDistance);
+            log('FINAL Lady Pos:', ladyPos);
+            log('totalLadyDistance=', totalLadyDistance);
+            log('FINAL Lover Angle:', loverAngle);
+            log('FINAL Lover Pos:', coastAngleToPos(loverAngle));
+            log('totalLoverDistance=', totalLoverDistance);
+            simulationState = 'STOPPED';
         }
     }
-    computationStep();
+    function restartSimulation (event) {
+        if (event) {
+            updateInputsNumericalDisplays(event);
+        }
+        simulationState = 'MUST_STOP';
+        setTimeout(startSimulation, 50);
+    }
+    document.getElementsByTagName('form')[0].addEventListener('input', restartSimulation);
+    restartSimulation();
     </script>
-    <blockquote cite="http://www.tangente-mag.com/probleme.php?id=2728">
-    Une jeune femme était en vacances au bord du lac Circulaire, un grand plan d’eau artificiel ainsi nommé pour sa forme circulaire précise. Pour échapper à un soupirant envahissant qui la harcelait, elle monta dans une barque et rama jusqu’à un radeau ancré au centre du lac. Son poursuivant décida de l’attendre sur le rivage, sachant qu’elle devrait revenir à terre. Il pouvait marcher quatre fois plus vite qu’elle pouvait ramer, et pensait pouvoir la joindre dès que son bateau toucherait le bord du lac.
-    Mais la jeune femme, major de mathématiques au Radcliffe College et sportive de haut niveau, savait qu’une fois à terre, elle pourrait distancer le fâcheux. Il était seulement nécessaire de mettre au point une stratégie pour accoster à un point du rivage avant qu’il ne puisse y arriver. Elle trouva rapidement un plan assez simple.
-    <em>Quelle était la stratégie de la jeune femme ?</em>
-    On suppose qu’elle connaît à tout moment sa position exacte sur le lac.
-    </blockquote>
   </body>
 </html>

@@ -1088,7 +1088,7 @@ composite # merge images
 
 gifsicle "$gif" -I | sed -ne 's/.* \([0-9]\+\) images/\1/p' # frames count + cf. stopmo_logo/gen_anim.sh
 convert -delay 20 -loop 0 -dispose background -rotate -90 -resize 50% -loop 0 *.png out.gif
-tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582
+tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582 - Alt: jlsutherland/doc2text for poorly scanned PDFs
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
 barcode -b "Hello World !" -o out.ps && convert out.ps -trim out.png
 image_optimi # Optimize (lossless compress, optionally lossy) images (jpeg, png, gif, svg) using external utilities: advpng gifsicle jhead jpegoptim jpeg-recompress jpegtran optipng pngcrush pngout pngquant svgo

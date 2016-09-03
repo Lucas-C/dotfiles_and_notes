@@ -656,7 +656,7 @@ cd /a/path
 %bg # run in the background
 %%javascript # and many other languages
 from IPython.display import HTML, SVG; HTML(html_string) # render HTML, SVG
-ipython notebook # D3 support : wrobstory/sticky
+ipython notebook # now Jupyter - D3 support : wrobstory/sticky - Interesting "static" alts: janschulz/knitpy & pystitch/stitch
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
 jq -r '.worksheets[0].cells[].input' < $file.ipynb
 
@@ -900,6 +900,7 @@ EasyDialogs, optparse_gui, EasyGui > Tkinter
 Kivy # GUI inc. multi-touch support
 wxPython # port of C++ wxWidgets
 
+jlsutherland/doc2text # OCR poorly scanned PDFs in bulk
 espeak-ng # open source speech synthesizer supporting 7+ languages, based on the eSpeak engine
 
 
