@@ -1,4 +1,5 @@
 # Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
+# Note: .gitconfig format impose to double backslashes: \\
 [alias]
     br = branch
     co = checkout
@@ -61,6 +62,8 @@
     commits-heatmap = "!git ls-tree -r -z --name-only HEAD | xargs -0 -n1 -I{} sh -c 'echo $(git rev-list HEAD --count {}) {}' | sort -n"
 
     ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'{}  %h  %cr\n' {}^{commit} | sort --version-sort"
+    # List all [Labels] in commit msgs, stripping digits
+    ls-labels = "!git log --pretty=format:%s | sed -e 's/[0-9]//g' -e 's/^Revert \"//' -e 's/\\(\\[[^]]\\+\\]\\)[^[]*/\\1\\n/g' | grep -F [ | sort | uniq -c"
 
 [apply]
     whitespace = nowarn

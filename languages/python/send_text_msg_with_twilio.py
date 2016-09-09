@@ -11,9 +11,12 @@ from twilio.rest import TwilioRestClient
 
 def main(argv):
     twilioClient = TwilioRestClient(os.environ['TWILIO_ACCOUNT_SID'], os.environ['TWILIO_AUTH_TOKEN'])
-    dst_phone_number = sys.argv[1]
     phone_numbers = twilioClient.phone_numbers.list()
     src_phone_number = phone_numbers[0].phone_number
+    if len(sys.argv) < 2:
+        print('Missing destination number arg. 1st Twilio source number available: {}'.format(src_phone_number))
+        return
+    dst_phone_number = sys.argv[1]
     message = twilioClient.messages.create(body=sys.stdin.read(), from_=src_phone_number, to=dst_phone_number)
     while message.status != 'delivered':
         time.sleep(1)

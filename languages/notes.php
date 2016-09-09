@@ -35,6 +35,11 @@ new Exception()->getTraceAsString() # get a stack trace - For improved PHP excep
 require('/path/to/psysh');
 eval(\Psy\sh()); # ensure register_argc_argv=on is set if using an old version of psysh, cf. issue #237
 
+# PHP parameter passing by name !!GOTCHA!!
+function foo($x = 2, $y = 3) { return $x + $y; }
+foo($y = 5) // == 8 !!
+# TO DETECT: ag '\([^()\n]*[^=!]=[^=>][^()\n]*\)[^{\n]*$'
+
 # PHP reference variables !!GOTCHA!!
 php -r '$a = array("b" => array(0 => 42)); $x = $a["b"]; $x[0] = 7; print_r($a);'
 php -r '$a = array("b" => array(0 => 42)); $x = &$a["b"]; $x[0] = 7; print_r($a);'
@@ -66,6 +71,10 @@ system("zip ...") >>FASTER>> standard ZipArchive lib
         "bin-dir": ".bin/"
     }
 
+List updates:
+
+    composer outdated --outdated --direct
+
 Ant usage :
 
   <target name="composer-install" description="Installing PHP dependencies" depends="get-composer">
@@ -90,7 +99,7 @@ Ant usage :
 <!<! Drupapapapal !>!>
 <\-\--------------/-/>
 wget http://ftp.drupal.org/files/projects/drupal-7.38.zip && unzip drupal-7.38.zip && mv drupal-7.38 $INSTALL_DRUPAL
-drush --debug ...
+drush --debug ... # -v is at least needed to get E_WARNING msgs
 drush core-status && drush status-report
 drush ev 'print(drush_server_home());' # find out where Drush thinks your home directory, where to put .drush/drushrc.php
 drush pm-list --type=module --status=enabled # -> list modules & themes

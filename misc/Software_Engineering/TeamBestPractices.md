@@ -40,6 +40,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Learning Through Blameless Reviews](http://fr.slideshare.net/joelchippindale/learning-through-blameless-reviews)
 - [Process Hacking](http://fr.slideshare.net/ClaireAgutter/process-hacking)
 - [Blameless PostMortems and a Just Culture](https://codeascraft.com/2012/05/22/blameless-postmortems/)
+- [HowAProgrammerReadsYourResumeVsARecruiter](http://stevehanov.ca/blog/index.php?id=56)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -190,7 +191,7 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
     * cf. [FrontendJobInterviewQuestions]
     * cf. [What happens when you type google.com into your browser and press enter?]
     * cf. [JoeStumpTechnicalInterviewQuestions]
-- cf. [Interviewing is broken] & [We Hire the Best, Just Like Everyone Else] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."
+- cf. [HowAProgrammerReadsYourResumeVsARecruiter] & [Interviewing is broken] & [We Hire the Best, Just Like Everyone Else] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."
 - [Foursquare](http://engineering.foursquare.com/2016/04/04/improving-our-engineering-interview-process/) :
 > "We forgo technical phone interviews whenever possible. They’re typically unpleasant for everyone involved and we felt like the environment of a phone screen wasn’t conducive to learning about a candidate’s abilities comprehensively. Instead we give out a take-home exercise that takes about three hours."
 - clearly define your interview process:

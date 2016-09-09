@@ -60,7 +60,7 @@ ranger # text-based file manager written in Python with vi key bindings
 write / mesg # 2nd control write access
 wall # broadcast message
 
-ttyrec, ipbt, ttygif, playitagainsam, KeyboardFire/mkcast # record & playback terminal sessions - Last one provides a JS player
+ttyrec, ipbt, ttygif, playitagainsam, KeyboardFire/mkcast # record & playback terminal sessions - Last one provides a JS player - Also: LICEcap to record desktop actions into a GIF
 licecap # record any screen interaction as GIF - cf. http://superuser.com/a/657800/255048
 
 export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@" || exit 255' _ {} # "if the command exits with a status of 255, xargs will stop immediately" => fail fast - Alt: GNU parallel, mfisk/filemap 'fm' Map-Reduce command
@@ -966,9 +966,12 @@ export NSPR_LOG_FILE=/tmp/firefox_http.log
 sqlite3 "$(cygpath $LOCALAPPDATA)/Google/Chrome/User Data/Default/databases/chrome-extension_loljledaigphbcpfhfmgopdkppkifgno_0/"* 'select * from fields;' # Inspect Lazarus form recovery DB
 
 
-g@g@g@g@g
-@ github
-g@g@g@g@g
+g@g@g@g@g@g@g@g@g
+@ gitlab & github
+g@g@g@g@g@g@g@g@g
+http://gitlab/api/v3/users?per_page=100&page=10&private_token=$api_token # users list
+http://gitlab/api/v3/projects/dwm-tools%2Fcss-tools/members?private_token=$api_token # project members
+
 https://github.com/explore
 https://github.com/notifications
 https://github.com/issues

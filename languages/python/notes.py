@@ -574,7 +574,13 @@ def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unver
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried)
 pyreverse # UML diagrams, integrated in pylint
+
+# Security
 openstack/bandit  # Python AST-based security linter
+    echo -e "[bandit]\nexclude: my_proj/.eggs,my_proj/src/unittest"
+    bandit --ini .banditrc --recursive my_proj/ # -lll to limit to HIGH severity issues
+openstack/syntribos  # automated API security testing tool
+sqlmap  # automatic SQL injection and database takeover tool
 
 Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
 lobocv/crashreporter # store and send crash reports directly to the developers
@@ -602,7 +608,7 @@ c-oreills/before_after # provides utilities to help test race conditions
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 import doctest # include tests as part of the documentation
 AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
-behave # Behavior Driven Development
+behave # Behavior Driven Development - Comparison with alts: https://pythonhosted.org/behave/comparison.html
 brodie/cram # generic command-line app testing
 import capsys # capture stdin/out
 import monkeypatch # modify an object that will be restored after the unit test
@@ -988,6 +994,20 @@ response = requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_r
 if 400 <= response.status_code < 600:
     raise requests.HTTPError(str(response.status_code) + '\n' + response.text)
 status_string = requests.status_codes._codes[404][0]; status_string = ' '.join(w.capitalize() for w in status_string.split('_')) # Alt: httplib.responses, cf. HTTP_STATUS_LINES in Bottle code: http://bottlepy.org/docs/dev/bottle.py
+# pylint: disable=too-many-arguments
+def passthrough_http_proxy(http_proxy, real_request_url):
+    proxy_host, proxy_port = http_proxy.split(':')
+    class HTTPProxyAdapter(requests.adapters.HTTPAdapter):
+        def request_url(self, request, _):
+            return request.url # use the FULL url of the resource to build the request line, instead of only its relative path
+    def custom_parse_url(url):
+        return requests.packages.urllib3.util.url.parse_url(url)._replace(host=proxy_host, port=proxy_port, scheme='http')
+    with patch('requests.packages.urllib3.poolmanager.parse_url', new=custom_parse_url):
+        session = requests.session()
+        session.mount(scheme + '://', HTTPProxyAdapter())
+        response = session.get(real_request_url)
+        response.raise_for_status()
+        return response.text
 wget # equivalent lib to the command-line tool
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 kevin1024/vcrpy # record / replay HTTP interactions
