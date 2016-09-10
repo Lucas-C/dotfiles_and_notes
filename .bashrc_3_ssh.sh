@@ -63,7 +63,7 @@ ssh_setup () { # '-f' force a new ssh-agent creation
     fi
 
     # We create a new ssh-agent if '-f' is used or 'ssh-add -l' fails (=> no agent running OR no keys loaded)
-    if [ "$1" = "-f" ] || ! ssh-add -l >/dev/null 2>&1; then
+    if [ "${1:-}" = "-f" ] || ! ssh-add -l >/dev/null 2>&1; then
         echo "Creating new ssh-agent"
         killall ssh-agent
         ssh-agent >$SSH_AGENT_CONFIG_FILE

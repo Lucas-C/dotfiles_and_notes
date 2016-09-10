@@ -160,3 +160,10 @@ ServerName localhost:80 # makes httpd startup waaay faster !
 tail -F /var/log/apache2/*.log
 LogLevel mod_rewrite.c:trace9 # to debug RewriteRules - in versions < 2.4 : RewriteLog ".../rewrite.log" + RewriteLogLevel 9
 ForensicLog logs/forensic.log # requires: LoadModule log_forensic_module modules/mod_log_forensic.so
+
+
+<[-----]>
+<[Nginx]>
+<[-----]>
+nginx -t  # help diagnoseing service start failure
+

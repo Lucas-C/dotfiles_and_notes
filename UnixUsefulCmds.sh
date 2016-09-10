@@ -852,14 +852,14 @@ shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck - Alt:
 smartctl -a /dev/sdb2 # scan a device - Alt: gsmartcontrol or above
 
 dpkg -S /path/to/cmd # to find what package a command belong to - Alt: apt-file search /path/to/cmd / yum provides $cmd / rpm -qif $(which cmd)
-dpkg -L $pkg # list files installed by a package on the system - Alt: apt-get list $pkg
+dpkg -L $pkg # list files installed by a package on the system - Alt: apt-get list $pkg - or - dpkg-deb -c $deb
 rpm -q --whatrequires $pkg # list dependencies - Alt: apt-cache rdepends $pkg
 apt-cache search $keyword
 apt-get source $pkg
 debuginfo-install $package # install debuginfo packages and their dependencies, provided by yum-utils
 rpm -Uvh pkg.rpm # upgrade RPM
 apt-key fingerprint # display imported keys fingerprints
-sudo dpkg -D1 -i *.deb
+sudo dpkg -D1 -i *.deb # install a .deb with helpful msgs
 
 rpm --qf "%{INSTALLTIME:date} %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" -qa *regex* # list rpm
 rpmbuild file.spec
@@ -1267,3 +1267,12 @@ o=0=o=0=o=0
 o=0=o=0=o=0
 Plugins: AnsiColor, ChuckNorris, InternetMeme, Pipeline, ShiningPanda, jenkins.sitespeed.io, ThinBackup
 Global Security Authorization: special user "authenticated"
+
+
+|°~|°~|°~|°~|°~|°~
+ ~ Transmission ~
+|°~|°~|°~|°~|°~|°~
+# https://trac.transmissionbt.com/browser/trunk/extras/rpc-spec.txt
+session_id=$(curl http://localhost:9091/transmission/rpc --silent --output /dev/null --dump-header - | sed -ne 's/X-Transmission-Session-Id: //p' -e 's/\r//')
+curl http://localhost:9091/transmission/rpc --header "X-Transmission-Session-Id: $session_id" --data '{"method":"torrent-get","arguments":{"fields":["name","files"]}}' --silent | jq '.arguments.torrents[]|{name:.name,files:.files[]|{name:.name,percentComplete:(.bytesCompleted*100/.length)}}'
+
