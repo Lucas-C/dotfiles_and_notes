@@ -9,7 +9,10 @@ if [ -n "${1:-}" ]; then # misc/installCygwin.sh $USER
 fi
 
 if [ "$TERM" = "cygwin" ]; then
-    echo 'Use MinTTY ! Create a Windows shortcut to "C:\path\to\cygwin\bin\mintty.exe /bin/sh --login -i" or replace "bash" by "start mintty /bin/sh" in Cygwin.bat'
+    echo 'Use MinTTY ! Create a Windows shortcut to "C:\path\to\cygwin\bin\mintty.exe /bin/sh --login -i"'
+	echo 'or replace "bash" by "start mintty /bin/sh" in Cygwin.bat'
+	echo 'and add: set HOME=C:\Users\admin'
+	echo "+ don't forget to define a .profile that sources .bashrc"
     exit 1
 fi
 if [ "$(stat -c '%U' /proc)" != "$USER" ]; then

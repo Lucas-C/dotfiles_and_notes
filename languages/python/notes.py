@@ -539,13 +539,7 @@ pip install --editable $path_or_git_url # Install a project in editable mode (i.
 pip install --user $USER --src . --no-index --no-deps --no-cache-dir --upgrade --requirement requirements.txt --require-hashes # CLI tool to help with retrieving correct hashes : hashin
 pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages - Also, programatical access: pip.operations.freeze.freeze
 pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt ; ./manage.py pipchecker
-
-pybuilder, invoke # build tools, like Makefile with many plugins
-Yelp/undebt # tool for performing massive, automated code refactoring
-
-coverage erase
-coverage run --source=path/to/python/src -m any_module_eg_behave
-coverage report # ASCII report - Alt: html, xml
+pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 
 def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unverified=()):  # to use pip-compile (from pip-tools) programmatically
     from tempfile import NamedTemporaryFile
@@ -570,6 +564,13 @@ def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unver
     resolver = Resolver(constraints, repository)
     results = resolver.resolve()
     return [str(ireq.req) for ireq in results]
+
+pybuilder, invoke # build tools, like Makefile with many plugins
+Yelp/undebt # tool for performing massive, automated code refactoring
+
+coverage erase
+coverage run --source=path/to/python/src -m any_module_eg_behave
+coverage report # ASCII report - Alt: html, xml
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried)

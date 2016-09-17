@@ -91,6 +91,10 @@ DISM.exe /Online /Cleanup-image /Scanhealth &:: on Win7, one needs to run KB9478
 DISM.exe /Online /Cleanup-Image /RestoreHealth /Source:C:\RepairSource\Windows /LimitAccess
 findstr /c:"[SR]" %windir%\logs\cbs\cbs.log >sfcdetails.txt &:: to read CBS.Log
 
+::: Install Windows Update .msu without looking for updates
+sc query wuauserv | find "RUNNING"  &:: check that it is running (it restarts every minute or so)
+net stop wuauserv  &:: disable the service before executing the .msu
+
 ::: Remove a file as admin :
 :: 1- Take ownership of the files
 takeown /f file
