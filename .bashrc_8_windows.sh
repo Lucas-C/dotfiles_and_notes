@@ -48,6 +48,10 @@ swap_win_hosts () {
 
 [ -r "/cygdrive/c/Program Files (x86)" ] && export X86=\ \(x86\)
 
+atom () {
+    $(cygpath "$LOCALAPPDATA\atom\bin\atom.cmd") $(convertWinArgs "$@")
+}
+
 npp () {
     "/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe" $(convertWinArgs "$@")
 }

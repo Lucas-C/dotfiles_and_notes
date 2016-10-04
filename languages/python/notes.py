@@ -502,6 +502,7 @@ or get a list of output lines (by calling `list()` on it)
 
 import pip
 pip.main(['install', '--proxy=' + PROXY, 'requests==2.7.0', 'retrying==1.3.3', 'sh==1.11'])
+assert list(search_packages_info(['pip-tools']))[0]['version'] == '1.6.5'
 
 import sh, sys
 if sys.version_info[0] < 3:
@@ -598,7 +599,7 @@ deluge-torrent # example of Windows packaging (with bbfreeze) + GUI (with pygtk:
 """""""""""""
 "" Testing
 """""""""""""
-import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code...
+import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code... - Alt: lk-geimfari/church
 minimaxir/big-list-of-naughty-strings
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
@@ -612,7 +613,6 @@ AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary bas
 behave # Behavior Driven Development - Comparison with alts: https://pythonhosted.org/behave/comparison.html
 brodie/cram # generic command-line app testing
 import capsys # capture stdin/out
-import monkeypatch # modify an object that will be restored after the unit test
 import tmpdir # generate a tmp dir for the time of the unit test
 import hypothesis # feed you test with known to break edge cases
 
@@ -685,7 +685,7 @@ ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
 zestyping/q  # quick and dirty debugging that inc. time : q/ & q| @q (inc. return values) q.d() (~pdb)
 pdbpp # prettier PDB
 google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
-import rpdb; rpdb.set_trace() # remote debugging
+import rpdb; rpdb.set_trace() # remote debugging - Alt: python-web-pdb
 from pdb_clone import pdb; pdb.set_trace_remote() # then pdb-attach : remote-debugging - Also: pdbhandler.register() to enter at any time a running program
 boltons.debugutils.pdb_on_signal
 
@@ -761,6 +761,7 @@ ctypes.POINTER(c_int).from_address(0)[0] # SEGFAULT
 def deref(addr, typ):
     return ctypes.cast(addr, ctypes.POINTER(typ))
 deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index to the ob_ival field in a PyIntObject - In Python3 this index is '6'
+x = lambda: None; y = type(x.__code__)(0, 0, 0, 0, 0, b'\x01', (), (), (), '', '', 0, b''); type(x)(y, {})() # SEGFAULT
 
 
 """""""""""""""""""""""""""""
@@ -890,6 +891,7 @@ urwid # console user interface lib - Alt: snack, NPyScreen
 """"""""""""
 pyglet # windowing and multimedia lib
 pysoy # 3D game engine
+ericoporto/fgmk # retro RPG Game Maker
 Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
 cairo # graphics library outputting .ps .pdf .svg & more
 wand (ImageMagick binding), pillow > pil # Python Image Library
@@ -1129,11 +1131,11 @@ asynchat, irc, sleekxmpp, embolalia/willie # IRC/XMPP bots
 mailr, mailbox, imaplib, smtpd, smptplib, kootenpv/yagmail # for emails, cf. ascii_art_email.py
 paramiko # remote SSH/SFTP connexion
 
-scales # metrics for Python
+scales # metrics for Python, send data points to Graphite - Pros: inc. with-context to measure latency, metering-rates 1/5/15min, PmfStat => stdev, p99 - Cons: not actively maintained, its code uses lots of global state, there is test code in its source, a thread launched at import time and its documentation is incomplete
 
-pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing
+pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF
 
-@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation
+@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation - Alt: retrace
 
 daviddrysdale/python-phonenumbers # port of Google's libphonenumber to validate phone numbers
 TwilioLookupsClient().phone_numbers.get("15108675309", include_carrier_info=True) # Twilio API phone number validation
@@ -1161,7 +1163,7 @@ if (hmac.compare_digest(bcrypt.hashpw(password, hashed), hashed)): ...  # Login 
 hmac.compare_digest(a, b) # String equality check that prevent timing analysis
 
 ConfigParser, configobj # std configuration files format
-csvkit > csv, xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python, csvx
+csvkit > csv (csv.DictReader >handier> csv.reader), xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python, csvx
 writer = csvkit.writer(sys.stdout)
 with open(sys.argv[1]) as csv_file:
     for row in csvkit.reader(csv_file):

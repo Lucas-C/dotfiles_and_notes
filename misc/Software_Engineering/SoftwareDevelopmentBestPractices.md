@@ -36,6 +36,8 @@ Software Development Best Practices
 - [Why Should Software Architects Write Code](http://blog.ieeesoftware.org/2016/02/why-should-software-architects-write.html)
 - [A Guide to Naming Variables](http://a-nickels-worth.blogspot.fr/2016/04/a-guide-to-naming-variables.html)
 - [Why do record/replay tests of web applications break?](https://blog.acolyer.org/2016/05/30/why-do-recordreplay-tests-of-web-applications-break)
+- [MicroservicesPleaseDont](https://blog.komand.com/microservices-please-dont)
+- [LogstashAlternatives][https://sematext.com/blog/2016/09/13/logstash-alternatives/] : Filebeat, Fluentd, rsyslog, syslog-ng & Logagent
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -87,7 +89,7 @@ On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/14
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
 + representation for RESTful APIs: Swagger / RAML / API Blueprint / APIDOC
 
-On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
+On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult], [MicroservicesPleaseDont] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
 
 CQRS = CommandQuerySeparation : split the code & logic between the Query path (DB -> UI) & Command path (UI -> DB)
 

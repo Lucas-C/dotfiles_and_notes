@@ -13,6 +13,7 @@ An ElasticSearch dev talk: https://speakerdeck.com/elasticsearch/maintaining-per
 - vagrant-elasticsearch-cluster : Create an ElasticSearch cluster with a simple single bash command
 - http://bigdesk.org/v/2.4.0/#nodes
 - plugin marvel (> plugin head)
+- alerting: watcher
 
 ## Config recommandations
 How to choose the number of nodes in a cluster: http://blog.overnetcity.com/2014/04/24/elasticsearch-the-split-brain-problem/
@@ -30,7 +31,8 @@ cf. https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-per
     action.disable_delete_all_indices: true
     # safer, disallow curl -XDELETE 'http://localhost:9200/*/'
 
-    bootstrap.mlockall: true # prevents the memory from being swapped by the OS
+    indices.fielddata.cache.size: 25%
+    # used mainly when sorting on or faceting on a field - expensive to build, so its recommended to have enough memory to allocate it
 
 ## Aggregates (formerly facets)
 
@@ -65,6 +67,16 @@ Terms Aggregation: https://www.elastic.co/guide/en/elasticsearch/reference/curre
         List<Map<String, Object>> results = elkResult.getHits(sourceType).stream()
                                                      .map(hit -> hit.source)
                                                      .collect(Collectors.toList());
+
+
+## Plugin /head
+
+Result transformer:
+
+    root.hits.hits = root.hits.hits.map(function(hit) {
+        return hit._source.my_field;
+    });
+    return root;
 
 
 ## Issues experienced
@@ -194,6 +206,16 @@ Penser à échaper les ":" qui sont des caractères réservés dans la syntax Lu
             "location": {"type": "geo_point"},
             "tags": {"index": "analyzed"},  # the array type is auto-detected by ELS
             "description": {"enabled": false}
+            'name': {
+                'type': 'string',
+                'analyzer': 'custom_analyzer',
+                'fields': {
+                    'raw': {
+                      'type':  'string',
+                      'index': 'not_analyzed'
+                    }
+                }
+            },
         }
     }
 

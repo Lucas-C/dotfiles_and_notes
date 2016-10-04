@@ -11,8 +11,8 @@ F7 in cmd.exe -> history &:: BUT better use Cmder or at least PowerShell ISE
 Cmder conf file: %CMDER_ROOT%\vendor\init.bat
 -> it works very well with Chocolatey
 @if not defined CMDER_START CMDER_START = D:\code
-@set PATH=%PATH%;%HOME%\AppData\Roaming\Python\Scripts
-@set PATH=%PATH%;%HOME%\AppData\Roaming\Composer\vendor
+@set PATH=%PATH%;%APPDATA%\Python\Scripts
+@set PATH=%PATH%;%APPDATA%\Composer\vendor
 
 <CMD>+Left/Right &:: Vertically maximize a windows on the side
 <CTRL>+<ALT>+<UP> &:: Invert screen upside down

@@ -1,3 +1,5 @@
+PHP 5 introduced explicit parameter typing: Classes, array (5.1), Interfaces, callable (5.4)
+
 (object) array( // Converts an array into an object
     'name' => 'name',
     'parents' => array( 'ptid' )
@@ -113,18 +115,22 @@ drush cc registry # reload hook_form_alter() / hook_node_save()
 drush cc theme-registry / theme-list # for .tpl.php files changes - Also: drush eval 'drupal_rebuild_theme_registry(); print_r(array_keys(theme_get_registry()))'
 drush cc css-js
 drush vget $var_name
-drush en -y dblog && drush watchdog-show
-drush watchdog-delete all
+drush eval 'print_r(language_list())'
+drush fn-hook $hook_name # list hook implementations - Require: drush en devel -y
+
 drush updatedb
 drush feature-update / feature-revert
 drush dl diff && drush en -y diff && drush features-diff $feature_name
-drush eval 'print_r(language_list())'
+
 dpm / dvm / ddebug_backtrace # devel module
-drush fn-hook $hook_name # list hook implementations - Require: drush en devel -y
+drush en -y dblog && drush watchdog-show
+drush watchdog-delete all
+
+drush eval 'print_r(imagecache_presets())'
 elasticsearch_connector/modules/elasticsearch_connector_search_api/service.inc : SearchApiElasticsearchConnector->indexItems()
 
 drush sql-cli / $(drush sql-connect) -e "update system set schema_version=0 where name='vsct_nsr_offers';"  # Connection to DB. Second example reset the update hooks counter to 0 -> http://drupal.stackexchange.com/a/42207/52139
-drush sql-query 'SELECT r.name, p.perm FROM role r INNER JOIN permission p ON r.rid = p.rid'
+drush sql-query 'SELECT r.name, p.perm FROM role r INNER JOIN permission p ON r.rid = p.rid' | awk '{for (i=1;i<=NF;i++) $i="\""$i"\""}1' FS="\t" OFS="," > out.csv
 drush sql-query 'SELECT * FROM users u WHERE u.mail="lcimon@..."' # -> get UID
 drush sql-query 'SELECT r.name FROM users_roles ur LEFT JOIN role r ON r.rid=ur.rid WHERE ur.uid=...' # list a user's roles
 
@@ -141,6 +147,17 @@ if (file_exists(dirname(__FILE__) . '/custom_settings.php')) {
     include('custom_settings.php');
 }
 EOF
+
+/* Deduping Drupal nodes versions to only retain the latest .vid for each one */
+SELECT
+    node.*
+FROM content_type_blabla node
+INNER JOIN
+    (SELECT nid, MAX(vid) as vid
+     FROM content_type_blabla
+     GROUP BY nid) latest_node
+ON node.nid = latest_node.nid
+AND node.vid = latest_node.vid
 
 
 </-/--------------\-\>

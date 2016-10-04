@@ -80,6 +80,8 @@ end
 
 
 ### Python support
+cyrus-and/gdb-dashboard  # modular visual interface for GDB in Python
+
 # First, just try on of those:
 yum install gdb python-debuginfo
 apt-get install gdb python2.7-dbg

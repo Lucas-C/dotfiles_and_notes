@@ -156,18 +156,18 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
     bin/mysqld_safe --datadir=$OLDPWD/data &   #_
     bin/mysql test < db-dump.sql
 
-    mysql -h $HOST -u $USER -p [--ssl-ca=$file.pem] DBNAME -e 'cmd ending with ; or \G' # default port 3306
+    mysql -h $HOST -u $USER -p [--ssl-ca=$file.pem] DBNAME -e "$query" # default port 3306
     mytop # watch mysql
     mysqlslap # benchmarks, load emulation & stress testing
 
-    show databases;
-    show tables;
-    show table status;
-    show columns from $table; # or just: desc $table
-    show create table $table;
-    show processlist;
-    kill $thread_to_be_killed;   #_
-    select user,host from mysql.user;
+    SHOW databases;
+    SHOW tables;
+    SHOW table status;
+    SHOW columns FROM $table; -- or just: DESC $table
+    SHOW create table $table;
+    SHOW processlist;
+    KILL $thread_to_be_killed;
+    DESLECT user, host FROM mysql.user\G -- instead of ";" => enable pretty-print
 
 Human-readable dump by shortening the 'INSERT' statements:
 
