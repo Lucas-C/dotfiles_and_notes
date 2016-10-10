@@ -356,6 +356,7 @@ json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatt
 for error in jsonschema.Draft4Validator(schema).iter_errors(data):
     print('#/' + '/'.join(map(str, error.path)), error.message)
 
+
 """""""""""""""""""
 "" Quirks & Gotchas
 """""""""""""""""""
@@ -445,6 +446,17 @@ l[0] += [2]  # -> raises a TypeError, but l has changed: ([1, 2],)
 
 x, y = (0, 1) if True else None, None # -> ((0, 1), None)
 x, y = (0, 1) if True else (None, None) # -> (0, 1)
+
+class AutoIntEnum(enum.IntEnum):  # recipe from https://docs.python.org/3/library/enum.html#autonumber
+    def __new__(cls):
+        value = len(cls.__members__)
+        obj = int.__new__(cls)
+        obj._value_ = value
+        return obj
+class CrazyEnum(AutoIntEnum):
+    A = ()
+    B = ()
+CrazyEnum.A == CrazyEnum.B # True
 
 
 """""""""""""""""""""""""""
