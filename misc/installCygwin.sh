@@ -24,8 +24,8 @@ lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
 mkdir -p ~/bin && install apt-cyg ~/bin && rm apt-cyg
 echo 'PATH="$PATH:~/bin"' >> ~/.bashrc && PATH="$PATH:~/bin"
 apt-cyg install wget
-apt-cyg install curl git vim
-apt-cyg install bind colordiff make python3 rlwrap unzip
+apt-cyg install curl dos2unix git python3 vim the_silver_searcher
+apt-cyg install bind colordiff exiv2 make rlwrap unzip
 apt-cyg install procps # provides 'watch'
 
 python3 -m ensurepip

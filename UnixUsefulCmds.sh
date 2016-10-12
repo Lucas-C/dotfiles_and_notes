@@ -944,8 +944,8 @@ FFFFFFFFFFFFFFF
 F i r e f o x
 FFFFFFFFFFFFFFF
 ~/.mozilla/firefox/*.default/mimeTypes.rdf # FIREFOX 'open with' mapping
-findImg Cache/ # all cached images
-about:cache # Firefox cache infos: location, size, number of entries
+findImg Cache/ # all cached images - Same for Chrome
+about:cache # Firefox cache infos: location, size, number of entries - chrome://cache -> to extract entries, put the 2nd hexdump section into a file and: xxd -r < dump > out.gz
 about:memory # Firefox memory allocation details
 about:about # all the about: pages e.g. :crashes :healthreport :permissions :plugins :sessionrestore
 $ff_profile_dir/.parentlock # fix "Firefox is already running but is not responding" error
@@ -1278,4 +1278,3 @@ Global Security Authorization: special user "authenticated"
 # https://trac.transmissionbt.com/browser/trunk/extras/rpc-spec.txt
 session_id=$(curl http://localhost:9091/transmission/rpc --silent --output /dev/null --dump-header - | sed -ne 's/X-Transmission-Session-Id: //p' -e 's/\r//')
 curl http://localhost:9091/transmission/rpc --header "X-Transmission-Session-Id: $session_id" --data '{"method":"torrent-get","arguments":{"fields":["name","files"]}}' --silent | jq '.arguments.torrents[]|{name:.name,files:.files[]|{name:.name,percentComplete:(.bytesCompleted*100/.length)}}'
-

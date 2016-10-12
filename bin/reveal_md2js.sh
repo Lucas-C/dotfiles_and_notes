@@ -1,41 +1,31 @@
 #!/bin/bash
 
-# cf. https://github.com/hakimel/reveal.js/issues/673
+# USAGE: ./reveal_md2js.sh index.md
+# in HTML: <script src="$mdFilename.js" data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-notes="^Note:" data-charset="utf-8"></script>
 
-# USAGE: ./reveal_md2js.sh .css_selector [separator=...] [verticalSeparator=...] [notesSeparator=...] [attributes=...] < slides.md > slides.js
+set -o pipefail -o errexit -o nounset
 
-# in HTML:
-#   <section class="css_selector"></section>
-#   <script src="slides.js"></script>
-
-set -o pipefail -o errexit -o nounset -o xtrace
-
-main () {
-    local css_selector="$1"
-    shift
-    local separator='^\n\n\n'
-    local verticalSeparator='^\n\n'
-    local notesSeparator='^Note:'
-    local attributes='charset="utf-8"'
-    cat <<EOF
-document.addEventListener('ready', function () {
+reveal_md2js () {
+    local mdBasename="${1%.md}"
+    cat <<EOF >$mdBasename.js
+(function () {
 'strict'
-var section = document.querySelector('$css_selector');
 var markdownContent = ''
 EOF
-    sed -e 's/\\/\\\\/' -e 's/"/\\"/' -e 's/^/+ "/' -e 's/$/\\n"/'
-    cat <<EOF
+    sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/^/+ "/' -e 's/$/\\n"/' <$mdBasename.md >>$mdBasename.js
+    cat <<EOF >>$mdBasename.js
 ;
-section.outerHTML = RevealMarkdown.slidify( markdownContent, {
-    separator: '$separator',
-    verticalSeparator: '$verticalSeparator',
-    notesSeparator: '$notesSeparator',
-    attributes: '$attributes'
+var script = document.querySelector('script[src="index.js"]');
+var section = document.createElement('section');
+script.parentNode.appendChild(section);
+section.appendChild(document.createTextNode(markdownContent));
+[].forEach.call(script.attributes, function (attr) {
+    section.setAttribute(attr.name, script.getAttribute(attr.name));
 });
-RevealMarkdown.convertSlides();
-Reveal.triggerKey(36/*HOME*/);
-});
+section.setAttribute('data-markdown', '');
+})();
 EOF
+    echo $mdBasename.js has been successfully generated
 }
 
-main "$@"
+reveal_md2js "$@"

@@ -123,3 +123,6 @@ sudo dhclient -v wlan0 # dans un autre terminal
 iw wlan0 link # check connexion
 
 sudo apt-get install ubuntu-desktop
+
+http://askubuntu.com/questions/584636/kidle-inject-causing-very-high-load
+echo "blacklist intel_powerclamp" > /etc/modprobe.d/disable-powerclamp.conf

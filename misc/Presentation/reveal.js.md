@@ -13,6 +13,23 @@
 <span class=blue>BLUE blue Blue</span>
 
 
+
+### Some code
+
+<style>
+code {
+    font-size: xx-large !important;
+}
+</style>
+
+```
+function monNomDeFonction(paramètre1, paramètre2) {
+    // ... code ...
+}
+```
+
+
+
 ## Features
 
 <ul>
