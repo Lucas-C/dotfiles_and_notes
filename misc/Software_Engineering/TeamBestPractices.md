@@ -41,6 +41,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Process Hacking](http://fr.slideshare.net/ClaireAgutter/process-hacking)
 - [Blameless PostMortems and a Just Culture](https://codeascraft.com/2012/05/22/blameless-postmortems/)
 - [HowAProgrammerReadsYourResumeVsARecruiter](http://stevehanov.ca/blog/index.php?id=56)
+- [HowFuckedUpIsYourManagement?](https://mfbt.ca/how-fucked-up-is-your-management-8a1086eeb4a9#.3dmqfm2yu)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -181,6 +182,7 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
 - [Bringing Novice Developers Up To Speed] + bookmarks on coaching an intern
 
 ## Recruiting
+- [HowFuckedUpIsYourManagement?]
 - prebrief, debrief, assigned competences, bar raiser
 - codility.com & cie
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [Five essential phone screen questions]

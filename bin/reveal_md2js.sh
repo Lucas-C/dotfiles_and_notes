@@ -15,7 +15,7 @@ EOF
     sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/^/+ "/' -e 's/$/\\n"/' <$mdBasename.md >>$mdBasename.js
     cat <<EOF >>$mdBasename.js
 ;
-var script = document.querySelector('script[src="index.js"]');
+var script = document.querySelector('script[src="$mdBasename.js"]');
 var section = document.createElement('section');
 script.parentNode.appendChild(section);
 section.appendChild(document.createTextNode(markdownContent));
