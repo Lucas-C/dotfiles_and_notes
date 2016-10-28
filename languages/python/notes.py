@@ -458,6 +458,10 @@ class CrazyEnum(AutoIntEnum):
     B = ()
 CrazyEnum.A == CrazyEnum.B # True
 
+json.loads('[NaN]') # [nan]
+json.loads('[-Infinity]') # [-inf]
+
+
 
 """""""""""""""""""""""""""
 "" Functional Programming
@@ -789,7 +793,7 @@ deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .p
 snowballstemmer # supports 15 languages
 
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
-float("inf") # infinite !
+float("inf") # infinite ! Also: float('nan')
 fractions
 statistics # Python 3
 kwgoodman/roly # moving window median algorithms - Also: quantile sketches algos in Algo_Notes.md

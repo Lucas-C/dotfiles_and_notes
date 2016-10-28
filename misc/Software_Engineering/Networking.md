@@ -1,6 +1,14 @@
 Networking
 ==========
 
+## Windows
+
+SmartSniff : http://www.nirsoft.net/utils/smsniff.html
+
+Example, to watch Elasticsearch native Java protocol traffic:
+
+    include:both:tcp:9300
+
 ## REST
 (taken from http://spring.io/guides/tutorials/bookmarks/)
 

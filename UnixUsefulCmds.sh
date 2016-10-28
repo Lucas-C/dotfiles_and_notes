@@ -967,13 +967,14 @@ export NSPR_LOG_FILE=/tmp/firefox_http.log
 
 # Chrome
 sqlite3 "$(cygpath $LOCALAPPDATA)/Google/Chrome/User Data/Default/databases/chrome-extension_loljledaigphbcpfhfmgopdkppkifgno_0/"* 'select * from fields;' # Inspect Lazarus form recovery DB
+chrome://system/ -> mem_usage / tab
 
 
 g@g@g@g@g@g@g@g@g
 @ gitlab & github
 g@g@g@g@g@g@g@g@g
 http://gitlab/api/v3/users?per_page=100&page=10&private_token=$api_token # users list
-http://gitlab/api/v3/projects/dwm-tools%2Fcss-tools/members?private_token=$api_token # project members
+http://gitlab/api/v3/projects/dwm-tools%2Fcss-tools/members?private_token=$api_token # project members - Alt: /groups/ - acces_level meanings: https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md
 
 https://github.com/explore
 https://github.com/notifications

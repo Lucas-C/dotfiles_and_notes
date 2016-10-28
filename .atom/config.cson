@@ -1,7 +1,11 @@
 "*":
-  editor:
-    tabLength: 4
+  core:
+    telemetryConsent: "no"
+  editor: {}
   "exception-reporting":
     userId: "773f248e-3524-cc6a-5986-5d104d21acd2"
   welcome:
     showOnStartup: false
+".bat.source":
+  editor:
+    tabLength: 4

@@ -31,10 +31,21 @@ com.jayway.restassured && its spring-mock-mvc : great testing of REST controller
 JContractS (formerly iContract), cofoja // Design By Contract libs
 checkstyle, findbugs, google/error-prone // code checking tools
 cobertura // code coverage
-jdb // debugger
 javap, JD // .class dissassembler & Java decompiler, include a GUI
 Konloch/bytecode-viewer // Bytecode viewer, decompiler & debugger
 jmap -histo:live <pid> // Object-type histogram on a running jvm
+
+jdb // debugger: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jdb.html
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n MyClass
+jdb -attach javadebug
+# or
+java -agentlib:jdwp=transport=dt_shmem,server=y,suspend=n MyClass
+jdb -attach 8000
+# then
+stop in java.lang.String.length
+where
+next
+step
 
 JLine // console input handling like BSD editline / GNU readline
 SLF4J // logging API, then pick a logging engine: java.util.logging for basic stuff, Log4j2 else
@@ -110,6 +121,7 @@ H2 // small fast in-memory SQL DB, useful for testing queries
 Hibernate // framework SQL
 MyBatis // data mapper framework, ORM for SQL DBs using a XML descriptor or annotations
 
+-Djava.security.egd=file:/dev/./urandom // reduce Tomcat startup time : http://wiki.apache.org/tomcat/HowTo/FasterStartUp#Entropy_Source
 -Xss64kb // set stack size
 -XX:+HeapDumpOnOutOfMemoryError // get a heap dump at the point the application crashes
 -XX:+PerfDisableSharedMem // disable JVM exporting statistics to a file in /tmp, causing pauses of 0.1-1s during garbage collection

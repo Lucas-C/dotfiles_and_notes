@@ -7,6 +7,7 @@ http://makina-corpus.com/blog/metier/2015/elasticsearch-tips-and-best-practices-
 - aggregate field and explicit search field
 - asynchronus indexation
 An ElasticSearch dev talk: https://speakerdeck.com/elasticsearch/maintaining-performance-in-distributed-systems
+Elasticsearch networking protocols details: https://www.elastic.co/blog/found-elasticsearch-networking
 
 ## Useful plugins / tools
 - [curator](https://www.elastic.co/blog/curator-tending-your-time-series-indices) : Python script to perform maintenance tasks, e.g. delete indices by total space consumed or by date
@@ -46,9 +47,18 @@ Terms Aggregation: https://www.elastic.co/guide/en/elasticsearch/reference/curre
 
 !! Terms aggs are also subjects to "not_analyzed" parsing control
 
+## Copying indices from machines to machines with the REST API
+
+    npm install elasticdump
+    node_modules/.bin/elasticdump --input=http://es.com:9200/my_index --output=http://localhost:9200/my_index --type=analyzer
+    node_modules/.bin/elasticdump --input=http://es.com:9200/my_index --output=http://localhost:9200/my_index --type=mapping
+    node_modules/.bin/elasticdump --input=http://es.com:9200/my_index --output=http://localhost:9200/my_index --type=data
+
 ## Java client
 
-    Jest is a great Java client to connect to ELK through HTTP (not with custom protocol on port 9300)
+    Since v5.0.0-alpha4 there is a RestClient : https://github.com/elastic/elasticsearch/pull/18735
+
+    Else, Jest is a great Java client to connect to ELK through HTTP (not with custom protocol on port 9300)
 
         JestClientFactory factory = new JestClientFactory();
         factory.setHttpClientConfig(new HttpClientConfig

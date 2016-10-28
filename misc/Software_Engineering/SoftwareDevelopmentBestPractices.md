@@ -38,6 +38,8 @@ Software Development Best Practices
 - [Why do record/replay tests of web applications break?](https://blog.acolyer.org/2016/05/30/why-do-recordreplay-tests-of-web-applications-break)
 - [MicroservicesPleaseDont](https://blog.komand.com/microservices-please-dont)
 - [LogstashAlternatives][https://sematext.com/blog/2016/09/13/logstash-alternatives/] : Filebeat, Fluentd, rsyslog, syslog-ng & Logagent
+- [KnowledgeDebt](http://amir.rachum.com/blog/2016/09/15/knowledge-debt/)
+- [ModernSoftwareOverEngineeringMistakes](https://medium.com/@rdsubhas/10-modern-software-engineering-mistakes-bc67fbef4fc8#.3y051ocdz)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 

@@ -124,6 +124,8 @@ RegExp.$1 // 'bcd'
 /whatever/g.test() // ! STATEFUL ! no need for 'g' with .test() or use .exec/.match()
 str.replace(new RegExp('\\{' + key + '\\}', 'g'), value);
 
+execCommand('copy') // manual copy to clipboard, cf. http://blog.idleman.fr/snippet-27-javascript-copier-dans-le-presse-papier-sans-flash-et-fonctionne-sur-ie/
+
 function foo({ name:name, project:project}) { return [name, project] } // optional named args
 var [n, p] = foo({ name:'soubok' }) // unwrapping multiple return values
 
@@ -294,6 +296,8 @@ var fs = require("fs"); // Node.js
 fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
     console.log(line);
 });
+
+NODE_DEBUG=cluster,net,http,fs,tls,module,timers // http://www.juliengilli.com/2013/05/26/Using-Node.js-NODE_DEBUG-for-fun-and-profit/
 node-inspector & node --debug scriptFileName.js // http://stackoverflow.com/a/3944507 - Browser -> $host:8080/debug?port=5858 - Need the following iptables rules:
 // for chain in INPUT OUTPUT; do iptables -A $chain -p tcp -m tcp --dport 8080 -j ACCEPT; done
 mdb // awesome-looking NodeJs debugger, by Joyent - Alt: http://stackoverflow.com/questions/1911015/how-do-i-debug-node-js-applications/16512303#16512303

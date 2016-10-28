@@ -42,6 +42,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Blameless PostMortems and a Just Culture](https://codeascraft.com/2012/05/22/blameless-postmortems/)
 - [HowAProgrammerReadsYourResumeVsARecruiter](http://stevehanov.ca/blog/index.php?id=56)
 - [HowFuckedUpIsYourManagement?](https://mfbt.ca/how-fucked-up-is-your-management-8a1086eeb4a9#.3dmqfm2yu)
+- [WorkAtDifferentManagementLevels](http://larahogan.me/blog/manager-levels/)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
