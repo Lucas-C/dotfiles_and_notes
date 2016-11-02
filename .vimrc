@@ -163,10 +163,6 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     call vundle#begin()
     Plugin 'gmarik/vundle'
 
-    Plugin 'vim-scripts/LargeFile'
-    let g:LargeFile = 100       "Large files are those with size > 100Mo
-    set lazyredraw              "Don't redraw while executing macros (good performance config)
-
     Bundle 'scrooloose/nerdcommenter'
     map <C-q> <plug>NERDCommenterToggle
 

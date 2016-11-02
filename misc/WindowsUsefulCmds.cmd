@@ -132,6 +132,9 @@ iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.p
 (New-Object –ComObject SAPI.SPVoice).Speak(“This is a test”)
 Add-Type -AssemblyName System.speech; $speaker = New-Object System.Speech.Synthesis.SpeechSynthesizer; $speaker.Speak(“This is a test”)
 
+Get-Process -Name cleanmgr,dismhost -ErrorAction SilentlyContinue | Wait-Process
+CleanMgr automation script: http://stackoverflow.com/a/35214197/636849
+
 
 ::::::::::
 :: Batch
