@@ -115,7 +115,7 @@ drush cc registry # reload hook_form_alter() / hook_node_save()
 drush cc theme-registry / theme-list # for .tpl.php files changes - Also: drush eval 'drupal_rebuild_theme_registry(); print_r(array_keys(theme_get_registry()))'
 drush cc css-js
 drush vget $var_name
-drush eval 'print_r(language_list())'
+drush eval '$language = language_list()["fr-FR"];
 drush fn-hook $hook_name # list hook implementations - Require: drush en devel -y
 
 drush updatedb
