@@ -70,17 +70,19 @@ handle.exe -a | grep ': Key\|pid:' | grep 'COMPONENTS\|pid:' | grep -B1 'COMPONE
 
 WinSCP / SFTP Net Drive &:: GUI explorer / folder mounting for SCP/FTP/SFTP access
 
+Windows Master Control Panel shortcut: {ED7BA470-8E54-465E-825C-99712043E01C}
+
 ::: Usual cleanup steps
 - create a restoration point
-- AVG/Avast scan
 - cleanmgr.exe &:: Click the Clean up System Files button & enable the Windows Update Cleanup option !
 - CCCleaner
 - Malwarebytes (+ possibly HijackThis)
-- perfmon.exe / resmon.exe / Sysinternals ProcessExplorer (select File > "Show Details for All Processes" to display network usage)
-- Microsoft Securit Scanner : http://www.microsoft.com/security/scanner
-- Farbar Service Scanner : http://www.bleepingcomputer.com/download/farbar-service-scanner/dl/62
+- WinDirStat / SpaceMonger
+- Microsoft Securit Scanner & Microsoft Security Essentials
 - Defrag
 - désactiver l'indexation des disques
+- perfmon.exe / resmon.exe / Sysinternals ProcessExplorer (select File > "Show Details for All Processes" to display network usage)
+- Farbar Service Scanner : http://www.bleepingcomputer.com/download/farbar-service-scanner/dl/62
 
 ::: Deeper clean-up/checks
 sfc /scannow &:: To restore system files

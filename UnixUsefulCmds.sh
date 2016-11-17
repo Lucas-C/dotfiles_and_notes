@@ -769,7 +769,7 @@ traceroute $ip
  =SYSTEM=
 -%-%-%-%-%-
 powertop # diagnose issues with power consumption
-sysctl
+sysctl  # also: systemd-cgtop, systemd-cgls to control cgroups
 
 cat /etc/*-release
 lsb_release -a

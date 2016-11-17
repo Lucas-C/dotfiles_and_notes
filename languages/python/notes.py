@@ -355,6 +355,7 @@ def sets_converter(obj): return list(obj) if isinstance(obj, set) else obj.__dic
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
 for error in jsonschema.Draft4Validator(schema).iter_errors(data):
     print('#/' + '/'.join(map(str, error.path)), error.message)
+jsondiff
 
 
 """""""""""""""""""
@@ -555,7 +556,8 @@ pip # NEVER sudo !! > easyinstall - Distutils2 has been abandonned :( Check buil
 pip install --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
 pip install --user $USER --src . --no-index --no-deps --no-cache-dir --upgrade --requirement requirements.txt --require-hashes # CLI tool to help with retrieving correct hashes : hashin
 pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages - Also, programatical access: pip.operations.freeze.freeze
-pip-review # from pip-tools, check for updates of all dependency packages currently installed in your environment : Alt: piprot requirements.txt ; ./manage.py pipchecker
+pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list -o ; piprot requirements.txt ; ./manage.py pipchecker
+safety # analyze securoty vulnerabilities in dependencies
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 
 def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unverified=()):  # to use pip-compile (from pip-tools) programmatically
@@ -692,7 +694,8 @@ HTML('<img src="data:image/png;base64,{0}"/>'.format(img_base64))
 colorsys # rgb / yiq / hls / hsv conversions
 
 # PDB tricks
-!p = ... # make it possible to start a cmdline with pdb shorthands
+!p = ... / !list(...) # make it possible to start a cmdline with pdb commands
+!import code; code.interact(local=vars()) # simply `interact` in Python 3
 debug foo() # step into a function with pdb
 import pdb; foo(42); pdb.pm() # enter debugger post-mortem using:
 sys.last_traceback / sys.last_value # non-handled exception info
@@ -803,11 +806,11 @@ scipy
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
         JosPolfliet/pandas-profiling # -> create HTML profiling reports from pandas DataFrame objects, inc. quantiles, most frequent values, histograms & descriptive statistics
-    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps) # data viz 2d graphing/plotting - Also: pyplot.xkcd() is awesome
+    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome
     geoplotlib
     ResidentMario/missingno, holoviews, pascal-schetelat/Slope, # other dataviz libs
 
-jhcepas/ete # tree epxloration & visualisation
+jhcepas/ete # tree exploration & visualisation
 riccardoscalco/Pykov # markov chains
 
 SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
@@ -1173,6 +1176,7 @@ from getpass import getpass # get password without echoing it
 hmac, hashlib.md5('string').hexdigest()
 dropbox/python-zxcvbn # password strength estimation
 from cryptography.fernet import Fernet # symmetric encryption
+jake-jake-jake/historical_ciphers # Caesar, Transposition and Affine ciphers
 mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments by signing content
 import bcrypt, hmac; hashed = bcrypt.hashpw(password, bcrypt.gensalt()) # Secure Password Storage in 2016
 if (hmac.compare_digest(bcrypt.hashpw(password, hashed), hashed)): ...  # Login successful

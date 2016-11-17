@@ -26,13 +26,15 @@ echo 'PATH="$PATH:~/bin"' >> ~/.bashrc && PATH="$PATH:~/bin"
 apt-cyg install wget
 apt-cyg install curl dos2unix git python3 vim the_silver_searcher
 apt-cyg install bind colordiff exiv2 make rlwrap unzip
-apt-cyg install procps # provides 'watch'
+apt-cyg install procps psmisc # provides 'watch' & 'pstree' respectively
 
 python3 -m ensurepip
 
 apt-cyg install GraphicsMagick  # Provides `gm identify`, `gm convert`...
 apt-cyg install gcc-g++ libffi-devel libxml2-devel libxslt-devel openssl-devel
 pip install --user service_identity scrapy
+
+mkpasswd -c -p "$(cygpath -H)" > /etc/passwd # for .ssh/config to be read: http://superuser.com/a/1145752/255048
 
 cd /
 [ -e /c ] || ln -s /cygdrive/c
