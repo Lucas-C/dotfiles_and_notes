@@ -1148,6 +1148,7 @@ modulefinder # determine the set of modules imported by a script
 
 asynchat, irc, sleekxmpp, embolalia/willie # IRC/XMPP bots
 mailr, mailbox, imaplib, smtpd, smptplib, kootenpv/yagmail # for emails, cf. ascii_art_email.py
+gmvault # Gmail backup CLI
 paramiko # remote SSH/SFTP connexion
 
 scales # metrics for Python, send data points to Graphite - Pros: inc. with-context to measure latency, metering-rates 1/5/15min, PmfStat => stdev, p99 - Cons: not actively maintained, its code uses lots of global state, there is test code in its source, a thread launched at import time and its documentation is incomplete

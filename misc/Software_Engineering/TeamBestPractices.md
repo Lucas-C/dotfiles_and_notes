@@ -44,6 +44,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [HowFuckedUpIsYourManagement?](https://mfbt.ca/how-fucked-up-is-your-management-8a1086eeb4a9#.3dmqfm2yu)
 - [WorkAtDifferentManagementLevels](http://larahogan.me/blog/manager-levels/)
 - [OnFindingRootCauses](https://medium.com/production-ready/on-finding-root-causes-c0ce524bf98b#.fu7ofzcr4)
+- [HoneYourProductionIncidentPostmortems](http://tech.shutterstock.com/2016/11/11/5-ways-to-hone-your-production-incident-postmortems/)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -144,7 +145,8 @@ cf. [RetrospectiveWiki]
   * if we made an incremental improvment in area A or area B, which would prevent the broadest class of problems going ahead ? [5WhysWithHumansNotRobots]
   * human error is NEVER a root cause [OnFindingRootCauses] : You can’t fix people, but you can fix systems and processes to better support them.
 Learning is the goal during post-mortems (cf. [Learning Through Blameless Reviews] for a nice quick slideshow) + questions examples : [InfiniteHows]
-https://github.com/etsy/morgue : PHP based web application to help manage your postmortems, made by Etsy
+  * share your postmortem in an accessible, standardized way : [HoneYourProductionIncidentPostmortems]
+  * tooling: https://github.com/etsy/morgue : PHP based web application to help manage your postmortems, made by Etsy
 - use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err or Zulip for Python, cog for Slack / HipChat)
 - useful questions to ask yourself when designing an alarms system : [Alarm design: From nuclear power to WebOps]
 - [Climbing out of the software death spiral] -> either :
