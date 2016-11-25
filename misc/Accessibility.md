@@ -21,6 +21,8 @@ Ils doivent etre VISIBLE (à minima au focus) : ils ne sont pas destinés aux av
 
 ## Outils
 
+https://doc.asqatasun.org/en/index.html
+
 Contrast checkers:
 - [Firefox addon Tanaguru Contrast-Finder](https://addons.mozilla.org/fr/firefox/addon/tanaguru-contrast-finder/)
 - [Colour Contrast Analyser](https://www.paciellogroup.com/resources/contrastanalyser/) (The Paciello Group) : top !
@@ -55,8 +57,8 @@ Automatiser tests: axe-core
 
 Couples navigateur + lecteurs d'écrans:
 - IE avec JAWS
-- Firefox avec NVDA
 - VoiceOver avec Safari
+- Firefox avec NVDA: https://dequeuniversity.com/screenreaders/nvda-keyboard-shortcuts
 
 
 ## Formation Access42

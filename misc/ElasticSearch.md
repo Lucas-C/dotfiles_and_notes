@@ -15,6 +15,7 @@ Elasticsearch networking protocols details: https://www.elastic.co/blog/found-el
 - http://bigdesk.org/v/2.4.0/#nodes
 - plugin marvel (> plugin head)
 - alerting: watcher
+- superelasticsearch : Python lib providing iterated search & simpler bulk API
 
 ## Config recommandations
 How to choose the number of nodes in a cluster: http://blog.overnetcity.com/2014/04/24/elasticsearch-the-split-brain-problem/
@@ -34,6 +35,8 @@ cf. https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-per
 
     indices.fielddata.cache.size: 25%
     # used mainly when sorting on or faceting on a field - expensive to build, so its recommended to have enough memory to allocate it
+
+    disable sniffing on clients # this caused us some NoNodeAvailableExceptions in VSCT, combined with a client minor version mismatch
 
 ## Aggregates (formerly facets)
 

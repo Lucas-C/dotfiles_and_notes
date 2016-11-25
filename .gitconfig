@@ -4,6 +4,8 @@
     br = branch
     co = checkout
     st = status
+    # include creation dates into the output:
+    sl = stash list --date=local
 
     wdiff = diff --word-diff
     wshow = show --word-diff
@@ -95,6 +97,9 @@
 
 [diff]
     renames = true
+
+[pull]
+    rebase = preserve
 
 [push]
     default = simple # +>+>+ more secure than "matching", especially to avoid erasing remote changes on master when you push --force on a dev branch

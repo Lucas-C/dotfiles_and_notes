@@ -860,7 +860,7 @@ binascii.hexlify # display binary has hexadecimal
 celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
 dask  # task scheduling and blocked algorithms for parallel processing
 sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn - Also:
-luigi, Oozie, Azkaban, Drake, Pinball, Apache Airflow, viewflow, BD2KGenomics/toil # workflow managers
+luigi, Oozie, Azkaban, Drake, Pinball, Apache Airflow, viewflow, BD2KGenomics/toil # workflow managers - Airflow prez: http://events.linuxfoundation.org/sites/events/files/slides/get_in_control_of_your_workflow.pdf
 # the `luigid` daemon should be stopped with the `kill` command that sends a `SIGINT` signal so that it can save its state into `luigi-state.pickle` (cf. https://github.com/spotify/luigi/blob/master/luigi/server.py#L277)
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
@@ -1034,11 +1034,18 @@ wget # equivalent lib to the command-line tool
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 kevin1024/vcrpy # record / replay HTTP interactions
 
+superelasticsearch # provide iterated search & simpler bulk API
+ramses # API generation framework: based on RAML, ElasticSearch & Pyramid -> https://realpython.com/blog/python/create-a-rest-api-in-minutes-with-pyramid-and-ramses/ & https://www.elastic.co/blog/make-an-elasticsearch-powered-rest-api-for-any-data-with-ramses
+Kinto # minimalist JSON storage service, easy to bootstrap with Heroku/Docker, by Mozilla: https://kinto.readthedocs.io/en/stable/tutorials/install.html
+
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
-CherryPy # good prod server, very easy to launch
-Falcon, nameko, featherweight, mozilla-services/cliquet # minimalist WSGI / microservices frameworks to build HTTP APIs
-flask # good for simple APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
+CherryPy # good prod server, very easy to launch - Alt: gunicorn, uwsgi
+Eyepea/API-Hour # perf-oriaeted web APIs using AsyncIO & ujson
+nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
+featherweight # transform functions into REST web services
+Tornado # asynchronous web framework
+Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
 + web.py # very old now, written by Aaron Swarz, used by Yandex
@@ -1075,6 +1082,7 @@ sitemap, extract-toc, Tipue-search # plugins Pelican
 locust # load testing simulating millions of simultaneous users
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
+pycares # asynchronous DNS resolution
 scapy # packet injection/manipulation for many network protocols
 wifi # wrapper around iwlist and /etc/network/interfaces
 danmcinerney/wifijammer # How to kick everyone around you off wifi with python

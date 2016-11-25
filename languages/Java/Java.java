@@ -54,6 +54,8 @@ Metrics // perf & health monitoring
 
 Jersey // RESTful Web Services
 
+Kryo + Snappy // very efficient object serialization + compression used in VSCT
+
 OpenJDK JMH // Benchmark tool
 
 Buildr, Fradle > ant, maven // build systems

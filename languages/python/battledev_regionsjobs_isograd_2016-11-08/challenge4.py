@@ -1,3 +1,4 @@
+# Solver recipe from: http://www.bogotobogo.com/python/python_Dijkstras_Shortest_Path_Algorithm.php
 import sys
 from functools import total_ordering
 

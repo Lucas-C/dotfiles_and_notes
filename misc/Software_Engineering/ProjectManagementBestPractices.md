@@ -21,6 +21,7 @@ Project management best practices
 - "flow-breaking interruptions & effectiveness of an org / number of engineers devoted to an Engineering Effectiveness team" : http://www.gigamonkeys.com/flowers/
 - [No bullshit : What is Scrum ?](https://www.youtube.com/watch?v=jNhRX-RBs_4)
 - [AYoungLadysPrimerToTechnicalDecisionMaking](https://speakerdeck.com/charity/a-young-ladys-primer-to-technical-decision-making)
+- [LawOfTriviality_aka_bikeshedding](https://en.wikipedia.org/wiki/Law_of_triviality)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -110,6 +111,7 @@ The smallest unit of work that has value for our customers
 cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
 ![](http://semat.org/wp-content/uploads/2013/03/spiral.png)
 - la règles des 3 emails: au délà, téléphonez ou déplacer vous pour discuter en personne
+- attention à [LawOfTriviality_aka_bikeshedding]
 
 ### Methodologies
 - CMMI = Capability Maturity Model Integration

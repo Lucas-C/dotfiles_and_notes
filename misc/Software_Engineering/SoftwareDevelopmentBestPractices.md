@@ -41,6 +41,7 @@ Software Development Best Practices
 - [KnowledgeDebt](http://amir.rachum.com/blog/2016/09/15/knowledge-debt/)
 - [ModernSoftwareOverEngineeringMistakes](https://medium.com/@rdsubhas/10-modern-software-engineering-mistakes-bc67fbef4fc8#.3y051ocdz)
 - [WhyYouShouldUseAMonorepo](http://www.drmaciver.com/2016/10/why-you-should-use-a-single-repository-for-all-your-companys-projects/)
+- [WhenToRepeatYourself](http://devblog.songkick.com/2016/08/31/when-to-repeat-yourself/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -48,7 +49,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 ![](https://chezsoi.org/lucas/wwcb/photos/BoyScoutRule.jpg)
 - [Boy Scout Rule](http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule) & Broken Window Theory
 - KISS & YAGNI : Keep It Simple, Stupid & You Aren't Gonna Need It
-- Duplication : DRY ! Once, and only once. [CC-G5]
+- Duplication : DRY ! Once, and only once. [CC-G5] but not too DRY: [WhenToRepeatYourself]
     switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
     similar algorithm            -> template method / strategy pattern
 - Code Fearlessly & implement alternative code versions in parallel [JC-PP]

@@ -968,6 +968,7 @@ export NSPR_LOG_FILE=/tmp/firefox_http.log
 # Chrome
 sqlite3 "$(cygpath $LOCALAPPDATA)/Google/Chrome/User Data/Default/databases/chrome-extension_loljledaigphbcpfhfmgopdkppkifgno_0/"* 'select * from fields;' # Inspect Lazarus form recovery DB
 chrome://system/ -> mem_usage / tab
+CTRL + SHIFT + F : search across all files
 
 
 g@g@g@g@g@g@g@g@g
@@ -1251,6 +1252,12 @@ notify { "var: ${var}": }
 8- Docker
 8-8-8-8-8-8
 docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
+if [ -n "$DOCKER_MACHINE_NAME" ]; then  # %HOME%\.bashrc for Docker Toolbox which source it twice: the following is only evaluated on the 2nd pass
+    source .../.bashrc
+    PATH="$PATH:/.../Docker Toolbox"  # required in case of a custom installation path
+    cd ...
+fi
+<INSERT> # paste under MinGW / Git Bash
 
 
 µ!µ!µ!µ!µ!µ!µ!µ!µ!µ
