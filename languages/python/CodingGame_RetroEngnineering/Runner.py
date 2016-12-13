@@ -14,12 +14,12 @@ def print_cg_init(level):
     print(len(level[0]))
     print(1 + sum(line.count('X') for line in level))
 
-def print_cg_formatted_level(level):
+def print_cg_formatted_level(level, ghosts):
     pacman_pos = get_pacman_pos(level)
     for neighbour_block in get_pacman_neighbour_blocks(level, pacman_pos):
         print(neighbour_block, file=sys.stderr)
         print(neighbour_block)
-    for ghost_pos in get_ghosts_pos(level):
+    for ghost_pos in ghosts:
         print(*ghost_pos, file=sys.stderr)
         print(*ghost_pos)
     print(*pacman_pos, file=sys.stderr)
@@ -58,22 +58,27 @@ def set_tile(level, pos, char):
     x, y = pos
     level[y] = level[y][:x] + char + level[y][x+1:]
 
+def check_pacman_eaten(ghost_pos, level):
+    x, y = ghost_pos
+    if level[y][x] == 'H':
+        raise PacmanEaten
+
 class PacmanEaten(Exception): pass
 
 level = read_level(sys.argv[1])
+ghosts = list(get_ghosts_pos(level))
+ghosts_memory = [{} for _ in ghosts]
 ia = importlib.import_module(sys.argv[2].split('.')[0])
 dbg_display_level(level)
 print_cg_init(level)
 while True:
-    print_cg_formatted_level(level)
+    print_cg_formatted_level(level, ghosts)
     time.sleep(.1)
-    print('R: Waiting for Answer dir', file=sys.stderr)
     pacman_dir = input()
     print(pacman_dir, file=sys.stderr)
     move_pacman(level, pacman_dir)
-    for old_ghost_pos in get_ghosts_pos(level):
+    for i, old_ghost_pos in enumerate(ghosts):
         set_tile(level, old_ghost_pos, '_')
-        x, y = ia.compute_ghost_pos(old_ghost_pos, level)
-        if level[y][x] == 'H':
-            raise PacmanEaten
-        set_tile(level, (x, y), 'X')
+        ghosts[i] = ia.compute_ghost_pos(old_ghost_pos, level, ghosts_memory[i])
+        check_pacman_eaten(ghosts[i], level)
+        set_tile(level, ghosts[i], 'X')

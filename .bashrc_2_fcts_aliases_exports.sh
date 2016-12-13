@@ -11,6 +11,12 @@ PATH=/usr/local/sbin:$PATH
 PATH=~/.local/bin/:$PATH
 PATH=$BASHRC_DIR/bin:$PATH
 
+NPM_PACKAGES="$HOME/.npm-packages"
+#echo "prefix = $NPM_PACKAGES" >> ~/.npmrc
+PATH="$PATH:$NPM_PACKAGES/bin"
+MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+NODE_PATH="$NPM_PACKAGES/lib/node_modules"
+
 if [ -n "${VIRTUAL_ENV:-}" ]; then
     PATH=$VIRTUAL_ENV/bin:$PATH
 fi
@@ -53,8 +59,11 @@ alias less='less --ignore-case --LONG-PROMPT'
 
 md2man () { pandoc -s -f markdown -t man "$@" | man -l -; }
 md2html () {
-    pandoc --include-in-header ~/minimal-md3.css --include-in-header $code/misc/Presentation/md-tags.css \
-        -s -S --toc -f markdown -t html "$1" > "${1%%.md}.html" && firefox "${1%%.md}.html" &
+    #pandoc --include-in-header ~/minimal-md3.css --include-in-header $code/misc/Presentation/md-tags.css \
+    #    -s -S --toc -f markdown -t html "$1" > "${1%%.md}.html" && firefox "${1%%.md}.html" &
+    echo '<!DOCTYPE html><html><head><meta charset='UTF-8'></head><body>'
+    commonmark "$@"
+    echo '</body></html>'
 }
 
 diff_alt () {

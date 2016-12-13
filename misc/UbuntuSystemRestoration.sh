@@ -1,5 +1,5 @@
 apt-get install aptitude
-aptitude install vim tilda git svn screen tmux g++ openjdk-7-jdk vlc chgwall
+aptitude install vim tilda git svn screen tmux g++ openjdk-7-jdk vlc
 aptitude install strace traceroute mtr
 aptitude install nautilus-open-terminal scite grisbi texlive graphviz doxygen doxygen-gui libsdl-mixer1.2* mtpaint gaupol timidity-interfaces-extra timidity freepats most
 sudo apt-get --purge remove tex.\*-doc$ # can save 700 MB of disk space
@@ -102,6 +102,7 @@ sudo aptitude install mailutils # provides 'mail' command
 
 ~/.config/variety/variety.conf # wallpaper changer minor change: gsettings set org.cinnamon.background picture-options centered
 # Alt, ran only once: gsettings set org.gnome.desktop.background picture-options centered
+# Alt: wallch
 
 sudo apt-get install pepperflashplugin-nonfree # Flash in chromium : http://askubuntu.com/a/449266
 
@@ -126,3 +127,18 @@ sudo apt-get install ubuntu-desktop
 
 http://askubuntu.com/questions/584636/kidle-inject-causing-very-high-load
 echo "blacklist intel_powerclamp" > /etc/modprobe.d/disable-powerclamp.conf
+
+
+#---------
+# Optimus
+#---------
+FROM: https://doc.ubuntu-fr.org/nvidia_optimus
+"sur les portables équipés de la technologie Optimus de nombreux problèmes peuvent survenir par le simple manque de support parmi lesquels on compte notamment :
+    l'impossibilité de démarrer un média d'installation (LiveCD, LiveUSB) et de manière plus générale, l'impossibilité de démarrer un Linux quelconque. Ce problème est généralement dû à un Kernel Panic provoqué par le pilote libre pour carte graphique nVidia
+        problèmes de surchauffe et de ventilateur tournant à plein régime en permanence liés au fait que la carte nVidia est allumée et consomme en permanence par défaut"
+-> https://doc.ubuntu-fr.org/bumblebee
+Le PPA nécessite **trutset=yes**:
+$ cat /etc/apt/sources.list.d/bumblebee-ubuntu-stable-xenial.list
+deb [trusted=yes] http://ppa.launchpad.net/bumblebee/stable/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/bumblebee/stable/ubuntu xenial main
+

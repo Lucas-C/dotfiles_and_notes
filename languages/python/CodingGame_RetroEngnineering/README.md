@@ -4,11 +4,11 @@ TODO: check Cygwin mkfifo code
 
 # Runner usage
 
-    mkfifo fifo0 fifo1; ./Runner.py level0.txt ia_static.py > fifo0 < fifo1 & python3 Answer.py < fifo0 > fifo1
+    mkfifo fifo0 fifo1; ./Runner.py level0.txt ia_static.py > fifo0 < fifo1 & ./Answer.py < fifo0 > fifo1
 
 Alt:
 
-    (coproc ./Runner.py level0.txt ia_random.py; eval "exec python3 Answer.py <&${COPROC[0]} >&${COPROC[1]}")
+    (coproc ./Runner.py level0.txt ia_random.py; eval "exec ./Answer.py <&${COPROC[0]} >&${COPROC[1]}")
 
 Note: this does not seem to run properly under Cygwin.
 
