@@ -79,6 +79,7 @@ while True:
     move_pacman(level, pacman_dir)
     for i, old_ghost_pos in enumerate(ghosts):
         set_tile(level, old_ghost_pos, '_')
+        print('Ghost #', i, file=sys.stderr)
         ghosts[i] = ia.compute_ghost_pos(old_ghost_pos, level, ghosts_memory[i])
         check_pacman_eaten(ghosts[i], level)
         set_tile(level, ghosts[i], 'X')

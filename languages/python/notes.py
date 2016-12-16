@@ -462,6 +462,8 @@ CrazyEnum.A == CrazyEnum.B # True
 json.loads('[NaN]') # [nan]
 json.loads('[-Infinity]') # [-inf]
 
+1 if 1 else 0 + 1 if 1 else 0
+
 
 
 """""""""""""""""""""""""""

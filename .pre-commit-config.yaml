@@ -1,14 +1,15 @@
 -   repo: git://github.com/pre-commit/pre-commit-hooks
-    sha: c2992bd3a11e3c0c2533ee370c26ac2b12d3a1b3
+    sha: 96fb7fa10f2f4c11ed33482a9ad7474251e5e97f
     hooks:
     -   id: check-json
     -   id: check-merge-conflict
-    -   id: check-xml
     -   id: trailing-whitespace
         args:
         - --no-markdown-linebreak-ext
+    -   id: check-xml
+    -   id: check-yaml
 -   repo: git://github.com/Lucas-C/pre-commit-hooks
-    sha: 181a63c511691da58116fa19a7241956018660bc
+    sha: v1.0.0
     hooks:
     -   id: remove-crlf
         exclude: npp/.*.xml

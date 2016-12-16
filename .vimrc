@@ -171,7 +171,6 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     map <C-x> :NERDTreeToggle<CR>
 
     Bundle 'guns/vim-clojure-static'
-    Bundle 'JuliaLang/julia-vim'
     Bundle 'Glench/Vim-Jinja2-Syntax'
     Bundle 'plasticboy/vim-markdown'
     " disabled because of https://github.com/plasticboy/vim-markdown/issues/79
@@ -190,7 +189,7 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     " Annotations for git changes
     Bundle 'airblade/vim-gitgutter'
 
-    Bundle 'davidhalter/jedi-vim'
+    "Bundle 'davidhalter/jedi-vim'
     Bundle 'ervandew/supertab'
     let g:SuperTabDefaultCompletionType = "context"
     "To force to omni: "<C-X><C-O>"

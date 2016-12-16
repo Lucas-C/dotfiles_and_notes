@@ -1,14 +1,16 @@
-
-TODO: check Cygwin mkfifo code
+TODO:
+- make `py.test hero_explorerinstinct.py` pass in order to have proper exploration logic
+- guess CodingGame scoring
+- take a glance at Cygwin mkfifo code
 
 
 # Runner usage
 
-    mkfifo fifo0 fifo1; ./Runner.py level0.txt ia_static.py > fifo0 < fifo1 & ./Answer.py < fifo0 > fifo1
+    mkfifo fifo0 fifo1; ./Runner.py level0.txt ia_exploring_and_chasing.py > fifo0 < fifo1 & ./Answer.py < fifo0 > fifo1
 
 Alt:
 
-    (coproc ./Runner.py level0.txt ia_random.py; eval "exec ./Answer.py <&${COPROC[0]} >&${COPROC[1]}")
+    (coproc ./Runner.py level0.txt ia_exploring_and_chasing.py; eval "exec ./Answer.py <&${COPROC[0]} >&${COPROC[1]}")
 
 Note: this does not seem to run properly under Cygwin.
 
