@@ -29,6 +29,7 @@ readelf -Ws *.so
 ldd $executable # list dynamically linked libs
 Hex-Rays IDA, Radare # disassemblers
 
+
 # 0xDEADC0DE 0xDEADBEEF
 #          GDB
 # 0xBADDCAFE 0xD15EA5E
@@ -79,7 +80,9 @@ continue
 end
 
 
-### Python support
+0101010101010101010
+010 Python support
+0101010101010101010
 cyrus-and/gdb-dashboard  # modular visual interface for GDB in Python
 
 # First, just try on of those:
@@ -104,3 +107,5 @@ sudo chown root:root ~/.gdbinit  # I used that once as a fix
 
 gdb -p $pid # attach gdb
 pystack / py-bt
+
+Perfmon / objgraph / VMMap / umdh # debug tools to track memory leaks: https://benbernardblog.com/tracking-down-a-freaky-python-memory-leak/

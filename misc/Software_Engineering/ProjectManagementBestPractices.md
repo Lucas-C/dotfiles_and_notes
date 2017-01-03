@@ -22,6 +22,7 @@ Project management best practices
 - [No bullshit : What is Scrum ?](https://www.youtube.com/watch?v=jNhRX-RBs_4)
 - [AYoungLadysPrimerToTechnicalDecisionMaking](https://speakerdeck.com/charity/a-young-ladys-primer-to-technical-decision-making)
 - [LawOfTriviality_aka_bikeshedding](https://en.wikipedia.org/wiki/Law_of_triviality)
+- [HypeDrivenDevelopment](https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -47,6 +48,7 @@ Project management best practices
     contributors count
 - cf. [10 reasons not to adopt this new toy techno in production]
 - OSS projects comparator: https://www.openhub.net/p/_compare?project_0=cURL&project_1=Wget
+- [HypeDrivenDevelopment]
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]

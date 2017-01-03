@@ -61,7 +61,7 @@ OpenJDK JMH // Benchmark tool
 Buildr, Fradle > ant, maven // build systems
 mvn dependency:tree
 mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
-mvn buildplan:list # shows how goals are bound to phases - buildplan-maven-plugin from fr.jcgay.maven.plugins
+mvn buildplan:list # shows how goals are bound to phases - buildplan-maven-plugin from fr.jcgay.maven.plugins - Alt: https://github.com/skuro/plan-maven-plugin
 gradle dependencies
 mvn dependency-check:check # check for known CVE security issues in deps from owasp.org
 anthemengineering/infer-maven-plugin # Facebook static analyzer for Java, does not work under Windows

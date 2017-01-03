@@ -699,8 +699,7 @@ colorsys # rgb / yiq / hls / hsv conversions
 !p = ... / !list(...) # make it possible to start a cmdline with pdb commands
 !import code; code.interact(local=vars()) # simply `interact` in Python 3
 debug foo() # step into a function with pdb
-import pdb; foo(42); pdb.pm() # enter debugger post-mortem using:
-sys.last_traceback / sys.last_value # non-handled exception info
+import sys, pdb, traceback; error_msg = ''.join(traceback.format_exception(*sys.exc_info())); pdb.set_trace() # to use in an `except` block to capture the stacktrace
 from IPython.core.debugger import Pdb; Pdb().set_trace()
 ipdb.set_trace() / python -mipdb / ipdb.pm() / ipdb.runcall(function, arg)
 zestyping/q  # quick and dirty debugging that inc. time : q/ & q| @q (inc. return values) q.d() (~pdb)
@@ -914,6 +913,7 @@ pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 ericoporto/fgmk # retro RPG Game Maker
 Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
+neozhaoliang/pywonderland/blob/master/src/maze/maze.py # example of GIF generation
 cairo # graphics library outputting .ps .pdf .svg & more
 wand (ImageMagick binding), pillow > pil # Python Image Library
 exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags
@@ -1014,6 +1014,8 @@ requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock 
     txrequests # Twistted asynchronous requests
     requests-cache
     requests-respectful # requests capping
+session.post(url, files={'upload': ('filename', file_to_upload, 'application/javascript')},
+                  data={'action': 'upload', 'target': '/test/'}).raise_for_status()
 response = requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)  # WARNING on POST params usage: json= != data=
 if 400 <= response.status_code < 600:
     raise requests.HTTPError(str(response.status_code) + '\n' + response.text)
@@ -1047,7 +1049,7 @@ Eyepea/API-Hour # perf-oriaeted web APIs using AsyncIO & ujson
 nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
 featherweight # transform functions into REST web services
 Tornado # asynchronous web framework
-Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
+Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions - Also: Flask has many global variables & is not thread safe (for async)
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
 + web.py # very old now, written by Aaron Swarz, used by Yandex
@@ -1080,6 +1082,8 @@ if __name__ == '__main__': # to launch a small WSGI server directly, without uws
 make html # Pelican static HTML files generation, using Jinja2 templates
 make serve # preview Pelican articles in localhost, with optional autoreload on edit
 sitemap, extract-toc, Tipue-search # plugins Pelican
+
+jstasiak/python-zeroconf  # multicast DNS service discovery - usage example: nils-werner/zget filename-based peer to peer file transfer
 
 locust # load testing simulating millions of simultaneous users
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine

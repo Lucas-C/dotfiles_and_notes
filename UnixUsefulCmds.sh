@@ -879,7 +879,7 @@ script
     exec >> etherpad-upstart.log
     exec 2>> etherpad-upstart.log
     date
-    exec start-stop-daemon --start -c $user --exec /path/to/exec
+    exec start-stop-daemon --start -c $user --exec /path/to/exec # Alt: supervisord
 end script
 
 xev # Listen to keyboard events
