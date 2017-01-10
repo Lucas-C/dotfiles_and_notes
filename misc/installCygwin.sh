@@ -25,8 +25,9 @@ mkdir -p ~/bin && install apt-cyg ~/bin && rm apt-cyg
 echo 'PATH="$PATH:~/bin"' >> ~/.bashrc && PATH="$PATH:~/bin"
 apt-cyg install wget
 apt-cyg install curl dos2unix git python3 vim the_silver_searcher
-apt-cyg install bind colordiff exiv2 make rlwrap unzip
+apt-cyg install bind colordiff exiv2 make rlwrap sqlite3 unzip
 apt-cyg install procps psmisc # provides 'watch' & 'pstree' respectively
+code && git clone git://git.joeyh.name/moreutils && cd moreutils && make # provide ifne, sponge...
 
 python3 -m ensurepip
 

@@ -417,6 +417,7 @@ pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py 
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: -dFirstPage=X -dLastPage=Y - Alt: http://compress.smallpdf.com
 pdfjam file1.pdf file2.pdf 1,3- `# optional selector` --nup 2x1 --landscape --outfile out.pdf # printer-friendly version - Also: pdf290 to rotate
 xournal # edit PDF as background images, and export to PDF. To manipulate its vectorial data, with the risk of skewed visual output: LibreOfficeDraw / PDFEdit
+convert -density 150 $pdf -flatten $png # pdf2png ; opt: -sharpen 0x1.0
 
 tr -c '[:alnum:]' _ # slugify by replacing non alphanumeric characters
 function capitalize () {
@@ -948,6 +949,7 @@ findImg Cache/ # all cached images - Same for Chrome
 about:cache # Firefox cache infos: location, size, number of entries - chrome://cache -> to extract entries, put the 2nd hexdump section into a file and: xxd -r < dump > out.gz
 about:memory # Firefox memory allocation details
 about:about # all the about: pages e.g. :crashes :healthreport :permissions :plugins :sessionrestore
+resource://gre-resources/
 $ff_profile_dir/.parentlock # fix "Firefox is already running but is not responding" error
 cp sessionstore.bak sessionstore.js # Restore previous session tabs
 <CTRL>+F5 # refresh page bypassing the cache

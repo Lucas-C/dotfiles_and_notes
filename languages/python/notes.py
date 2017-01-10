@@ -206,7 +206,7 @@ try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err: # see chain_errors module
     logger.exception("Additional info: %s", 42) # Exception will be automagically logged
     logging.warn("Hello %(world)r!", world=earth)
-    import traceback; error_msg = ''.join(traceback.format_exception(*sys.exc_info())) # Also: tbutils.TracebackInfo from mahmoud/boltons
+    import traceback; error_msg = traceback.format_exc() # Also: tbutils.TracebackInfo from mahmoud/boltons
 else: pass
 finally: pass
 
