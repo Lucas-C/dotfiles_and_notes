@@ -313,7 +313,7 @@ cf. [Functional Programming Patterns]
     * [Planning Fallacy](//en.wikipedia.org/wiki/Planning_fallacy)
     * [Belief bias](//en.wikipedia.org/wiki/Belief_bias)
     * [Confirmation bias](//en.wikipedia.org/wiki/Confirmation_bias) & [Experimenter's bias](//en.wikipedia.org/wiki/Experimenter%27s_bias)
-    * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy) : misgivings about "wasting" resources, feeling you have to do something because you've passed the point of no return
+    * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy) : misgivings about "wasting" resources, feeling you have to do something because you've passed the point of no return aka "coûts irrécupérables" aka "effet Concorde" aka "Vietnam effect" cf. [Crétin de Cerveau](https://www.youtube.com/watch?v=GCmfXMMhRzk)
     * [Cargo cult](//en.wikipedia.org/wiki/Cargo_cult) of a new technology / design pattern
     * [Groupthink symptoms](//en.wikipedia.org/wiki/Groupthink#Symptoms)
     * Spurious correlations: Correlation != causality, aka "post hoc ergo propter hoc" aka "effet cigogne" (cf. eponymous website & e-penser video "le lieu le plus dangereux de France" = le lit)
