@@ -169,7 +169,6 @@ sudo bash -c 'source /etc/apache2/envvars && apache2 -t && apache2ctl -S' # chec
 vim /etc/apache2/sites-available/default-ssl
 service apache2 restart
 a2enmod / a2dismod $modname  # enable / disable std modules
-ab -n5000 -c50 "http://path/to/app?params" # Apache benchmarking - Alt: tarekziade/boom
 watch 'elinks -dump http://0.0.0.0/server-status | sed -n "32,70p"' # Watch Apache status (lynx cannot dump because of SSL issue)
 httpd -M # list installed modules under Windows
 apachectl status
@@ -177,6 +176,7 @@ ServerName localhost:80 # makes httpd startup waaay faster !
 tail -F /var/log/apache2/*.log
 LogLevel mod_rewrite.c:trace9 # to debug RewriteRules - in versions < 2.4 : RewriteLog ".../rewrite.log" + RewriteLogLevel 9
 ForensicLog logs/forensic.log # requires: LoadModule log_forensic_module modules/mod_log_forensic.so
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" **%T/%D**" combined  # server response time
 
 
 <[-----]>

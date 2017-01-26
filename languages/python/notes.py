@@ -541,6 +541,7 @@ else:
 (import [sh [cat grep wc]]) # in Hy, aka Python with Lisp syntax
 (-> (cat "/usr/share/dict/words") (grep "-E" "^hy") (wc "-l"))
 
+pywin32 # Windows API, e.g. win32crypt.CryptUnprotectData - cf. http://docs.activestate.com/activepython/2.6/pywin32/PyWin32.HTML / http://timgolden.me.uk/pywin32-docs/PyWin32.html
 n1nj4sec/memorpy  # search/edit Windows programs memory
 pyhooked # pure Python hotkey hook: react on specific mouse/keyboard events
 
@@ -614,13 +615,16 @@ setuptools_scm, vcversioner  # manage your setup.py versions by scm tags
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil & zipapp to generates .pyz from v3.5 -> those "Python ZIP Applications" are associated to the Python executable under Windows
 dh-virtualenv # the ultimate way of deploying python apps, over wheels & pex == self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
 cx_freeze to make an EXE easily # cf. this example : https://www.reddit.com/r/Python/comments/4if7wj/what_do_you_think_is_more_difficult_in_python/
-deluge-torrent # example of Windows packaging (with bbfreeze) + GUI (with pygtk: http://git.deluge-torrent.org/deluge/tree/win32/deluge-bbfreeze.py#n31)
+
+# Examples of Windows packaging
+deluge-torrent # with bbfreeze + GUI with pygtk: http://git.deluge-torrent.org/deluge/tree/win32/deluge-bbfreeze.py#n31
+tweecode/twine # with py2exe/py2app + GUI with wxPython
 
 
 """""""""""""
 "" Testing
 """""""""""""
-import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code... - Alt: lk-geimfari/church
+import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code... - Alt: lk-geimfari/elizabeth
 minimaxir/big-list-of-naughty-strings
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
@@ -811,6 +815,7 @@ scipy
     matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome
     geoplotlib
     ResidentMario/missingno, holoviews, pascal-schetelat/Slope, # other dataviz libs
+    OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
 
 jhcepas/ete # tree exploration & visualisation
 riccardoscalco/Pykov # markov chains
@@ -868,12 +873,14 @@ zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
 
 mrjob, luigi # Hadoop / AWS map-reduce jobs
+zappa # serverless framework for AWS lambda / API Gateway
 
 kennethreitz/records # by the author of requests
 peewee, SQLAlchemy # ORM DB
 from playhouse.sqlite_ext import SqliteExtDatabase; db = SqliteExtDatabase(':memory:') # in-memory SQLite DB with peewee
 anydbm: dbhash else gdbm else dbm else dumbdbm
 sqlite3 # std DB, persistent in a file || can be created in RAM - Alt: rogerbinns/apsw +> both allow to create custom SQL functions, aggregate functions, and collations
+asyncpg # PostgreSQL without the need for libpq, faster than psycopg2
 python-lsm-db(like LevelDB), unqlite-python(like MongoDB), vedis-python(like Redis) # Other embedded NoSQL DBs
 pyMySQL, noplay/python-mysql-replication
 stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring, fengsp/rc.Cache, coleifer/walrus
@@ -913,7 +920,14 @@ urwid # console user interface lib - Alt: snack, NPyScreen
 pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 ericoporto/fgmk # retro RPG Game Maker
+
 Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
+pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
+ryanfox/retread # detect reused frames in video
+
+jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
+antiboredom/audiogrep
+
 neozhaoliang/pywonderland/blob/master/src/maze/maze.py # example of GIF generation
 cairo # graphics library outputting .ps .pdf .svg & more
 wand (ImageMagick binding), pillow > pil # Python Image Library
@@ -927,7 +941,7 @@ fogleman/Tiling # pavages
 graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
 
-EasyDialogs, optparse_gui, EasyGui > Tkinter
+Tkinter, EasyGui, EasyDialogs (MacOSX), optparse_gui (last update 2008)
 Kivy # GUI inc. multi-touch support
 wxPython # port of C++ wxWidgets
 
@@ -1046,7 +1060,7 @@ Kinto # minimalist JSON storage service, easy to bootstrap with Heroku/Docker, b
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod server, very easy to launch - Alt: gunicorn, uwsgi
-Eyepea/API-Hour # perf-oriaeted web APIs using AsyncIO & ujson
+Eyepea/API-Hour # perf-oriented web APIs using AsyncIO & ujson - Alt: Sanic + uvloop, a fast drop-in replacement for asyncio
 nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
 featherweight # transform functions into REST web services
 Tornado # asynchronous web framework
@@ -1086,7 +1100,7 @@ sitemap, extract-toc, Tipue-search # plugins Pelican
 
 jstasiak/python-zeroconf  # multicast DNS service discovery - usage example: nils-werner/zget filename-based peer to peer file transfer
 
-locust # load testing simulating millions of simultaneous users
+locust # user load testing simulating millions of simultaneous users : Alt: ab (Apache Benchmarking), tarekziade/boom
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 pycares # asynchronous DNS resolution
@@ -1190,7 +1204,7 @@ def function_with_docstring(foo): # sphinx
 
 from getpass import getpass # get password without echoing it
 hmac, hashlib.md5('string').hexdigest()
-dropbox/python-zxcvbn # password strength estimation
+dwolfhub/zxcvbn-python # password strength estimation
 from cryptography.fernet import Fernet # symmetric encryption
 jake-jake-jake/historical_ciphers # Caesar, Transposition and Affine ciphers
 mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments by signing content
@@ -1216,10 +1230,6 @@ for root, dirs, files in os.walk('/path/to/foo'): # path.py walkfiles() is even 
 
 pygeoip, mitsuhiko/python-geoip, python-geoip@code.google, maxmind/geoip-api-python, pierrrrrrre/PyGeoIpMap # this latest one provide a useful command-line tool
 OpenTransitTools/gtfsdb # GTFS (General Transit Feed Specification) DB : public transportation schedules and associated geographic information
-
-pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
-jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
-antiboredom/audiogrep
 
 pyusb  # interfaces to FTDI D2XX drivers to manipulate USB devices
 

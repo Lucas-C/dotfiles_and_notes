@@ -44,6 +44,7 @@ Software Development Best Practices
 - [WhenToRepeatYourself](http://devblog.songkick.com/2016/08/31/when-to-repeat-yourself/)
 - [InternetScaleServicesChecklist](https://gist.github.com/acolyer/95ef23802803cb8b4eb5)
 - [WhatsWrongWithGit?AConceptualDesignAnalysis](https://blog.acolyer.org/2016/10/24/whats-wrong-with-git-a-conceptual-design-analysis/)
+- [Simple Standard Service Endpoints](https://github.com/beamly/SE4/blob/master/SE4.md)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -94,6 +95,7 @@ On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/14
 + similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
 + representation for RESTful APIs: Swagger / RAML / API Blueprint / APIDOC
++ follow simple standards for server status / healthcheck like [Simple Standard Service Endpoints]
 
 On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult], [MicroservicesPleaseDont] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
 

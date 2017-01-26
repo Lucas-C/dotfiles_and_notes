@@ -4,6 +4,9 @@ document.body.contentEditable='true'; // makes everything editable (IE: document
 
 $$("#articleContent ul li").length
 
+console.time('myTime') / console.timeEnd('myTime')
+console.table(array)
+
 debugger // breakpoint for debugger
 performance.timing // and performance.memory : useful debugging informations
 

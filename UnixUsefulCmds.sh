@@ -967,10 +967,15 @@ export NSPR_LOG_MODULES=timestamp,nsHttp:5,nsSocketTransport:5,nsStreamPump:5,ns
 export NSPR_LOG_FILE=/tmp/firefox_http.log
 ./firefox
 
-# Chrome
+
+{#"#"#"#"#}
+{  Chrome }
+{#"#"#"#"#}
+jq '.roots.bookmark_bar.children[]|select(.type=="folder" and .name=="ToCheck").children[]|{name,url}' D:\Users\lucas_cimon\AppData\Local\Google\Chrome\User Data\Default\Bookmarks
 sqlite3 "$(cygpath $LOCALAPPDATA)/Google/Chrome/User Data/Default/databases/chrome-extension_loljledaigphbcpfhfmgopdkppkifgno_0/"* 'select * from fields;' # Inspect Lazarus form recovery DB
 chrome://system/ -> mem_usage / tab
 CTRL + SHIFT + F : search across all files
+debug(fctName) # launch debugger when fctName is called
 
 
 g@g@g@g@g@g@g@g@g
@@ -1228,6 +1233,7 @@ heroku pg:psql
 [~~][~~][~~][~~]
 <CTRL>+<SHIFT>+A -> search functionalities
 <CTRL>+<SHIFT>+U -> UPPERCASE
+File > Invalidate caches & restart
 
 
 []= + + + =[]
@@ -1237,29 +1243,6 @@ heroku pg:psql
 <CTRL>+<-> -> remove a line / column
 <CTRL>+<SPACE> -> select the whole colmun
 <SHIFT>+<SPACE> -> select the whole line
-
-
-{._{._{._
-. puppet
-}_.}_.}_.}
-puppet apply --debug --verbose [--graph]  # graphs are generated in /var/lib/puppet/state/graphs by default
-dot -Tsvg $dot_graph -o ${dot_graph%*.dot}.svg  # >>> PNG-export, as it did not handle fonts correctly under Cygwin - Alt: dot -Tx11 $dot_graph for a terminal display
-!! future parser
-puppetlabs-stdlib
-$content = inline_template("...Hurrah ! Ruby code !...")
-notify { "var: ${var}": }
-
-
-8-8-8-8-8-8
-8- Docker
-8-8-8-8-8-8
-docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
-if [ -n "$DOCKER_MACHINE_NAME" ]; then  # %HOME%\.bashrc for Docker Toolbox which source it twice: the following is only evaluated on the 2nd pass
-    source .../.bashrc
-    PATH="$PATH:/.../Docker Toolbox"  # required in case of a custom installation path
-    cd ...
-fi
-<INSERT> # paste under MinGW / Git Bash
 
 
 µ!µ!µ!µ!µ!µ!µ!µ!µ!µ
@@ -1275,16 +1258,26 @@ toor # default password
 setxkmap fr
 
 
-o=0=o=0=o=0
-= Jenkins =
-o=0=o=0=o=0
-Plugins: AnsiColor, ChuckNorris, InternetMeme, Pipeline, ShiningPanda, jenkins.sitespeed.io, ThinBackup
-Global Security Authorization: special user "authenticated"
-
-
 |°~|°~|°~|°~|°~|°~
  ~ Transmission ~
 |°~|°~|°~|°~|°~|°~
 # https://trac.transmissionbt.com/browser/trunk/extras/rpc-spec.txt
 session_id=$(curl http://localhost:9091/transmission/rpc --silent --output /dev/null --dump-header - | sed -ne 's/X-Transmission-Session-Id: //p' -e 's/\r//')
 curl http://localhost:9091/transmission/rpc --header "X-Transmission-Session-Id: $session_id" --data '{"method":"torrent-get","arguments":{"fields":["name","files"]}}' --silent | jq '.arguments.torrents[]|{name:.name,files:.files[]|{name:.name,percentComplete:(.bytesCompleted*100/.length)}}'
+
+
+-{._{._{._
+-. Twine
+-}_.}_.}_.}
+Based on TiddlyWiki
+https://bitbucket.org/klembot/twinejs
+https://github.com/tweecode/twine # GUI in Python
+Example: https://github.com/sno/the-temple-of-no/issues
+
+
+-8-8-8-8-8-8
+-8- Unity
+-8-8-8-8-8-8
+.exe > Properties > Details # get Unity engine version used for a game
+cf. http://www.alanzucconi.com/2015/09/02/a-practical-tutorial-to-hack-and-protect-unity-games/
+AssetsBundleExtraUnityctor_2.1_64bit > Open resources.assets > Select TextAsset > Export Dump # hack dialogs - Alt: disunity

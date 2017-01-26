@@ -44,7 +44,7 @@
     # Show the "upstream" remote branch which the local branch is tracking
     origin =!git for-each-ref --format='%(upstream:short)' $(git symbolic-ref HEAD)
 
-    # When 'you can’t quite fit what you’ve done into a commit but daren’t stray too far from now without a backup'
+    # When you can’t quite fit what you’ve done into a commit but daren’t stray too far from now without a backup'
     snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
 
     startfeature  = checkout -bi # Start a new feature on a new branch
@@ -67,6 +67,9 @@
     # List all [Labels] in commit msgs, stripping digits
     ls-labels = "!git log --pretty=format:%s | sed -e 's/[0-9]//g' -e 's/^Revert \"//' -e 's/\\(\\[[^]]\\+\\]\\)[^[]*/\\1\\n/g' | grep -F [ | sort | uniq -c"
 
+    # List file changes (A/M/D) that affected a single directory
+    dir-history = log --name-status
+
 [apply]
     whitespace = nowarn
 
@@ -80,8 +83,9 @@
     editor = vim
     pager = less -FMRiX
     trustctime = false
-    autocrlf = input # Even better to share the settings: echo '*.txt -crlf' > .gitattributes
-    #eol = lf
+    eol = lf
+    autocrlf = false
+    # To share the same CRLF settings: echo '*.txt -crlf' > .gitattributes
 
 [credential]
     # can be emptied with: git credential-cache exit

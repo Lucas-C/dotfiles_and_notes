@@ -128,3 +128,4 @@ fmtlib {fmt} // open-source formatting library for C++. It can be used as a safe
 Check // Unit Testing Framework for C
 AStyle // source code beautifier
 cl /analyze // Visual Studio code analysis: http://www.altdev.co/2011/12/24/static-code-analysis/ (John Carmack)
+OCLint // static source code analysis tool to improve quality and reduce defects for C, C++ and Objective-C

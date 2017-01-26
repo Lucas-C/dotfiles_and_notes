@@ -53,7 +53,9 @@ atom () {
 }
 
 npp () {
-    "/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe" $(convertWinArgs "$@")
+    for f in "$@"; do
+        "/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe" $(convertWinArgs "$f")
+    done
 }
 
 pspad () {

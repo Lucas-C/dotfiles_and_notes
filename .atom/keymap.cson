@@ -37,3 +37,7 @@
 'atom-workspace atom-text-editor:not([mini])':
   'ctrl-alt-]': 'unset!'
   'ctrl-alt-[': 'unset!'
+  'ctrl-b': 'bracket-matcher:go-to-matching-bracket'
+  'ctrl-q': 'editor:toggle-line-comments'
+
+# Useful: ctrl+d - Select Same Words

@@ -277,7 +277,7 @@ jar_java_version () {
 findByFilePattern () {
     local pattern="$1"
     shift
-    find -L "${@:-.}" -type f -exec file {} \; | grep "$pattern" | cut -d':' -f1
+    find -L "${@:-.}" -type f -not -path '*/.git/*' -not -path '*/node_modules/*' -exec file {} \; | grep "$pattern" | cut -d':' -f1
 }
 findTxt () { # ! -iwholename '*.git*' | xargs -I{} grep -H PATTERN {} # | while read file; do ... done
     findByFilePattern text "$@"
@@ -593,11 +593,16 @@ timestamp_converter () {
 pre_commit_cache_repos () {  # Requires PyYaml & sqlite3
     < $(git rev-parse --show-toplevel)/.pre-commit-config.yaml \
         python -c "from __future__ import print_function; import sys, yaml; print('\n'.join(h['repo']+' '+h['sha'] for h in yaml.load(sys.stdin) if h['repo'] != 'local'))" \
-        | while read repo sha; do \
-            echo $repo; \
-            sqlite3 ~/.pre-commit/db.db "SELECT path FROM repos WHERE ref = '$sha';"; \
-            echo; \
+        | while read repo sha; do
+            echo $repo
+            sqlite3 ~/.pre-commit/db.db "SELECT ref, path FROM repos WHERE repo = '$repo' AND ref = '$sha';"
+            echo
         done
+}
+
+pre_commit_db_rm_repo () {
+    rm -rf $(sqlite3 ~/.pre-commit/db.db "SELECT path FROM repos WHERE repo = '$1';")
+    sqlite3 ~/.pre-commit/db.db "DELETE FROM repos WHERE repo = '$1';";
 }
 
 font_dflt_fix () {  # cf. https://chezsoi.org/lucas/blog/2016/02/11/en-fixing-fonts-that-raise-a-dflt-table-error-in-firefox/

@@ -3,6 +3,8 @@ Statistics & benchmarking
 
 Tools for server banchmarking aka stress / load / performances testing: cf. bookmarks
 
+    ab -n5000 -c50 "http://path/to/app?params" # Apache Benchmarking - Alt: tarekziade/boom, locust
+
 # REPEAT your tests !
 
 Gil Tene (Mr. Java HdrHistogram): always "calibrate" latency tools with ^Z tests. If ^Z results don't make sense, don't use tool.

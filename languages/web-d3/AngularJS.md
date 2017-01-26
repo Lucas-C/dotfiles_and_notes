@@ -1,3 +1,31 @@
+# Angular 2
+
+Config injection:
+
+    @Injectable()
+    export class AppConfig {
+        endpointUrl: string;
+
+        constructor(private http: Http) {}
+
+        public load() {
+            return this.http.get("config.json").toPromise().then(response => {
+                let config = response.json();
+                this.endpointUrl = config.endpointUrl;
+            });
+        }
+    }
+
+And in `app.module.ts` :
+
+    @NgModule({
+        ...
+        providers: [AppConfig, { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true }]
+    })
+
+
+# Angular 1
+
 "The scope is not the model, the scope refers to the model"
 "Whenever you have ng-model there's gotta be a dot in there somewhere. If you don't have a dot, you're doing it wrong"
   -> Misko Hevery's talk on AngularJS Best Practices
@@ -121,3 +149,5 @@ With only jQuery:
 
 Pros: http://pascalprecht.github.io/slides/e2e-testing-with-protractor
 Cons: http://googletesting.blogspot.fr/2015/04/just-say-no-to-more-end-to-end-tests.html
+
+Debug: `protractor debug conf.js` cf. "Using debugger" -> https://github.com/angular/protractor/blob/master/docs/debugging.md#pausing-to-debug
