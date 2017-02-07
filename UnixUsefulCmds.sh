@@ -843,7 +843,6 @@ p-e-w/maybe # execute a program and only log any syscalls that modify the FS, us
 faketime $time_spec $cmd
 
 fdisk -l # has flaws, better use bitbucket.org/skypher/fdisk
-testdisk # disk data recovery
 lsusb # Alt: usb-devices
 lspci -v # list devices
 lshw -C disk # list disks : ata, cdrom, dvdrom
@@ -976,6 +975,9 @@ sqlite3 "$(cygpath $LOCALAPPDATA)/Google/Chrome/User Data/Default/databases/chro
 chrome://system/ -> mem_usage / tab
 CTRL + SHIFT + F : search across all files
 debug(fctName) # launch debugger when fctName is called
+chrome://view-http-cache/
+%LOCALAPPDATA%\Google\Chrome\User Data\Default\*Cache # 4 dirs - Alt: ~/.cache/*chrom*/Default/*Cache
+python2 $code/Chromagnon/chromagnonCache.py Cache -o ~/browsable_cache
 
 
 g@g@g@g@g@g@g@g@g

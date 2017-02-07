@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 # INSTALL: pip3 install --user pytz sh
+# CLI shell: lftp -u $FTP_USER,$FTP_PASSWORD $FTP_HOST
 import argparse, hashlib, os, sh, sys, tempfile
 from datetime import datetime
 from pytz import timezone

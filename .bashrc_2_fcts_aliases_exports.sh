@@ -58,13 +58,10 @@ vimhelp () { sed 's/^\(\(-\|[0-9]\.\) [^ ].*\)$/\1\\/' ${BASHRC_DIR}/misc/Vim.md
 alias less='less --ignore-case --LONG-PROMPT'
 
 md2man () { pandoc -s -f markdown -t man "$@" | man -l -; }
-md2html () {
-    #pandoc --include-in-header ~/minimal-md3.css --include-in-header $code/misc/Presentation/md-tags.css \
-    #    -s -S --toc -f markdown -t html "$1" > "${1%%.md}.html" && firefox "${1%%.md}.html" &
-    echo '<!DOCTYPE html><html><head><meta charset='UTF-8'></head><body>'
-    commonmark "$@"
-    echo '</body></html>'
-}
+#md2html () {
+#    pandoc --include-in-header ~/minimal-md3.css --include-in-header $code/misc/Presentation/md-tags.css \
+#        -s -S --toc -f markdown -t html "$1" > "${1%%.md}.html" && firefox "${1%%.md}.html" &
+#}
 
 diff_alt () {
     cat <<EOF

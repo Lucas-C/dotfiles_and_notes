@@ -36,27 +36,6 @@ Keep it separate from your git configuration by putting it in a file named _.git
 
 If such file exists, it will be sourced from the main _.gitconfig_.
 
-## Atom
-
-As admin:
-```
-h=/cydrive/c/Users/$USER
-for f in $BASHRC_DIR/.atom/*; do
-    newf=$h/.atom/$(basename $f)
-    [ -f $newf ] && mv $newf{,.bak}
-    cmd /c mklink $(cygpath -w $newf) $(cygpath -w $f)
-done
-```
-
-## Notepad++
-
-As admin:
-```
-h=/cydrive/c/Users/$USER
-for f in $BASHRC_DIR/npp/*.xml; do cmd /c mklink $(cygpath -w $h/AppData/Roaming/Notepad++/)$(basename $f) $(cygpath -w $f); done
-cmd /c mklink /d $(cygpath -w $h/AppData/Roaming/Notepad++/themes) $(cygpath -w $BASHRC_DIR/npp/themes)
-```
-
 <!--
 #### ToDo ####
 
