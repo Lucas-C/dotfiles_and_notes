@@ -9,10 +9,28 @@ chcp 65001 in cmd.exe &:: -> support for UTF-8
 F7 in cmd.exe -> history &:: BUT better use Cmder or at least PowerShell ISE
 !!WARNING!! Cmder define HOME, PATH, TMP & TEMP env variables with Unix-like paths
 Cmder conf file: %CMDER_ROOT%\vendor\init.bat
--> it works very well with Chocolatey
 @if not defined CMDER_START CMDER_START = D:\code
+
+@set PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+
+@set "PATH=%PATH%;C:\Program Files (x86)\Mozilla Firefox"
+
+@set PATH=%PATH%;%TOOLS%\Python34\Scripts
+@set PATH=%PATH%;%TOOLS%\Python27\Scripts
 @set PATH=%PATH%;%APPDATA%\Python\Scripts
+
+@set ANT_HOME=%TOOLS%\apache-ant-1.9.7
+@set PATH=%PATH%;%ANT_HOME%\bin
+
+@set GROOVY_HOME=%TOOLS%\Groovy-2.4.8
+@set PATH=%PATH%;%GROOVY_HOME%\bin
+@set PATH=%PATH%;%TOOLS%\gradle-3.3\bin
+
+@set PHP_HOME=%TOOLS%\php-5.6.8
 @set PATH=%PATH%;%APPDATA%\Composer\vendor
+
+@set PATH=%PATH%;%APPDATA%\npm
+
 
 <CMD>+Left/Right &:: Vertically maximize a windows on the side
 <CTRL>+<ALT>+<UP> &:: Invert screen upside down

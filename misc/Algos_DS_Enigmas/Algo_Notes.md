@@ -38,6 +38,8 @@ Compression:
 - Google Zopfli (5% more compression, 100x slower than LZMA (7z))
 - Google Brotli: better than zlib, LZMA (7z) and Snappy/Zopfli in term of speed AND compression ratio
 
+-> Pinterest predefined dictionary to optimize Zlib DEFLATE LZ77 stage : https://engineering.pinterest.com/blog/evolving-mysql-compression-part-2
+
 PID controller: control loop feedback mechanism, using the proportional, integral and derivative values,
     that attempts to minimize the error in outputs by adjusting the process control inputs.
 

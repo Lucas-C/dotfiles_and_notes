@@ -79,7 +79,7 @@ def foobar():
 os.makedirs(dir_path) # + ignore OSError where .errno == errno.EEXIST and os.path.isdir(dir_path) # mkdir -p
 tempfile.gettempdir()
 tempfile.mkdtemp()
-tempfile.NamedTemporaryFile() # file automagically deleted on close()
+tempfile.NamedTemporaryFile() # file automagically deleted on close() - DO NOT USE if project must be Windows-compatible : http://stackoverflow.com/a/23212515/636849
 tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
 
 StringIO # fake file from string - in module StringIO in Python 2, in io in Python 3
@@ -629,7 +629,7 @@ minimaxir/big-list-of-naughty-strings
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no --showlocals --exitfirst --cache-clear --pdb -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
-pytest-bdd, pytest-benchmark, python.cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins
+pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
 c-oreills/before_after # provides utilities to help test race conditions
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
@@ -942,7 +942,7 @@ graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
 
 Tkinter, EasyGui, EasyDialogs (MacOSX), optparse_gui (last update 2008)
-Kivy # GUI inc. multi-touch support
+Kivy # GUI inc. multi-touch support, packaged with PyInstaller
 wxPython # port of C++ wxWidgets
 
 jlsutherland/doc2text # OCR poorly scanned PDFs in bulk
@@ -1060,7 +1060,7 @@ Kinto # minimalist JSON storage service, easy to bootstrap with Heroku/Docker, b
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod server, very easy to launch - Alt: gunicorn, uwsgi
-Eyepea/API-Hour # perf-oriented web APIs using AsyncIO & ujson - Alt: Sanic + uvloop, a fast drop-in replacement for asyncio
+Eyepea/API-Hour # perf-oriented web APIs using AsyncIO & ujson - Alt: Sanic + uvloop, a fast drop-in replacement for asyncio ; squeaky-pl/japronto, "screaming-fast" & based on uvloop and picohttpparser
 nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
 featherweight # transform functions into REST web services
 Tornado # asynchronous web framework
@@ -1100,7 +1100,7 @@ sitemap, extract-toc, Tipue-search # plugins Pelican
 
 jstasiak/python-zeroconf  # multicast DNS service discovery - usage example: nils-werner/zget filename-based peer to peer file transfer
 
-locust # user load testing simulating millions of simultaneous users : Alt: ab (Apache Benchmarking), tarekziade/boom
+locust # user load testing simulating millions of simultaneous users : Alt: ab (Apache Benchmarking), tarekziade/boom, wg/wrk
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 pycares # asynchronous DNS resolution
@@ -1172,7 +1172,7 @@ pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of
 
 filemagic, ahupp/python-magic # interfaces to libmagic file type identification, aka the "file" command under Unix : it identifies file types by checking their headers according to a predefined list of file types
 
-reload(module)
+reload(module) # Python 2 only, else : importlib.reload
 modulefinder # determine the set of modules imported by a script
 
 asynchat, irc, sleekxmpp, embolalia/willie # IRC/XMPP bots

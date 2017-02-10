@@ -47,6 +47,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [OnFindingRootCauses](https://medium.com/production-ready/on-finding-root-causes-c0ce524bf98b#.fu7ofzcr4)
 - [HoneYourProductionIncidentPostmortems](http://tech.shutterstock.com/2016/11/11/5-ways-to-hone-your-production-incident-postmortems/)
 - [EtsyDebriefingFacilitationGuide](https://extfiles.etsy.com/DebriefingFacilitationGuide.pdf)
+- [HowDoYouMakeAnAwesomeTeam](http://jvns.ca/blog/2017/01/13/how-do-you-make-an-awesome-team/)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -100,6 +101,12 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
     * No one wants to put on a ‘‘work face’’ when they get to the office.
     To be fully present at work, to feel ‘‘psychologically safe,’’ we must know that we can be free enough, sometimes, to share the things that scare us without fear of recriminations. We must be able to talk about what is messy or sad, to have hard conversations with colleagues who are driving us crazy. We can’t be focused just on efficiency.
 - [Process Hacking]: process exploration days, rotation days, problem boards, reward participants
+- [HowDoYouMakeAnAwesomeTeam]
+    * Talk a lot about your work in a public channel
+    * Ask a lot of questions in public
+    * Scheduling brainstorming meetings
+    * When having a discussion, talk like you might be wrong
+    * Don’t forget you have power over how your team is
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [Why Scrum Should Basically Just Die In A Fire]
@@ -179,6 +186,7 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
     * templaaaaates are awesome. Alt: script page generation (e.g. for dashboards depending on parameters: IP, hostnames...)
 - use Doxygen / Docurium for code documentation
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
+- simple dashboard for JSON APIs : [freeboard](https://github.com/Freeboard/freeboard)
 
 ## Coaching new hires & bringing them up to speed
 - [Onboarding and the Cost of Team Debt] = "when employees aren't properly trained, integrated, or managed, they are operating at less than optimal efficiency and "team debt" is accrued"

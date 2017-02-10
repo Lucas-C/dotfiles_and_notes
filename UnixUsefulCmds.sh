@@ -1117,8 +1117,6 @@ exiv2 # extract EXIF, IPTC & XMP image metadata
 mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata
 feh -F -d -D 3 --cycle-once -f <(findImg .) # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 
-mapio/GraphvizAnim # animated graphs
-
 
 $$$$$$$$$$$$$$$
 $ Google APIs $

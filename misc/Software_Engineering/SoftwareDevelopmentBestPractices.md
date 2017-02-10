@@ -15,7 +15,7 @@ Software Development Best Practices
 - [RobPikeKenThompson] : [What Rob Pike learned from KenThompson](http://www.informit.com/articles/article.aspx?p=1941206)
 - [The Problems With Acceptance Testing](http://www.jamesshore.com/Blog/The-Problems-With-Acceptance-Testing.html)
 - [Cyclomatic] : [Quantifying the effect of TDD](http://www.keithbraithwaite.demon.co.uk/professional/presentations/2008/qcon/MeasureForMeasure.pdf) & [Cyclomatic complexity measure](http://www.keithbraithwaite.demon.co.uk/professional/software)
-- [CRTP] : [Code review - Tools an process](http://www.slideshare.net/rantav/code-review) slides
+- [CRTP] : [Code review - Tools and process](http://www.slideshare.net/rantav/code-review) slides
 - [BuildingADecentAPI](//philsturgeon.uk/blog/2013/07/building-a-decent-api/)
 - [DistributedSystemsAndTheEndOfTheAPI](http://writings.quilt.org/2014/05/12/distributed-systems-and-the-end-of-the-api/)
 - [AwkwardMicroservicesQuestions](http://blog.oshineye.com/2015/01/awkward-microservices-questions.html)
@@ -275,7 +275,7 @@ cf. [Functional Programming Patterns]
 
 - Avoid multiple languages in one source file [CC-G1]
 - Use the idioms of the programming language employed, aka "Don't write C code in Java"
-- When debugging, **THINK** before going on step-by-step debug mode [RobPikeKenThompson]. [A longer quote on ptrint-traces debugging VS debuggers](http://taint.org/2007/01/08/155838a.html)
+- When debugging, **THINK** before going on step-by-step debug mode [RobPikeKenThompson]. [A longer quote on print-traces debugging VS debuggers](http://taint.org/2007/01/08/155838a.html)
 
 - know the order of magnitude it takes to perform various operations on a computer : cf. [LatencyNumbersEveryProgrammerShouldKnow] & [ResponseTimes-The3ImportantLimits] :
     * 0.1 second is about the limit for having the user feel that the system is reacting instantaneously, meaning that no special feedback is necessary except to display the result.

@@ -4,6 +4,7 @@ On DBs, Queues, Brokers and Caching
 ## References
 - [AOSA_NoSQL] : [The Architecture of Open Source Applications](http://www.aosabook.org) chapter dedicated to NoSQL
 
+
 ## Memory caching system
 DO NOT "underestimate the complexities and issues caching brings along with it" : [You're probably wrong about caching](http://msol.io/blog/tech/youre-probably-wrong-about-caching/)
 
@@ -49,6 +50,7 @@ psobot/till # cache server for immutable, time-limited object storage providing 
 
 Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], recommended in [this blog post by JMason](//swrveengineering.wordpress.com/2014/10/14/how-we-increased-our-ec2-event-throughput-by-50-for-free/)
 
+
 ## Queues
 - mkfifo, man mq_overview : POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code   _
 - D-Bus : unix message bus system, with bindings in Java, Python...
@@ -65,6 +67,7 @@ Some queues property from [Redis author](http://antirez.com/news/78):
 - handle, during normal operations, messages as a FIFO
 - auto cleanup of the internal data structures
 
+
 ## Storage layer for numeric data series over time
 RRDtool (the ancestor) and its followers:
 
@@ -80,6 +83,7 @@ Visualization :
 - Graphitus
 - Facette
 
+
 ## DBs
 ![](https://raw.githubusercontent.com/cockroachdb/cockroach/master/resources/doc/sql-nosql-newsql.png "SQL - NoSQL - NewSQL Capabilities")
 
@@ -88,12 +92,14 @@ First proposed by Eric Brewer in 1998, then proved by Gilbert and Lynch. See als
 => Daniel Abadi suggested a more nuanced classification system, PACELC
 => also: [The CAP theorem is too simplistic and too widely misunderstood to be of much use for characterizing systems](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)
 
+
 ### PostgreSQL
 http://www.postgresql.org/docs/current/interactive/app-psql.html#APP-PSQL-META-COMMANDS
 
     \? # and \h $cmd
     \dt+ # list tables - There are many other \d... commands
     \x auto # expanded display mode - \x on for v<9.2
+
 
 ### NoSQL DBs
 
@@ -104,6 +110,9 @@ and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra whi
 - more BerkeleyDB, SQLite, LMDB, RocksDB > LevelDB # embedded database
 - cockroachdb/cockroach # NewSQL
 
+spotify/sparkey : simple constant key/value storage library, for read-heavy systems with infrequent large bulk inserts, inspired by CDB and Tokyo Cabinet : https://labs.spotify.com/2013/09/03/sparkey/
+
+
 ### SQL DBs
 
 https://blog.jooq.org/2016/07/05/say-no-to-venn-diagrams-when-explaining-joins/
@@ -112,12 +121,14 @@ LIKE >faster> REGEXP
 
     -- {..} /*...*/ # comments
 
+
 #### SQL*PLus
 
     # in login.sql
     SET TIMING ON
     SET SERVEROUTPUT ON
     SET LINESIZE 180 PAGESIZE 1000
+
 
 #### SQLite
 
@@ -133,6 +144,7 @@ LIKE >faster> REGEXP
     #_ Display columns:
     .mode column
     .headers on
+
 
 #### MySQL
 [5 subtle ways you're using MySQL as a queue, and why it'll bite you](https://blog.engineyard.com/2011/5-subtle-ways-youre-using-mysql-as-a-queue-and-why-itll-bite-you)
