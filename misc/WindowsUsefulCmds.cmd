@@ -156,6 +156,8 @@ Add-Type -AssemblyName System.speech; $speaker = New-Object System.Speech.Synthe
 Get-Process -Name cleanmgr,dismhost -ErrorAction SilentlyContinue | Wait-Process
 CleanMgr automation script: http://stackoverflow.com/a/35214197/636849
 
+How to bypass the PowerShell execution policy : https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/
+
 
 ::::::::::
 :: Batch

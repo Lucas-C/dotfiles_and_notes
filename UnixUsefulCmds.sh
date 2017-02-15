@@ -975,9 +975,13 @@ sqlite3 "$(cygpath $LOCALAPPDATA)/Google/Chrome/User Data/Default/databases/chro
 chrome://system/ -> mem_usage / tab
 CTRL + SHIFT + F : search across all files
 debug(fctName) # launch debugger when fctName is called
+chrome://about # list all Chrome internal pages
 chrome://view-http-cache/
 %LOCALAPPDATA%\Google\Chrome\User Data\Default\*Cache # 4 dirs - Alt: ~/.cache/*chrom*/Default/*Cache
 python2 $code/Chromagnon/chromagnonCache.py Cache -o ~/browsable_cache
+cd ~/browsable_cache
+ls ???????? | wc -l
+sed -n 's/.*\(Key<\/b>: http[^<]*\).*/\1\n/p' ???????? > urls
 
 
 g@g@g@g@g@g@g@g@g

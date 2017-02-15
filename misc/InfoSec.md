@@ -1,3 +1,5 @@
+radare2 : unix-like reverse engineering framework and commandline tools
+
 shc : Bash Shell Script Compiler, converts shell scripts directly into binaries http://www.datsi.fi.upm.es/~frosal/
 -> uncompile with yanncam/UnSHc
 

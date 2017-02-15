@@ -1,27 +1,9 @@
-#!cyg-node
-'use strict';
-require('fs').readFile(process.argv[2], 'utf8', function (err, input) {
-  if (err) {
-    if (err.code === 'ENOENT') {
-      console.error('File not found: ' + options.file);
-      process.exit(2);
-    }
-    console.error(err.stack || err.message || String(err));
-    process.exit(1);
-  }
-  var md = require('markdown-it')({html: true})
-    .use(require('markdown-it-anchor'))
-    .use(require('markdown-it-table-of-contents'))
-    .use(require('markdown-it-container'), 'classname', {
-      validate: name => name.trim().length, // allow everything not empty
-      render: (tokens, idx) => {
-        if (tokens[idx].nesting === 1) {
-          return `<div class="${tokens[idx].info.trim()}">\n`;
-        }
-        return '</div>\n';
-      }
-    });
-  process.stdout.write('<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>');
-  process.stdout.write(md.render(input));
-  process.stdout.write('</body></html>');
-});
+#!/bin/sh
+basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+
+case `uname` in
+    *CYGWIN*) basedir=`cygpath -w "$basedir"`
+              export NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)/node_modules";;
+esac
+
+node "$basedir/md2html.js" "$@"

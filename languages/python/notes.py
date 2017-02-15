@@ -813,7 +813,7 @@ scipy
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
         JosPolfliet/pandas-profiling # -> create HTML profiling reports from pandas DataFrame objects, inc. quantiles, most frequent values, histograms & descriptive statistics
     matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome
-    geoplotlib
+    geoplotlib, ResidentMario/geoplot
     ResidentMario/missingno, holoviews, pascal-schetelat/Slope, # other dataviz libs
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
 
@@ -854,6 +854,7 @@ Nuitka # converts Python code into C++ code (targetting VisualStudio, MinGW or C
 ctypes.cdll.LoadLibrary("libc.so.6")
 libc = ctypes.CDLL("libc.so.6")
 libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
+pefile # to read Portable Executable files, e.g. Windows .dll under
 
 cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
 
@@ -884,6 +885,7 @@ asyncpg # PostgreSQL without the need for libpq, faster than psycopg2
 python-lsm-db(like LevelDB), unqlite-python(like MongoDB), vedis-python(like Redis) # Other embedded NoSQL DBs
 pyMySQL, noplay/python-mysql-replication
 stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring, fengsp/rc.Cache, coleifer/walrus
+redash # generic DB interface / visualization for Redshift, Google BigQuery, PostgreSQL, MySQL, Graphite, Presto, Google Spreadsheets, Cloudera Impala, Hive
 
 
 """"""""""""""""""""""""""""""""""""""""""
