@@ -33,6 +33,7 @@ require('fs').readFile(mdFilepath, 'utf8', function (err, input) {
                      + '<html>\n'
                      + '<head>\n'
                      + '<meta charset="UTF-8">\n'
+                     + '<title>' + require('path').basename(mdFilepath, '.md') + '</title>\n'
                      + (noindex ? '<meta name="robots" content="noindex">\n' : '')
                      + '</head>\n'
                      + '<body>\n');

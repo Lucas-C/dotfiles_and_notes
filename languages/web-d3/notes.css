@@ -3,6 +3,8 @@ BEM (Blocks, Elements and Modifiers)
 OOCSS (object-oriented CSS)
 
 
+:after { clear: both } /* Float clear. Alt: { overflow: auto; width: 100%; } -> the last part is needed by "some browsers" */
+
 normalize.css
 
 stylelint >> csslint

@@ -1107,11 +1107,14 @@ mininet # realistic virtual network, running real kernel, switch and application
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 pycares # asynchronous DNS resolution
 scapy # packet injection/manipulation for many network protocols
+impacket # programmatic access to the packets and for some protocols: IP, TCP, UDP, ICMP, IGMP, ARP, NMB, DCE/RPC, SMB1-3 and MS-DCERPC
 wifi # wrapper around iwlist and /etc/network/interfaces
 danmcinerney/wifijammer # How to kick everyone around you off wifi with python
 tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
+
+Patator # Multi-threaded Service & URL Brute Forcing Tool
 
 
 """"""""
