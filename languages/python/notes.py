@@ -488,7 +488,7 @@ JulienPalard/Pipe # fib() | where(lambda x: x % 2 == 0) | take_while(lambda x: x
 """""""""""""""""""""""""
 "" Subprocesses & shell
 """""""""""""""""""""""""
-xonsh # Python3-ish, BASHwards-looking shell language
+xonsh # Python3-ish, BASHwards-looking shell language - Alt: ergonomica
 # grep-like one-liners:
 python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).groups())+"\n" for line in sys.stdin])'
 
@@ -1187,7 +1187,7 @@ paramiko # remote SSH/SFTP connexion
 
 scales # metrics for Python, send data points to Graphite - Pros: inc. with-context to measure latency, metering-rates 1/5/15min, PmfStat => stdev, p99 - Cons: not actively maintained, its code uses lots of global state, there is test code in its source, a thread launched at import time and its documentation is incomplete
 
-pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF
+pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR
 
 @retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation - Alt: retrace
 

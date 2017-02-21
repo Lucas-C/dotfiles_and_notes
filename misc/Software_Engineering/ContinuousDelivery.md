@@ -93,6 +93,10 @@ fi
 <INSERT> # paste under MinGW / Git Bash
 ```
 
+### Security
+https://www.nccgroup.trust/us/our-research/understanding-and-hardening-linux-containers/
+https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.12.0_Benchmark_v1.0.0.pdf
+
 
 ## Puppet
 > "Puppet runs completely synchronously, but the order in which it applies resources is essentially unpredictable in the absence of declared resource relationships.  That's very different from asynchronous operation, which would mean that Puppet applies multiple resources concurrently (i.e. via threads or multiple child processes), which it absolutely does not do"

@@ -1,6 +1,7 @@
 # Phases of Penetration Testing
 From http://www.pentest-standard.org
 
+
 ## Pre-engagement Interactions
 DNSMAP
 Patator : Multi-threaded Service & URL Brute Forcing Tool, in Python
@@ -60,6 +61,7 @@ stampery/mongoaudit : MongoDB auditing and pentesting in Python
 
 ## Post Exploitation
 https://github.com/PowerShellMafia/PowerSploit/ # Post-Exploitation Framework
+john the ripper multicoeurs: http://www.planet-libre.org/?post_id=20989
 
 ### Windows
 mimikatz : extract plaintexts Windows passwords, hash, PIN code and kerberos tickets from memory; can also perform pass-the-hash, pass-the-ticket or build Golden tickets

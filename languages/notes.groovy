@@ -83,6 +83,24 @@ def httpGetJson(Map args) { // using Groovy HTTPBuilder
 }
 
 
+/******************************
+* Debugging Grapes resolution *
+*******************************/
+
+Deleting an artifact in both Groovy & Maven caches, to test re-downloading (yes, Groovy will use Maven cache by default !) :
+
+    rm -r %HOME%\.groovy\grapes\com.cloudbees\groovy-cps %HOME%\.m2\repository\com\cloudbees\groovy-cps
+
+Rerunning a script with increased logging:
+
+    set CLASSPATH=src
+    groovy -Dgroovy.grape.report.downloads=true -Divy.message.logger.level=3 script.groovy
+
+Look for strings like "downloading https://jcenter.bintray.com/com/cloudbees/groovy-cps/1.12/groovy-cps-1.12.jar".
+
+To disable default groovy resolvers (like jcenter), you need to create a [`~/.groovy/grapeConfig.xml`](http://docs.groovy-lang.org/latest/html/documentation/grape.html#Grape-CustomizeIvysettings) file based on [the default one](https://github.com/apache/groovy/blob/master/src/resources/groovy/grape/defaultGrapeConfig.xml), then remove the resolver entries you don't want.
+
+
 /***********
 * Jenkins 2
 ************/
@@ -101,6 +119,9 @@ def httpGetJson(Map args) { // using Groovy HTTPBuilder
 
     javax.net.ssl.SSLException: java.lang.RuntimeException: Could not generate DH keypair.
     -> passer en Java 8
+
+    map.keySet() as List // to make it Serializable
+    groovy.json.JsonSlurperClassic() // instead of basic JsonSlurper : http://stackoverflow.com/a/38439681/636849
 
 
 /*******************************

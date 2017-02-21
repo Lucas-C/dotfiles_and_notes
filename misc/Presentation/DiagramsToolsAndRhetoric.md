@@ -11,7 +11,7 @@
 # Tools
 
 - `md2html` (based on `markdown-it` that implements CommonMark)
-- Reveal.js
+- Reveal.js & Impress.js
 - [MathJax JS](https://www.mathjax.org/)
 - [draw.io](https://www.draw.io/)
 - [asciiflow](http://asciiflow.com/#Draw)

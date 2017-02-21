@@ -45,6 +45,7 @@ Software Development Best Practices
 - [InternetScaleServicesChecklist](https://gist.github.com/acolyer/95ef23802803cb8b4eb5)
 - [WhatsWrongWithGit?AConceptualDesignAnalysis](https://blog.acolyer.org/2016/10/24/whats-wrong-with-git-a-conceptual-design-analysis/)
 - [Simple Standard Service Endpoints](https://github.com/beamly/SE4/blob/master/SE4.md)
+- [DesignPatternForHumans](https://github.com/kamranahmedse/design-patterns-for-humans)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 

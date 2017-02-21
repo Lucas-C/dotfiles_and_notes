@@ -648,8 +648,7 @@ yes | pv -btr | ssh $host 'cat > /dev/null' # same through SSH
 
 grep -Eo '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' # grep an IP
 
-# Find wireless driver
-lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}')
+lspci -vv -s $(lspci | grep -i wireless | awk '{print $1}') # Find wireless driver
 
 # Non portable tools
 slurm, iptraf, ntop, iftop, nethogs # this last one can show per-process bandwidth used
