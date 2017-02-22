@@ -101,6 +101,15 @@ Look for strings like "downloading https://jcenter.bintray.com/com/cloudbees/gro
 To disable default groovy resolvers (like jcenter), you need to create a [`~/.groovy/grapeConfig.xml`](http://docs.groovy-lang.org/latest/html/documentation/grape.html#Grape-CustomizeIvysettings) file based on [the default one](https://github.com/apache/groovy/blob/master/src/resources/groovy/grape/defaultGrapeConfig.xml), then remove the resolver entries you don't want.
 
 
+/********
+* Spock *
+********/
+http://jakubdziworski.github.io/java/groovy/spock/2016/05/14/spock-cheatsheet.html
+https://stackoverflow.com/questions/37076581/create-helper-method-in-spock-test-that-will-not-be-run-as-a-test#
+
+    gradle -Dtest.single=HesperidesUtilsIntegrationSpec test
+
+
 /***********
 * Jenkins 2
 ************/
@@ -111,7 +120,7 @@ To disable default groovy resolvers (like jcenter), you need to create a [`~/.gr
 
     def outLog (msg) {
         if (jenkinsWorkflowScript) {
-            jenkinsWorkflowScript.invokeMethod 'echo', [msg] as Object[]
+            jenkinsWorkflowScript.steps.echo msg
         } else {
             System.out.println msg
         }

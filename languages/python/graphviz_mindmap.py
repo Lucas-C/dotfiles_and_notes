@@ -1,7 +1,21 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
-# INSTALL: pip install pydot
-# -> note: this dependancy could easily be removed as generating a .dot graph from a GraphNode and calling twopi should be straightfoward
+# INSTALL: apt install graphviz / apt-cyg install graphviz (Cygwin)
+#          pip install pydot
+# -> note: this dependancy could easily be removed as generating a .dot graph from a GraphNode
+#          and calling twopi should be straightfoward, and allow to display stderr warnings like 'Pango-WARNING **: failed to choose a font, expect ugly output'
+# CYGWIN: I had an issue where symptoms were: no characaters rendered, only squares; a Pango-WARNING in twopi stderr; fc-list output empty
+# -> solution was to configure fontconfig to use the Windows fonts:
+#         apt-cyg install xorg-x11-fonts-Type1 fontconfig
+#         cat <<EOF >/etc/fonts/local.conf
+#         <?xml version="1.0"?>
+#         <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+#         <fontconfig>
+#             <dir>/c/Windows/Fonts</dir>
+#         </fontconfig>
+#         EOF
+#         fc-cache --verbose
+#         fc-list
 # POTENTIAL EXTRA FEATURES: support for basic bold/italic Markdown markup: http://stackoverflow.com/a/30200953/636849
 
 import argparse, pydot, shutil, subprocess, sys
@@ -24,6 +38,7 @@ def main(argv):
 def parse_args(argv):
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter, fromfile_prefix_chars='@')
     parser.add_argument('--layout', default='twopi', choices=('dot', 'fdp', 'neato', 'sfdp', 'twopi'), help=' ')
+    parser.add_argument('--font', default='arial')
     parser.add_argument('--gen-dot-file', action='store_true')
     parser.add_argument('--root-label')
     parser.add_argument('--self-test', action='store_true', help='Test graph parsing on a file or with builtin unit tests')
@@ -31,11 +46,11 @@ def parse_args(argv):
     return parser.parse_args(argv)
 
 
-def create_solarized_mindmap_from_file(input_filepath, layout='twopi', gen_dot_file=True, root_label=None):
+def create_solarized_mindmap_from_file(input_filepath, layout='twopi', font='arial', gen_dot_file=True, root_label=None):
     with open(input_filepath) as txt_file:
         text = txt_file.read()
     outfile_basename = input_filepath.rsplit('.', 1)[0]
-    theme = DarkSolarizedTheme(layout=layout)
+    theme = DarkSolarizedTheme(layout=layout, font=font)
     graph = parse_graph(text, root_label=root_label)
     create_mindmap(graph, outfile_basename, theme=theme, gen_dot_file=gen_dot_file)
 
@@ -179,12 +194,12 @@ class DarkSolarizedTheme:
 
     EDGE_COLORS = [YELLOW, ORANGE, VIOLET, RED, BLUE, MAGENTA, CYAN, GREEN, GREY]
 
-    def __init__(self, layout):
+    def __init__(self, layout, font):
         self.graph_style = dict(
             layout = layout,
             overlap = 'false',
             splines = 'curved',
-            fontname = 'helvetica',
+            fontname = font,
             bgcolor = self.DARKGREYBLUE,
         )
 
