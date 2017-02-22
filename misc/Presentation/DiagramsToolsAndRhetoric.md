@@ -1,6 +1,8 @@
 # Diagrams
 
+- [ditaa](http://ditaa.sourceforge.net/) :
 - [knsv/mermaid](https://github.com/knsv/mermaid) : diagrams and flowcharts from markdown-like syntax
+- [WebSequenceDiagrams](https://www.websequencediagrams.com/embedding.html) : recommended by the IETF
 - [mapio/GraphvizAnim](https://github.com/mapio/GraphvizAnim) : animated graph visualizations, based on graphviz
 
 ## Histograms

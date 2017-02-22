@@ -75,6 +75,10 @@ http://pwnwiki.io/#!presence/windows/blind.md # read common Windows files to dis
 
 # Other
 
+## Frameworks
+Metasploit
+w3af
+
 ## Dependency checking
 maven check deps: https://blog.lanyonm.org/articles/2015/12/22/continuous-security-owasp-java-vulnerability-check.html
 
