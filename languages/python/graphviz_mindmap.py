@@ -37,19 +37,20 @@ def parse_args(argv):
     parser.add_argument('--layout', default='twopi', choices=('dot', 'fdp', 'neato', 'sfdp', 'twopi'), help=' ')
     parser.add_argument('--font', default='arial')
     parser.add_argument('--gen-dot-file', action='store_true')
+    parser.add_argument('--hide-branches-from-id', type=int)
     parser.add_argument('--root-label')
     parser.add_argument('--self-test', action='store_true', help='Test graph parsing on a file or with builtin unit tests')
     parser.add_argument('input_filepath')
     return parser.parse_args(argv)
 
 
-def create_solarized_mindmap_from_file(input_filepath, layout='twopi', font='arial', gen_dot_file=False, root_label=None):
+def create_solarized_mindmap_from_file(input_filepath, layout='twopi', font='arial', hide_branches_from_id=None, gen_dot_file=False, root_label=None):
     with open(input_filepath) as txt_file:
         text = txt_file.read()
     outfile_basename = input_filepath.rsplit('.', 1)[0]
     theme = DarkSolarizedTheme(layout=layout, font=font)
     graph = parse_graph(text, root_label=root_label)
-    create_mindmap(graph, outfile_basename, theme=theme, gen_dot_file=gen_dot_file)
+    create_mindmap(graph, outfile_basename, theme=theme, hide_branches_from_id=hide_branches_from_id, gen_dot_file=gen_dot_file)
 
 
 def parse_graph(text, root_label=None):
@@ -174,15 +175,15 @@ class GraphNode:
             yield from child
 
 
-def create_mindmap(graph, outfile_basename, theme, gen_dot_file=False):
+def create_mindmap(graph, outfile_basename, theme, hide_branches_from_id=None, gen_dot_file=False):
     graph_height = graph.height
     g = pydot.Dot(root=graph.content, **theme.graph_style)
     for node in graph:
         content = node.content if ':' not in node.content else '"{}"'.format(node.content) # avoid erroneous pydot 'port' detection
-        g.add_node(pydot.Node(content, **theme.node_style(node, graph_height)))
+        g.add_node(pydot.Node(content, **theme.node_style(node, graph_height, hide_branches_from_id)))
         if node.parent:
             parent_content = node.parent.content if ':' not in node.parent.content else '"{}"'.format(node.parent.content)
-            g.add_edge(pydot.Edge(parent_content, content, **theme.edge_style(node, graph_height)))
+            g.add_edge(pydot.Edge(parent_content, content, **theme.edge_style(node, graph_height, hide_branches_from_id)))
     if gen_dot_file:
         dot_outfile = '{}.dot'.format(outfile_basename)
         print('Generating', dot_outfile, file=sys.stderr)
@@ -216,20 +217,24 @@ class DarkSolarizedTheme:
             bgcolor = self.DARKGREYBLUE,
         )
 
-    def edge_style(self, src_node, graph_height):
+    def edge_style(self, dest_node, graph_height, hide_branches_from_id=None):
+        color = self.graph_style['bgcolor'] if hide_branches_from_id is not None and dest_node.branch_id >= hide_branches_from_id \
+                                            else self.EDGE_COLORS[dest_node.branch_id % len(self.EDGE_COLORS)]
         return dict(
-            color=self.EDGE_COLORS[src_node.branch_id % len(self.EDGE_COLORS)],
+            color=color,
             dir='none',
-            penwidth=2 * (2 + graph_height - src_node.depth),
+            penwidth=2 * (2 + graph_height - dest_node.depth),
         )
 
-    def node_style(self, node, graph_height):
+    def node_style(self, node, graph_height, hide_branches_from_id=None):
+        color = self.graph_style['bgcolor'] if hide_branches_from_id is not None and node.branch_id >= hide_branches_from_id \
+                                            else 'white'
         label = node.content.strip() if node.content and node.content != node.ROOT_DEFAULT_NAME else ''
         return dict(
             group=node.branch_id,
             shape='plaintext',
             label=label,
-            fontcolor='white',
+            fontcolor=color,
             fontsize=2 * (16 + graph_height - node.depth),
             fontname=self.graph_style['fontname'], # not inherited by default
         )
