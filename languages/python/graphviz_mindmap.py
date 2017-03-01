@@ -45,6 +45,7 @@ def parse_args(argv):
 
 
 def create_solarized_mindmap_from_file(input_filepath, layout='twopi', font='arial', hide_branches_from_id=None, gen_dot_file=False, root_label=None):
+    sys.setdefaultencoding('utf-8')  # needed to print 'Duplicate content' warning without error and to bypass pydot Dot.write default raw formatting on line 1769
     with open(input_filepath) as txt_file:
         text = txt_file.read()
     outfile_basename = input_filepath.rsplit('.', 1)[0]
