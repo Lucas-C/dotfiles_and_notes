@@ -82,6 +82,7 @@ https://github.com/jenkinsci/workflow-cps-global-lib-plugin
 - cf. [Best practices for writing Dockerfiles]
 - [`clair`](https://github.com/coreos/clair) : Vulnerability Static Analysis for Containers
 - use the Calico network plugin for Docker instead of the native Docker "overlay" : https://www.percona.com/blog/2016/08/03/testing-docker-multi-host-network-performance/
+- [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !
 
 ```
 docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)

@@ -544,10 +544,6 @@ else:
 (import [sh [cat grep wc]]) # in Hy, aka Python with Lisp syntax
 (-> (cat "/usr/share/dict/words") (grep "-E" "^hy") (wc "-l"))
 
-pywin32 # Windows API, e.g. win32crypt.CryptUnprotectData - cf. http://docs.activestate.com/activepython/2.6/pywin32/PyWin32.HTML / http://timgolden.me.uk/pywin32-docs/PyWin32.html
-n1nj4sec/memorpy  # search/edit Windows programs memory
-pyhooked # pure Python hotkey hook: react on specific mouse/keyboard events
-
 
 """"""""""""""""""""""""""
 "" Libs & tools for DEVS !
@@ -857,7 +853,7 @@ Nuitka # converts Python code into C++ code (targetting VisualStudio, MinGW or C
 ctypes.cdll.LoadLibrary("libc.so.6")
 libc = ctypes.CDLL("libc.so.6")
 libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
-pefile # to read Portable Executable files, e.g. Windows .dll under
+pefile # to read Portable Executable files, e.g. Windows .dll
 
 cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
 
@@ -936,6 +932,7 @@ antiboredom/audiogrep
 
 neozhaoliang/pywonderland/blob/master/src/maze/maze.py # example of GIF generation
 cairo # graphics library outputting .ps .pdf .svg & more
+pyPdf
 wand (ImageMagick binding), pillow > pil # Python Image Library
 exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags
 python-thumbnails # generates images thumbnails, e.g. for your website
@@ -1057,7 +1054,6 @@ def passthrough_http_proxy(http_proxy, real_request_url):
         return response.text
 wget # equivalent lib to the command-line tool
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
-kevin1024/vcrpy # record / replay HTTP interactions
 
 superelasticsearch # provide iterated search & simpler bulk API
 ramses # API generation framework: based on RAML, ElasticSearch & Pyramid -> https://realpython.com/blog/python/create-a-rest-api-in-minutes-with-pyramid-and-ramses/ & https://www.elastic.co/blog/make-an-elasticsearch-powered-rest-api-for-any-data-with-ramses
@@ -1110,16 +1106,32 @@ jstasiak/python-zeroconf  # multicast DNS service discovery - usage example: nil
 locust # user load testing simulating millions of simultaneous users : Alt: ab (Apache Benchmarking), tarekziade/boom, wg/wrk
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
+IPy(ipsrc).iptype() == 'PRIVATE' # check ranges 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255 & 192.168.0.0–192.168.255.255
 pycares # asynchronous DNS resolution
-scapy # packet injection/manipulation for many network protocols
+scapy # packet injection/manipulation for many network protocols - Alt: dpkt, can read .pcap files
+pypcap # catpure network traffic
+kevin1024/vcrpy # record / replay HTTP interactions
 impacket # programmatic access to the packets and for some protocols: IP, TCP, UDP, ICMP, IGMP, ARP, NMB, DCE/RPC, SMB1-3 and MS-DCERPC
 wifi # wrapper around iwlist and /etc/network/interfaces
-danmcinerney/wifijammer # How to kick everyone around you off wifi with python
 tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
 
+
+""""""""""""""""""""""""
+"" Hacking & Forensic ""
+""""""""""""""""""""""""
+danmcinerney/wifijammer # How to kick everyone around you off wifi with python
 Patator # Multi-threaded Service & URL Brute Forcing Tool
+
+pywin32 # Windows API, e.g. win32crypt.CryptUnprotectData - cf. http://docs.activestate.com/activepython/2.6/pywin32/PyWin32.HTML / http://timgolden.me.uk/pywin32-docs/PyWin32.html
+n1nj4sec/memorpy # search/edit Windows programs memory
+
+# Violent Python: A Cookbook for Hackers, Forensic Analysts, Penetration Testers and Security Engineers
+python-nmap # port scanner
+Pexpect # interact with programs based on expected stdout outputs - Include pxssh to interact with ssh: login()/logout()/prompt()
+_winreg # access to the Windows registry
+
 
 
 """"""""
@@ -1149,7 +1161,6 @@ djangocolors_formatter.py # one-file recipe
 django-debug-toolbar
 django-toolbelt
 
-stripe # payments app
 Tastypie # webservice framework to creating REST-style APIs, e.g. for an autocompletion service
 factoryboy # > fixtures for DB testing (personnal opinion: several fixtures can sometimes be simpler AND avoid dangerous over-mocking)
 
@@ -1179,6 +1190,7 @@ TEMPLATE_STRING_IF_INVALID = InvalidVarException()
 webbrowser.open_new_tab # Firefox/Opera/Chrome instrumentation
 fmoo/python-editor # programmatically open a text editor, captures the result
 pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff
+pyhooked # pure Python hotkey hook: react on specific mouse/keyboard events
 
 filemagic, ahupp/python-magic # interfaces to libmagic file type identification, aka the "file" command under Unix : it identifies file types by checking their headers according to a predefined list of file types
 
