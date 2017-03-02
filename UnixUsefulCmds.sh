@@ -468,7 +468,7 @@ jq '.dict|with_entries(select(.value.date|contains("29 Jul 2016")))' < $json_fil
 jq input_filename,input_line_number *.json
 ls $dir | jq --raw-input --slurp 'split("\n")[:-1]' # build JSON array from a mutlilines non-JSON input
 q # command line tool that allows direct execution of SQL-like queries on CSVs/TSVs
-plainas/tq, pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
+plainas/tq, ericchiang/pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii
 txt2man -h 2>&1 | txt2man -T # make 'man' page from txt file
@@ -981,6 +981,7 @@ python2 $code/Chromagnon/chromagnonCache.py Cache -o ~/browsable_cache
 cd ~/browsable_cache
 ls ???????? | wc -l
 sed -n 's/.*\(Key<\/b>: http[^<]*\).*/\1\n/p' ???????? > urls
+Simulate throttling: Network tab > Regular 3G
 
 
 g@g@g@g@g@g@g@g@g

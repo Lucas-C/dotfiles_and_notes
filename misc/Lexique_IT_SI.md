@@ -10,6 +10,7 @@ CAF = Capacité A Faire
 CQRS = CommandQuerySeparation
 CRUD = Create, Read, Update, Delete -> opérations de base pour la persistance des données (ex: en BDD) - Also: SCRUDS
 CSAT = Customer Satisfaction
+CTA = Click To Action
 DAO = Data Access Object
 DBA = DataBase Administrator
 DSI = Direction/Directeur des Systèmes d'Information

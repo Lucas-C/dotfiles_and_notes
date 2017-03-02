@@ -484,6 +484,8 @@ kachayev/fn.py
 
 JulienPalard/Pipe # fib() | where(lambda x: x % 2 == 0) | take_while(lambda x: x < 4000000) | add
 
+visitor # tiny library to facilitate visitor pattern implementation
+
 
 """""""""""""""""""""""""
 "" Subprocesses & shell
@@ -500,6 +502,7 @@ subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT, inp
 kennethreitz/delegator.py # handy subprocesses lib
 
 platform # python version, OS / machine / proc info...
+appdirs # determine appropriate platform-specific user data/config/cache/logs directory paths
 resource # limit a process resources: SPU time, heap size, stack size... Example of context manager to limit memory usage: http://stackoverflow.com/a/14024198
 print('Memory usage: {} (kb)'.format(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))  # get process memory usage
 
@@ -596,7 +599,7 @@ coverage run --source=path/to/python/src -m any_module_eg_behave
 coverage report # ASCII report - Alt: html, xml
 
 liftoff/pyminifier # code minifier, obfuscator, and compressor
-pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried)
+pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried), google/yapf
 pyreverse # UML diagrams, integrated in pylint
 
 # Security
@@ -1071,6 +1074,7 @@ Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which pr
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
 + web.py # very old now, written by Aaron Swarz, used by Yandex
+WTForms # forms validation
 pyswagger # generates a Python client from a JSON formatted Swagger (Open API) schema
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
 # Basic request parsing:
@@ -1189,6 +1193,7 @@ paramiko # remote SSH/SFTP connexion
 scales # metrics for Python, send data points to Graphite - Pros: inc. with-context to measure latency, metering-rates 1/5/15min, PmfStat => stdev, p99 - Cons: not actively maintained, its code uses lots of global state, there is test code in its source, a thread launched at import time and its documentation is incomplete
 
 pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR
+pycparser # C language code parser
 
 @retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation - Alt: retrace
 
