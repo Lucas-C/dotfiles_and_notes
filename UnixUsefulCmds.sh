@@ -486,7 +486,8 @@ testdisk & photorec # Files recovery tools
 ls | cut -d . -f 1 | funiq # Sum up kind of files without ext
 
 find -D rates ... # details success rates of each match logic term
-find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files on disk IGNORING other partitions - One can safely ignore /proc/kcore - Alt: man agedu (-s $dir then -w / -t) ; + all tools listed in http://dev.yorhel.nl/ncdu + ruiqi/wcleaner + paul-nechifor/ohmu
+find / -xdev -size +100M -exec ls -lh {} \; # find big/largest files on disk IGNORING other partitions - One can safely ignore /proc/kcore
+agedu -s $dir #then -w / -t - Alt: ncdu + all tools listed in http://dev.yorhel.nl/ncdu + ruiqi/wcleaner + paul-nechifor/ohmu
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long' - Alt to mtime: -newer $than_this_file

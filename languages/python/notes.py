@@ -986,6 +986,7 @@ print(server.system.getCapabilities())  # Also: .listMethods() .methodSignature(
 
 rtfd/CommonMark-py # Markdown parser
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
+mozilla/bleach # HTML sanitizing library that escapes or strips markup and attributes
 tinycss2 > tinycss > cssutils  # CSS parsers
 hickford/MechanicalSoup
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
@@ -1126,6 +1127,9 @@ Patator # Multi-threaded Service & URL Brute Forcing Tool
 
 pywin32 # Windows API, e.g. win32crypt.CryptUnprotectData - cf. http://docs.activestate.com/activepython/2.6/pywin32/PyWin32.HTML / http://timgolden.me.uk/pywin32-docs/PyWin32.html
 n1nj4sec/memorpy # search/edit Windows programs memory
+
+Gallopsled/pwntools # CTF framework and exploit development library
+angr # binary analysis platform
 
 # Violent Python: A Cookbook for Hackers, Forensic Analysts, Penetration Testers and Security Engineers
 python-nmap # port scanner
