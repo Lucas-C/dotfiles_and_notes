@@ -14,6 +14,3 @@ cat $(sed -n '/<includes>/,/<\/includes>/{/<includes>/d;/<\/includes>/d;p}' ../.
 cd -
 sed -i '$s~.*~$.ajax({url: "js/mindplot-bundle.js", dataType: "script", cache: true});~' wise-editor/src/main/webapp/js/editor.js
 
-# Launching web server to serve static files
-python3 -m http.server
-
