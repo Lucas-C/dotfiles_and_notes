@@ -7,6 +7,8 @@ rsync --verbose --recursive --files-from=rsync.include --copy-links wisemapping-
 
 # Allowing for query params
 sed -i "s/mapId = 'welcome'/mapId = location.search.substr(1) || 'welcome'/" wise-editor/src/main/webapp/html/viewmode.html
+# Removing mindmap from local storage to avoid caching issues
+sed -i '/persistence =/a \            persistence.discardChanges(mapId);' wise-editor/src/main/webapp/html/viewmode.html
 
 # Fixing ugly pom.xml-based JS loading
 cd mindplot/src/main/javascript
