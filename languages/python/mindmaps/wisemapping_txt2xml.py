@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 # RUN UNIT TESTS: ./txt2xml.py --self-test DUMMY
+# OPTIONAL FEATURES TO IMPLEMENT: support for multiple icons
 
 import argparse, re, sys
 from collections import namedtuple
@@ -15,11 +16,11 @@ LINE_PATTERN = (
     '\[(?P<link_text>[^][]*)\]' # Markdown link text
     '\((?P<link_url>[^)]+)\)'  # Markdown link URL
   ')|(' # or
-    '(?P<is_italic>__)?'
-    '(?P<is_bold>\*\*)?'
+    '(?P<is_italic>(__)?)'
+    '(?P<is_bold>(\*\*)?)'
     '(?P<bare_text>.*?)' # bare text, non-greedy wildcard
-    '(\*\*)?'
-    '(__)?'
+    '(?P=is_bold)'
+    '(?P=is_italic)'
   ')'
 ')'
 '\s*' # extra optional whitespaces
@@ -111,6 +112,8 @@ def self_test():
             == Topic(text='toto', link=None, icon=None, attrs='fontStyle=";;;bold;italic;"')
     assert topic_from_line('**__toto__**') \
             == Topic(text='__toto__', link=None, icon=None, attrs='fontStyle=";;;bold;;"')
+    assert topic_from_line('toto !icon=ahoy') \
+            == Topic(text='toto', link=None, icon='ahoy', attrs='')
     print('All tests passed')
 
 
