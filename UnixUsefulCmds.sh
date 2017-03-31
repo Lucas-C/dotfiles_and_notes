@@ -973,6 +973,7 @@ export NSPR_LOG_FILE=/tmp/firefox_http.log
 jq '.roots.bookmark_bar.children[]|select(.type=="folder" and .name=="ToCheck").children[]|{name,url}' D:\Users\lucas_cimon\AppData\Local\Google\Chrome\User Data\Default\Bookmarks
 sqlite3 "$(cygpath $LOCALAPPDATA)/Google/Chrome/User Data/Default/databases/chrome-extension_loljledaigphbcpfhfmgopdkppkifgno_0/"* 'select * from fields;' # Inspect Lazarus form recovery DB
 chrome://system/ -> mem_usage / tab
+chrome-extension://fngmhnnpilhplaeedifhccceomclgfbg/manifest.json # Alst, in Extensions folder: for ext in ?????*; do echo $ext; jq -r .name $ext/*/manifest.json; done
 CTRL + SHIFT + F : search across all files
 debug(fctName) # launch debugger when fctName is called
 chrome://about # list all Chrome internal pages

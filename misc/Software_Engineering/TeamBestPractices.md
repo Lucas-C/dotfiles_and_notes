@@ -147,15 +147,6 @@ cf. [RetrospectiveWiki]
 - frequently determine operational excellence goals: eliminate the top root cause of tickets, create a runbook/dashboard for a service...
 - CMs: cf. [IT Change Management]
 - event management: cf. [Event Management]
-- post-mortems
-  * trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
-  * PIE = Probability of recurrence * Impact of recurrence * Ease of addressing - cf. [PostMortemsPIEIndicator]
-  * planning for a future where we're as stupid as we are today [5WhysWithHumansNotRobots]
-  * if we made an incremental improvment in area A or area B, which would prevent the broadest class of problems going ahead ? [5WhysWithHumansNotRobots]
-  * human error is NEVER a root cause [OnFindingRootCauses] : You can’t fix people, but you can fix systems and processes to better support them.
-Learning is the goal during post-mortems (cf. [Learning Through Blameless Reviews] for a nice quick slideshow) + questions examples : [InfiniteHows]
-  * share your postmortem in an accessible, standardized way : [HoneYourProductionIncidentPostmortems] & [EtsyDebriefingFacilitationGuide]
-  * tooling: https://github.com/etsy/morgue : PHP based web application to help manage your postmortems, made by Etsy
 - use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err or Zulip for Python, cog for Slack / HipChat)
 - useful questions to ask yourself when designing an alarms system : [Alarm design: From nuclear power to WebOps]
 - [Climbing out of the software death spiral] -> either :
@@ -164,6 +155,29 @@ Learning is the goal during post-mortems (cf. [Learning Through Blameless Review
     * new dev "work queue"
 - [Google SRE] : "no SRE could spent more than 50 percent of his or her time on traditional operations as opposed to coding"
 - keep Ops playbooks
+
+### Post-mortems
+- trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
+- PIE = Probability of recurrence * Impact of recurrence * Ease of addressing - cf. [PostMortemsPIEIndicator]
+- planning for a future where we're as stupid as we are today [5WhysWithHumansNotRobots]
+- if we made an incremental improvment in area A or area B, which would prevent the broadest class of problems going ahead ? [5WhysWithHumansNotRobots]
+- human error is NEVER a root cause [OnFindingRootCauses] : You can’t fix people, but you can fix systems and processes to better support them.
+Learning is the goal during post-mortems (cf. [Learning Through Blameless Reviews] for a nice quick slideshow) + questions examples : [InfiniteHows]
+- share your postmortem in an accessible, standardized way : [HoneYourProductionIncidentPostmortems] & [EtsyDebriefingFacilitationGuide]
+- tooling: https://github.com/etsy/morgue : PHP based web application to help manage your postmortems, made by Etsy
+- FTA = Fault Tree method = Arbre des défaillances : ~ méthode des "5 whys" avec une mindmap
+DOs:
+- Ne discuter que d'états, de faits et d’enchaînements d'événements
+- Agréger au maximum les informations
+- Restreindre le périmètre de l'événement de départ
+- S'arrêter de descendre dans une branche dès qu'on a plus de prise sur l'événement concerné
+- Un arbre pour les gros incidents coûteux
+DON'Ts:
+- Parler de solutions. Discuter de pistes d'analyse.
+- Etre pointilleux et chercher à détailler au maximum
+- Partir d'une défaillance trop générale
+- Modéliser ce qui n'est pas de son ressort
+- En faire à chaque fois
 
 ## Deployments
 [Immutable Server](http://martinfowler.com/bliki/ImmutableServer.html) pattern.

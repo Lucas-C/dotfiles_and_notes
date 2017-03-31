@@ -24,6 +24,8 @@ Instead, you can perform XML changes to this file, while Notepad++ is shut down,
 
 # Tips & tricks
 
+If you initially installed an old NPP version, manually remove `stylers.xml` and `langs.xml` to use the new `javascript.js` lexer: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/2133#issuecomment-236373170
+
 Setting > Style Configure > select Javascript > add "json" User ext
 
 Edit > Line Operations > Sort Lines in Ascending / Descending Order
@@ -34,3 +36,14 @@ Edit > Line Operations > Sort Lines in Ascending / Descending Order
 ## Plugins
 
 - XML Tools -> can validate XML
+
+## Under the hood
+
+Link between a theme `LexerType name` and its lexer, e.g. `SCLEX_CPP` for `javascript.js` : https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/ScitillaComponent/ScintillaEditView.cpp#L142
+
+C++ / C / Java / Javascript lexer: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/scintilla/lexers/LexCPP.cxx
+
+`SCE_C` indices definitions to use as `WordsStyle styleID` : https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/scintilla/include/SciLexer.h#L166
+
+Default `javascript.js` keywords: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/langs.model.xml#L130
+`type2` keywords are not supported, and neither `require`, `module`, `exports`... cf. https://github.com/notepad-plus-plus/notepad-plus-plus/issues/3117

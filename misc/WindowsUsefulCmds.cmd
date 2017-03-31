@@ -31,6 +31,10 @@ Cmder conf file: %CMDER_ROOT%\vendor\init.bat
 
 @set PATH=%PATH%;%APPDATA%\npm
 
+:: config\aliases
+l=ls --sort=extension --classify --dereference --color=always $*
+ll=ls --sort=extension --classify --dereference --color=always -l --almost-all --human-readable $*
+
 
 <CMD>+Left/Right &:: Vertically maximize a windows on the side
 <CTRL>+<ALT>+<UP> &:: Invert screen upside down
@@ -163,6 +167,7 @@ How to bypass the PowerShell execution policy : https://blog.netspi.com/15-ways-
 ::::::::::
 :: Batch
 ::::::::::
+:: Some Batch internals horrors: http://blog.nullspace.io/batch.html
 @echo off
 title Whatever &:: sets the terminal window title
 cls &:: clear console screan

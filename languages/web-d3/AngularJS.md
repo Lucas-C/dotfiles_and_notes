@@ -23,6 +23,10 @@ And in `app.module.ts` :
         providers: [AppConfig, { provide: APP_INITIALIZER, useFactory: (config: AppConfig) => () => config.load(), deps: [AppConfig], multi: true }]
     })
 
+Console debug:
+
+    ng.probe($0).componentInstance
+
 
 # Angular 1
 

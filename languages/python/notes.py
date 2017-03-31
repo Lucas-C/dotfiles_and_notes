@@ -711,6 +711,7 @@ pdbpp # prettier PDB
 google/pyringe # when python itself crashes, gets stuck in some C extension, or you want to inspect data without stopping a program
 import rpdb; rpdb.set_trace() # remote debugging - Alt: python-web-pdb
 from pdb_clone import pdb; pdb.set_trace_remote() # then pdb-attach : remote-debugging - Also: pdbhandler.register() to enter at any time a running program
+pyrasite # attach to a running Python process, e.g. https://gist.github.com/simonw/8aa492e59265c1a021f5c5618f9e6b12
 boltons.debugutils.pdb_on_signal
 
 from pprint import pprint # indent=4
@@ -950,6 +951,7 @@ wxPython # port of C++ wxWidgets
 
 jlsutherland/doc2text # OCR poorly scanned PDFs in bulk
 espeak-ng # open source speech synthesizer supporting 7+ languages, based on the eSpeak engine
+Uberi/speech_recognition # speech recognition with support for CMU Sphinx / Google Speech Recognition / Google Cloud Speech API / Wit.ai / Microsoft Bing Voice Recognition / Houndify API / IBM Speech to Text
 
 
 """"""""""""""""""""""""""""""""""""""
@@ -1028,6 +1030,7 @@ data = json.dumps(payload).encode('utf-8')
 urllib.request.urlopen(urllib.request.Request(url, method='PUT', headers=headers, data=data),
                        context=ssl._create_unverified_context())
 requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also:
+    kennethreitz/grequests # Requests with Gevent to make asynchronous HTTP Requests easily
     aiohttp # for asyncio-based equivalent
     requests-futures # for asynchronous (non-blocking) HTTP requests
     txrequests # Twistted asynchronous requests

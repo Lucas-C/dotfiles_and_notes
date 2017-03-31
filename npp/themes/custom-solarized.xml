@@ -166,19 +166,23 @@
             <WordsStyle name="COMMENTLINE" styleID="125" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
             <WordsStyle name="OPERATOR" styleID="127" fgColor="859900" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
         </LexerType>
-        <LexerType name="javascript" desc="Javascript" ext="json">
-            <WordsStyle name="DEFAULT" styleID="41" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="NUMBER" styleID="45" fgColor="D33682" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="WORD" styleID="46" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="KEYWORD" styleID="47" fgColor="859900" bgColor="042029" fontName="" fontStyle="0" fontSize="10" keywordClass="instre1" />
-            <WordsStyle name="DOUBLESTRING" styleID="48" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="SINGLESTRING" styleID="49" fgColor="3EABA0" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="SYMBOLS" styleID="50" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="STRINGEOL" styleID="51" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="REGEX" styleID="52" fgColor="D30102" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="COMMENT" styleID="42" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="COMMENTLINE" styleID="43" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
-            <WordsStyle name="COMMENTDOC" styleID="44" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
+        <LexerType name="javascript.js" desc="JavaScript" ext="">
+            <WordsStyle name="IDENTIFIER" styleID="11" fgColor="839496" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="INSTRUCTION WORD" styleID="5" fgColor="268BD2" bgColor="042029" fontName="" fontStyle="1" fontSize="" keywordClass="instre1" />
+            <WordsStyle name="TYPE WORD" styleID="16" fgColor="B58900" bgColor="042029" fontName="" fontStyle="1" fontSize="" keywordClass="type1">require module exports</WordsStyle>
+            <WordsStyle name="WINDOW INSTRUCTION" styleID="19" fgColor="D33682" bgColor="042029" fontName="" fontStyle="0" fontSize="" keywordClass="instre2">onblur onclick onerror onfocus onkeydown onkeypress onkeyup onmouseover onload onmouseup onmousedown onsubmit</WordsStyle>
+            <WordsStyle name="NUMBER" styleID="4" fgColor="DC322F" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="6" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRINGRAW" styleID="20" fgColor="228174" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="CHARACTER" styleID="7" fgColor="2AA198" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="10" fgColor="CB4B16" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="REGEX" styleID="14" fgColor="2AA198" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="586E75" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="586E75" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC" styleID="3" fgColor="586E75" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT LINE DOC" styleID="15" fgColor="586E75" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT DOC KEYWORD" styleID="17" fgColor="586E75" bgColor="042029" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="COMMENT DOC KEYWORD ERROR" styleID="18" fgColor="586E75" bgColor="042029" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="asp" desc="asp" ext="asp">
             <WordsStyle name="DEFAULT" styleID="81" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />

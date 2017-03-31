@@ -46,6 +46,8 @@ Software Development Best Practices
 - [WhatsWrongWithGit?AConceptualDesignAnalysis](https://blog.acolyer.org/2016/10/24/whats-wrong-with-git-a-conceptual-design-analysis/)
 - [Simple Standard Service Endpoints](https://github.com/beamly/SE4/blob/master/SE4.md)
 - [DesignPatternForHumans](https://github.com/kamranahmedse/design-patterns-for-humans)
+- [SystemDesignPrimer](https://github.com/donnemartin/system-design-primer)
+- [CommandQueryResponsibilitySegregation](http://blog.eleven-labs.com/en/cqrs-pattern-2/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -100,7 +102,7 @@ On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/14
 
 On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult], [MicroservicesPleaseDont] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
 
-CQRS = CommandQuerySeparation : split the code & logic between the Query path (DB -> UI) & Command path (UI -> DB)
+CQRS pattern = [CommandQueryResponsibilitySegregation] : split the code & logic between the Query path (DB -> UI) & Command path (UI -> DB)
 
 POLA = Principle of least astonishment (or surprise => POLS) : "People are part of the system. The design should match the user's experience, expectations, and mental models.
     If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature."

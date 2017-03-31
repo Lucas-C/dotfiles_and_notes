@@ -3,7 +3,7 @@ Statistics & benchmarking
 
 Tools for server banchmarking aka stress / load / performances testing: cf. bookmarks
 
-    ab -n5000 -c50 "http://path/to/app?params" # Apache Benchmarking - Alt: tarekziade/boom, locust, wg/wrk, JoeDog/siege
+    ab -n5000 -c50 "http://path/to/app?params" # Apache Benchmarking - Alt: tarekziade/boom (Python), locustio/locust (Python), wg/wrk (C), JoeDog/siege (C), shoreditch-ops/artillery (NodeJS)
 
 # REPEAT your tests !
 

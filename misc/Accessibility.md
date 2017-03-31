@@ -20,6 +20,13 @@ ATTENTION <div> != <p> !!
 FAITES des liens d'accès rapide.
 Ils doivent etre VISIBLE (à minima au focus) : ils ne sont pas destinés aux aveugles
 
+Quick check WEBAIM based [Wave](http://wave.webaim.org)
+
+
+## Libs
+
+https://github.com/access42/AccessTooltip : JS function to make the title attribute accessible for keyboard users
+
 
 ## Outils
 
@@ -39,6 +46,7 @@ Other tools:
 - [Firefox WebDevelopper](https://addons.mozilla.org/fr/firefox/addon/web-developer/)
 - [Firefox addon Heading Map](https://addons.mozilla.org/fr/firefox/addon/headingsmap/)
 - [Accessibility Viewer](https://github.com/ThePacielloGroup/aviewer/releases) (The Paciello Group)
+- [WCAG-Zoo](https://wcag-zoo.readthedocs.io/en/latest/commands.html) : Python command line tools that help provide basic validation of HTML against the accessibility guidelines laid out by the W3C Web Content Accessibility Guidelines 2.0
 
 
 ## Présentation par Nicolas Chardon

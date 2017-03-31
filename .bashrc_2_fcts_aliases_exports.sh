@@ -149,10 +149,10 @@ alias_r () { # recursively resolve an alias, handle pipes and nested aliases
 #----
 # ls
 #----
-alias l='LANG=en_US.UTF-8 ls -BF --color=always --group-directories-first'
-alias ll='l -lhA'
-alias lk='ll -rS'       # sort by size, smallest first
-alias lt='ll -rt'       # sort by date, oldest first
+alias l='LANG=en_US.UTF-8 ls --classify --color=always --group-directories-first'
+alias ll='l -l --human-readable --almost-all'
+alias lk='ll --reverse --sort=size'       # sort by size, smallest first
+alias lt='ll --reverse --sort=time'       # sort by date, oldest first
 lsp () { # group files by their prefix
     LANG=en_US.UTF-8 ls -AB1 $@ | sed 's/\(.[^.]\+\).*/\1/' | sort | uniq -c
 }
