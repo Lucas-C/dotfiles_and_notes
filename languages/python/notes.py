@@ -178,7 +178,7 @@ class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
 # For multiple inheritance with namedtuple, combine fields + use specific inheritance order:
 class Immut3DPoint(namedtuple('_Immut3DPoint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
     __slots__ = ()
-# BUT seriously, use the "attrs" library instead: https://glyph.twistedmatrix.com/2016/08/attrs.html
+# BUT seriously, use the "attrs" library instead: https://glyph.twistedmatrix.com/2016/08/attrs.html or typing.NamedTuple: https://github.com/topper-123/Articles/blob/master/New-interesting-data-types-in-Python3.rst
 
 if args.debug:
     logging.basicConfig(level=logging.DEBUG, stream=sys.stderr,
@@ -337,7 +337,7 @@ dict.__missing__ # invoked for missing items
 assert d == dict(**d)  # !!WARNING!! only works if `d` keys are strings
 dict(y, **x) # union of dicts, duplicates are resolved in favor of x !!WARNING!! only works if `d` keys are strings - Prefer the following in 3.5+ : {**defaults, **user}
 
-class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308
+class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308 - or simply use types.SimpleNamespace
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
 def Tree(): # fs = Tree(); fs['all']['the']['way']['down']
@@ -464,6 +464,7 @@ json.loads('[-Infinity]') # [-inf]
 
 1 if 1 else 0 + 1 if 1 else 0
 
+'a' in 'aa' in 'aaa'
 
 
 """""""""""""""""""""""""""
@@ -1036,6 +1037,7 @@ requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock 
     txrequests # Twistted asynchronous requests
     requests-cache
     requests-respectful # requests capping
+connect timeout / read timeout / download size limit : https://benbernardblog.com/the-case-of-the-mysterious-python-crash/
 session.post(url, files={'upload': ('filename', file_to_upload, 'application/javascript')},
                   data={'action': 'upload', 'target': '/test/'}).raise_for_status()
 response = requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)  # WARNING on POST params usage: json= != data=
@@ -1357,9 +1359,15 @@ def walk_files(directory, only=None):
             for filename in filenames:
                 yield (dirpath / filename).resolve()
 
-""""""""""""
-"" Python 3.5
-""""""""""""
+#------------------------------------------------------------------------------
+# Python 3.3
+
+types.MappingProxyType # read-only dict : https://github.com/topper-123/Articles/blob/master/New-interesting-data-types-in-Python3.rst
+
+
+#------------------------------------------------------------------------------
+# Python 3.5
+
 # PEP448 : unpacking generalized
 l = (1, *[2])
 d = {"j": 9, **{"i": 8}}
