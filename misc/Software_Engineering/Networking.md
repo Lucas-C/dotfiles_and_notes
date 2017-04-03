@@ -36,6 +36,14 @@ Dr. Leonard Richardson put together a maturity model that interprets various lev
     Time per request:       0.861 [ms] (mean)
     $ boom -n 10 http://my.json/service # Python package
 
+### SOP
+
+Techniques for Bypassing the Single Origin Policy
+- CORS : beware of the wildcard !
+- JSONP (JSON with Padding) : either (1) ensure that a JSONP request never returns sensitive data, or (2) use another mechanism in place of cookies (e.g., secret tokens) to authorize the request
+- The document.domain property relaxation:  2 documents from distinct origins communicate by setting their domain properties to a common value
+- PostMessage/ReceiveMessage browser API : "it is the responsibility of the receiving document to additionally check the srcOrigin parameter to ensure that the message is coming from a trustworthy document."
+
 ## TCP
 - reception acknowledged, packets ordered
 - TCP's congestion avoidance algorithm causes the sender to reduce its sending rate by a factor of two when it sees a packet loss.

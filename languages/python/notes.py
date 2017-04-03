@@ -291,12 +291,16 @@ class CustomGenerator(object): # minimal generator protocol
 @coroutine # == generator. This decorator is equivalent to a first call to .next()
 def printer():
     while True:
-        value = (yield 'waiting')
+        value = yield 'waiting'
         print(value)
 p = printer()
-p.next() # returns 'waiting'
+next(p) # returns 'waiting'
+next(p) # prints 'None', returns 'waiting'
 p.send('OK') # prints 'OK', returns 'waiting'
 p.throw(ValueError, 'Bad value')
+
+generator_bit = 1 << 5
+bool(gen_fn.__code__.co_flags & generator_bit) # check if a function is a generator
 
 # Is a dict / list ? -> http://docs.python.org/2/library/collections.html#collections-abstract-base-classes
 # isinstance(d, collections.Mapping) won't work if the class is not registered, so better check:
@@ -976,6 +980,8 @@ saucelabs/monocle, libevent, libuv, Twisted, Tornado, asyncore # other ASync lib
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
+
+# Python 3.4+ DefaultSelector uses the best select-like function available on your system - cf. http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
 
 
 """"""""""""""""""""""""""""""""

@@ -63,7 +63,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - get along with HR and plan out-of-the-box projetcs with them that will make your team happier
 
 ## Leadership
-cf. [#gamedev Lead Quick Start Guide] & [Things I was unprepared for as a lead developer]
+cf. [#gamedev Lead Quick Start Guide] & [Things I was unprepared for as a lead developer] & TED Talk WhyGoodLeadersMakeYouFeelSafe
 "tell people what you want them to do instead of detailing what they’re doing wrong" [Criticism and Ineffective Feedback]
 Daniel Pink motivational building blocks from "The puzzle of motivation" :
 - autonomy: to direct our own lives

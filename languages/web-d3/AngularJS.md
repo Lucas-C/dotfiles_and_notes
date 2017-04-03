@@ -30,6 +30,14 @@ Console debug:
 
 # Angular 1
 
+http://aosabook.org/en/500L/web-spreadsheet.html : demonstrate interesting ES6 features
+- redirect-based graceful degradation to ES5
+- `ng-model="sheet[col+row]" ng-change="calc()" ng-model-options="{debounce: 200}" ng-keydown="keydown($event, col, row)`
+- `$scope.keydown = ({which}, col, row)=> { ...` : destructuring assignment to assign `$event.which` into the `which` parameter
+- `function* range(cur, end) { while (cur <= end) { yield cur; cur++; } }`
+- `#${ col }${ row + direction }` : template string
+- web worker : why ? sandboxing + user can continue to navigate without getting blocked by computation in the main thread
+
 "The scope is not the model, the scope refers to the model"
 "Whenever you have ng-model there's gotta be a dot in there somewhere. If you don't have a dot, you're doing it wrong"
   -> Misko Hevery's talk on AngularJS Best Practices
