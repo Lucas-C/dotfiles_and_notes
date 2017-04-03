@@ -18,7 +18,7 @@
 #         fc-list
 # POTENTIAL EXTRA FEATURES: support for basic bold/italic Markdown markup: http://stackoverflow.com/a/30200953/636849
 
-import argparse, pydot, shutil, subprocess, sys
+import argparse, locale, pydot, shutil, subprocess, sys
 from txt_mindmap import parse_graph
 
 
@@ -42,7 +42,7 @@ def parse_args(argv):
 
 
 def create_solarized_mindmap_from_file(input_filepath, layout='twopi', font='arial', hide_branches_from_id=None, gen_dot_file=False, root_label=None):
-    sys.setdefaultencoding('utf-8')  # needed to print 'Duplicate content' warning without error and to bypass pydot Dot.write default raw formatting on line 1769
+    assert locale.getdefaultlocale()[1] == 'UTF-8' # needed to print 'Duplicate content' warning without error and to bypass pydot Dot.write default raw formatting on line 1769
     with open(input_filepath) as txt_file:
         text = txt_file.read()
     outfile_basename = input_filepath.rsplit('.', 1)[0]
