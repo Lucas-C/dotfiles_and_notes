@@ -6,9 +6,16 @@
 import argparse, re, sys
 from collections import namedtuple
 from itertools import count
+from xml.sax.saxutils import quoteattr
+
 from txt_mindmap import parse_graph
 
 
+# Limitations of REGEXs
+# - positional : immutable order of !icon & <! --attrs-->
+# - now ay to parse combinations of bold/italic/Markdown link
+# - does not handle repetition, e.g. for !icon=
+# => use pyparsing instea: http://infohost.nmt.edu/tcc/help/pubs/pyparsing/web/index.html
 LINE_PATTERN = (
 '('
   '('
@@ -63,7 +70,7 @@ def recursively_print(node, args, indent, counter, order=None):
         if args.shrink:
             attrs['shrink'] = 'true'
     topic = topic_from_line(node.content, default_attrs=attrs, images_size=args.images_size)
-    print('{}<topic {} position="0,0" text="{}" id="{}">'.format(indent, topic.attrs, topic.text, next(counter)))
+    print('{}<topic {} position="0,0" text={} id="{}">'.format(indent, topic.attrs, quoteattr(topic.text), next(counter)))
     if topic.link:
         print('{}    <link url="{}" urlType="url"/>'.format(indent, topic.link))
     if topic.icon:
