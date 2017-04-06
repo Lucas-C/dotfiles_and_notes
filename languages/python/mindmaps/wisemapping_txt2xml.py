@@ -10,6 +10,17 @@ from xml.sax.saxutils import quoteattr
 
 from txt_mindmap import parse_graph
 
+EDGE_COLORS = ( # dark solarized palette from http://ethanschoonover.com/solarized
+    '#b58900', # yellow
+    '#cb4b16', # orange
+    '#6c71c4', # violet
+    '#dc323f', # red
+    '#268bd2', # blue
+    '#d33682', # magenta
+    '#2aa198', # cyan
+    '#859900', # green
+    '#939393', # grey
+)
 
 # Limitations of REGEXs
 # - positional : immutable order of !icon & <! --attrs-->
@@ -48,7 +59,7 @@ def main(argv):
     with open(args.input_filepath, encoding='utf8') as txt_file:
         graph = parse_graph(txt_file.read())
     print('<map name="{}" version="tango">'.format(args.name))
-    recursively_print(graph, args, indent='', counter=count())
+    recursively_print(graph, args, height=graph.height, counter=count())
     print('</map>')
 
 def parse_args(argv):
@@ -56,30 +67,38 @@ def parse_args(argv):
     parser.add_argument('--name', default='mindmap')
     parser.add_argument('--images-size', default='80,43')
     parser.add_argument('--no-shrink', action='store_false', dest='shrink')
+    parser.add_argument('--font-color', default='white')
     parser.add_argument('--self-test', action='store_true')
     parser.add_argument('input_filepath')
     return parser.parse_args(argv)
 
-def recursively_print(node, args, indent, counter, order=None):
+def recursively_print(node, args, height, counter, indent='', branch_id=None, order=None):
     indent += '    '
     attrs = {}
     if order is None:
         attrs['central'] = 'true'
     else:
         attrs['order'] = order
+        if not branch_id:
+            branch_id = order
         if args.shrink:
             attrs['shrink'] = 'true'
-    topic = topic_from_line(node.content, default_attrs=attrs, images_size=args.images_size)
+    topic = topic_from_line(node.content,
+                            edge_width=2*(height-indent.count('    ')),
+                            branch_id=branch_id,
+                            default_attrs=attrs,
+                            images_size=args.images_size,
+                            font_color=args.font_color)
     print('{}<topic {} position="0,0" text={} id="{}">'.format(indent, topic.attrs, quoteattr(topic.text), next(counter)))
     if topic.link:
         print('{}    <link url="{}" urlType="url"/>'.format(indent, topic.link))
     if topic.icon:
         print('{}    <icon id="{}"/>'.format(indent, topic.icon))
     for order, child in enumerate(node.children):
-        recursively_print(child, args, indent, counter, order)
+        recursively_print(child, args, height=height, counter=counter, indent=indent, branch_id=branch_id, order=order)
     print('{}</topic>'.format(indent))
 
-def topic_from_line(text_line, default_attrs=None, images_size=''):
+def topic_from_line(text_line, edge_width, branch_id=None, default_attrs=None, images_size='', font_color=''):
     re_match = re.match(LINE_PATTERN, text_line)
     text = re_match.group('link_text') or re_match.group('bare_text')
     link, icon = re_match.group('link_url'), re_match.group('icon')
@@ -94,7 +113,12 @@ def topic_from_line(text_line, default_attrs=None, images_size=''):
     if not comment_attrs and (re_match.group('is_bold') or re_match.group('is_italic')):
         bold = 'bold' if re_match.group('is_bold') else ''
         italic = 'italic' if re_match.group('is_italic') else ''
-        attrs['fontStyle'] = ';;;{};{};'.format(bold, italic)
+    else:
+        bold, italic = '', ''
+    attrs['fontStyle'] = ';;{};{};{};'.format(font_color, bold, italic)
+    if branch_id:
+        attrs['edgeStrokeColor'] = EDGE_COLORS[branch_id % len(EDGE_COLORS)]
+        attrs['edgeStrokeWidth'] = edge_width
     attrs = ' '.join('{}="{}"'.format(k, v) for k, v in sorted(attrs.items()))
     if comment_attrs:
         attrs = attrs + ' ' + comment_attrs if attrs else comment_attrs

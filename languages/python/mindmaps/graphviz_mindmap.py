@@ -71,16 +71,16 @@ def create_mindmap(graph, outfile_basename, theme, hide_branches_from_id=None, g
 
 class DarkSolarizedTheme:
     DARKGREYBLUE = '#012b37'
-    GREY = '#939393'
     # Palette from http://ethanschoonover.com/solarized
     YELLOW = '#b58900'
     ORANGE = '#cb4b16'
-    RED = '#dc323f'
-    MAGENTA = '#d33682'
     VIOLET = '#6c71c4'
+    RED = '#dc323f'
     BLUE = '#268bd2'
+    MAGENTA = '#d33682'
     CYAN = '#2aa198'
     GREEN = '#859900'
+    GREY = '#939393'
 
     EDGE_COLORS = [YELLOW, ORANGE, VIOLET, RED, BLUE, MAGENTA, CYAN, GREEN, GREY]
 
