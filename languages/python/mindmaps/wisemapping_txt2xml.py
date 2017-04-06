@@ -79,7 +79,7 @@ def recursively_print(node, args, height, counter, indent='', branch_id=None, or
         attrs['central'] = 'true'
     else:
         attrs['order'] = order
-        if not branch_id:
+        if branch_id is None:
             branch_id = order
         if args.shrink:
             attrs['shrink'] = 'true'
@@ -116,7 +116,7 @@ def topic_from_line(text_line, edge_width, branch_id=None, default_attrs=None, i
     else:
         bold, italic = '', ''
     attrs['fontStyle'] = ';;{};{};{};'.format(font_color, bold, italic)
-    if branch_id:
+    if branch_id is not None:
         attrs['edgeStrokeColor'] = EDGE_COLORS[branch_id % len(EDGE_COLORS)]
         attrs['edgeStrokeWidth'] = edge_width
     attrs = ' '.join('{}="{}"'.format(k, v) for k, v in sorted(attrs.items()))
