@@ -166,7 +166,7 @@ local dummy=${1:?'Missing or empty "dummy" parameter'}
 : ${var:="new value set if empty"} # !! -> this defines a global variable
 local var=${1:-"default value"}
 foo () { local x=$(false); echo $?; }; foo # -> 0 !!GOTCHA!! 'local' is also a command, and its return code shadows the one of the cmd invoked
-bar () {  # Best practice, or use getopt (singular) - USAGE: bar x [y=...]
+bar () {  # Best practice, or use getopt (singular: https://gist.github.com/dyndna/3b8e7c3e693cdd8b4c6af13abb0523b1) - USAGE: bar x [y=...]
     local x y=default_Y # necessary to define as local parameters not passed in afunction call (=> with default values)
     local "$@"  # does not behave like `eval`, e.g. with x=y;z
     : ${x?'parameter is missing'}
