@@ -24,9 +24,9 @@ EDGE_COLORS = ( # dark solarized palette from http://ethanschoonover.com/solariz
 
 # Limitations of REGEXs
 # - positional : immutable order of !icon & <! --attrs-->
-# - now ay to parse combinations of bold/italic/Markdown link
+# - now way to parse combinations of bold/italic/Markdown link
 # - does not handle repetition, e.g. for !icon=
-# => use pyparsing instea: http://infohost.nmt.edu/tcc/help/pubs/pyparsing/web/index.html
+# => use pyparsing instead: http://infohost.nmt.edu/tcc/help/pubs/pyparsing/web/index.html
 LINE_PATTERN = (
 '('
   '('
@@ -42,9 +42,9 @@ LINE_PATTERN = (
   ')'
 ')'
 '\s*' # extra optional whitespaces
-'(\s!icon=(?P<icon>[^\s]+))?' # !icon=...
+'(\s!icon=(?P<icon>[^\s]+))*' # !icon=...
 '\s*' # extra optional whitespaces
-'(\s<!--(?P<attrs>.+)-->)?' # extra XML attributes inbetwen comments
+'(\s<!--(?P<attrs>.+)-->)*' # extra XML attributes inbetwen comments
 '\s*' # extra optional whitespaces
 '$'  # parse whole line until last char
 )
@@ -67,7 +67,7 @@ def parse_args(argv):
     parser.add_argument('--name', default='mindmap')
     parser.add_argument('--images-size', default='80,43')
     parser.add_argument('--no-shrink', action='store_false', dest='shrink')
-    parser.add_argument('--font-color', default='white')
+    parser.add_argument('--font-color', default='')
     parser.add_argument('--self-test', action='store_true')
     parser.add_argument('input_filepath')
     return parser.parse_args(argv)
@@ -98,7 +98,7 @@ def recursively_print(node, args, height, counter, indent='', branch_id=None, or
         recursively_print(child, args, height=height, counter=counter, indent=indent, branch_id=branch_id, order=order)
     print('{}</topic>'.format(indent))
 
-def topic_from_line(text_line, edge_width, branch_id=None, default_attrs=None, images_size='', font_color=''):
+def topic_from_line(text_line, edge_width=1, branch_id=None, default_attrs=None, images_size='', font_color=''):
     re_match = re.match(LINE_PATTERN, text_line)
     text = re_match.group('link_text') or re_match.group('bare_text')
     link, icon = re_match.group('link_url'), re_match.group('icon')
@@ -110,12 +110,15 @@ def topic_from_line(text_line, edge_width, branch_id=None, default_attrs=None, i
         attrs['image'] = '{}:{}'.format(images_size, link)
         link = None
     comment_attrs = re_match.group('attrs')
+    if comment_attrs:
+        comment_attrs = comment_attrs.strip()
     if not comment_attrs and (re_match.group('is_bold') or re_match.group('is_italic')):
         bold = 'bold' if re_match.group('is_bold') else ''
         italic = 'italic' if re_match.group('is_italic') else ''
     else:
         bold, italic = '', ''
-    attrs['fontStyle'] = ';;{};{};{};'.format(font_color, bold, italic)
+    if font_color or bold or italic:
+        attrs['fontStyle'] = ';;{};{};{};'.format(font_color, bold, italic)
     if branch_id is not None:
         attrs['edgeStrokeColor'] = EDGE_COLORS[branch_id % len(EDGE_COLORS)]
         attrs['edgeStrokeWidth'] = edge_width
@@ -133,7 +136,7 @@ def self_test():
             == Topic(text='coucou', link=None, icon=None, attrs='image=":http://website.com/favicon.ico" shape="image"')
     assert topic_from_line('!toto') \
             == Topic(text='!toto', link=None, icon=None, attrs='')
-    assert topic_from_line('Productivity   !icon=chart_bar <!--fontStyle=";;#104f11;;;" bgColor="#d9b518"-->') \
+    assert topic_from_line('Productivity   !icon=chart_bar <!-- fontStyle=";;#104f11;;;" bgColor="#d9b518" -->') \
             == Topic(text='Productivity', link=None, icon='chart_bar', attrs='fontStyle=";;#104f11;;;" bgColor="#d9b518"')
     assert topic_from_line('**toto**') \
             == Topic(text='toto', link=None, icon=None, attrs='fontStyle=";;;bold;;"')
@@ -145,6 +148,8 @@ def self_test():
             == Topic(text='__toto__', link=None, icon=None, attrs='fontStyle=";;;bold;;"')
     assert topic_from_line('toto !icon=ahoy') \
             == Topic(text='toto', link=None, icon='ahoy', attrs='')
+    assert topic_from_line('!icon=A toto !icon=B') \
+            == Topic(text='toto', link=None, icon='B', attrs='')
     print('All tests passed')
 
 
