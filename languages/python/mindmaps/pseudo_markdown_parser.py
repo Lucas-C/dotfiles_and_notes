@@ -3,7 +3,7 @@
 from pyparsing import CharsNotIn, Forward, Keyword, Literal, OneOrMore, Optional, Suppress, Token, White, Word, ZeroOrMore, nums, printables
 
 class StopOnSuffix(Token): # inspired by CharsNotIn
-    def __init__( self, suffixes ):
+    def __init__(self, suffixes):
         super().__init__()
         self.skipWhitespace = False
         self.suffixes = set(suffixes)
@@ -11,7 +11,7 @@ class StopOnSuffix(Token): # inspired by CharsNotIn
         self.mayReturnEmpty = True
         self.mayIndexError = False
 
-    def parseImpl( self, instring, loc, doActions=True ):
+    def parseImpl(self, instring, loc, doActions=True):
         if self._suffix_match(instring, loc):
             raise ParseException(instring, loc, '{} early stop : token starts with suffix'.format(self.name), self)
         start = loc

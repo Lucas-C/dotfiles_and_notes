@@ -1,0 +1,34 @@
+#!/usr/bin/python3
+# USAGE: ./bookmarks_hierarchy_extractor.py xmarks-bookmarks-2017-02-27.html
+from collections import OrderedDict
+import json, lxml.html, sys
+INCLUDE_LEAF_DTS = False
+def extract_dls(elem):
+    out = OrderedDict()
+    last_h3_folder_name = None
+    for child in elem.iterchildren():
+        if child.tag == 'dt':
+            for dt in flatten_dts(child):
+                subchild = dt.getchildren()[0]
+                if subchild.tag == 'h3':
+                    last_h3_folder_name = subchild.text
+                elif subchild.tag == 'a' and INCLUDE_LEAF_DTS:
+                    out[subchild.text] = None
+        elif child.tag == 'dl':
+            out[last_h3_folder_name] = extract_dls(child)
+    return out
+def flatten_dts(dt):
+    dts = [dt]
+    for child in dt.getchildren():
+        if child.tag == 'dt':
+            dt.remove(child)
+            dts.extend(flatten_dts(child))
+    return dts
+with open(sys.argv[1], 'rb') as xml_file:
+    tree = lxml.html.parse(xml_file)
+    #print(lxml.html.tostring(tree, encoding=str, pretty_print=True)); sys.exit(0)
+    html = tree.getroot()
+    body = html.getchildren()[1] # we skip the <head>
+    first_dl = body.getchildren()[1] # we skip a <h1>
+    assert first_dl.tag == 'dl'
+    print(json.dumps(extract_dls(first_dl), indent=2))

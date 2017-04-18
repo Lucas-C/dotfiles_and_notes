@@ -65,6 +65,7 @@ john the ripper multicoeurs: http://www.planet-libre.org/?post_id=20989
 
 ### Windows
 mimikatz : extract plaintexts Windows passwords, hash, PIN code and kerberos tickets from memory; can also perform pass-the-hash, pass-the-ticket or build Golden tickets
+mimipenguin: same as Mimikatz for Linux - must be root
 http://pwnwiki.io/#!presence/windows/blind.md # read common Windows files to discover vulnerabilities
 
 
