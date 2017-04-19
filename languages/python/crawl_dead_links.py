@@ -31,29 +31,31 @@ class PerHostAsyncRequests: # inspired by grequests
                 resps.append((url, error))
         return resps
 
-urls = sys.stdin.readlines()
-prefixes_blacklist = urls.pop(0).split()
-urls = [url for url in urls if not any(url.startswith(prefix) for prefix in prefixes_blacklist)]
+def url_checker(urls):
+    urls_per_host = defaultdict(list)
+    for url in urls:
+        urls_per_host[urlparse(url).hostname].append(url)
+    #import json; print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
 
-urls_per_host = defaultdict(list)
-for url in urls:
-    urls_per_host[urlparse(url).hostname].append(url)
-#import json; print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
+    reqs = (PerHostAsyncRequests(urls) for urls in urls_per_host.values())
+    pool = gPool(size=None)
+    for resps in pool.imap_unordered(lambda r: r.send(), reqs):
+        yield from resps
+    pool.join()
 
-start = datetime.utcnow()
+if __name__ == '__main__':
+    urls = sys.stdin.readlines()
+    prefixes_blacklist = urls.pop(0).split()
+    urls = [url for url in urls if not any(url.startswith(prefix) for prefix in prefixes_blacklist)]
 
-reqs = (PerHostAsyncRequests(urls) for urls in urls_per_host.values())
-pool = gPool(size=None)
-count = 0
-for resps in pool.imap_unordered(lambda r: r.send(), reqs):
-    for url, status_or_error in resps:
+    start = datetime.utcnow()
+    count = 0
+    for url, status_or_error in url_checker(urls):
         count += 1
         # Looks like the following print statements do not get flushed to stdout before the end
         if status_or_error != 200:
             print(status_or_error, url)
         if count % (len(urls) // 10) == 0:
             print('#> 10% more processed : count={} len(pool)={}'.format(count, len(pool)), file=sys.stderr)
-pool.join()
-
-end = datetime.utcnow()
-print('#= Done in', end - start, file=sys.stderr)
+    end = datetime.utcnow()
+    print('#= Done in', end - start, file=sys.stderr)
