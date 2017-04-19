@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # Dead URLs checker
 # USAGE:
-# - for Shaarli: jq -r '.[].url' datastore.json | grep -E 'ftp://|javascript:' | ./crawl_dead_links.py
+# - for Shaarli: jq -r '.[].url' datastore.json | grep -Ev 'ftp://|javascript:' | ./crawl_dead_links.py
 # - for Chrome: jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks | ./crawl_dead_links.py
 # STDIN FORMAT: 1 URL per line
 # STDOUT FORMAT: [HTTP status | Python exception] URL (for all non-OKs URLs)
