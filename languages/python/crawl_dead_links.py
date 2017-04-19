@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # Dead URLs checker
 # USAGE:
-# - for Shaarli: jq -r '.[].url' datastore.json | ./crawl_dead_links.py
-# - for Chrome: jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks | ./crawl_dead_links.py
+# - for Shaarli: (echo 'ftp:// javascript:'; jq -r '.[].url' datastore.json) | ./crawl_dead_links.py
+# - for Chrome: (echo 'ftp:// javascript:'; jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks) | ./crawl_dead_links.py
 # STDIN FORMAT: 1st line list blacklisted prefixes, then it's 1 URL per line
 # STDOUT FORMAT: [HTTP status | Python exception] URL (for all non-OKs URLs)
 # Note: I had to edit /etc/security/limits.conf in order to increase the nofile soft & hard limits for the user executing this script
