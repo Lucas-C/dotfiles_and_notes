@@ -109,6 +109,12 @@ https://sourceforge.net/projects/websecuritydojo/
 OWASP Broken Apps
 OWASP Shepherd
 
+## Secret sharing
+
+https://github.com/benschw/springboard : cli utility to help get your secrets into https://www.vaultproject.io
+-> Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing
+
+https://github.com/square/keywhiz : A system for distributing and managing secrets
 
 
 # Formation @VSCT by Antonio Fortes

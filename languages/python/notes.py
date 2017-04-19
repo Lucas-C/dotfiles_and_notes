@@ -1145,7 +1145,7 @@ angr # binary analysis platform
 # Violent Python: A Cookbook for Hackers, Forensic Analysts, Penetration Testers and Security Engineers
 python-nmap # port scanner
 Pexpect # interact with programs based on expected stdout outputs - Include pxssh to interact with ssh: login()/logout()/prompt()
-_winreg # access to the Windows registry
+winreg # access to the Windows registry
 
 
 

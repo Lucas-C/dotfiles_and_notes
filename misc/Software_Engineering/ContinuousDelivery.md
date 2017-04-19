@@ -24,6 +24,7 @@ export LD_LIBRARY_PATH=/appl/usljksu1/.jenkins/shiningpanda/jobs/17bf94c9/virtua
 ### Pipeline Shared Libs
 
 https://github.com/jenkinsci/workflow-cps-global-lib-plugin
+Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
 
     import org.jenkinsci.plugins.workflow.steps.FlowInterruptedException
     import hudson.AbortException

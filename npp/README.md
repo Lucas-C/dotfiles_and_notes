@@ -30,8 +30,11 @@ Setting > Style Configure > select Javascript > add "json" User ext
 
 Edit > Line Operations > Sort Lines in Ascending / Descending Order
 
-`<ALT>+<SHIFT>` : vertical selection -> useful to comment at the beggining of the line
+## Shortcuts
 
+- `<ALT>+<SHIFT>` : vertical selection -> useful to comment at the beggining of the line
+- `<CTRL>+D` : duplicate line
+- `<CTRL>+T` : swap line with the one above
 
 ## Plugins
 
