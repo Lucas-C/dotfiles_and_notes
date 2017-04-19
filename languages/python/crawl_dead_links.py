@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 # Dead URLs checker
 # USAGE:
-# - for Shaarli: (echo 'ftp:// javascript:'; jq -r '.[].url' datastore.json) | ./crawl_dead_links.py
-# - for Chrome: (echo 'ftp:// javascript:'; jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks) | ./crawl_dead_links.py
-# STDIN FORMAT: 1st line list blacklisted prefixes, then it's 1 URL per line
+# - for Shaarli: jq -r '.[].url' datastore.json | grep -E 'ftp://|javascript:' | ./crawl_dead_links.py
+# - for Chrome: jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks | ./crawl_dead_links.py
+# STDIN FORMAT: 1 URL per line
 # STDOUT FORMAT: [HTTP status | Python exception] URL (for all non-OKs URLs)
 # Note: I had to edit /etc/security/limits.conf in order to increase the nofile soft & hard limits for the user executing this script
 from gevent import monkey, sleep
@@ -40,22 +40,20 @@ def url_checker(urls):
     reqs = (PerHostAsyncRequests(urls) for urls in urls_per_host.values())
     pool = gPool(size=None)
     for resps in pool.imap_unordered(lambda r: r.send(), reqs):
-        yield from resps
+        for url, status_or_error in resps:
+            yield url, status_or_error, len(pool)
     pool.join()
 
 if __name__ == '__main__':
     urls = sys.stdin.readlines()
-    prefixes_blacklist = urls.pop(0).split()
-    urls = [url for url in urls if not any(url.startswith(prefix) for prefix in prefixes_blacklist)]
-
     start = datetime.utcnow()
     count = 0
-    for url, status_or_error in url_checker(urls):
+    for url, status_or_error, pool_length in url_checker(urls):
         count += 1
         # Looks like the following print statements do not get flushed to stdout before the end
         if status_or_error != 200:
             print(status_or_error, url)
         if count % (len(urls) // 10) == 0:
-            print('#> 10% more processed : count={} len(pool)={}'.format(count, len(pool)), file=sys.stderr)
+            print('#> 10% more processed : count={} len(pool)={}'.format(count, pool_length), file=sys.stderr)
     end = datetime.utcnow()
     print('#= Done in', end - start, file=sys.stderr)
