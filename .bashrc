@@ -37,23 +37,8 @@ if [ -z "$(ls ${BASHRC_DIR}/.bashrc_* 2>/dev/null)" ]; then
     download_bashrc_files
 fi
 
-#------------------------------
-# Directory aliases / variables
-#------------------------------
-load_directory_variables_and_aliases () {
-    local aliases_file="$1"
-    local pass unexDir dir
-    for pass in one two; do
-        while read unexDir; do # last line won't be read if file does not end with a newline
-            dir=$(eval echo "${unexDir}")
-            export "$dir"
-            eval alias ${dir/=/=\'cd \"}\"\'
-        done < "$aliases_file"
-    done
-}
-if [ -r ${BASHRC_DIR}/.bash_dirs ]; then
-    echo Loading directory vars and aliases
-    time load_directory_variables_and_aliases ${BASHRC_DIR}/.bash_dirs
+if [ -r ${BASHRC_DIR}/.bash_aliases ]; then
+    source ${BASHRC_DIR}/.bash_aliases
 fi
 
 ##############################
