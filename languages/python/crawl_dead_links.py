@@ -43,11 +43,11 @@ def url_checker(urls):
     for resps in pool.imap_unordered(lambda r: r.send(), reqs):
         for url, status_or_error in resps:
             yield url, status_or_error, len(pool)
-    if not pool.join(raise_error=True, timeout=600): # seconds
+    if not pool.join(raise_error=True, timeout=1200): # seconds
+        print('pool.join TIMEOUT', file=sys.stderr)
         for ob in gc.get_objects():
             if ob and isinstance(ob, greenlet):
                 print(''.join(traceback.format_stack(ob.gr_frame)), file=sys.stderr)
-        raise
 
 if __name__ == '__main__':
     urls = sys.stdin.readlines()

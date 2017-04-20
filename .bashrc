@@ -32,6 +32,7 @@ download_bashrc_files () {
     echo "# Downloading git-completion.bash from GitHub"
     curl -s 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > ${BASHRC_DIR}/.bashrc_git_completion
 }
+
 if [ -z "$(ls ${BASHRC_DIR}/.bashrc_* 2>/dev/null)" ]; then
     download_bashrc_files
 fi
@@ -51,7 +52,8 @@ load_directory_variables_and_aliases () {
     done
 }
 if [ -r ${BASHRC_DIR}/.bash_dirs ]; then
-    load_directory_variables_and_aliases ${BASHRC_DIR}/.bash_dirs
+    echo Loading directory vars and aliases
+    time load_directory_variables_and_aliases ${BASHRC_DIR}/.bash_dirs
 fi
 
 ##############################
