@@ -7,7 +7,7 @@
 # STDOUT FORMAT: [HTTP status | Python exception] URL (for all non-OKs URLs)
 # Note: I had to edit /etc/security/limits.conf in order to increase the nofile soft & hard limits for the user executing this script
 from gevent import monkey, sleep
-from gevent.pool import Pool, Timeout
+from gevent.pool import Pool
 from greenlet import greenlet
 monkey.patch_all(thread=False, select=False)
 import gc, sys, traceback
@@ -43,9 +43,7 @@ def url_checker(urls):
     for resps in pool.imap_unordered(lambda r: r.send(), reqs):
         for url, status_or_error in resps:
             yield url, status_or_error, len(pool)
-    try:
-        pool.join(timeout=600) # seconds
-    except Timeout:
+    if not pool.join(raise_error=True, timeout=600): # seconds
         for ob in gc.get_objects():
             if ob and isinstance(ob, greenlet):
                 print(''.join(traceback.format_stack(ob.gr_frame)), file=sys.stderr)

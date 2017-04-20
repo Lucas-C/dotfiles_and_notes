@@ -3,21 +3,32 @@
 # USAGE: ./bookmarks_hierarchy_extractor.py xmarks-bookmarks-2017-02-27.html
 from collections import OrderedDict
 import json, lxml.html, sys
-INCLUDE_LEAF_DTS = False
-def extract_dls(elem):
+
+def bookmarks_hierarchy_extractor(xml_filepath, include_leaf_dts=False):
+    with open(xml_filepath, 'rb') as xml_file:
+        tree = lxml.html.parse(xml_file)
+    #print(lxml.html.tostring(tree, encoding=str, pretty_print=True), file=sys.stderr); sys.exit(0)
+    html = tree.getroot()
+    body = html.getchildren()[1] # we skip the <head>
+    first_dl = body.getchildren()[1] # we skip a <h1>
+    assert first_dl.tag == 'dl'
+    return extract_dls(first_dl, include_leaf_dts)
+
+def extract_dls(dl_elem, include_leaf_dts=False):
     out = OrderedDict()
     last_h3_folder_name = None
-    for child in elem.iterchildren():
+    for child in dl_elem.iterchildren():
         if child.tag == 'dt':
             for dt in flatten_dts(child):
                 subchild = dt.getchildren()[0]
                 if subchild.tag == 'h3':
                     last_h3_folder_name = subchild.text
-                elif subchild.tag == 'a' and INCLUDE_LEAF_DTS:
+                elif subchild.tag == 'a' and include_leaf_dts:
                     out[subchild.text] = None
         elif child.tag == 'dl':
-            out[last_h3_folder_name] = extract_dls(child)
+            out[last_h3_folder_name] = extract_dls(child, include_leaf_dts)
     return out
+
 def flatten_dts(dt):
     dts = [dt]
     for child in dt.getchildren():
@@ -25,11 +36,7 @@ def flatten_dts(dt):
             dt.remove(child)
             dts.extend(flatten_dts(child))
     return dts
-with open(sys.argv[1], 'rb') as xml_file:
-    tree = lxml.html.parse(xml_file)
-    #print(lxml.html.tostring(tree, encoding=str, pretty_print=True)); sys.exit(0)
-    html = tree.getroot()
-    body = html.getchildren()[1] # we skip the <head>
-    first_dl = body.getchildren()[1] # we skip a <h1>
-    assert first_dl.tag == 'dl'
-    print(json.dumps(extract_dls(first_dl), indent=2))
+
+if __name__ == '__main__':
+    hierarchy = bookmarks_hierarchy_extractor(sys.argv[1])
+    print(json.dumps(hierarchy, indent=4))
