@@ -44,8 +44,8 @@ def url_checker(urls):
     reqs = (PerHostAsyncRequests(urls) for urls in urls_per_host.values())
     pool = Pool(size=None)
     for resps in pool.imap_unordered(lambda r: r.send(), reqs):
-        for url, status_or_error, exec_durations in resps:
-            yield url, status_or_error, exec_durations, len(pool)
+        for url, status_or_error, exec_duration in resps:
+            yield url, status_or_error, exec_duration, len(pool)
     pool.join(raise_error=True)
 
 if __name__ == '__main__':
@@ -53,8 +53,8 @@ if __name__ == '__main__':
     start = datetime.utcnow()
     count = 0
     timings = []
-    for url, status_or_error, exec_durations, pool_length in url_checker(urls):
-        timings.extend(exec_durations)
+    for url, status_or_error, exec_duration, pool_length in url_checker(urls):
+        timings.append(exec_duration)
         count += 1
         # Looks like the following print statements do not get flushed to stdout before the end
         if status_or_error != 200:
