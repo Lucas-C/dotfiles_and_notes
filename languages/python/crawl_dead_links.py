@@ -10,11 +10,13 @@ from gevent import monkey, sleep
 from gevent.pool import Pool
 from greenlet import greenlet
 monkey.patch_all(thread=False, select=False)
-import gc, sys, traceback
+import json, sys
 from collections import defaultdict
 from datetime import datetime
 from requests import Session
 from urllib.parse import urlparse
+
+from perf_utils import compute_timing_stats, trace_exec_time
 
 class PerHostAsyncRequests: # inspired by grequests
     def __init__(self, urls):
@@ -26,10 +28,11 @@ class PerHostAsyncRequests: # inspired by grequests
             if resps:
                 sleep(2) # rate-limiting 1 request every 2s per hostname
             try:
-                response = self.session.get(url, verify=False)
-                resps.append((url, response.status_code))
+                with trace_exec_time() as timer:
+                    response = self.session.get(url, verify=False)
+                resps.append((url, response.status_code, timer['exec_duration_in_ms']))
             except Exception as error:
-                resps.append((url, error))
+                resps.append((url, error, timer['exec_duration_in_ms']))
         return resps
 
 def url_checker(urls):
@@ -43,17 +46,15 @@ def url_checker(urls):
     for resps in pool.imap_unordered(lambda r: r.send(), reqs):
         for url, status_or_error in resps:
             yield url, status_or_error, len(pool)
-    if not pool.join(raise_error=True, timeout=1200): # seconds
-        print('pool.join TIMEOUT', file=sys.stderr)
-        for ob in gc.get_objects():
-            if ob and isinstance(ob, greenlet):
-                print(''.join(traceback.format_stack(ob.gr_frame)), file=sys.stderr)
+    pool.join(raise_error=True)
 
 if __name__ == '__main__':
     urls = sys.stdin.readlines()
     start = datetime.utcnow()
     count = 0
-    for url, status_or_error, pool_length in url_checker(urls):
+    timings = []
+    for url, status_or_error, exec_durations, pool_length in url_checker(urls):
+        timings.extend(exec_durations)
         count += 1
         # Looks like the following print statements do not get flushed to stdout before the end
         if status_or_error != 200:
@@ -62,3 +63,4 @@ if __name__ == '__main__':
             print('#> 10% more processed : count={} len(pool)={}'.format(count, pool_length), file=sys.stderr)
     end = datetime.utcnow()
     print('#= Done in', end - start, file=sys.stderr)
+    print(json.dumps(compute_timing_stats(timings), indent=4), file=sys.stderr)
