@@ -44,8 +44,8 @@ def url_checker(urls):
     reqs = (PerHostAsyncRequests(urls) for urls in urls_per_host.values())
     pool = Pool(size=None)
     for resps in pool.imap_unordered(lambda r: r.send(), reqs):
-        for url, status_or_error in resps:
-            yield url, status_or_error, len(pool)
+        for url, status_or_error, exec_durations in resps:
+            yield url, status_or_error, exec_durations, len(pool)
     pool.join(raise_error=True)
 
 if __name__ == '__main__':
