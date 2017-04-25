@@ -14,6 +14,7 @@ import json, sys
 from collections import defaultdict
 from datetime import datetime
 from requests import Session
+from requests.packages import urllib3
 from urllib.parse import urlparse
 
 from perf_utils import compute_timing_stats, trace_exec_time
@@ -49,18 +50,22 @@ def url_checker(urls):
     pool.join(raise_error=True)
 
 if __name__ == '__main__':
-    urls = sys.stdin.readlines()
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    urls = [url.strip() for url in sys.stdin.readlines()]
     start = datetime.utcnow()
     count = 0
-    timings = []
+    timings = {}
     for url, status_or_error, exec_duration, pool_length in url_checker(urls):
-        timings.append(exec_duration)
+        timings[url] = exec_duration
         count += 1
         # Looks like the following print statements do not get flushed to stdout before the end
         if status_or_error != 200:
-            print(status_or_error, url)
+            print(status_or_error, url) # this won't be displayed if there are too few URLs (too fast ?)
         if count % (len(urls) // 10) == 0:
             print('#> 10% more processed : count={} len(pool)={}'.format(count, pool_length), file=sys.stderr)
     end = datetime.utcnow()
     print('#= Done in', end - start, file=sys.stderr)
-    print(json.dumps(compute_timing_stats(timings), indent=4), file=sys.stderr)
+    print(json.dumps(compute_timing_stats(timings.values()), indent=4), file=sys.stderr)
+    print('Top10 slow requests:', file=sys.stderr))
+    top_slow_urls = sorted(timings.keys(), key=timings.get)[:10]
+    print('\n'.join('- ' + url for url in top_slow_urls), file=sys.stderr))
