@@ -16,8 +16,7 @@ from datetime import datetime
 from requests import Session
 from requests.packages import urllib3
 from urllib.parse import urlparse
-
-from perf_utils import compute_timing_stats, trace_exec_time
+from time import perf_counter
 
 class PerHostAsyncRequests: # inspired by grequests
     def __init__(self, urls):
@@ -28,12 +27,12 @@ class PerHostAsyncRequests: # inspired by grequests
         for url in self.urls:
             if resps:
                 sleep(2) # rate-limiting 1 request every 2s per hostname
+            start = perf_counter()
             try:
-                with trace_exec_time() as timer:
-                    response = self.session.get(url, verify=False)
-                resps.append((url, response.status_code, timer['exec_duration_in_ms']))
+                response = self.session.get(url, verify=False)
+                resps.append((url, response.status_code, perf_counter() - start))
             except Exception as error:
-                resps.append((url, error, timer['exec_duration_in_ms']))
+                resps.append((url, error, perf_counter() - start))
         return resps
 
 def url_checker(urls):
@@ -48,6 +47,25 @@ def url_checker(urls):
         for url, status_or_error, exec_duration in resps:
             yield url, status_or_error, exec_duration, len(pool)
     pool.join(raise_error=True)
+
+def compute_timing_stats(timings_in_ms):
+    if not timings_in_ms:
+        return {'count': 0}
+    timings_in_ms = sorted(timings_in_ms)
+    total = sum(timings_in_ms)
+    return {
+        'count': len(timings_in_ms),
+        'mean': total / len(timings_in_ms),
+        'p00_min': timings_in_ms[0],
+        'p01': percentile(timings_in_ms, .01),
+        'p10': percentile(timings_in_ms, .1),
+        'p50_median': percentile(timings_in_ms, .5),
+        'p90': percentile(timings_in_ms, .9),
+        'p99': percentile(timings_in_ms, .99),
+        'p100_max': timings_in_ms[-1],
+        'pstdev': statistics.pstdev(timings_in_ms),
+        'sum': total
+     }
 
 if __name__ == '__main__':
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -68,4 +86,4 @@ if __name__ == '__main__':
     print(json.dumps(compute_timing_stats(timings.values()), indent=4), file=sys.stderr)
     print('Top10 slow requests:', file=sys.stderr)
     top_slow_urls = sorted(timings.keys(), key=timings.get)[-10:]
-    print('\n'.join('- ' + url for url in top_slow_urls), file=sys.stderr)
+    print('\n'.join('- {} : {}'.format(url, timings[url]) for url in top_slow_urls), file=sys.stderr)
