@@ -28,7 +28,7 @@ def extract_dls(dl_elem, duplicate_folders, include_leaf_dts=False):
         elif child.tag == 'dl':
             out[last_h3_folder_name] = extract_dls(child, duplicate_folders, include_leaf_dts)
             if last_h3_folder_name in duplicate_folders:
-                print('Duplicate folder name', last_h3_folder_name, file=sys.stderr)
+                print('Duplicate folder found named:', last_h3_folder_name, file=sys.stderr)
             duplicate_folders.add(last_h3_folder_name)
     return out
 

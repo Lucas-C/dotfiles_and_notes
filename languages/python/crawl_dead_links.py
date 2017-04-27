@@ -67,5 +67,5 @@ if __name__ == '__main__':
     print('#= Done in', end - start, file=sys.stderr)
     print(json.dumps(compute_timing_stats(timings.values()), indent=4), file=sys.stderr)
     print('Top10 slow requests:', file=sys.stderr)
-    top_slow_urls = sorted(timings.keys(), key=timings.get)[:10]
+    top_slow_urls = sorted(timings.keys(), key=timings.get)[-10:]
     print('\n'.join('- ' + url for url in top_slow_urls), file=sys.stderr)

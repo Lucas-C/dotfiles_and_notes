@@ -671,7 +671,7 @@ snakefood # draw code base dependency graphs
 what-studio/profiling # live profiling
 PyVmMonitor # profiler with graphs
 nvdv/vprof # Visual Python profiler
-memory_profiler
+fabianp/memory_profiler
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
 
 from rfoo.utils import rconsole # RPC remote debugging - Alt: signal-based handle on a program to debug: http://stackoverflow.com/a/133384/636849
@@ -966,7 +966,7 @@ multiprocessing, Pyro > threading # as Python can only have one thread because o
 threading.Thread().deamon = True # The entire Python program exits when no alive non-daemon threads are left.
 threading.Event # for threads communication, including stopping: Thread.run(self): while not self.stop_event: ...
 # Kill a thread ? -> http://stackoverflow.com/a/325528/636849
-from multiprocessing.dummy import Pool as ThreadPool # Threads using multiprocessing API
+from multiprocessing.dummy import Pool as ThreadPool # Threads following multiprocessing API
 pool = ThreadPool(4); results = pool.map(foo, args); pool.close(); pool.join()
 SimPy # process-based discrete-event simulation framework
 
@@ -1125,6 +1125,7 @@ pypcap # catpure network traffic
 kevin1024/vcrpy # record / replay HTTP interactions
 impacket # programmatic access to the packets and for some protocols: IP, TCP, UDP, ICMP, IGMP, ARP, NMB, DCE/RPC, SMB1-3 and MS-DCERPC
 wifi # wrapper around iwlist and /etc/network/interfaces
+kootenpv/access_points # scan your WiFi and get access point information and signal quality
 tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
