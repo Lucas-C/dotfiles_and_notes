@@ -12,9 +12,9 @@ def bookmarks_hierarchy_extractor(xml_filepath, include_leaf_dts=False):
     body = html.getchildren()[1] # we skip the <head>
     first_dl = body.getchildren()[1] # we skip a <h1>
     assert first_dl.tag == 'dl'
-    return extract_dls(first_dl, include_leaf_dts)
+    return extract_dls(first_dl, duplicate_folders=set(), include_leaf_dts=include_leaf_dts)
 
-def extract_dls(dl_elem, include_leaf_dts=False):
+def extract_dls(dl_elem, duplicate_folders, include_leaf_dts=False):
     out = OrderedDict()
     last_h3_folder_name = None
     for child in dl_elem.iterchildren():
@@ -26,7 +26,10 @@ def extract_dls(dl_elem, include_leaf_dts=False):
                 elif subchild.tag == 'a' and include_leaf_dts:
                     out[subchild.text] = None
         elif child.tag == 'dl':
-            out[last_h3_folder_name] = extract_dls(child, include_leaf_dts)
+            out[last_h3_folder_name] = extract_dls(child, duplicate_folders, include_leaf_dts)
+            if last_h3_folder_name in duplicate_folders:
+                print('Duplicate folder name', last_h3_folder_name, file=sys.stderr)
+            duplicate_folders.add(last_h3_folder_name)
     return out
 
 def flatten_dts(dt):
