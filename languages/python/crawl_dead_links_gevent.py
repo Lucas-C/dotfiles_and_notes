@@ -39,7 +39,7 @@ def url_checker(urls):
     urls_per_host = defaultdict(list)
     for url in urls:
         urls_per_host[urlparse(url).hostname].append(url)
-    #import json; print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
+    #print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
 
     reqs = (PerHostAsyncRequests(urls) for urls in urls_per_host.values())
     pool = Pool(size=None)
@@ -86,7 +86,7 @@ if __name__ == '__main__':
         if status_or_error != 200:
             print(status_or_error, url) # this won't be displayed if there are too few URLs (too fast ?)
         if count % (len(urls) // 10) == 0:
-            print('#> 10% more processed : count={} len(pool)={}'.format(count, pool_length), file=sys.stderr)
+            print('#> {:.1f}% processed : count={} len(pool)={}'.format(count * 100.0 / len(urls), pool_length), file=sys.stderr)
     end = datetime.utcnow()
     print('#= Done in', end - start, file=sys.stderr)
     print(json.dumps(compute_timing_stats(timings.values()), indent=4), file=sys.stderr)
