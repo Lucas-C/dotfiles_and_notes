@@ -48,6 +48,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [HoneYourProductionIncidentPostmortems](http://tech.shutterstock.com/2016/11/11/5-ways-to-hone-your-production-incident-postmortems/)
 - [EtsyDebriefingFacilitationGuide](https://extfiles.etsy.com/DebriefingFacilitationGuide.pdf)
 - [HowDoYouMakeAnAwesomeTeam](http://jvns.ca/blog/2017/01/13/how-do-you-make-an-awesome-team/)
+- [IncidentManagementAtGoogle](https://cloudplatform.googleblog.com/2017/02/Incident-management-at-Google-adventures-in-SRE-land.html)
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -166,6 +167,7 @@ Learning is the goal during post-mortems (cf. [Learning Through Blameless Review
 - share your postmortem in an accessible, standardized way : [HoneYourProductionIncidentPostmortems] & [EtsyDebriefingFacilitationGuide]
 - tooling: https://github.com/etsy/morgue : PHP based web application to help manage your postmortems, made by Etsy
 - FTA = Fault Tree method = Arbre des défaillances : ~ méthode des "5 whys" avec une mindmap
+- train people to handle those situations : [IncidentManagementAtGoogle]
 DOs:
 - Ne discuter que d'états, de faits et d’enchaînements d'événements
 - Agréger au maximum les informations

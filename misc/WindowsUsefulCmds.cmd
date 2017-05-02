@@ -31,6 +31,8 @@ Cmder conf file: %CMDER_ROOT%\vendor\init.bat
 
 @set PATH=%PATH%;%APPDATA%\npm
 
+powershell -Command "($env:Path).Replace(';',\"`n\")" &:: echo %PATH% on separate lines
+
 :: config\aliases
 l=ls --sort=extension --classify --dereference --color=always $*
 ll=ls --sort=extension --classify --dereference --color=always -l --almost-all --human-readable $*

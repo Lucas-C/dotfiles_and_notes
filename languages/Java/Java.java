@@ -206,6 +206,7 @@ static enum Action {
     LIST(ClientList.class);
     final Class< ? extends BackupClient > client;
     private Action(Class< ? extends BackupClient > client) { this.client = client; }
+    @JsonCreator
     public static Action fromString(String value) {
         for (Action action : Action.values()) {
             if (action.toString().equalsIgnoreCase(value)) {

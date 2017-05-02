@@ -58,6 +58,7 @@ Content-Security-Policy HTTP response header : reduce XSS risks by declaring wha
 [browser autofill phishing](https://github.com/anttiviljami/browser-autofill-phishing)
 [Target="_blank" - the most underestimated vulnerability ever](https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/)
 
+https://github.com/x0rz/EQGRP - NSA hacking tools - Decrypted content of eqgrp-auction-file.tar.xz released by "The Shadow Brokers" : supposedly a free sample of the files exfiltrated from the Equation Group
 
 ### DB attacks
 sqlmap.py -r burp_raw_exemple_request.txt
@@ -85,6 +86,7 @@ http://pwnwiki.io/#!presence/windows/blind.md # read common Windows files to dis
 ## Frameworks
 Metasploit
 w3af
+FuzzBunch -> used by the NSA : https://github.com/fuzzbunch/fuzzbunch
 
 ## Dependency checking
 maven check deps: https://blog.lanyonm.org/articles/2015/12/22/continuous-security-owasp-java-vulnerability-check.html
@@ -107,6 +109,7 @@ Organismes d'Importance Vitale
 ## Information sources
 http://www.theregister.co.uk/security/
 http://arstechnica.com/security/
+http://pentestit.com/
 
 ## Training
 Web Security Dojo: https://www.mavensecurity.com/resources/web-security-dojo/

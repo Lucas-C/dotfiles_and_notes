@@ -23,6 +23,7 @@ Project management best practices
 - [AYoungLadysPrimerToTechnicalDecisionMaking](https://speakerdeck.com/charity/a-young-ladys-primer-to-technical-decision-making)
 - [LawOfTriviality_aka_bikeshedding](https://en.wikipedia.org/wiki/Law_of_triviality)
 - [HypeDrivenDevelopment](https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22)
+- [QuelquesConseilsPourAméliorerVotreProcessDeChoixDOutil](http://blog.octo.com/quelques-conseils-pour-ameliorer-votre-process-de-choix-doutil/)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -35,6 +36,7 @@ Project management best practices
 
 ## Choosing the right techno
 - [AYoungLadysPrimerToTechnicalDecisionMaking]
+- [QuelquesConseilsPourAméliorerVotreProcessDeChoixDOutil]
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
 - [ChooseBoringTechnology] :
     - "let's say every company gets about three innovation tokens"

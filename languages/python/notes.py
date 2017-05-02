@@ -195,6 +195,8 @@ def create_logger():
 # Lazy logger: http://stackoverflow.com/a/4149231
 @deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/ - Alt: OpenStack debtcollector or even better briancurtin/deprecation
 Twangist/log_calls # logging & func calls profiling
+ScatterHQ/eliot # logging system for complex & distributed systems that outputs causal chains of actions happening within and across process boundaries
+prezi/python-zipkin # -> dead project ? + no support for Python 3 : https://github.com/prezi/python-zipkin/issues/8
 string.Template # $-based substitutions
 # Support for {} / %(keyword)s format syntaxes:
 # - https://docs.python.org/3/howto/logging-cookbook.html#formatting-styles
@@ -470,6 +472,8 @@ json.loads('[-Infinity]') # [-inf]
 
 'a' in 'aa' in 'aaa'
 
+int('١٢٣٤٥٦٧٨٩') # 123456789 - cf. http://chris.improbable.org/2014/8/25/adventures-in-unicode-digits/
+
 
 """""""""""""""""""""""""""
 "" Functional Programming
@@ -565,7 +569,7 @@ pip install --editable $path_or_git_url # Install a project in editable mode (i.
 pip install --user $USER --src . --no-index --no-deps --no-cache-dir --upgrade --requirement requirements.txt --require-hashes # CLI tool to help with retrieving correct hashes : hashin
 pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages - Also, programatical access: pip.operations.freeze.freeze
 pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list -o ; piprot requirements.txt ; ./manage.py pipchecker
-safety # analyze securoty vulnerabilities in dependencies
+python-security/pyt, safety # analyze security vulnerabilities
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 
 def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unverified=()):  # to use pip-compile (from pip-tools) programmatically
@@ -830,6 +834,7 @@ python-graph-core, networkx, igraph, graph-tool # networks & graphs manipulation
 
 deap # genetic programming
 cvxopt # convex optimization
+eyounx/ZOOpt # Zeroth-Order optimization (a.k.a. derivative-free optimization/black-box optimization) does not rely on the gradient of the objective function, but instead, learns from samples of the search space. It is suitable for optimizing functions that are nondifferentiable, with many local minima, or even unknown but only testable.
 
 mmap # memory-mapped files
 joblib # memoize computations by keeping cache files on disk
@@ -980,6 +985,7 @@ saucelabs/monocle, libevent, libuv, Twisted, Tornado, asyncore # other ASync lib
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
+dabeaz/curio # Python 3 alt implementation of coroutines
 
 # Python 3.4+ DefaultSelector uses the best select-like function available on your system - cf. http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
 
