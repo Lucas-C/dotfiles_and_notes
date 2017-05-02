@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3.5
 # Dead URLs checker
 # USAGE:
 # - for Shaarli: jq -r '.[].url' datastore.json | grep -Ev 'ftp://|javascript:' | ./crawl_dead_links.py
@@ -6,15 +6,9 @@
 # STDIN FORMAT: 1 URL per line
 # STDOUT FORMAT: [HTTP status | Python exception] URL (for all non-OKs URLs)
 # Note: I had to edit /etc/security/limits.conf in order to increase the nofile soft & hard limits for the user executing this script
-from gevent import monkey, sleep
-from gevent.pool import Pool
-from greenlet import greenlet
-monkey.patch_all(thread=False, select=False)
-import json, sys
+import asyncio, aiohttp, json, statistics, sys
 from collections import defaultdict
 from datetime import datetime
-from requests import Session
-from requests.packages import urllib3
 from urllib.parse import urlparse
 from time import perf_counter
 
@@ -27,17 +21,17 @@ async def check_urls(urls, checker_results, total_urls_count):
         resps = []
         for url in urls:
             if resps:
-                sleep(2) # rate-limiting 1 request every 2s per hostname
+                asyncio.sleep(2) # rate-limiting 1 request every 2s per hostname
             start = perf_counter()
             try:
-                response = await session.get(url, verify=False)
-                resps.append((url, response.status, perf_counter() - start))
+                async with session.get(url, verify=False) as response:
+                    resps.append((url, response.status, perf_counter() - start))
             except Exception as error:
                 resps.append((url, error, perf_counter() - start))
         checker_results.extend(resps)
         count = len(checker_results)
         if count % (total_urls_count // 10) == 0:
-            print('#> 10% more processed : count={}'.format(count), file=sys.stderr)
+            print('#> {:.1f}% processed : count={}'.format(count * 100.0 / total_urls_count, count), file=sys.stderr)
 
 def url_checker(urls):
     urls_per_host = defaultdict(list)
@@ -69,20 +63,24 @@ def compute_timing_stats(timings_in_ms):
         'p100_max': timings_in_ms[-1],
         'pstdev': statistics.pstdev(timings_in_ms),
         'sum': total
-     }
+    }
+
+def percentile(sorted_data, percent):
+    assert 0 <= percent < 1
+    index = (len(sorted_data)-1) * percent
+    return sorted_data[int(index)]
 
 if __name__ == '__main__':
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     urls = [url.strip() for url in sys.stdin.readlines()]
     start = datetime.utcnow()
     timings = {}
     for url, status_or_error, exec_duration in url_checker(urls):
         timings[url] = exec_duration
         if status_or_error != 200:
-            print(status_or_error, url) # this won't be displayed if there are too few URLs (too fast ?)
+            print(status_or_error, url)
     end = datetime.utcnow()
     print('#= Done in', end - start, file=sys.stderr)
     print(json.dumps(compute_timing_stats(timings.values()), indent=4), file=sys.stderr)
     print('Top10 slow requests:', file=sys.stderr)
     top_slow_urls = sorted(timings.keys(), key=timings.get)[-10:]
-    print('\n'.join('- {} : {}s'.format(url, timings[url]) for url in top_slow_urls), file=sys.stderr)
+    print('\n'.join('- {} : {:.1f}s'.format(url, timings[url]) for url in top_slow_urls), file=sys.stderr)
