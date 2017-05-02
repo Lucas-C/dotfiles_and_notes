@@ -34,6 +34,7 @@ def url_checker(urls):
     checker_results = []
     loop = asyncio.get_event_loop()
     loop.set_debug(True)
+    loop.slow_callback_duration = 1 # seconds
     loop.run_until_complete(
         asyncio.gather(
             *(check_urls(one_host_urls, checker_results, len(urls)) for one_host_urls in urls_per_host.values())
