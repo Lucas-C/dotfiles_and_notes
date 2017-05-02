@@ -18,35 +18,39 @@ from requests.packages import urllib3
 from urllib.parse import urlparse
 from time import perf_counter
 
-class PerHostAsyncRequests: # inspired by grequests
-    def __init__(self, urls):
-        self.urls = urls
-        self.session = Session()
-    def send(self):
+async def fetch(client, url):
+    async with client.get(url) as resp:
+        return await resp.status
+
+async def check_urls(urls, checker_results, total_urls_count):
+    async with aiohttp.ClientSession(raise_for_status=True) as session:
         resps = []
-        for url in self.urls:
+        for url in urls:
             if resps:
                 sleep(2) # rate-limiting 1 request every 2s per hostname
             start = perf_counter()
             try:
-                response = self.session.get(url, verify=False)
-                resps.append((url, response.status_code, perf_counter() - start))
+                response = await session.get(url, verify=False)
+                resps.append((url, response.status, perf_counter() - start))
             except Exception as error:
                 resps.append((url, error, perf_counter() - start))
-        return resps
+        checker_results.extend(resps)
+        count = len(checker_results)
+        if count % (total_urls_count // 10) == 0:
+            print('#> 10% more processed : count={}'.format(count), file=sys.stderr)
 
 def url_checker(urls):
     urls_per_host = defaultdict(list)
     for url in urls:
         urls_per_host[urlparse(url).hostname].append(url)
     #import json; print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
-
-    reqs = (PerHostAsyncRequests(urls) for urls in urls_per_host.values())
-    pool = Pool(size=None)
-    for resps in pool.imap_unordered(lambda r: r.send(), reqs):
-        for url, status_or_error, exec_duration in resps:
-            yield url, status_or_error, exec_duration, len(pool)
-    pool.join(raise_error=True)
+    checker_results = []
+    asyncio.get_event_loop().run_until_complete(
+        asyncio.gather(
+            *(check_urls(one_host_urls, checker_results, len(urls)) for one_host_urls in urls_per_host.values())
+        )
+    )
+    return checker_results
 
 def compute_timing_stats(timings_in_ms):
     if not timings_in_ms:
@@ -71,19 +75,14 @@ if __name__ == '__main__':
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     urls = [url.strip() for url in sys.stdin.readlines()]
     start = datetime.utcnow()
-    count = 0
     timings = {}
-    for url, status_or_error, exec_duration, pool_length in url_checker(urls):
+    for url, status_or_error, exec_duration in url_checker(urls):
         timings[url] = exec_duration
-        count += 1
-        # Looks like the following print statements do not get flushed to stdout before the end
         if status_or_error != 200:
             print(status_or_error, url) # this won't be displayed if there are too few URLs (too fast ?)
-        if count % (len(urls) // 10) == 0:
-            print('#> 10% more processed : count={} len(pool)={}'.format(count, pool_length), file=sys.stderr)
     end = datetime.utcnow()
     print('#= Done in', end - start, file=sys.stderr)
     print(json.dumps(compute_timing_stats(timings.values()), indent=4), file=sys.stderr)
     print('Top10 slow requests:', file=sys.stderr)
     top_slow_urls = sorted(timings.keys(), key=timings.get)[-10:]
-    print('\n'.join('- {} : {}'.format(url, timings[url]) for url in top_slow_urls), file=sys.stderr)
+    print('\n'.join('- {} : {}s'.format(url, timings[url]) for url in top_slow_urls), file=sys.stderr)

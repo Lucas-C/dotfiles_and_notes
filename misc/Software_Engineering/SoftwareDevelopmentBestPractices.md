@@ -48,6 +48,7 @@ Software Development Best Practices
 - [DesignPatternForHumans](https://github.com/kamranahmedse/design-patterns-for-humans)
 - [SystemDesignPrimer](https://github.com/donnemartin/system-design-primer)
 - [CommandQueryResponsibilitySegregation](http://blog.eleven-labs.com/en/cqrs-pattern-2/)
+- [LavaLayerAntiPattern](http://mikehadlow.blogspot.fr/2014/12/the-lava-layer-anti-pattern.html)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -118,6 +119,9 @@ POLA = Principle of least astonishment (or surprise => POLS) : "People are part 
 - Artifical coupling / Misplaced responsability [CC-G13] [CC-G14] [CC-G17]
     There is a place for everything : don't toss code in the most convenient place at hand, take the time to figure out where functions, constants, variables ought to be declared
 - when in doubt, favor composition over inheritance [JP-C6]
+- [LavaLayerAntiPattern] : "Try and have some sympathy and understanding for those who came before you.
+There was probably a good reason for why things were done the way they were. Be especially sympathetic to consistency,
+even if you don’t necessarily agree with the design or technology choices."
 
 ## Be rigorous and clean after yourself
 - Be consistent : be careful with the conventions you choose, and follow them strictly. E.g. stick with one word per concept. [CC-G11]

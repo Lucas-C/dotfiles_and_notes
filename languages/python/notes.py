@@ -799,7 +799,7 @@ x = lambda: None; y = type(x.__code__)(0, 0, 0, 0, 0, b'\x01', (), (), (), '', '
 """""""""""""""""""""""""""""
 nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
 LuminosoInsight/wordfreq # Access a database of word frequencies, in various natural languages.
-topia.termextract
+topia.termextract # keywords extraction (2 lines broken under Py3, cf. my fork) - Alt: rake (2 implementations exist)
 difflib # compare text/strings/sequences
 fuzzywuzzy # fuzzy string comparison ratios, token ratios...
 sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && pip install sumy && python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB

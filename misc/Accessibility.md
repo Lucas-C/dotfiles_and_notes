@@ -1,5 +1,3 @@
-DO NOT USE autocomplete: https://github.com/anttiviljami/browser-autofill-phishing
-
 # Accessibility
 
 RGAA: http://references.modernisation.gouv.fr/rgaa-accessibilite

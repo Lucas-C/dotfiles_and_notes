@@ -53,6 +53,12 @@ iKAT : gain access to the underlying OS in Kiosk (browser) restricted environmen
 
 https://github.com/3gstudent/Javascript-Backdoor
 
+Content-Security-Policy HTTP response header : reduce XSS risks by declaring what dynamic resources are allowed to load
+
+[browser autofill phishing](https://github.com/anttiviljami/browser-autofill-phishing)
+[Target="_blank" - the most underestimated vulnerability ever](https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/)
+
+
 ### DB attacks
 sqlmap.py -r burp_raw_exemple_request.txt
 Strongloop NodeJS framework has same injection vulnerabilities as a typical PHP+SQL framework
@@ -90,7 +96,6 @@ PBKDF2 : new Public-Key Cryptography Standard
 
 
 ## Obfuscation
-
 shc : Bash Shell Script Compiler, converts shell scripts directly into binaries http://www.datsi.fi.upm.es/~frosal/
 -> uncompile with yanncam/UnSHc
 
@@ -110,7 +115,6 @@ OWASP Broken Apps
 OWASP Shepherd
 
 ## Secret sharing
-
 https://github.com/benschw/springboard : cli utility to help get your secrets into https://www.vaultproject.io
 -> Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing
 
