@@ -11,6 +11,7 @@ from datetime import datetime
 from urllib.parse import urlparse
 from time import perf_counter
 
+
 async def check_one_host_urls(client, queue, urls):
     resps = []
     for url in urls:
@@ -37,7 +38,7 @@ async def check_all_urls(urls, checker_results):
             resps = await queue.get()
             checker_results.extend(resps)
             count = len(checker_results)
-            if count % (len(urls) // 10) == 0:
+            if count % (len(urls) // 10) == 0: # those do not get printed progressively :(
                 print('#> {:.1f}% processed : count={}'.format(count * 100.0 / len(urls), count), file=sys.stderr)
 
 def url_checker(urls):
@@ -47,6 +48,31 @@ def url_checker(urls):
     loop.slow_callback_duration = 1 # seconds
     loop.run_until_complete(check_all_urls(urls, checker_results))
     return checker_results
+
+def compute_timing_stats(timings_in_ms):
+    if not timings_in_ms:
+        return {'count': 0}
+    timings_in_ms = sorted(timings_in_ms)
+    total = sum(timings_in_ms)
+    return {
+        'count': len(timings_in_ms),
+        'mean': total / len(timings_in_ms),
+        'p00_min': timings_in_ms[0],
+        'p01': percentile(timings_in_ms, .01),
+        'p10': percentile(timings_in_ms, .1),
+        'p50_median': percentile(timings_in_ms, .5),
+        'p90': percentile(timings_in_ms, .9),
+        'p99': percentile(timings_in_ms, .99),
+        'p100_max': timings_in_ms[-1],
+        'pstdev': statistics.pstdev(timings_in_ms),
+        'sum': total
+    }
+
+def percentile(sorted_data, percent):
+    assert 0 <= percent < 1
+    index = (len(sorted_data)-1) * percent
+    return sorted_data[int(index)]
+
 
 if __name__ == '__main__':
     urls = [url.strip() for url in sys.stdin.readlines()]

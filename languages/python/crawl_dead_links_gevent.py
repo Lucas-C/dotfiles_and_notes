@@ -18,6 +18,7 @@ from requests.packages import urllib3
 from urllib.parse import urlparse
 from time import perf_counter
 
+
 class PerHostAsyncRequests: # inspired by grequests
     def __init__(self, urls):
         self.urls = urls
