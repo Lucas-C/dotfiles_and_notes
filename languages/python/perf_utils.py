@@ -1,6 +1,6 @@
 import contextlib, gc, resource, statistics
 from pympler import asizeof
-from time import perf_counter  # used by timeit module
+from time import perf_counter  # used by timeit module, same as time.monotonic : https://github.com/python/cpython/blob/master/Modules/timemodule.c#L923
 
 
 def get_process_memory_usage_in_kb():

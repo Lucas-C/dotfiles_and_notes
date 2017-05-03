@@ -9,6 +9,7 @@ import asyncio, aiohttp, sys
 from collections import defaultdict
 from datetime import datetime
 from urllib.parse import urlparse
+from time import perf_counter
 
 async def check_one_host_urls(client, queue, urls):
     resps = []
@@ -16,10 +17,11 @@ async def check_one_host_urls(client, queue, urls):
         if resps:
             asyncio.sleep(2) # rate-limiting 1 request every 2s per hostname
         try:
+            start = perf_counter()
             async with client.get(url) as response:
-                resps.append((url, response.status))
+                resps.append((url, response.status, perf_counter() - start))
         except Exception as error:
-            resps.append((url, error))
+            resps.append((url, error, perf_counter() - start))
     await queue.put(resps)
 
 async def check_all_urls(urls, checker_results):
@@ -49,8 +51,15 @@ def url_checker(urls):
 if __name__ == '__main__':
     urls = [url.strip() for url in sys.stdin.readlines()]
     start = datetime.utcnow()
-    for url, status_or_error in url_checker(urls):
+    timings = {}
+    for url, status_or_error, exec_duration in url_checker(urls):
+        timings[url] = exec_duration
         if status_or_error != 200:
             print(str(status_or_error) or type(status_or_error), status_or_error, url)
     end = datetime.utcnow()
     print('#= Done in', end - start, file=sys.stderr)
+    print('# perf timing stats:', file=sys.stderr)
+    print(json.dumps(compute_timing_stats(timings.values()), indent=4), file=sys.stderr)
+    print('## Top10 slow requests:', file=sys.stderr)
+    top_slow_urls = sorted(timings.keys(), key=timings.get)[-10:]
+    print('\n'.join('- {} : {:.2f}s'.format(url, timings[url]) for url in top_slow_urls), file=sys.stderr)
