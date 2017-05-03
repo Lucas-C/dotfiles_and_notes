@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3.5 -Wdefault
+#!/usr/local/bin/python3.5
 # Dead URLs checker
 # USAGE:
 # - for Shaarli: jq -r '.[].url' datastore.json | grep -Ev 'ftp://|javascript:' | ./crawl_dead_links.py
@@ -23,15 +23,15 @@ async def check_one_host_urls(client, queue, urls):
     await queue.put(resps)
 
 async def check_all_urls(urls, checker_results):
+    urls_per_host = defaultdict(list)
+    for url in urls:
+        urls_per_host[urlparse(url).hostname].append(url)
+    #import json; print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
+    queue = asyncio.Queue()
     async with aiohttp.ClientSession(raise_for_status=True, connector=aiohttp.TCPConnector(verify_ssl=False, limit=100)) as client:
-        urls_per_host = defaultdict(list)
-        for url in urls:
-            urls_per_host[urlparse(url).hostname].append(url)
-        #import json; print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
-        queue = asyncio.Queue()
         for one_host_urls in urls_per_host.values():
             asyncio.ensure_future(check_one_host_urls(client, queue, one_host_urls))
-        for _ in range(len(one_host_urls)):
+        for _ in range(len(urls_per_host)):
             resps = await queue.get()
             checker_results.extend(resps)
             count = len(checker_results)
@@ -51,6 +51,6 @@ if __name__ == '__main__':
     start = datetime.utcnow()
     for url, status_or_error in url_checker(urls):
         if status_or_error != 200:
-            print(status_or_error, url)
+            print(str(status_or_error) or type(status_or_error), status_or_error, url)
     end = datetime.utcnow()
     print('#= Done in', end - start, file=sys.stderr)
