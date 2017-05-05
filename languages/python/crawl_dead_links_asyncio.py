@@ -5,11 +5,12 @@
 # - for Chrome: jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks | ./crawl_dead_links.py
 # STDIN FORMAT: 1 URL per line
 # STDOUT FORMAT: [HTTP status | Python exception] URL (for all non-OKs URLs)
-import asyncio, aiohttp, sys
+import asyncio, aiohttp, json, statistics, sys
+from async_timeout import timeout
 from collections import defaultdict
 from datetime import datetime
 from urllib.parse import urlparse
-from time import perf_counter
+from perf_utils import compute_timing_stats, perf_counter
 
 
 async def check_one_host_urls(client, queue, urls):
@@ -19,7 +20,7 @@ async def check_one_host_urls(client, queue, urls):
             asyncio.sleep(2) # rate-limiting 1 request every 2s per hostname
         try:
             start = perf_counter()
-            async with client.get(url) as response:
+            async with client.get(url, timeout=60) as response:
                 resps.append((url, response.status, perf_counter() - start))
         except Exception as error:
             resps.append((url, error, perf_counter() - start))
@@ -29,49 +30,32 @@ async def check_all_urls(urls, checker_results):
     urls_per_host = defaultdict(list)
     for url in urls:
         urls_per_host[urlparse(url).hostname].append(url)
-    #import json; print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
+    #print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
     queue = asyncio.Queue()
     async with aiohttp.ClientSession(raise_for_status=True, connector=aiohttp.TCPConnector(verify_ssl=False, limit=100)) as client:
         for one_host_urls in urls_per_host.values():
             asyncio.ensure_future(check_one_host_urls(client, queue, one_host_urls))
-        for _ in range(len(urls_per_host)):
-            resps = await queue.get()
-            checker_results.extend(resps)
-            count = len(checker_results)
-            if count % (len(urls) // 10) == 0: # those do not get printed progressively :(
-                print('#> {:.1f}% processed : count={}'.format(count * 100.0 / len(urls), count), file=sys.stderr)
+        start = perf_counter()
+        with timeout(20*60):
+            for _ in range(len(urls_per_host)):
+                resps = await queue.get()
+                checker_results.extend(resps)
+                count = len(checker_results)
+                if count % (len(urls) // 10) == 0: # those do not get printed progressively :(
+                    print('#> {:.1f}% processed : count={} time={}'.format(count * 100.0 / len(urls), count), perf_counter() - start, file=sys.stderr)
 
 def url_checker(urls):
     checker_results = []
     loop = asyncio.get_event_loop()
     loop.set_debug(True)
     loop.slow_callback_duration = 1 # seconds
-    loop.run_until_complete(check_all_urls(urls, checker_results))
+    try:
+        loop.run_until_complete(check_all_urls(urls, checker_results))
+    except asyncio.TimeoutError:
+        unprocessed_urls = set(urls) - set(resp[0] for resp in checker_results)
+        print('TIMEOUT', file=sys.stderr)
+        print(unprocessed_urls, file=sys.stderr)
     return checker_results
-
-def compute_timing_stats(timings_in_ms):
-    if not timings_in_ms:
-        return {'count': 0}
-    timings_in_ms = sorted(timings_in_ms)
-    total = sum(timings_in_ms)
-    return {
-        'count': len(timings_in_ms),
-        'mean': total / len(timings_in_ms),
-        'p00_min': timings_in_ms[0],
-        'p01': percentile(timings_in_ms, .01),
-        'p10': percentile(timings_in_ms, .1),
-        'p50_median': percentile(timings_in_ms, .5),
-        'p90': percentile(timings_in_ms, .9),
-        'p99': percentile(timings_in_ms, .99),
-        'p100_max': timings_in_ms[-1],
-        'pstdev': statistics.pstdev(timings_in_ms),
-        'sum': total
-    }
-
-def percentile(sorted_data, percent):
-    assert 0 <= percent < 1
-    index = (len(sorted_data)-1) * percent
-    return sorted_data[int(index)]
 
 
 if __name__ == '__main__':

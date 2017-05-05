@@ -1,16 +1,5 @@
-import contextlib, gc, resource, statistics
-from pympler import asizeof
+import contextlib, gc, statistics
 from time import perf_counter  # used by timeit module, same as time.monotonic : https://github.com/python/cpython/blob/master/Modules/timemodule.c#L923
-
-
-def get_process_memory_usage_in_kb():
-    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-
-def get_object_memory_usage_in_kb(obj):
-    """
-    This is an ESTIMATION and has limitations: cf. https://pythonhosted.org/Pympler/asizeof.html
-    """
-    return asizeof.asizeof(obj) / 1000
 
 
 @contextlib.contextmanager

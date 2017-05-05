@@ -16,7 +16,7 @@ from datetime import datetime
 from requests import Session
 from requests.packages import urllib3
 from urllib.parse import urlparse
-from time import perf_counter
+from perf_utils import compute_timing_stats, perf_counter
 
 
 class PerHostAsyncRequests: # inspired by grequests
@@ -48,30 +48,6 @@ def url_checker(urls):
         for resp in resps:
             yield resp + (len(pool),)
     pool.join(raise_error=True)
-
-def compute_timing_stats(timings_in_ms):
-    if not timings_in_ms:
-        return {'count': 0}
-    timings_in_ms = sorted(timings_in_ms)
-    total = sum(timings_in_ms)
-    return {
-        'count': len(timings_in_ms),
-        'mean': total / len(timings_in_ms),
-        'p00_min': timings_in_ms[0],
-        'p01': percentile(timings_in_ms, .01),
-        'p10': percentile(timings_in_ms, .1),
-        'p50_median': percentile(timings_in_ms, .5),
-        'p90': percentile(timings_in_ms, .9),
-        'p99': percentile(timings_in_ms, .99),
-        'p100_max': timings_in_ms[-1],
-        'pstdev': statistics.pstdev(timings_in_ms),
-        'sum': total
-    }
-
-def percentile(sorted_data, percent):
-    assert 0 <= percent < 1
-    index = (len(sorted_data)-1) * percent
-    return sorted_data[int(index)]
 
 
 if __name__ == '__main__':
