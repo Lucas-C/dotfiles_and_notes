@@ -10,7 +10,7 @@ from gevent import monkey, sleep
 from gevent.pool import Pool
 from greenlet import greenlet
 monkey.patch_all(thread=False, select=False)
-import json, statistics, sys
+import json, sys
 from collections import defaultdict
 from datetime import datetime
 from requests import Session

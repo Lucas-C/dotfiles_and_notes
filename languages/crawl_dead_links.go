@@ -1,5 +1,4 @@
-//usr/bin/env go run "$0" "$@"; exit "$?"
-// TODO: install go 1.8
+// TODO: bucket URLs per hostname
 // On the complexity of Go timeouts : https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/
 package main
 
@@ -7,16 +6,16 @@ import (
     "bufio"
     "crypto/tls"
     "fmt"
-    //"log"
+    "log"
     "net/http"
     "os"
     "time"
 )
 
 type CrawlResult struct {
-    url        string
-    statusCode int
-    err        error
+    url    string
+    status int
+    err    error
 }
 
 func main() {
@@ -28,28 +27,39 @@ func main() {
     tr := &http.Transport{
         TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
     }
-    client := &http.Client{Transport: tr, Timeout: 15 * time.Second}
-    channel := make(chan *CrawlResult, len(urls))
+    client := &http.Client{Transport: tr, Timeout: 120 * time.Second} // there is no timeout by default
+    channel := make(chan *CrawlResult /*buffer_size=*/, 100)
     for _, url := range urls {
         go func(url string) {
             resp, err := client.Get(url)
-            if err != nil && resp != nil {
-                resp.Body.Close()
-            }
+            var result *CrawlResult
             if resp == nil {
-                channel <- &CrawlResult{url, 0, err}
+                result = &CrawlResult{url, 0, err}
             } else {
-                channel <- &CrawlResult{url, resp.StatusCode, err}
+                resp.Body.Close()
+                result = &CrawlResult{url, resp.StatusCode, err}
+            }
+            for { // as long as the channel is full, we retry
+                select {
+                case channel <- result:
+                    return
+                }
             }
         }(url)
     }
+    count := 0
     for {
         select {
         case result := <-channel:
             if result.err != nil {
-                fmt.Println(result.err.Error(), result.url)
-            } else if result.statusCode != 200 {
-                fmt.Println(result.statusCode, result.url)
+                fmt.Println(result.err, result.url)
+            } else if result.status != 200 {
+                fmt.Println(result.status, result.url)
+            }
+            count += 1
+            log.Println(count, result.url, result.status)
+            if count == len(urls) {
+                return
             }
         }
     }
