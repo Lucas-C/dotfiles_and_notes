@@ -40,7 +40,7 @@ def compute_timing_stats(timings_in_ms):
         'p100_max': timings_in_ms[-1],
         'pstdev': statistics.pstdev(timings_in_ms),
         'sum': total
-     }
+    }
 
 def percentile(sorted_data, percent):
     """

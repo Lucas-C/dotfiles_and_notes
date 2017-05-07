@@ -52,7 +52,7 @@ def url_checker(urls):
 
 if __name__ == '__main__':
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    urls = [url.strip() for url in sys.stdin.readlines()]
+    urls = set(url.strip() for url in sys.stdin.readlines())
     start = datetime.utcnow()
     count = 0
     perf_timings, elasped_timings = {}, {}

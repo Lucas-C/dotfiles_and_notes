@@ -59,7 +59,7 @@ def url_checker(urls):
 
 
 if __name__ == '__main__':
-    urls = [url.strip() for url in sys.stdin.readlines()]
+    urls = set(url.strip() for url in sys.stdin.readlines())
     start = datetime.utcnow()
     timings = {}
     for url, status_or_error, exec_duration in url_checker(urls):
