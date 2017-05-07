@@ -42,7 +42,7 @@ async def check_all_urls(urls, checker_results):
                 checker_results.extend(resps)
                 count = len(checker_results)
                 if count % (len(urls) // 10) == 0: # those do not get printed progressively :(
-                    print('#> {:.1f}% processed : count={} time={}'.format(count * 100.0 / len(urls), count), perf_counter() - start, file=sys.stderr)
+                    print('#> {:.1f}% processed : count={} time={}'.format(count * 100.0 / len(urls), count, perf_counter() - start), file=sys.stderr)
 
 def url_checker(urls):
     checker_results = []

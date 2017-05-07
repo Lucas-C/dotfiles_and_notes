@@ -69,10 +69,7 @@ Couples navigateur + lecteurs d'écrans:
 - Firefox avec NVDA: https://dequeuniversity.com/screenreaders/nvda-keyboard-shortcuts
 
 
-## Formation Access42
-
-Jean-Pierre Villain (http://access42.net/Notre-equipe.html)
-https://twitter.com/access42net
+## Formation Access42 par Jean-Pierre Villain
 
 loi 1975 sur le handicap : ratio de personnes handicapées par boîte OU contribution à un fond d'aide
 => les boîtes préfèrent payer

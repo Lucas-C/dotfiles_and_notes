@@ -1120,12 +1120,13 @@ make serve # preview Pelican articles in localhost, with optional autoreload on 
 sitemap, extract-toc, Tipue-search # plugins Pelican
 
 jstasiak/python-zeroconf  # multicast DNS service discovery - usage example: nils-werner/zget filename-based peer to peer file transfer
+pycares # asynchronous DNS resolution
+octodns # manage DNS across multiple providers with config versioning
 
 locust # user load testing simulating millions of simultaneous users : Alt: ab (Apache Benchmarking), tarekziade/boom, wg/wrk
 mininet # realistic virtual network, running real kernel, switch and application code, on a single machine
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 IPy(ipsrc).iptype() == 'PRIVATE' # check ranges 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255 & 192.168.0.0–192.168.255.255
-pycares # asynchronous DNS resolution
 scapy # packet injection/manipulation for many network protocols - Alt: dpkt, can read .pcap files
 pypcap # catpure network traffic
 kevin1024/vcrpy # record / replay HTTP interactions
