@@ -39,6 +39,8 @@ Edit > Line Operations > Sort Lines in Ascending / Descending Order
 ## Plugins
 
 - XML Tools -> can validate XML
+- Compare
+- Quick Color Picker +
 
 ## Under the hood
 

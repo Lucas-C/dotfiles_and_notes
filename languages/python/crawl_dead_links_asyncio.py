@@ -1,8 +1,8 @@
 #!/usr/local/bin/python3.5
 # Dead URLs checker
 # USAGE:
-# - for Shaarli: jq -r '.[].url' datastore.json | grep -Ev 'ftp://|javascript:' | ./crawl_dead_links.py
-# - for Chrome: jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks | ./crawl_dead_links.py
+# - for Shaarli: jq -r '.[].url' datastore.json | grep -Ev 'ftp://|javascript:' | ./crawl_dead_links_asyncio.py
+# - for Chrome: jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks | ./crawl_dead_links_asyncio.py
 # STDIN FORMAT: 1 URL per line
 # STDOUT FORMAT: [HTTP status | Python exception] URL (for all non-OKs URLs)
 import asyncio, aiohttp, json, sys
@@ -53,7 +53,7 @@ def url_checker(urls):
         loop.run_until_complete(check_all_urls(urls, checker_results))
     except asyncio.TimeoutError:
         unprocessed_urls = set(urls) - set(resp[0] for resp in checker_results)
-        print('TIMEOUT', file=sys.stderr)
+        print('20min TIMEOUT', file=sys.stderr)
         print(unprocessed_urls, file=sys.stderr)
     return checker_results
 
