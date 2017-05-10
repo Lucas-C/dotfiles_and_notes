@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# TODO: still sometimes hang forever
 # Dead URLs checker
 # USAGE:
 # - for Shaarli: jq -r '.[].url' datastore.json | grep -Ev 'ftp://|javascript:' | ./crawl_dead_links_gevent.py

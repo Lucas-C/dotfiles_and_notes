@@ -95,7 +95,7 @@ distributed hash tables aka consistent hash rings, various detailed forms of ran
 Yahoo's PNUTS relaxed consistency & relaxed availability, hinted handoff, Merkle tree, gossip protocol
 
 ## Python packaging by Tarek Ziadé
-- distutils2 > pip > distribute > setuptools > distutils BUT it has been abandonned :( Check zc.buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
+- distutils2 > pip > distribute > setuptools > distutils BUT it has been abandoned :( Check zc.buildout/conda/bento/hashdist/pyinstaller for new projects or keep using setuptools: https://packaging.python.org
 - some old distutils issues: `python setup.py --name` may fails; `setup(requires=['ldap'])` is useless; PyPI may act as a SPOF; there is no way to remove installed files (there is `python setup.py install --record` but it is never used); if a dependency install fails or there is a dependency conflicts, the system can end up in a broken state...
 - Simple Index protocol and XML-RPC APIs
 - `dist-info` metadata of files installed, including a _RESOURCES_ file mapping project-root-relative files to paths in the system (e.g. /etc/, /var/...)
