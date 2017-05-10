@@ -26,7 +26,7 @@ def main(argv):
     print('Using command:', subprocess.check_output([shutil.which('twopi'), '-V'], stderr=subprocess.STDOUT).decode('utf8'), end='', file=sys.stderr)
     args = parse_args(argv)
     kwargs = args.__dict__
-    kwargs.pop('self_test')
+    #kwargs.pop('self_test')
     create_solarized_mindmap_from_file(**kwargs)
 
 
