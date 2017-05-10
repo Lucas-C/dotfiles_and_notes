@@ -175,12 +175,6 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     Bundle 'plasticboy/vim-markdown'
     " disabled because of https://github.com/plasticboy/vim-markdown/issues/79
     let g:vim_markdown_folding_disabled=1
-    Bundle 'scrooloose/syntastic'
-    " To know what's going on :SyntasticInfo ; to invoke it manually :SyntasticCheck
-    " JSLint: npm install jshint -g # Config example: https://github.com/jshint/jshint/blob/master/examples/.jshintrc
-    let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-    let g:syntastic_python_checkers = ['python', 'pylint', 'pyflakes', 'pep8']
-    let g:syntastic_aggregate_errors = 1
 
     " Require vim compiled with +python
     "Bundle 'klen/python-mode'
@@ -196,6 +190,17 @@ if isdirectory($HOME."/.vim/bundle/Vundle.vim")
     set omnifunc=syntaxcomplete#Complete
 
     Plugin 'othree/html5.vim'
+
+    "Bundle 'scrooloose/syntastic'
+    Plugin 'vim-syntastic/syntastic'
+    " To know what's going on :SyntasticInfo ; to invoke it manually :SyntasticCheck
+    " JSLint: npm install jshint -g # Config example: https://github.com/jshint/jshint/blob/master/examples/.jshintrc
+    let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+    let g:syntastic_python_checkers = ['python', 'pylint', 'pyflakes', 'pep8']
+    let g:syntastic_aggregate_errors = 1
+
+    Plugin 'fatih/vim-go'
+    Plugin 'rust-lang/rust.vim'
 
     call vundle#end()
 endif

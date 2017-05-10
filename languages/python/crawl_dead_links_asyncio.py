@@ -13,6 +13,9 @@ from urllib.parse import urlparse
 from perf_utils import compute_timing_stats, perf_counter
 
 
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36'
+
+
 async def check_one_host_urls(client, queue, urls):
     resps = []
     for url in urls:
@@ -32,7 +35,8 @@ async def check_all_urls(urls, checker_results):
         urls_per_host[urlparse(url).hostname].append(url)
     #print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
     queue = asyncio.Queue()
-    async with aiohttp.ClientSession(raise_for_status=True, connector=aiohttp.TCPConnector(verify_ssl=False, limit=100)) as client:
+    async with aiohttp.ClientSession(raise_for_status=True, connector=aiohttp.TCPConnector(verify_ssl=False, limit=100), headers = {'User-Agent': USER_AGENT}) as client:
+    # default UA: https://github.com/aio-libs/aiohttp/blob/master/aiohttp/http.py#L34
         for one_host_urls in urls_per_host.values():
             asyncio.ensure_future(check_one_host_urls(client, queue, one_host_urls))
         start = perf_counter()

@@ -20,6 +20,9 @@ from urllib.parse import urlparse
 from perf_utils import compute_timing_stats, perf_counter
 
 
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36'
+
+
 class PerHostAsyncRequests: # inspired by grequests
     def __init__(self, urls):
         self.urls = urls
@@ -31,7 +34,7 @@ class PerHostAsyncRequests: # inspired by grequests
                 sleep(2) # rate-limiting 1 request every 2s per hostname
             start = perf_counter()
             try:
-                response = self.session.get(url, verify=False)
+                response = self.session.get(url, verify=False, headers = {'User-Agent': USER_AGENT})  # default requests UA is often blacklisted: https://github.com/kennethreitz/requests/blob/master/requests/utils.py#L731
                 resps.append((url, response.status_code, perf_counter() - start, response.elapsed.total_seconds()))
             except Exception as error:
                 resps.append((url, error, perf_counter() - start, None))

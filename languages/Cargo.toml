@@ -1,0 +1,14 @@
+[package]
+name = "crawl_dead_links"
+version = "0.0.1"
+authors = [ "Lucas Cimon" ]
+
+[dependencies]
+curl = "0.4.6"
+futures = "0.1.13"
+tokio-core = "0.1.7"
+tokio-curl = "0.1.9"
+
+[[bin]]
+name = "crawl_dead_links"
+path = "crawl_dead_links.rs"

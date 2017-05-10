@@ -62,6 +62,40 @@
             <WordsStyle name="DELIMITERS8" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" nesting="0" />
         </Styles>
     </UserLang>
+    <UserLang name="go" ext="go">
+        <Settings>
+            <Global caseIgnored="no" />
+            <TreatAsSymbol comment="no" commentLine="no" />
+            <Prefix words1="no" words2="no" words3="no" words4="no" />
+        </Settings>
+        <KeywordLists>
+            <Keywords name="Delimiters">&quot;&apos;0&quot;&apos;0</Keywords>
+            <Keywords name="Folder+"></Keywords>
+            <Keywords name="Folder-"></Keywords>
+            <Keywords name="Operators">( ) [ ] { }   ... . , ;  </Keywords>
+            <Keywords name="Comment">1/* 1/** 2*/ 2*/ 0//</Keywords>
+            <Keywords name="Words1">break default func interface select case defer go map struct chan else goto package switch const fallthrough if range type true false bool uint8 uint16 uint32 uint64 int8 int16 int32 int64 float32 float64 complex64 complex128 byte uint int float complex uintptr string struct nil var</Keywords>
+            <Keywords name="Words2"></Keywords>
+            <Keywords name="Words3"></Keywords>
+            <Keywords name="Words4"></Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" styleID="11" fgColor="819090" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="FOLDEROPEN" styleID="12" fgColor="FF0000" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="FOLDERCLOSE" styleID="13" fgColor="00FF00" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="KEYWORD1" styleID="5" fgColor="268BD2" bgColor="042029" fontName="" fontStyle="1" />
+            <WordsStyle name="KEYWORD2" styleID="6" fgColor="B58900" bgColor="042029" fontName="" fontStyle="1" />
+            <WordsStyle name="KEYWORD3" styleID="7" fgColor="0000FF" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="KEYWORD4" styleID="8" fgColor="FFFF00" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="D33682" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="OPERATOR" styleID="10" fgColor="859900" bgColor="042029" fontName="" fontStyle="1" />
+            <WordsStyle name="DELIMINER1" styleID="14" fgColor="269186" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="DELIMINER2" styleID="15" fgColor="2AA198" bgColor="042029" fontName="" fontStyle="0" />
+            <WordsStyle name="DELIMINER3" styleID="16" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" />
+        </Styles>
+    </UserLang>
     <UserLang name="Groovy" ext="groovy gradle" udlVersion="2.1">
         <Settings>
             <Global caseIgnored="no" allowFoldOfComments="no" foldCompact="no" forcePureLC="0" decimalSeparator="0" />
