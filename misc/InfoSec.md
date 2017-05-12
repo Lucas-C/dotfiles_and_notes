@@ -1,3 +1,5 @@
+How to Start Your Career in Cyber Security by Mikko Hypponen : https://safeandsavvy.f-secure.com/2017/02/03/a-hacker-hunters-advice-for-getting-into-infosec/
+
 # Phases of Penetration Testing
 From http://www.pentest-standard.org
 
@@ -109,7 +111,9 @@ Organismes d'Importance Vitale
 ## Information sources
 http://www.theregister.co.uk/security/
 http://arstechnica.com/security/
-http://pentestit.com/
+http://pentestit.com
+http://www.miscmag.com
+https://labsblog.f-secure.com
 
 ## Training
 Web Security Dojo: https://www.mavensecurity.com/resources/web-security-dojo/

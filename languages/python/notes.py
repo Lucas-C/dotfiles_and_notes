@@ -569,7 +569,6 @@ pip install --editable $path_or_git_url # Install a project in editable mode (i.
 pip install --user $USER --src . --no-index --no-deps --no-cache-dir --upgrade --requirement requirements.txt --require-hashes # CLI tool to help with retrieving correct hashes : hashin
 pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages - Also, programatical access: pip.operations.freeze.freeze
 pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list -o ; piprot requirements.txt ; ./manage.py pipchecker
-python-security/pyt, safety # analyze security vulnerabilities
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 
 def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unverified=()):  # to use pip-compile (from pip-tools) programmatically
@@ -608,6 +607,7 @@ pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8,
 pyreverse # UML diagrams, integrated in pylint
 
 # Security
+python-security/pyt, safety # analyze security vulnerabilities
 openstack/bandit  # Python AST-based security linter
     echo -e "[bandit]\nexclude: my_proj/.eggs,my_proj/src/unittest"
     bandit --ini .banditrc --recursive my_proj/ # -lll to limit to HIGH severity issues
