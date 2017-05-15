@@ -5,7 +5,7 @@
 # - for Chrome: jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks | ./crawl_dead_links_asyncio.py
 # STDIN FORMAT: 1 URL per line
 # STDOUT FORMAT: [HTTP status | Python exception] URL (for all non-OKs URLs)
-import asyncio, aiohttp, json, sys
+import asyncio, aiohttp, html, json, sys
 from async_timeout import timeout
 from collections import defaultdict
 from datetime import datetime
@@ -26,14 +26,23 @@ async def check_one_host_urls(client, queue, urls):
             async with client.get(url, timeout=60) as response:
                 resps.append((url, response.status, perf_counter() - start))
         except Exception as error:
-            resps.append((url, error, perf_counter() - start))
+            resps.append((url, rm_ptrs(error), perf_counter() - start))
     await queue.put(resps)
+
+def rm_ptrs(error):
+    error = str(error)
+    try:
+        i = error.index(' 0x')
+        return error[:i+3] + '????????????' + error[i+15:]
+    except ValueError:
+        return error
 
 async def check_all_urls(urls, checker_results):
     urls_per_host = defaultdict(list)
     for url in urls:
         urls_per_host[urlparse(url).hostname].append(url)
     #print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
+    progress_step = len(urls) // 10
     queue = asyncio.Queue()
     async with aiohttp.ClientSession(raise_for_status=True, connector=aiohttp.TCPConnector(verify_ssl=False, limit=100), headers = {'User-Agent': USER_AGENT}) as client:
     # default UA: https://github.com/aio-libs/aiohttp/blob/master/aiohttp/http.py#L34
@@ -45,7 +54,7 @@ async def check_all_urls(urls, checker_results):
                 resps = await queue.get()
                 checker_results.extend(resps)
                 count = len(checker_results)
-                if count % (len(urls) // 10) == 0: # those do not get printed progressively :(
+                if progress_step and count % progress_step == 0: # those do not get printed progressively :(
                     print('#> {:.1f}% processed : count={} time={}'.format(count * 100.0 / len(urls), count, perf_counter() - start), file=sys.stderr)
 
 def url_checker(urls):
@@ -63,7 +72,7 @@ def url_checker(urls):
 
 
 if __name__ == '__main__':
-    urls = set(url.strip() for url in sys.stdin.readlines())
+    urls = set(html.unescape(url.strip()) for url in sys.stdin.readlines())
     start = datetime.utcnow()
     timings = {}
     for url, status_or_error, exec_duration in url_checker(urls):

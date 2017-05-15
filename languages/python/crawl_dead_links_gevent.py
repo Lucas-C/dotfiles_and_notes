@@ -11,7 +11,7 @@ from gevent import monkey, sleep
 from gevent.pool import Pool
 from greenlet import greenlet
 monkey.patch_all(thread=False, select=False)
-import json, sys
+import html, json, sys
 from collections import defaultdict
 from datetime import datetime
 from requests import Session
@@ -37,15 +37,22 @@ class PerHostAsyncRequests: # inspired by grequests
                 response = self.session.get(url, verify=False, headers = {'User-Agent': USER_AGENT})  # default requests UA is often blacklisted: https://github.com/kennethreitz/requests/blob/master/requests/utils.py#L731
                 resps.append((url, response.status_code, perf_counter() - start, response.elapsed.total_seconds()))
             except Exception as error:
-                resps.append((url, error, perf_counter() - start, None))
+                resps.append((url, rm_ptrs(error), perf_counter() - start, None))
         return resps
+
+def rm_ptrs(error):
+    error = str(error)
+    try:
+        i = error.index(' 0x')
+        return error[:i+3] + '????????????' + error[i+15:]
+    except ValueError:
+        return error
 
 def url_checker(urls):
     urls_per_host = defaultdict(list)
     for url in urls:
         urls_per_host[urlparse(url).hostname].append(url)
     #print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
-
     reqs = (PerHostAsyncRequests(urls) for urls in urls_per_host.values())
     pool = Pool(size=None)
     for resps in pool.imap_unordered(lambda r: r.send(), reqs):
@@ -56,10 +63,11 @@ def url_checker(urls):
 
 if __name__ == '__main__':
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    urls = set(url.strip() for url in sys.stdin.readlines())
+    urls = set(html.unescape(url.strip()) for url in sys.stdin.readlines())
     start = datetime.utcnow()
     count = 0
     perf_timings, elasped_timings = {}, {}
+    progress_step = len(urls) // 10
     for url, status_or_error, exec_duration, pool_length, elasped_req_time in url_checker(urls):
         perf_timings[url] = exec_duration
         if elasped_req_time != None:
@@ -68,7 +76,7 @@ if __name__ == '__main__':
         # Looks like the following print statements do not get flushed to stdout before the end
         if status_or_error != 200:
             print(status_or_error, url) # this won't be displayed if there are too few URLs (too fast ?)
-        if count % (len(urls) // 10) == 0:
+        if progress_step and count % progress_step == 0:
             print('#> {:.1f}% processed : count={} len(pool)={}'.format(count * 100.0 / len(urls), count, pool_length), file=sys.stderr)
     end = datetime.utcnow()
     print('#= Done in', end - start, file=sys.stderr)

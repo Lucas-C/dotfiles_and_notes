@@ -5,6 +5,7 @@ import (
     "bufio"
     "crypto/tls"
     "fmt"
+    "html"
     "log"
     "math/rand"
     "net/http"
@@ -80,7 +81,7 @@ func main() {
     var urls []string
     lineReader := bufio.NewScanner(os.Stdin)
     for lineReader.Scan() {
-        urls = append(urls, lineReader.Text())
+        urls = append(urls, html.UnescapeString(lineReader.Text()))
     }
     shuffle(urls)
     urlsPerHostnames := bucketUrlsPerHostname(urls)
