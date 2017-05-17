@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-notes="^Note:" data-charset="utf-8">
+# Intro à Lua
+
+## 17/05/2017
+
+&lt;img src="lua-logo.gif" alt="Lua logo" style="width: 20%;border: none"&gt;
+
+Note: setup:
+	luarocks install --server=http://luarocks.org luarepl inspect
+    eval $(luarocks path --bin)
+    rep.lua  # use rlwrap
+
+
+
+### Le langage (1/4)
+
+- 1993, écris en C
+- typé dynamiquement
+- garbage collection
+- first-class functions
+&lt;pre style="width: 100%"&gt;&lt;code class="lang-lua hljs"&gt;foo = function () print(42) end
+&lt;/code&gt;&lt;/pre&gt;
+- closures
+- coercion (conversion auto number/string)
+
+
+
+### Le langage (2/4)
+
+- gestion des erreurs via fonctions: `error` / `pcall`
+- modules:
+&lt;pre style="width: 100%"&gt;&lt;code class="lang-lua hljs"&gt;utils = require('utils')
+&lt;/code&gt;&lt;/pre&gt;
+- package manager: `luarocks`
+- API Lua/C simple: LIFO stack
+- luaJIT
+
+
+
+### Le langage (3/4)
+
+- variables globales par défault
+&lt;pre style="width: 100%"&gt;&lt;code class="lang-lua hljs"&gt;local foo = function () print(42) end
+&lt;/code&gt;&lt;/pre&gt;
+- une fonction peut retourner plusieurs valeurs
+&lt;pre style="width: 100%"&gt;&lt;code class="lang-lua hljs"&gt;foo = function () return 4, 2 end
+&lt;/code&gt;&lt;/pre&gt;
+- unpack
+- passage de paramètres par nom
+&lt;pre style="width: 100%"&gt;&lt;code class="lang-lua hljs"&gt;kung = function (t) return t.a + t.b end
+&lt;/code&gt;&lt;/pre&gt;
+- varargs
+&lt;pre style="width: 100%"&gt;&lt;code class="lang-lua hljs"&gt;bar = function (a, ...) return a + ... end
+&lt;/code&gt;&lt;/pre&gt;
+
+Note:
+foo = function (a, b) return a + b end
+foo(1, 2)
+foo(unpack({1, 2}))
+kung{a=1,b=2}
+bar(1, 2)
+bar(1)
+bar(1, 2, 3)
+
+
+
+### Le langage (4/4)
+
+- iterators (coroutines)
+- ranges: `i = 1,100`
+- **tables**
+&lt;pre style="width: 100%"&gt;&lt;code class="lang-lua hljs"&gt;t = {a = 5, 10}
+&lt;/code&gt;&lt;/pre&gt;
+- une valeur "`nil`" clôt une table
+
+Note:
+t[1]
+inspect = require('inspect')
+print(inspect({1, 2, nil, 3}))
+
+
+
+### Lua & Redis
+
+- API Lua
+- Redis "`EVAL`", "`SCRIPT LOAD`" & "`EVALSHA`"
+
+Note:
+redis-cli --eval incrset.lua links:counter links:urls , https://chezsoi.org
+redis-cli KEYS '*'
+redis-cli GET links:counter
+redis-cli HGET links:urls 1
+
+
+
+### Lua & Redis: what for ?
+
+- lock / atomic transactions (alt: `WATCH`/`MULTI`/`EXEC`)
+- conditional logic: `EXISTS`, `HEXISTS`
+- bénéficier de la stdlib (base, table, string, math, cjson, cmsgpack...)
+
+
+
+### Lua & Nginx
+
+Avec [OpenResty](https://openresty.org) : serveur de webapps basé sur Nginx
+
+Trivia: le script Lua CLI de [Kong](https://github.com/Mashape/kong/blob/master/bin/kong) est démarré via [resty](https://github.com/openresty/resty-cli/blob/master/bin/resty), le script CLI d'OpenResty... écris en PERL !
+
+
+
+### Lua & Nginx: à quoi ça ressemble ?
+
+https://github.com/openresty/lua-nginx-module#synopsis
+
+https://github.com/openresty/lua-nginx-module#directives
+
+- `content_by_lua_block`
+- `content_by_lua_block`
+- `access_by_lua_file`
+
+
+
+### Lua & Nginx: what for ?
+
+- gestion des accès & sécu custom
+- manipulation des headers HTTP
+- choix de backend dynamique
+- URL dispatch
+- cache custom
+
+
+
+### Des questions ?
+
+[Learn Lua in 15min](http://tylerneylon.com/a/learn-lua/)
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+
+                history: true,
+
+                dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

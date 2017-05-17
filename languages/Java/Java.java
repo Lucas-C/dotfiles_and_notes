@@ -133,7 +133,7 @@ kill -3 <pid> // dump a full stack trace and heap summary, including generationa
 // String / ByteString correct conversion :
 String asString = new String( byteString.getArray(), "UTF-8" );
 ByteString asBytes = ByteString.wrap( string.getBytes( "UTF-8" );
-"" == (new String("")).intern() // Using .intern() can be risky + interned Strings live in PermGen space
+"" == (new String("")).intern() // Using .intern() can be risky + interned Strings live in PermGen space + "it comes with caveats: throughput, memory footprint, pause time problems will await the users"
 "regexp".matches("regex.*") // Also: .indexOf .lastIndexOf .substring .trim .split
 // char[] >slightly> String for passwords: http://stackoverflow.com/a/8881376
 
