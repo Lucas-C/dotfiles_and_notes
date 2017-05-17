@@ -4,11 +4,11 @@ from twilio.rest import Client
 
 # USAGE:
 #   export $(xargs < .twilio)
-#   ./record_voicemail_with_twilio.py
+#   ./record_voicemail_with_twilio.py $phone_number
 
 def main(argv):
     client = Client(os.environ['TWILIO_ACCOUNT_SID'], os.environ['TWILIO_AUTH_TOKEN'])
-    client.calls.create(to='+33241395037',
+    client.calls.create(to=sys.argv[1],
                         from_=client.incoming_phone_numbers.list()[0].phone_number,
                         record=True,
                         url='https://handler.twilio.com/twiml/EH9515e9e0d2fb81f27d75a493225ae703')
