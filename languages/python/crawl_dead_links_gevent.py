@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # TODO: still sometimes hang forever
 # Dead URLs checker
 # USAGE:
@@ -13,14 +13,11 @@ from greenlet import greenlet
 monkey.patch_all(thread=False, select=False)
 import html, json, sys
 from collections import defaultdict
-from datetime import datetime
 from requests import Session
 from requests.packages import urllib3
 from urllib.parse import urlparse
+from crawler_utils import error2str, robots_txt_url, robot_can_fetch, USER_AGENT
 from perf_utils import compute_timing_stats, perf_counter
-
-
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36'
 
 
 class PerHostAsyncRequests: # inspired by grequests
@@ -28,25 +25,26 @@ class PerHostAsyncRequests: # inspired by grequests
         self.urls = urls
         self.session = Session()
     def send(self):
+        try:
+            resp = self.session.get(robots_txt_url(self.urls[0]), verify=False)
+            resp.raise_for_status()
+            robots_txt_content = resp.text
+        except BaseException as error:
+            robots_txt_content = ''
         resps = []
         for url in self.urls:
+            if robots_txt_content and not robot_can_fetch(robots_txt_content, url):
+                resps.append((url, 'ROBOT FORBIDDEN', None, None))
+                continue
             if resps:
                 sleep(2) # rate-limiting 1 request every 2s per hostname
             start = perf_counter()
             try:
-                response = self.session.get(url, verify=False, headers = {'User-Agent': USER_AGENT})  # default requests UA is often blacklisted: https://github.com/kennethreitz/requests/blob/master/requests/utils.py#L731
+                response = self.session.get(url, verify=False, headers={'User-Agent': USER_AGENT})  # default requests UA is often blacklisted: https://github.com/kennethreitz/requests/blob/master/requests/utils.py#L731
                 resps.append((url, response.status_code, perf_counter() - start, response.elapsed.total_seconds()))
             except Exception as error:
-                resps.append((url, rm_ptrs(error), perf_counter() - start, None))
+                resps.append((url, error2str(error), perf_counter() - start, None))
         return resps
-
-def rm_ptrs(error):
-    error = str(error)
-    try:
-        i = error.index(' 0x')
-        return error[:i+3] + '????????????' + error[i+15:]
-    except ValueError:
-        return error
 
 def url_checker(urls):
     urls_per_host = defaultdict(list)
@@ -64,12 +62,13 @@ def url_checker(urls):
 if __name__ == '__main__':
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     urls = set(html.unescape(url.strip()) for url in sys.stdin.readlines())
-    start = datetime.utcnow()
     count = 0
     perf_timings, elasped_timings = {}, {}
     progress_step = len(urls) // 10
+    start = perf_counter()
     for url, status_or_error, exec_duration, pool_length, elasped_req_time in url_checker(urls):
-        perf_timings[url] = exec_duration
+        if exec_duration:
+            perf_timings[url] = exec_duration
         if elasped_req_time != None:
             elasped_timings[url] = elasped_req_time
         count += 1
@@ -78,8 +77,7 @@ if __name__ == '__main__':
             print(status_or_error, url) # this won't be displayed if there are too few URLs (too fast ?)
         if progress_step and count % progress_step == 0:
             print('#> {:.1f}% processed : count={} len(pool)={}'.format(count * 100.0 / len(urls), count, pool_length), file=sys.stderr)
-    end = datetime.utcnow()
-    print('#= Done in', end - start, file=sys.stderr)
+    print('#= Done in', perf_counter() - start, file=sys.stderr)
     for name, timings in (('perf', perf_timings), ('requests', elasped_timings)):
         print('# {} timing stats:'.format(name), file=sys.stderr)
         print(json.dumps(compute_timing_stats(timings.values()), indent=4), file=sys.stderr)

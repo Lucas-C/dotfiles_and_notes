@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3.5
+#!/usr/bin/bin/env python3.5
 # Dead URLs checker
 # USAGE:
 # - for Shaarli: jq -r '.[].url' datastore.json | grep -Ev 'ftp://|javascript:' | ./crawl_dead_links_asyncio.py
@@ -10,15 +10,21 @@ from async_timeout import timeout
 from collections import defaultdict
 from datetime import datetime
 from urllib.parse import urlparse
+from crawler_utils import error2str, robots_txt_url, robot_can_fetch, USER_AGENT
 from perf_utils import compute_timing_stats, perf_counter
 
 
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36'
-
-
 async def check_one_host_urls(client, queue, urls):
+    try:
+        async with client.get(robots_txt_url(urls[0]), raise_for_status=True) as response:
+            robots_txt_content = await response.text()
+    except Exception:
+        robots_txt_content = ''
     resps = []
     for url in urls:
+        if robots_txt_content and not robot_can_fetch(robots_txt_content, url):
+            resps.append((url, 'ROBOT FORBIDDEN', None))
+            continue
         if resps:
             asyncio.sleep(2) # rate-limiting 1 request every 2s per hostname
         try:
@@ -26,16 +32,8 @@ async def check_one_host_urls(client, queue, urls):
             async with client.get(url, timeout=60) as response:
                 resps.append((url, response.status, perf_counter() - start))
         except Exception as error:
-            resps.append((url, rm_ptrs(error), perf_counter() - start))
+            resps.append((url, error2str(error), perf_counter() - start))
     await queue.put(resps)
-
-def rm_ptrs(error):
-    error = str(error)
-    try:
-        i = error.index(' 0x')
-        return error[:i+3] + '????????????' + error[i+15:]
-    except ValueError:
-        return error
 
 async def check_all_urls(urls, checker_results):
     urls_per_host = defaultdict(list)
@@ -73,14 +71,14 @@ def url_checker(urls):
 
 if __name__ == '__main__':
     urls = set(html.unescape(url.strip()) for url in sys.stdin.readlines())
-    start = datetime.utcnow()
     timings = {}
+    start = perf_counter()
     for url, status_or_error, exec_duration in url_checker(urls):
-        timings[url] = exec_duration
+        if exec_duration:
+            timings[url] = exec_duration
         if status_or_error != 200:
             print(str(status_or_error) or type(status_or_error), status_or_error, url)
-    end = datetime.utcnow()
-    print('#= Done in', end - start, file=sys.stderr)
+    print('#= Done in', perf_counter() - start, file=sys.stderr)
     print('# perf timing stats:', file=sys.stderr)
     print(json.dumps(compute_timing_stats(timings.values()), indent=4), file=sys.stderr)
     print('## Top10 slow requests:', file=sys.stderr)

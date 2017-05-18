@@ -883,6 +883,8 @@ luigi, Oozie, Azkaban, Drake, Pinball, Apache Airflow, viewflow, BD2KGenomics/to
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
 
+kibitzr # poll web pages and notify you in messenger or by e-mail
+
 mrjob, luigi # Hadoop / AWS map-reduce jobs
 zappa # serverless framework for AWS lambda / API Gateway
 
