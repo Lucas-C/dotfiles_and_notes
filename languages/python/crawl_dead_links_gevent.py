@@ -66,7 +66,7 @@ if __name__ == '__main__':
     perf_timings, elasped_timings = {}, {}
     progress_step = len(urls) // 10
     start = perf_counter()
-    for url, status_or_error, exec_duration, pool_length, elasped_req_time in url_checker(urls):
+    for url, status_or_error, exec_duration, elasped_req_time, pool_length in url_checker(urls):
         if exec_duration:
             perf_timings[url] = exec_duration
         if elasped_req_time != None:
