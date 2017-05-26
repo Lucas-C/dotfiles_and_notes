@@ -1,3 +1,4 @@
+# TODO: split on camel case
 import re
 from string import ascii_letters
 
@@ -20,7 +21,7 @@ class KnownTagsExtractor():
             if match:
                 yield tag
 
-    def find_tags_re(self, text): # tested with http://sametmax.com/vue-jlavais-pas-vu/ : 20s instead of 3s :(
+    def find_tags_re(self, text):
         matches = set(m.group() for m in re.finditer(self.tags_regex, text.lower()))
         for tag, words in self.tag_words.items():
             if all(word in matches for word in words):
