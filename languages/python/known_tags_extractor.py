@@ -1,4 +1,3 @@
-# TODO: split on camel case
 import re
 from string import ascii_letters
 
@@ -7,7 +6,7 @@ WORD_CHARS = ascii_letters + 'çéâêîôûàèùëïü'
 
 class KnownTagsExtractor():
     def __init__(self, tags):
-        self.tag_words = {tag: _words(tag.lower()) for tag in tags}
+        self.tag_words = {tag: _words(tag) for tag in tags}
         self.tags_regex = re.compile(r'\b(' + '|'.join(set(word.replace('++', r'\+\+') for words in self.tag_words.values() for word in words)) + r')\b')
 
     def find_tags(self, text):
@@ -28,7 +27,23 @@ class KnownTagsExtractor():
                 yield tag
 
 def _words(tag):
-    return tuple(word for word in tag.replace('_', ' ').replace('/', ' ').replace('&', ' ').replace(':', '').split(' ') if word != '')
+    tag = tag.replace('_', ' ').replace('/', ' ').replace('&', ' ').replace(':', '')
+    words = [w for w in tag.split(' ') if w != '']
+    words = [w for word in words for w in _camelcase_split(word)]
+    return tuple(words)
+
+def _camelcase_split(word):
+    w = word[0]
+    for char in word[1:]:
+        if w[-1].islower() and char.isupper():
+            if len(w) > 2:
+                yield w.lower()
+            w = char
+        else:
+            w += char
+    yield w.lower()
+
+
 
 def _text_contains_word(text, word):
     try:
