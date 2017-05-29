@@ -223,10 +223,6 @@ DON'Ts:
 - Modéliser ce qui n'est pas de son ressort
 - En faire à chaque fois
 
-## Deployments
-[Immutable Server](http://martinfowler.com/bliki/ImmutableServer.html) pattern.
-From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
-
 ## Documentation:
 - Tenets:
     * the key challenge to sustaining a complex system is maintaining our *understanding* of it

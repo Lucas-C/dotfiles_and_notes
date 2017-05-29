@@ -1051,6 +1051,7 @@ requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock 
     txrequests # Twistted asynchronous requests
     requests-cache
     requests-respectful # requests capping
+    requests-jwt # auth = JWTAuth(secret, alg='HS512', header_format='Bearer %s') - usage example: https://github.com/shaarli/python-shaarli-client/blob/master/shaarli_client/client/v1.py#L205
 connect timeout / read timeout / download size limit : https://benbernardblog.com/the-case-of-the-mysterious-python-crash/
 session.post(url, files={'upload': ('filename', file_to_upload, 'application/javascript')},
                   data={'action': 'upload', 'target': '/test/'}).raise_for_status()

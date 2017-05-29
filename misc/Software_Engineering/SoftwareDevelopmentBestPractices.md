@@ -49,6 +49,7 @@ Software Development Best Practices
 - [SystemDesignPrimer](https://github.com/donnemartin/system-design-primer)
 - [CommandQueryResponsibilitySegregation](http://blog.eleven-labs.com/en/cqrs-pattern-2/)
 - [LavaLayerAntiPattern](http://mikehadlow.blogspot.fr/2014/12/the-lava-layer-anti-pattern.html)
+- [DontReadYourLogs](https://medium.com/@chimeracoder/dont-read-your-logs-13586c790202)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -197,6 +198,14 @@ Don't use comments when you can use a function/variable to expresse the intent [
     * Empty collection
     * Raise an exception
     * Use a functional "Optional" construct
+
+## Logs
+From [DontReadYourLogs]: "The next time you start to write a log line, ask yourself whether another observability tool would be a better fit."
+What are logs used for ?
+- metrics -> use `statsd.Histogram` or something similar
+- error reporting -> use a dedicated tool like Sentry
+- durable records -> use a DB
+- debug tracing -> use something like Zipkin
 
 ## Build system smells
 - Build requires more than one step [CC-E1]

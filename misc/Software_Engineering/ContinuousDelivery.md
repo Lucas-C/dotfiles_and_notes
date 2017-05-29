@@ -2,10 +2,22 @@ Continuous Delivery
 ===================
 
 ## References
+- [Immutable Server](http://martinfowler.com/bliki/ImmutableServer.html) pattern
 - [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/)
 - [Continuous Delivery with Containers](http://www.slideshare.net/dbryant_uk/oreillynginx-2016-continuous-delivery-with-containers-the-trials-and-tribulations)
 - [Building a Functional Puppet Workflow](http://garylarizza.com/blog/2014/02/17/puppet-workflow-part-1/)
+- [AnsibleVSSaltVSStackStorm](https://medium.com/@anthonypjshaw/ansible-v-s-salt-saltstack-v-s-stackstorm-3d8f57149368)
 
+## Deployment automation & orchestration
+From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
+[AnsibleVSSaltVSStackStorm]:
+- "Ansible is simple, which is a major strength", it "works by connecting to a server using SSH, copies the Python code over, executes it and then removes itself".
+"Ansible Tower is the Enterprise version, it turns the command line Ansible into a service, with a web interface, scheduler and notification system."
+"you can’t have long-running tasks."
+- "StackStorm is designed as a highly-configurable if-this-then-that service. it can react to events and then run a simple command or a complex workflow."
+"MongoDB can be scaled using well-documented patterns." "StackStorm extensibility system is a key strength." "If StackStorm were a programming language, it would be strongly typed."
+- "Salt was born as a distributed remote execution system used to execute commands and query data on remote nodes."
+"Ultra high-performance for large deployments." (LinkedIn use it)
 
 ## Jenkins
 - Jenkins 2 with Jenkinsfile & Docker compose

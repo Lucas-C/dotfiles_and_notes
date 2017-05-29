@@ -115,6 +115,8 @@ espeak -v mb/mb-fr1 -s 50 'Je peux parler plus lentement' | mbrola /usr/share/mb
 ##################
   Bash scripting
 ##################
+"Concise GNU Bash" by James Pannacciulli : very complete http://talk.jpnc.info/bash_lfnw_2017.pdf
+
 xmessage -center "$(figlet ERRORMSG 42)", notify-send (libnotify), bar, dialog, gdialog==zenity # GUI: error windows, selection dialog, progress bars...
 mooz/percol | peco/peco | moreutils/vipe # interactive filtering through pipes
 figlist | sed '1,/Figlet fonts/d;/:/,$d' | xargs -I{} figlet -f {} Hello # ASCII banner fonts
@@ -130,7 +132,7 @@ export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 
 ok_or_ko () { return 1; }; ok_or_ko
 ok_or_ko () { return; }; ok_or_ko
-ok_or_ko () { return 256; }; ok_or_ko # !!GOTCHA!!
+ok_or_ko () { return 256; }; ok_or_ko # !!GOTCHA!! Returns 0
 ok_or_ko () { return -1; }; ok_or_ko
 
 bash -n $script # Check syntax without executing
@@ -143,6 +145,8 @@ USAGE="\
 
 parent_func=$(caller 0 | cut -d' ' -f2) # "$line $subroutine $filename"
 source ~/sctrace.sh # FROM: http://stackoverflow.com/questions/685435/bash-stacktrace/686092
+
+foo () { ... } >>filename # create a function that always log to a file
 
 readonly EXEC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # Script file parent dir
 readonly LOG_FILE="$EXEC_DIR/logs/$(basename $0).log.$(date +%Y-%m-%d-%H)"
@@ -165,6 +169,7 @@ set - A B C
 local dummy=${1:?'Missing or empty "dummy" parameter'}
 : ${var:="new value set if empty"} # !! -> this defines a global variable
 local var=${1:-"default value"}
+local foo=var; echo ${!foo} # indirect expansion
 foo () { local x=$(false); echo $?; }; foo # -> 0 !!GOTCHA!! 'local' is also a command, and its return code shadows the one of the cmd invoked
 bar () {  # Best practice, or use getopt (singular: https://gist.github.com/dyndna/3b8e7c3e693cdd8b4c6af13abb0523b1) - USAGE: bar x [y=...]
     local x y=default_Y # necessary to define as local parameters not passed in afunction call (=> with default values)
@@ -201,6 +206,9 @@ mapfile -t bar_output < <(foo) # STILL creates a new process + only available si
 local argv=("$@") # Convert to array
 "${argv[*]}" # expands to a single word with the value of each array member separated by the first character of the IFS variable
 "${name[@]}" # expands each element of name to a separate word
+"${!array[@]}" # list array keys
+array+=( "four and beyond" [0]=ZERO ) # append to an array or modify an element
+array=( "${array[@]:2:3}" ) # array slice
 ${#argv[@]} != ${#argv} # array size VS char-length of 1st elem
 ~/.$(IFS='/' path=($SHELL); echo ${path[@]:(-1)})rc # -1 => last array element
 echo ${argv[@]:1:2} # Array slice
@@ -230,7 +238,7 @@ saveIFS=$IFS; IFS='=&'; qparams_array=($QUERY_STRING); IFS=$saveIFS # ?foo=bar&x
 declare -A qparams; for ((i=0; i<${#qparams_array[@]}; i+=2)); do qparams["${qparams_array[i]}"]="${qparams_array[i+1]}"; done # Alt: bashlib
 echo -ne "Content-type: text/html\n\nCGI Bash Example: $(for k in "${!qparams[@]}"; do echo $k:${qparams[$k]}; done)"
 
-declare -A hash_table # Bash 4+ associative arrays
+declare -A hash_table # Bash 4+ associative arrays - An array can be created as a copy of another: declare -n array2=array
 # Or, with built-in arrays and cksum-based hashing function (FROM: http://stackoverflow.com/questions/1494178/how-to-define-hash-tables-in-bash)
 hf () { local h=$(echo "$*" |cksum); echo "${h//[!0-9]}"; } # hashing function
 table[$(hf foo bar)]="x42"
@@ -282,7 +290,7 @@ for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # colored 
 # Other tput: setab [1-7], setf [1-7], setb [1-7], bold, dim, smul, rev... cf. man terminfo
 tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top right corner
 
-select value in choice1 choice2; do break; done # multiple choices
+select value in choice1 choice2; do break; done # interactive multiple choices menu
 read -s password # 'silent' user input, no characters are displayed - Also: -n $chars_count so a <Enter> keypress is not needed
 strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n' # 30 characters password generation
 stty -echo # disable TTY output
@@ -424,7 +432,6 @@ function capitalize () {
     local string="${@:-$(cat)}"
     echo $(echo ${string:0:1} | tr '[:lower:]' '[:upper:]')$(echo ${string:1} | tr '[:upper:]' '[:lower:]'})
 }
-
 
 # filter outpout : not lines 1-3 and last one
 type ssh_setup | sed -n '1,3!p' | sed '$d'| sed 's/local //g'
@@ -724,6 +731,7 @@ cat ~/.ssh/id_rsa.pub | ssh $user@$host "mkdir -p ~/.ssh && cat >>  ~/.ssh/autho
 ssh $host "$(printf "%q" $(cat script.sh))" # %q adds escapes to any string
 ssh $host "$cmds ; /bin/bash -i" # Keep ssh session open after executing commands
 ssh -f $host -L 2034:$host:34 -N # port forwarding
+ssh remote_host "$(declare -p parameters; declare -f functions) code and stuff" # Import parameters and functions into remote shell, then run code and stuf
 [ENTER] ~. # Exit a hung SSH session
 # Force a user (based on its pub key) to only run one command one a host (e.g. tail -f) using ~/.ssh/authorized_keys : cf. tmux example
 # How to change your login on a specified acces: http://orgmode.org/worg/worg-git-ssh-key.php

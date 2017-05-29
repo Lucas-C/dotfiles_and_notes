@@ -66,7 +66,7 @@ func percentile(durations []time.Duration, percent float64) float64 {
 func bucketUrlsPerHostname(urls []string) map[string][]string {
     urlsPerHostnames := make(map[string][]string)
     for _, hostUrl := range urls {
-        parsedUrl, _ := url.Parse(hostUrls)
+        parsedUrl, _ := url.Parse(hostUrl)
         hostname := parsedUrl.Host
         if hostUrls, exist := urlsPerHostnames[hostname]; exist {
             urlsPerHostnames[hostname] = append(hostUrls, hostUrl)
