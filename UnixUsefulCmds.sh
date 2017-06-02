@@ -847,6 +847,7 @@ export $(xargs < .env) # source & export environment variables from a file
 fakeroot # runs a command in an environment wherein it appears to have root privileges for file manipulation
 chroot $path_to_fake_root $cmd # 'chroot jail' => changes the apparent root directory
 p-e-w/maybe # execute a program and only log any syscalls that modify the FS, using ptrace
+tianon/gosu # simple setuid+setgid+setgroups+exec
 
 faketime $time_spec $cmd
 

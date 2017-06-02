@@ -50,6 +50,7 @@ Software Development Best Practices
 - [CommandQueryResponsibilitySegregation](http://blog.eleven-labs.com/en/cqrs-pattern-2/)
 - [LavaLayerAntiPattern](http://mikehadlow.blogspot.fr/2014/12/the-lava-layer-anti-pattern.html)
 - [DontReadYourLogs](https://medium.com/@chimeracoder/dont-read-your-logs-13586c790202)
+- [PreMergeCodeReviews](http://verraes.net/2013/10/pre-merge-code-reviews/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -245,7 +246,7 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
 * TDD: automated, easy to follow, autonomously done
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
 * Do it well: use proper tools, including automated static analysis (findbugs, ArtisticStyle for C/C++/Java, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
-* cf. [Best practices for code review]
+* cf. [Best practices for code review] [PreMergeCodeReviews]
 
 ### Code reviews guidelines (from @scharrier)
 Pour tout le monde
@@ -267,12 +268,14 @@ Je suis reviewé:
 - je n’abandonne pas
 
 Vous n’êtes pas d’accord ?
-Discutez de visu,ou demandez à un tiers.
+Discutez de visu, ou demandez à un tiers.
 
 In fine, celui qui maintient DÉCIDE,
 Quitte à refaire une PR après.
 
 + [A Guide to Naming Variables] : "minimize distance and boilerplate : as coders our job is to communicate to human readers, not computers."
++ [11 proven practices for more effective, efficient peer code review](https://www.ibm.com/developerworks/rational/library/11-proven-practices-for-peer-review/)
++ [Best Kept Secrets of Peer Code Review](https://smartbear.com/SmartBear/media/pdfs/best-kept-secrets-of-peer-code-review.pdf)
 
 ## Functional programming
 cf. [Functional Programming Patterns]

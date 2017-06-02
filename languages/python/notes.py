@@ -821,10 +821,16 @@ scipy
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
         JosPolfliet/pandas-profiling # -> create HTML profiling reports from pandas DataFrame objects, inc. quantiles, most frequent values, histograms & descriptive statistics
-    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome
     geoplotlib, ResidentMario/geoplot
     ResidentMario/missingno, holoviews, pascal-schetelat/Slope, # other dataviz libs
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
+    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
+
+(ggplot(mtcars, aes('wt', 'mpg', color='factor(gear)'))
+ + geom_point()
+ + stat_smooth(method='lm')
+ + facet_wrap('~gear')
+ + theme_xkcd())
 
 jhcepas/ete # tree exploration & visualisation
 riccardoscalco/Pykov # markov chains
@@ -886,7 +892,6 @@ ampqlib, haigha, puka # AMPQ libs
 kibitzr # poll web pages and notify you in messenger or by e-mail
 
 mrjob, luigi # Hadoop / AWS map-reduce jobs
-zappa # serverless framework for AWS lambda / API Gateway
 
 kennethreitz/records # by the author of requests
 peewee, SQLAlchemy # ORM DB
@@ -1139,6 +1144,14 @@ kootenpv/access_points # scan your WiFi and get access point information and sig
 tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
+
+
+"""""""""""""
+"" Hosting ""
+"""""""""""""
+zappa # serverless framework for AWS lambda / API Gateway
+heroku
+pythonanywhere.com
 
 
 """"""""""""""""""""""""
