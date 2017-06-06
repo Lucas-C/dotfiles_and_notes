@@ -30,7 +30,8 @@ func shuffle(array []string) {
 }
 
 type ByLength []time.Duration
-func (a ByLength) Len() int       { return len(a) }
+
+func (a ByLength) Len() int           { return len(a) }
 func (a ByLength) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByLength) Less(i, j int) bool { return a[i].Seconds() < a[j].Seconds() }
 
@@ -106,7 +107,7 @@ func main() {
                     resp.Body.Close()
                     result = &CrawlResult{url, resp.StatusCode, err, time.Now().Sub(start)}
                 }
-                loop:
+            loop:
                 for { // as long as the channel is full, we retry
                     select {
                     case channel <- result:

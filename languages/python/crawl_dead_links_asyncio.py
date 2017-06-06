@@ -1,4 +1,4 @@
-#!/usr/bin/bin/env python3.5
+#!/usr/bin/env python3.5
 # Dead URLs checker
 # USAGE:
 # - for Shaarli: jq -r '.[].url' datastore.json | grep -Ev 'ftp://|javascript:' | ./crawl_dead_links_asyncio.py
