@@ -33,6 +33,12 @@ Hashing:
 - 'fuzzy' hashing that gaves same result for inputs that have homologies : http://www.forensicswiki.org/wiki/Context_Triggered_Piecewise_Hashing
 - selection from "Bloomin' Marvellous" slides: MurmurHash3, xxhash, SipHash
 
+Perceptual hashes:
+- https://tech.okcupid.com/evaluating-perceptual-image-hashes-okcupid/
+- cf. Python notes: LSHash, aHash, pHash, dHash, wHash
+
+Geohash: geocoding system with a hierarchical spatial data structure that subdivides space into buckets of grid shape
+
 Compression:
 - Google Snappy (10x faster, 50% worse compression than LZMA (7z))
 - Google Zopfli (5% more compression, 100x slower than LZMA (7z))

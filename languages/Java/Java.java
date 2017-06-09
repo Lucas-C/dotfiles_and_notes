@@ -33,6 +33,7 @@ checkstyle, findbugs, google/error-prone // code checking tools
 cobertura // code coverage
 javap, JD // .class dissassembler & Java decompiler, include a GUI
 Konloch/bytecode-viewer // Bytecode viewer, decompiler & debugger
+Javasnoop // attach to a Java process or start it and intercept the calls made, then intercept these calls, view its contents & change the arguments of the methods we are intercepting or modify the return value of the function
 jmap -histo:live <pid> // Object-type histogram on a running jvm
 
 jdb // debugger: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jdb.html
@@ -129,6 +130,7 @@ MyBatis // data mapper framework, ORM for SQL DBs using a XML descriptor or anno
 -XX:+PerfDisableSharedMem // disable JVM exporting statistics to a file in /tmp, causing pauses of 0.1-1s during garbage collection
 -Xloggc:logfilename.log // log GC status to a file with time stamps
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
+jstack -l $pid
 
 // String / ByteString correct conversion :
 String asString = new String( byteString.getArray(), "UTF-8" );

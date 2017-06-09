@@ -903,6 +903,7 @@ python-lsm-db(like LevelDB), unqlite-python(like MongoDB), vedis-python(like Red
 pyMySQL, noplay/python-mysql-replication
 stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring, fengsp/rc.Cache, coleifer/walrus
 redash # generic DB interface / visualization for Redshift, Google BigQuery, PostgreSQL, MySQL, Graphite, Presto, Google Spreadsheets, Cloudera Impala, Hive
+cmu-db/ottertune # automatic DBMS configuration tool
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -1093,6 +1094,7 @@ nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket 
 featherweight # transform functions into REST web services
 Tornado # asynchronous web framework
 Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions - Also: Flask has many global variables & is not thread safe (for async)
+reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
 Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
 + web.py # very old now, written by Aaron Swarz, used by Yandex
@@ -1136,6 +1138,7 @@ mininet # realistic virtual network, running real kernel, switch and application
 ipaddr, netaddr > socket.inet_aton # string IP to 32bits IP + validate IP, !! '192.168' is valid
 IPy(ipsrc).iptype() == 'PRIVATE' # check ranges 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255 & 192.168.0.0–192.168.255.255
 scapy # packet injection/manipulation for many network protocols - Alt: dpkt, can read .pcap files
+pystack # create modifiable TCP/IP stacks, based on scapy & netfilter
 pypcap # catpure network traffic
 kevin1024/vcrpy # record / replay HTTP interactions
 impacket # programmatic access to the packets and for some protocols: IP, TCP, UDP, ICMP, IGMP, ARP, NMB, DCE/RPC, SMB1-3 and MS-DCERPC

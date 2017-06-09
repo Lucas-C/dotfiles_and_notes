@@ -167,7 +167,14 @@ lse () { # group files by their extension - Alt: find . -type f -not -path '*/.g
 # --mmap, if available, can make it even faster - cf. https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html
 alias g='grep -i --color=always'
 [ -d $BASHRC_DIR/.git ] && NOTES_FILES=$(cd $BASHRC_DIR && git ls-files)
-gn () { ( cd ${BASHRC_DIR?} && grep -I --color=always "${@}" ${NOTES_FILES?}; ) } #  $NOTES_FILES can be undefined in case of a virtualenv (eg. with pew)
+gn () {
+    ( cd ${BASHRC_DIR?} && grep -iI --color=always "${@}" ${NOTES_FILES?}; ) #  $NOTES_FILES can be undefined in case of a virtualenv (eg. with pew)
+    if type shaarli >/dev/null 2>&1 && type jq >/dev/null 2>&1; then
+        shaarli get-links --limit all --searchterm "${@}" | jq --raw-output '.[]|(.title, "https://chezsoi.org/shaarli/?"+.shorturl)'
+    else
+        echo 'You need to install jq & pip install shaarli_client to also query chezsoi.org/shaarli'
+    fi
+}
 alias zg='zgrep -i --color=always' # zgrep also works on plain text files, but '-r' isn't supported
 alias bzg='bzgrep -i --color=always'
 zgr () {

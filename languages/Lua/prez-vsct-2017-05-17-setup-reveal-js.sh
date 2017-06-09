@@ -28,5 +28,5 @@ cat <<EOF >>css/theme/solarized.css
 }
 EOF
 
-wget https://www.lua.org/images/lua-logo.gif
 wget https://chezsoi.org/lucas/slides/python_frameworks_web_2016-02-26/VSCT_logo.png
+wget https://www.lua.org/images/lua-logo.gif

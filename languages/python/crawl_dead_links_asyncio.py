@@ -5,6 +5,7 @@
 # - for Chrome: jq -r '..|objects|select(has("children")).children[].url//empty' Bookmarks | ./crawl_dead_links_asyncio.py
 # STDIN FORMAT: 1 URL per line
 # STDOUT FORMAT: [HTTP status | Python exception] URL (for all non-OKs URLs)
+# TODO: test https://github.com/gaojiuli/gain
 import asyncio, aiohttp, html, json, sys
 from async_timeout import timeout
 from collections import defaultdict
