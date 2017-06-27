@@ -49,6 +49,12 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [EtsyDebriefingFacilitationGuide](https://extfiles.etsy.com/DebriefingFacilitationGuide.pdf)
 - [HowDoYouMakeAnAwesomeTeam](http://jvns.ca/blog/2017/01/13/how-do-you-make-an-awesome-team/)
 - [IncidentManagementAtGoogle](https://cloudplatform.googleblog.com/2017/02/Incident-management-at-Google-adventures-in-SRE-land.html)
+- [HowAndWhyToDesignYourTeamsForModernSoftwareSystems](https://www.slideshare.net/matthewskelton/how-and-why-to-design-your-teams-for-modern-software-systems-devopscon-berlin-june-2017)
+- [BeingResponsibleForMyProgramsOperationsMakesMeABetterDeveloper](https://jvns.ca/blog/2017/06/18/operate-your-software/)
+
+## Teams organization
+"Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
++ cf. [HowAndWhyToDesignYourTeamsForModernSoftwareSystems] & http://devopstopologies.com
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -198,6 +204,7 @@ cf. [RetrospectiveWiki]
     * new dev "work queue"
 - [Google SRE] : "no SRE could spent more than 50 percent of his or her time on traditional operations as opposed to coding"
 - keep Ops playbooks
+- [BeingResponsibleForMyProgramsOperationsMakesMeABetterDeveloper]
 
 ### Post-mortems
 - trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds

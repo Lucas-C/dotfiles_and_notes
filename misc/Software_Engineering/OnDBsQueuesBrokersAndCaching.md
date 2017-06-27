@@ -54,7 +54,9 @@ Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], re
 ## Queues
 - mkfifo, man mq_overview : POSIX queues - not fully implemented : can't read/write on them with shell cmds, need C code   _
 - D-Bus : unix message bus system, with bindings in Java, Python...
-- beanstalkd : KISS fast work queue, with lots of existing tools & libs in various languages
+- beanstalkd : KISS fast work queue, with lots of existing tools & libs in various languages -> its protocol spec is short & simple to read & understand
+  The deamon keeps the jobs states: ready (available for workers to pick up) / reserved (beeing processed by a worker) / delayed (waiting N seconds before being ready) / buried (failed & queued for debug)
+  Worker processes TCP-connect dialog with it to pick up & execute jobs: either in the "default" tube (= channel / queue) or only jobs put in specific tubes watched 
 - ActiveMQ, RQ(RedisQueue), RestMQ(Redis), RabittMQ : Message queues using AMPQ
 - Celery/Kombu : Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
 - Nameko : python framework for building service orientated software

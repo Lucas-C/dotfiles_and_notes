@@ -181,7 +181,7 @@ class Immut3DPoint(namedtuple('_Immut3DPoint', Immut2DPoint._fields + ('z',)), I
 # BUT seriously, use the "attrs" library instead: https://glyph.twistedmatrix.com/2016/08/attrs.html or typing.NamedTuple: https://github.com/topper-123/Articles/blob/master/New-interesting-data-types-in-Python3.rst
 
 if args.debug:
-    logging.basicConfig(level=logging.DEBUG, stream=sys.stderr,
+    logging.basicConfig(level=logging.DEBUG, stream=sys.stderr, # default stream, but explicit beats implicit
         format="%(asctime)s - pid:%(process)s %(filename)s:%(lineno)d [%(levelname)s] %(message)s")
 else:
     logging.basicConfig(level=logging.INFO, stream=sys.stderr, format="%(message)s")
@@ -820,7 +820,9 @@ scipy
     numpy # n-dimensional arrays, vectorized operations and broadcasting : faster than CPython for large arrays
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
+        pd.read_html(url, header=0, parse_dates=["Call Date"]) # extract table from HTML page into a DataFrame
         JosPolfliet/pandas-profiling # -> create HTML profiling reports from pandas DataFrame objects, inc. quantiles, most frequent values, histograms & descriptive statistics
+        agate # data analysis library optimized for humans, not machines; alternative to numpy and pandas that solves real-world problems with readable code
     geoplotlib, ResidentMario/geoplot
     ResidentMario/missingno, holoviews, pascal-schetelat/Slope, # other dataviz libs
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
@@ -1164,6 +1166,7 @@ danmcinerney/wifijammer # How to kick everyone around you off wifi with python
 Patator # Multi-threaded Service & URL Brute Forcing Tool
 
 pywin32 # Windows API, e.g. win32crypt.CryptUnprotectData - cf. http://docs.activestate.com/activepython/2.6/pywin32/PyWin32.HTML / http://timgolden.me.uk/pywin32-docs/PyWin32.html
+theller/comtypes # access and implement both custom and dispatch based COM interfaces
 n1nj4sec/memorpy # search/edit Windows programs memory
 
 Gallopsled/pwntools # CTF framework and exploit development library

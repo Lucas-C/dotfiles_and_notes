@@ -81,6 +81,8 @@ Interesting algo to query for the min/max of a N elements collection, with 2*N s
     rmq = RangeMaxQuery(heights)
     highest = rmq.max_in_range(start, end)
 
+Top N values of a stream : [Top speed for top-k queries](http://lemire.me/blog/2017/06/21/top-speed-for-top-k-queries/)
+
 
 ## Crypto
 

@@ -319,11 +319,13 @@ FGRibreau/check-build // includes:
     David // check for package updates - Also: npm outdated - Equivalent for bower: bower list
     Nsp // detect security vulnerabilities
 
-karma-runner/karma > JsTestDriver > Qunit // Testing libs
+nyc (instanbul-based, inc. coverage) > karma-runner/karma > JsTestDriver > Qunit // Testing libs
 Sinon.js // test spies, stubs and mocks - framwork agnostic & no dependencies
 Vows.js // asynchronous BDD for Node.js
 admc/wd // node.js client for webdriver/selenium 2
 Protractor // Framework for Selenium testing of AngularJS apps
+proxyquire // easily overre modules dependencies during tests
+nodemon // watch files in current directory, and restart a script on any change detected
 
 var logs = driver.manage().logs(), // driver is a selenium-webdriver instance
     fetchLogsPromises = _.map(webdriver.logging.Type, logs.get.bind(logs)); // !! native .map does not work here - there are 5 logging.Type defined here: https://github.com/SeleniumHQ/selenium/blob/master/javascript/webdriver/logging.js#L234

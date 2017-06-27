@@ -5,7 +5,7 @@ http://makina-corpus.com/blog/metier/2015/elasticsearch-tips-and-best-practices-
 - use the bulk API
 - use explicit mappings
 - aggregate field and explicit search field
-- asynchronus indexation
+- asynchronous indexation
 An ElasticSearch dev talk: https://speakerdeck.com/elasticsearch/maintaining-performance-in-distributed-systems
 Elasticsearch networking protocols details: https://www.elastic.co/blog/found-elasticsearch-networking
 
@@ -14,7 +14,7 @@ Elasticsearch networking protocols details: https://www.elastic.co/blog/found-el
 - vagrant-elasticsearch-cluster : Create an ElasticSearch cluster with a simple single bash command
 - http://bigdesk.org/v/2.4.0/#nodes
 - plugin marvel (> plugin head)
-- alerting: watcher
+- alerting: watcher, https://github.com/Yelp/elastalert
 - superelasticsearch : Python lib providing iterated search & simpler bulk API
 
 ## Config recommandations
@@ -37,6 +37,12 @@ cf. https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-per
     # used mainly when sorting on or faceting on a field - expensive to build, so its recommended to have enough memory to allocate it
 
     disable sniffing on clients # this caused us some NoNodeAvailableExceptions in VSCT, combined with a client minor version mismatch
+
+- [Making the Internet Archive’s full text search faster](https://medium.com/@giovannidamiola/making-the-internet-archives-full-text-search-faster-30fb11574ea9)
+  * optimizing reads by adding RAM
+  * optimizing writes by increasing the dirty_bytes Linux system property
+  * making the highlighting faster by storing the term vector with the position offset payloads
+  -> use DmitryKey/luke to explore to extract the list of the most frequent words
 
 ## Aggregates (formerly facets)
 

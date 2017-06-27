@@ -375,7 +375,6 @@ cf. [Functional Programming Patterns]
 - "Object-oriented programming is an exceptionally bad idea which could only have originated in California" - E.W. Dijkstra
 "You probably know that arrogance, in computer science, is measured in nanodijkstras" - Alan Kay
 - "Expertise is not about picking good solution, it is about picking the future bad one at the right time." Eric Bréhault, Makina Corpus
-- "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
 - [The Parable of the Two Programmers](http://www.csd.uwo.ca/~magi/personal/humour/Computer_Audience/The%20Parable%20of%20the%20Two%20Programmers.html)
 - [The story of Mel](http://www.catb.org/jargon/html/story-of-mel.html) :
 "I have often felt that programming is an art form,

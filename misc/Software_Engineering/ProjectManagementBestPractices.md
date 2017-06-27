@@ -24,6 +24,9 @@ Project management best practices
 - [LawOfTriviality_aka_bikeshedding](https://en.wikipedia.org/wiki/Law_of_triviality)
 - [HypeDrivenDevelopment](https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22)
 - [QuelquesConseilsPourAméliorerVotreProcessDeChoixDOutil](http://blog.octo.com/quelques-conseils-pour-ameliorer-votre-process-de-choix-doutil/)
+- [ScalingOpenSourceCommunities](http://buytaert.net/scaling-open-source-communities)
+- [BogBody:CommittingToOpenSource](https://oisinh.wordpress.com/2011/08/26/bog-body-committing-to-open-source/?)
+- [YouAreNotGoogle](https://blog.bradfieldcs.com/you-are-not-google-84912cf44afb)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -51,6 +54,14 @@ Project management best practices
 - cf. [10 reasons not to adopt this new toy techno in production]
 - OSS projects comparator: https://www.openhub.net/p/_compare?project_0=cURL&project_1=Wget
 - [HypeDrivenDevelopment]
+- [YouAreNotGoogle]: "This is not how rational people make decisions, but it is how software engineers decide to use MapReduce." - "you got there through a ritualistic belief that imitating the giants would bring the same riches." - "As of 2016, Stack Exchange served 200 million requests per day, backed by just four SQL servers"
+UNPHAT:
+- Understand the problem
+- eNumerate multiple candidate solutions, don’t just start prodding at your favorite!
+- consider a candidate solution, then read the Paper if there is one
+- determine the Historical context in which the candidate solution was designed or developed
+- weigh Advantages against disadvantages
+- Think: how well this solution fits your problem ?
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]
@@ -124,3 +135,11 @@ cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
 
 ## User-testing
 - User Interviews & Usability Testing: cf. [ThoughbotPlaybook]
+
+## Open-Source projects
+Methodologies/advices to make both entreprise-internal & public OSS projects successful:
+- [ScalingOpenSourceCommunities] -> free-rider problem: when to many people uses an Open Source software project without contributing to it
+"the most promising solution for Open Source is known as "privileged groups". Privileged groups are those who receive "selective benefits"."
+ex: "prominently showcase devs contributions & bug fixes"
+- [BogBody:CommittingToOpenSource] -> A key aspect: patronage in OSS -> "those receiving patronage want to practice their craft. Those giving patronage want to enhance their reputation amongst their industry peers"
+Point out the need for Community Managers
