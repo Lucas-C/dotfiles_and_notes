@@ -100,7 +100,7 @@ On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/14
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 + similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
-+ representation for RESTful APIs: Swagger / RAML / API Blueprint / APIDOC
++ representation for RESTful APIs: Swagger==OpenAPI / API Blueprint / APIDOC
 + follow simple standards for server status / healthcheck like [Simple Standard Service Endpoints]
 
 On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult], [MicroservicesPleaseDont] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity

@@ -183,4 +183,4 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" **%T/%D*
 <[Nginx]>
 <[-----]>
 nginx -t  # help diagnoseing service start failure
-
+https://news.ycombinator.com/item?id=14617879 # speed-up advices

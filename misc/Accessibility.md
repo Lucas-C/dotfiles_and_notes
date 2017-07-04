@@ -38,6 +38,7 @@ Contrast checkers:
 - [Color Oracle](http://colororacle.cartography.ch/) (Windows / Linux small tool - no snapshot)
 
 Other tools:
+- [Extension navigateur Assistant RGAA](https://github.com/DISIC/assistant-rgaa) : permet d'auditer des pages web en suivant le référentiel RGAA
 - [PDF Accessibility Checker](http://www.access-for-all.ch/en/pdf-lab/pdf-accessibility-checker-pac/downloading-pac.html) (from Swiss foundation "Access for all")
 - [NVDA](http://www.nvda-fr.org/download.php)
 - [Web Accessibility Toolbar for IE](https://github.com/ThePacielloGroup/WebAccessibilityToolbar/releases) (The Paciello Group)

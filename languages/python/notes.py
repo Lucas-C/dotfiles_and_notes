@@ -570,6 +570,7 @@ pip install --user $USER --src . --no-index --no-deps --no-cache-dir --upgrade -
 pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages - Also, programatical access: pip.operations.freeze.freeze
 pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list -o ; piprot requirements.txt ; ./manage.py pipchecker
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
+pyproject.toml # PEP-518 replacement for setup.py - Alt: https://github.com/pypa/pipfile by kennethreitz
 
 def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unverified=()):  # to use pip-compile (from pip-tools) programmatically
     from tempfile import NamedTemporaryFile
@@ -675,6 +676,7 @@ snakefood # draw code base dependency graphs
 what-studio/profiling # live profiling
 PyVmMonitor # profiler with graphs
 nvdv/vprof # Visual Python profiler
+StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
 fabianp/memory_profiler
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
 
@@ -883,7 +885,7 @@ binascii.hexlify # display binary has hexadecimal
 """"""""""""""""""""""""""""""
 "" DBs, queues & schedulers
 """"""""""""""""""""""""""""""
-celery # distributed task queue - Montoring: mher/flower - Alt: pyres - Also: celery_once to prevent multiple execution and queuing of celery tasks
+celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of celery tasks
 dask  # task scheduling and blocked algorithms for parallel processing
 sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn - Also:
 luigi, Oozie, Azkaban, Drake, Pinball, Apache Airflow, viewflow, BD2KGenomics/toil # workflow managers - Airflow prez: http://events.linuxfoundation.org/sites/events/files/slides/get_in_control_of_your_workflow.pdf
@@ -932,7 +934,7 @@ pyreadline, readline, rlcompleter, python-prompt-toolkit
 
 termcolor, colorama # cross-platform colored terminal text
 tqdm # KISS progress bar - Alt, maybe better: Minibar
-PrettyTable, Leviathan1995/Pylsy # pretty ASCII tables output
+tabulate (handles Markdown with tablefmt='pipe'), PrettyTable, Leviathan1995/Pylsy # pretty ASCII tables output
 bashplotlib # terminal plotting of histograms / scatterplots from list of coordinates
 urwid # console user interface lib - Alt: snack, NPyScreen
 
@@ -1015,6 +1017,7 @@ mozilla/bleach # HTML sanitizing library that escapes or strips markup and attr
 tinycss2 > tinycss > cssutils  # CSS parsers
 hickford/MechanicalSoup
 lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
+kovidgoyal/html5-parser # fast C based HTML 5 parsing
 import lxml.etree, lxml.html
 html_root = lxml.html.fromstring('html string') # Alt: html_tree.getroot()
 html_tree = lxml.etree.ElementTree(html_root) # Alt: lxml.etree.parse(some_file_like_object)

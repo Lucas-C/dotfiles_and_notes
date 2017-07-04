@@ -51,6 +51,8 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [IncidentManagementAtGoogle](https://cloudplatform.googleblog.com/2017/02/Incident-management-at-Google-adventures-in-SRE-land.html)
 - [HowAndWhyToDesignYourTeamsForModernSoftwareSystems](https://www.slideshare.net/matthewskelton/how-and-why-to-design-your-teams-for-modern-software-systems-devopscon-berlin-june-2017)
 - [BeingResponsibleForMyProgramsOperationsMakesMeABetterDeveloper](https://jvns.ca/blog/2017/06/18/operate-your-software/)
+- [IfCompaniesInterviewedTechRecruitersTheWayTheyInterviewProgrammers](https://medium.com/@NTDF9/if-companies-interviewed-tech-recruiters-the-way-they-interview-programmers-f18e1a980cdd)
+- [ProgrammerCompetencyMatrix](http://sijinjoseph.com/programmer-competency-matrix/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -237,6 +239,7 @@ DON'Ts:
     * trouble is, documentation goes out of date -> _instrumentation_ reflects the reality of the system as it exists
     * it is possible to have too little info, or too much, or present it badly
 - minimum doc: how to install, how to create and ship changes, roadmap, changelog, glossary, where to get help
+http://keepachangelog.com -> best practices & advices
 - wiki are great ! cf. "Lessons Learned" of AOSA chapter on SocialCalc: "I was able to catch up and start contributing in less than a week, simply due to the fact that **everything is in the wiki**"
     * store meeting notes, tasks list, team & members pages, build processes, design docs, software architecture diagrams...
     * + use it to share useful links, and try to encourage using this instead of individual bookmarks
@@ -277,3 +280,5 @@ DON'Ts:
 - clearly define your interview process:
     - screening for **potential** or **experience** ?
     - what methodology to use ? what answers are you looking for ?
+- [IfCompaniesInterviewedTechRecruitersTheWayTheyInterviewProgrammers]
+- [ProgrammerCompetencyMatrix]
