@@ -53,6 +53,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [BeingResponsibleForMyProgramsOperationsMakesMeABetterDeveloper](https://jvns.ca/blog/2017/06/18/operate-your-software/)
 - [IfCompaniesInterviewedTechRecruitersTheWayTheyInterviewProgrammers](https://medium.com/@NTDF9/if-companies-interviewed-tech-recruiters-the-way-they-interview-programmers-f18e1a980cdd)
 - [ProgrammerCompetencyMatrix](http://sijinjoseph.com/programmer-competency-matrix/)
+- [3LawsOfConfigDynamics](https://blog.buildo.io/the-three-laws-of-config-dynamics-1e9724593aa9)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -189,6 +190,10 @@ cf. [RetrospectiveWiki]
 - "**Empathy** allows software makers and operators to help each other deliver the best possible functionality and operability on behalf of their customers." [Jeff Sussna & Katherine Daniels](http://blog.ingineering.it/post/72964480807/empathy-the-essence-of-devops)
 - monitor everything ! CPU, openFD, procCount... For services: throughput + delay + completness (% of potential src data processed). And store historical data ! Distributed tracing tools: Twitter’s Zipkin and compatible Apache HTrace, Google’s Dapper
 - zero config: config is hard to document, hard to update, hard to set up, its persistent state can overlaps with other data
+- the [3LawsOfConfigDynamics] : tl.dr "have at least one default configuration that is committed to the repo and is enough to start the app successfully in a local dev environment"
+  * Config values can be transformed from one form to another, but can be neither created nor destroyed.
+  * The total length of a config file can only increase over time.
+  * The length of a perfect config file in a development environment is exactly equal to zero.
 - emails are evil: no guarantee it will be actioned + no guarantee anyone is subscribed + sense of false security as it works from time to time
 - when an alarm is raised, alerting tools should give a maximum of *context* on the system state and what triggered it
 - prioritize identifying the root cause of an issue and resolving it

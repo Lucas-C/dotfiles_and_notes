@@ -20,6 +20,8 @@ Ils doivent etre VISIBLE (à minima au focus) : ils ne sont pas destinés aux av
 
 Quick check WEBAIM based [Wave](http://wave.webaim.org)
 
+[DosAndDontsOnDesigningForAccessibility.gov.uk](https://accessibility.blog.gov.uk/2016/09/02/dos-and-donts-on-designing-for-accessibility/)
+
 
 ## Libs
 

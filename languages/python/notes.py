@@ -700,7 +700,7 @@ cd /a/path
 from IPython.display import HTML, SVG; HTML(html_string) # render HTML, SVG
 ipython notebook # now Jupyter - D3 support : wrobstory/sticky - Interesting "static" alts: janschulz/knitpy & pystitch/stitch
 ipython nbconvert --to [html|latex|slides|markdown|rst|python]
-jq -r '.worksheets[0].cells[].input' < $file.ipynb
+jq -r '.worksheets[0].cells[].input' < $file.ipynb # Alt JSON query language: jmespath
 
 from io import BytesIO
 img_bytes = BytesIO(); img.save(img_bytes, format='png')  # img is a PIL.Image

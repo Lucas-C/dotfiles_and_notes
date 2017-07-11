@@ -27,6 +27,9 @@ Project management best practices
 - [ScalingOpenSourceCommunities](http://buytaert.net/scaling-open-source-communities)
 - [BogBody:CommittingToOpenSource](https://oisinh.wordpress.com/2011/08/26/bog-body-committing-to-open-source/?)
 - [YouAreNotGoogle](https://blog.bradfieldcs.com/you-are-not-google-84912cf44afb)
+- [4StepsToCreatingAThrivingOpenSourceProject](https://opensource.com/life/15/5/4-steps-creating-thriving-open-source-project)
+- [HowToCreateASuccessfulOpenSourceProject](https://ipg.host.cs.st-andrews.ac.uk/monty/open-source-project-andrews.pdf)
+- [TheProblemsWithOpenSourceAndHowToFixThem](http://blog.fogcreek.com/the-problems-with-open-source-and-how-to-fix-them-interview-with-justin-searls/)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -138,8 +141,42 @@ cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
 
 ## Open-Source projects
 Methodologies/advices to make both entreprise-internal & public OSS projects successful:
+
+- basic repo documentation: README.md, LICENSE, CONTRIBUTORS.md, CONTRIBUTING.md, CHANGELOG.md, Architecture.md, .github/ISSUE_TEMPLATE, .github/PULL_REQUEST_TEMPLATE
+
 - [ScalingOpenSourceCommunities] -> free-rider problem: when to many people uses an Open Source software project without contributing to it
 "the most promising solution for Open Source is known as "privileged groups". Privileged groups are those who receive "selective benefits"."
 ex: "prominently showcase devs contributions & bug fixes"
+
 - [BogBody:CommittingToOpenSource] -> A key aspect: patronage in OSS -> "those receiving patronage want to practice their craft. Those giving patronage want to enhance their reputation amongst their industry peers"
 Point out the need for Community Managers
+
+- [4StepsToCreatingAThrivingOpenSourceProject] by Andrey Petrov, urllib3 author
+
+> Having a great README is basically 80% of the work to success. You need to be able to answer three questions for your contributors: "Who else uses it?" "What do they use it for?" and "Where can I get more help?"
+
+> In order to help build interest, Andrey reached out to people on Twitter and offered free Go programming lessons in exchange for opening pull requests.
+
+> Accept pull requests very generously, and very graciously
+
+Market and promote your project:
+  * write blog posts on Medium
+  * answer questions on Stack Overflow (set up alerts on Stack Overflow / Google Alerts for specific topics)
+  * participate in discussions on Hacker News, reddit/r/programming, etc.
+  * sell to other open source projects and establish partnerships with them. "The only reason urllib3 is the most popular third-party Python library today is because it's part of requests."
+  * feed the non-trolls: Getting upvotes on your announcement post is only half the equation. More activity and discussion yields more people clicking on it and more updates, so if you respond to almost every comment, then that's 2x as many comments.
+
+- [HowToCreateASuccessfulOpenSourceProject] by MySQL & MariaDB founder:
+  * it's not just software
+  * you need a good team and active community
+  * transparency is critical for long time success
+  * communicate with your community
+  * be good open source citizens
+  * you need to get the product out there and used!
+
+- [TheProblemsWithOpenSourceAndHowToFixThem] by Justin Searls, excellent read
+
+- personal advice: invest in mentoring & publishing a wish-list of sexy+well-defined features, like a real OSS project product owner !
+  * the scope of this feature is...
+  * by implementing this feature YOU, as a benevolent OSS developper, will help X people/improve the quality of Y/make this compatible with Z...
+  * by working on this, YOU will learn from experimented user @toto the following skills: ...
