@@ -160,11 +160,12 @@ Point out the need for Community Managers
 > Accept pull requests very generously, and very graciously
 
 Market and promote your project:
-  * write blog posts on Medium
-  * answer questions on Stack Overflow (set up alerts on Stack Overflow / Google Alerts for specific topics)
-  * participate in discussions on Hacker News, reddit/r/programming, etc.
-  * sell to other open source projects and establish partnerships with them. "The only reason urllib3 is the most popular third-party Python library today is because it's part of requests."
-  * feed the non-trolls: Getting upvotes on your announcement post is only half the equation. More activity and discussion yields more people clicking on it and more updates, so if you respond to almost every comment, then that's 2x as many comments.
+
+    * write blog posts on Medium
+    * answer questions on Stack Overflow (set up alerts on Stack Overflow / Google Alerts for specific topics)
+    * participate in discussions on Hacker News, reddit/r/programming, etc.
+    * sell to other open source projects and establish partnerships with them. "The only reason urllib3 is the most popular third-party Python library today is because it's part of requests."
+    * feed the non-trolls: Getting upvotes on your announcement post is only half the equation. More activity and discussion yields more people clicking on it and more updates, so if you respond to almost every comment, then that's 2x as many comments.
 
 - [HowToCreateASuccessfulOpenSourceProject] by MySQL & MariaDB founder:
   * it's not just software
