@@ -5,7 +5,7 @@
  * @author CIMON Lucas & MOREL Benoit
  * @date IMAG 2009-2010
  */
- 
+
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -26,14 +26,14 @@ unsigned int tabPrems[100] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,
 
 /*    Insère des symboles inutiles en début de texte crypté */
 string CryptagePrologue()
-{    
+{
     return "" ;
 }
 
 
 /*    Progresse dans un début de texte crypté juqu'à la fin du Prologue et retourne l'indice de cette position */
 int DecryptagePrologue(const char *chaine)
-{    
+{
     return chaine - chaine ;
 }
 
@@ -58,12 +58,12 @@ string CryptageRecursif(unsigned int N)
     int i = 0;
     int exposantDecompo = 0 ;
     string retour("") ;
-    
+
     if (N==0){
         return "" ;
     }
     //decomposition
-    while (N != 1){            
+    while (N != 1){
         if ((N % tabPrems[i]) == 0){
             exposantDecompo ++ ;
             N = N / tabPrems[i] ;
@@ -74,9 +74,9 @@ string CryptageRecursif(unsigned int N)
             exposantDecompo = 0 ;
         }
     }
-    
+
     retour = SYMBG + CryptageRecursif(exposantDecompo) + SYMBD + retour ;
-    
+
     return retour ;
 }
 
@@ -88,7 +88,7 @@ int DecryptageRecursif(const char* chaineParentheses, int tailleChaine)
     int indiceNombrePremier=0;
     int resultat=1;
     int debutChaine=tailleChaine-2, finChaine=tailleChaine-2;
-    
+
     if(tailleChaine==0){
         return 0;
     }
@@ -120,10 +120,10 @@ string CryptageAmorce()
     srand((unsigned)time(NULL));
     int tailleMax = rand() % LONG_MAX_AMORCE ;
     string amorce ;
-    
+
     for(int i = 0 ; i<tailleMax ; i++)
         amorce += SYMBGD ;
-    
+
     return amorce ;
 }
 
@@ -135,11 +135,11 @@ string Cryptage(const char *chaine)
         return "" ;
     }
     string chaineCryptee = CryptageAmorce() + CryptageRecursif((int)*chaine) ;
-    
+
     for (int i = 1 ; chaine[i] != '\0'; i++){
         chaineCryptee += SYMBDG + CryptageAmorce() + CryptageRecursif((int)chaine[i]) ;
     }
-    
+
     return CryptageAmorce() + chaineCryptee ;
 }
 
@@ -152,7 +152,7 @@ string Decryptage(const char *chaine)
         tailleMot,
         nombreSymbG ;
     bool lecture = true;
-    
+
     while(lecture){
         tailleMot = 0 ;
         nombreSymbG = 0 ;
@@ -173,7 +173,7 @@ string Decryptage(const char *chaine)
         chaineDecryptee += (char)DecryptageRecursif(chaine+indiceDebutMot, tailleMot-1) ; // On a lu un SYMBD de trop
         indiceDebutMot += tailleMot + 1 ; // on dépasse le SYMBG suivant
     }
-    
+
     return chaineDecryptee ;
 }
 
@@ -182,17 +182,17 @@ string Decryptage(const char *chaine)
 string CreerASCII(int deb , int fin)
 {
     string retour ;
-    
+
     for (int i=deb;i<=fin;i++){
         retour += (char)i ;
     }
-    
+
     return retour ;
 }
 
 
 int main(int argc, char** argv)
-{    
+{
     if (argc < 2){
         cout << "Premier argument : c, p, e ou d" << endl;
         return 0 ;
@@ -218,6 +218,6 @@ int main(int argc, char** argv)
             cout << CreerASCII(32,126) + CreerASCII(9,10) << endl;
         break ;
     }
-    
+
     return 0 ;
 }

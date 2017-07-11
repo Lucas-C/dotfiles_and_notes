@@ -240,31 +240,31 @@ int law_follow(int index_prec, int perm_index_prec, int attempt, int numero,
 void randomStrategy(int nb_tirages, double proba, int size)
 {
     int nb_possibilites = fact(size);
-        
+
     int *perm = new int[size];
     for (int i = 0; i < size; i++)
         perm[i] = i;
-    
+
     bool** sift = new bool*[size];
     for (int i = 0; i < size; i++)
         sift[i] = new bool[size];
-    
+
     srand(static_cast<unsigned int>(time(NULL)));
     int count = 0;
     for (int b = 0; b < nb_tirages; b++) {
         for(int i = 0; i < size; i++) {
             int nb_alea = rand()%nb_possibilites;
             int k = 0;
-            while(k++ < nb_alea && next_permutation(perm, perm + size));       
+            while(k++ < nb_alea && next_permutation(perm, perm + size));
             for (int j = 0; j < size; j++)
                 sift[i][j] = perm[j] % 2;
         }
         count += enumValidPermStatic(sift, size);
     }
-    
+
     double p = count / (double)(nb_tirages * nb_possibilites);
     cout << "En moyenne (" << nb_tirages << " tirages) on a une proba de " << p << " de trouver la permutation.\n";
-    
+
     double q = 1.0 - p;
     int nb = 0;
     double qk = 1.0;
@@ -272,8 +272,8 @@ void randomStrategy(int nb_tirages, double proba, int size)
         qk = (fabs(qk - 1.0) < 0.001 ? q : qk * q);
         nb++;
     }
-    cout << "On a une proba supérieur à " << proba << " de partir en vacances avant le jour " << nb << ".\n";    
-    
+    cout << "On a une proba supérieur à " << proba << " de partir en vacances avant le jour " << nb << ".\n";
+
     for (int i = 0; i < size; i++)
         delete[] sift[i];
     delete[] sift;
@@ -294,6 +294,6 @@ int main()
         testPermDynamic(half_size * 2, law_follow, true);
 
 //~     randomStrategy(10000, 9.f / 10, 8);
-    
+
     return 0;
 }

@@ -23,14 +23,14 @@ void load (char *filename, int *width, int *height) {
 
     if (luaL_loadfile(L, filename) || lua_pcall(L, 0, 0, 0))
         my_error_func(L, "cannot run configuration file: %s\n", lua_tostring(L, -1));
-    
+
     lua_getglobal(L, "width");
     if (!lua_isnumber(L, -1))
         my_error_func(L, "`width' should be a number\n");
     lua_getglobal(L, "height");
     if (!lua_isnumber(L, -1))
         my_error_func(L, "`height' should be a number\n");
-    
+
     *width = (int)lua_tonumber(L, -2);
     *height = (int)lua_tonumber(L, -1);
 
@@ -40,10 +40,10 @@ void load (char *filename, int *width, int *height) {
 int main (void) {
 
     int w = 0, h = 0;
-    
+
     load("pp.lua", &w, &h);
-    
+
     printf("w = %i, h = %i\n", w, h);
-    
+
     return 0;
 }

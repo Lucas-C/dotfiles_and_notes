@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 #endif
         }
 #endif
-        
+
         /* Exit test */
         if (perm_index == size)
             break;

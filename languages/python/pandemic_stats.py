@@ -36,7 +36,7 @@ def get_remoteness(src_city, graph):
         for start_city in set(visited):
             for neighbour in graph[start_city]:
                 visited.add(neighbour)
-        distance += 1            
+        distance += 1
     return distance
 
 def graphml2json(graphml_filepath, json_filepath):
@@ -50,7 +50,7 @@ def graphml2json(graphml_filepath, json_filepath):
         labels_graph[edge.node2['label']].append(edge.node1['label'])
     with open(json_filepath, 'w') as json_file:
         json.dump(labels_graph, json_file)
-    
+
 
 if __name__ == '__main__':
     pandemic_graph_filepath = join(dirname(realpath(__file__)), 'pandemic_graph.json')
