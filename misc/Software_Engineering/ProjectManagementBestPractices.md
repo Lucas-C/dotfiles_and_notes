@@ -30,6 +30,7 @@ Project management best practices
 - [4StepsToCreatingAThrivingOpenSourceProject](https://opensource.com/life/15/5/4-steps-creating-thriving-open-source-project)
 - [HowToCreateASuccessfulOpenSourceProject](https://ipg.host.cs.st-andrews.ac.uk/monty/open-source-project-andrews.pdf)
 - [TheProblemsWithOpenSourceAndHowToFixThem](http://blog.fogcreek.com/the-problems-with-open-source-and-how-to-fix-them-interview-with-justin-searls/)
+- [MakingYourOpenSourceProjectNewcomerFriendly](https://manishearth.github.io/blog/2016/01/03/making-your-open-source-project-newcomer-friendly/)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -143,6 +144,11 @@ cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
 Methodologies/advices to make both entreprise-internal & public OSS projects successful:
 
 - basic repo documentation: README.md, LICENSE, CONTRIBUTORS.md, CONTRIBUTING.md, CHANGELOG.md, Architecture.md, .github/ISSUE_TEMPLATE, .github/PULL_REQUEST_TEMPLATE
+cf. https://github.com/todogroup/repolinter
+
+- other tools:
+  * a curated list: https://github.com/todogroup/awesome-oss-mgmt
+  * https://github.com/facebook/mention-bot : Automatically mention potential reviewers on pull requests.
 
 - [ScalingOpenSourceCommunities] -> free-rider problem: when to many people uses an Open Source software project without contributing to it
 "the most promising solution for Open Source is known as "privileged groups". Privileged groups are those who receive "selective benefits"."
@@ -176,6 +182,17 @@ Market and promote your project:
   * you need to get the product out there and used!
 
 - [TheProblemsWithOpenSourceAndHowToFixThem] by Justin Searls, excellent read
+
+- [MakingYourOpenSourceProjectNewcomerFriendly]:
+  * mention steps for getting involved in your CONTRIBUTING.md
+  * maintain a list of easy bugs
+  * have open channels for communication, and encourage people ask questions in it
+  * celebrate new contributors
+  * empathize
+  * mentoring
+  * create easy bugs
+  * discoverability of bugs
+  * "programs like Google Summer of Code and Outreachy provide ways for new contributors to try out your project at a significant level of involvement"
 
 - personal advice: invest in mentoring & publishing a wish-list of sexy+well-defined features, like a real OSS project product owner !
   * the scope of this feature is...
