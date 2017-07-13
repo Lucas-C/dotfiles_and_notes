@@ -367,3 +367,12 @@ Matt-Esch/virtual-dom & anthonyshort/deku
 "Manual DOM manipulation is messy and keeping track of the previous DOM state is hard. A solution to this problem is to write your code as if you were recreating
 the entire DOM whenever state changes. Of course, if you actually recreated the entire DOM every time your application state changed, your app would be very slow
 and your input fields would lose focus."
+
+
+/*******
+ Perfs
+*******/
+Google PageSpeed
+GT Metrix
+Webpagetest
+BoomerangJS

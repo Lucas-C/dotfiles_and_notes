@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from pyparsing import CharsNotIn, Forward, Keyword, Literal, OneOrMore, Optional, Suppress, Token, White, Word, ZeroOrMore, nums, printables
+from pyparsing import CharsNotIn, Forward, Keyword, Literal, OneOrMore, Optional, QuotedString, Suppress, Token, White, Word, ZeroOrMore, delimitedList, nums, printables
 
 class StopOnSuffix(Token): # inspired by CharsNotIn
     def __init__(self, suffixes):
@@ -36,7 +36,7 @@ StyledText = Forward()
 BoldText = (Bold + StyledText + Bold)('is_bold')
 ItalicText = (Italic + StyledText + Italic)('is_italic')
 StrikedText = (Striked + StyledText + Striked)('is_striked')
-StyledText << (BoldText | ItalicText | StrikedText | StopOnSuffix(['**', '__', '~~', '](', '!icon=', '<!--']))
+StyledText << (BoldText | ItalicText | StrikedText | StopOnSuffix(['**', '__', '~~', '](', '!icon=', '<!--', '(see:']))
 StyledText.resultsName = 'text'
 StyledText.saveAsList = True  # must be done at this point, not before
 TextGrammar = StyledText | Text.setResultsName('text', listAllMatches=True)
@@ -45,16 +45,19 @@ Checkbox = (Literal('[') + (Literal('x')('is_checked') | White()) + Literal(']')
 
 Icon = Literal('!icon=') + Word(printables).setResultsName('icons', listAllMatches=True)
 
+DestNodeText = QuotedString('"', escChar='\\')
+See = Keyword('(see:') + delimitedList(DestNodeText, delim=',').setResultsName('see') + Literal(')')
+
 XMLAttrs = Keyword('<!--') + OneOrMore(Word(printables), stopOn=Keyword('-->')).setResultsName('attrs', listAllMatches=True) + Keyword('-->')
 
 Url = CharsNotIn(') ')('url')
 ImgDimensions = Word(nums)('img_width') + Literal('x') + Word(nums)('img_height')
 Link = Optional(Literal('!'))('is_img') + Literal('[') + TextGrammar + Literal('](') + Url + Optional(ImgDimensions) + Literal(')')
 
-LineGrammar = Optional(Checkbox) + ZeroOrMore(Icon | XMLAttrs) + (Link | TextGrammar) + ZeroOrMore(Icon | XMLAttrs)
+LineGrammar = Optional(Checkbox) + ZeroOrMore(Icon | XMLAttrs) + (Link | TextGrammar) + ZeroOrMore(Icon | XMLAttrs) + Optional(See)
 
 if __name__ == '__main__':
-    def test(text_line, text, url='', icons=(), attrs=(), is_bold=False, is_italic=False, is_striked=False, is_img=False, img_dims=None, has_checkbox=False, is_checked=False):
+    def test(text_line, text, url='', icons=(), attrs=(), is_bold=False, is_italic=False, is_striked=False, is_img=False, img_dims=None, has_checkbox=False, is_checked=False, see=''):
         parsed_line = LineGrammar.parseString(text_line, parseAll=True)
         print(parsed_line.dump())
         assert parsed_line.text[0].strip() == text, parsed_line.text
@@ -70,6 +73,7 @@ if __name__ == '__main__':
         assert tuple(parsed_line.icons) == icons
         parsed_attrs = tuple(attr for attrs in parsed_line.attrs for attr in attrs)
         assert parsed_attrs == attrs
+        assert list(parsed_line.see) == list(see)
     test('[Framindmap](https://framindmap.org)', text='Framindmap', url='https://framindmap.org')
     test('![coucou](http://website.com/favicon.ico)', text='coucou', url='http://website.com/favicon.ico', is_img=True)
     test('![coucou](http://website.com/favicon.ico 600x0400)', text='coucou', url='http://website.com/favicon.ico', is_img=True, img_dims=(600, 400))
@@ -85,3 +89,4 @@ if __name__ == '__main__':
     test('!icon=A toto !icon=B', text='toto', icons=('A','B'))
     test('[ ] toto', text='toto', has_checkbox=True, is_checked=False)
     test('[x] toto', text='toto', has_checkbox=True, is_checked=True)
+    test('toto (see: "a\\"","b,c")', text='toto', see=['a"','b,c'])

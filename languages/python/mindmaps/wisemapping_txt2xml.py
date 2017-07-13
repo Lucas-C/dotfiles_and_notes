@@ -22,7 +22,7 @@ EDGE_COLORS = ( # dark solarized palette from http://ethanschoonover.com/solariz
     '#939393', # grey
 )
 
-Topic = namedtuple('Topic', ('text', 'link', 'icons', 'attrs'))
+Topic = namedtuple('Topic', ('id', 'text', 'link', 'icons', 'attrs', 'see'))
 
 def main(argv):
     args = parse_args(argv)
@@ -31,7 +31,12 @@ def main(argv):
     with open(args.input_filepath, encoding='utf8') as txt_file:
         graph = parse_graph(txt_file.read())
     print('<map name="{}" version="tango">'.format(args.name))
-    recursively_print(graph, args, height=graph.height, counter=count())
+    topics = list(recursively_print(graph, args, height=graph.height, counter=count()))
+    topics_ids_per_text = {topic.text:topic.id for topic in topics}
+    for topic in topics:
+        for dest_topic_text in topic.see:
+            dest_id = topics_ids_per_text[dest_topic_text]
+            print('<relationship srcTopicId="{}" destTopicId="{}" lineType="3" endArrow="false" startArrow="true"/>'.format(topic.id, dest_id))
     print('</map>')
 
 def parse_args(argv):
@@ -56,21 +61,23 @@ def recursively_print(node, args, height, counter, indent='', branch_id=None, or
         if args.shrink:
             attrs['shrink'] = 'true'
     topic = topic_from_line(node.content,
+                            id=next(counter),
                             edge_width=2*(height-indent.count('    ')),
                             branch_id=branch_id,
                             default_attrs=attrs,
                             default_img_size=args.default_img_size,
                             font_color=args.font_color)
-    print('{}<topic {} position="0,0" text={} id="{}">'.format(indent, topic.attrs, quoteattr(topic.text), next(counter)))
+    print('{}<topic {} position="0,0" text={} id="{}">'.format(indent, topic.attrs, quoteattr(topic.text), topic.id))
     if topic.link:
         print('{}    <link url="{}" urlType="url"/>'.format(indent, topic.link))
     for icon in topic.icons:
         print('{}    <icon id="{}"/>'.format(indent, icon))
+    yield topic
     for order, child in enumerate(node.children):
-        recursively_print(child, args, height=height, counter=counter, indent=indent, branch_id=branch_id, order=order)
+        yield from recursively_print(child, args, height=height, counter=counter, indent=indent, branch_id=branch_id, order=order)
     print('{}</topic>'.format(indent))
 
-def topic_from_line(text_line, edge_width=1, branch_id=None, default_attrs=None, default_img_size='', font_color=''):
+def topic_from_line(text_line, id=0, edge_width=1, branch_id=None, default_attrs=None, default_img_size='', font_color=''):
     parsed_line = LineGrammar.parseString(text_line, parseAll=True)
     link = parsed_line.url
     attrs = {}
@@ -102,38 +109,41 @@ def topic_from_line(text_line, edge_width=1, branch_id=None, default_attrs=None,
     icons = tuple(parsed_line.icons)
     if parsed_line.has_checkbox:
         icons = icons + ('tick_tick' if parsed_line.is_checked else 'tick_cross',)
-    return Topic(text=parsed_line.text[0].strip(), link=link or None, icons=icons, attrs=attrs)
+    see = [dest_text.strip() for dest_text in list(parsed_line.see)]
+    return Topic(text=parsed_line.text[0].strip(), id=id, link=link or None, icons=icons, attrs=attrs, see=see)
 
 def self_test():
     assert topic_from_line('toto') \
-            == Topic(text='toto', link=None, icons=(), attrs='')
+            == Topic(text='toto', link=None, icons=(), attrs='', id=0, see=[])
     assert topic_from_line('[Framindmap](https://framindmap.org)') \
-            == Topic(text='Framindmap', link='https://framindmap.org', icons=(), attrs='')
+            == Topic(text='Framindmap', link='https://framindmap.org', icons=(), attrs='', id=0, see=[])
     assert topic_from_line('![coucou](http://website.com/favicon.ico)') \
-            == Topic(text='coucou', link=None, icons=(), attrs='image=":http://website.com/favicon.ico" shape="image"')
+            == Topic(text='coucou', link=None, icons=(), attrs='image=":http://website.com/favicon.ico" shape="image"', id=0, see=[])
     assert topic_from_line('!toto') \
-            == Topic(text='!toto', link=None, icons=(), attrs='')
+            == Topic(text='!toto', link=None, icons=(), attrs='', id=0, see=[])
     assert topic_from_line('Productivity   !icon=chart_bar <!-- fontStyle=";;#104f11;;;" bgColor="#d9b518" -->') \
-            == Topic(text='Productivity', link=None, icons=('chart_bar',), attrs='fontStyle=";;#104f11;;;" bgColor="#d9b518"')
+            == Topic(text='Productivity', link=None, icons=('chart_bar',), attrs='fontStyle=";;#104f11;;;" bgColor="#d9b518"', id=0, see=[])
     assert topic_from_line('**toto**') \
-            == Topic(text='toto', link=None, icons=(), attrs='fontStyle=";;;bold;;"')
+            == Topic(text='toto', link=None, icons=(), attrs='fontStyle=";;;bold;;"', id=0, see=[])
     assert topic_from_line('__toto__') \
-            == Topic(text='toto', link=None, icons=(), attrs='fontStyle=";;;;italic;"')
+            == Topic(text='toto', link=None, icons=(), attrs='fontStyle=";;;;italic;"', id=0, see=[])
     assert topic_from_line('__**toto**__') \
-            == Topic(text='toto', link=None, icons=(), attrs='fontStyle=";;;bold;italic;"')
+            == Topic(text='toto', link=None, icons=(), attrs='fontStyle=";;;bold;italic;"', id=0, see=[])
     assert topic_from_line('**__toto__**') \
-            == Topic(text='toto', link=None, icons=(), attrs='fontStyle=";;;bold;italic;"')
+            == Topic(text='toto', link=None, icons=(), attrs='fontStyle=";;;bold;italic;"', id=0, see=[])
     assert topic_from_line('toto !icon=ahoy') \
-            == Topic(text='toto', link=None, icons=('ahoy',), attrs='')
+            == Topic(text='toto', link=None, icons=('ahoy',), attrs='', id=0, see=[])
     assert topic_from_line('!icon=A toto !icon=B') \
-            == Topic(text='toto', link=None, icons=('A', 'B'), attrs='')
+            == Topic(text='toto', link=None, icons=('A', 'B'), attrs='', id=0, see=[])
     assert topic_from_line('![toto](http://website.com/favicon.ico 600x0400)') \
-            == Topic(text='toto', link=None, icons=(), attrs='image="600x400:http://website.com/favicon.ico" shape="image"')
+            == Topic(text='toto', link=None, icons=(), attrs='image="600x400:http://website.com/favicon.ico" shape="image"', id=0, see=[])
     assert topic_from_line('[x] toto') \
-            == Topic(text='toto', link=None, icons=('tick_tick',), attrs='')
+            == Topic(text='toto', link=None, icons=('tick_tick',), attrs='', id=0, see=[])
+    assert topic_from_line('toto (see: "a ")') \
+            == Topic(text='toto', link=None, icons=(), attrs='', id=0, see=['a'])
     # TODO: require support for https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-decoration in mindplot/src/main/javascript/Topic.js line 356 & web2d/src/main/javascript/Text.js line 48
     assert topic_from_line('~~toto~~') \
-            == Topic(text='toto', link=None, icons=(), attrs='')
+            == Topic(text='toto', link=None, icons=(), attrs='', id=0, see=[])
     print('All tests passed')
 
 
