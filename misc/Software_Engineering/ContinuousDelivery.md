@@ -107,6 +107,8 @@ fi
 <INSERT> # paste under MinGW / Git Bash
 ```
 
+`daemon.json`: defaults to `%programdata%\docker\config\daemon.json` / `/etc/docker/daemon.json`
+
 ### Security
 https://www.nccgroup.trust/us/our-research/understanding-and-hardening-linux-containers/
 https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.12.0_Benchmark_v1.0.0.pdf

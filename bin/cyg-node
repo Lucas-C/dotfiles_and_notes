@@ -1,7 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 if [ -r "$1" ]; then
     SCRIPT_PATH=$(cygpath -w "$1")
     shift
+    set - $SCRIPT_PATH $@
+    unset SCRIPT_PATH
 fi
-exec env NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)\node_modules" "$(type -P node)" $SCRIPT_PATH "$@"
+
+exec env NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)\node_modules" "$(type -P node)" "$@"

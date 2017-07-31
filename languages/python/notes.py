@@ -887,7 +887,7 @@ binascii.hexlify # display binary has hexadecimal
 """"""""""""""""""""""""""""""
 celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of celery tasks
 dask  # task scheduling and blocked algorithms for parallel processing
-sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gawel/aiocron, Jenkins, huginn - Also:
+sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gjcarneiro/yacron, gawel/aiocron, Jenkins, huginn - Also:
 luigi, Oozie, Azkaban, Drake, Pinball, Apache Airflow, viewflow, BD2KGenomics/toil # workflow managers - Airflow prez: http://events.linuxfoundation.org/sites/events/files/slides/get_in_control_of_your_workflow.pdf
 # the `luigid` daemon should be stopped with the `kill` command that sends a `SIGINT` signal so that it can save its state into `luigi-state.pickle` (cf. https://github.com/spotify/luigi/blob/master/luigi/server.py#L277)
 zeromq, aiozmq, mrq # distributed app / msg passing framework
@@ -1252,7 +1252,7 @@ paramiko # remote SSH/SFTP connexion
 
 scales # metrics for Python, send data points to Graphite - Pros: inc. with-context to measure latency, metering-rates 1/5/15min, PmfStat => stdev, p99 - Cons: not actively maintained, its code uses lots of global state, there is test code in its source, a thread launched at import time and its documentation is incomplete
 
-pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR
+pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR - cf. https://tomassetti.me/parsing-in-python/
 pycparser # C language code parser
 
 @retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation - Alt: retrace

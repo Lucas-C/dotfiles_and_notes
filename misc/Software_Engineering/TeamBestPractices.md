@@ -54,6 +54,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [IfCompaniesInterviewedTechRecruitersTheWayTheyInterviewProgrammers](https://medium.com/@NTDF9/if-companies-interviewed-tech-recruiters-the-way-they-interview-programmers-f18e1a980cdd)
 - [ProgrammerCompetencyMatrix](http://sijinjoseph.com/programmer-competency-matrix/)
 - [3LawsOfConfigDynamics](https://blog.buildo.io/the-three-laws-of-config-dynamics-1e9724593aa9)
+- [10WaysToBeABetterInterviewer](http://queue.acm.org/detail.cfm?id=3125635)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -287,3 +288,14 @@ http://keepachangelog.com -> best practices & advices
     - what methodology to use ? what answers are you looking for ?
 - [IfCompaniesInterviewedTechRecruitersTheWayTheyInterviewProgrammers]
 - [ProgrammerCompetencyMatrix]
+- [10WaysToBeABetterInterviewer] by Kate Matsudaira:
+  * Review the candidate's resume
+  * Review feedback from previous interviews
+  * Use calibrated questions
+  * Test new questions on yourself and your peers
+  * Create a timeline for the interview
+  * Head in with a positive attitude
+  * Take notes
+  * Bring a list of questions to the interview
+  * Be collaborative
+  * Try to make the problems feel as real-world as possible

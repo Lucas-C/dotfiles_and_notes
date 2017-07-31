@@ -55,6 +55,8 @@ Metrics // perf & health monitoring
 
 Jersey // RESTful Web Services
 
+Spring Batch, Apach nifi // ETL systems, handle graphs of data routing & transformation
+
 Kryo + Snappy // very efficient object serialization + compression used in VSCT
 
 OpenJDK JMH // Benchmark tool

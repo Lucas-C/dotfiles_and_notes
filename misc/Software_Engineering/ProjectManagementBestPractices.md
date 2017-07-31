@@ -186,7 +186,7 @@ Market and promote your project:
 - [MakingYourOpenSourceProjectNewcomerFriendly]:
   * mention steps for getting involved in your CONTRIBUTING.md
   * maintain a list of easy bugs
-  * have open channels for communication, and encourage people ask questions in it
+  * have open channels for communication, and encourage people ask questions in it (ex: https://framateam.org)
   * celebrate new contributors
   * empathize
   * mentoring

@@ -594,7 +594,17 @@ timestamp_converter () {
     # Or date -d @$TIMESTAMP but neither work on OSX
 }
 
-pre_commit_cache_repos () {  # Requires PyYaml & sqlite3
+pre_commit_all_cache_repos () {  # Requires sqlite3
+    sqlite3 ~/.pre-commit/db.db "SELECT DISTINCT repo FROM repos" \
+        | while read repo; do
+            echo $repo
+            echo -n '- '
+            sqlite3 -newline $'\n- ' ~/.pre-commit/db.db "SELECT ref, path FROM repos WHERE repo = '$repo';"
+            echo
+        done
+}
+
+pre_commit_local_cache_repos () {  # Requires PyYaml & sqlite3
     < $(git rev-parse --show-toplevel)/.pre-commit-config.yaml \
         python -c "from __future__ import print_function; import sys, yaml; print('\n'.join(h['repo']+' '+h['sha'] for h in yaml.load(sys.stdin) if h['repo'] != 'local'))" \
         | while read repo sha; do
@@ -605,7 +615,12 @@ pre_commit_cache_repos () {  # Requires PyYaml & sqlite3
 }
 
 pre_commit_db_rm_repo () {
-    rm -rf $(sqlite3 ~/.pre-commit/db.db "SELECT path FROM repos WHERE repo = '$1';")
+    local repo_path=$(sqlite3 ~/.pre-commit/db.db "SELECT path FROM repos WHERE repo = '$1';")
+    if [ -z "$repo_path" ]; then
+        echo "No repository known for URL $1"
+        return 1
+    fi
+    rm -rf "$repo_path"
     sqlite3 ~/.pre-commit/db.db "DELETE FROM repos WHERE repo = '$1';";
 }
 
