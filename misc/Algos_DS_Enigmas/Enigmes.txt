@@ -105,3 +105,5 @@ FROM: http://www.mindcipher.com/puzzles/121
 [Enigme des 2 cordelettes qui se consument en 45min](http://www.enigme-facile.fr/mesurer-45-mn-avec-un-briquet-318)
 
 "On colore un plan avec trois couleurs. Montrer qu'il existe deux points de la meme couleur distants de 1m"
+
+    ./secret_decoder.py 190 < secret_msg.txt > decoded.txt

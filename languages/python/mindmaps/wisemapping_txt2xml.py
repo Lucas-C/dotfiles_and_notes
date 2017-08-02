@@ -22,7 +22,7 @@ EDGE_COLORS = ( # dark solarized palette from http://ethanschoonover.com/solariz
     '#939393', # grey
 )
 
-Topic = namedtuple('Topic', ('id', 'text', 'link', 'icons', 'attrs', 'see'))
+Topic = namedtuple('Topic', ('text', 'id', 'link', 'icons', 'attrs', 'see'))
 
 def main(argv):
     args = parse_args(argv)
@@ -62,7 +62,7 @@ def recursively_print(node, args, height, counter, indent='', branch_id=None, or
             attrs['shrink'] = 'true'
     topic = topic_from_line(node.content,
                             id=next(counter),
-                            edge_width=2*(height-indent.count('    ')),
+                            edge_width=2+2*(height-indent.count('    ')),
                             branch_id=branch_id,
                             default_attrs=attrs,
                             default_img_size=args.default_img_size,

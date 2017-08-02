@@ -107,7 +107,7 @@ Windows Master Control Panel shortcut: {ED7BA470-8E54-465E-825C-99712043E01C}
 - Microsoft Securit Scanner & Microsoft Security Essentials
 - Defrag
 - désactiver l'indexation des disques
-- perfmon.exe / resmon.exe / Sysinternals ProcessExplorer (select File > "Show Details for All Processes" to display network usage)
+- perfmon.exe /res / resmon.exe / Sysinternals ProcessExplorer (select File > "Show Details for All Processes" to display network usage)
 - Farbar Service Scanner : http://www.bleepingcomputer.com/download/farbar-service-scanner/dl/62
 
 ::: Deeper clean-up/checks

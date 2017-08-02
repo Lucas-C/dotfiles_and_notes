@@ -295,6 +295,9 @@ findCRLF () {
 findLatin1 () { # aka ISO-8859-1
     findByFilePattern ISO-8859 "$@"
 }
+findBrokenSymlinks () {
+    find -L "${@:-.}" -type l -not -path '*/.git/*' -not -path '*/node_modules/*' -exec file {} \; | grep -F  'broken symbolic link' | cut -d':' -f1
+}
 findAndSortByDate () {
     find -L "${@:-.}" -type f -printf '%T@ %p\n' | sort -k 1nr | sed -e 's/^[^ ]* //' -e "s/'/\\\\'/" | xargs -I{} -n 1 ls -BFlhA --color=always "{}"
 }
