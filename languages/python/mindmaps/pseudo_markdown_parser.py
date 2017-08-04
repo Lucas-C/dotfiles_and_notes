@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from pyparsing import CharsNotIn, Forward, Keyword, Literal, OneOrMore, Optional, QuotedString, Suppress, Token, White, Word, ZeroOrMore, delimitedList, nums, printables
+from pyparsing import CharsNotIn, Empty, Forward, Keyword, Literal, OneOrMore, Optional, QuotedString, Suppress, Token, White, Word, ZeroOrMore, delimitedList, nums, printables, ParseException
 
 class StopOnSuffix(Token): # inspired by CharsNotIn
     def __init__(self, suffixes):
@@ -36,7 +36,7 @@ StyledText = Forward()
 BoldText = (Bold + StyledText + Bold)('is_bold')
 ItalicText = (Italic + StyledText + Italic)('is_italic')
 StrikedText = (Striked + StyledText + Striked)('is_striked')
-StyledText << (BoldText | ItalicText | StrikedText | StopOnSuffix(['**', '__', '~~', '](', '!icon=', '<!--', '(see:']))
+StyledText << (BoldText | ItalicText | StrikedText | StopOnSuffix(['**', '__', '~~', '!icon=', '<!--', '(see:']))
 StyledText.resultsName = 'text'
 StyledText.saveAsList = True  # must be done at this point, not before
 TextGrammar = StyledText | Text.setResultsName('text', listAllMatches=True)
@@ -48,19 +48,19 @@ Icon = Literal('!icon=') + Word(printables).setResultsName('icons', listAllMatch
 DestNodeText = QuotedString('"', escChar='\\')
 See = Keyword('(see:') + delimitedList(DestNodeText, delim=',').setResultsName('see') + Literal(')')
 
-XMLAttrs = Keyword('<!--') + OneOrMore(Word(printables), stopOn=Keyword('-->')).setResultsName('attrs', listAllMatches=True) + Keyword('-->')
+XMLAttrs = Literal('<!--') + StopOnSuffix(['-->']).setResultsName('attrs') + Literal('-->')
 
 Url = CharsNotIn(') ')('url')
 ImgDimensions = Word(nums)('img_width') + Literal('x') + Word(nums)('img_height')
-Link = Optional(Literal('!'))('is_img') + Literal('[') + TextGrammar + Literal('](') + Url + Optional(ImgDimensions) + Literal(')')
+Link = Optional(Literal('!'))('is_img') + Literal('[') + Optional(StopOnSuffix(['](']).setResultsName('text', listAllMatches=True)) + Literal('](') + Url + Optional(ImgDimensions) + Literal(')')
 
 LineGrammar = Optional(Checkbox) + ZeroOrMore(Icon | XMLAttrs) + (Link | TextGrammar) + ZeroOrMore(Icon | XMLAttrs) + Optional(See)
 
 if __name__ == '__main__':
-    def test(text_line, text, url='', icons=(), attrs=(), is_bold=False, is_italic=False, is_striked=False, is_img=False, img_dims=None, has_checkbox=False, is_checked=False, see=''):
+    def test(text_line, text, url='', icons=(), attrs='', is_bold=False, is_italic=False, is_striked=False, is_img=False, img_dims=None, has_checkbox=False, is_checked=False, see=''):
         parsed_line = LineGrammar.parseString(text_line, parseAll=True)
         print(parsed_line.dump())
-        assert parsed_line.text[0].strip() == text, parsed_line.text
+        assert (parsed_line.text or [''])[0].strip() == text, parsed_line.text
         assert bool(parsed_line.is_bold) == is_bold
         assert bool(parsed_line.is_italic) == is_italic
         assert bool(parsed_line.is_striked) == is_striked
@@ -71,15 +71,14 @@ if __name__ == '__main__':
         assert bool(parsed_line.has_checkbox) == has_checkbox
         assert bool(parsed_line.is_checked) == is_checked
         assert tuple(parsed_line.icons) == icons
-        parsed_attrs = tuple(attr for attrs in parsed_line.attrs for attr in attrs)
-        assert parsed_attrs == attrs
+        assert parsed_line.attrs == attrs
         assert list(parsed_line.see) == list(see)
     test('[Framindmap](https://framindmap.org)', text='Framindmap', url='https://framindmap.org')
     test('![coucou](http://website.com/favicon.ico)', text='coucou', url='http://website.com/favicon.ico', is_img=True)
-    test('![coucou](http://website.com/favicon.ico 600x0400)', text='coucou', url='http://website.com/favicon.ico', is_img=True, img_dims=(600, 400))
+    test('![](http://website.com/favicon.ico 600x0400)', text='', url='http://website.com/favicon.ico', is_img=True, img_dims=(600, 400))
     test('!toto', text='!toto')
-    test('Productivity   !icon=chart_bar <!-- fontStyle=";;#104f11;;;" bgColor="#d9b518" -->',
-        text='Productivity', icons=('chart_bar',), attrs=('fontStyle=";;#104f11;;;"', 'bgColor="#d9b518"'))
+    test('Productivity   !icon=chart_bar <!--fontStyle=";;#104f11;;;" bgColor="#d9b518"-->',
+        text='Productivity', icons=('chart_bar',), attrs='fontStyle=";;#104f11;;;" bgColor="#d9b518"')
     test('**toto**', text='toto', is_bold=True)
     test('__toto__', text='toto', is_italic=True)
     test('__**toto**__', text='toto', is_bold=True, is_italic=True)

@@ -88,9 +88,7 @@ def topic_from_line(text_line, id=0, edge_width=1, branch_id=None, default_attrs
         img_size = '{}x{}'.format(int(parsed_line.img_width), int(parsed_line.img_height)) if parsed_line.img_width and parsed_line.img_height else default_img_size
         attrs['image'] = '{}:{}'.format(img_size, link)
         link = None
-    comment_attrs = ''
-    if parsed_line.attrs:
-        comment_attrs = ' '.join(attr.strip() for attrs in parsed_line.attrs for attr in attrs)
+    comment_attrs = parsed_line.attrs.strip()
     is_bold, is_italic, is_striked = bool(parsed_line.is_bold), bool(parsed_line.is_italic), bool(parsed_line.is_striked)
     if not comment_attrs and (is_bold or is_italic):
         bold = 'bold' if is_bold else ''
@@ -110,7 +108,7 @@ def topic_from_line(text_line, id=0, edge_width=1, branch_id=None, default_attrs
     if parsed_line.has_checkbox:
         icons = icons + ('tick_tick' if parsed_line.is_checked else 'tick_cross',)
     see = [dest_text.strip() for dest_text in list(parsed_line.see)]
-    return Topic(text=parsed_line.text[0].strip(), id=id, link=link or None, icons=icons, attrs=attrs, see=see)
+    return Topic(text=(parsed_line.text or [''])[0].strip(), id=id, link=link or None, icons=icons, attrs=attrs, see=see)
 
 def self_test():
     assert topic_from_line('toto') \
