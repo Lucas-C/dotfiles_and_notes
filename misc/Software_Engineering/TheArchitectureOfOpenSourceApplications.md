@@ -11,7 +11,7 @@ Takeaways
 
 ## The Bourne-Again Shell by Chet Ramey
 - change logs are important
-- introduce compatibility levels early, to notify uers of non-backward compatible changes
+- introduce compatibility levels early, to notify users of non-backward compatible changes
 
 
 ## Berkeley DB by Margo Seltzer & Keith Bostic
@@ -29,7 +29,7 @@ Design lessons:
 1. Well defined API boundaries are important
 2. Software architecture requires a different mind set from debugging code:
 do it separetely, **beforehand**
-3. Whether to rewrite / redsign a module is a difficult decision:
+3. Whether to rewrite / redesign a module is a difficult decision:
 you will always upset either the users or the mainteners
 4. Consistent naming style is important
 5. Choose upgrade battles carefully.
@@ -40,7 +40,7 @@ Don't hide them to users, highlight them and make sure they break old code at co
 
 
 ## Eclipse by Kim Moir
-Great versioning naming schme
+Great versioning naming scheme
 
 
 ## Graphite by Chris David

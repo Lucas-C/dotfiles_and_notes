@@ -31,6 +31,8 @@ Project management best practices
 - [HowToCreateASuccessfulOpenSourceProject](https://ipg.host.cs.st-andrews.ac.uk/monty/open-source-project-andrews.pdf)
 - [TheProblemsWithOpenSourceAndHowToFixThem](http://blog.fogcreek.com/the-problems-with-open-source-and-how-to-fix-them-interview-with-justin-searls/)
 - [MakingYourOpenSourceProjectNewcomerFriendly](https://manishearth.github.io/blog/2016/01/03/making-your-open-source-project-newcomer-friendly/)
+- [LeLogicielLibreEtLEntrepriseParTanguiMorlier](http://www.april.org/le-logiciel-libre-et-lentreprise-par-tangui-morlier-lup-le-5-novembre-2010)
+- [MotivationGovernanceAndTheViabilityOfHybridFormsInOpenSourceSoftwareDevelopment](http://climate-action.engin.umich.edu/figures/Rood_Library/Shah_open_source_governance_2006.pdf)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -145,10 +147,14 @@ Methodologies/advices to make both entreprise-internal & public OSS projects suc
 
 - basic repo documentation: README.md, LICENSE, CONTRIBUTORS.md, CONTRIBUTING.md, CHANGELOG.md, Architecture.md, .github/ISSUE_TEMPLATE, .github/PULL_REQUEST_TEMPLATE
 cf. https://github.com/todogroup/repolinter
+  * README templates: https://open-source-guide.18f.gov/making-readmes-readable/ https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+  * CONTRIBUTING.md content: https://opensource.guide/starting-a-project/#writing-your-contributing-guidelines
 
 - other tools:
-  * a curated list: https://github.com/todogroup/awesome-oss-mgmt
+  * pre-launch checklist: https://opensource.guide/starting-a-project/#your-pre-launch-checklist
+  * Licensee: detect under what license a project is distributed (Ruby) -> https://github.com/benbalter/licensee
   * https://github.com/facebook/mention-bot : Automatically mention potential reviewers on pull requests.
+  * a curated list: https://github.com/todogroup/awesome-oss-mgmt
 
 - [ScalingOpenSourceCommunities] -> free-rider problem: when to many people uses an Open Source software project without contributing to it
 "the most promising solution for Open Source is known as "privileged groups". Privileged groups are those who receive "selective benefits"."
@@ -194,7 +200,77 @@ Market and promote your project:
   * discoverability of bugs
   * "programs like Google Summer of Code and Outreachy provide ways for new contributors to try out your project at a significant level of involvement"
 
+- [MotivationGovernanceAndTheViabilityOfHybridFormsInOpenSourceSoftwareDevelopment]:
+
+> The primary reasons cited by need-based participants for contributing code include reciprocity ("Others helped me, so I should help them"), future improvements (get feedback, improve their code), source code commits ("so that their functional needs will continue to be met as the software evolves"), and career concerns ("reputation, skill development...")
+
+> Over half of long-term open source participants describe their open source work as a fun and challenging hobbylike activity
+
+> Contribution is necessary to obtain feedback affirming that one’s activities are useful to others
+
+> Time, too much have you
+> Major geeks these people are
+> Boss know you do this? :)
+
+- project governance models: cf. https://opensource.guide/leadership-and-governance/
+  * benevolent dictator: there is an identified project facilitator
+  * meritocracy / liberal contribution: everyone (with merit) commits and is responsible for everything
+  * Tech Lead + Core Committers: à la Google AMP
+
 - personal advice: invest in mentoring & publishing a wish-list of sexy+well-defined features, like a real OSS project product owner !
   * the scope of this feature is...
   * by implementing this feature YOU, as a benevolent OSS developper, will help X people/improve the quality of Y/make this compatible with Z...
   * by working on this, YOU will learn from experimented user @toto the following skills: ...
+
+### Websites dedicated to the subject
+- https://opensource.guide/
+- https://opensource.com/resources:
+  * [How to build an open source community](https://opensource.com/life/13/9/how-build-open-source-community)
+  * [How to self-promote your open source project](https://opensource.com/business/13/2/self-promoting-open-source-projects)
+    1. Ease into self promotion with shameless plugs
+    2. Use the buddy system
+    3. Market the project, not yourself
+    4. Highlight your contributions
+    5. Speak to be heard, social media is your megaphone
+- http://todogroup.org/blog/
+- https://codecuriosity.org/faq
+  * "Automated scoring is done on commits, comments and opening an issue today."
+  * "You will be able to see only those repositories that have more than 25 stars"
+  * "Organization contributions are not counted (yet) and commits as collaborator to another repository is not counted." (from FAQ)
+- https://www.codetriage.com
+
+### Lessons learned from "The Architecture of Open Source Applications"
+This is a personal selection:
+- [Berkeley DB by Margo Seltzer & Keith Bostic](http://aosabook.org/en/bdb.html)
+  * choose upgrade battles carefully. Don't hide them to users, highlight them and make sure they break old code at compile time
+- [SocialCalc by Audrey Tang](http://aosabook.org/en/socialcalc.html):
+  * Chief Designer with a Clear Vision
+  * Wikis for Project Continuity
+  * Always Have a Roadmap
+  * Distribute Knwoledge
+- [VisTrails](http://aosabook.org/en/vistrails.html)
+  * "The initial feedback and the encouragement we received from these users was instrumental in driving the project forward",
+  * "most features in the system were designed as direct response to user feedback",
+  * "being responsive to users does not necessarily mean doing exactly what they ask for"
+
+### Le Logiciel Libre Et L'entreprise
+Par Tangui Morlier
+
+4 libertés qui définissent le Logiciel Libre en entreprise [1]:
+- la liberté d'utiliser, sans condition
+- la liberté d'étudier le logiciel
+- la liberté de modifier
+- la liberté de diffuser
+
++ des obligations:
+- respect du droit d'auteur: vous n'avez pas le droit de dire que c'est vous qui l'avez fait
+- devoir contributif, facultatif ou non:
+
+Pourquoi une entreprise a des avantages à faire du logiciel libre ?
+- améliore la sécurité (cf. anecdote)
+- véhicule l'expertise (ex: Sensio avec Symphony)
+
+### Producing Open Source Software: How to Run a Successful Free Software Project
+By Karl Fogel
+
+> Opening up means arranging the code to be comprehensible to complete strangers, setting up a development web site and email lists, and often writing documentation for the first time. All this is a lot of work. And of course, if any interested developers do show up, there is the added burden of answering their questions for a while before seeing any benefit from their presence.

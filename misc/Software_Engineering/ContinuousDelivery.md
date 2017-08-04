@@ -33,6 +33,21 @@ source /appl/usljksu1/.jenkins/shiningpanda/jobs/17bf94c9/virtualenvs/d41d8cd9/b
 export LD_LIBRARY_PATH=/appl/usljksu1/.jenkins/shiningpanda/jobs/17bf94c9/virtualenvs/d41d8cd9/lib
 ```
 
+API JSON: `$JENKINS_URL/api/json?depth=1&pretty=true`
+
+Get plugins versions from `/script` console:
+```
+Jenkins.instance.pluginManager.plugins.each{
+  plugin ->
+    println ("${plugin.getDisplayName()} (${plugin.getShortName()}): ${plugin.getVersion()}")
+}
+```
+
+Jenkinsfile linter (`$API_TOKEN` can be retrieved from `$JENKINS_URL/user/$USER_NAME/configure`):
+```
+curl --verbose $JENKINS_URL/job/$JOB_NAME/1/replay/checkScriptCompile --user "$USER_NAME:$API_TOKEN" --data-urlencode value@Jenkinsfile
+```
+
 ### Pipeline Shared Libs
 
 https://github.com/jenkinsci/workflow-cps-global-lib-plugin

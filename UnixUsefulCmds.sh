@@ -130,6 +130,12 @@ set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subs
 fail () { echo "$1"; return ${2:-1}; }  # to exit the script with a given message & optional error code (default: 1) - Rely on `set -o errexit`
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 
+set -o errexit -o nounset
+cat <<EOF
+$unset
+EOF
+cmd # !!GOTCHA!! -> executed :(
+
 ok_or_ko () { return 1; }; ok_or_ko
 ok_or_ko () { return; }; ok_or_ko
 ok_or_ko () { return 256; }; ok_or_ko # !!GOTCHA!! Returns 0
