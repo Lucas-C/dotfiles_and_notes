@@ -995,6 +995,7 @@ def _make_file_read_nonblocking(f):
 from gevent import monkey; monkey.patch_all() # Greenlets
 saucelabs/monocle, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
+ReactiveX/RxPY # asynchronous and event-based programming using observable collections and LINQ-style query operators
 python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 dabeaz/curio # Python 3 alt implementation of coroutines
@@ -1236,6 +1237,7 @@ TEMPLATE_STRING_IF_INVALID = InvalidVarException()
 "" Other libs & tools
 """""""""""""""""""""
 webbrowser.open_new_tab # Firefox/Opera/Chrome instrumentation
+livereload # browser automatic reloading for development
 fmoo/python-editor # programmatically open a text editor, captures the result
 pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff
 pyhooked # pure Python hotkey hook: react on specific mouse/keyboard events

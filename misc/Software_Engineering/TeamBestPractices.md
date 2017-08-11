@@ -55,6 +55,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [ProgrammerCompetencyMatrix](http://sijinjoseph.com/programmer-competency-matrix/)
 - [3LawsOfConfigDynamics](https://blog.buildo.io/the-three-laws-of-config-dynamics-1e9724593aa9)
 - [10WaysToBeABetterInterviewer](http://queue.acm.org/detail.cfm?id=3125635)
+- [HiringEngineeringManagers](https://medium.com/@skamille/hiring-engineering-managers-screening-for-potential-1476044604d3)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -283,7 +284,7 @@ http://keepachangelog.com -> best practices & advices
 - cf. [HowAProgrammerReadsYourResumeVsARecruiter] & [Interviewing is broken] & [We Hire the Best, Just Like Everyone Else] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."
 - [Foursquare](http://engineering.foursquare.com/2016/04/04/improving-our-engineering-interview-process/) :
 > "We forgo technical phone interviews whenever possible. They’re typically unpleasant for everyone involved and we felt like the environment of a phone screen wasn’t conducive to learning about a candidate’s abilities comprehensively. Instead we give out a take-home exercise that takes about three hours."
-- clearly define your interview process:
+- [HiringEngineeringManagers]: clearly define your interview process:
     - screening for **potential** or **experience** ?
     - what methodology to use ? what answers are you looking for ?
 - [IfCompaniesInterviewedTechRecruitersTheWayTheyInterviewProgrammers]

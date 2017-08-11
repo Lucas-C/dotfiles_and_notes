@@ -121,9 +121,9 @@
             <Keywords name="Folders in comment, open"></Keywords>
             <Keywords name="Folders in comment, middle"></Keywords>
             <Keywords name="Folders in comment, close"></Keywords>
-            <Keywords name="Keywords1">abstract break case catch continue default do else extends final finally for if implements instanceof native new private protected public return static switch synchronized throw throws transient try volatile while strictfp package import false null super this true</Keywords>
-            <Keywords name="Keywords2">as assert def mixin property test using in it</Keywords>
-            <Keywords name="Keywords3">boolean byte char class double float int interface long short void</Keywords>
+            <Keywords name="Keywords1">abstract break case catch const continue default do else extends false final finally for goto if implements import instanceof native new null package private protected public return static strictfp super switch synchronized this throw throws transient true try volatile while</Keywords>
+            <Keywords name="Keywords2">as assert def delegate mixin owner property test threadsafe use using in it with</Keywords>
+            <Keywords name="Keywords3">boolean byte char class double enum float int interface long short trait void Array Boolean Byte Character Double Float Integer List Long Map Object Short String</Keywords>
             <Keywords name="Keywords4">abs any append asList asWritable call collect compareTo count div dump each eachByte eachFile eachLine every find findAll flatten getAt getErr getIn getOut getText grep immutable inject inspect intersect invokeMethods isCase join leftShift minus multiply newInputStream newOutputStream newPrintWriter newReader newWriter next plus pop power previous print println push putAt read readBytes readLines reverse reverseEach round size sort splitEachLine step subMap times toInteger toList tokenize upto waitForOrKill withPrintWriter withReader withStream withWriter withWriterAppend write writeLine</Keywords>
             <Keywords name="Keywords5"></Keywords>
             <Keywords name="Keywords6"></Keywords>
@@ -133,13 +133,13 @@
         </KeywordLists>
         <Styles>
             <WordsStyle name="DEFAULT" fgColor="268BD2" bgColor="042029" fontName="" fontStyle="0" fontSize="" nesting="0" />
-            <WordsStyle name="COMMENTS" fgColor="008000" bgColor="042029" fontName="" fontStyle="0" fontSize="" nesting="0" />
-            <WordsStyle name="LINE COMMENTS" fgColor="008000" bgColor="042029" fontName="" fontStyle="0" fontSize="" nesting="0" />
+            <WordsStyle name="COMMENTS" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="" nesting="0" />
+            <WordsStyle name="LINE COMMENTS" fgColor="93A1A1" bgColor="042029" fontName="" fontStyle="0" fontSize="" nesting="0" />
             <WordsStyle name="NUMBERS" fgColor="FF0000" bgColor="042029" fontName="" fontStyle="0" fontSize="" nesting="0" />
             <WordsStyle name="KEYWORDS1" fgColor="859900" bgColor="042029" fontName="" fontStyle="1" fontSize="" nesting="0" />
             <WordsStyle name="KEYWORDS2" fgColor="859900" bgColor="042029" fontName="" fontStyle="1" fontSize="" nesting="0" />
-            <WordsStyle name="KEYWORDS3" fgColor="008000" bgColor="042029" fontName="" fontStyle="1" fontSize="" nesting="0" />
-            <WordsStyle name="KEYWORDS4" fgColor="859900" bgColor="042029" fontName="" fontStyle="1" fontSize="" nesting="0" />
+            <WordsStyle name="KEYWORDS3" fgColor="D33682" bgColor="042029" fontName="" fontStyle="1" fontSize="" nesting="0" />
+            <WordsStyle name="KEYWORDS4" fgColor="2AA198" bgColor="042029" fontName="" fontStyle="1" fontSize="" nesting="0" />
             <WordsStyle name="KEYWORDS5" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" nesting="0" />
             <WordsStyle name="KEYWORDS6" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" nesting="0" />
             <WordsStyle name="KEYWORDS7" fgColor="000000" bgColor="042029" fontName="" fontStyle="0" nesting="0" />

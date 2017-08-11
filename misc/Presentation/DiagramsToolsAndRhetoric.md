@@ -13,7 +13,7 @@
 # Tools
 
 - `md2html` (based on `markdown-it` that implements CommonMark)
-- Reveal.js & Impress.js
+- Reveal.js & Impress.js & DZSlides
 - [MathJax JS](https://www.mathjax.org)
 - [draw.io](https://www.draw.io) : OSS, Java -> https://github.com/jgraph/draw.io
 - [asciiflow](http://asciiflow.com/#Draw)
