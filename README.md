@@ -1,7 +1,7 @@
 Linux configuration files
 =========================
 
-Compatible for Ubuntu, Red Hat, OSX and Cygwin.
+Compatible with Ubuntu, Red Hat, OSX and Cygwin.
 
 
 ## Installation
