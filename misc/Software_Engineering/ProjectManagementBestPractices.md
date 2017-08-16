@@ -33,6 +33,8 @@ Project management best practices
 - [MakingYourOpenSourceProjectNewcomerFriendly](https://manishearth.github.io/blog/2016/01/03/making-your-open-source-project-newcomer-friendly/)
 - [LeLogicielLibreEtLEntrepriseParTanguiMorlier](http://www.april.org/le-logiciel-libre-et-lentreprise-par-tangui-morlier-lup-le-5-novembre-2010)
 - [MotivationGovernanceAndTheViabilityOfHybridFormsInOpenSourceSoftwareDevelopment](http://climate-action.engin.umich.edu/figures/Rood_Library/Shah_open_source_governance_2006.pdf)
+- [To gamify or not to gamify community](https://opensource.com/business/16/9/gamify-or-not-gamify-community)
+- [Are we there yet: is open source gamification enterprise ready?](http://www.gameffective.com/is-open-source-gamification-enterprise-ready/)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -216,6 +218,13 @@ Market and promote your project:
   * benevolent dictator: there is an identified project facilitator
   * meritocracy / liberal contribution: everyone (with merit) commits and is responsible for everything
   * Tech Lead + Core Committers: à la Google AMP
+
+- [Are we there yet: is open source gamification enterprise ready?] by Gal Rimon & [To gamify or not to gamify community] by Jono Bacon -> lesssons learned:
+  * Gamification is not just about trophies
+  * Reward is important, but so is discovery
+  * Gamification is a helpful onboarding tool
+  * gamification should go beyond simplistic PBL (Points. Badges, Leaderboards)
+  * interesting discussion on Reddit, mostly arguing it's a bad idea: https://www.reddit.com/r/linux/comments/52mna6/to_gamify_or_not_to_gamify_community/
 
 - personal advice: invest in mentoring & publishing a wish-list of sexy+well-defined features, like a real OSS project product owner !
   * the scope of this feature is...

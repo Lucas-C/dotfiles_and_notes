@@ -21,6 +21,7 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
 
 ## Jenkins
 - Jenkins 2 with Jenkinsfile & Docker compose
+- fan-in / fan-out pattern:  https://www.cloudbees.com/blog/using-workflow-deliver-multi-componentapp-pipeline
 - Best practice: write a simple documentation page for your pipeline, indicating steps already working fine and the ones you wish
 - Plugins: AnsiColor, ChuckNorris, InternetMeme, Pipeline, ShiningPanda, jenkins.sitespeed.io, ThinBackup
 - Global Security Authorization: special user "authenticated"

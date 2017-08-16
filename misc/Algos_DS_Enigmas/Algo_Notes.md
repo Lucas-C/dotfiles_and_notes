@@ -11,6 +11,7 @@ To get a better locality of reference (= elements accessed in sequence are locat
 binary search trees are better implemented using a contiguous array following a red-black tree's breadth-first order (like a heap basically)
 
 Trie / directed acyclic graph can be + efficient than binary search trees / hash tables
+HAMT: "achieves almost hash table-like speed while using memory much more economically. Also, a hash table may have to be periodically resized, an expensive operation, whereas HAMTs grow dynamically" -> https://en.wikipedia.org/wiki/Hash_array_mapped_trie
 qp-trie > crit-bit trie > Patricia trie: http://fanf.livejournal.com/137283.html
 
 Test set membership aka sketching data structures:

@@ -453,6 +453,11 @@ join # join lines of two files on a common field
 tee -a $file # display input to stdout + append to end of $file
 echo ECHO | sed s/$/.ext/ # Append at the end of stdout (or beginning with ^)
 sed -i "1i$content" $file # append at the beginning of $file
+awk -i inplace '
+    BEGIN                                      {p=1}
+    /^<!-- HTTPRequester.plantuml START -->$/  {print;system("cat HTTPRequester.plantuml.svg");p=0}
+    /^<!-- HTTPRequester.plantuml END -->$/    {p=1}
+    p' README.md # insert the content of a file in another one between 2 given lines
 
 sed ':a;N;$!ba;s/PATTERN\n/PATTERN/g' # remove newlines after PATTERN - How it works : N means 'pattern_space+=\n+nextline' and we use branching to :a - Alt: just '1!N; s/...//'
 seq 1 10 | paste -s -d+ | bc # Replace newlines by a separator, aka 'join' - Also, for arrays: OLD_IFS=$IFS; IFS=+; echo "${argv[*]}"; IFS=$OLD_IFS
