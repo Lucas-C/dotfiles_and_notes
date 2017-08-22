@@ -1,10 +1,12 @@
 # Accessibility
 
 RGAA: http://references.modernisation.gouv.fr/rgaa-accessibilite
-http://disic.github.io/guide-contribuer_accessible/
+http://disic.github.io/guide-contribuer_accessible/ & https://github.com/access42/guide-auditeur
 
 http://references.modernisation.gouv.fr/kit-daudit-modeles-pour-faire-des-audits-rgaa-3
 http://disic.github.io/rgaa_methodologie/
+
+[Kit de survie du développeur aria](http://access42.net/Kit-de-survie-du-developpeur-ARIA-1-3)
 
 Exactly 1 <h1> per page
 
@@ -20,7 +22,12 @@ Ils doivent etre VISIBLE (à minima au focus) : ils ne sont pas destinés aux av
 
 Quick check WEBAIM based [Wave](http://wave.webaim.org)
 
+
+## Interfaces / GUI design
+
 [DosAndDontsOnDesigningForAccessibility.gov.uk](https://accessibility.blog.gov.uk/2016/09/02/dos-and-donts-on-designing-for-accessibility/)
+
+[Les écueils du contrôle de saisie dynamique](http://access42.net/Les-ecueils-du-controle-de-saisie-dynamique)
 
 
 ## Libs

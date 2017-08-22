@@ -11,21 +11,23 @@ There are many alternatives: in [bash](https://github.com/ekalinin/github-markdo
 # Diagrams
 
 - [knsv/mermaid](https://github.com/knsv/mermaid) : graphs, GANTT diagrams and flowcharts from markdown-like syntax (Javascript, requires to embed `mermaid.css` & `mermaid.min.js`)
-- [asciiflow](http://asciiflow.com/#Draw) : OSS (Javascript) -> https://github.com/lewish/asciiflow2
+- [asciiflow](http://asciiflow.com/#Draw) : online + OSS (Javascript) -> https://github.com/lewish/asciiflow2
 - [mapio/GraphvizAnim](https://github.com/mapio/GraphvizAnim) : animated graph visualizations, based on graphviz (Python)
 - [draw.io](https://www.draw.io) : diagrams stored as XML, online editor, OSS (Java) -> https://github.com/jgraph/draw.io
 - [ditaa](http://ditaa.sourceforge.net/) : ascii-art to images (Java)
-- [PlantUML](http://plantuml.com/) -> conversion to PNG or SVG (Java):
-
-    java -jar plantuml.jar -tsvg -nometadata diagram.plantuml.txt
-
-- [WebSequenceDiagrams](https://www.websequencediagrams.com/embedding.html) : recommended by the IETF (web API)
 - [blampe/goat](https://github.com/blampe/goat) : render ASCII art as SVG diagrams (Go)
 - [ivanceras/svgbobrus](https://github.com/ivanceras/svgbobrus) : convert ascii diagram scribbles into SVG (Rust)
 - [gliffy](https://www.gliffy.com/examples/) : online, proprietary code
 
-## Histograms
+## UML
+- [PlantUML](http://plantuml.com/) -> conversion to PNG or SVG (Java):
 
+    java -jar plantuml.jar -tsvg -nometadata diagram.plantuml.txt
+
+## Sequence diagrams
+- [WebSequenceDiagrams](https://www.websequencediagrams.com/embedding.html) : recommended by the IETF (web API)
+
+## Histograms
 - [tehmaze/diagram](https://github.com/tehmaze/diagram) : text mode utf8 diagrams in colors, in Python
 
 

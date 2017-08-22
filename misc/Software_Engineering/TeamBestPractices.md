@@ -258,6 +258,7 @@ http://keepachangelog.com -> best practices & advices
 - use Doxygen / Docurium for code documentation
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
 - simple dashboard for JSON APIs : [freeboard](https://github.com/Freeboard/freeboard)
+- http://www.mkdocs.org : project documentation with Markdown
 
 ## Coaching new hires & bringing them up to speed
 - [Onboarding and the Cost of Team Debt] = "when employees aren't properly trained, integrated, or managed, they are operating at less than optimal efficiency and "team debt" is accrued"

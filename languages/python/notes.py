@@ -775,6 +775,7 @@ uncompyle2 prog.pyc # bytecode -> python code
 neuroo/equip # bytecode instrumentation, e.g. insert call counters logic into .pyc
 foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')) # bytecode evil alteration
 astor / astunparse # AST 'unparse' : tree -> source
+ast.literal_eval # safe eval of a basic string expression: "it is not capable of evaluating arbitrarily complex expressions, e.g. involving operators or indexing"
 
 import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
 # SUPER powerful to hack python code and sniff values
@@ -1012,7 +1013,7 @@ import xmlrpc.client # XML-RPC via HTTP
 server = xmlrpc.client.ServerProxy("http://www.pythonchallenge.com/pc/phonebook.php")
 print(server.system.getCapabilities())  # Also: .listMethods() .methodSignature(...) .methodHelp(...)
 
-rtfd/CommonMark-py # Markdown parser
+rtfd/CommonMark-py # Markdown parser - Alt: waylan/Python-Markdown (used by pelican, support extensions), miyuchina/mistletoe
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 mozilla/bleach # HTML sanitizing library that escapes or strips markup and attributes
 tinycss2 > tinycss > cssutils  # CSS parsers
