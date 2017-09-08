@@ -4,12 +4,11 @@ How to Start Your Career in Cyber Security by Mikko Hypponen : https://safeandsa
 From http://www.pentest-standard.org
 
 
-## Pre-engagement Interactions
+## Intelligence Gathering
 DNSMAP
 Patator : Multi-threaded Service & URL Brute Forcing Tool, in Python
+https://github.com/eldraco/domain_analyzer Python script that automatically discovers and reports information about the given domain
 
-
-## Intelligence Gathering
 
 ### Sniffing
 OWASP Zap Proxy (Zed Attack Proxy) concurrent OSS de Burp

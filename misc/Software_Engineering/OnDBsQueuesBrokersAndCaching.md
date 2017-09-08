@@ -8,6 +8,8 @@ On DBs, Queues, Brokers and Caching
 ## Memory caching system
 DO NOT "underestimate the complexities and issues caching brings along with it" : [You're probably wrong about caching](http://msol.io/blog/tech/youre-probably-wrong-about-caching/)
 
+write-through VS write-around VS write-back caching policies (with Python) : https://shahriar.svbtle.com/Understanding-writethrough-writearound-and-writeback-caching-with-python
+
 JCache API caching strategies (https://dzone.com/refcardz/java-caching):
 
   FACTOR                  |  STRATEGY

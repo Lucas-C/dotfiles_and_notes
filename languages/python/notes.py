@@ -369,6 +369,8 @@ jsondiff
 """""""""""""""""""
 # !! Beware the Method Resolution Order (cls.__mro__) with 'super' : https://fuhm.net/super-harmful
 
+float('-iNf') # infinite ! Also: float('nan')
+
 [] = () # is OK, but not: () = []
 
 assert bool(datetime.time(0,0,0)) is False # before 3.5 - cf. "a false midnight" http://lwn.net/Articles/590299/
@@ -408,7 +410,7 @@ print type(d.keys()[0]) # str
 def create_multipliers(n):
     return [lambda x : i * x for i in range(1,n+1)]
 for multiplier in create_multipliers(2):
-    print multiplier(3) # Late Binding Closure : prints 6 twice
+    print multiplier(3) # Late Binding Closure : prints 6 twice - Same can append with 'def' functions
 
 i = 0; a = ['', '']
 i, a[i] = 1, 10
@@ -473,6 +475,31 @@ json.loads('[-Infinity]') # [-inf]
 'a' in 'aa' in 'aaa'
 
 int('١٢٣٤٥٦٧٨٩') # 123456789 - cf. http://chris.improbable.org/2014/8/25/adventures-in-unicode-digits/
+
+# The following gotchas come from https://github.com/satwikkansal/wtfpython
+d = {1.0: 'JavaScript'}
+d[True] = 'Python'
+len(d) == 1 # that's because 1.0 == True aka hash(1.0) == hash(True) (but: 1.0 is not True)
+
+array = [1, 8, 15]
+g = (x for x in array if array.count(x) > 0)
+array = [2, 8, 22]
+list(g) == [8] # in a generator expression, the in clause is evaluated at declaration time, but the conditional clause is evaluated at run time
+
+x = {0: None}
+for i in x:
+    del x[i]
+    x[i+1] = None
+    print(i)
+# runs for exactly eight times and stops => iteration over a dictionary that you edit at the same time is not supported
+# it runs eight times because that's the point at which the dictionary resizes to hold more keys (implementation detail)
+
+r'\OK'
+r'\FAIL\' # SyntaxError: EOL while scanning string literal
+
+a, b = a[b] = {}, 5 # a is now: {5: ({...}, 5)}
+
+'a'[0][0][0][0][0]
 
 
 """""""""""""""""""""""""""
@@ -814,7 +841,6 @@ deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .p
 snowballstemmer # supports 15 languages
 
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
-float("inf") # infinite ! Also: float('nan')
 fractions
 statistics # Python 3
 kwgoodman/roly # moving window median algorithms - Also: quantile sketches algos in Algo_Notes.md
@@ -1250,6 +1276,7 @@ modulefinder # determine the set of modules imported by a script
 
 asynchat, irc, sleekxmpp, embolalia/willie # IRC/XMPP bots
 mailr, mailbox, imaplib, smtpd, smptplib, kootenpv/yagmail # for emails, cf. ascii_art_email.py
+modoboa # email hosting made simple, with webUI + amavis + monitoring, for postfix & dovecot
 gmvault # Gmail backup CLI
 paramiko # remote SSH/SFTP connexion
 
@@ -1257,6 +1284,7 @@ scales # metrics for Python, send data points to Graphite - Pros: inc. with-cont
 
 pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR - cf. https://tomassetti.me/parsing-in-python/
 pycparser # C language code parser
+parso # a Python parser
 
 @retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation - Alt: retrace
 

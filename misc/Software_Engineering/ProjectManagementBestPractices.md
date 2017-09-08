@@ -225,6 +225,7 @@ Market and promote your project:
   * Gamification is a helpful onboarding tool
   * gamification should go beyond simplistic PBL (Points. Badges, Leaderboards)
   * interesting discussion on Reddit, mostly arguing it's a bad idea: https://www.reddit.com/r/linux/comments/52mna6/to_gamify_or_not_to_gamify_community/
+Also: https://openbadges.org
 
 - personal advice: invest in mentoring & publishing a wish-list of sexy+well-defined features, like a real OSS project product owner !
   * the scope of this feature is...
@@ -247,6 +248,7 @@ Market and promote your project:
   * "You will be able to see only those repositories that have more than 25 stars"
   * "Organization contributions are not counted (yet) and commits as collaborator to another repository is not counted." (from FAQ)
 - https://www.codetriage.com
+- http://blog.smile.fr (actualité FR)
 
 ### Lessons learned from "The Architecture of Open Source Applications"
 This is a personal selection:

@@ -301,3 +301,7 @@ http://keepachangelog.com -> best practices & advices
   * Bring a list of questions to the interview
   * Be collaborative
   * Try to make the problems feel as real-world as possible
+
+### Language-based question
+
+- Python: https://www.reddit.com/r/Python/comments/6wl0qk/what_are_the_top_10_key_featuresadvanced_topics/
