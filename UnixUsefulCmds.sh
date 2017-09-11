@@ -715,6 +715,7 @@ wget --curl -H "Cache-Control: no-cache" / wget --no-cache # Force a proxy fetch
 httrack
 Xdummy > Xvfb # in-memory X11 display server that doesn't render to screen
 pjscrape, PhantomJS, SlimerJS, CasperJS # PhantomJS alt CDN download: https://cnpmjs.org/downloads
+sikuli # Java-based (with JS, Python & Ruby ports) visual workflow, able to identify images on screen using OpenCV
 Netflix/sketchy # takes screenshots and scrap text using PhantomJS & Celery
 pageres, pageres-cli, capturejs # Easily capture website screenshots - An interesting alternative to use FF with casperjs --engine=slimerj: https://gist.github.com/nhoizey/4060568
 new Pageres({filename: '<%= date %>_<%= url %>_<%= size %>'})
@@ -1138,7 +1139,7 @@ image_optimi # Optimize (lossless compress, optionally lossy) images (jpeg, png,
 pngquant ## 70% lossy compression
 jpegtran -perfect -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs - better than ImageMagick, cf. http://www.imagemagick.org/discourse-server/viewtopic.php?t=22141
 identify -verbose $jpg | grep -E 'Image:|Quality:' # get JPEG compression level
-identify -verbose $jpg | grep 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq "$(echo -en "\xff\xc2")" $jpg
+identify -verbose $jpg | grep 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq $'\xff\xc2' $jpg - cf. https://en.wikipedia.org/wiki/JPEG#Syntax_and_structure
 exiv2 # extract EXIF, IPTC & XMP image metadata
 mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata - Alt: pdf-redact-tools (Python)
 feh -F -d -D 3 --cycle-once -f <(findImg .) # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw

@@ -1,3 +1,12 @@
+[500 Lines or Less](http://www.aosabook.org)
+============================================
+
+[A Simple Object Model](http://aosabook.org/en/500L/a-simple-object-model.html) by Carl Friedrich Bolz
+-> compare method-based model (like Smalltalk, Ruby, and JavaScript) with attribute-based models (like Lua and Python, which explain what are "bound methods")
++ explain "maps" instance optimization used in PyPy and the JS V8 engine, where it is called "hidden classes"
++ explain the core difference between traditionnal Object/Class models and prototype-based languages like JavaScript: the concept of class does not exist and objects instead inherit directly from each other
+
+
 [The Architecture of Open Source Applications](http://www.aosabook.org) - Amy Brown & Greg Wilson
 =================================================================================================
 Takeaways

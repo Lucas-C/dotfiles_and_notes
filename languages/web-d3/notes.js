@@ -369,6 +369,45 @@ the entire DOM whenever state changes. Of course, if you actually recreated the 
 and your input fields would lose focus."
 
 
+/********************************
+* Progressive/lazy image loading
+********************************/
+Some criterias to consider:
+- 3 main strategies:
+  * preloading images appearing after the page "fold"
+  * lazy loading : load images only as needed, when the user scroll
+  * progressive images: display a low-res image first, aka LQIP = Low Quality Image Placeholder
+- use a placeholder image (e.g. a base64 very small / spinner gif) or a low-res version (as Facebook/Medium do) ?
+- combine with interlaced GIF/PNG or progressive JPEG ?
+- support for <noscript> ? Notably: if JS is disabled, won't there by a CSS styling issue if there are 2 images ?
+
+
+Some solutions as of summer 2017:
+- [Lazy Load XT](http://ressio.github.io/lazy-load-xt/demo/index.htm) & [jQuery Lazy](http://jquery.eisbehr.de/lazy/): jQuery plugins, lazy load images on scroll, with fade-in or spinner effect, support <noscript>
+- [bLazy.js](http://dinbror.dk/blazy/)
+- [progressively](https://thinker3197.github.io/progressively/) : simple, seems to require a <figure>
+- [lazyload](http://www.andreaverlicchi.eu/lazyload/) : require width/height but support scrolling pannels
+- [lazysizes](https://github.com/aFarkas/lazysizes) : the basic noscript pattern relies on Modernizer `.no-js` CSS class to handle <noscript>
+But the plugin works great ! Demo:
+
+    <head>
+    <style>
+    .intrinsic {
+        position: relative;
+        padding-bottom: 75%;
+        height: 0;
+    }
+    </style>
+	<script src="lazysizes.min.js" async=""></script>
+	<script src="lazysizes.noscript.min.js" async=""></script>
+    </head>
+    <body>
+    <div class="intrinsic lazyload" data-noscript=""><noscript>
+        <img src="https://farm5.staticflickr.com/4094/4859138371_9713d4396e_b.jpg">
+    </noscript></div>
+    ...
+    </body>
+
 /*******
  Perfs
 *******/

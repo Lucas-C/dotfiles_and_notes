@@ -10,17 +10,19 @@ from xml.sax.saxutils import quoteattr
 from pseudo_markdown_parser import LineGrammar # require pyparsing
 from txt_mindmap import parse_graph
 
-EDGE_COLORS = ( # dark solarized palette from http://ethanschoonover.com/solarized
-    '#b58900', # yellow
-    '#cb4b16', # orange
-    '#6c71c4', # violet
-    '#dc323f', # red
-    '#268bd2', # blue
-    '#d33682', # magenta
-    '#2aa198', # cyan
-    '#859900', # green
-    '#939393', # grey
-)
+PALETTES = {
+    'dark-solarized': ( # from http://ethanschoonover.com/solarized
+        '#b58900', # yellow
+        '#cb4b16', # orange
+        '#6c71c4', # violet
+        '#dc323f', # red
+        '#268bd2', # blue
+        '#d33682', # magenta
+        '#2aa198', # cyan
+        '#859900', # green
+        '#939393', # grey
+    )
+}
 
 Topic = namedtuple('Topic', ('text', 'id', 'link', 'icons', 'attrs', 'see'))
 
@@ -43,8 +45,10 @@ def parse_args(argv):
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter, fromfile_prefix_chars='@')
     parser.add_argument('--name', default='mindmap')
     parser.add_argument('--default-img-size', default='80,43')
-    parser.add_argument('--no-shrink', action='store_false', dest='shrink')
-    parser.add_argument('--font-color', default='')
+    parser.add_argument('--shrink', action='store_true')
+    parser.add_argument('--no-shrinking-edges', action='store_false', dest='shrinking_edges')
+    parser.add_argument('--palette', choices=list(PALETTES.keys()) + ['none'], default='dark-solarized')
+    parser.add_argument('--font-color', default='white')
     parser.add_argument('--self-test', action='store_true')
     parser.add_argument('input_filepath')
     return parser.parse_args(argv)
@@ -62,7 +66,8 @@ def recursively_print(node, args, height, counter, indent='', branch_id=None, or
             attrs['shrink'] = 'true'
     topic = topic_from_line(node.content,
                             id=next(counter),
-                            edge_width=2+2*(height-indent.count('    ')),
+                            edge_colors=None if args.palette == 'none' else PALETTES[args.palette],
+                            edge_width=2+2*(height-indent.count('    ')) if args.shrinking_edges else None,
                             branch_id=branch_id,
                             default_attrs=attrs,
                             default_img_size=args.default_img_size,
@@ -77,7 +82,7 @@ def recursively_print(node, args, height, counter, indent='', branch_id=None, or
         yield from recursively_print(child, args, height=height, counter=counter, indent=indent, branch_id=branch_id, order=order)
     print('{}</topic>'.format(indent))
 
-def topic_from_line(text_line, id=0, edge_width=1, branch_id=None, default_attrs=None, default_img_size='', font_color=''):
+def topic_from_line(text_line, id=0, edge_width=None, edge_colors=None, branch_id=None, default_attrs=None, default_img_size='', font_color=''):
     parsed_line = LineGrammar.parseString(text_line, parseAll=True)
     link = parsed_line.url
     attrs = {}
@@ -99,8 +104,10 @@ def topic_from_line(text_line, id=0, edge_width=1, branch_id=None, default_attrs
         # cf. https://bitbucket.org/wisemapping/wisemapping-open-source/src/master/mindplot/src/main/javascript/persistence/XMLSerializer_Pela.js?at=develop&fileviewer=file-view-default#XMLSerializer_Pela.js-281
         attrs['fontStyle'] = ';;{};{};{};'.format(font_color, bold, italic)
     if branch_id is not None:
-        attrs['edgeStrokeColor'] = EDGE_COLORS[branch_id % len(EDGE_COLORS)]
-        attrs['edgeStrokeWidth'] = edge_width
+        if edge_colors:
+            attrs['edgeStrokeColor'] = edge_colors[branch_id % len(edge_colors)]
+        if edge_width is not None:
+            attrs['edgeStrokeWidth'] = edge_width
     attrs = ' '.join('{}="{}"'.format(k, v) for k, v in sorted(attrs.items()))
     if comment_attrs:
         attrs = attrs + ' ' + comment_attrs if attrs else comment_attrs

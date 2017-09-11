@@ -87,6 +87,7 @@ glob, fnmatch # manipulate unix-like file patterns
 jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object (std in Python 3 as pathlib), and a handy walkfiles()
 os.stat("filename").st_ino # get inode
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
+portalocker # easy API to file locking
 
 watchdog # + cmd watchmedo -> monitor/observe files changes - FROM: S&M
 
@@ -1159,7 +1160,7 @@ if __name__ == '__main__': # to launch a small WSGI server directly, without uws
     make_server('localhost', 8088, application).serve_forever()
 
 make html # Pelican static HTML files generation, using Jinja2 templates
-make serve # preview Pelican articles in localhost, with optional autoreload on edit
+make serve # preview Pelican articles in localhost, with optional autoreload on edit (devserver)
 sitemap, extract-toc, Tipue-search # plugins Pelican
 
 jstasiak/python-zeroconf  # multicast DNS service discovery - usage example: nils-werner/zget filename-based peer to peer file transfer
@@ -1267,6 +1268,7 @@ webbrowser.open_new_tab # Firefox/Opera/Chrome instrumentation
 livereload # browser automatic reloading for development
 fmoo/python-editor # programmatically open a text editor, captures the result
 pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff
+sikuli # Java-based (with JS, Python & Ruby ports) visual workflow, able to identify images on screen using OpenCV
 pyhooked # pure Python hotkey hook: react on specific mouse/keyboard events
 
 filemagic, ahupp/python-magic # interfaces to libmagic file type identification, aka the "file" command under Unix : it identifies file types by checking their headers according to a predefined list of file types

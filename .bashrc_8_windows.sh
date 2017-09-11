@@ -87,7 +87,10 @@ nav () {
 
 unfuncalias pdf
 pdf () {
-    "/cygdrive/c/Program Files$X86/SumatraPDF/SumatraPDF" $(convertWinArgs "$@")
+    "/cygdrive/c/Program Files/SumatraPDF/SumatraPDF" $(convertWinArgs "$@")
+}
+pdf_history () {
+    grep -F 'FilePath = ' $APPDATA/SumatraPDF/SumatraPDF-settings.txt | sed 's/.*FilePath = //' | tr '\n' '\0' | xargs -0 -n 1 cygpath
 }
 
 img () {
