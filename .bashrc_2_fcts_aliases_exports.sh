@@ -598,13 +598,7 @@ timestamp_converter () {
 }
 
 pre_commit_all_cache_repos () {  # Requires sqlite3
-    sqlite3 ~/.pre-commit/db.db "SELECT DISTINCT repo FROM repos" \
-        | while read repo; do
-            echo $repo
-            echo -n '- '
-            sqlite3 -newline $'\n- ' ~/.pre-commit/db.db "SELECT ref, path FROM repos WHERE repo = '$repo';"
-            echo
-        done
+    sqlite3 -column ~/.cache/pre-commit/db.db "SELECT repo, ref, path FROM repos GROUP BY repo ORDER BY ref;"
 }
 
 pre_commit_local_cache_repos () {  # Requires PyYaml & sqlite3
@@ -612,19 +606,20 @@ pre_commit_local_cache_repos () {  # Requires PyYaml & sqlite3
         python -c "from __future__ import print_function; import sys, yaml; print('\n'.join(h['repo']+' '+h['sha'] for h in yaml.load(sys.stdin) if h['repo'] != 'local'))" \
         | while read repo sha; do
             echo $repo
-            sqlite3 ~/.pre-commit/db.db "SELECT ref, path FROM repos WHERE repo = '$repo' AND ref = '$sha';"
+            sqlite3 ~/.cache/pre-commit/db.db "SELECT ref, path FROM repos WHERE repo = '$repo' AND ref = '$sha';"
             echo
         done
 }
 
-pre_commit_db_rm_repo () {
-    local repo_path=$(sqlite3 ~/.pre-commit/db.db "SELECT path FROM repos WHERE repo = '$1';")
+pre_commit_db_rm_repo () {  # Requires sqlite3
+    local repo=${1?'Missing parameter'}
+    local repo_path=$(sqlite3 ~/.cache/pre-commit/db.db "SELECT path FROM repos WHERE repo = '$repo';")
     if [ -z "$repo_path" ]; then
-        echo "No repository known for URL $1"
+        echo "No repository known for repo $repo"
         return 1
     fi
     rm -rf "$repo_path"
-    sqlite3 ~/.pre-commit/db.db "DELETE FROM repos WHERE repo = '$1';";
+    sqlite3 ~/.cache/pre-commit/db.db "DELETE FROM repos WHERE repo = '$repo';";
 }
 
 font_dflt_fix () {  # cf. https://chezsoi.org/lucas/blog/2016/02/11/en-fixing-fonts-that-raise-a-dflt-table-error-in-firefox/

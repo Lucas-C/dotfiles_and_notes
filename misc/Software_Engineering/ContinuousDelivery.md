@@ -125,6 +125,43 @@ fi
 
 `daemon.json`: defaults to `%programdata%\docker\config\daemon.json` / `/etc/docker/daemon.json`
 
+Logs: `%programdata%\docker\service*.txt`
+
+Windows service:
+```
+sc interrogate com.docker.service
+sc start com.docker.service
+sc stop com.docker.service
+```
+
+### Thin pool issues
+
+    docker rm $(docker ps -qf status=exited)
+    docker rmi $(docker images -qf dangling=true)  # dangling == untagged images that are the leaves of the images tree
+    docker volume rm $(docker volume ls -qf dangling=true)  # dangling == untagged images that are the leaves of the images tree
+
+    docker info  # -> provide thin pool ID, e.g. docker-thinpool
+    sudo dmsetup status docker-thinpool
+    sudo dmsetup info docker-thinpool
+    lsblk
+    lvs -a  # for direct-lvm thin pool
+
+    # Will only work id disk supports TRIM: hdparm -I /dev/...
+    docker ps -qa | xargs docker inspect --format='{{ .State.Pid }}' | grep -v '^0$' | xargs -IZ fstrim /proc/Z/root/
+
+    # Since v1.13.0
+    docker system prune -a
+    docker container prune -f
+    docker image prune -a -f
+
+In case of:
+
+> Non existing device docker-thinpool
+
+Then:
+
+    vgchange -Kay
+
 ### Security
 https://www.nccgroup.trust/us/our-research/understanding-and-hardening-linux-containers/
 https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.12.0_Benchmark_v1.0.0.pdf

@@ -250,6 +250,18 @@ Also: https://openbadges.org
 - https://www.codetriage.com
 - http://blog.smile.fr (actualité FR)
 
+### Copyleft licenses contamination from dependencies
+
+Si votre projet a des dépendances, veillez à analyser leurs licenses.
+Des outils existent pour automatiser cela si vous avez des dépendances en cascade (note: certains se basent sur le standard [SPDX](https://spdx.org)):
+
+- https://github.com/nexB/scancode-toolkit : développé en Python mais "language-agnostic" quant au code source analysé
+- https://www.npmjs.com/package/licensecheck : développé en NodeJS, pour des projets NodeJS
+- https://github.com/fossology/fossology : conteneur Docker dispo, développé en PHP, mais "language-agnostic" quant au code source analysé
+- https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Maven : plugin maven pour SonarQube, pour analyser les dépendances de pom.xml
+
+Typiquement, si une de vos dépendances est sous une license copyleft (ex: GPL & AGPL), vous devez utilisez cette license (ou une license compatible) pour votre projet.
+
 ### Lessons learned from "The Architecture of Open Source Applications"
 This is a personal selection:
 - [Berkeley DB by Margo Seltzer & Keith Bostic](http://aosabook.org/en/bdb.html)

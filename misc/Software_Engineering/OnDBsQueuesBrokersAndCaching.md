@@ -23,6 +23,7 @@ _memcached_
 
 - for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
 - use a firewall !! -> beware security issues: http://www.slideshare.net/sensepost/cache-on-delivery
+- `mcsauna` : track the hottest keys on your memcached instances, reporting back in a graphite-friendly format
 - commands: https://github.com/memcached/memcached/wiki/Commands - Ex:
 
     echo flush_all | nc $memcache_host $port
@@ -194,6 +195,12 @@ Log all queries in mysql without restart (FROM: http://stackoverflow.com/questio
     SET global log_output = 'FILE';
     SET global general_log_file='/Applications/MAMP/logs/mysql_general.log';
     SET global general_log = 1;
+
+Stop the Windows service (e.g. installed with MySQL Workbench):
+
+    sc interrogate MySQL57
+    sc stop MySQL57
+
 
 ##### How to start a file to make it executable AND runnable with mysql < FILE.mysql
 

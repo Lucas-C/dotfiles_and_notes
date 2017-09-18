@@ -816,7 +816,7 @@ watch -d -n 1 "cat /proc/$pid/status | grep ctxt_switches" # mostly nonvoluntary
 iostat # ! '%util' & 'svctm' are misleading + iotop, non portable + brendangregg/perf-tools/blob/master/iosnoop
 mpstat 5 # cpu usage stats every 5sec
 monit # monitor processes, network stats, files & filesystem. Has an HTTP(s) interface, custom alerts
-dstat
+dstat -tcmdsn -N eth0 --top-cpu-adv --top-mem
 pt-summary, glances, psdash, conky
 collectd, perfwatcher, diamond, fullerite
 hdparm -tT /dev/sda # Check a disk read/write speed
@@ -873,7 +873,7 @@ dmidecode
 shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck - Alt:
 smartctl -a /dev/sdb2 # scan a device - Alt: gsmartcontrol or above
 
-dpkg -S /path/to/cmd # to find what package a command belong to - Alt: apt-file search /path/to/cmd / yum provides $cmd / rpm -qif $(which cmd)
+dpkg -S /path/to/cmd # to find what package a command belong to - Alt: apt-file search /path/to/cmd / yum provides $cmd OR '*/boost/bin.hpp' / rpm -qif $(which cmd)
 dpkg -L $pkg # list files installed by a package on the system - Alt: apt-get list $pkg - or - dpkg-deb -c $deb
 rpm -q --whatrequires $pkg # list dependencies - Alt: apt-cache rdepends $pkg
 apt-cache search $keyword

@@ -88,34 +88,41 @@ def topic_from_line(text_line, id=0, edge_width=None, edge_colors=None, branch_i
     attrs = {}
     if default_attrs:
         attrs.update(default_attrs)
+    for kv in parsed_line.attrs.split():
+        k, v = kv.split('=')
+        attrs[k.strip()] = v.strip()[1:-1]
     if parsed_line.is_img:
         attrs['shape'] = 'image'
         img_size = '{}x{}'.format(int(parsed_line.img_width), int(parsed_line.img_height)) if parsed_line.img_width and parsed_line.img_height else default_img_size
         attrs['image'] = '{}:{}'.format(img_size, link)
         link = None
-    comment_attrs = parsed_line.attrs.strip()
-    is_bold, is_italic, is_striked = bool(parsed_line.is_bold), bool(parsed_line.is_italic), bool(parsed_line.is_striked)
-    if not comment_attrs and (is_bold or is_italic):
-        bold = 'bold' if is_bold else ''
-        italic = 'italic' if is_italic else ''
-    else:
-        bold, italic = '', ''
-    if font_color or bold or italic:
-        # cf. https://bitbucket.org/wisemapping/wisemapping-open-source/src/master/mindplot/src/main/javascript/persistence/XMLSerializer_Pela.js?at=develop&fileviewer=file-view-default#XMLSerializer_Pela.js-281
-        attrs['fontStyle'] = ';;{};{};{};'.format(font_color, bold, italic)
+    set_font_style_attr(attrs, parsed_line, font_color)
     if branch_id is not None:
         if edge_colors:
             attrs['edgeStrokeColor'] = edge_colors[branch_id % len(edge_colors)]
         if edge_width is not None:
             attrs['edgeStrokeWidth'] = edge_width
     attrs = ' '.join('{}="{}"'.format(k, v) for k, v in sorted(attrs.items()))
-    if comment_attrs:
-        attrs = attrs + ' ' + comment_attrs if attrs else comment_attrs
     icons = tuple(parsed_line.icons)
     if parsed_line.has_checkbox:
         icons = icons + ('tick_tick' if parsed_line.is_checked else 'tick_cross',)
     see = [dest_text.strip() for dest_text in list(parsed_line.see)]
     return Topic(text=(parsed_line.text or [''])[0].strip(), id=id, link=link or None, icons=icons, attrs=attrs, see=see)
+
+def set_font_style_attr(attrs, parsed_line, default_font_color):
+    font_size, font_family, font_color, bold, italic  = '', '', '', '', ''
+    if 'fontStyle' in attrs:
+        font_size, font_family, font_color, bold, italic, _ = attrs['fontStyle'].split(';')
+    if not font_color:
+        font_color = default_font_color
+    is_bold, is_italic, is_striked = bool(parsed_line.is_bold), bool(parsed_line.is_italic), bool(parsed_line.is_striked)
+    if is_bold:
+        bold = 'bold'
+    if is_italic:
+        italic = 'italic'
+    if font_size or font_family or font_color or bold or italic:
+        # cf. https://bitbucket.org/wisemapping/wisemapping-open-source/src/master/mindplot/src/main/javascript/persistence/XMLSerializer_Pela.js?at=develop&fileviewer=file-view-default#XMLSerializer_Pela.js-281
+        attrs['fontStyle'] = '{};{};{};{};{};'.format(font_size, font_family, font_color, bold, italic)
 
 def self_test():
     assert topic_from_line('toto') \
@@ -127,7 +134,7 @@ def self_test():
     assert topic_from_line('!toto') \
             == Topic(text='!toto', link=None, icons=(), attrs='', id=0, see=[])
     assert topic_from_line('Productivity   !icon=chart_bar <!-- fontStyle=";;#104f11;;;" bgColor="#d9b518" -->') \
-            == Topic(text='Productivity', link=None, icons=('chart_bar',), attrs='fontStyle=";;#104f11;;;" bgColor="#d9b518"', id=0, see=[])
+            == Topic(text='Productivity', link=None, icons=('chart_bar',), attrs='bgColor="#d9b518" fontStyle=";;#104f11;;;"', id=0, see=[])
     assert topic_from_line('**toto**') \
             == Topic(text='toto', link=None, icons=(), attrs='fontStyle=";;;bold;;"', id=0, see=[])
     assert topic_from_line('__toto__') \

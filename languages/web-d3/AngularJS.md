@@ -28,7 +28,7 @@ Console debug:
     ng.probe($0).componentInstance
 
 
-# Angular 1
+# Angular 1.5
 
 http://aosabook.org/en/500L/web-spreadsheet.html : demonstrate interesting ES6 features
 - redirect-based graceful degradation to ES5

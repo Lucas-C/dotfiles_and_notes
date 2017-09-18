@@ -121,7 +121,6 @@
 [user]
     email = lucas.cimon@gmail.com
     name = Lucas Cimon
-	signingkey = 6AF36E0DE97FE852
 [commit]
     gpgsign = true
 [include]

@@ -241,6 +241,7 @@ import heapq # min-heap: .nlargest .nsmallest
 
 collections.deque # double-ended queue, with optional maximum length
 queueutils.PriorityQueue # from mahmoud/boltons
+from queuelib import FifoDiskQueue # disk-persisted FIFO queue
 
 collections.Counter([...]).most_common(1) # dict subclass for integer values
 unique_id_map = collections.defaultdict(itertools.count().next) # will always return the same unique int when called on an object: unique_id_map['a'] == unique_id_map['a'] != unique_id_map['b']
@@ -703,6 +704,7 @@ http://mg.pov.lt/objgraph # explore Python object graphs
 snakefood # draw code base dependency graphs
 what-studio/profiling # live profiling
 PyVmMonitor # profiler with graphs
+pyframe # made by an Uber dev, can generate flame graphs
 nvdv/vprof # Visual Python profiler
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
 fabianp/memory_profiler
@@ -934,6 +936,7 @@ asyncpg # PostgreSQL without the need for libpq, faster than psycopg2
 python-lsm-db(like LevelDB), unqlite-python(like MongoDB), vedis-python(like Redis) # Other embedded NoSQL DBs
 pyMySQL, noplay/python-mysql-replication
 stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring, fengsp/rc.Cache, coleifer/walrus
+pylibmc # memcache client in C
 redash # generic DB interface / visualization for Redshift, Google BigQuery, PostgreSQL, MySQL, Graphite, Presto, Google Spreadsheets, Cloudera Impala, Hive
 cmu-db/ottertune # automatic DBMS configuration tool
 

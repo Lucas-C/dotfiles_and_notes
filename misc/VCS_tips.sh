@@ -54,7 +54,7 @@ curl http://git-punish.io/get -o /usr/local/bin/git-punish
 chmod +x /usr/local/bin/git-punish
 git punish -L135,170 index.js  # generates a URL to a funny page that expires in 24 hours
 
-gitg > gitk
+gitg > gitk # GUI client/viewer
 
 # use HTTPS protocol instead of git one (e.g. to bypass a firefall):
 git config --global url."https://".insteadOf git://
