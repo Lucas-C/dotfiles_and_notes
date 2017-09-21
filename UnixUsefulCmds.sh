@@ -811,7 +811,7 @@ dmesg -s 500000 | grep -i -C 1 "fail\|error\|fatal\|warn\|oom" # In case of OOM,
 
 watch -d -n 1 "cat /proc/$pid/status | grep ctxt_switches" # mostly nonvoluntary context switches => CPU bound / else IO bound - FROM: https://blogs.oracle.com/ksplice/entry/solving_problems_with_proc
 
-# Monitoring
+# Monitoring & perfs
 ![The Tracing Landscape - Sep 2015](http://www.brendangregg.com/blog/images/2015/tracing_landscape_sep2015.png) : draios/sysdig (a draios/falco behavioral activity monitor), ftrace, perf, dtrace, ktrap, stap, eBPF, iovisor/bcc - cf. http://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html
 iostat # ! '%util' & 'svctm' are misleading + iotop, non portable + brendangregg/perf-tools/blob/master/iosnoop
 mpstat 5 # cpu usage stats every 5sec
@@ -820,6 +820,7 @@ dstat -tcmdsn -N eth0 --top-cpu-adv --top-mem
 pt-summary, glances, psdash, conky
 collectd, perfwatcher, diamond, fullerite
 hdparm -tT /dev/sda # Check a disk read/write speed
+https://github.com/epickrram/grav # threads perfs & JVM heap visualisation, including animated flamegraphs
 
 stap # SystemTap
 perf # aka perf_events, needs a version of linux-tools-* matching the kernel - More: http://www.pixelbeat.org/programming/profiling/

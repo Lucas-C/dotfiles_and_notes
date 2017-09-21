@@ -668,6 +668,7 @@ import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture 
 nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no --showlocals --exitfirst --cache-clear --pdb -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
 pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
+mschwager/memunit # check memory usage in tests
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
 c-oreills/before_after # provides utilities to help test race conditions
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
@@ -858,7 +859,7 @@ scipy
     geoplotlib, ResidentMario/geoplot
     ResidentMario/missingno, holoviews, pascal-schetelat/Slope, # other dataviz libs
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
-    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
+    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
 
 (ggplot(mtcars, aes('wt', 'mpg', color='factor(gear)'))
  + geom_point()

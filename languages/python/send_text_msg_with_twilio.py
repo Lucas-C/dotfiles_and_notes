@@ -8,7 +8,7 @@ from twilio.rest import Client
 #   cat msg.txt | ./send_text_msg_with_twilio.py 00353860307676
 
 # Interesting twilio widget: https://www.twilio.com/labs/twimlets/menu
-# Alt: Plivo, bandwidth
+# Alt: bandwidth, nexmo, plivo, sinch
 
 def main(argv):
     client = Client(os.environ['TWILIO_ACCOUNT_SID'], os.environ['TWILIO_AUTH_TOKEN'])

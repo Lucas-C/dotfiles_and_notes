@@ -20,7 +20,7 @@ There are many alternatives: in [bash](https://github.com/ekalinin/github-markdo
 - [gliffy](https://www.gliffy.com/examples/) : online, proprietary code
 
 ## UML
-- [PlantUML](http://plantuml.com/) -> conversion to PNG or SVG (Java):
+- [PlantUML](http://plantuml.com) -> conversion to PNG or SVG (Java):
 
     java -jar plantuml.jar -tsvg -nometadata diagram.plantuml.txt
 
@@ -31,8 +31,44 @@ There are many alternatives: in [bash](https://github.com/ekalinin/github-markdo
 - [tehmaze/diagram](https://github.com/tehmaze/diagram) : text mode utf8 diagrams in colors, in Python
 
 
+# Command-line tips & tricks for demos
+
+- use & abuse shell history command search : `CTRL`+`R`
+  * make your you keep enough history: put `export HISTSIZE=20000` in your `.bashrc`
+  * add a `#tag` at the end of long commands you want to retrieve easily, so that you can later on `CTRL`+`R` on this keyword. Exemple:
+```
+curl ... # rundeck
+```
+- if your terminal is broken (your prompt is broken, you cannot see what you type...) : `CTRL`+`L` and then type the command `reset`
+- half-maximize a window on one side:
+  * on Ubuntu: `CTRL`+`SUPER`+`Left`/`Right`
+  * on Windows: `CMD`+`Left`/`Right`
+- add the following in your `.bashrc` in order to display the return code of the last command executed on your prompt:
+```
+prompt_command() { EXIT_CODE=${?/#0/}; }; export PROMPT_COMMAND=prompt_command; export PS1='\[\e[0;34m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[0;32m\]\W\[\e[0m\]\[\e[1;31m\] $EXIT_CODE\[\e[0m\]\$ '
+```
+- know your `.inputrc`. Make sure your `HOME`/`END` keys work. Enable relaxed tab-completion:
+```
+set show-all-if-ambiguous on
+set completion-ignore-case on
+```
+
+
 # Rhetoric
 - Tell STORIES to inspire your audience and make them better remember what you said
 - [The smackdown learning model](http://blog.codinghorror.com/in-defense-of-the-smackdown-learning-model/)
 - [Arguments rhétologiques fallacieux](http://www.informationisbeautiful.net/visualizations/rhetological-fallacies/arguments-rhetologiques-fallacieux/)
 - [Which Online Discussion Archetype Are You](http://blog.codinghorror.com/which-online-discussion-archetype-are-you/)
+
+## Benjamin G. advices
+
+- always **rehearse with someone**
+- always prepare **a commands cheat-sheet**
+- **do not think about people reading your slides later**: you will bloat them with too many words
+- your speech must be != than the slides content
+- it is more important to arouse interest and set off a desire to find more info, than to explain every detail
+- contextualize (why you did this, how you discovered that...) the information you present
+- logos > tools names, photos > people names (not in public slides, for legal reasons)
+- avoid too many bullet points list
+- 20min talk ? -> no need to display the plan
+- slides titles are not always necessary
