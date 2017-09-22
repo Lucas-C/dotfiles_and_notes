@@ -19,6 +19,9 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
 - "Salt was born as a distributed remote execution system used to execute commands and query data on remote nodes."
 "Ultra high-performance for large deployments." (LinkedIn use it)
 
+## Buildbot
+Jenkins alternative, in Python: https://buildbot.net
+
 ## Jenkins
 - Jenkins 2 with Jenkinsfile & Docker compose
 - fan-in / fan-out pattern:  https://www.cloudbees.com/blog/using-workflow-deliver-multi-componentapp-pipeline
