@@ -19,6 +19,11 @@ valgrind --tool=massif $cmd # get memory usage with details & graph
 valgrind --db-attach=yes --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
 oprofile
 
+cat hex.txt
+000000: b8d1 a3d8 8d56 e389 c69d d8ca 99e0 cd51
+000010: ddce aada 8485 958b d1a0 d5cb 94e8 d29d
+000020: e56c
+xxd -r hex.txt > hex.bin # generate binary from hexa
 hexdump -c $file # aka 'hd', use 'bvi' for editing. Alt: od -Ax -tx1z -v $file
 strings -n $min_length exec.bin # extract strings of length >= 4
 objdump

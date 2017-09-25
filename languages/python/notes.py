@@ -358,7 +358,7 @@ jab/bidict # provide key -> value & value -> key access
 dictutils.OrderedMultiDict # from mahmoud/boltons
 
 ijson  # battle-tested, fantastically more memory-efficient
-ultrajson >faster> simplejson >faster>(not in my experience on CSC in Py3) json  # Also: mitghi/cyjson - Note for ultrajson: it can fail silently: https://github.com/esnme/ultrajson/issues/134
+ultrajson >faster> simplejson >faster>(not in my experience on CSC in Py3) json  # Also: mitghi/cyjson - Note for ultrajson: it can fail silently: https://github.com/esnme/ultrajson/issues/134 - Good read: https://blog.ionelmc.ro/2015/11/22/memory-use-and-speed-of-json-parsers/
 def sets_converter(obj): return list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
 for error in jsonschema.Draft4Validator(schema).iter_errors(data):
@@ -807,6 +807,7 @@ neuroo/equip # bytecode instrumentation, e.g. insert call counters logic into .p
 foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')) # bytecode evil alteration
 astor / astunparse # AST 'unparse' : tree -> source
 ast.literal_eval # safe eval of a basic string expression: "it is not capable of evaluating arbitrarily complex expressions, e.g. involving operators or indexing"
+pyrser # easy Python AST transformations, with CSS-like selectors
 
 import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
 # SUPER powerful to hack python code and sniff values
@@ -898,6 +899,7 @@ from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can b
 Jython / Py4J # intercommunicate with Java -> Jython has pip, but won't support lib depending on multiprocessing - however, it has excellent support for built-in Java threads: http://www.jython.org/jythonbook/en/1.0/Concurrency.html
 Numba # NumPy aware dynamic Python compiler using LLVM - Also: numbapro # for targeting the GPU & writing CUDA code in Python
 Pyston # VM using LLVM JIT
+Pythran # Python to c++ compiler for a subset of the Python language. It takes a Python module annotated with a few interface description and turns it into a native python module with the same interface, but (hopefully) faster.
 PyInline # put source code from other programming languages (e.g. C) directly "inline" in Python code
 Pyrex # write code that mixes Python and C data types and compiles it into a C extension
 Nuitka # converts Python code into C++ code (targetting VisualStudio, MinGW or Clang/LLVM compilers)
@@ -1292,7 +1294,7 @@ pyparsing # create and execute simple grammars instead of regex/lex/yacc - http:
 pycparser # C language code parser
 parso # a Python parser
 
-@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation - Alt: retrace
+@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation: deprecated! => tenacity - Alt: retrace
 
 daviddrysdale/python-phonenumbers # port of Google's libphonenumber to validate phone numbers
 TwilioLookupsClient().phone_numbers.get("15108675309", include_carrier_info=True) # Twilio API phone number validation

@@ -20,12 +20,14 @@ There are many alternatives: in [bash](https://github.com/ekalinin/github-markdo
 - [gliffy](https://www.gliffy.com/examples/) : online, proprietary code
 
 ## UML
+- [UMLet](http://www.umlet.com) : open-source, diagrams can be export to eps, pdf, jpg, svg + new web-based UMLet: called [UMLetino](http://www.umlet.com/umletino)
 - [PlantUML](http://plantuml.com) -> conversion to PNG or SVG (Java):
 
     java -jar plantuml.jar -tsvg -nometadata diagram.plantuml.txt
 
 ## Sequence diagrams
 - [WebSequenceDiagrams](https://www.websequencediagrams.com/embedding.html) : recommended by the IETF (web API)
+- [UMLet](http://www.umlet.com)
 
 ## Histograms
 - [tehmaze/diagram](https://github.com/tehmaze/diagram) : text mode utf8 diagrams in colors, in Python

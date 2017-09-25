@@ -37,7 +37,6 @@ fi
 
 export PS1=\
 '\[\e[${USER_STYLE}m\]\u\[\e[${T_normal}m\]'\
-'@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]'\
 '\[\e[${C_chrooted}m\]${IS_CHROOTED_PROMPT}\[\e[${T_normal}m\]'\
 '\[\e[${C_branch}m\][${GIT_BRANCH}]\[\e[${T_normal}m\]'\
 '\[\e[${C_virtualenv}m\]('$(basename "${VIRTUAL_ENV:-}")')\[\e[${T_normal}m\]'\
