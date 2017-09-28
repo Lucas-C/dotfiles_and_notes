@@ -648,7 +648,7 @@ Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, 
 lobocv/crashreporter # store and send crash reports directly to the developers
 
 # Packaging (cf. https://packaging.python.org)
-twine # alternative to executing setup.py, provide HTTPS connexion to Pypi, file signing & control over packaging format
+twine # alternative to executing setup.py, provide HTTPS connexion to Pypi, file signing & control over packaging format - Alt: flit
 setuptools_scm, vcversioner  # manage your setup.py versions by scm tags
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil & zipapp to generates .pyz from v3.5 -> those "Python ZIP Applications" are associated to the Python executable under Windows
 dh-virtualenv # the ultimate way of deploying python apps, over wheels & pex == self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441

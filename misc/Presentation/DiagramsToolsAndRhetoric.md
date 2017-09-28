@@ -6,6 +6,7 @@
 - [markdown-toc](https://github.com/jonschlinkert/markdown-toc) : generate a markdown table of contents for READMEs (NodeJS)
 There are many alternatives: in [bash](https://github.com/ekalinin/github-markdown-toc), [Python](https://github.com/rasbt/markdown-toclify)
 - [grip](https://github.com/joeyespo/grip) : preview GitHub Markdown files like READMEs (Python)
+- [](http://pandoc.org) : swiss-army knife that can convert documents in Markdown, reStructuredText, textile, HTML, DocBook, LaTeX, MediaWiki markup, TWiki markup, OPML, Emacs Org-Mode, Txt2Tags, Microsoft Word docx, LibreOffice ODT, EPUB...
 
 
 # Diagrams
@@ -31,6 +32,9 @@ There are many alternatives: in [bash](https://github.com/ekalinin/github-markdo
 
 ## Histograms
 - [tehmaze/diagram](https://github.com/tehmaze/diagram) : text mode utf8 diagrams in colors, in Python
+
+## API specs : Open API, Swagger, API Blueprint, RAML...
+Conversion tools: https://blog.codeship.com/documenting-microservices/#conversion
 
 
 # Command-line tips & tricks for demos

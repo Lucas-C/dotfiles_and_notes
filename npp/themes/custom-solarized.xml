@@ -711,7 +711,7 @@
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-        <WidgetStyle name="Global override" styleID="0" fgColor="819090" bgColor="042029" fontName="Fira Code" fontStyle="0" fontSize="12" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="819090" bgColor="042029" fontName="Consolas" fontStyle="0" fontSize="12" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="819090" bgColor="042029" fontName="Consolas" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="888A85" bgColor="042029" fontName="" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FCE94F" bgColor="042029" fontName="" fontStyle="1" fontSize="10" />

@@ -51,6 +51,7 @@ Software Development Best Practices
 - [LavaLayerAntiPattern](http://mikehadlow.blogspot.fr/2014/12/the-lava-layer-anti-pattern.html)
 - [DontReadYourLogs](https://medium.com/@chimeracoder/dont-read-your-logs-13586c790202)
 - [PreMergeCodeReviews](http://verraes.net/2013/10/pre-merge-code-reviews/)
+- [Architecture Review Working Group : Multiple Perspectives On Technical Problems and Solutions](https://www.kitchensoap.com/2017/08/12/multiple-perspectives-on-technical-problems-and-solutions/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -109,6 +110,10 @@ CQRS pattern = [CommandQueryResponsibilitySegregation] : split the code & logic 
 
 POLA = Principle of least astonishment (or surprise => POLS) : "People are part of the system. The design should match the user's experience, expectations, and mental models.
     If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature."
+
+[Architecture Review Working Group : Multiple Perspectives On Technical Problems and Solutions]:
+> Excellent, it sounds like you have a hypothesis! We are gonna do an architecture review. If it’s as obvious a solution as you think it is, it should be easy for the rest of the org to come to the same conclusion, and that will make implementing and maintaining it that much easier. If it has some downsides that aren’t apparent, we will at least have a chance to tease those out!
+
 
 ## Design smells
 - "Thin" classes. Ideally, a class should have a very simple interface that hides a lot of functionality and internal complexity. [SDP]

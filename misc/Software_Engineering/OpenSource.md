@@ -190,7 +190,7 @@ Steve Marquess
 64% of top Github open-source projects have a 1-2 truck factor (1-2 developpers are critical to those projects)
 -> http://peerj.com/preprints/1233.pdf
 
-Collective Code Construction Contract: 
+Collective Code Construction Contract: https://rfc.zeromq.org/spec:42/C4
 
 Contributing hackathon/sprint:
 ahead of time, library author curates ~10 todos accomplishable in 3hours by newcomers
@@ -209,7 +209,7 @@ Solutions:
 * use a foundation
 * build some tools
 
-Full-time dedicated to FLOSS at Salesforce (how many devs ?)
+Full-time dedicated to FLOSS at Salesforce (~25 000 employees in 2017)
 
 Process, process, process:
 * outgoing contribution VS new FLOSS project ?
