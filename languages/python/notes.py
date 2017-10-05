@@ -897,6 +897,7 @@ Cython # .pyx : superset of Python with optional static types, can invoke C/C++ 
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler, but does not support C extensions. Also: PyPy-STM
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
 Jython / Py4J # intercommunicate with Java -> Jython has pip, but won't support lib depending on multiprocessing - however, it has excellent support for built-in Java threads: http://www.jython.org/jythonbook/en/1.0/Concurrency.html
+voc # transpiler converting Python code into Java bytecode
 Numba # NumPy aware dynamic Python compiler using LLVM - Also: numbapro # for targeting the GPU & writing CUDA code in Python
 Pyston # VM using LLVM JIT
 Pythran # Python to c++ compiler for a subset of the Python language. It takes a Python module annotated with a few interface description and turns it into a native python module with the same interface, but (hopefully) faster.
@@ -920,8 +921,9 @@ binascii.hexlify # display binary has hexadecimal
 """"""""""""""""""""""""""""""
 celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of celery tasks
 dask  # task scheduling and blocked algorithms for parallel processing
-sched # event scheduler ; Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gjcarneiro/yacron, gawel/aiocron, Jenkins, huginn - Also:
-luigi, Oozie, Azkaban, Drake, Pinball, Apache Airflow, viewflow, BD2KGenomics/toil # workflow managers - Airflow prez: http://events.linuxfoundation.org/sites/events/files/slides/get_in_control_of_your_workflow.pdf
+buildbot # CI framework - Pipeline example: https://github.com/buildbot/buildbot/blob/master/master/buildbot/scripts/sample.cfg - Alt: Jenkins (Groovy)
+sched # event scheduler - Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gjcarneiro/yacron, gawel/aiocron - Also:
+luigi # workflow managers - Alt: Oozie, Azkaban, Drake, Pinball, viewflow, BD2KGenomics/toil, Apache Airflow -> prez: http://events.linuxfoundation.org/sites/events/files/slides/get_in_control_of_your_workflow.pdf
 # the `luigid` daemon should be stopped with the `kill` command that sends a `SIGINT` signal so that it can save its state into `luigi-state.pickle` (cf. https://github.com/spotify/luigi/blob/master/luigi/server.py#L277)
 zeromq, aiozmq, mrq # distributed app / msg passing framework
 ampqlib, haigha, puka # AMPQ libs
@@ -1098,6 +1100,7 @@ requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock 
     requests-cache
     requests-respectful # requests capping
     requests-jwt # auth = JWTAuth(secret, alg='HS512', header_format='Bearer %s') - usage example: https://github.com/shaarli/python-shaarli-client/blob/master/shaarli_client/client/v1.py#L205
+    requests.packages.urllib3.util.retry # can retry on connect/read/all failures, cf. https://www.peterbe.com/plog/best-practice-with-retries-with-requests
 connect timeout / read timeout / download size limit : https://benbernardblog.com/the-case-of-the-mysterious-python-crash/
 session.post(url, files={'upload': ('filename', file_to_upload, 'application/javascript')},
                   data={'action': 'upload', 'target': '/test/'}).raise_for_status()
@@ -1246,6 +1249,7 @@ django-toolbelt
 
 Tastypie # webservice framework to creating REST-style APIs, e.g. for an autocompletion service
 factoryboy # > fixtures for DB testing (personnal opinion: several fixtures can sometimes be simpler AND avoid dangerous over-mocking)
+pifpaf # suite of fixtures and a CLI tool that allows to start and stop daemons for a quick throw-away usage - supports: PostgreSQL, MySQL, memcached, InfluxDB, etcd, Redis, Elasticsearch, Zookeeper, Gnocchi, Aodh, Ceph, RabbitMQ, FakeS3, Consul, Keystone, CouchDB, S3rver, MongoDB, OpenStack Swift, Vault
 
 all_users_cache = list(User.objects.all()) # force QuerySet evaluation => DB query
 .save() / .bulk_create() / .objects.update_or_create()

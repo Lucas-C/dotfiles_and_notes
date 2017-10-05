@@ -105,6 +105,8 @@ http://www.postgresql.org/docs/current/interactive/app-psql.html#APP-PSQL-META-C
     \dt+ # list tables - There are many other \d... commands
     \x auto # expanded display mode - \x on for v<9.2
 
+Temporary instances for unit-testing: http://faitout.fedorainfracloud.org
+
 
 ### NoSQL DBs
 
