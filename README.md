@@ -39,5 +39,6 @@ If such file exists, it will be sourced from the main _.gitconfig_.
 <!--
 #### ToDo ####
 
-Move all .* files in a subdir.
+Move all .* files in a subdir
+and use stow: http://sametmax.com/regrouper-ses-fichiers-de-settings-avec-stow/
 -->
