@@ -1,3 +1,6 @@
+
+
+
 // In Firefox Web Console
 javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
 javascript:window.print()
@@ -295,6 +298,8 @@ var connect = require('connect');
 var serveStatic = require('serve-static');
 connect().use(serveStatic(__dirname)).listen(8080);
 // Alt: npm install http-server -g && http-server
+
+yammer/circuit-breaker-js // Hystrix-like circuit breaker for JavaScript
 
 var fs = require("fs"); // Node.js
 fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {

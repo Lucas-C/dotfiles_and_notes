@@ -184,7 +184,7 @@ In case of physical infra issues:
 Les solutions open-source sont utilisées par 78% des entreprises sondées,
 et 66% envisagent d'abord les solutions open-source (Black Duck report 2015)
 
-> I always assumed, (as had the rest of the world) that the OpenSSL team was large, active and well rsourced
+> I always assumed, (as had the rest of the world) that the OpenSSL team was large, active and well resourced
 Steve Marquess
 
 64% of top Github open-source projects have a 1-2 truck factor (1-2 developpers are critical to those projects)

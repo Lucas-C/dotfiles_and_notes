@@ -52,6 +52,7 @@ Software Development Best Practices
 - [DontReadYourLogs](https://medium.com/@chimeracoder/dont-read-your-logs-13586c790202)
 - [PreMergeCodeReviews](http://verraes.net/2013/10/pre-merge-code-reviews/)
 - [Architecture Review Working Group : Multiple Perspectives On Technical Problems and Solutions](https://www.kitchensoap.com/2017/08/12/multiple-perspectives-on-technical-problems-and-solutions/)
+- [How to Do Code Reviews Like a Human](https://mtlynch.io/human-code-reviews-1/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -252,6 +253,15 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
 * Do it well: use proper tools, including automated static analysis (findbugs, ArtisticStyle for C/C++/Java, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
 * cf. [Best practices for code review] [PreMergeCodeReviews]
+* [How to Do Code Reviews Like a Human]:
+  1. Let computers do the boring parts
+  2. Settle style arguments with a style guide
+  3. Start reviewing immediately
+  4. Start high level and work your way down
+  5. Be generous with code examples
+  6. Never say “you”
+  7. Frame feedback as requests, not commands
+  8. Tie notes to principles, not opinions
 
 ### Code reviews guidelines (from @scharrier)
 Pour tout le monde
@@ -347,6 +357,7 @@ cf. [Functional Programming Patterns]
     * [Simpson’s Paradox](//blog.forrestthewoods.com/my-favorite-paradox-14fab39524da)
     * [Imposter Syndrom](https://www.laserfiche.com/simplicity/shut-up-imposter-syndrome-i-can-too-program/) + https://opensource.com/sitewide-search?search_api_views_fulltext=imposter%20syndrome
     * [Completion Bias](http://jkglei.com/momentum/)
+    * [XY Problem](http://xyproblem.info)
 + [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
 
 "When facing extremely short, ambitious deadlines, one knows there are a dozen good things one can do, but very little feels justifiable in the face of a crisis, except writing code as fast as possible." [What happens when the Board Of Directors begins to panic?]

@@ -64,6 +64,7 @@ m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DE
 m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions
+eriknyquist/librxvm # non-backtracking NFA-based regular expression library, for C and Python
 
 def CtxtMgr(object):
     def __enter__(self): pass
@@ -637,7 +638,8 @@ pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8,
 pyreverse # UML diagrams, integrated in pylint
 
 # Security
-python-security/pyt, safety # analyze security vulnerabilities
+safety, snyk # report security vulnerabilities in dependencies
+python-security/pyt # detect vulnerabilities in Python Web Applications: XSS, SQL injection, command injection, directory traversal...
 openstack/bandit  # Python AST-based security linter
     echo -e "[bandit]\nexclude: my_proj/.eggs,my_proj/src/unittest"
     bandit --ini .banditrc --recursive my_proj/ # -lll to limit to HIGH severity issues
@@ -911,6 +913,7 @@ libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
 pefile # to read Portable Executable files, e.g. Windows .dll
 
 cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
+pybind11 # Seamless operability between C++11 and Python - Also: cppimport : Import C++ files directly from Python
 
 struct # pack/unpack binary formats
 binascii.hexlify # display binary has hexadecimal

@@ -350,6 +350,12 @@ has_unicode_non_breaking_space () {
 remove_unicode_non_breaking_spaces () {
     perl -pi -e '$t ||= s/\xc2\xa0/ /g; END{ exit !$t}' "$@"
 }
+get_unicode_categories () {
+    python -c 'import unicodedata, sys; sys.stdout.writelines([c+" ("+unicodedata.category(c)+")\n" for line in sys.stdin for c in line])' < "$1"
+}
+non_printable_unicode_chars () {
+    python -c 'import unicodedata, sys; lines = [str(i)+": "+line for i, line in enumerate(sys.stdin) if not all(unicodedata.category(c) in ("Cc", "Ll", "Lu", "Nd", "No", "Pc", "Pd", "Pe", "Pf", "Pi", "Po", "Ps", "Sc", "Sk", "Sm", "So", "Zs") for c in line)]; sys.stdout.writelines(lines); sys.exit(0 if lines else 1)' < "$1"
+}
 
 alias json_fmt='python -mjson.tool' # don't work well with non ascii
 
