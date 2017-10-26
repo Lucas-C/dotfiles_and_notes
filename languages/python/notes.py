@@ -1133,6 +1133,7 @@ def passthrough_http_proxy(http_proxy, real_request_url):
         return response.text
 wget # equivalent lib to the command-line tool
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
+python-mocket # socket mocks
 
 superelasticsearch # provide iterated search & simpler bulk API
 ramses # API generation framework: based on RAML, ElasticSearch & Pyramid -> https://realpython.com/blog/python/create-a-rest-api-in-minutes-with-pyramid-and-ramses/ & https://www.elastic.co/blog/make-an-elasticsearch-powered-rest-api-for-any-data-with-ramses
@@ -1337,6 +1338,7 @@ mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments 
 import bcrypt, hmac; hashed = bcrypt.hashpw(password, bcrypt.gensalt()) # Secure Password Storage in 2016
 if (hmac.compare_digest(bcrypt.hashpw(password, hashed), hashed)): ...  # Login successful
 hmac.compare_digest(a, b) # String equality check that prevent timing analysis
+jaraco/keyring # access the system keyring service, so that you can set_password / get_password - Support: Mac OS X Keychain, Freedesktop Secret Service (requires secretstorage), KWallet (requires dbus), Windows Credential Vault
 
 ConfigParser, configobj # std configuration files format
 csvkit > csv (csv.DictReader >handier> csv.reader), xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python, csvx

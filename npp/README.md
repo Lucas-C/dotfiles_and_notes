@@ -33,6 +33,7 @@ Edit > Line Operations > Sort Lines in Ascending / Descending Order
 ## Shortcuts
 
 - `<ALT>+<SHIFT>` : vertical selection -> useful to comment at the beggining of the line
+- `<CTRL>+B` : jump to matching brace / bracket
 - `<CTRL>+D` : duplicate line
 - `<CTRL>+T` : swap line with the one above
 

@@ -139,6 +139,8 @@ LIKE >faster> REGEXP
 
 #### SQLite
 
+https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html
+
     sqlite3 extensions.sqlite 'select id, optionsURL from addon;' # Firefox extensions
     sqlite3 cookies.sqlite 'select name,value,path,expiry,creationTime from moz_cookies where name = "PHPSESSID";'   #_
     sqlite3 places.sqlite "SELECT b.title, b.type, b.parent, a.url FROM moz_places AS a, moz_bookmarks AS b WHERE a.id=b.fk;" # Firefox, type: 1 => URL, 2 => tag/folder
