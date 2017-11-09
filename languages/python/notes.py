@@ -197,7 +197,7 @@ def create_logger():
 # Lazy logger: http://stackoverflow.com/a/4149231
 @deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/ - Alt: OpenStack debtcollector or even better briancurtin/deprecation
 Twangist/log_calls # logging & func calls profiling
-ScatterHQ/eliot # logging system for complex & distributed systems that outputs causal chains of actions happening within and across process boundaries
+ScatterHQ/eliot # logging system for complex & distributed systems that outputs causal chains of actions happening within and across process boundaries - `Based on contexts: with start_action(...):`
 prezi/python-zipkin # -> dead project ? + no support for Python 3 : https://github.com/prezi/python-zipkin/issues/8
 string.Template # $-based substitutions
 # Support for {} / %(keyword)s format syntaxes:
@@ -669,7 +669,8 @@ minimaxir/big-list-of-naughty-strings
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no --showlocals --exitfirst --cache-clear --pdb -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
-pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
+    pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
+    pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
 mschwager/memunit # check memory usage in tests
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
 c-oreills/before_after # provides utilities to help test race conditions
@@ -683,6 +684,8 @@ import tmpdir # generate a tmp dir for the time of the unit test
 import hypothesis # feed you test with known to break edge cases
 
 with capture_stderrout() as (stdout, stderr): # Recipe from http://stackoverflow.com/a/17981937/636849
+
+buildbot # CI framework - Pipeline example: https://github.com/buildbot/buildbot/blob/master/master/buildbot/scripts/sample.cfg - Alt: Jenkins (Groovy)
 
 
 """""""""""""
@@ -895,7 +898,7 @@ Optimization guide:
 - improve algorithms ? data structures (for lightweight objects, use namedtuples) ? use a cache ?
 - Numba (faster than Cython, which is faster than Pypy) + Numpy (vectorized operations are way faster than Pyhton slow loops - use: ufuncs, aggregates, broadcasting, slicing & masking)
 
-Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C
+Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C - AlanCristhian/statically that provides the @statically.typed decorator
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler, but does not support C extensions. Also: PyPy-STM
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
 Jython / Py4J # intercommunicate with Java -> Jython has pip, but won't support lib depending on multiprocessing - however, it has excellent support for built-in Java threads: http://www.jython.org/jythonbook/en/1.0/Concurrency.html
@@ -923,13 +926,14 @@ binascii.hexlify # display binary has hexadecimal
 "" DBs, queues & schedulers
 """"""""""""""""""""""""""""""
 celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of celery tasks
+ampqlib, haigha, puka # AMPQ libs
+zeromq, aiozmq, mrq # distributed app / msg passing framework
 dask  # task scheduling and blocked algorithms for parallel processing
-buildbot # CI framework - Pipeline example: https://github.com/buildbot/buildbot/blob/master/master/buildbot/scripts/sample.cfg - Alt: Jenkins (Groovy)
 sched # event scheduler - Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gjcarneiro/yacron, gawel/aiocron - Also:
+
 luigi # workflow managers - Alt: Oozie, Azkaban, Drake, Pinball, viewflow, BD2KGenomics/toil, Apache Airflow -> prez: http://events.linuxfoundation.org/sites/events/files/slides/get_in_control_of_your_workflow.pdf
 # the `luigid` daemon should be stopped with the `kill` command that sends a `SIGINT` signal so that it can save its state into `luigi-state.pickle` (cf. https://github.com/spotify/luigi/blob/master/luigi/server.py#L277)
-zeromq, aiozmq, mrq # distributed app / msg passing framework
-ampqlib, haigha, puka # AMPQ libs
+csurfer/pypette # very simple flow controller for building complex pipelines
 
 kibitzr # poll web pages and notify you in messenger or by e-mail
 
@@ -1251,7 +1255,7 @@ django-debug-toolbar
 django-toolbelt
 
 Tastypie # webservice framework to creating REST-style APIs, e.g. for an autocompletion service
-factoryboy # > fixtures for DB testing (personnal opinion: several fixtures can sometimes be simpler AND avoid dangerous over-mocking)
+factoryboy # > fixtures for DB testing (personnal opinion: several fixtures can sometimes be simpler AND avoid dangerous over-mocking) - Alt: mixer
 pifpaf # suite of fixtures and a CLI tool that allows to start and stop daemons for a quick throw-away usage - supports: PostgreSQL, MySQL, memcached, InfluxDB, etcd, Redis, Elasticsearch, Zookeeper, Gnocchi, Aodh, Ceph, RabbitMQ, FakeS3, Consul, Keystone, CouchDB, S3rver, MongoDB, OpenStack Swift, Vault
 
 all_users_cache = list(User.objects.all()) # force QuerySet evaluation => DB query
@@ -1278,6 +1282,8 @@ TEMPLATE_STRING_IF_INVALID = InvalidVarException()
 "" Other libs & tools
 """""""""""""""""""""
 webbrowser.open_new_tab # Firefox/Opera/Chrome instrumentation
+mozilla/gecko-dev/testing/marionette/client # remotely control a Gecko-based browser running a Marionette server - https://marionette-client.readthedocs.io
+SeleniumHQ/selenium/py # browser automation, can be combined with geckodriver for Firefox - http://selenium-python.readthedocs.io
 livereload # browser automatic reloading for development
 fmoo/python-editor # programmatically open a text editor, captures the result
 pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff

@@ -11,6 +11,7 @@
     wshow = show --word-diff
 
     mvbranch = branch -m
+    stashlist = stash list --date=local
     unadd = reset HEAD
 
     # USAGE: git g [-shortOps] $pattern [$files...]

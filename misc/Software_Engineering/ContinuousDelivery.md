@@ -52,6 +52,11 @@ Jenkinsfile linter (`$API_TOKEN` can be retrieved from `$JENKINS_URL/user/$USER_
 curl --verbose $JENKINS_URL/job/$JOB_NAME/1/replay/checkScriptCompile --user "$USER_NAME:$API_TOKEN" --data-urlencode value@Jenkinsfile
 ```
 
+Equivalent of `docker.image($img).inside($args) {}` in CLI:
+```
+docker run -it -w $PWD -v $PWD:$PWD $args $img sh script.sh 
+```
+
 ### Pipeline Shared Libs
 
 https://github.com/jenkinsci/workflow-cps-global-lib-plugin

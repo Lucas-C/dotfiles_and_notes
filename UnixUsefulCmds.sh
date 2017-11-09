@@ -358,6 +358,8 @@ lockfile-create/remove/check # file locks manipulation
 while true do inotifywait -r -e modify -e create -e delete -e move_self . ./run.sh done # inotify-tools based keep-alive trick - Alt: watchdog & watchmedo in Python, ayancey/dirmon and gordonsyme/tdaemon to rerun tests automatically on code change
 huptime --exec $cmd # zero downtime restarts of unmodified (networking) programs, intercept bind(2) and accept(2) calls
 
+timeout $cmd # run a command with a time limit (send sends a signal, by default TERM) - To support SIGINT: http://unix.stackexchange.com/a/57692
+
 # Launch command at a specified time or when load average is under 0.8
 echo $cmd | at midnight
 echo $cmd | batch

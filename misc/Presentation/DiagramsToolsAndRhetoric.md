@@ -9,7 +9,7 @@
 - `md2html` (NodeJS, based on `markdown-it` that implements CommonMark) cf. [my custom script](https://github.com/Lucas-C/linux_configuration/blob/master/bin/md2html.js)
 - [markdown-toc](https://github.com/jonschlinkert/markdown-toc) : generate a markdown table of contents for READMEs (NodeJS)
 There are many alternatives: in [bash](https://github.com/ekalinin/github-markdown-toc), [Python](https://github.com/rasbt/markdown-toclify)
-- [grip](https://github.com/joeyespo/grip) : preview GitHub Markdown files like READMEs (Python)
+- [grip](https://github.com/joeyespo/grip) : preview GitHub Markdown files like READMEs (Python), interactively on localhost or as a single HTML `--export`
 
 To "anchorify" titles as Github does:
 ```javascript

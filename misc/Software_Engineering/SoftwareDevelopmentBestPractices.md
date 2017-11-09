@@ -288,6 +288,8 @@ Discutez de visu, ou demandez à un tiers.
 In fine, celui qui maintient DÉCIDE,
 Quitte à refaire une PR après.
 
+cf. https://speakerdeck.com/scharrier/code-review-devfest-nantes
+
 + [A Guide to Naming Variables] : "minimize distance and boilerplate : as coders our job is to communicate to human readers, not computers."
 + [11 proven practices for more effective, efficient peer code review](https://www.ibm.com/developerworks/rational/library/11-proven-practices-for-peer-review/)
 + [Best Kept Secrets of Peer Code Review](https://smartbear.com/SmartBear/media/pdfs/best-kept-secrets-of-peer-code-review.pdf)
