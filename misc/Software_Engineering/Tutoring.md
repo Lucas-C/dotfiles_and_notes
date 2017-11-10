@@ -104,51 +104,102 @@ Enfin, l'idée est de répéter la démarche tous les 6 mois et d'observer l'év
 
 Inspirations: "Les compétences des docteurs", "Amazon leadership principles" et la mindmap d'Anthony
 
-Ces critères sont triés par importance/priorité, du plus important à maîtriser au moins.
+Ces critères sont triés par importance/priorité, du plus important à maîtriser au moins critique.
 
 | ## |                Compétences de l'alternant                                                | Note /5 | Critères
 |----|------------------------------------------------------------------------------------------|---------|----------
 |  1 | estimation des tâches, méthodes agiles, rapidité d'exécution, devops\*\*                 |         | traiter une US de bout en bout, du chiffrage au déploiement
+|    | **Dans les faits**:                                                                      |    →    |
 |  2 | Java, programmation orientée objet, conception logicielle                                |         | concevoir et implémenter un programme Java en suivant la programmation orientée objet
+|    | **Dans les faits**:                                                                      |    →    |
 |  3 | Java, tests, devops\*\*                                                                  |         | mettre en place différents types de tests en Java: unitaires, BDDs, d'intégration...
+|    | **Dans les faits**:                                                                      |    →    |
 |  4 | Java, "error-handling", exigeant sur la qualité, "best practices" de prog                |         | connaître et appliquer en Java la programmation défensive, la gestion d'erreurs et les techniques de supervision
+|    | **Dans les faits**:                                                                      |    →    |
 |  5 | Java, résolution de problèmes, outils de dev                                             |         | débugger une application Java : savoir poser des breakpoints, exécuter pas à pas, évaluer des expressions...
+|    | **Dans les faits**:                                                                      |    →    |
 |  6 | autonomie, curiosité, persévérance*, recherche d'infos, résolution de problèmes, rigueur |         | corriger des bugs non triviaux nécessitant de comprendre le fonctionnement du code sous-jacent
+|    | **Dans les faits**:                                                                      |    →    |
 |  7 | "best practices" de prog, outils de dev                                                  |         | savoir utiliser git
+|    | **Dans les faits**:                                                                      |    →    |
 |  8 | Python, HTTP, API REST                                                                   |         | développer un web service en Python avec Tornado
+|    | **Dans les faits**:                                                                      |    →    |
 |  9 | Javascript, Typescript, Angular, HTML, CSS                                               |         | développer une appli Angular
+|    | **Dans les faits**:                                                                      |    →    |
 | 10 | Python, machine-learning, outils de dev                                                  |         | utiliser efficacement un notebook Jupyter
+|    | **Dans les faits**:                                                                      |    →    |
 | 11 | outils de dev, langage shell, Linux, devops\*\*                                          |         | accéder en SSH aux machines distantes, manipulation en ligne de commande
+|    | **Dans les faits**:                                                                      |    →    |
 | 12 | autonomie, curiosité, recherche d'infos                                                  |         | trouver des informations techniques sur le web ou les outils internes pour résoudre une difficulté technique
+|    | **Dans les faits**:                                                                      |    →    |
 | 13 | autonomie, recherche d'infos, travail d'équipe, confiance en soi, relationnel            |         | contacter directement les personnes les plus capables/qualifiées poure répondres à mes questions/résoudre mon problème
+|    | **Dans les faits**:                                                                      |    →    |
 | 14 | autonomie, innovation, esprit de synthèse, compréhension des enjeux métiers              |         | proposer des solutions face aux problèmes rencontrés, les tester et les évaluer
+|    | **Dans les faits**:                                                                      |    →    |
 | 15 | rigueur, esprit critique, exigeant sur la qualité, confiance en soi, argumentation       |         | avoir un regard critique sur le choix d'une solution technique ou son implémentation, voir dire "non" et savoir argumenter lorsque qu'une situation amène à produire du code de mauvaise qualité
+|    | **Dans les faits**:                                                                      |    →    |
 | 16 | plannification, travail d'équipe, argumentation, confiance en soi                        |         | signaler et expliquer lorsqu'une tâche prend plus de temps que prévu
+|    | **Dans les faits**:                                                                      |    →    |
 | 17 | ponctualité, plannification, rigueur                                                     |         | respecter les horaires de travail, les heures de DSM & de réunions
+|    | **Dans les faits**:                                                                      |    →    |
 | 18 | travail d'équipe, exigeant sur la qualité, "best practices" de prog                      |         | connaître le fonctionnement et pratiquer les revues de code
+|    | **Dans les faits**:                                                                      |    →    |
 | 19 | rigueur, exigeant sur la qualité, "best practices" de prog                               |         | savoir utiliser les outils d'analyse statique de code (pylint en Python, Findbugs & PMD en Java...)
+|    | **Dans les faits**:                                                                      |    →    |
 | 20 | communication écrite, esprit de synthèse, recherche d'infos, résolution de problèmes     |         | rédiger une page wiki d'étude d'une solution technique
+|    | **Dans les faits**:                                                                      |    →    |
 | 21 | communication orale, esprit de synthèse, pédagogie                                       |         | présenter un outil utilisé, ou l'avancement des travaux sur le sujet en cours, avec des slides
+|    | **Dans les faits**:                                                                      |    →    |
 | 22 | pédagogie, argumentation, travail d'équipe                                               |         | expliquer à un collègue comment utiliser un outil, ou un bug identifié
+|    | **Dans les faits**:                                                                      |    →    |
 | 23 | machine-learning, devops\*\*, compréhension des enjeux métiers                           |         | mettre en place un apprentissage automatique jusqu'en prod
+|    | **Dans les faits**:                                                                      |    →    |
 | 24 | veille technique, curiosité, esprit critique, travail d'équipe                           |         | échanger des articles et conseils sur des langages et outils avec des collègues
+|    | **Dans les faits**:                                                                      |    →    |
+| 25 |                                                                                          |         |
+|    | **Dans les faits**:                                                                      |    →    |
+| 26 |                                                                                          |         |
+|    | **Dans les faits**:                                                                      |    →    |
+| 27 |                                                                                          |         |
+|    | **Dans les faits**:                                                                      |    →    |
+<style>
+.markdown-body table tr:nth-child(2n) td:nth-child(2) {
+    text-align: right;
+}
+</style>
 
 \* **persévérance**: à la fois dans le temps, et pour résoudre une difficulté ("_dive deep_")
 
 \*\* **devops**: dans ce contexte, désigne essentiellement l'accompagnement jusqu'en prod des projets
 
+| Compétences de l'encadrant    | Note /5
+|-------------------------------|---------
+| disponibilité                 |
+| pédagogie                     |
+| suivi des progrès par jalons  |
+| transmission de connaissances |
+| encouragements                |
+| écoute                        |
+| suivi de projet               |
+| intégration dans l'entreprise |
+| plannification                |
+|                               |
+|                               |
+|                               |
 
-|                Compétences de l'encadrant                                            |      Critères
-|--------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------
-| disponibilité, pédagogie, suivi d'apprentissage, transmission de connaissances       | l'alternant estime maîtriser un framework de programmation
-| disponibilité, pédagogie, suivi d'apprentissage, transmission de connaissances       | l'alternant estime maîtriser ses outils de développement (git, IntelliJ, Jenkins, Docker, shell...)
-| management, écoute, suivi de projet                                                  | l'alternant est motivé par ses sujets
-| pédagogie, suivi d'apprentissage                                                     | l'alternant s'estime challengé par les sujets, et apprendre continuellement
-| intégration dans l'entreprise, pédagogie, transmission de connaissances              | l'alternant se send en capacité de prendre une US du backlog et de la réaliser de bout en bout
-| disponibilité, écoute, suivi de projet                                               | les tâches confiées à l'alternant sont claires
-| intégration dans l'entreprise, pédagogie, relationnel                                | l'alternant comprend le rôle et le fonctionnement du projet de l'équipe, et le rôle de chacun de ses membres
-| intégration dans l'entreprise, relationnel                                           | l'alternant sait qui contacter pour ses questions dans & hors de l'équipe, et se send à l'aise pour le faire
-| suivit de projet, écoute, plannification                                             | l'alternant est satisfait de ses résultats
+#### Conseils de préparation
+
+Préparer avant l'entretien:
+- une liste de **faits** associés à chaque critères
+- une bilan succint des points FORTS et des quelques (2-3 max) points à améliorer
+
+En préambule:
+- expliquer le fonctionnement et le rôle de cette évaluation
+- rassurer sur le fait que ça restera confidentiel et qu'il s'agit de notes purement indicatives, pas d'une finalité en soit
+- expliquer avoir **besoin** du feedback sincère de l'alternant, et que ce n'est bien sûr pas facile comme exercice
+
+A la fin:
+- faire une courte synthèse ne retenant que 2-3 axes d'améliorations max
 
 
 ### Questions à poser

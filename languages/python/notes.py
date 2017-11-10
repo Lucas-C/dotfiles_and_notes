@@ -1145,7 +1145,7 @@ featherweight # transform functions into REST web services
 Tornado # asynchronous web framework
 Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions - Also: Flask has many global variables & is not thread safe (for async)
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
-Django # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
+Django, django-rest-framework # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
 + web.py # very old now, written by Aaron Swarz, used by Yandex
 WTForms # forms validation
