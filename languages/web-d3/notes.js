@@ -8,8 +8,8 @@ document.body.contentEditable='true'; // makes everything editable (IE: document
 
 $$("#articleContent ul li").length
 
-console.time('myTime') / console.timeEnd('myTime')
-console.table(array)
+console.time('myTime') / console.timeEnd('myTime') // for quick benchmarks
+console.table(array) // display array of objects as a nice table in browser console
 
 debugger // breakpoint for debugger
 performance.timing // and performance.memory : useful debugging informations

@@ -56,6 +56,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [3LawsOfConfigDynamics](https://blog.buildo.io/the-three-laws-of-config-dynamics-1e9724593aa9)
 - [10WaysToBeABetterInterviewer](http://queue.acm.org/detail.cfm?id=3125635)
 - [HiringEngineeringManagers](https://medium.com/@skamille/hiring-engineering-managers-screening-for-potential-1476044604d3)
+- [Engineering a culture of psychological safety](https://blog.intercom.com/psychological-safety/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -119,6 +120,13 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
     * Scheduling brainstorming meetings
     * When having a discussion, talk like you might be wrong
     * Don’t forget you have power over how your team is
+- [Engineering a culture of psychological safety]
+    * Make respect part of your team’s culture: It’s essential to challenge lack of respect immediately, politely, and in front of everyone who heard the disrespect.
+    * Make space for people to take chances: Create an expectation that everyone on the team should think outside the box
+    * Make it obvious when your team is doing well: celebrate glorious failure
+    * Make your communication clear, and your expectations explicit: f you expect someone to do something for you, ask for a specific commitment – “When might this be done?”, rather than assuming everyone agrees on its urgency
+    * Make your team feel safe
+
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [Why Scrum Should Basically Just Die In A Fire]
