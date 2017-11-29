@@ -639,6 +639,7 @@ pyreverse # UML diagrams, integrated in pylint
 
 # Security
 safety, snyk # report security vulnerabilities in dependencies
+dxa4481/truffleHog, landscapeio/dodgy # detect credentials/passwords/secrets in source code - Also, in other languages : awslabs/git-secrets, auth0/repo-supervisor
 python-security/pyt # detect vulnerabilities in Python Web Applications: XSS, SQL injection, command injection, directory traversal...
 openstack/bandit  # Python AST-based security linter
     echo -e "[bandit]\nexclude: my_proj/.eggs,my_proj/src/unittest"
@@ -1036,12 +1037,13 @@ def _make_file_read_nonblocking(f):
     flags = fcntl.fcntl(fd, fcntl.F_GETFL)
     fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
 from gevent import monkey; monkey.patch_all() # Greenlets
-saucelabs/monocle, libevent, libuv, Twisted, Tornado, asyncore # other ASync libs, that is :
+saucelabs/monocle, libevent, libuv, Twisted # other ASync libs, that is :
 # concurrency (code run independently of other code) without parallelism (simultaneous execution of code)
 ReactiveX/RxPY # asynchronous and event-based programming using observable collections and LINQ-style query operators
 python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
 dabeaz/curio # Python 3 alt implementation of coroutines
+aiofiles # local disk files read/write in asyncio applications
 
 # Python 3.4+ DefaultSelector uses the best select-like function available on your system - cf. http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
 
@@ -1050,7 +1052,7 @@ dabeaz/curio # Python 3 alt implementation of coroutines
 "" Web: HTTP, HTML & networking
 """"""""""""""""""""""""""""""""
 autobanh, crossbar.io # WAMP in Python
-pywebsocket
+pywebsocket, python-hyper/wsproto
 import xmlrpc.client # XML-RPC via HTTP
 server = xmlrpc.client.ServerProxy("http://www.pythonchallenge.com/pc/phonebook.php")
 print(server.system.getCapabilities())  # Also: .listMethods() .methodSignature(...) .methodHelp(...)
@@ -1138,12 +1140,13 @@ Kinto # minimalist JSON storage service, easy to bootstrap with Heroku/Docker, b
 
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
-CherryPy # good prod server, very easy to launch - Alt: gunicorn, uwsgi
+CherryPy # good prod WSGI server, very easy to launch - Alt: bjoern > meinheld > gunicorn > uwsgi
 Eyepea/API-Hour # perf-oriented web APIs using AsyncIO & ujson - Alt: Sanic + uvloop, a fast drop-in replacement for asyncio ; squeaky-pl/japronto, "screaming-fast" & based on uvloop and picohttpparser
 nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
 featherweight # transform functions into REST web services
-Tornado # asynchronous web framework
+Tornado # asynchronous web framework - can be used as a WSGI app with some limitations: http://www.tornadoweb.org/en/stable/guide/running.html#wsgi-and-google-app-engine
 Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions - Also: Flask has many global variables & is not thread safe (for async)
+Quart # like Flask, but async
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
 Django, django-rest-framework # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 pyramid # more modular alternative to Django
@@ -1171,7 +1174,7 @@ def internal_error(exception):
 def application(env, start_response): # Most basic native WSGI app
     start_response('200 OK', [('Content-Type', 'text/html')])
     return ['Hello World!'.encode('ascii')]
-if __name__ == '__main__': # to launch a small WSGI server directly, without uwsgi / gunicorn
+if __name__ == '__main__': # to launch a small WSGI server directly, without uwsgi / gunicorn / etc.
     from wsgiref.simple_server import make_server
     make_server('localhost', 8088, application).serve_forever()
 
@@ -1330,7 +1333,7 @@ hmac, hashlib.md5('string').hexdigest()
 dwolfhub/zxcvbn-python # password strength estimation
 from cryptography.fernet import Fernet # symmetric encryption
 jake-jake-jake/historical_ciphers # Caesar, Transposition and Affine ciphers
-mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments by signing content
+mitsuhiko/itsdangerous # helpers to pass trusted data to untrusted environments by signing content, e.g. serialize and sign a user ID
 import bcrypt, hmac; hashed = bcrypt.hashpw(password, bcrypt.gensalt()) # Secure Password Storage in 2016
 if (hmac.compare_digest(bcrypt.hashpw(password, hashed), hashed)): ...  # Login successful
 hmac.compare_digest(a, b) # String equality check that prevent timing analysis
