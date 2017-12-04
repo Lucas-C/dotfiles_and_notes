@@ -61,6 +61,7 @@ UNPHAT:
 - determine the Historical context in which the candidate solution was designed or developed
 - weigh Advantages against disadvantages
 - Think: how well this solution fits your problem ?
+- https://libraries.io
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]

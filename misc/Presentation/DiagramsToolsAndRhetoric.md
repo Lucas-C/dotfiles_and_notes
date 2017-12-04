@@ -1,6 +1,8 @@
 # Tools
 
 - Reveal.js & Impress.js & DZSlides
+    * extra Reveal.js themes : [by jefBinomed aka JF Garreau](https://github.com/binomed/binomed_docs/tree/master/Prez)
+    * WebComponent that to hightlight parts of the screen, like code: https://github.com/binomed/mask-highlighter
 - [MathJax JS](https://www.mathjax.org)
 - [pandoc](http://pandoc.org) : swiss-army knife that can convert documents in Markdown, reStructuredText, textile, HTML, DocBook, LaTeX, MediaWiki markup, TWiki markup, OPML, Emacs Org-Mode, Txt2Tags, Microsoft Word docx, LibreOffice ODT, EPUB...
 
@@ -100,6 +102,7 @@ set completion-ignore-case on
 - [The smackdown learning model](http://blog.codinghorror.com/in-defense-of-the-smackdown-learning-model/)
 - [Arguments rhétologiques fallacieux](http://www.informationisbeautiful.net/visualizations/rhetological-fallacies/arguments-rhetologiques-fallacieux/)
 - [Which Online Discussion Archetype Are You](http://blog.codinghorror.com/which-online-discussion-archetype-are-you/)
+- [Bingo du troll](https://grisebouille.net/le-bingo-du-troll/)
 
 ## Benjamin G. advices
 

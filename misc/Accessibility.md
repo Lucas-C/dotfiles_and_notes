@@ -37,10 +37,11 @@ https://github.com/access42/AccessTooltip : JS function to make the title attrib
 
 ## Outils
 
+https://chezsoi.org/shaarli/?searchtags=Accessibility
+
 https://doc.asqatasun.org/en/index.html
 
 Contrast checkers:
-- [Firefox addon Tanaguru Contrast-Finder](https://addons.mozilla.org/fr/firefox/addon/tanaguru-contrast-finder/)
 - [Colour Contrast Analyser](https://www.paciellogroup.com/resources/contrastanalyser/) (The Paciello Group) : top !
 - [Firefox addon WCAG Contrast Checker](https://addons.mozilla.org/fr/firefox/addon/wcag-contrast-checker/)
 - [Chrome plugin Accessibility Developer Tools](https://chrome.google.com/webstore/detail/accessibility-developer-t/fpkknkljclfencbdbgkenhalefipecmb)

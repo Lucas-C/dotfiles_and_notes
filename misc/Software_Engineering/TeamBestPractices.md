@@ -57,6 +57,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [10WaysToBeABetterInterviewer](http://queue.acm.org/detail.cfm?id=3125635)
 - [HiringEngineeringManagers](https://medium.com/@skamille/hiring-engineering-managers-screening-for-potential-1476044604d3)
 - [Engineering a culture of psychological safety](https://blog.intercom.com/psychological-safety/)
+- [DevOps at Netflix by Josh Evans](https://www.infoq.com/podcasts/Josh-Evans-netflix)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -222,6 +223,13 @@ cf. [RetrospectiveWiki]
 - [Google SRE] : "no SRE could spent more than 50 percent of his or her time on traditional operations as opposed to coding"
 - keep Ops playbooks
 - [BeingResponsibleForMyProgramsOperationsMakesMeABetterDeveloper]
+- [DevOps at Netflix by Josh Evans] key takeaways:
+    * There are many interpretations of the term DevOps, it is a useful shorthand for a wide variety of technologies and approaches
+    * You build it, you run it” is the concrete application of the freedom and responsibility culture
+    * When building a platform tool make it so easy to use that the product teams are not tempted to try and build something for themselves
+    * Product teams are free to experiment and learn, which can feel chaotic and is a valuable part of the freedom and responsibility culture
+    * The value of blameless and safe incident reviews – the goal is to learn and find patterns and use that information to present whole classes of failure from happening in the future
+    * Don't view the value stream in a fragmented way – see the whole end to end system with all its interactions and dependencies and optimize the system as a cohesive whole rather than different tools and domains
 
 ### Post-mortems
 - trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
@@ -283,7 +291,7 @@ http://keepachangelog.com -> best practices & advices
 - prebrief, debrief, assigned competences, bar raiser
 - codility.com & cie
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [Five essential phone screen questions]
-- STAR -> Probe -> Chalenge
+- STAR -> Probe -> Challenge
 - some soft skills: teamwork, conflict resolution, listening, coordination...
 - sample questions:
     * describe me the organisational methods you used on past project to tackle work efficiently. E.g. todo-list, programming journal, task planning software, time & emails management...

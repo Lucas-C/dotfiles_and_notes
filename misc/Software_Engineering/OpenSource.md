@@ -11,6 +11,12 @@ Open source challenges
 - [MotivationGovernanceAndTheViabilityOfHybridFormsInOpenSourceSoftwareDevelopment](http://climate-action.engin.umich.edu/figures/Rood_Library/Shah_open_source_governance_2006.pdf)
 - [To gamify or not to gamify community](https://opensource.com/business/16/9/gamify-or-not-gamify-community)
 - [Are we there yet: is open source gamification enterprise ready?](http://www.gameffective.com/is-open-source-gamification-enterprise-ready/)
+- [freeCodeCamp guide to contribute to Open Source](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) projects for newcommers
+- [Six things to know about successful open-source software](https://knightlab.northwestern.edu/2013/07/24/six-lessons-on-success-and-failure-for-open-source-software/)
+
+## Resources for newcommers
+- [freeCodeCamp guide to contribute to Open Source]
+- Roshan Jossey repo so that newcommers can make their very first PR: https://github.com/Roshanjossey/first-contributions/blob/master/README.md
 
 ## Methodologies/advices
 ...to make both entreprise-internal & public OSS projects successful:
@@ -22,9 +28,13 @@ cf. https://github.com/todogroup/repolinter
 
 - other tools:
   * pre-launch checklist: https://opensource.guide/starting-a-project/#your-pre-launch-checklist
-  * Licensee: detect under what license a project is distributed (Ruby) -> https://github.com/benbalter/licensee
+  * [Licensee](https://github.com/benbalter/licensee): detect under what license a project is distributed (Ruby) - Alt: https://github.com/pivotal/LicenseFinder
   * https://github.com/facebook/mention-bot : Automatically mention potential reviewers on pull requests.
-  * a curated list: https://github.com/todogroup/awesome-oss-mgmt
+  * CLS: https://github.com/cla-assistant/cla-assistant & https://github.com/salesforce/salesforce-cla
+  * Github configuration as code: https://github.com/probot/settings
+  * curated lists:
+    - https://github.com/todogroup/awesome-oss-mgmt
+    - https://www.linuxfoundation.org/tools-managing-open-source-programs/ include project health, stats & dashboard tools
 
 - [ScalingOpenSourceCommunities] -> free-rider problem: when to many people uses an Open Source software project without contributing to it
 > the most promising solution for Open Source is known as "privileged groups". Privileged groups are those who receive "selective benefits".
@@ -100,12 +110,25 @@ Also: https://openbadges.org
   * by implementing this feature YOU, as a benevolent OSS developper, will help X people/improve the quality of Y/make this compatible with Z...
   * by working on this, YOU will learn from experimented user @toto the following skills: ...
 
-- define some clear (S.M.A.R.T. ?) goals, e.g.:
+- define some clear (S.M.A.R.T. ?) goals, cf. https://www.linuxfoundation.org/measuring-your-open-source-program-success/#3, e.g.:
   * have 1 in-house core contributor of a "big" FLOSS project used by the company
   (define a shortlist 1st, maybe as an internal vote ?)
   * organize a contribution sprint on a FLOSS project in the entreprise, but invite outsider developpers
   * have X contributions to external FLOSS projects by collaborators merged this year
   (a vote could also be cast to collect ideas for contributions / or a page maintained)
+
+- use Github tags to welcome & attract newcomers: `first-timers-only` `trivial` `beginner` `easy pick` `good first issue` `good-first-bug` `starter` `easy fix` `new contributor` `up-for-grabs` `your-first-pr`
+    * bonus: reference your project on http://up-for-grabs.net & https://www.codetriage.com & badge http://www.firsttimersonly.com
+
+- [Six things to know about successful open-source software] from a 2012 study by Charles Schweik and Robert English:
+  * Most open-source projects are not successful
+  * Successful projects have some common characteristics:
+    - A "relatively clearly defined vision and a mechanism to communicate the vision early in the project's life"
+    - A clearly defined set of users who have a need that can be met by the software
+    - Well-articulated and clear goals established by the project's leaders
+    - Good project communication -- a quality website, good documentation, a bug-tracking system and a communication system such as an email list or forum.
+    - Once a project has achieved its initial release, a software architecture that is modular
+  * Open-source projects flourish when developers are also users of the software
 
 ### Websites dedicated to the subject
 - https://opensource.guide/
@@ -117,13 +140,14 @@ Also: https://openbadges.org
     3. Market the project, not yourself
     4. Highlight your contributions
     5. Speak to be heard, social media is your megaphone
+- https://www.linuxfoundation.org/resources/open-source-guides/
 - http://todogroup.org/blog/
 - https://codecuriosity.org/faq
   * "Automated scoring is done on commits, comments and opening an issue today."
   * "You will be able to see only those repositories that have more than 25 stars"
   * "Organization contributions are not counted (yet) and commits as collaborator to another repository is not counted." (from FAQ)
 - https://www.codetriage.com
-- http://blog.smile.fr (actualité FR)
+- http://linuxfr.org & https://cercll.wordpress.com/ (actualités FR)
 
 ### Copyleft licenses contamination from dependencies
 
@@ -134,6 +158,7 @@ Des outils existent pour automatiser cela si vous avez des dépendances en casca
 - https://www.npmjs.com/package/licensecheck : développé en NodeJS, pour des projets NodeJS
 - https://github.com/fossology/fossology : conteneur Docker dispo, développé en PHP, mais "language-agnostic" quant au code source analysé
 - https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Maven : plugin maven pour SonarQube, pour analyser les dépendances de pom.xml
+- https://wiki.debian.org/CopyrightReviewTools : Debian copyright review tools
 
 Typiquement, si une de vos dépendances est sous une license copyleft (ex: GPL & AGPL), vous devez utilisez cette license (ou une license compatible) pour votre projet.
 
@@ -162,7 +187,7 @@ Par Tangui Morlier
 
 + des obligations:
 - respect du droit d'auteur: vous n'avez pas le droit de dire que c'est vous qui l'avez fait
-- devoir contributif, facultatif ou non:
+- devoir contributif, facultatif ou non
 
 Pourquoi une entreprise a des avantages à faire du logiciel libre ?
 - améliore la sécurité (cf. anecdote)

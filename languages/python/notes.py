@@ -973,7 +973,7 @@ def argparse_store_command(callback, attr_name='command'):
 
 code.InteractiveConsole().interact() # interactive python prompt
 
-argcomplete # command line tab completion
+argcomplete # command line tab completion, for bash & argparse
 pyreadline, readline, rlcompleter, python-prompt-toolkit
 
 termcolor, colorama # cross-platform colored terminal text
