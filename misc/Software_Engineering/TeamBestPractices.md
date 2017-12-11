@@ -58,6 +58,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [HiringEngineeringManagers](https://medium.com/@skamille/hiring-engineering-managers-screening-for-potential-1476044604d3)
 - [Engineering a culture of psychological safety](https://blog.intercom.com/psychological-safety/)
 - [DevOps at Netflix by Josh Evans](https://www.infoq.com/podcasts/Josh-Evans-netflix)
+- [HowToMoMonitoringTheSREGoldenSignals](https://www.slideshare.net/OpsStack/how-to-monitoring-the-sre-golden-signals-ebook/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -230,6 +231,12 @@ cf. [RetrospectiveWiki]
     * Product teams are free to experiment and learn, which can feel chaotic and is a valuable part of the freedom and responsibility culture
     * The value of blameless and safe incident reviews – the goal is to learn and find patterns and use that information to present whole classes of failure from happening in the future
     * Don't view the value stream in a fragmented way – see the whole end to end system with all its interactions and dependencies and optimize the system as a cohesive whole rather than different tools and domains
+- [HowToMoMonitoringTheSREGoldenSignals] the "golden signals" are, from Google SRE book and the USE/RED methods:
+    * Rate
+    * Errors
+    * Latency
+    * Saturation
+    * Utilization
 
 ### Post-mortems
 - trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds

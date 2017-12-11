@@ -43,7 +43,6 @@ https://doc.asqatasun.org/en/index.html
 
 Contrast checkers:
 - [Colour Contrast Analyser](https://www.paciellogroup.com/resources/contrastanalyser/) (The Paciello Group) : top !
-- [Firefox addon WCAG Contrast Checker](https://addons.mozilla.org/fr/firefox/addon/wcag-contrast-checker/)
 - [Chrome plugin Accessibility Developer Tools](https://chrome.google.com/webstore/detail/accessibility-developer-t/fpkknkljclfencbdbgkenhalefipecmb)
 - [Color Oracle](http://colororacle.cartography.ch/) (Windows / Linux small tool - no snapshot)
 
@@ -51,12 +50,14 @@ Other tools:
 - [HTML_CodeSniffer](http://squizlabs.github.io/HTML_CodeSniffer/)
 - [Extension navigateur Assistant RGAA](https://github.com/DISIC/assistant-rgaa) : permet d'auditer des pages web en suivant le référentiel RGAA
 - [PDF Accessibility Checker](http://www.access-for-all.ch/en/pdf-lab/pdf-accessibility-checker-pac/downloading-pac.html) (from Swiss foundation "Access for all")
-- [NVDA](http://www.nvda-fr.org/download.php)
 - [Web Accessibility Toolbar for IE](https://github.com/ThePacielloGroup/WebAccessibilityToolbar/releases) (The Paciello Group)
 - [Firefox WebDevelopper](https://addons.mozilla.org/fr/firefox/addon/web-developer/)
-- [Firefox addon Heading Map](https://addons.mozilla.org/fr/firefox/addon/headingsmap/)
 - [Accessibility Viewer](https://github.com/ThePacielloGroup/aviewer/releases) (The Paciello Group)
 - [WCAG-Zoo](https://wcag-zoo.readthedocs.io/en/latest/commands.html) : Python command line tools that help provide basic validation of HTML against the accessibility guidelines laid out by the W3C Web Content Accessibility Guidelines 2.0
+
+### NVDA
+https://www.nvda-fr.org/voix/ : installer la voix Hortense et augmenter le débit
+
 
 
 ## Présentation par Nicolas Chardon

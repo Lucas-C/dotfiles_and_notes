@@ -182,6 +182,6 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" **%T/%D*
 <[-----]>
 <[Nginx]>
 <[-----]>
-nginx -t  # help diagnoseing service start failure
+nginx -t  # help diagnosing service start failure
 yandex/gixy  # configuration static analyzer in Python to prevent security misconfiguration and automate flaw detection
 https://news.ycombinator.com/item?id=14617879 # speed-up advices

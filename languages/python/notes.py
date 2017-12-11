@@ -928,7 +928,7 @@ binascii.hexlify # display binary has hexadecimal
 """"""""""""""""""""""""""""""
 celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of celery tasks
 ampqlib, haigha, puka # AMPQ libs
-zeromq, aiozmq, mrq # distributed app / msg passing framework
+kombu (based on celery), zeromq, aiozmq, mrq # distributed app / msg passing frameworks
 dask  # task scheduling and blocked algorithms for parallel processing
 sched # event scheduler - Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gjcarneiro/yacron, gawel/aiocron - Also:
 
@@ -1150,6 +1150,7 @@ Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which pr
 Quart # like Flask, but async
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
 Django, django-rest-framework # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
+    django.utils.translation # i18n -> very good intro & tips: https://speakerdeck.com/pycon2015/sarina-canelake-i18n-world-domination-the-easy-way
 pyramid # more modular alternative to Django
 + web.py # very old now, written by Aaron Swarz, used by Yandex
 WTForms # forms validation

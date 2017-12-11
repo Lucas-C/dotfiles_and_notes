@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 // USAGE: md2html [--noindex] $mdFile > $htmlFile
-// INSTALL: npm install -g markdown-it markdown-it-anchor markdown-it-table-of-contents markdown-it-container
+// INSTALL: npm install -g markdown-it markdown-it-anchor markdown-it-table-of-contents markdown-it-container markdown-it-include
 var mdFilepath = process.argv[2],
     noindex = false;
 if (process.argv[2] == '--noindex') {
@@ -19,6 +19,8 @@ require('fs').readFile(mdFilepath, 'utf8', function (err, input) {
   }
   var md = require('markdown-it')({html: true})
     .use(require('markdown-it-anchor'))
+    .use(require('markdown-it-include'))
+    .use(require('markdown-it-multimd-table'))
     .use(require('markdown-it-table-of-contents'))
     .use(require('markdown-it-container'), 'classname', {
       validate: name => name.trim().length, // allow everything not empty
