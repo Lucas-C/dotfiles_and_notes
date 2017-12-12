@@ -1,0 +1,31 @@
+{
+  "name": "irregular_pixels",
+  "version": "0.1.0",
+  "description": "",
+  "license": "GPL-3.0",
+  "repository": "git@github.com:Lucas-C/linux_configuration.git",
+  "author": "Lucas Cimon <lucas.cimon@gmail.com>",
+  "scripts": {
+    "prepublish": "npm run transpile",
+    "start": "serve --open",
+    "test": "standard",
+    "transpile": "babel ./index.js --out-file ./index.bundle.js",
+    "watch": "watch 'npm run transpile' index.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "serve": "^6.4.1",
+    "standard": "^10.0.3",
+    "watch": "^1.0.2"
+  },
+  "files": [
+    "index.js",
+    "index.bundle.js"
+  ],
+  "standard": {
+    "ignore": [
+      "index.bundle.js"
+    ]
+  }
+}
