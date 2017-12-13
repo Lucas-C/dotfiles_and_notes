@@ -1,8 +1,12 @@
+import { mirrorHorizontally, mirrorVertically } from './geometry'
+
 export default [
   {
     name: 'Axial symetry',
     score: 5,
-    match: function (shape) { return false } // TODO
+    match: function (shape) {
+      return mirrorHorizontally(shape).equals(shape) || mirrorVertically(shape).equals(shape)
+    }
   },
   {
     name: 'Rotation by 90° / 180° / 270°',

@@ -10,9 +10,9 @@ export default class {
 
   computeFor ({growingShape, point}) {
     let shape = growingShape.cloneShape()
-    shape.addPoint(point)
+    shape.addStrPoint(point)
     let score = 0
-    for (let rule of this.ruleset) {
+    for (const rule of this.ruleset) {
       if (rule.match(shape)) {
         score = rule.score
         break

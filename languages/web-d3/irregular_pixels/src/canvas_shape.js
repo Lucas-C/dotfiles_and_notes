@@ -1,25 +1,29 @@
-import Shape from './shape'
+import ShapeWithNeigbours from './shape_with_neighbours'
 
-export default class extends Shape {
-  constructor ({canvasProxy, startingPoint}) {
-    super({planeWidth: canvasProxy.width, planeHeight: canvasProxy.height, startingPoint: null})
+export default class extends ShapeWithNeigbours {
+  constructor (canvasProxy) {
+    super({planeWidth: canvasProxy.width, planeHeight: canvasProxy.height})
     this.canvasProxy = canvasProxy
-    this.addPoint(startingPoint) // To ensure setPixelBlack is called
   }
 
-  isPointInShape (point) {
+  cloneCanvasShape () {
+    let shape = super.clone()
+    shape.canvasProxy = this.canvasProxy
+    return shape
+  }
+
+  isPointInShape (point) { // Override because faster: O(1)
     return this.canvasProxy.isPixelBlack(point)
   }
 
   addPoint (point) {
     super.addPoint(point)
-    let [x, y] = Shape.pointStr2Tuple(point)
-    this.canvasProxy.setPixelBlack({x, y})
+    this.canvasProxy.setPixelBlack(point)
   }
 
-  removePoint (point) {
-    super.removePoint(point)
-    let [x, y] = Shape.pointStr2Tuple(point)
+  removeStrPoint (strPoint) {
+    super.removeStrPoint(strPoint)
+    let [x, y] = ShapeWithNeigbours.deserialize(strPoint)
     this.canvasProxy.setPixelWhite({x, y})
   }
 

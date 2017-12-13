@@ -42,7 +42,7 @@ export default class {
   }
 
   getCenter () {
-    return Math.trunc(this.width / 2) + ',' + Math.trunc(this.height / 2)
+    return {x: Math.trunc(this.width / 2), y: Math.trunc(this.height / 2)}
   }
 
   render () {

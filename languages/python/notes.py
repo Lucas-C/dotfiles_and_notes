@@ -852,6 +852,7 @@ topia.termextract # keywords extraction (2 lines broken under Py3, cf. my fork) 
 difflib # compare text/strings/sequences
 fuzzywuzzy # fuzzy string comparison ratios, token ratios...
 sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && pip install sumy && python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB
+goose3 # take any news article or article-type web page and not only extract what is the main body of the article but also all meta data and most probable image candidate
 deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .ps ... Alt for PDF: euske/pdfminer/blob/master/tools/pdf2txt.py
 snowballstemmer # supports 15 languages
 
