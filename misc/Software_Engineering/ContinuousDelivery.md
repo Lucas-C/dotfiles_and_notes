@@ -23,7 +23,13 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
 Jenkins alternative, in Python: https://buildbot.net
 
 ## Jenkins
-- Jenkins 2 with Jenkinsfile & Docker compose
+History:
+- 2004 : Projet Hudson
+- 2011 : Fork Jenkins
+- 2013 :Jenkins is victorious
+- 2016 : Jenkins v2 (by Cloudbees) with Jenkinsfile
+
+Notes:
 - fan-in / fan-out pattern:  https://www.cloudbees.com/blog/using-workflow-deliver-multi-componentapp-pipeline
 - Best practice: write a simple documentation page for your pipeline, indicating steps already working fine and the ones you wish
 - Plugins: AnsiColor, ChuckNorris, InternetMeme, Pipeline, ShiningPanda, jenkins.sitespeed.io, ThinBackup

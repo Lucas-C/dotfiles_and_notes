@@ -16,11 +16,11 @@ test('A new Shape in a 2x2 canvas is on its edge', t => {
   t.true(shape.isOnCanvasEdge())
 })
 
-test('A new Shape in a 3x3 canvas has 4 neighbours', t => {
+test('A point has 4 direct neighbours', t => {
   let canvasProxy = new MockCanvasProxy({width: 3, height: 3})
   let startingPoint = canvasProxy.getCenter()
   let shape = new Shape({canvasProxy, startingPoint})
-  t.deepEqual(shape.neighbours, [
+  t.deepEqual(shape.listDirectNeighbours({x: 1, y: 1}), [
     {x: 2, y: 1},
     {x: 1, y: 2},
     {x: 0, y: 1},
@@ -28,24 +28,21 @@ test('A new Shape in a 3x3 canvas has 4 neighbours', t => {
   ])
 })
 
-let arrayOfPointsSorter = function (a, b) {
-  if (a.x !== b.x) return a.x > b.x ? 1 : -1
-  if (a.y !== b.y) return a.y > b.y ? 1 : -1
-  return 0
-}
-
 test('A length-3 vertical Shape in a 3x3 canvas has 6 neighbours', t => {
   let canvasProxy = new MockCanvasProxy({width: 3, height: 3})
   let startingPoint = canvasProxy.getCenter()
   let shape = new Shape({canvasProxy, startingPoint})
-  shape.addPoint({x: 1, y: 0})
-  shape.addPoint({x: 1, y: 2})
-  t.deepEqual(shape.neighbours.sort(arrayOfPointsSorter), [
-    {x: 0, y: 0},
-    {x: 0, y: 1},
-    {x: 0, y: 2},
-    {x: 2, y: 0},
-    {x: 2, y: 1},
-    {x: 2, y: 2}
-  ].sort(arrayOfPointsSorter))
+  shape.addPoint('1,0')
+  shape.addPoint('1,2')
+  t.deepEqual(Array.from(shape.neighbours).sort(), [
+    '0,0',
+    '0,1',
+    '0,2',
+    '2,0',
+    '2,1',
+    '2,2'
+  ])
+  shape.removePoint('1,2')
+  shape.removePoint('1,0')
+  t.is(shape.neighbours.size, 4)
 })

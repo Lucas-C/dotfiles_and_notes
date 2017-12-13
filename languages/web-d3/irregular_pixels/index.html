@@ -5,18 +5,18 @@
     <title>index</title>
     <style>
       canvas {
-        border: 2px black solid;
+        image-rendering: pixelated;
       }
     </style>
   </head>
   <body>
     <form onsubmit="onSubmit(); return false">
       <label for="width">width:</label>
-      <input id="width" type="number" value="500">
+      <input id="width" type="number" value="100">
       <label for="height">height:</label>
-      <input id="height" type="number" value="500">
-      <label for="pixelSize">pixelSize:</label>
-      <input id="pixelSize" type="range" min="1" max="10" value="2">
+      <input id="height" type="number" value="100">
+      <label for="pixelSize">pixelSize: <output id="pixelSizeOutput">2</output></label>
+      <input id="pixelSize" type="range" min="1" max="10" oninput="pixelSizeOutput.value = this.value" value="2">
       <label for="ruleset">ruleset:</label>
       <select id="ruleset">
         <option default value="ruleset1">Ruleset 1</option>
@@ -27,6 +27,7 @@
     <script src="irregular_pixels.bundle.js"></script>
     <script>
       function onSubmit() {
+        //return minimalBugRepro()
         render({
           canvas: document.getElementsByTagName('canvas')[0],
           width: +document.getElementById('width').value,
@@ -35,7 +36,7 @@
           ruleset: document.getElementById('ruleset').value,
         });
       }
-      onSubmit();
+      //onSubmit();
     </script>
   </body>
 </html>

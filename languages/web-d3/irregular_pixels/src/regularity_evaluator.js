@@ -8,16 +8,14 @@ export default class {
     this.ruleset = ruleset1
   }
 
-  computeFor (shape, point) {
+  computeFor (shape) {
     let score = 0
-    shape.addPoint(point)
     for (let rule of this.ruleset) {
-        if (rule.match(shape)) {
-            score = rule.score
-            break
-        }
+      if (rule.match(shape)) {
+        score = rule.score
+        break
+      }
     }
-    shape.removePoint(point)
     return score
   }
 }

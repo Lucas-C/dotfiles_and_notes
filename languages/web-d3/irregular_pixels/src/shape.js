@@ -1,65 +1,80 @@
-let indexOfPointInArray = function (array, needle) {
-  return array.findIndex(point => point.x === needle.x && point.y === needle.y)
+function pointStr2Tuple (pointStr) {
+  let [x, y] = pointStr.split(',')
+  return [+x, +y]
 }
 
 export default class {
   constructor ({canvasProxy, startingPoint}) {
     this.canvasProxy = canvasProxy
-    this.points = []
-    this.neighbours = []
+    this.points = new Set()
+    this.neighbours = new Set()
     this.addPoint(startingPoint)
   }
 
   addPoint (point) {
-    this.points.push(point)
-    this.canvasProxy.setPixelBlack(point)
+    this.points.add(point)
+    let [x, y] = pointStr2Tuple(point)
+    this.canvasProxy.setPixelBlack({x, y})
 
-    let neighbourIndex = indexOfPointInArray(this.neighbours, point)
-    if (neighbourIndex >= 0) {
-      this.neighbours.splice(neighbourIndex, 1)
-    }
+    this.neighbours.delete(point) // If it wasn't in there beforehand, noop
 
-    for (let neighbour of listDirectNeighbours(point)) {
-      if (!this.canvasProxy.isPixelBlack(neighbour) && indexOfPointInArray(this.neighbours, neighbour) < 0) {
-        this.neighbours.push(neighbour)
+    for (let neighbour of this.listDirectNeighbours({x, y})) {
+      if (!this.canvasProxy.isPixelBlack(neighbour)) {
+        let neighbourStr = neighbour.x + ',' + neighbour.y
+        this.neighbours.add(neighbourStr)
       }
     }
   }
 
-  listDirectNeighbours (point) {
+  cloneSetsWithPoint (point) {
+    let shapePoints = new Set(this.points)
+    shapePoints.add(point)
+
+    let shapeNeighbours = new Set(this.neighbours)
+    shapeNeighbours.delete(point) // If it wasn't in there beforehand, noop
+
+    let [x, y] = pointStr2Tuple(point)
+    for (let neighbour of this.listDirectNeighbours({x, y})) {
+      if (!this.canvasProxy.isPixelBlack(neighbour)) {
+        let neighbourStr = neighbour.x + ',' + neighbour.y
+        shapeNeighbours.add(neighbourStr)
+      }
+    }
+
+    return {shapePoints, shapeNeighbours}
+  }
+
+  listDirectNeighbours ({x, y}) {
     let directNeighbours = []
-    if (point.x + 1 < this.canvasProxy.getWidth()) directNeighbours.push({x: point.x + 1, y: point.y})
-    if (point.y + 1 < this.canvasProxy.getHeight()) directNeighbours.push({x: point.x, y: point.y + 1})
-    if (point.x > 0) directNeighbours.push({x: point.x - 1, y: point.y})
-    if (point.y > 0) directNeighbours.push({x: point.x, y: point.y - 1})
+    if (x + 1 < this.canvasProxy.width) directNeighbours.push({x: x + 1, y: y})
+    if (y + 1 < this.canvasProxy.height) directNeighbours.push({x: x, y: y + 1})
+    if (x > 0) directNeighbours.push({x: x - 1, y: y})
+    if (y > 0) directNeighbours.push({x: x, y: y - 1})
     return directNeighbours
   }
 
   removePoint (point) {
-    let pointIndex = indexOfPointInArray(this.points, point)
-    if (pointIndex < 0) {
-      throw new Error('Trying to remove a point not included in shape')
-    }
-    this.points.splice(pointIndex, 1)
-    this.canvasProxy.setPixelWhite(point)
+    this.points.delete(point) // If it wasn't in there beforehand, noop
+    let [x, y] = pointStr2Tuple(point)
+    this.canvasProxy.setPixelWhite({x, y})
 
-    for (let neighbour of listDirectNeighbours(point)) {
+    for (let neighbour of this.listDirectNeighbours({x, y})) {
       let isStillANeighbour = false
-      for (let neighbourNeighbour of listDirectNeighbours(neighbour)) {
-        if (this.canvasProxy.isPixelBlack(neighbourNeighbour) {
-            isStillANeighbour = true
+      for (let neighbourNeighbour of this.listDirectNeighbours(neighbour)) {
+        if (this.canvasProxy.isPixelBlack(neighbourNeighbour)) {
+          isStillANeighbour = true
         }
       }
       if (!isStillANeighbour) {
-        let neighbourIndex = indexOfPointInArray(this.neighbours, neighbour)
-        this.neighbours.splice(neighbourIndex, 1)
+        let neighbourStr = neighbour.x + ',' + neighbour.y
+        this.neighbours.delete(neighbourStr)
       }
     }
-    this.neighbours.push(point) // We assume this method is called for a point on an edge of the shape
+    this.neighbours.add(point) // We assume this method is called for a point on an edge of the shape
   }
 
   isOnCanvasEdge () {
-    let [width, height] = [this.canvasProxy.getWidth(), this.canvasProxy.getHeight()]
+    let [width, height] = [this.canvasProxy.width, this.canvasProxy.height]
     for (let i = 0; i < width; i += 1) {
       if (this.canvasProxy.isPixelBlack({x: i, y: 0}) || this.canvasProxy.isPixelBlack({x: i, y: height - 1})) {
         return true

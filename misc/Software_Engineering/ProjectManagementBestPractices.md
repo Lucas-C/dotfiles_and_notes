@@ -51,7 +51,7 @@ Project management best practices
     issues count
     contributors count
 - cf. [10 reasons not to adopt this new toy techno in production]
-- OSS projects comparator: https://www.openhub.net/p/_compare?project_0=cURL&project_1=Wget
+- OSS projects comparator: https://www.openhub.net/p/_compare?project_0=cURL&project_1=Wget & https://libraries.io
 - [HypeDrivenDevelopment]
 - [YouAreNotGoogle]: "This is not how rational people make decisions, but it is how software engineers decide to use MapReduce." - "you got there through a ritualistic belief that imitating the giants would bring the same riches." - "As of 2016, Stack Exchange served 200 million requests per day, backed by just four SQL servers"
 UNPHAT:
@@ -61,7 +61,6 @@ UNPHAT:
 - determine the Historical context in which the candidate solution was designed or developed
 - weigh Advantages against disadvantages
 - Think: how well this solution fits your problem ?
-- https://libraries.io
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]
