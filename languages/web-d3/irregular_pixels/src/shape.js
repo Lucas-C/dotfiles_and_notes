@@ -20,9 +20,9 @@ class Shape {
   }
 
   equals (shape) {
-    if (shape.points.size !== this.points.size) return false;
-    for (var strPoint of shape.points) if (!this.points.has(strPoint)) return false;
-    return true;
+    if (shape.points.size !== this.points.size) return false
+    for (var strPoint of shape.points) if (!this.points.has(strPoint)) return false
+    return true
   }
 
   toString () {
