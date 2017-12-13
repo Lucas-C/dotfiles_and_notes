@@ -26,13 +26,23 @@ export default class {
   }
 
   setPixelBlack ({x, y}) {
+    let greyLevel= 0
+    setPixelGrey({x, y, greyLevel})
+  }
+
+  setPixelWhite ({x, y}) {
+    let greyLevel= 255
+    setPixelGrey({x, y, greyLevel})
+  }
+
+  setPixelGrey ({x, y, greyLevel}) {
     [x, y] = [x * this.pixelSize, y * this.pixelSize]
     for (let i = 0; i < this.pixelSize; i += 1) {
       for (let j = 0; j < this.pixelSize; j += 1) {
         let k = 4 * ((x + i) * this.width + y + j)
-        this.imageData.data[k] = 0
-        this.imageData.data[k + 1] = 0
-        this.imageData.data[k + 2] = 0
+        this.imageData.data[k] = greyLevel
+        this.imageData.data[k + 1] = greyLevel
+        this.imageData.data[k + 2] = greyLevel
         this.imageData.data[k + 3] = 255 // alpha
       }
     }

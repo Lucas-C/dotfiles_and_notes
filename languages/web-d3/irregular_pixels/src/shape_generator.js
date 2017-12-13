@@ -9,7 +9,7 @@ export default function ({canvasProxy, ruleset}) {
     let minScore = Infinity
     let minScorePoint
     for (let point of growingShape.neighbours) {
-      let score = regularityEvaluator.computeFor(point)
+      let score = regularityEvaluator.computeFor(shape, point)
       if (score < minScore) {
         minScore = score
         minScorePoint = point

@@ -7,7 +7,17 @@ export default class {
     }
     this.ruleset = ruleset1
   }
-  computeFor (point) {
-    return 0
+
+  computeFor (shape, point) {
+    let score = 0
+    shape.addPoint(point)
+    for (let rule of this.ruleset) {
+        if (rule.match(shape)) {
+            score = rule.score
+            break
+        }
+    }
+    shape.removePoint(point)
+    return score
   }
 }
