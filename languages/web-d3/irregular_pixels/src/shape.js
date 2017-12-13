@@ -1,53 +1,48 @@
-function pointStr2Tuple (pointStr) {
-  let [x, y] = pointStr.split(',')
-  return [+x, +y]
-}
-
-export default class {
-  constructor ({canvasProxy, startingPoint}) {
-    this.canvasProxy = canvasProxy
+class Shape {
+  constructor ({planeWidth, planeHeight, startingPoint}) {
+    this.planeWidth = planeWidth
+    this.planeHeight = planeHeight
     this.points = new Set()
     this.neighbours = new Set()
-    this.addPoint(startingPoint)
+    if (startingPoint) {
+      this.addPoint(startingPoint)
+    }
+  }
+
+  static pointStr2Tuple (pointStr) {
+    let [x, y] = pointStr.split(',')
+    return [+x, +y]
+  }
+
+  isPointInShape (point) {
+    return this.points.has(point.x + ',' + point.y)
   }
 
   addPoint (point) {
     this.points.add(point)
-    let [x, y] = pointStr2Tuple(point)
-    this.canvasProxy.setPixelBlack({x, y})
+    let [x, y] = Shape.pointStr2Tuple(point)
 
     this.neighbours.delete(point) // If it wasn't in there beforehand, noop
 
     for (let neighbour of this.listDirectNeighbours({x, y})) {
-      if (!this.canvasProxy.isPixelBlack(neighbour)) {
+      if (!this.isPointInShape(neighbour)) {
         let neighbourStr = neighbour.x + ',' + neighbour.y
         this.neighbours.add(neighbourStr)
       }
     }
   }
 
-  cloneSetsWithPoint (point) {
-    let shapePoints = new Set(this.points)
-    shapePoints.add(point)
-
-    let shapeNeighbours = new Set(this.neighbours)
-    shapeNeighbours.delete(point) // If it wasn't in there beforehand, noop
-
-    let [x, y] = pointStr2Tuple(point)
-    for (let neighbour of this.listDirectNeighbours({x, y})) {
-      if (!this.canvasProxy.isPixelBlack(neighbour)) {
-        let neighbourStr = neighbour.x + ',' + neighbour.y
-        shapeNeighbours.add(neighbourStr)
-      }
-    }
-
-    return {shapePoints, shapeNeighbours}
+  cloneShape (point) {
+    let shape = new Shape({planeWidth: this.planeWidth, planeHeight: this.planeHeight, startingPoint: this.startingPoint})
+    shape.points = new Set(this.points)
+    shape.neighbours = new Set(this.neighbours)
+    return shape
   }
 
   listDirectNeighbours ({x, y}) {
     let directNeighbours = []
-    if (x + 1 < this.canvasProxy.width) directNeighbours.push({x: x + 1, y: y})
-    if (y + 1 < this.canvasProxy.height) directNeighbours.push({x: x, y: y + 1})
+    if (x + 1 < this.planeWidth) directNeighbours.push({x: x + 1, y: y})
+    if (y + 1 < this.planeHeight) directNeighbours.push({x: x, y: y + 1})
     if (x > 0) directNeighbours.push({x: x - 1, y: y})
     if (y > 0) directNeighbours.push({x: x, y: y - 1})
     return directNeighbours
@@ -55,13 +50,12 @@ export default class {
 
   removePoint (point) {
     this.points.delete(point) // If it wasn't in there beforehand, noop
-    let [x, y] = pointStr2Tuple(point)
-    this.canvasProxy.setPixelWhite({x, y})
+    let [x, y] = Shape.pointStr2Tuple(point)
 
     for (let neighbour of this.listDirectNeighbours({x, y})) {
       let isStillANeighbour = false
       for (let neighbourNeighbour of this.listDirectNeighbours(neighbour)) {
-        if (this.canvasProxy.isPixelBlack(neighbourNeighbour)) {
+        if (this.isPointInShape(neighbourNeighbour)) {
           isStillANeighbour = true
         }
       }
@@ -72,19 +66,5 @@ export default class {
     }
     this.neighbours.add(point) // We assume this method is called for a point on an edge of the shape
   }
-
-  isOnCanvasEdge () {
-    let [width, height] = [this.canvasProxy.width, this.canvasProxy.height]
-    for (let i = 0; i < width; i += 1) {
-      if (this.canvasProxy.isPixelBlack({x: i, y: 0}) || this.canvasProxy.isPixelBlack({x: i, y: height - 1})) {
-        return true
-      }
-    }
-    for (let j = 0; j < height; j += 1) {
-      if (this.canvasProxy.isPixelBlack({x: 0, y: j}) || this.canvasProxy.isPixelBlack({x: width - 1, y: j})) {
-        return true
-      }
-    }
-    return false
-  }
 }
+export default Shape

@@ -8,7 +8,9 @@ export default class {
     this.ruleset = ruleset1
   }
 
-  computeFor (shape) {
+  computeFor ({growingShape, point}) {
+    let shape = growingShape.cloneShape()
+    shape.addPoint(point)
     let score = 0
     for (let rule of this.ruleset) {
       if (rule.match(shape)) {

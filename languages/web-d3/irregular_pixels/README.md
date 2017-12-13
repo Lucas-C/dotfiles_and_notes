@@ -8,6 +8,6 @@ Then open `index.html`
 I'm using strings to modelize 2 points in order to benefit from `===` comparison and hence the `Set` data structure.
 
 <!--Tasks:
-- profile exec time -> why so slow ?
+- 1st perfs review seems to point to Set.add as the bottleneck
 - implement 1st ruleset
 -->
