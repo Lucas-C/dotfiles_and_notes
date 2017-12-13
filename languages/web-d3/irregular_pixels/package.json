@@ -6,26 +6,34 @@
   "repository": "git@github.com:Lucas-C/linux_configuration.git",
   "author": "Lucas Cimon <lucas.cimon@gmail.com>",
   "scripts": {
-    "prepublish": "npm run transpile",
+    "prepare": "npm run transpile",
     "start": "serve --open",
-    "test": "standard",
-    "transpile": "babel ./index.js --out-file ./index.bundle.js",
-    "watch": "watch 'npm run transpile' index.js"
+    "test": "standard && ava test/*.js",
+    "transpile": "browserify src/index.js -t babelify --outfile ./irregular_pixels.bundle.js",
+    "watch": "watch \"npm run transpile\" src"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "ava": "^0.24.0",
+    "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0",
+    "babelify": "^8.0.0",
+    "browserify": "^14.5.0",
     "serve": "^6.4.1",
     "standard": "^10.0.3",
     "watch": "^1.0.2"
   },
   "files": [
-    "index.js",
-    "index.bundle.js"
+    "irregular_pixels.bundle.js"
   ],
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
+  },
   "standard": {
     "ignore": [
-      "index.bundle.js"
+      "irregular_pixels.bundle.js"
     ]
   }
 }
