@@ -1047,7 +1047,7 @@ saucelabs/monocle, libevent, libuv, Twisted # other ASync libs, that is :
 ReactiveX/RxPY # asynchronous and event-based programming using observable collections and LINQ-style query operators
 python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
-dabeaz/curio # Python 3 alt implementation of coroutines
+dabeaz/curio # Python 3 alt implementation of coroutines, with a better design: https://veriny.tf/asyncio-a-dumpster-fire-of-bad-design/
 aiofiles # local disk files read/write in asyncio applications
 
 # Python 3.4+ DefaultSelector uses the best select-like function available on your system - cf. http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html

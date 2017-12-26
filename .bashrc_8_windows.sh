@@ -52,9 +52,11 @@ atom () {
     $(cygpath "$LOCALAPPDATA\atom\bin\atom.cmd") $(convertWinArgs "$@")
 }
 
+NPP_BIN='/cygdrive/c/Program Files/Notepad++/notepad++.exe'
+test -e "$NPP_BIN" || NPP_BIN_PATH="/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe"
 npp () {
     for f in "$@"; do
-        "/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe" $(convertWinArgs "$f")
+        "$NPP_BIN" $(convertWinArgs "$f")
     done
 }
 

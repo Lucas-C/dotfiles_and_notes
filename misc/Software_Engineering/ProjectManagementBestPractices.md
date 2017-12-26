@@ -26,6 +26,7 @@ Project management best practices
 - [QuelquesConseilsPourAméliorerVotreProcessDeChoixDOutil](http://blog.octo.com/quelques-conseils-pour-ameliorer-votre-process-de-choix-doutil/)
 - [BogBody:CommittingToOpenSource](https://oisinh.wordpress.com/2011/08/26/bog-body-committing-to-open-source/?)
 - [YouAreNotGoogle](https://blog.bradfieldcs.com/you-are-not-google-84912cf44afb)
+- [Growing Your Tech Stack: When to Say No](https://blog.codeship.com/growing-tech-stack-say-no/)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -61,6 +62,8 @@ UNPHAT:
 - determine the Historical context in which the candidate solution was designed or developed
 - weigh Advantages against disadvantages
 - Think: how well this solution fits your problem ?
+- [Growing Your Tech Stack: When to Say No] : Nice walk-through of consequences & risks estimation
+> The right technology today will be the wrong technology at some point.
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]

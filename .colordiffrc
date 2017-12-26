@@ -1,0 +1,9 @@
+# Solarized colors
+
+# available colours are: white, yellow, green, blue, cyan, red, magenta, black
+
+plain=off
+newtext=darkgreen
+oldtext=darkred
+diffstuff=darkblue
+cvsstuff=darkblue
