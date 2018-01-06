@@ -38,7 +38,7 @@ Project management best practices
 - Processus de recrutement exigent : coding, 2h de review, etc.
 
 ## Choosing the right techno
-- [AYoungLadysPrimerToTechnicalDecisionMaking]
+- [AYoungLadysPrimerToTechnicalDecisionMaking], especially the Manifesto on slide 26
 - [QuelquesConseilsPourAméliorerVotreProcessDeChoixDOutil]
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
 - [ChooseBoringTechnology] :

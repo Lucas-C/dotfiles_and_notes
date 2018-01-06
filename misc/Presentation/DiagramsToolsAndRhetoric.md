@@ -55,7 +55,7 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 - [asciiflow](http://asciiflow.com/#Draw) : online + OSS (Javascript) -> https://github.com/lewish/asciiflow2
 - [mapio/GraphvizAnim](https://github.com/mapio/GraphvizAnim) : animated graph visualizations, based on graphviz (Python)
 - [draw.io](https://www.draw.io) : diagrams stored as XML, online editor, OSS (Java) -> https://github.com/jgraph/draw.io
-- [ditaa](http://ditaa.sourceforge.net/) : ascii-art to images (Java)
+- [ditaa](http://ditaa.sourceforge.net/) : ascii-art to images (Java) -> ne supporte pas les accents :(
 - [blampe/goat](https://github.com/blampe/goat) : render ASCII art as SVG diagrams (Go)
 - [ivanceras/svgbobrus](https://github.com/ivanceras/svgbobrus) : convert ascii diagram scribbles into SVG (Rust)
 - [gliffy](https://www.gliffy.com/examples/) : online, proprietary code
