@@ -1,3 +1,4 @@
+// NOT TO SELF: puppeteer >more>stable> SlimerJS >more>standard> PhantomJs -> cf. https://github.com/ariya/phantomjs/issues/15236
 // INSTALL: sudo npm install -g phantomjs@1.9.16 casperjs
 //    the latest v1.9.17 version of PhantomJS crashed, so I used the previous one
 // USAGE: casperjs --web-security=no $this --email=$email --password=$password < photobox_photos_ids.txt

@@ -1,3 +1,4 @@
+// NOT TO SELF: puppeteer >more>stable> SlimerJS >more>standard> PhantomJs -> cf. https://github.com/ariya/phantomjs/issues/15236
 // INSTALL: sudo npm install -g phantomjs slimerjs
 //          echo -e "var require = patchRequire(require);\nmodule.exports = require('lodash');" > lodash.js
 // USAGE: ANSICON=1 casperjs --engine=slimerjs --debug=yes $this --email=$email --password=$password --album-url=$url
@@ -61,18 +62,41 @@ casper.on('navigation.requested', function(url, type, willNavigate, isMainFrame)
     casper.navigationRequested = false;
 });
 
-/*casper.on('resource.requested', function(requestData, networkRequest) {
+casper.on('resource.requested', function(requestData, networkRequest) {
     casper.echo('[resource.requested] pendingWait=' + casper.pendingWait + ' - loadInProgress=' + casper.loadInProgress + ' - navigationRequested=' + casper.navigationRequested, 'INFO_BAR');
-    if (/facebook\.com\/ajax\/ei\.php/.exec(requestData.url)) {
+    require('utils').dump(requestData);
+    /*if (/facebook\.com\/ajax\/ei\.php/.exec(requestData.url)) {
         casper.echo('Aborting request ' + requestData.url, 'WARN_BAR');
         networkRequest.abort();
     } else {
         casper.echo('Allowing request ' + requestData.url, 'GREEN_BAR');
-    }
-});*/
+    }*/
+});
+
+casper.on('resource.received', function(resource) {
+    casper.echo('[resource.received] pendingWait=' + casper.pendingWait + ' - loadInProgress=' + casper.loadInProgress + ' - navigationRequested=' + casper.navigationRequested, 'INFO_BAR');
+    require('utils').dump(resource);
+});
 
 casper.on('remote.message', function(message) { // console spy to ease debugging
-  console.echo(message, 'COMMENT');
+    console.echo(message, 'COMMENT');
 });
 
 casper.run();
+
+
+
+
+function displayCookies() {
+    phantom.cookies.map(function (c) {
+        casper.echo('domain='+c.domain+' name='+c.name+' path='+c.path+' value='+c.value);
+    });
+}
+
+function cookieValuesPerName() {
+    var valuesPerName = {};
+    phantom.cookies.map(function (cookie) {
+        valuesPerName[cookie.name] = cookie.value;
+    });
+    return valuesPerName;
+}

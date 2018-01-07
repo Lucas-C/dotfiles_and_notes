@@ -1,5 +1,6 @@
+// NOT TO SELF: puppeteer >more>stable> SlimerJS >more>standard> PhantomJs -> cf. https://github.com/ariya/phantomjs/issues/15236
 // INSTALL: sudo npm install -g phantomjs casperjs
-// USAGE: casperjs $this --email=$email --password=$password 2> notifications
+// USAGE: casperjs $this --email=$email --password=$password 2>notifications
 
 const stderr = require('system').stderr,
       casper = require('casper').create({
@@ -7,10 +8,10 @@ const stderr = require('system').stderr,
         logLevel: 'debug'
       });
 
-casper.start('https://www.trictrac.net/');
+casper.start('https://www.trictrac.net');
 
 casper.then(function () {
-    casper.fill('form', {
+    casper.fill('form', { // Handles the CSRF token transparently
         _username: casper.cli.get('email'),
         _password: ''+casper.cli.get('password') // conversion to string is mandatory, cf. CasperJS issue #1275
     }, /*submit=*/true);

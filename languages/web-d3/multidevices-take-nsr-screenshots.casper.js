@@ -1,3 +1,4 @@
+// NOT TO SELF: puppeteer >more>stable> SlimerJS >more>standard> PhantomJs -> cf. https://github.com/ariya/phantomjs/issues/15236
 // DESCRIPTION: Ce script a pour but de garder un historique de screenshots de ce à quoi ressemble NSR au cours de son évolution.
 // AUTHOR: Lucas Cimon
 // INSTALL: sudo npm install -g casperjs slimerjs
