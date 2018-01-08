@@ -352,6 +352,7 @@ class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/r
 def Tree(): # fs = Tree(); fs['all']['the']['way']['down']
     return defaultdict(Tree)
 
+keleshev/schema # validating Python data structures, such as those obtained from config-files, forms, external services or command-line parsing, converted from JSON/YAML (or something else) to Python data-types
 ambitioninc/kmatch # a language for filtering, matching, and validating dicts, e.g. K(['>=', 'k', 10]).match({'k':9}) # False
 nicolaiarocci/cerberus # validation tool for dictionaries, e.g. type checking
 pyrsistent PMap and PREcord  # immutable/functional with invariants and optional types
@@ -1019,6 +1020,7 @@ pyexiv2 # images EXIF manipulation
 Tkinter, EasyGui, EasyDialogs (MacOSX), optparse_gui (last update 2008)
 Kivy # GUI inc. multi-touch support, packaged with PyInstaller
 wxPython # port of C++ wxWidgets
+ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - ALt: cztomczak/cefpython
 
 jlsutherland/doc2text # OCR poorly scanned PDFs in bulk
 espeak-ng # open source speech synthesizer supporting 7+ languages, based on the eSpeak engine
@@ -1153,6 +1155,10 @@ featherweight # transform functions into REST web services
 Tornado # asynchronous web framework - can be used as a WSGI app with some limitations: http://www.tornadoweb.org/en/stable/guide/running.html#wsgi-and-google-app-engine
 Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions - Also: Flask has many global variables & is not thread safe (for async)
     flasgger # Swagger API for flask
+    flask-sqlalchemy
+    flask-admin # admin interface on top of an existing data model
+    flask-babel # adds i18n and l10n support
+    flask-login # user session management
 Quart # like Flask, but async
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
 Django, django-rest-framework # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
