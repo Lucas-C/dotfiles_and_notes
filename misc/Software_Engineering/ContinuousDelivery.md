@@ -148,6 +148,14 @@ sc start com.docker.service
 sc stop com.docker.service
 ```
 
+### Docker exec shell
+
+    cd
+    wget https://raw.githubusercontent.com/Lucas-C/dotfiles_and_notes/master/.inputrc
+    wget https://raw.githubusercontent.com/Lucas-C/dotfiles_and_notes/master/.vimrc
+    vim file.txt
+    :set term=cons25 # to enable arrow keys
+
 ### Thin pool issues
 
     docker rm $(docker ps -qf status=exited)

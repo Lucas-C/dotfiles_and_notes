@@ -70,8 +70,11 @@ stampery/mongoaudit : MongoDB auditing and pentesting in Python
 
 
 ## Post Exploitation
-https://github.com/PowerShellMafia/PowerSploit/ # Post-Exploitation Framework
-john the ripper multicoeurs: http://www.planet-libre.org/?post_id=20989
+- https://github.com/PowerShellMafia/PowerSploit/ # Post-Exploitation Framework
+- john the ripper multicoeurs: http://www.planet-libre.org/?post_id=20989
+- https://github.com/hashcat/hashcat : world's fastest password cracking/recovery utility, for over 200 highly-optimized hashing algorithms:
+
+    hashcat -a 0 -m 3200 hashes.txt ~/Downloads/10_million_password_list_top_10000.txt --force # from a cloudfare blog post
 
 ### Windows
 mimikatz : extract plaintexts Windows passwords, hash, PIN code and kerberos tickets from memory; can also perform pass-the-hash, pass-the-ticket or build Golden tickets

@@ -121,18 +121,26 @@ service:jmx:rmi:///jndi/rmi://$host:9876/jmxrmi
 
 Byteman // insert extra Java code into your application, either as it is loaded during JVM startup or even after it has already started running: https://developer.jboss.org/wiki/ABytemanTutorial
 
-JDBC // Java Database Connectivity : API that defines how a client may access a relational database
 H2 // small fast in-memory SQL DB, useful for testing queries
 Hibernate // framework SQL
 MyBatis // data mapper framework, ORM for SQL DBs using a XML descriptor or annotations
+JDBC // Java Database Connectivity : API that defines how a client may access a relational database
 
--Djava.security.egd=file:/dev/./urandom // reduce Tomcat startup time : http://wiki.apache.org/tomcat/HowTo/FasterStartUp#Entropy_Source
+// How To Test a spring.datasource.url like jdbc:mysql://localhost:3306/my_table :
+git clone https://github.com/julianhyde/sqlline && cd sqlline
+mvn package -Dmaven.test.skip=true
+cp .../mysql-connector-java-5.1.40.jar target/
+export CLASSPATH=$PWD/target/sqlline-1.4.0-SNAPSHOT-jar-with-dependencies.jar:$PWD/target/mysql-connector-java-5.1.40.jar # or: set CLASSPATH=%CD%\target\sqlline-1.4.0-SNAPSHOT-jar-with-dependencies.jar;%CD%\target\mysql-connector-java-5.1.40.jar
+bin/sqlline
+!connect jdbc:mysql://localhost:3306/my_table $user $password
+
 -Xss64kb // set stack size
 -XX:+HeapDumpOnOutOfMemoryError // get a heap dump at the point the application crashes
 -XX:+PerfDisableSharedMem // disable JVM exporting statistics to a file in /tmp, causing pauses of 0.1-1s during garbage collection
 -Xloggc:logfilename.log // log GC status to a file with time stamps
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
 jstack -l $pid
+
 
 // String / ByteString correct conversion :
 String asString = new String( byteString.getArray(), "UTF-8" );
@@ -331,3 +339,14 @@ try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 Function<InputType, ReturnType>.apply(arg) .compose(before) .andThen(after) & static identity()
 
 CompletableFuture > Future
+
+
+/*********
+ * Tomcat
+ *********/
+-Djava.security.egd=file:/dev/./urandom // reduce Tomcat startup time : http://wiki.apache.org/tomcat/HowTo/FasterStartUp#Entropy_Source
+curl -v -u 'my_user:my_pass' 0.0.0.0:8080/manager/text/list
+# After adding the followin to conf/tomcat-users.xml:
+    <role rolename="admin-gui"/>
+    <role rolename="admin-script"/>
+    <user username="my_user" password="my_pass" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>
