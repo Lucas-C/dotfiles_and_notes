@@ -651,6 +651,7 @@ openstack/bandit  # Python AST-based security linter
     bandit --ini .banditrc --recursive my_proj/ # -lll to limit to HIGH severity issues
 openstack/syntribos  # automated API security testing tool
 sqlmap  # automatic SQL injection and database takeover tool
+wapiti  # "fuzzer", performs "black-box" scans of a web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data
 
 Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
 lobocv/crashreporter # store and send crash reports directly to the developers
@@ -1362,6 +1363,7 @@ with open(sys.argv[1]) as csv_file:
 aspy.yaml, yaml # !!! yaml.load() is an unsafe operation ! Use yaml.safe_load() - Also: beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 cPickle # binary format, generic, fast & lighweight - DO NOT USE IT ! -> "untrusted pickles can execute arbitrary Python code" + "you can’t even easily tell which classes are baked forever into your pickles" -> Alt: eeve/camel PyYaml-based serialization (inc. versionning & use YAML metadata)
 # + PyCloud make it possible to pickle functions dependencies
+marshmallow #, ORM/ODM validate input data against schemas + serialize or deserialize data from/into primitive Python types
 
 lz4, bz2, gzip, tarfile, zlib.compress(string), mitsuhiko/unp # to unpack any archive
 archive = zipfile.ZipFile('foo.zip', mode='w')

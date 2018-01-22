@@ -148,6 +148,11 @@ sc start com.docker.service
 sc stop com.docker.service
 ```
 
+Command executed by the Docker For Windows installer to add the current user to the `docker-users` group:
+```
+net.exe localgroup docker-users GROUPEVSC\lucas_cimonn /add
+```
+
 ### Docker exec shell
 
     cd
@@ -156,7 +161,26 @@ sc stop com.docker.service
     vim file.txt
     :set term=cons25 # to enable arrow keys
 
-### Thin pool issues
+### FAQ
+
+#### mounting <Windows path> to rootfs .../merged at ... caused "not a directory"
+
+If you have recently changed your Windows password, this is very likely the reason.
+Then you need to "Reset credentials" in Docker Settings "Shared Drives" tab, cf. https://github.com/moby/moby/issues/26822#issuecomment-340354240
+
+Egalement utile : FAQ sur la gestion des permissions avec les _shared drives_ : https://docs.docker.com/docker-for-windows/troubleshoot/#verify-domain-user-has-permissions-for-shared-drives-volumes
+
+#### Failed to connect to the database open \\.\pipe\dockerDataBase: The system cannot find the file specified.
+
+Docker restarted
+
+#### [SambaShare][Error] Unable to mount D drive: W.X.Y.Z open
+
+Appears in `%programdata%\docker\service*.txt`
+
+Open ticket: https://github.com/docker/for-win/issues/1555
+
+#### Thin pool issues
 
     docker rm $(docker ps -qf status=exited)
     docker rmi $(docker images -qf dangling=true)  # dangling == untagged images that are the leaves of the images tree

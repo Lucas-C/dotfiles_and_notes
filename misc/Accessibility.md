@@ -8,6 +8,8 @@ http://disic.github.io/rgaa_methodologie/
 
 [Kit de survie du développeur aria](http://access42.net/Kit-de-survie-du-developpeur-ARIA-1-3)
 
+[No ARIA is better than Bad ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#no_aria_better_bad_aria)
+
 Exactly 1 <h1> per page
 
 <html lang="en-US">

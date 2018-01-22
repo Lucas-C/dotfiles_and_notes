@@ -62,8 +62,7 @@ Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], re
   Worker processes TCP-connect dialog with it to pick up & execute jobs: either in the "default" tube (= channel / queue) or only jobs put in specific tubes watched
 - ActiveMQ, RabittMQ : Message queues using AMPQ - For Redis based queues, check antirez/disque before RQ or RestMQ
 - Celery/Kombu : Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
-- Nameko : python framework for building service orientated software
-- fritzy/thoonk.js / fritzy/thoonk.py : Persistent and fast push feeds, queues, and jobs
+- Nameko : Python framework for building service orientated software, includes an implementation of RPC over AMQP
 
 Some queues property from [Redis author](http://antirez.com/news/78):
 - at-most-once / at-least-once delivery property

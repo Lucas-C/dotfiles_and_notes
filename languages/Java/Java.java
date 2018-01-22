@@ -3,7 +3,6 @@ Consider Groovy (& framework Grails) > Java
 // Find a .class Java version
 javap -v $file.class | grep version
 
-/**EXPORT:
 //1-Compile
 rm -rf bin/*
 libs="src/" ; for f in lib/*.jar; do libs="$libs:$f"; done
@@ -12,12 +11,17 @@ javac -Xlint:all -cp $libs -d bin/ $(find src/ -name *.java)
 mkdir lib_extracted
 for file in $(find ../lib/ -name *.jar | grep -v 'mockito\|junit'); do jar xf $file; done
 cd ..
-jar cmf MANIFEST.MF archive.jar -C bin/ com/ -C lib_extracted/ . data/
+jar --create --file archive.jar --manifest MANIFEST.MF -C bin/ com/ -C lib_extracted/ . data/
 rm -rf lib_extracted
 //3-Run!
 java -jar archive.jar # Maybe -cp .
 // To be sure you're using the correct Java : namei $(which java)
-*/
+
+For JUnit5-tested Java9 src code:
+
+    $ javac -cp apiguardian-api-1.0.0.jar;junit-jupiter-api-5.0.3.jar -Xlint:all -d target/ $(find src/ -name *.java)
+    $ java -cp target/ main.Main
+    $ java -cp junit-platform-console-standalone-1.1.0-M1.jar;apiguardian-api-1.0.0.jar;junit-jupiter-api-5.0.3.jar;xspeedit.jar org.junit.platform.console.ConsoleLauncher -cp target/ --select-package tests --include-classname "^.*Test$"
 
 drip // JVM launcher with faster startup times - Alt: Nailgun, Cake
 

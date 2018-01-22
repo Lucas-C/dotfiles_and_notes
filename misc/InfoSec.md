@@ -93,6 +93,7 @@ http://pwnwiki.io/#!presence/windows/blind.md # read common Windows files to dis
 Metasploit
 w3af
 FuzzBunch -> used by the NSA : https://github.com/fuzzbunch/fuzzbunch
+wapiti -> modular & in Python, website "fuzzer", performs "black-box" scans of a web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data
 
 ## Dependency checking
 maven check deps: https://blog.lanyonm.org/articles/2015/12/22/continuous-security-owasp-java-vulnerability-check.html

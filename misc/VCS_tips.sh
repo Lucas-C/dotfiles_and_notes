@@ -171,6 +171,13 @@ git-identify () { # USAGE: git-identify file hash
     done
 }
 
+# Checkout GitHub pull requests locally: add the following line in corresponding .git/config section - FROM: https://gist.github.com/piscisaureus/3342247
+[remote "origin"]
+	fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+$ git fetch origin
+$ git checkout pr/999
+# Does not allow to push. One must follow this process to do so: https://help.github.com/articles/committing-changes-to-a-pull-request-branch-created-from-a-fork/
+
 
 ++++++
 + p4 +
