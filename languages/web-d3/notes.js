@@ -321,7 +321,7 @@ FGRibreau/check-build // includes:
     JSCS // code style checker
     jsinspect // check for code duplication
     buddy.js // detect magic numbers
-    David // check for package updates - Also: npm outdated - Equivalent for bower: bower list
+    depcheck : "how each dependency is used, which dependencies are useless, and which dependencies are missing from package.json" // Also: npm outdated
     Nsp // detect security vulnerabilities
 
 nyc (instanbul-based, inc. coverage) > karma-runner/karma > JsTestDriver > Qunit // Testing libs
@@ -403,8 +403,8 @@ But the plugin works great ! Demo:
         height: 0;
     }
     </style>
-	<script src="lazysizes.min.js" async=""></script>
-	<script src="lazysizes.noscript.min.js" async=""></script>
+    <script src="lazysizes.min.js" async=""></script>
+    <script src="lazysizes.noscript.min.js" async=""></script>
     </head>
     <body>
     <div class="intrinsic lazyload" data-noscript=""><noscript>

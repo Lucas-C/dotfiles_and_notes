@@ -59,6 +59,8 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Engineering a culture of psychological safety](https://blog.intercom.com/psychological-safety/)
 - [DevOps at Netflix by Josh Evans](https://www.infoq.com/podcasts/Josh-Evans-netflix)
 - [HowToMoMonitoringTheSREGoldenSignals](https://www.slideshare.net/OpsStack/how-to-monitoring-the-sre-golden-signals-ebook/)
+- [How To Establish a High Severity Incident Management Program](https://www.gremlin.com/how-to-establish-a-high-severity-incident-management-program/)
+- [STAR method of behavioral interviewing](https://www.vawizard.org/wiz-pdf/STAR_Method_Interviews.pdf)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -128,7 +130,6 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
     * Make it obvious when your team is doing well: celebrate glorious failure
     * Make your communication clear, and your expectations explicit: f you expect someone to do something for you, ask for a specific commitment – “When might this be done?”, rather than assuming everyone agrees on its urgency
     * Make your team feel safe
-
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [Why Scrum Should Basically Just Die In A Fire]
@@ -249,18 +250,19 @@ Learning is the goal during post-mortems (cf. [Learning Through Blameless Review
 - tooling: https://github.com/etsy/morgue : PHP based web application to help manage your postmortems, made by Etsy
 - FTA = Fault Tree method = Arbre des défaillances : ~ méthode des "5 whys" avec une mindmap
 - train people to handle those situations : [IncidentManagementAtGoogle]
-DOs:
-- Ne discuter que d'états, de faits et d’enchaînements d'événements
-- Agréger au maximum les informations
-- Restreindre le périmètre de l'événement de départ
-- S'arrêter de descendre dans une branche dès qu'on a plus de prise sur l'événement concerné
-- Un arbre pour les gros incidents coûteux
-DON'Ts:
-- Parler de solutions. Discuter de pistes d'analyse.
-- Etre pointilleux et chercher à détailler au maximum
-- Partir d'une défaillance trop générale
-- Modéliser ce qui n'est pas de son ressort
-- En faire à chaque fois
+- [How To Establish a High Severity Incident Management Program]
+- DOs:
+  * Ne discuter que d'états, de faits et d’enchaînements d'événements
+  * Agréger au maximum les informations
+  * Restreindre le périmètre de l'événement de départ
+  * S'arrêter de descendre dans une branche dès qu'on a plus de prise sur l'événement concerné
+  * Un arbre pour les gros incidents coûteux
+- DON'Ts:
+  * Parler de solutions. Discuter de pistes d'analyse.
+  * Etre pointilleux et chercher à détailler au maximum
+  * Partir d'une défaillance trop générale
+  * Modéliser ce qui n'est pas de son ressort
+  * En faire à chaque fois
 
 ## Documentation:
 - Tenets:
@@ -281,7 +283,7 @@ http://keepachangelog.com -> best practices & advices
 - use Doxygen / Docurium for code documentation
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
 - simple dashboard for JSON APIs : [freeboard](https://github.com/Freeboard/freeboard)
-- http://www.mkdocs.org : project documentation with Markdown
+- http://www.mkdocs.org : simple static doc website generation from Markdown, "à la" ReadTheDocs
 
 ## Coaching new hires & bringing them up to speed
 - [Onboarding and the Cost of Team Debt] = "when employees aren't properly trained, integrated, or managed, they are operating at less than optimal efficiency and "team debt" is accrued"
@@ -298,7 +300,7 @@ http://keepachangelog.com -> best practices & advices
 - prebrief, debrief, assigned competences, bar raiser
 - codility.com & cie
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [Five essential phone screen questions]
-- STAR -> Probe -> Challenge
+- [STAR method of behavioral interviewing](https://www.vawizard.org/wiz-pdf/STAR_Method_Interviews.pdf) -> Probe -> Challenge
 - some soft skills: teamwork, conflict resolution, listening, coordination...
 - sample questions:
     * describe me the organisational methods you used on past project to tackle work efficiently. E.g. todo-list, programming journal, task planning software, time & emails management...

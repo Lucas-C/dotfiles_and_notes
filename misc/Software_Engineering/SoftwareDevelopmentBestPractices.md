@@ -22,7 +22,7 @@ Software Development Best Practices
 - [Functional Programming Patterns](http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt)
 - [MicroservicesIncreaseOuterArchitectureComplexity](http://blogs.gartner.com/gary-olliffe/2015/01/30/microservices-guts-on-the-outside/)
 - [How API schemas help you make web sites fast](http://gilesbowkett.blogspot.be/2015/01/why-panda-strike-wrote-fastest-json.html#apis-and-json-schema)
-- [How to design a rest API](http://blog.octo.com/en/design-a-rest-api/) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
+- [How to design a REST API](http://blog.octo.com/en/design-a-rest-api/) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
 - [RESTful API design refcard](http://blog.octo.com/wp-content/uploads/2014/10/RESTful-API-design-OCTO-Quick-Reference-Card-2.2.pdf)
 - [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development](http://neverworkintheory.org/2011/08/31/comparing-the-defect-reduction-benefits-of-code-inspection-and-test-driven-development.html)
 - [TestPyramid](http://martinfowler.com/bliki/TestPyramid.html) & [IceCreamConeAntipattern](http://watirmelon.com/2012/01/31/introducing-the-software-testing-ice-cream-cone/)
@@ -53,6 +53,10 @@ Software Development Best Practices
 - [PreMergeCodeReviews](http://verraes.net/2013/10/pre-merge-code-reviews/)
 - [Architecture Review Working Group : Multiple Perspectives On Technical Problems and Solutions](https://www.kitchensoap.com/2017/08/12/multiple-perspectives-on-technical-problems-and-solutions/)
 - [How to Do Code Reviews Like a Human](https://mtlynch.io/human-code-reviews-1/)
+- [Testing Microservices, the sane way](https://medium.com/@copyconstruct/testing-microservices-the-sane-way-9bb31d158c16)
+- [Understanding RPC Vs REST For HTTP APIs](https://www.smashingmagazine.com/2016/09/understanding-rest-and-rpc-for-http-apis/)
+- [PUT vs PATCH vs JSON-PATCH](https://blog.apisyouwonthate.com/put-vs-patch-vs-json-patch-208b3bfda7ac)
+- [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -73,11 +77,13 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
     - Rule 4. Fancy algorithms are buggier than simple ones, and they're much harder to implement. Use simple algorithms as well as simple data structures.
     - Rule 5. Data dominates. If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident. Data structures, not algorithms, are central to programming.
 - "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
-- " Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
+- "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
 - write greppable code
 - fail fast
 - Tony Hoare null "billion-dollar mistake"
 - less is more : "best code is no code at all" & "complexity is our worst enemy"
+- [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
+
 
 ## Design principles
 where "Design" = Architecture / Organisation of the software logic
@@ -98,22 +104,55 @@ DTO/DAO:
 - Data Transfer Object : used to transfer the data between classes and modules of your application. DTO should only contain private fields for your data, getters, setters and constructors. It is not recommended to add business logic methods to such classes, but it is OK to add some util methods.
 - Data Access Object encapsulate the logic for retrieving, saving and updating data in your data storage (a database, a file-system, whatever).
 
-On APIs : [BuildingADecentAPI], [DistributedSystemsAndTheEndOfTheAPI], ![xkcd/1481](http://imgs.xkcd.com/comics/api.png), [How to design a rest API], [RESTful API design refcard]
-+ use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
-+ similarly: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
-+ WSDL = Web Service Description Language (in xml, often used with SOAP)
-+ representation for RESTful APIs: Swagger==OpenAPI / API Blueprint / APIDOC
-+ follow simple standards for server status / healthcheck like [Simple Standard Service Endpoints]
-
-On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult], [MicroservicesPleaseDont] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
-
 CQRS pattern = [CommandQueryResponsibilitySegregation] : split the code & logic between the Query path (DB -> UI) & Command path (UI -> DB)
 
 POLA = Principle of least astonishment (or surprise => POLS) : "People are part of the system. The design should match the user's experience, expectations, and mental models.
     If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature."
 
+[DesignPatternForHumans] : Ultra-simplified explanation to design patterns
+
+[SystemDesignPrimer]: how to design large-scale systems, with diagram-based examples -> Performance vs scalability / Latency vs throughput / Availability vs consistency / DNS & CDN / Load balancer / Reverse proxy / Microservices / Service discovery / RDBMS & NoSQL / Cache / Asynchronism / Communication / Security
+cf. also [DistributedSystemsAndTheEndOfTheAPI]
+
 [Architecture Review Working Group : Multiple Perspectives On Technical Problems and Solutions]:
-> Excellent, it sounds like you have a hypothesis! We are gonna do an architecture review. If it’s as obvious a solution as you think it is, it should be easy for the rest of the org to come to the same conclusion, and that will make implementing and maintaining it that much easier. If it has some downsides that aren’t apparent, we will at least have a chance to tease those out!
+> Excellent, it sounds like you have a hypothesis! We are gonna do an architecture review.
+> If it’s as obvious a solution as you think it is, it should be easy for the rest of the org to come to the same conclusion, and that will make implementing and maintaining it that much easier.
+> If it has some downsides that aren’t apparent, we will at least have a chance to tease those out!
+
+### APIs, REST vs RPC, microservices
+
+![xkcd/1481](http://imgs.xkcd.com/comics/api.png)
+
+cf. [BuildingADecentAPI]
+
+On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult], [MicroservicesPleaseDont] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
+
+REST = Representational State Transfer: [How to design a REST API], [RESTful API design refcard]
+cf. also OData ISO/IEC approved, OASIS standard, defining a set of best practices for building and consuming RESTful APIs
+or the [{json:api}](http://jsonapi.org) spec, which has a [very detailed description of how to return errors](http://jsonapi.org/format/#errors)
+
+![](http://martinfowler.com/articles/images/richardsonMaturityModel/overview.png)
+
+(taken from http://spring.io/guides/tutorials/bookmarks/)
+Dr. Leonard Richardson put together a maturity model that interprets various levels of compliance with RESTful principles, and grades them. It describes 4 levels, starting at level 0. Martin Fowler has a very good write-up on the maturity model
+
+- Level 0: the Swamp of POX - at this level, we’re just using HTTP as a transport. You could call SOAP a Level 0 technology. It uses HTTP, but as a transport. It’s worth mentioning that you could also use SOAP on top of something like JMS with no HTTP at all. SOAP, thus, is not RESTful. It’s only just HTTP-aware.
+- Level 1: Resources - at this level, a service might use HTTP URIs to distinguish between nouns, or entities, in the system. For example, you might route requests to /customers, /users, etc. XML-RPC is an example of a Level 1 technology: it uses HTTP, and it can use URIs to distinguish endpoints. Ultimately, though, XML-RPC is not RESTful: it’s using HTTP as a transport for something else (remote procedure calls).
+- Level 2: HTTP Verbs - this is the level you want to be at. If you do everything wrong with Spring MVC, you’ll probably still end up here. At this level, services take advantage of native HTTP qualities like headers, status codes, distinct URIs, and more. This is where we’ll start our journey.
+- Level 3: Hypermedia Controls - This final level is where we’ll strive to be. Hypermedia, as practiced using the HATEOAS ("HATEOAS" is a truly welcome acronym for the mouthful, "Hypermedia as the Engine of Application State") design pattern. Hypermedia promotes service longevity by decoupling the consumer of a service from intimate knowledge of that service’s surface area and topology. It describes REST services. The service can answer questions about what to call, and when. We’ll look at this in depth later.
+
+[PUT vs PATCH vs JSON-PATCH] tl;dr :
+> The existing HTTP PUT method only allows a complete replacement of a document. This proposal adds a new HTTP method, PATCH, to modify an existing HTTP resource.
+cf. also the [JSON PATCH spec](http://jsonpatch.com)
+
++ use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
++ similarly for protocols: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
++ WSDL = Web Service Description Language (in xml, often used with SOAP)
++ representation for RESTful APIs: Swagger==OpenAPI / API Blueprint / APIDOC
++ follow simple standards for server status / healthcheck like [Simple Standard Service Endpoints]
++ alternative to REST: [JSON RPC](http://www.jsonrpc.org/specification) cf. [Understanding RPC Vs REST For HTTP APIs]!
+  > REST brings some constraints, e.g. your API must be stateless (no session persistance)
+  > RPC-based APIs are great for actions [while] REST-based APIs are great for modeling your domain
 
 
 ## Design smells
@@ -239,6 +278,13 @@ What are logs used for ?
     * GUI testing, e.g. with Selenium: Capybara, SauceLabs, RobotFramework
     * [Why do record/replay tests of web applications break?] : "Our data suggests which categories of test breakages merit the greatest attention. Locators caused over 73% of the test breakages we observed, and attribute-based locators caused the majority of these."
     * the [TestPyramid]: ![](http://martinfowler.com/bliki/images/testPyramid/pyramid.png) : more low-level tests than high level end-to-end tests
+- [Testing Microservices, the sane way]:
+    * "Devs should be able to run entire env locally. Anything else is just a sign of bad tooling"
+    * "pre-production testing is a best effort verification of a small subset of the guarantees of a system and often can prove to be grossly insufficient for long running systems with protean traffic patterns"
+    * "The writing and running of tests is not a goal in and of itself — EVER. We do it to get some benefit for our team, or the business"
+    * "there are coverage based fuzzers like afl as well as tools like the address sanitizer, thread sanitizer, memory sanitizer, undefined behavior sanitizer and the leak sanitizer to name a few."
+    * "This was but one example of a system that didn’t stand much to benefit from integration testing and where monitoring has worked much better."
+
 
 ### Why unit tests ? [PP-Chapt34]
 - build trust in your code

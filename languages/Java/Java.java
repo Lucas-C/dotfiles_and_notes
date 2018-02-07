@@ -62,6 +62,7 @@ Jersey // RESTful Web Services
 Spring Batch, Apach nifi // ETL systems, handle graphs of data routing & transformation
 
 Kryo + Snappy // very efficient object serialization + compression used in VSCT
+airlift/aircompressor // A port of Snappy, LZO and LZ4 compression libs in pure Java, 10-40% faster
 
 OpenJDK JMH // Benchmark tool
 
@@ -334,7 +335,7 @@ IntStream.range(1, 4) // Another use example: IntStream.iterate(0, i -> i + 2).l
         .forEach(f.bars::add))
     .flatMap(f -> f.bars.stream())
     .forEach(b -> System.out.println(b.name));
-    
+
 // try-with-resources: any object that implements java.lang.AutoCloseable, which includes java.io.Closeable ones:
 try (BufferedReader br = new BufferedReader(new FileReader(path))) {
     return br.readLine();

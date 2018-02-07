@@ -60,9 +60,12 @@ Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], re
 - beanstalkd : KISS fast work queue, with lots of existing tools & libs in various languages -> its protocol spec is short & simple to read & understand
   The deamon keeps the jobs states: ready (available for workers to pick up) / reserved (beeing processed by a worker) / delayed (waiting N seconds before being ready) / buried (failed & queued for debug)
   Worker processes TCP-connect dialog with it to pick up & execute jobs: either in the "default" tube (= channel / queue) or only jobs put in specific tubes watched
-- ActiveMQ, RabittMQ : Message queues using AMPQ - For Redis based queues, check antirez/disque before RQ or RestMQ
+- ActiveMQ, RabbitMQ : Message queues using AMPQ - For Redis based queues, check antirez/disque before RQ or RestMQ
+  * [Key metrics for RabbitMQ monitoring](https://www.datadoghq.com/blog/rabbitmq-monitoring/)
 - Celery/Kombu : Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
 - Nameko : Python framework for building service orientated software, includes an implementation of RPC over AMQP
+- fireworq : lightweight, high-performance job queue system, based on MySQL
+- NSQ : distributed and decentralized messaging platform, written in Go (with Python lib available), agnostic to the message format (JSON, MSgPack, protocol buffers... are supported)
 
 Some queues property from [Redis author](http://antirez.com/news/78):
 - at-most-once / at-least-once delivery property

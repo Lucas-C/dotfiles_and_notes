@@ -657,6 +657,7 @@ Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, 
 lobocv/crashreporter # store and send crash reports directly to the developers
 
 # Packaging (cf. https://packaging.python.org)
+pyroma # gives a rating of how well a project complies with the best practices of the Python packaging ecosystem, primarily PyPI, pip, Distribute etc.
 twine # alternative to executing setup.py, provide HTTPS connexion to Pypi, file signing & control over packaging format - Alt: flit
 setuptools_scm, vcversioner  # manage your setup.py versions by scm tags
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil & zipapp to generates .pyz from v3.5 -> those "Python ZIP Applications" are associated to the Python executable under Windows
@@ -688,7 +689,7 @@ behave # Behavior Driven Development - Comparison with alts: https://pythonhoste
 brodie/cram # generic command-line app testing
 import capsys # capture stdin/out
 import tmpdir # generate a tmp dir for the time of the unit test
-import hypothesis # feed you test with known to break edge cases
+import hypothesis # feed you test with known to break edge cases - "based on a fuzzer-kind of mechanics where data generation is based off a byte stream that can get higher or lower in complexity"
 
 with capture_stderrout() as (stdout, stderr): # Recipe from http://stackoverflow.com/a/17981937/636849
 
@@ -754,6 +755,7 @@ HTML('<img src="data:image/png;base64,{0}"/>'.format(img_base64))
 colorsys # rgb / yiq / hls / hsv conversions
 
 # PDB tricks
+import sys; from subprocess import call; call(['/usr/bin/bash'], stderr=sys.stderr, stdin=sys.stdin, shell=True) # launch an interactive Bash session
 !p = ... / !list(...) # make it possible to start a cmdline with pdb commands
 !import code; code.interact(local=vars()) # simply `interact` in Python 3
 debug foo() # step into a function with pdb
@@ -1210,6 +1212,7 @@ pystack # create modifiable TCP/IP stacks, based on scapy & netfilter
 pypcap # catpure network traffic
 kevin1024/vcrpy # record / replay HTTP interactions
 impacket # programmatic access to the packets and for some protocols: IP, TCP, UDP, ICMP, IGMP, ARP, NMB, DCE/RPC, SMB1-3 and MS-DCERPC
+py2bpf # Python to Berkeley Packet Filter bytecode converter
 wifi # wrapper around iwlist and /etc/network/interfaces
 kootenpv/access_points # scan your WiFi and get access point information and signal quality
 tn = telnetlib.Telnet('example.com')

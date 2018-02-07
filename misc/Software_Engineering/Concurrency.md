@@ -21,7 +21,6 @@ Concurrency
 - Dining Philosophers
 
 ## Architecture patterns
-- REST = Representational State Transfer
 - PubSub aka Publish/Subscribe aka message bus.
     * Examples: AMQP, MQTT, DDS, JMS, CORBA (with either push/pull mode)
     * https://encrypted.google.com/books?id=RxsyCBr9eLMC
@@ -33,6 +32,10 @@ Concurrency
     * a forum where consumers & producers can exchange data anonymously & asynchronously.
     * can be though as distributed shared associative memory
     * E.g. JavaSpaces operations: read, write, take (pop), notify (set a notification to occur on a write matching a template)
+- [Flux](https://github.com/facebook/flux/tree/master/examples/flux-concepts)
+    1. Views send actions to the dispatcher.
+    2. The dispatcher sends actions to every store.
+    3. Stores send data to the views.
 
 ## Advices
 - analyze workflow with a simple UML activity diagram [PP-Chapt18]
