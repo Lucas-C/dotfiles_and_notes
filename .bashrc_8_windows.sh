@@ -53,7 +53,7 @@ atom () {
 }
 
 NPP_BIN='/cygdrive/c/Program Files/Notepad++/notepad++.exe'
-test -e "$NPP_BIN" || NPP_BIN_PATH="/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe"
+test -e "$NPP_BIN" || NPP_BIN="/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe"
 npp () {
     for f in "$@"; do
         "$NPP_BIN" $(convertWinArgs "$f")
