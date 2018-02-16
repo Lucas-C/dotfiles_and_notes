@@ -645,9 +645,9 @@ rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ;
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')
 
-ldapsearch -x -d 1 # simple command for basic diagnosis - from pkg openldap-clients
+ldapsearch -x -d 1 # simple command for basic diagnosis - from pkg openldap-clients / ldap-utils
 ldapsearch -LLL -u -x "(uid=$username)"
-ldapsearch -x -H "ldaps://$HOSTNAME:51200" -LLL -D "CN=DUPONT Martin,OU=Users,OU=SIGLE,DC=company,DC=com" -b "DC=company,DC=com" -W "(&(sAMAccountName=martin_dupont))" -d 1
+LDAPTLS_REQCERT=never ldapsearch -x -H "ldaps://$HOSTNAME:51200" -LLL -D "CN=DUPONT Martin,OU=Users,OU=SIGLE,DC=company,DC=com" -b "DC=company,DC=com" -W "(&(sAMAccountName=martin_dupont))" -d 1
 TLS_REQCERT never # in /etc/openldap/ldap.conf
 
 iptables -A INPUT -s $host -j DROP

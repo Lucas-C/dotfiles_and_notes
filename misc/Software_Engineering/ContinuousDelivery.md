@@ -58,10 +58,16 @@ Jenkinsfile linter (`$API_TOKEN` can be retrieved from `$JENKINS_URL/user/$USER_
 curl --verbose $JENKINS_URL/job/$JOB_NAME/1/replay/checkScriptCompile --user "$USER_NAME:$API_TOKEN" --data-urlencode value@Jenkinsfile
 ```
 
-Equivalent of `docker.image($img).inside($args) {}` in CLI:
+Equivalent of `docker.image($img).inside($args) {}` in CLI: (cf. https://github.com/jenkinsci/docker-workflow-plugin/blob/master/src/main/resources/org/jenkinsci/plugins/docker/workflow/Docker.groovy )
 ```
-docker run -it -w $PWD -v $PWD:$PWD $args $img sh script.sh 
+docker run -it -w $PWD -v $PWD:$PWD $args $img sh script.sh
 ```
+
+### Credentials
+Retrieving an encrypted secret value from `credentials.xml` -> in Groovy script window: (tip from https://stackoverflow.com/a/37683492/636849 )
+
+    println( hudson.util.Secret.decrypt("${ENCRYPTED_PASSPHRASE_OR_PASSWORD}") )
+
 
 ### Pipeline Shared Libs
 

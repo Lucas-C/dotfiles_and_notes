@@ -64,7 +64,7 @@
     # List files by commit count to detect "hotspots" - Alt: garybernhardt/dotfiles/bin/git-churn
     commits-heatmap = "!git ls-tree -r -z --name-only HEAD | xargs -0 -n1 -I{} sh -c 'echo $(git rev-list HEAD --count {}) {}' | sort -n"
 
-    ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'{}  %h  %cr\n' {}^{commit} | sort --version-sort"
+    ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'{}  %h  %cd\n' {}^{commit} | sort --version-sort"
     # List all [Labels] in commit msgs, stripping digits
     ls-labels = "!git log --pretty=format:%s | sed -e 's/[0-9]//g' -e 's/^Revert \"//' -e 's/\\(\\[[^]]\\+\\]\\)[^[]*/\\1\\n/g' | grep -F [ | sort | uniq -c"
 
@@ -85,7 +85,7 @@
     pager = less -FMRiX
     trustctime = false
     eol = lf
-	autocrlf = false
+    autocrlf = false
     # To share the same CRLF settings: echo '*.txt -crlf' > .gitattributes
 
 [credential]

@@ -60,14 +60,18 @@ Software Development Best Practices
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
-## Main "mantras"
-![](https://chezsoi.org/lucas/wwcb/photos/BoyScoutRule.jpg)
-- [Boy Scout Rule](http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule) & Broken Window Theory
+## Main design "mantras"
 - KISS & YAGNI : Keep It Simple, Stupid & You Aren't Gonna Need It
 - Duplication : DRY ! Once, and only once. [CC-G5] but not too DRY: [WhenToRepeatYourself]
-    switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
-    similar algorithm            -> template method / strategy pattern
-- Code Fearlessly & implement alternative code versions in parallel [JC-PP]
+    * switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
+    * similar algorithm            -> template method / strategy pattern
+- less is more : "best code is no code at all" & "complexity is our worst enemy"
+- fail fast
+- [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
+- Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
+- Favor idempotent operations, i.e. "that has no additional effect if it is called more than once with the same input parameters".
+
+### On optimization & readability
 - "About 97% of the time: **premature optimization is the root of all evil**." - Donald Knuth, 1974
 - "Optimization work is so appealing, with incremental and objective rewards, but it is easy to overestimate value relative to other tasks" - John Carmack, 2015
 - Rob Pike's 5 rules of optimizations:
@@ -76,13 +80,82 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
     - Rule 3. Fancy algorithms are slow when n is small, and n is usually small. Fancy algorithms have big constants. Until you know that n is frequently going to be big, don't get fancy. (Even if n does get big, use Rule 2 first.)
     - Rule 4. Fancy algorithms are buggier than simple ones, and they're much harder to implement. Use simple algorithms as well as simple data structures.
     - Rule 5. Data dominates. If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident. Data structures, not algorithms, are central to programming.
+
 - "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
 - "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
 - write greppable code
-- fail fast
-- Tony Hoare null "billion-dollar mistake"
-- less is more : "best code is no code at all" & "complexity is our worst enemy"
-- [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
+
+### Performance-oriented design advices
+- Data/Object anti-symetry : both have different use-cases [CC-Chapt6]
+    * "Objects hide their data behind abstractions and expose functions that operate one data"
+    * "Data structures expose their data and have no meaningful functions"
+- for high performances, OOP is a bad idea, think Data Oriented Design instead
+
+- know the order of magnitude it takes to perform various operations on a computer : cf. [LatencyNumbersEveryProgrammerShouldKnow] & [ResponseTimes-The3ImportantLimits] :
+    * 0.1 second is about the limit for having the user feel that the system is reacting instantaneously, meaning that no special feedback is necessary except to display the result.
+    * 1.0 second is about the limit for the user's flow of thought to stay uninterrupted, even though the user will notice the delay.
+    Normally, no special feedback is necessary during delays of more than 0.1 but less than 1.0 second, but the user does lose the feeling of operating directly on the data.
+    * 10 seconds is about the limit for keeping the user's attention focused on the dialogue.
+    For longer delays, users will want to perform other tasks while waiting for the computer to finish, so they should be given feedback indicating when the computer expects to be done.
+    Feedback during the delay is especially important if the response time is likely to be highly variable, since users will then not know what to expect.
+
+
+## Good work habits / self-organization
+![](https://chezsoi.org/lucas/wwcb/photos/BoyScoutRule.jpg)
+- [Boy Scout Rule](http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule) & Broken Window Theory
+- Code Fearlessly & implement alternative code versions in parallel [JC-PP]
+- When debugging, **THINK** before going on step-by-step debug mode [RobPikeKenThompson]. [A longer quote on print-traces debugging VS debuggers](http://taint.org/2007/01/08/155838a.html)
+- [Rubber duck programming](https://en.wikipedia.org/wiki/Rubber_duck_debugging)
+
+### Be rigorous and clean after yourself
+- Be consistent : be careful with the conventions you choose, and follow them strictly. E.g. stick with one word per concept. [CC-G11]
+- Structure over convention : e.g. base clase enforce interface whereas switch/case can contain anything [CC-G27]
+- Don't override safeties : e.g. turning off compiler warnings or some failing tests. Think about Chernobyl ! [CC-G4]
+- Remove dead code : unused function, impossible "if" condition, useless try/catch... [CC-F4] [CC-G9] [CC-G12]
+
+### [On beeing a senior engineer](http://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/)
+- Mature engineers seek out constructive criticism of their designs.
+- Mature engineers understand the non-technical areas of how they are perceived.
+- Mature engineers do not shy away from making estimates, and are always trying to get better at it.
+- Mature engineers have an innate sense of anticipation, even if they don’t know they do.
+- Mature engineers understand that not all of their projects are filled with rockstar-on-stage work.
+- Mature engineers lift the skills and expertise of those around them.
+- Mature engineers make their trade-offs explicit when making judgements and decisions.
+- Mature engineers don’t practice CYAE (“Cover Your Ass Engineering”)
+- Mature engineers are empathetic.
+- Mature engineers don’t make empty complaints.
+- Mature engineers are aware of cognitive biases
+    * [Self-Serving Bias](//en.wikipedia.org/wiki/Self-serving_bias)
+    * [Fundamental Attribution Error](//en.wikipedia.org/wiki/Fundamental_attribution_error)
+    * [Hindsight Bias ](//en.wikipedia.org/wiki/Hindsight_bias)
+    * [Outcome Bias](//en.wikipedia.org/wiki/Outcome_bias)
+    * [Planning Fallacy](//en.wikipedia.org/wiki/Planning_fallacy)
+    * [Belief bias](//en.wikipedia.org/wiki/Belief_bias)
+    * [Confirmation bias](//en.wikipedia.org/wiki/Confirmation_bias) & [Experimenter's bias](//en.wikipedia.org/wiki/Experimenter%27s_bias)
+    * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy) : misgivings about "wasting" resources, feeling you have to do something because you've passed the point of no return aka "coûts irrécupérables" aka "effet Concorde" aka "Vietnam effect" cf. [Crétin de Cerveau](https://www.youtube.com/watch?v=GCmfXMMhRzk)
+    * [Cargo cult](//en.wikipedia.org/wiki/Cargo_cult) of a new technology / design pattern
+    * [Groupthink symptoms](//en.wikipedia.org/wiki/Groupthink#Symptoms)
+    * Spurious correlations: Correlation != causality, aka "post hoc ergo propter hoc" aka "effet cigogne" (cf. eponymous website & e-penser video "le lieu le plus dangereux de France" = le lit)
+    * [Dunning-Kruger Effect](//en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect) : "relatively unskilled individuals suffer from illusory superiority, mistakenly assessing their ability to be much higher than it really is"
+    * [Simpson’s Paradox](//blog.forrestthewoods.com/my-favorite-paradox-14fab39524da)
+    * [Imposter Syndrom](https://www.laserfiche.com/simplicity/shut-up-imposter-syndrome-i-can-too-program/) + https://opensource.com/sitewide-search?search_api_views_fulltext=imposter%20syndrome
+    * [Completion Bias](http://jkglei.com/momentum/)
+    * [XY Problem](http://xyproblem.info)
++ [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
+
+"When facing extremely short, ambitious deadlines, one knows there are a dozen good things one can do, but very little feels justifiable in the face of a crisis, except writing code as fast as possible." [What happens when the Board Of Directors begins to panic?]
+
+### The Ten Commandments of Egoless Programming
+- Understand and accept that you will make mistakes.
+- You are not your code.
+- No matter how much “karate” you know, someone else will always know more.
+- Don’t rewrite code without consultation.
+- Treat people who know less than you with respect, deference, and patience.
+- The only constant in the world is change. Be open to it and accept it with a smile.
+- The only true authority stems from knowledge, not from position.
+- Fight for what you believe, but gracefully accept defeat.
+- Don’t be “the coder in the corner.”
+- Critique code instead of people – be kind to the coder, not to the code.
 
 
 ## Design principles
@@ -149,13 +222,24 @@ cf. also the [JSON PATCH spec](http://jsonpatch.com)
 + similarly for protocols: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
 + representation for RESTful APIs: Swagger==OpenAPI / API Blueprint / APIDOC
+cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-generated doc & server mocks + auto integration testing with [dredd](https://github.com/apiaryio/dredd) + has a free plan
 + follow simple standards for server status / healthcheck like [Simple Standard Service Endpoints]
 + alternative to REST: [JSON RPC](http://www.jsonrpc.org/specification) cf. [Understanding RPC Vs REST For HTTP APIs]!
   > REST brings some constraints, e.g. your API must be stateless (no session persistance)
   > RPC-based APIs are great for actions [while] REST-based APIs are great for modeling your domain
 
+### The UNIX Philosophy by Mike Gancarz
+1. Small is beautiful.
+2. Make each program do one thing well.
+3. Build a prototype as soon as possible.
+4. Choose portability over efficiency.
+5. Store data in flat text files.
+6. Use software leverage to your advantage.
+7. Use shell scripts to increase leverage and portability.
+8. Avoid captive user interfaces.
+9. Make every program a filter.
 
-## Design smells
+### Design smells
 - "Thin" classes. Ideally, a class should have a very simple interface that hides a lot of functionality and internal complexity. [SDP]
     Too much information : hide you data, hide your utility functions, hide your constants & temporaries, concentrate on keeping small interfaces to keep coupling low [CC-G8]
 - Code at wrong level of abstraction : e.g. functions should descend only one level of abstraction [CC-G6] [CC-G34]
@@ -170,13 +254,12 @@ cf. also the [JSON PATCH spec](http://jsonpatch.com)
 There was probably a good reason for why things were done the way they were. Be especially sympathetic to consistency,
 even if you don’t necessarily agree with the design or technology choices."
 
-## Be rigorous and clean after yourself
-- Be consistent : be careful with the conventions you choose, and follow them strictly. E.g. stick with one word per concept. [CC-G11]
-- Structure over convention : e.g. base clase enforce interface whereas switch/case can contain anything [CC-G27]
-- Don't override safeties : e.g. turning off compiler warnings or some failing tests. Think about Chernobyl ! [CC-G4]
-- Remove dead code : unused function, impossible "if" condition, useless try/catch... [CC-F4] [CC-G9] [CC-G12]
 
-## Code intent should be obvious
+## Code programming best practices
+- Use the idioms of the programming language employed, aka "Don't write C code in Java"
+- Avoid multiple languages in one source file [CC-G1]
+
+### Code intent should be obvious
 - Understand the algorithm first [CC-G21]
 - Don't be arbitrary, you must be able to justify any decision in your code [CC-G32]
 - Use explanatory variables [CC-G19]
@@ -184,14 +267,14 @@ even if you don’t necessarily agree with the design or technology choices."
 - Conditionals : encapsulate them instead of making and/or combinations inline, avoid double negation [CC-G28] [CC-29]
 - Obscured intent : in doubt, detail your motivation as comments [CC-G16]
 
-## Code formatting
+### Code formatting
 - Keep source files short !
 - Write top-down code that reads like a narrative [CC-Chapt2]
 - Vertical separation : define things close to where they are used [CC-G10]
 - Do not line up variable names in a set of declarations/assignement statements [CC-Chapt5]
 - keep lines length short (~80char) because it keeps the code readable + one can view multiple files at the same time, side by side (+ it is the Python pep std)
 
-## Names
+### Names
 Take the time to choose descriptive names. Naming things is a great power, it comes with great responsabilities [CC-N1]
 
 - Some good characteristics : intention-revealing, pronounceable, searchable. [CC-Chapt1]
@@ -218,7 +301,7 @@ Take the time to choose descriptive names. Naming things is a great power, it co
     * Remove Thoughtless One-Time Variables -> I DISAGREE
     * Use Short OTVs to Break Up Long Lines & Complicated Expressions
 
-## Functions smells
+### Functions smells
 - Too long [CC-Chapt2]
 - Do too many things : split long imperative code in short functions that do ONE thing, and take good care of their naming [CC-Chapt2] [CC-G30]
 - Has too many levels of abstraction [CC-Chapt2]
@@ -227,7 +310,7 @@ Take the time to choose descriptive names. Naming things is a great power, it co
 - Flag or selector arguments (boolean) [CC-F3] [CC-G15]
 - A () { B; C; D; } is better than A () { B } B () { C } C () { D } [Brandon Rhodes]
 
-## Comments smells
+### Comments smells
 - Inappropriate information : change history, author... [CC-C1]
 - Obsolete comment [CC-C2]
 - Redundant comment : e.g. useless Javadoc [CC-C3]
@@ -235,7 +318,7 @@ Take the time to choose descriptive names. Naming things is a great power, it co
 - Commented-out code [CC-C5]
 Don't use comments when you can use a function/variable to expresse the intent [CC-Chapt4]
 
-## Error handling
+### Error handling
 - Handle as many errors as possible locally, but export as few errors as possible [SDP]
 - Use unchecked exceptions over return codes & checked exceptions
 - Provide context with exceptions : chain them [CC-Chapt7]
@@ -245,7 +328,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
     * Raise an exception
     * Use a functional "Optional" construct
 
-## Logs
+### Logs
 From [DontReadYourLogs]: "The next time you start to write a log line, ask yourself whether another observability tool would be a better fit."
 What are logs used for ?
 - metrics -> use `statsd.Histogram` or something similar
@@ -253,12 +336,12 @@ What are logs used for ?
 - durable records -> use a DB
 - debug tracing -> use something like Zipkin
 
-## Build system smells
+### Build system smells
 - Build requires more than one step [CC-E1]
 - Tests require more than one step [CC-E2]
 - Build is too long to complete
 
-## Tests
+### Tests
 - F.I.R.S.T tests : Fast Independent Repeatable Self-Validating Timely (written just before prod code) [CC-Chapt9]
 - One assert/concept per test [CC-Chapt9]
 - Insufficient tests : use a coverage tool ! [CC-T1] [CC-T2] An ignored test is a question about an ambiguity [CC-T4]
@@ -286,13 +369,13 @@ What are logs used for ?
     * "This was but one example of a system that didn’t stand much to benefit from integration testing and where monitoring has worked much better."
 
 
-### Why unit tests ? [PP-Chapt34]
+#### Why unit tests ? [PP-Chapt34]
 - build trust in your code
 - build regression tests, helpful for later refactoring
 - show examples of how to use your code
 - explicitely details the code behaviour on corner cases
 
-## Code review > TDD [CRoTDD]
+### Code review > TDD [CRoTDD]
 cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development] & [Why code review beats testing: evidence from decades of programming research]
 * You **need** TDD !! (or at least some kind of automated systematic testing) [QETDDM]
 * TDD: automated, easy to follow, autonomously done
@@ -309,7 +392,7 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
   7. Frame feedback as requests, not commands
   8. Tie notes to principles, not opinions
 
-### Code reviews guidelines (from @scharrier)
+#### Code reviews guidelines (from @scharrier)
 Pour tout le monde
 - je fais preuve d’empathie
 - je reste humble
@@ -340,89 +423,16 @@ cf. https://speakerdeck.com/scharrier/code-review-devfest-nantes
 + [11 proven practices for more effective, efficient peer code review](https://www.ibm.com/developerworks/rational/library/11-proven-practices-for-peer-review/)
 + [Best Kept Secrets of Peer Code Review](https://smartbear.com/SmartBear/media/pdfs/best-kept-secrets-of-peer-code-review.pdf)
 
+
 ## Functional programming
 cf. [Functional Programming Patterns]
 - _"Don't trust the name - trust the signature"_
 - "Domain modelling pattern" : use types to represent constraints, _avoid "primitive obsession"_
 - Tail Call Optimization (TCO) : sometimes implemented with a _trampoline_ design pattern
 
-## General
-- Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
-- Favor idempotent operations, i.e. "that has no additional effect if it is called more than once with the same input parameters".
-
-- Data/Object anti-symetry : both have different use-cases [CC-Chapt6]
-    * "Objects hide their data behind abstractions and expose functions that operate one data"
-    * "Data structures expose their data and have no meaningful functions"
-- for high performances, OOP is a bad idea, think Data Oriented Design instead
-
-- Avoid multiple languages in one source file [CC-G1]
-- Use the idioms of the programming language employed, aka "Don't write C code in Java"
-- When debugging, **THINK** before going on step-by-step debug mode [RobPikeKenThompson]. [A longer quote on print-traces debugging VS debuggers](http://taint.org/2007/01/08/155838a.html)
-
-- know the order of magnitude it takes to perform various operations on a computer : cf. [LatencyNumbersEveryProgrammerShouldKnow] & [ResponseTimes-The3ImportantLimits] :
-    * 0.1 second is about the limit for having the user feel that the system is reacting instantaneously, meaning that no special feedback is necessary except to display the result.
-    * 1.0 second is about the limit for the user's flow of thought to stay uninterrupted, even though the user will notice the delay.
-    Normally, no special feedback is necessary during delays of more than 0.1 but less than 1.0 second, but the user does lose the feeling of operating directly on the data.
-    * 10 seconds is about the limit for keeping the user's attention focused on the dialogue.
-    For longer delays, users will want to perform other tasks while waiting for the computer to finish, so they should be given feedback indicating when the computer expects to be done.
-    Feedback during the delay is especially important if the response time is likely to be highly variable, since users will then not know what to expect.
-
-## The UNIX Philosophy by Mike Gancarz
-1. Small is beautiful.
-2. Make each program do one thing well.
-3. Build a prototype as soon as possible.
-4. Choose portability over efficiency.
-5. Store data in flat text files.
-6. Use software leverage to your advantage.
-7. Use shell scripts to increase leverage and portability.
-8. Avoid captive user interfaces.
-9. Make every program a filter.
-
-## [On beeing a senior engineer](http://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/)
-- Mature engineers seek out constructive criticism of their designs.
-- Mature engineers understand the non-technical areas of how they are perceived.
-- Mature engineers do not shy away from making estimates, and are always trying to get better at it.
-- Mature engineers have an innate sense of anticipation, even if they don’t know they do.
-- Mature engineers understand that not all of their projects are filled with rockstar-on-stage work.
-- Mature engineers lift the skills and expertise of those around them.
-- Mature engineers make their trade-offs explicit when making judgements and decisions.
-- Mature engineers don’t practice CYAE (“Cover Your Ass Engineering”)
-- Mature engineers are empathetic.
-- Mature engineers don’t make empty complaints.
-- Mature engineers are aware of cognitive biases
-    * [Self-Serving Bias](//en.wikipedia.org/wiki/Self-serving_bias)
-    * [Fundamental Attribution Error](//en.wikipedia.org/wiki/Fundamental_attribution_error)
-    * [Hindsight Bias ](//en.wikipedia.org/wiki/Hindsight_bias)
-    * [Outcome Bias](//en.wikipedia.org/wiki/Outcome_bias)
-    * [Planning Fallacy](//en.wikipedia.org/wiki/Planning_fallacy)
-    * [Belief bias](//en.wikipedia.org/wiki/Belief_bias)
-    * [Confirmation bias](//en.wikipedia.org/wiki/Confirmation_bias) & [Experimenter's bias](//en.wikipedia.org/wiki/Experimenter%27s_bias)
-    * [Sunk cost fallacy](//en.wikipedia.org/wiki/Sunk_costs#Loss_aversion_and_the_sunk_cost_fallacy) : misgivings about "wasting" resources, feeling you have to do something because you've passed the point of no return aka "coûts irrécupérables" aka "effet Concorde" aka "Vietnam effect" cf. [Crétin de Cerveau](https://www.youtube.com/watch?v=GCmfXMMhRzk)
-    * [Cargo cult](//en.wikipedia.org/wiki/Cargo_cult) of a new technology / design pattern
-    * [Groupthink symptoms](//en.wikipedia.org/wiki/Groupthink#Symptoms)
-    * Spurious correlations: Correlation != causality, aka "post hoc ergo propter hoc" aka "effet cigogne" (cf. eponymous website & e-penser video "le lieu le plus dangereux de France" = le lit)
-    * [Dunning-Kruger Effect](//en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect) : "relatively unskilled individuals suffer from illusory superiority, mistakenly assessing their ability to be much higher than it really is"
-    * [Simpson’s Paradox](//blog.forrestthewoods.com/my-favorite-paradox-14fab39524da)
-    * [Imposter Syndrom](https://www.laserfiche.com/simplicity/shut-up-imposter-syndrome-i-can-too-program/) + https://opensource.com/sitewide-search?search_api_views_fulltext=imposter%20syndrome
-    * [Completion Bias](http://jkglei.com/momentum/)
-    * [XY Problem](http://xyproblem.info)
-+ [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
-
-"When facing extremely short, ambitious deadlines, one knows there are a dozen good things one can do, but very little feels justifiable in the face of a crisis, except writing code as fast as possible." [What happens when the Board Of Directors begins to panic?]
-
-### The Ten Commandments of Egoless Programming
-- Understand and accept that you will make mistakes.
-- You are not your code.
-- No matter how much “karate” you know, someone else will always know more.
-- Don’t rewrite code without consultation.
-- Treat people who know less than you with respect, deference, and patience.
-- The only constant in the world is change. Be open to it and accept it with a smile.
-- The only true authority stems from knowledge, not from position.
-- Fight for what you believe, but gracefully accept defeat.
-- Don’t be “the coder in the corner.”
-- Critique code instead of people – be kind to the coder, not to the code.
 
 ## Fun quotes
+- Tony Hoare null "billion-dollar mistake"
 - OCTDD : Obsessive Compulsive Test Driven Development
 - Doug McIlroy replacement for Donald Knuth's 10+ pages of Pascal illustrating literate programming: 6 lines of shell
     tr -cs A-Za-z '\n' |

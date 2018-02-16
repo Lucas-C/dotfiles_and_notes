@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Starting points:
 # * Learning test 1
 #   - files: hosts ansible.cfg
@@ -7,7 +9,7 @@
 #   - command: ansible-playbook -i hosts poll_test.yaml
 #   - same through Python API:
 
-# Must be done before other ansible imports
+# This must be configured before other ansible imports:
 from ansible.utils.display import Display
 display = Display()  # this variable name is an ansible convention and is imported from ansible code with `from __main__ import display`
 display.verbosity = 3
@@ -17,6 +19,7 @@ from ansible.inventory.manager import InventoryManager
 from ansible.parsing.dataloader import DataLoader
 from ansible.vars.manager import VariableManager
 from ansible.executor.playbook_executor import PlaybookExecutor
+
 
 playbook_filepath = 'poll_test.yaml'
 hosts_filepath = 'hosts'

@@ -18,7 +18,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [BeautifulDocs](https://github.com/PharkMillups/beautiful-docs)
 - [WriteTheDocs](http://docs.writethedocs.org)
 - [WhatToWrite](http://jacobian.org/writing/what-to-write/)
-- [FrontendJobInterviewQuestions](https://github.com/h5bp/Front-end-Developer-Interview-Questions)
+- [FrontendJobInterviewQuestions](https://github.com/h5bp/Front-end-Developer-Interview-Questions) & [Front End Interview Handbook](https://github.com/yangshun/front-end-interview-handbook)
 - [#gamedev Lead Quick Start Guide](http://web.archive.org/web/20140701034212/http://www.altdev.co/2013/11/05/gamedev-lead-quick-start-guide/)
 - [What happens when you type google.com into your browser and press enter?](https://github.com/alex/what-happens-when)
 - [JoeStumpTechnicalInterviewQuestions](http://stu.mp/2012/10/my-patent-pending-3-question-technical-interview.html)
@@ -140,6 +140,8 @@ It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, 
 
 In general, limit meetings by making them informal chats or doing them properly: agenda (skip if empty), few participants, time-boxed, clustered on some days in the week, take notes & record team decisions [Minimum Viable Bureaucracy]
 
+[Liberating Structures](http://www.liberatingstructures.com) 33 microstructures to replace more controlling or constraining meetings
+
 ## Retrospectives
 cf. [RetrospectiveWiki]
 - Content/Pas content/A améliorer/A continuer/A arrêter/Questions
@@ -185,6 +187,7 @@ cf. [RetrospectiveWiki]
 | Le rétro Vendée-Globe                   | Le niveau d'énergie de l'équipe en fin de sprint2. serious-game / team building : le canot de sauvetageDans ce jeu, nous incarnons des passagers de l'équipage d'un bateau en difficulté. Heureusement nous avons réussi à embarquer dans un canot de sauvetage. Malheureusement, le canot s’est retourné et les vivres sont de l’autre côté. But du jeu, retourner le canot sans tomber à l’eau ! 3. La rétro  Le bilan de sprint, avec toutes les étapes de la rétro : Sprint 49 PAOLa source d'inspiration : Touzeau Ludovic                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | Dongeons & Dragons                      | Serious-game / team-building : Le Nexus Zoo, le scaling agileLe but est de fabriquer à 3 équipes le fascicule d'un zoo. Chaque page est une US, mais des contraintes transverses apparaissent rapidement...   Cet exercice nous a permis de voir que le travail en plusieurs équipes nécessite une bonne communication sur les problèmes transverses, et nécessite d'anticiper les goulets d'étranglement.Inspiration : http://tastycupcakes.org/2016/07/nexus-zoo-a-scaling-simulator/ La rétrospectivea. Le niveau de vie de l'équipe en fin de sprint (thème : Dongeons & Dragons)Chaque membre de l'équipe est invité à indiquer son niveau de points de vie dans la jauge de PdVb. La rétroDans cette rétrospective, nous nous glissons dans la peau d'un héros, qui vient de terminer un aventure épique (le sprint 50 PAO !)On partage les éléments de notre aventure :    Sprint 50 PAOinspiration : Nasse Sylvain                                                                                                 |
 | Happy New Year !                        | On retrospecte l'année écoulée et on prend de bonnes résolutions !timeline année n-1 : demander de recenser les événements marquants du projet (succès, échecs, départs, arrivées, etc.)les positionner sur la fresquedemander ensuite à chacun de réfléchir puis de dessiner sa courbe de morale pendant cette année (smiley vert content à smiley rouge pas content) et expliquantcomment faire en sorte qu'il y ait plus de hauts et moins de bas sur cette année ?Sprint #54                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| FunRetro                                | http://funretro.github.io -> préparer des questions à l'avance                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 
 ## Define team metrics
@@ -304,7 +307,7 @@ http://keepachangelog.com -> best practices & advices
 - some soft skills: teamwork, conflict resolution, listening, coordination...
 - sample questions:
     * describe me the organisational methods you used on past project to tackle work efficiently. E.g. todo-list, programming journal, task planning software, time & emails management...
-    * cf. [FrontendJobInterviewQuestions]
+    * cf. [FrontendJobInterviewQuestions] & [Front End Interview Handbook]
     * cf. [What happens when you type google.com into your browser and press enter?]
     * cf. [JoeStumpTechnicalInterviewQuestions]
 - cf. [HowAProgrammerReadsYourResumeVsARecruiter] & [Interviewing is broken] & [We Hire the Best, Just Like Everyone Else] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."
@@ -326,6 +329,7 @@ http://keepachangelog.com -> best practices & advices
   * Bring a list of questions to the interview
   * Be collaborative
   * Try to make the problems feel as real-world as possible
+- [Test technique Xebia](https://github.com/snilyes/mowitnow)
 
 ### Language-based question
 

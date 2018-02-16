@@ -606,6 +606,7 @@ pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pip
 pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list -o ; piprot requirements.txt ; ./manage.py pipchecker
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 pyproject.toml # PEP-518 replacement for setup.py - Alt: https://github.com/pypa/pipfile by kennethreitz
+pip-compile # recursively pin Python dependencies; part of pip-tools - Alt: pip2tgz "/var/www/packages" mypackage && pip install --index-url="file:///var/www/packages" mypackage
 
 def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unverified=()):  # to use pip-compile (from pip-tools) programmatically
     from tempfile import NamedTemporaryFile
@@ -1111,7 +1112,9 @@ headers = {'Authorization' : args.basic_auth, 'Content-Type': 'application/json;
 data = json.dumps(payload).encode('utf-8')
 urllib.request.urlopen(urllib.request.Request(url, method='PUT', headers=headers, data=data),
                        context=ssl._create_unverified_context())
-requests.post(form_url, data={'x':'42'}) # replacement for urllib2. Lib to mock it: responses/httmock - Also:
+wget # equivalent lib to the command-line tool
+
+requests.post(form_url, data={'x':'42'})
     kennethreitz/grequests # Requests with Gevent to make asynchronous HTTP Requests easily
     aiohttp # for asyncio-based equivalent
     requests-futures # for asynchronous (non-blocking) HTTP requests
@@ -1141,7 +1144,8 @@ def passthrough_http_proxy(http_proxy, real_request_url):
         response = session.get(real_request_url)
         response.raise_for_status()
         return response.text
-wget # equivalent lib to the command-line tool
+responses/httmock # a mocking library for requests
+betamaxpy/betamax # VCR/Wiremock-like HTTP mock: record & replay requests
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 python-mocket # socket mocks
 
