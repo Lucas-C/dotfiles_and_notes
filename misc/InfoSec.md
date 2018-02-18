@@ -10,6 +10,7 @@ From http://www.pentest-standard.org
 DNSMAP
 Patator : Multi-threaded Service & URL Brute Forcing Tool, in Python
 https://github.com/eldraco/domain_analyzer Python script that automatically discovers and reports information about the given domain
+https://github.com/SharadKumar97/OSINT-SPY : Python, call Clearbit / Shodan / Fullcontact / Virus_Total / EmailHunter APIs
 
 
 ### Sniffing
@@ -54,7 +55,7 @@ radare2 : unix-like reverse engineering framework and commandline tools
 iKAT : gain access to the underlying OS in Kiosk (browser) restricted environment http://ikat.ha.cked.net/Windows/index.html
 -> also: https://blog.netspi.com/breaking-out-of-applications-deployed-via-terminal-services-citrix-and-kiosks/
 
-https://github.com/3gstudent/Javascript-Backdoor
+https://github.com/3gstudent/Javascript-Backdoor : JSRAT is a Python script that can be used to get a remote shell on a target PC simply by making hime visit an URL with a browser
 
 Content-Security-Policy HTTP response header : reduce XSS risks by declaring what dynamic resources are allowed to load
 
@@ -94,6 +95,7 @@ Metasploit
 w3af
 FuzzBunch -> used by the NSA : https://github.com/fuzzbunch/fuzzbunch
 wapiti -> modular & in Python, website "fuzzer", performs "black-box" scans of a web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data
+https://n0where.net/popular-pentesting-scanner-v3n0m Python pentesting scanner
 
 ## Dependency checking
 maven check deps: https://blog.lanyonm.org/articles/2015/12/22/continuous-security-owasp-java-vulnerability-check.html

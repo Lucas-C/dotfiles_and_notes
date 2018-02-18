@@ -1,4 +1,7 @@
 #!python3
+
+# cf. https://chezsoi.org/lucas/blog/reverse-engineering-the-http-api-behind-an-android-app.html
+
 from binascii import hexlify
 from hashlib import sha1
 import xml.etree.ElementTree as ET

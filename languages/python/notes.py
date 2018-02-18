@@ -1007,7 +1007,7 @@ ryanfox/retread # detect reused frames in video
 jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
 antiboredom/audiogrep
 
-neozhaoliang/pywonderland/blob/master/src/maze/maze.py # example of GIF generation
+neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF generation
 cairo # graphics library outputting .ps .pdf .svg & more
 pyPdf
 wand (ImageMagick binding), pillow > pil # Python Image Library
