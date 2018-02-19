@@ -1,3 +1,6 @@
+Note: Sadly, I cannot find the original challenge on codingame.com :(
+All I remember is that it was a blackbox puzzle where all you had was text inputs/outputs, and a final "Game Over" message.
+
 TODO:
 - make `py.test hero_explorerinstinct.py` pass in order to have proper exploration logic
 - guess CodingGame scoring
