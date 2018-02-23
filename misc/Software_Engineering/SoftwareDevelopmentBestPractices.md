@@ -70,6 +70,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
 - Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
 - Favor idempotent operations, i.e. "that has no additional effect if it is called more than once with the same input parameters".
+- Smalltalk first principle: "If a system is to serve the creative spirit, it must be entirely comprehensible to a single individual"
 
 ### On optimization & readability
 - "About 97% of the time: **premature optimization is the root of all evil**." - Donald Knuth, 1974
@@ -141,6 +142,8 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
     * [Imposter Syndrom](https://www.laserfiche.com/simplicity/shut-up-imposter-syndrome-i-can-too-program/) + https://opensource.com/sitewide-search?search_api_views_fulltext=imposter%20syndrome
     * [Completion Bias](http://jkglei.com/momentum/)
     * [XY Problem](http://xyproblem.info)
+    * [anchoring effect](https://en.wikipedia.org/wiki/Anchoring) : when people consider a particular value for an unknown quantity before estimating that quantity
+    * [the halo effect](https://en.wikipedia.org/wiki/Halo_effect) : the tendency to like (or dislike) everything about a person—including things you have not observed
 + [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
 
 "When facing extremely short, ambitious deadlines, one knows there are a dozen good things one can do, but very little feels justifiable in the face of a crisis, except writing code as fast as possible." [What happens when the Board Of Directors begins to panic?]

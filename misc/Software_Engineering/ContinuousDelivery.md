@@ -7,6 +7,9 @@ Continuous Delivery
 - [Continuous Delivery with Containers](http://www.slideshare.net/dbryant_uk/oreillynginx-2016-continuous-delivery-with-containers-the-trials-and-tribulations)
 - [Building a Functional Puppet Workflow](http://garylarizza.com/blog/2014/02/17/puppet-workflow-part-1/)
 - [AnsibleVSSaltVSStackStorm](https://medium.com/@anthonypjshaw/ansible-v-s-salt-saltstack-v-s-stackstorm-3d8f57149368)
+- [Containers patterns](https://l0rd.github.io/containerspatterns/#1)
+- [Using curl and the UNIX socket to talk to the Docker API](https://nathanleclaire.com/blog/2015/11/12/using-curl-and-the-unix-socket-to-talk-to-the-docker-api/)
+- [Inspecting docker activity with socat](https://developers.redhat.com/blog/2015/02/25/inspecting-docker-activity-with-socat/)
 
 ## Deployment automation & orchestration
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
@@ -128,7 +131,7 @@ Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
 
 
 ## Docker
-- cf. [Best practices for writing Dockerfiles]
+- cf. [Best practices for writing Dockerfiles] [Containers patterns]
 - [`clair`](https://github.com/coreos/clair) : Vulnerability Static Analysis for Containers
 - use the Calico network plugin for Docker instead of the native Docker "overlay" : https://www.percona.com/blog/2016/08/03/testing-docker-multi-host-network-performance/
 - [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !
@@ -158,6 +161,17 @@ Command executed by the Docker For Windows installer to add the current user to 
 ```
 net.exe localgroup docker-users GROUPEVSC\lucas_cimonn /add
 ```
+
+### docker stack
+
+    # Workaround, cf. https://github.com/moby/moby/issues/31101#issuecomment-365316698
+    python yaml_merge.py docker-stack.yml docker-stack.branch.yml > docker-stack.${BRANCH_NAME}.yml
+    docker --debug stack deploy -c docker-stack.${BRANCH_NAME}.yml api-system-${BRANCH_NAME}
+    # service update --force required -> cf. https://github.com/moby/moby/issues/31357#issuecomment-359363903
+    docker --debug service update api-system-${BRANCH_NAME}_web --force
+
+### Docker client debugging
+cf. [Using curl and the UNIX socket to talk to the Docker API], [Inspecting docker activity with socat]
 
 ### Docker exec shell
 

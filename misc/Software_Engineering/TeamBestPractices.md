@@ -61,6 +61,8 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [HowToMoMonitoringTheSREGoldenSignals](https://www.slideshare.net/OpsStack/how-to-monitoring-the-sre-golden-signals-ebook/)
 - [How To Establish a High Severity Incident Management Program](https://www.gremlin.com/how-to-establish-a-high-severity-incident-management-program/)
 - [STAR method of behavioral interviewing](https://www.vawizard.org/wiz-pdf/STAR_Method_Interviews.pdf)
+- [liste des émotions & sentiments](http://www.groupeconscientia.com/uploads/DOC_Liste_EmotionsSentiments.pdf)
+- [Core Protocols](http://www.mccarthyshow.com/online/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -130,6 +132,11 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
     * Make it obvious when your team is doing well: celebrate glorious failure
     * Make your communication clear, and your expectations explicit: f you expect someone to do something for you, ask for a specific commitment – “When might this be done?”, rather than assuming everyone agrees on its urgency
     * Make your team feel safe
+- exercice d'écoute empathique -> cf [liste des émotions & sentiments]
+- [Core Protocols]:
+  * pass:  decline to participate in something
+  * check-in: indicate your engagement + express feelings
+  * check-out: "You must Check Out when you are aware that you cannot maintain the Core Commitments or whenever it would be better for you to be elsewhere."
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [Why Scrum Should Basically Just Die In A Fire]
@@ -332,5 +339,4 @@ http://keepachangelog.com -> best practices & advices
 - [Test technique Xebia](https://github.com/snilyes/mowitnow)
 
 ### Language-based question
-
 - Python: https://www.reddit.com/r/Python/comments/6wl0qk/what_are_the_top_10_key_featuresadvanced_topics/

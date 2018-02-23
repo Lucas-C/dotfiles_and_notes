@@ -921,6 +921,11 @@ PyInline # put source code from other programming languages (e.g. C) directly "i
 Pyrex # write code that mixes Python and C data types and compiles it into a C extension
 Nuitka # converts Python code into C++ code (targetting VisualStudio, MinGW or Clang/LLVM compilers)
 
+pgiri/pycos # asynchronous, concurrent, network, distributed programming and distributed computing, using tasks, generator functions, asynchronous completions and message passing
+pgiri/dispy # distributed and parallel computing framework, in a cluster, grid or cloud -> well suited for data parallel (SIMD) paradigm
+
+classner/pymp # easy, OpenMP style multiprocessing on Unix (only work on systems with fork support)
+
 ctypes.cdll.LoadLibrary("libc.so.6")
 libc = ctypes.CDLL("libc.so.6")
 libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
@@ -1000,13 +1005,14 @@ pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 ericoporto/fgmk # retro RPG Game Maker
 
-Zulko/gizeh, Zulko/MoviePy, jdf/processing.py # Video & image (including GIFs) editing
+Zulko/gizeh, Zulko/MoviePy, jdf/processing.py (uses Jython) # Video & image (editing - MoviePy looks like the current best tool to make GIF / webm animations
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 ryanfox/retread # detect reused frames in video
 
 jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
 antiboredom/audiogrep
 
+imageio.mimsave('/movie.gif', images) # lib based on Numpy + Pillow, to read / write a wide range of image data, including animated images, video, volumetric data, and scientific formats
 neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF generation
 cairo # graphics library outputting .ps .pdf .svg & more
 pyPdf
@@ -1153,6 +1159,7 @@ superelasticsearch # provide iterated search & simpler bulk API
 ramses # API generation framework: based on RAML, ElasticSearch & Pyramid -> https://realpython.com/blog/python/create-a-rest-api-in-minutes-with-pyramid-and-ramses/ & https://www.elastic.co/blog/make-an-elasticsearch-powered-rest-api-for-any-data-with-ramses
 Kinto # minimalist JSON storage service, easy to bootstrap with Heroku/Docker, by Mozilla: https://kinto.readthedocs.io/en/stable/tutorials/install.html
 
+aws/chalice # serverless microframework for AWS (API Gateway + Lambda) - provides: CLI for creating, deploying, and managing your app / an API to declare routes & views / automatic IAM policy generation
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod WSGI server, very easy to launch - Alt: bjoern > meinheld > gunicorn > uwsgi

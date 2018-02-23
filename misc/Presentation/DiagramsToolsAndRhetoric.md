@@ -1,6 +1,6 @@
 # Tools
 
-- Reveal.js & Impress.js & DZSlides
+- [Reveal.js](https://revealjs.com) & [Impress.js](https://github.com/impress/impress.js/) & [DZSlides](http://paulrouget.com/dzslides/) & [Eagle.js](https://github.com/Zulko/eagle.js)
     * extra Reveal.js themes : [by jefBinomed aka JF Garreau](https://github.com/binomed/binomed_docs/tree/master/Prez)
     * WebComponent that to hightlight parts of the screen, like code: https://github.com/binomed/mask-highlighter
 - [MathJax JS](https://www.mathjax.org)
