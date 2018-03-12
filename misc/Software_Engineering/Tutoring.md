@@ -71,7 +71,7 @@ Demander à l'apprenant de planifier des jalons, cela l'oblige à:
   * avoir une idée du résultat attendu
   * se rendre compte du temps qui passe
 
-  
+
 ## Suivi
 
 ### Entretiens hebdos

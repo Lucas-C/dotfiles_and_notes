@@ -1375,6 +1375,8 @@ with open(sys.argv[1]) as csv_file:
     for row in csvkit.reader(csv_file):
         writer.writerow(row)
 aspy.yaml, yaml # !!! yaml.load() is an unsafe operation ! Use yaml.safe_load() - Also: beware the inconsistent behaviours: http://pyyaml.org/ticket/355
+ruamel # YAML parser / writer with support for roundtrip comments
+imbal/safeyaml # a linter for YAML as an aggressively small subset of YAML
 cPickle # binary format, generic, fast & lighweight - DO NOT USE IT ! -> "untrusted pickles can execute arbitrary Python code" + "you can’t even easily tell which classes are baked forever into your pickles" -> Alt: eeve/camel PyYaml-based serialization (inc. versionning & use YAML metadata)
 # + PyCloud make it possible to pickle functions dependencies
 marshmallow #, ORM/ODM validate input data against schemas + serialize or deserialize data from/into primitive Python types

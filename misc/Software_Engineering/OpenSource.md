@@ -11,15 +11,18 @@ Open source challenges
 - [MotivationGovernanceAndTheViabilityOfHybridFormsInOpenSourceSoftwareDevelopment](http://climate-action.engin.umich.edu/figures/Rood_Library/Shah_open_source_governance_2006.pdf)
 - [To gamify or not to gamify community](https://opensource.com/business/16/9/gamify-or-not-gamify-community)
 - [Are we there yet: is open source gamification enterprise ready?](http://www.gameffective.com/is-open-source-gamification-enterprise-ready/)
-- [freeCodeCamp guide to contribute to Open Source](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) projects for newcommers
+- [freeCodeCamp guide to contribute to Open Source](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) projects for newcomers
 - [Six things to know about successful open-source software](https://knightlab.northwestern.edu/2013/07/24/six-lessons-on-success-and-failure-for-open-source-software/)
 
-## Resources for newcommers
+## Resources for newcomers
 - [freeCodeCamp guide to contribute to Open Source]
-- Roshan Jossey repo so that newcommers can make their very first PR: https://github.com/Roshanjossey/first-contributions/blob/master/README.md
+- Roshan Jossey repo so that newcomers can make their very first PR: https://github.com/Roshanjossey/first-contributions/blob/master/README.md
 
 ## Methodologies/advices
 ...to make both entreprise-internal & public OSS projects successful:
+
+- Eric S. Raymon 1st lesson for creating good open source software:
+> Every good work of software starts by scratching a developer's personal itch.
 
 - basic repo documentation: README.md, LICENSE, CONTRIBUTORS.md, CONTRIBUTING.md, CHANGELOG.md, Architecture.md, .github/ISSUE_TEMPLATE, .github/PULL_REQUEST_TEMPLATE
 cf. https://github.com/todogroup/repolinter
@@ -71,12 +74,11 @@ Market and promote your project:
 
 - [MakingYourOpenSourceProjectNewcomerFriendly]:
   * mention steps for getting involved in your CONTRIBUTING.md
-  * maintain a list of easy bugs
+  * create & maintain a list of easy bugs
   * have open channels for communication, and encourage people ask questions in it (ex: https://framateam.org)
   * celebrate new contributors
   * empathize
   * mentoring
-  * create easy bugs
   * discoverability of bugs
   * "programs like Google Summer of Code and Outreachy provide ways for new contributors to try out your project at a significant level of involvement"
 
@@ -149,8 +151,10 @@ Also: https://openbadges.org
 - https://www.codetriage.com
 - http://linuxfr.org & https://cercll.wordpress.com/ (actualités FR)
 
-### Copyleft licenses contamination from dependencies
+### Funding, financing
+- https://opencollective.com/learn-more : "Open your finances to your community"
 
+### Copyleft licenses contamination from dependencies
 Si votre projet a des dépendances, veillez à analyser leurs licenses.
 Des outils existent pour automatiser cela si vous avez des dépendances en cascade (note: certains se basent sur le standard [SPDX](https://spdx.org)):
 

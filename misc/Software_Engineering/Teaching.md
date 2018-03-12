@@ -1,0 +1,10 @@
+
+## TP / Code katas
+
+### Python
+- BattleDev : https://www.isograd.com/FR/solutionconcours.php [FR]
+- https://github.com/norvig/pytudes
+- http://codekata.com [EN]
+- https://www.codewars.com [EN] -> https://github.com/rwisecar/code-katas + https://github.com/adrianeyre/codewars/tree/master/Python
+- https://github.com/newrelic/newrelic-python-kata [EN]
+- https://gitlab.com/azae/craft/legacy-testing-kata-python [EN]

@@ -102,6 +102,15 @@ if !empty($TMUX)
     execute "set <xLeft>=\e[1;*D"
 endif
 
+if empty($TERM)
+    " Useful in Docker containers (tested with Windows + Cmder)
+    set t_kD=[3~
+    set <PageUp>=[5~
+    set <PageDown>=[6~
+    set <Home>=[1~
+    set <End>=[4~
+endif
+
 if !exists(":W")
     command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 endif

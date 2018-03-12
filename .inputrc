@@ -40,6 +40,9 @@ $if term=xterm-256color
 $else
 "\eOC": forward-word
 "\eOD": backward-word
+# For Docker containers (tested under Windows + Cmder):
+"\e[;5C": forward-word
+"\e[;5D": backward-word
 $endif
 #"\eO5C": forward-word
 #"\eO5D": backward-word
@@ -47,7 +50,7 @@ $endif
 "\e[5C": forward-word
 "\e[5D": backward-word
 
-# <CTRL>+up/left: history search based on the current line; the search string must match at the beginning of a history line. 
+# <CTRL>+up/left: history search based on the current line; the search string must match at the beginning of a history line.
 # WHEN xterm-keys on, e.g. inside Tmux:
 "\e[1;5A": history-search-backward
 "\e[1;5B": history-search-forward

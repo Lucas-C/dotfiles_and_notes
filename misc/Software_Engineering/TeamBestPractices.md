@@ -63,6 +63,8 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [STAR method of behavioral interviewing](https://www.vawizard.org/wiz-pdf/STAR_Method_Interviews.pdf)
 - [liste des émotions & sentiments](http://www.groupeconscientia.com/uploads/DOC_Liste_EmotionsSentiments.pdf)
 - [Core Protocols](http://www.mccarthyshow.com/online/)
+- [Intro à la Sociodynamique](http://cache.media.eduscol.education.fr/file/Numerique/85/7/3._Presentation_Marc_Smia_427857.pdf)
+- [CNV & Agilité par T. Clavier & J. Quille](https://gitlab.com/azae/conferences/cnv-agilite/-/jobs/52813557/artifacts/file/2017agileFrance.pdf)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -137,6 +139,8 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
   * pass:  decline to participate in something
   * check-in: indicate your engagement + express feelings
   * check-out: "You must Check Out when you are aware that you cannot maintain the Core Commitments or whenever it would be better for you to be elsewhere."
+- [Intro à la Sociodynamique]: socio-passifs B1, hésitants B2, déchirés B3, irréductibles B4, opposants B5, alignés B6, concertatifs B7
+- [CNV & Agilité par T. Clavier & J. Quille]
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [Why Scrum Should Basically Just Die In A Fire]
@@ -195,6 +199,7 @@ cf. [RetrospectiveWiki]
 | Dongeons & Dragons                      | Serious-game / team-building : Le Nexus Zoo, le scaling agileLe but est de fabriquer à 3 équipes le fascicule d'un zoo. Chaque page est une US, mais des contraintes transverses apparaissent rapidement...   Cet exercice nous a permis de voir que le travail en plusieurs équipes nécessite une bonne communication sur les problèmes transverses, et nécessite d'anticiper les goulets d'étranglement.Inspiration : http://tastycupcakes.org/2016/07/nexus-zoo-a-scaling-simulator/ La rétrospectivea. Le niveau de vie de l'équipe en fin de sprint (thème : Dongeons & Dragons)Chaque membre de l'équipe est invité à indiquer son niveau de points de vie dans la jauge de PdVb. La rétroDans cette rétrospective, nous nous glissons dans la peau d'un héros, qui vient de terminer un aventure épique (le sprint 50 PAO !)On partage les éléments de notre aventure :    Sprint 50 PAOinspiration : Nasse Sylvain                                                                                                 |
 | Happy New Year !                        | On retrospecte l'année écoulée et on prend de bonnes résolutions !timeline année n-1 : demander de recenser les événements marquants du projet (succès, échecs, départs, arrivées, etc.)les positionner sur la fresquedemander ensuite à chacun de réfléchir puis de dessiner sa courbe de morale pendant cette année (smiley vert content à smiley rouge pas content) et expliquantcomment faire en sorte qu'il y ait plus de hauts et moins de bas sur cette année ?Sprint #54                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | FunRetro                                | http://funretro.github.io -> préparer des questions à l'avance                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| 4L                                      | Liked / Learned / Lacked / Longed for                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 
 ## Define team metrics
@@ -294,6 +299,10 @@ http://keepachangelog.com -> best practices & advices
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
 - simple dashboard for JSON APIs : [freeboard](https://github.com/Freeboard/freeboard)
 - http://www.mkdocs.org : simple static doc website generation from Markdown, "à la" ReadTheDocs
+[Lucas]: used at oui.sncf, combined with Gitlab Pages => very powerful and efficient, allow to real deal with:
+- **Doc As Code**:
+> one should embrace lightweight markup languages, use static site generators, and store content in version control repositories with engineering code
+- Ideas to go further: embed a REST API shooter, include formated docstrings, include BDD features, include configuration from the Configuration Management Tool (and even to edit them ?)
 
 ## Coaching new hires & bringing them up to speed
 - [Onboarding and the Cost of Team Debt] = "when employees aren't properly trained, integrated, or managed, they are operating at less than optimal efficiency and "team debt" is accrued"

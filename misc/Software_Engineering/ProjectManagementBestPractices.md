@@ -43,9 +43,18 @@ Project management best practices
 - [QuelquesConseilsPourAméliorerVotreProcessDeChoixDOutil]
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
 - [ChooseBoringTechnology] :
-    - "let's say every company gets about three innovation tokens"
-    - "Your job is keeping the company in business, god damn it. And the "best" tool is the one that occupies the "least worst" position for as many of your problems as possible. It is basically always the case that the long-term costs of keeping a system working reliably vastly exceed any inconveniences you encounter while building it. Mature and productive developers understand this."
-    - "Technology for its own sake is snake oil"
+> let's say every company gets about three innovation tokens
+
+> Your job is keeping the company in business, god damn it. And the "best" tool is the one that occupies the "least worst" position for as many of your problems as possible. It is basically always the case that the long-term costs of keeping a system working reliably vastly exceed any inconveniences you encounter while building it. Mature and productive developers understand this.
+
+> Technology for its own sake is snake oil
+
+> Etsy in its early years suffered from this pretty badly.
+> We hired a bunch of Python programmers and decided that we needed to find something for them to do in Python,
+> and the only thing that came to mind was creating a pointless middle layer that required years of effort to amputate.
+> Meanwhile, the 90th percentile search latency was about two minutes.
+> Etsy didn't fail, but it went several years without shipping anything at all.
+
 - compare projects on their maturity / current activity & liveliness / community :
     commits count
     creation date

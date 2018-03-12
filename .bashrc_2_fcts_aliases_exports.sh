@@ -604,7 +604,7 @@ timestamp_converter () {
 }
 
 pre_commit_all_cache_repos () {  # Requires sqlite3
-    sqlite3 -column ~/.cache/pre-commit/db.db "SELECT repo, ref, path FROM repos GROUP BY repo ORDER BY ref;"
+    sqlite3 -header -column ~/.cache/pre-commit/db.db "SELECT repo, ref, path FROM repos ORDER BY repo;"
 }
 
 pre_commit_local_cache_repos () {  # Requires PyYaml & sqlite3

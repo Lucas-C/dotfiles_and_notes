@@ -57,6 +57,7 @@ Software Development Best Practices
 - [Understanding RPC Vs REST For HTTP APIs](https://www.smashingmagazine.com/2016/09/understanding-rest-and-rpc-for-http-apis/)
 - [PUT vs PATCH vs JSON-PATCH](https://blog.apisyouwonthate.com/put-vs-patch-vs-json-patch-208b3bfda7ac)
 - [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
+- [Joel On Software - Things You Should Never Do](https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -71,6 +72,17 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
 - Favor idempotent operations, i.e. "that has no additional effect if it is called more than once with the same input parameters".
 - Smalltalk first principle: "If a system is to serve the creative spirit, it must be entirely comprehensible to a single individual"
+
+> 13. Perfection (in design) is achieved not when there is nothing more to add, but rather when there is nothing more to take away.
+FROM: The Cathedral and the Bazaar by Eric S. Raymond(Attributed to Antoine de Saint-Exupéry)
+
+> They did it by making the single worst strategic mistake that any software company can make:
+> They decided to rewrite the code from scratch.
+
+> There’s a subtle reason that programmers always want to throw away the code and start over.
+> The reason is that they think the old code is a mess.
+> And here is the interesting observation: they are probably wrong.
+FROM: [Joel On Software - Things You Should Never Do]
 
 ### On optimization & readability
 - "About 97% of the time: **premature optimization is the root of all evil**." - Donald Knuth, 1974

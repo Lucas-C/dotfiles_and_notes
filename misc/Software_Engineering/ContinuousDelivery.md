@@ -135,6 +135,7 @@ Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
 - [`clair`](https://github.com/coreos/clair) : Vulnerability Static Analysis for Containers
 - use the Calico network plugin for Docker instead of the native Docker "overlay" : https://www.percona.com/blog/2016/08/03/testing-docker-multi-host-network-performance/
 - [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !
+- http://blog.michaelhamrah.com/2014/06/accessing-the-docker-host-server-within-a-container/ - Alt: docker.for.win.localhost builtin DNS cname
 
 ```
 docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
@@ -162,6 +163,8 @@ Command executed by the Docker For Windows installer to add the current user to 
 net.exe localgroup docker-users GROUPEVSC\lucas_cimonn /add
 ```
 
+Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
+
 ### docker stack
 
     # Workaround, cf. https://github.com/moby/moby/issues/31101#issuecomment-365316698
@@ -178,8 +181,8 @@ cf. [Using curl and the UNIX socket to talk to the Docker API], [Inspecting dock
     cd
     wget https://raw.githubusercontent.com/Lucas-C/dotfiles_and_notes/master/.inputrc
     wget https://raw.githubusercontent.com/Lucas-C/dotfiles_and_notes/master/.vimrc
+    export XTERM=  # explanation: https://github.com/moby/moby/issues/13817#issuecomment-254088147
     vim file.txt
-    :set term=cons25 # to enable arrow keys
 
 ### FAQ
 
