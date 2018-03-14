@@ -34,7 +34,7 @@ xdebug.show_mem_delta = 1
 print -r "print(new ReflectionFunction('foo'))->getFileName().PHP_EOL" # Find function source file definition
 new Exception()->getTraceAsString() # get a stack trace - For improved PHP exceptions formatting : jTraceEx recipe at http://php.net/manual/fr/exception.getmessage.php, that support chained exceptions and is formatted in a Java-like manner
 
-require('/path/to/psysh');
+require(getenv('APPDATA').'\Composer\vendor\autoload.php');
 eval(\Psy\sh()); # ensure register_argc_argv=on is set if using an old version of psysh, cf. issue #237
 
 # PHP parameter passing by name !!GOTCHA!!

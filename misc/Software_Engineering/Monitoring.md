@@ -22,6 +22,7 @@ cf. https://github.com/ripienaar/free-for-dev#monitoring
 - passive public server external monitoring:
   * https://www.checkiton.us
   * https://www.pingdom.com
+  * http://www.sixnines.io
 - receive notifications on mobile:
   * https://pushover.net : KISS, SAAS, not open source, the app is 5$ and that's it.
   Require a device configured, else error: "no active devices to send to"
