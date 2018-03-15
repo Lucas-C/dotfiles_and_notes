@@ -4,11 +4,11 @@
 # REQUIRES: ruamel.yaml
 
 # Equivalent of: yq merge --overwrite
-
+# **but lists are REPLACED, not merged**
 
 import sys
-from collections import OrderedDict, Mapping
 import ruamel.yaml as yaml
+from ruamel.yaml.comments import CommentedMap
 
 
 def main(file_paths):
@@ -21,7 +21,7 @@ def main(file_paths):
 
 def dict_update(d, u):
     for k, v in u.items():
-        d[k] = dict_update(d.get(k, OrderedDict()), v) if isinstance(v, Mapping) else v
+        d[k] = dict_update(d.get(k, CommentedMap()), v) if isinstance(v, CommentedMap) else v
     return d
 
 

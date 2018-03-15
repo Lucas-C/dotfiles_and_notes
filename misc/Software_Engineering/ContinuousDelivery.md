@@ -165,6 +165,8 @@ net.exe localgroup docker-users GROUPEVSC\lucas_cimonn /add
 
 Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
 
+Note: Docker for Windows convert path to unix "slash" format with a `/host_mnt` prefix
+
 ### docker stack
 
     # Workaround, cf. https://github.com/moby/moby/issues/31101#issuecomment-365316698
@@ -173,16 +175,22 @@ Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
     # service update --force required -> cf. https://github.com/moby/moby/issues/31357#issuecomment-359363903
     docker --debug service update api-system-${BRANCH_NAME}_web --force
 
+#### Current major limitations / known bugs
+
+- no support for YAML files merging: https://github.com/moby/moby/issues/31101
+
+### Docker for Windows current major limitations / known bugs
+
+- https://github.com/docker/for-win/issues/1080
+
 ### Docker client debugging
 cf. [Using curl and the UNIX socket to talk to the Docker API], [Inspecting docker activity with socat]
 
 ### Docker exec shell
 
-    cd
-    wget https://raw.githubusercontent.com/Lucas-C/dotfiles_and_notes/master/.inputrc
-    wget https://raw.githubusercontent.com/Lucas-C/dotfiles_and_notes/master/.vimrc
-    export XTERM=  # explanation: https://github.com/moby/moby/issues/13817#issuecomment-254088147
-    vim file.txt
+    curl https://raw.githubusercontent.com/Lucas-C/dotfiles_and_notes/master/.inputrc > ~/.inputrc
+    curl https://raw.githubusercontent.com/Lucas-C/dotfiles_and_notes/master/.vimrc > ~/.vimrc
+    alias vim='TERM= vim'  # explanation: https://github.com/moby/moby/issues/13817#issuecomment-254088147
 
 ### FAQ
 
