@@ -19,6 +19,7 @@ cf. https://github.com/ripienaar/free-for-dev#monitoring
   * https://github.com/adamcooke/staytus (Ruby)
 - active healthcheck monitoring:
   * https://healthchecks.io : "Get Notified When Your Cron Jobs Fail"
+  * https://deadmanssnitch.com : "Kiss Silent Failures Goodbye"
 - passive public server external monitoring:
   * https://www.checkiton.us
   * https://www.pingdom.com

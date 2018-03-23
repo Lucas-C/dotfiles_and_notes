@@ -11,6 +11,9 @@ DNSMAP
 Patator : Multi-threaded Service & URL Brute Forcing Tool, in Python
 https://github.com/eldraco/domain_analyzer Python script that automatically discovers and reports information about the given domain
 https://github.com/SharadKumar97/OSINT-SPY : Python, call Clearbit / Shodan / Fullcontact / Virus_Total / EmailHunter APIs
+[Wappalyzer](https://www.wappalyzer.com): Chrome plugin to detect libs used on a website
+
+[wafw00f](https://github.com/EnableSecurity/wafw00f) : allows one to identify and fingerprint Web Application Firewall (WAF) products protecting a website
 
 
 ### Sniffing

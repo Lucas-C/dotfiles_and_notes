@@ -178,6 +178,7 @@ Note: Docker for Windows convert path to unix "slash" format with a `/host_mnt` 
 #### Current major limitations / known bugs
 
 - no support for YAML files merging: https://github.com/moby/moby/issues/31101
+- does not support relative paths (under Windows at least)
 
 ### Docker for Windows current major limitations / known bugs
 

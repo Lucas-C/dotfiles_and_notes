@@ -863,7 +863,7 @@ snowballstemmer # supports 15 languages
 
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 fractions
-statistics # Python 3
+statistics # Python 3 or pypi/statistics backport - Alt: simplestatistics
 kwgoodman/roly # moving window median algorithms - Also: quantile sketches algos in Algo_Notes.md
 
 scipy
@@ -945,7 +945,7 @@ celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & r
 ampqlib, haigha, puka # AMPQ libs
 kombu (based on celery), zeromq, aiozmq, mrq # distributed app / msg passing frameworks
 dask  # task scheduling and blocked algorithms for parallel processing
-sched # event scheduler - Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gjcarneiro/yacron, gawel/aiocron - Also:
+sched # event scheduler - Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gjcarneiro/yacron, gawel/aiocron, jhuckaby/Cronicle (NodeJS with web UI)
 
 luigi # workflow managers - Alt: Oozie, Azkaban, Drake, Pinball, viewflow, BD2KGenomics/toil, Apache Airflow -> prez: http://events.linuxfoundation.org/sites/events/files/slides/get_in_control_of_your_workflow.pdf
 # the `luigid` daemon should be stopped with the `kill` command that sends a `SIGINT` signal so that it can save its state into `luigi-state.pickle` (cf. https://github.com/spotify/luigi/blob/master/luigi/server.py#L277)

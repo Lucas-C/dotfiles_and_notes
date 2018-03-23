@@ -90,6 +90,18 @@ Visualization :
 - Graphitus
 - Facette
 
+### Graphite
+It consists of three software components:
+- `carbon`: a high-performance service that listens for time-series data (Python)
+Alternatives: [carbon-c-relay](https://github.com/grobian/carbon-c-relay), [approved by Justin Mason](http://taint.org/2014/01/27/235802a.html)
+- `whisper`: a simple database library for storing time-series data.
+Alternatives: [level-tsd](https://github.com/InMobi/level-tsd) -> [LevelDB based backend for Graphite](https://www.inmobi.com/blog/2014/01/24/extending-graphites-mileage)
+- `graphite-web`: Graphite's user interface & API for rendering graphs and dashboards
+
+Other tools:
+- complete rewrite in Java, with storage in Apache Cassandra, but compatible: http://cyanite.io
+- [Gruffalo](https://github.com/outbrain/gruffalo) is an asynchronous Netty based graphite proxy. It protects Graphite from the herds of clients by minimizing context switches and interrupts; by batching and aggregating metrics.
+- modern replacement, including multi-dimensional metrics: https://prometheus.io
 
 ## DBs
 ![](https://raw.githubusercontent.com/cockroachdb/cockroach/master/resources/doc/sql-nosql-newsql.png "SQL - NoSQL - NewSQL Capabilities")
