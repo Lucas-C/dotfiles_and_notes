@@ -19,8 +19,6 @@ https://github.com/SharadKumar97/OSINT-SPY : Python, call Clearbit / Shodan / Fu
 ### Sniffing
 OWASP Zap Proxy (Zed Attack Proxy) concurrent OSS de Burp
 
-Sniffage de mdp wifi avec Cain: http://www.oxid.it/cain.html
-
 
 ## Threat Modeling
 Méthodologie d'attaque:
@@ -137,6 +135,16 @@ https://github.com/benschw/springboard : cli utility to help get your secrets in
 
 https://github.com/square/keywhiz : A system for distributing and managing secrets
 
+## AWS
+http://flaws.cloud
+https://github.com/andresriancho/nimbostratus : Tools for fingerprinting and exploiting Amazon cloud infrastructures
+https://github.com/RhinoSecurityLabs/Security-Research/tree/master/tools/aws-pentest-tools : buckethead.py searches across every AWS region for a variety of bucket names based on a domain name, subdomains, affixes given and more
+
+## Wifi
+- Wireless hacking 101: http://www.kalitutorials.net/2016/08/things-you-should-know-wireless-hacking.html
+- sniffage wifi passwords with Cain: http://www.oxid.it/cain.html
+- https://github.com/derv82/wifite2 (Python)
+- https://github.com/wi-fi-analyzer/fluxion : MITM attacks (Python)
 
 # Formation @VSCT by Antonio Fortes
 

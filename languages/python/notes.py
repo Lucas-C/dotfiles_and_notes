@@ -1,6 +1,27 @@
 # -*- coding: utf-8 -*-
 # To list this file sections: $ grep '^"" ' notes.py
 
+""""""""""""""
+"" Why Python ?
+""""""""""""""
+- extremely readable (cf. zen of Python + [this 2013 study](http://redmonk.com/dberkholz/2013/03/25/programming-languages-ranked-by-expressiveness/))
+- simple & fast to write
+- very popular (taught in many universities)
+- has an extremely active development community
+- there’s a library for everything: `import antigravity`
+- play nicely with other languages
+- usable in many fields: scripting & automation, web, network packets manipulation, maths & big data, images & videos manipulation
+- many world class companies use it: Google, Facebook, Instagram, Spotify, Quora, Netflix, Dropbox, Reddit
+cf. https://realpython.com/world-class-companies-using-python/
+It is one of the 3 official Google languages, with C++, Go & - BUT:
+> We found out how 20 developpers ran circle around our hundreds of great developpers.
+> The solution was very simple ! Those 20 guys were using Python.
+FROM: Alex Martelli, in "Python Interviews: Discussions with Python Experts", on Youtube vs Google Video (C++)
+
+
+"""""""
+"" Misc
+"""""""
 _ # result of the last expression evaluated (in an interpreter only)
 
 r'Raw string literal: no need to double escape \{0}\{one:.5f}'.format("zero", one=1) # raw string: treat backslashes as literal characters
@@ -864,7 +885,7 @@ snowballstemmer # supports 15 languages
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 fractions
 statistics # Python 3 or pypi/statistics backport - Alt: simplestatistics
-kwgoodman/roly # moving window median algorithms - Also: quantile sketches algos in Algo_Notes.md
+kwgoodman/roly # moving window median algorithms - Alt: ajcr/rolling: computationally efficient rolling window iterators - Also: quantile sketches algos in Algo_Notes.md
 
 scipy
     numpy # n-dimensional arrays, vectorized operations and broadcasting : faster than CPython for large arrays
@@ -1153,7 +1174,10 @@ def passthrough_http_proxy(http_proxy, real_request_url):
 responses/httmock # a mocking library for requests
 betamaxpy/betamax # VCR/Wiremock-like HTTP mock: record & replay requests
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
+ariebovenberg/snug # organize your HTTP client code to ease reuse, async compatibility & tests
 python-mocket # socket mocks
+
+spiderclub/haipproxy # IP proxy pool, powered by Scrapy and Redis
 
 superelasticsearch # provide iterated search & simpler bulk API
 ramses # API generation framework: based on RAML, ElasticSearch & Pyramid -> https://realpython.com/blog/python/create-a-rest-api-in-minutes-with-pyramid-and-ramses/ & https://www.elastic.co/blog/make-an-elasticsearch-powered-rest-api-for-any-data-with-ramses

@@ -207,6 +207,23 @@ cf. also [DistributedSystemsAndTheEndOfTheAPI]
 > If it’s as obvious a solution as you think it is, it should be easy for the rest of the org to come to the same conclusion, and that will make implementing and maintaining it that much easier.
 > If it has some downsides that aren’t apparent, we will at least have a chance to tease those out!
 
+### Resilience patterns
+FROM: https://docs.microsoft.com/en-us/azure/architecture/patterns/
+- Timeouts
+- Retry : handle anticipated, temporary failures of a partner service or network resource by transparently retrying an operation that failed, ideally with an exponential backoff logic
+- Back Pressure (ex: `Retry-After` HTTP header)
+- Circuit Breaker : preserve a remote service or resource that may fall down
+- Health Endpoint Monitoring : Implement functional checks in an application that external tools can access through exposed endpoints at regular intervals.
+- Asynchronous Communication
+- Fail Fast
+- Idempotency
+- Stateless
+- Bulkhead : isolate elements of an application into pools so that if one fails, the others will continue to function.
+Named because it resembles the sectioned partitions of a ship's hull: if it is compromised, only the damaged section fills with water, which prevents the ship from sinking.
+- Compensating Transaction : Undo the work performed by a series of steps, which together define an eventually consistent operation.
+- Extensive Parameter Checking: often neglected
+> Be conservative in what you send, be liberal in what you accept (Postel's law / Robustness principle)
+
 ### APIs, REST vs RPC, microservices
 
 ![xkcd/1481](http://imgs.xkcd.com/comics/api.png)

@@ -56,6 +56,7 @@ ipconfig /displaydns
 xperf -on latency -stackwalk profile
 xperf -d latency.etl
 wtrace :: strace-like based on Event Tracing for Windows
+userdump %pid% :: download: https://www.microsoft.com/en-us/download/details.aspx?id=4060
 
 powercfg -h off/on &:: as admin, delete hiberfil.sys
 schtasks &:: task scheduler

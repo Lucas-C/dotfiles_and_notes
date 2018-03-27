@@ -9,6 +9,7 @@ php -r "print(php_ini_loaded_file());" # find dout php.ini file used
 php -r "print(phpinfo());" | grep log
 
 error_log(print_r($variable, TRUE));
+fprintf(STDERR, "DEBUG: $obj\n");
 
 http://xdebug.org/wizard.php
 php --php-ini xdebug_php.ini -r 'print(xdebug_get_profiler_filename() . "\n");'

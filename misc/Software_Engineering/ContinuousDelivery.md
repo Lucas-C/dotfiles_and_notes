@@ -10,6 +10,7 @@ Continuous Delivery
 - [Containers patterns](https://l0rd.github.io/containerspatterns/#1)
 - [Using curl and the UNIX socket to talk to the Docker API](https://nathanleclaire.com/blog/2015/11/12/using-curl-and-the-unix-socket-to-talk-to-the-docker-api/)
 - [Inspecting docker activity with socat](https://developers.redhat.com/blog/2015/02/25/inspecting-docker-activity-with-socat/)
+- [How To Write Excellent Dockerfiles](https://rock-it.pl/how-to-write-excellent-dockerfiles/)
 
 ## Deployment automation & orchestration
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
@@ -131,7 +132,9 @@ Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
 
 
 ## Docker
-- cf. [Best practices for writing Dockerfiles] [Containers patterns]
+- cf. [Best practices for writing Dockerfiles], [How To Write Excellent Dockerfiles], [Containers patterns]:
+  * No update instructions alone in the Dockerfile + Download packages securely using GPG
+  * Use gosu instead of sudo wherever possible
 - [`clair`](https://github.com/coreos/clair) : Vulnerability Static Analysis for Containers
 - use the Calico network plugin for Docker instead of the native Docker "overlay" : https://www.percona.com/blog/2016/08/03/testing-docker-multi-host-network-performance/
 - [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !
