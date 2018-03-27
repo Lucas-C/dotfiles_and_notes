@@ -201,7 +201,9 @@ class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
 # For multiple inheritance with namedtuple, combine fields + use specific inheritance order:
 class Immut3DPoint(namedtuple('_Immut3DPoint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
     __slots__ = ()
-# BUT seriously, use the "attrs" library instead: https://glyph.twistedmatrix.com/2016/08/attrs.html or typing.NamedTuple: https://github.com/topper-123/Articles/blob/master/New-interesting-data-types-in-Python3.rst
+# BUT seriously, use the "attrs" library instead: https://glyph.twistedmatrix.com/2016/08/attrs.html
+# or typing.NamedTuple: https://github.com/topper-123/Articles/blob/master/New-interesting-data-types-in-Python3.rst
+# or traitlets if you need to react when properties values change: https://traitlets.readthedocs.io/en/stable/using_traitlets.html
 
 if args.debug:
     logging.basicConfig(level=logging.DEBUG, stream=sys.stderr, # default stream, but explicit beats implicit
