@@ -16,9 +16,8 @@ Pour classer les restaurants, vous calculez un score qui correspond à la moyenn
 #### Format des données
 
 **Entrée**
-
-Ligne 1 : un entier N compris entre 5 et 500 représentant le nombre de restaurants dans votre base.
-Lignes 2 à N+1 : trois entiers compris entre 0 et 20 et séparés par des espaces représentant respectivement les notes que vous avez calculées à partir des opinions des visiteurs pour la nourriture, la salle et le service pour un restaurant donné.
+- Ligne 1 : un entier N compris entre 5 et 500 représentant le nombre de restaurants dans votre base.
+- Lignes 2 à N+1 : trois entiers compris entre 0 et 20 et séparés par des espaces représentant respectivement les notes que vous avez calculées à partir des opinions des visiteurs pour la nourriture, la salle et le service pour un restaurant donné.
 
 **Sortie**
 
@@ -38,12 +37,13 @@ Pour votre business plan, vous souhaitez estimer le montant des ventes en foncti
 
 #### Format des données
 
-Entrée
-Ligne 1 : un entier compris entre 20 et 40 correspondant au prix du buffet par personne.
-Ligne 2 : un entier N compris entre 5 et 50 correspondant au nombre de tables servies.
-Lignes 3 à N+2 : un entier compris entre 2 et 15 représentant le nombre de personnes présentes à une table.
+**Entrée**
+- Ligne 1 : un entier compris entre 20 et 40 correspondant au prix du buffet par personne.
+- Ligne 2 : un entier N compris entre 5 et 50 correspondant au nombre de tables servies.
+- Lignes 3 à N+2 : un entier compris entre 2 et 15 représentant le nombre de personnes présentes à une table.
 
-Sortie
+**Sortie**
+
 Un entier représentant le montant des ventes du restaurant arrondi à l'entier supérieur.
 
 
@@ -68,20 +68,20 @@ Les K meilleurs copains sont alors ceux dont les goûts sont à plus petite dist
 
 #### Données
 
-Entrée
+**Entrée**
+- Ligne 1 : cinq entiers entre 0 et 10 inclus séparés par des espaces, les notes que vous avez données aux cinq premiers Rocky.
+- Ligne 2 : un entier N compris entre 1 et 20 inclus, représentant votre nombre de copains.
+- Ligne 3 : un entier K compris entre 1 et N inclus, représentant votre nombre de meilleurs copains.
+- Lignes 4 à N+3 : six entiers compris entre 0 et 10 séparés par des espaces, chaque ligne correspond à un de vos copains, les cinq premiers entiers sont les notes des premiers Rocky, le sixième la note du nouvel épisode.
 
-Ligne 1 : cinq entiers entre 0 et 10 inclus séparés par des espaces, les notes que vous avez données aux cinq premiers Rocky.
-Ligne 2 : un entier N compris entre 1 et 20 inclus, représentant votre nombre de copains.
-Ligne 3 : un entier K compris entre 1 et N inclus, représentant votre nombre de meilleurs copains.
-Lignes 4 à N+3 : six entiers compris entre 0 et 10 séparés par des espaces, chaque ligne correspond à un de vos copains, les cinq premiers entiers sont les notes des premiers Rocky, le sixième la note du nouvel épisode.
-
-Sortie
+**Sortie**
 
 Un entier, indiquant la moyenne des notes que vos K meilleurs copains ont donnée au nouvel épisode, arrondie à l'entier inférieur.
 
 #### Exemple
 
 Pour l'entrée suivante :
+```
 10 7 3 4 3
 4
 2
@@ -89,16 +89,14 @@ Pour l'entrée suivante :
 2 1 3 2 10 5
 9 10 10 9 10 10
 8 9 2 4 3 4
-
+```
 
 Vos deux meilleurs copains sont le premier (distance 12 = (10-9)+(7-4)+(7-3)+(4-2)+(3-1)) et le dernier (distance 5) de la liste, ils ont donné les notes 1 et 4 au nouvel épisode, vous allez donner la moyenne (1+4)/2 arrondie à l'entier inférieur, la réponse est donc 2.
-Téléchargez des fichiers d'exemple ainsi qu'un modèle de code pour travailler localement.
-No output at the moment
 
 
 ### Pancakes
 
-Objectif
+#### Objectif
 
 Après beaucoup de temps passé à préparer de la pâte à crêpes et à la faire cuire, vous êtes soudain saisi d'une insatisfaction esthétique en regardant votre pile de crêpes : toutes vos crêpes ayant des diamètres différents, la pile ne ressemble à rien ! À défaut d'avoir des crêpes de même taille, ça serait déjà plus joli si elles étaient triées avec la plus petite en haut et la plus grande en bas.
 
@@ -108,54 +106,50 @@ Pour simplifier, on ne considérera dans cet exercice que des piles contenant ex
 
 Indication : cela signifie que vous pourrez donc procéder par énumération exhaustive (force brute). Cependant la mémoire utilisée par votre script ne doit pas dépasser 128Mo (ce qui est largement suffisant pour le nombre de cas à énumerer).
 
-Format des données
+#### Format des données
 
-Entrée
-
-Lignes 1 à 6 : un entier compris entre 15 et 50 représentant le diamètre d'une crêpe de la pile en commençant par celle du haut.
+**Entrée**
+- Lignes 1 à 6 : un entier compris entre 15 et 50 représentant le diamètre d'une crêpe de la pile en commençant par celle du haut.
 
 On vous garantit que les crêpes ont des diamètres différents deux à deux.
 
-Sortie
+**Sortie**
 
 Un entier, indiquant le nombre minimal de retournements requis pour obtenir une pile triée à partir de la pile donnée.
 Pour rappel, la pile triée est telle que la plus petite crêpe se trouve en haut de la pile et la plus grande crêpe se trouve en bas de la pile.
 
 
-Exemple
+#### Exemple
 
 Dans cet exemple, on considère des crêpes de taille comprise entre 20 et 45 cm, disposées en la pile suivante :
-
-
+```
 45
 40
 35
 20
 25
 30
-
+```
 
 En mettant la spatule tout en bas et en retournant ainsi toute la pile, on obtient :
-
-
+```
 30
 25
 20
 35
 40
 45
-
+```
 
 Pour achever de trier, il ne reste plus qu'à retourner les 3 premières crêpes, en insérant la spatule entre la crêpe de 20 cm et celle de 35 cm :
-
-
+```
 20
 25
 30
 35
 40
 45
-
+```
 
 Ainsi, dans cet exemple, le nombre minimum de retournements nécessaires pour trier est 2 (on peut vérifier que c'est impossible en un seul retournement).
 
@@ -176,27 +170,26 @@ Indication : une solution en temps au plus cubique (O(N³)) est attendue.
 
 #### Données
 
-Entrée
-
-Ligne 1 : un entier N compris entre 3 et 100 inclus, représentant le nombre de terminus.
-Ligne 2 à N+1: N entiers compris entre 1 et 100 séparés par des espaces représentant le nombre de passagers qui prendraient le tramway reliant le terminus A au terminus B. Chaque ligne correspond à un terminus et chaque entier de la ligne correspond aux différents terminus (dans le même ordre que celui des lignes). On obtient ainsi une matrice carrée.
+**Entrée**
+- Ligne 1 : un entier N compris entre 3 et 100 inclus, représentant le nombre de terminus.
+- Ligne 2 à N+1: N entiers compris entre 1 et 100 séparés par des espaces représentant le nombre de passagers qui prendraient le tramway reliant le terminus A au terminus B. Chaque ligne correspond à un terminus et chaque entier de la ligne correspond aux différents terminus (dans le même ordre que celui des lignes). On obtient ainsi une matrice carrée.
 
 Si on nomme t[A][B] le nombre de passagers qui emprunteraient la ligne de A à B, alors on vous garantit que : - t[A][B] == t[B][A] (autrement dit, la matrice est symétrique)
 - t[A][A] == 0
 
-Sortie
+**Sortie**
 
 Un entier représentant le nombre maximal de passagers qui seraient transportés en construisant de façon optimale vos lignes en respectant les contraintes de l'énoncé : deux lignes ne peuvent pas se croiser et chaque terminus ne peut être utilisé plus d'une fois.
 
 
 #### Exemple
-
+```
 4
 0 2 6 1
 2 0 8 9
 6 8 0 3
 1 9 3 0
-
+```
 
 Il y a deux choix optimaux, qui atteignent tous deux le nombre de 9 passagers transportés : - construire la ligne de 0 à 3 (1 passager) et celle de 1 à 2 (8 passagers) ;
 - construire une seule ligne, de 1 à 3.La réponse attendue est donc 9.
