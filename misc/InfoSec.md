@@ -1,3 +1,5 @@
+[![](https://imgs.xkcd.com/comics/2018_cve_list.png)](https://xkcd.com/1957/)
+
 cf. also "Hacking & Forensic" section in notes.py
 
 How to Start Your Career in Cyber Security by Mikko Hypponen : https://safeandsavvy.f-secure.com/2017/02/03/a-hacker-hunters-advice-for-getting-into-infosec/

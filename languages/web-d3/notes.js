@@ -1,6 +1,4 @@
 
-
-
 // In Firefox Web Console
 javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
 javascript:window.print()
@@ -10,9 +8,11 @@ $$("#articleContent ul li").length
 
 console.time('myTime') / console.timeEnd('myTime') // for quick benchmarks
 console.table(array) // display array of objects as a nice table in browser console
+console.memory // JS heap info
 
 debugger // breakpoint for debugger
 performance.timing // and performance.memory : useful debugging informations
+console.profile('profileName') & console.profileEnd('profileName')
 
 while (e.firstChild) { e.removeChild(e.firstChild); } >>faster>> e.innerHTML = ''
 

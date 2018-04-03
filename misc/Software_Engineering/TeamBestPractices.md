@@ -65,6 +65,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Core Protocols](http://www.mccarthyshow.com/online/)
 - [Intro à la Sociodynamique](http://cache.media.eduscol.education.fr/file/Numerique/85/7/3._Presentation_Marc_Smia_427857.pdf)
 - [CNV & Agilité par T. Clavier & J. Quille](https://gitlab.com/azae/conferences/cnv-agilite/-/jobs/52813557/artifacts/file/2017agileFrance.pdf)
+- [Enable your Devs to do Ops - Runbooks in the DevOps era](https://blog.buildo.io/enable-your-devs-to-do-ops-9a0a870baa1)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -253,6 +254,13 @@ cf. [RetrospectiveWiki]
     * Latency
     * Saturation
     * Utilization
+- [Enable your Devs to do Ops - Runbooks in the DevOps era] aka "Collaborative Ops FAQ":
+    * IHMO: sometimes better than automation: faster + foster knowledge sharing
+    * "Actually, you should be able to do it yourself. Here’s a link to the documentation."
+    * define a template
+    * "scripts longer than two lines are better treated as code; thus they should be versioned"
+    * "If you find something that is outdated, but don’t have time to fix it immediately, leave a quick note or add a task for someone to update it"
+    * "make sure every runbook has a clear owner and write it at the top of the document."
 
 ### Post-mortems
 - trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
@@ -303,6 +311,10 @@ http://keepachangelog.com -> best practices & advices
 - **Doc As Code**:
 > one should embrace lightweight markup languages, use static site generators, and store content in version control repositories with engineering code
 - Ideas to go further: embed a REST API shooter, include formated docstrings, include BDD features, include configuration from the Configuration Management Tool (and even to edit them ?)
+- one tool for assessing your documentation accessibility is the [Hemingway App](http://www.hemingwayapp.com/help.html).
+The Hemingway App analyzes text and scores it based on tiered reading levels.
+The assessments can help you spot potentially difficult passages in your documentation.
+It’s available as a text editor application, a web app, and even a linter, if command line applications are your thing.
 
 ## Coaching new hires & bringing them up to speed
 - [Onboarding and the Cost of Team Debt] = "when employees aren't properly trained, integrated, or managed, they are operating at less than optimal efficiency and "team debt" is accrued"

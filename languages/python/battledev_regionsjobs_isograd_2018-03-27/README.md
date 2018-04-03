@@ -1,7 +1,7 @@
 Sujets et solutions persos : https://www.isograd.com/FR/solutionconcours.php
 
 
-### Tripadvisor
+### Le meilleur restaurant
 
 #### Énoncé
 Vous avez mis en place un site de recommandations de restaurants.
@@ -24,7 +24,7 @@ Pour classer les restaurants, vous calculez un score qui correspond à la moyenn
 Un entier représentant le score du meilleur restaurant de votre base arrondi à l'entier supérieur.
 
 
-### All you can eat
+### Buffet à volonté
 
 #### Énoncé
 
@@ -47,7 +47,7 @@ Pour votre business plan, vous souhaitez estimer le montant des ventes en foncti
 Un entier représentant le montant des ventes du restaurant arrondi à l'entier supérieur.
 
 
-### Rocky13
+### Copains
 
 #### Objectif
 
@@ -94,7 +94,7 @@ Pour l'entrée suivante :
 Vos deux meilleurs copains sont le premier (distance 12 = (10-9)+(7-4)+(7-3)+(4-2)+(3-1)) et le dernier (distance 5) de la liste, ils ont donné les notes 1 et 4 au nouvel épisode, vous allez donner la moyenne (1+4)/2 arrondie à l'entier inférieur, la réponse est donc 2.
 
 
-### Pancakes
+### Tri des crêpes
 
 #### Objectif
 
@@ -154,7 +154,7 @@ Pour achever de trier, il ne reste plus qu'à retourner les 3 premières crêpes
 Ainsi, dans cet exemple, le nombre minimum de retournements nécessaires pour trier est 2 (on peut vérifier que c'est impossible en un seul retournement).
 
 
-### Tramways12
+### Tramways
 
 #### Objectif
 
@@ -174,7 +174,9 @@ Indication : une solution en temps au plus cubique (O(N³)) est attendue.
 - Ligne 1 : un entier N compris entre 3 et 100 inclus, représentant le nombre de terminus.
 - Ligne 2 à N+1: N entiers compris entre 1 et 100 séparés par des espaces représentant le nombre de passagers qui prendraient le tramway reliant le terminus A au terminus B. Chaque ligne correspond à un terminus et chaque entier de la ligne correspond aux différents terminus (dans le même ordre que celui des lignes). On obtient ainsi une matrice carrée.
 
-Si on nomme t[A][B] le nombre de passagers qui emprunteraient la ligne de A à B, alors on vous garantit que : - t[A][B] == t[B][A] (autrement dit, la matrice est symétrique)
+Si on nomme t[A][B] le nombre de passagers qui emprunteraient la ligne de A à B, alors on vous garantit que :
+
+- t[A][B] == t[B][A] (autrement dit, la matrice est symétrique)
 - t[A][A] == 0
 
 **Sortie**
@@ -191,8 +193,61 @@ Un entier représentant le nombre maximal de passagers qui seraient transportés
 1 9 3 0
 ```
 
-Il y a deux choix optimaux, qui atteignent tous deux le nombre de 9 passagers transportés : - construire la ligne de 0 à 3 (1 passager) et celle de 1 à 2 (8 passagers) ;
+Il y a deux choix optimaux, qui atteignent tous deux le nombre de 9 passagers transportés :
+
+- construire la ligne de 0 à 3 (1 passager) et celle de 1 à 2 (8 passagers) ;
 - construire une seule ligne, de 1 à 3.La réponse attendue est donc 9.
 Remarquez qu'il n'est pas possible de construire à la fois la ligne de 1 à 3 et celle de 0 à 2 (ce qui ferait au total 15 passagers) à cause d'un croisement.
 
 ![](CTSTFR0127.png)
+
+
+### Canards
+
+#### Objectif
+
+Vous êtes directeur d'une clinique de réhabilitation pour anatidaephobes, vos patients ont une peur irrationnelle des canards.
+Tout allait pour le mieux dans votre établissement, la thérapie est lourde mais le rétablissement certain.
+Mais un jour (vous vous souviendrez toujours de ce jour), la catastrophe survient : plusieurs palmipèdes s'infiltrent dans la clinique.
+
+Heureusement, tout a été prévu, la clinique est équipée de portes blindées. Pas de quoi casser trois pattes à un bipède, mais suffisant pour éviter le carnage.
+Vous allez donc enfermer tout le monde, patients et canards confondus, ensuite ce sera au GIGN de faire sauter les portes à l'explosif et d'appréhender ces oiseaux de malheur.
+
+Les cris d'horreur de vos patients sont recouverts par des caquetages machiavéliques, le temps presse.
+Toutefois, une pensée vous traverse l'esprit : bien qu'indispensables, ces portes sont extrêmement onéreuses.
+Dans un élan d'avarice, vous cherchez à fermer le moins de portes possible, tout en isolant les patients des canards.
+
+Le plan de la clinique est représenté par une grille sur laquelle les positions des patients et des canards sont indiquées.
+Ceux-ci ne peuvent pas se déplacer en diagonale. Combien de portes devez-vous sceller au minimum pour couper tous les passages reliant canards et patients ?
+
+#### Données
+
+**Entrée**
+
+- Ligne 1 : un entier N compris entre 3 et 20, représentant la hauteur de la carte, qui est égale à sa largeur.
+- Lignes 2 à N+1 : les lignes de la carte représentées par des chaînes de N caractères. Les caractères de la ligne sont :
+  * `.` une case traversable
+  * `#` un mur
+  * `?` une porte blindée
+  * `c` une case traversable avec un canard dessus
+  * `p` une case traversable avec un patient dessus
+
+Une porte blindée se comporte comme un mur si elle est scellée, comme une case traversable si elle n'est pas scellée.
+
+**Sortie**
+
+Un entier, indiquant le nombre minimal de portes blindées à sceller pour isoler les canards des patients. Si ce n'est pas possible, affichez -1.
+
+#### Exemple
+
+Pour l'entrée suivante :
+```7
+.?.#.?.
+p#.#.#c
+.#.#.#.
+##.?.##
+.#.#.#.
+p#.#.#c
+.?.#.?.
+```
+Il vous suffit de sceller la porte blindée (?) au centre de la carte pour séparer les canards des patients, la réponse attendue est donc 1.

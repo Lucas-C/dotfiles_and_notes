@@ -43,6 +43,9 @@ Perceptual hashes:
 
 Geohash: geocoding system with a hierarchical spatial data structure that subdivides space into buckets of grid shape
 
+[Z-Order curve / Lebesgue curve / Morton Morton code](https://en.wikipedia.org/wiki/Z-order_curve) : map multidimensional data to one dimension while preserving locality of the data points.
+-> [illustrated explanation & usage example at AWS](https://aws.amazon.com/fr/blogs/database/z-order-indexing-for-multifaceted-queries-in-amazon-dynamodb-part-1/)
+
 Compression:
 - Google Snappy (10x faster, 50% worse compression than LZMA (7z))
 - Google Zopfli (5% more compression, 100x slower than LZMA (7z))

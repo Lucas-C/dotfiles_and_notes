@@ -194,8 +194,7 @@ alias gdh='git diff HEAD'
 alias gdc='git diff --cached'
 alias gdp='git diff -U999999999 --no-color HEAD'
 alias gri='git rebase --interactive'
-alias gpr='git pull --rebase'
-alias gpp='git pull --rebase && git push'
+alias gsp='git stash && git pull && git stash pop'
 
 
 #------------

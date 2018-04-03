@@ -62,7 +62,7 @@ Software Development Best Practices
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
 ## Main design "mantras"
-- KISS & YAGNI : Keep It Simple, Stupid & You Aren't Gonna Need It
+- KISS & YAGNI : Keep It Super Simple & You Aren't Gonna Need It
 - Duplication : DRY ! Once, and only once. [CC-G5] but not too DRY: [WhenToRepeatYourself]
     * switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
     * similar algorithm            -> template method / strategy pattern

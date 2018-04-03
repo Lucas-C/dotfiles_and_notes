@@ -60,7 +60,10 @@ Also cf. **software_defined_networking.md**
 
 ## Other protocols
 - [SCTP](http://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol)
-- [UDP](http://en.wikipedia.org/wiki/UDP-based_Data_Transfer_Protocol)
+- [Tsunami](http://tsunami-udp.sourceforge.net) : A fast user-space file transfer protocol that uses TCP control and UDP data
+for transfer over very high speed long distance networks (≥ 1 Gbps and even 10 GE), designed to provide more throughput than possible with TCP over the same networks.
+Includes FTP-like client and server command line applications for normal file transfers.
+[Used at AWS](https://aws.amazon.com/fr/blogs/big-data/moving-big-data-into-the-cloud-with-tsunami-udp/)
 
 ## Monitoring tools
 Cacti, Smokeping
