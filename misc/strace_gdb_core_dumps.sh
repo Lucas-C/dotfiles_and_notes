@@ -1,4 +1,4 @@
-mozilla/rr # recording and replaying execution of applications
+mozilla/rr # recording and replaying execution of applications - aspires to be your primary C/C++ debugging tool, replacing gdb
 
 gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
 LD_PRELOAD=./myfopen.so cat $file

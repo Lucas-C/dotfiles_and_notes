@@ -487,6 +487,7 @@ jq -r 'map(select(.joblink == ""))' < $json_filename
 jq '.dict|with_entries(select(.value.date|contains("29 Jul 2016")))' < $json_filename
 jq input_filename,input_line_number *.json
 ls $dir | jq --raw-input --slurp 'split("\n")[:-1]' # build JSON array from a mutlilines non-JSON input
+tomnomnom/gron # make JSON greppable!
 q # command line tool that allows direct execution of SQL-like queries on CSVs/TSVs
 plainas/tq, ericchiang/pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 

@@ -71,6 +71,8 @@
     # List file changes (A/M/D) that affected a single directory
     dir-history = log --name-status
 
+    branches = branch --all --format '%(align:left,40)%(if)%(push)%(then)%(color:green)%(else)%(color:red)%(end)%(refname:short)%(color:reset)%(end) %(objectname:short) %(authordate:short) %(align:left,20)%(authorname)%(end) %(contents:subject)'
+
 [apply]
     whitespace = nowarn
 
