@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Secret grid</title>
+    <link rel="stylesheet" type="text/css" href="secret-grid.css">
+</head>
+<body>
+    <div id="app" role="main">
+        <h1>SecretGrid.js by Lucas-C</h1>
+        <p v-if="showControls">To hide checked squares &amp; controls simply add <code>?nocontrols</code> to the URL</p>
+        <div id="key">
+            <button v-if="showControls" v-on:click="removeLetterFromKey" class="letter control">-</button>
+            <input size="1" class="letter" v-for="letter in key" v-model="letter.value" v-on:input="saveKey">
+            <button v-if="showControls" v-on:click="addLetterToKey"      class="letter control">+</button>
+        </div>
+        <div id="grid">
+            <div class="row" v-for="row in grid">
+                <div class="letter" v-bind:class="{'checked': showControls && letter.checked}"
+                     v-for="letter, i in row" v-on:click="gridCellClicked(row, i)">
+                    {{ letter.value }}
+                </div>
+            </div>
+        </div>
+        <div v-if="showControls" id="controls">
+            <button v-on:click="addRow"    class="control">+ row</button>
+            <button v-on:click="removeRow" class="control">- row</button>
+            <br>
+            <button v-on:click="fillGridLetters" class="control">Fill grid letters</button>
+        </div>
+    </div>
+
+    <!-- development version, includes helpful console warnings: -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="secret-grid.js"></script>
+</body>
+</html>

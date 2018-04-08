@@ -1,4 +1,6 @@
-# TODO: python challenge6.py < chall6/input6.txt (stuck in get_door_chains_in_paths ?)
+# UNFINISHED: gets stuck in get_door_chains_in_paths for last input: python challenge6.py < chall6/input6.txt
+# NOTE: the official solution (in C++ & PHP) use some kind of "flow augmenting" Ford–Fulkerson algorithm to solve this very efficiently :
+# https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm
 import sys
 def local_print(*args): print(*args, file=sys.stderr)
 from collections import defaultdict
@@ -34,11 +36,10 @@ def build_duck_paths(m, duck):
         start = explore_stack.pop(0)
         for pos in nearby_tiles(start, len(m)):
             i, j = pos
-            if m[i][j] != '#':
-                if pos not in paths and m[i][j] != 'p' and m[i][j] != 'c':
+            if m[i][j] != '#' and m[i][j] != 'c':
+                if pos not in paths and m[i][j] != 'p':
                     explore_stack.append(pos)
-                if m[i][j] != 'c':
-                    paths[pos].add(start)
+                paths[pos].add(start)
     return paths
 def build_constraints(m, duck_paths):
     'constraints: c[patient][duck] = set(doors)'
@@ -65,7 +66,7 @@ def nearby_tiles(pos, N):
         yield (i, j - 1)
     if j + 1 < N:
         yield (i, j + 1)
-def get_door_chains_in_paths(pos, paths, m, visited=None):  # TODO: add lru cache ?
+def get_door_chains_in_paths(pos, paths, m, visited=None):
     'Return: set(tuple(doors))'
     i, j = pos
     if m[i][j] == 'c':

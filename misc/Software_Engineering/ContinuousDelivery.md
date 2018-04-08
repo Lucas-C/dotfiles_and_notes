@@ -168,8 +168,6 @@ net.exe localgroup docker-users GROUPEVSC\lucas_cimonn /add
 
 Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
 
-Note: Docker for Windows convert path to unix "slash" format with a `/host_mnt` prefix
-
 ### docker stack
 
     # Workaround, cf. https://github.com/moby/moby/issues/31101#issuecomment-365316698
@@ -183,9 +181,13 @@ Note: Docker for Windows convert path to unix "slash" format with a `/host_mnt` 
 - no support for YAML files merging: https://github.com/moby/moby/issues/31101
 - does not support relative paths (under Windows at least)
 
-### Docker for Windows current major limitations / known bugs
+### Docker for Windows current quirks / major limitations / known bugs
 
-- https://github.com/docker/for-win/issues/1080
+- convert paths to unix "slash" format with a `/host_mnt` prefix
+- ["." shorthand directory mounted volumes are not supported](https://github.com/docker/for-win/issues/1080)
+- fail silently to mount volume if there is an [existing non empty directory](https://github.com/moby/moby/issues/20127)
+The [docs](https://docs.docker.com/engine/reference/builder/#usage) explicitely mentions it:
+> When using Windows-based containers, the destination of a volume inside the container must be one of: a non-existing or empty directory & a drive other than C
 
 ### Docker client debugging
 cf. [Using curl and the UNIX socket to talk to the Docker API], [Inspecting docker activity with socat]

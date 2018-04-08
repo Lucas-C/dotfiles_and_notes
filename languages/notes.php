@@ -98,6 +98,21 @@ Ant usage :
   </target>
 
 
+</-/----------------------\-\>
+<!<! Standard PHP Library !>!>
+<\-\----------------------/-/>
+Datastructures:
+- SplDoublyLinkedList
+- SplStack
+- SplQueue
+- SplHeap
+- SplMaxHeap
+- SplMinHeap
+- SplPriorityQueue
+- SplFixedArray
+- SplObjectStorage
+
+
 </-/--------------\-\>
 <!<! Drupapapapal !>!>
 <\-\--------------/-/>
