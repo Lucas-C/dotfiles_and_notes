@@ -60,6 +60,7 @@ ranger # text-based file manager written in Python with vi key bindings
 write / mesg # 2nd control write access
 wall # broadcast message
 
+byobu, screen, txmux # text-based window managers and terminal multiplexers
 ttyrec, ipbt, ttygif, playitagainsam, KeyboardFire/mkcast # record & playback terminal sessions - Last one provides a JS player - Also: LICEcap to record desktop actions into a GIF
 licecap # record any screen interaction as GIF - cf. http://superuser.com/a/657800/255048
 
@@ -406,7 +407,7 @@ printf "\177\n" # echo non-ascii, here 'DEL' in octal. echo $'\177' is equivalen
 aha # convert ANSI colors into HTML tags
 make 2>&1 | colout -t cmake | colout -t g++ # from nojhan github: "Color Up Arbitrary Command Output"
 
-# grep Alt: ack, grin, ag (ggreer/the_silver_searcher), pt (monochromegane/the_platinum_searcher)
+# grep Alt: ack, grin, ag (ggreer/the_silver_searcher), pt (monochromegane/the_platinum_searcher), BurntSushi/ripgrep
 grep -a # if "Binary file (standard input) matches"
 grep -q # silent, !! FAIL with SIGPIPE if 'pipefail' is used: http://stackoverflow.com/a/19120674/636849
 grep '\<word\>' # match word-boundaries
@@ -740,7 +741,7 @@ localtunnel.me / ngrok # Internet tunnels to localhost
 _'_"_'_"_'_"_'_"_'_"_'_"_
 #    ssh@  SSL  :ssh    #
 -"-'-"-'-"-'-"-'-"-'-"-'-
-keithw/mosh # faster 'ssh' replacement that allows the client and server to "roam" and change IP addresses, while keeping the connection alive
+keithw/mosh # faster 'ssh' replacement that supports intermittent connectivity, allows the client and server to "roam" and change IP addresses, while keeping the connection alive
 liftoff/GateOne # HTML5-powered terminal emulator and SSH client - Also: http://en.wikipedia.org/wiki/Comparison_of_SSH_clients#Platform
 cat ~/.ssh/id_rsa.pub | ssh $user@$host "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" # Alt: ssh-copy-id $user@$host
 ssh $host "$(printf "%q" $(cat script.sh))" # %q adds escapes to any string

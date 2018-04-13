@@ -753,7 +753,7 @@ rconsole.spawn_server()
 $ rconsole
 # And also: http://eventlet.net/doc/modules/backdoor.html
 
-# IPython tricks
+# IPython tricks - Alt REPL: ptpython
 cd /a/path
 !cmd # shell command
 %quickref
@@ -1174,7 +1174,7 @@ def passthrough_http_proxy(http_proxy, real_request_url):
         response.raise_for_status()
         return response.text
 responses/httmock # a mocking library for requests
-betamaxpy/betamax # VCR/Wiremock-like HTTP mock: record & replay requests
+betamaxpy/betamax # VCR/Wiremock-like HTTP mock: record & replay requests - cf. also: kevin1024/vcrpy
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 ariebovenberg/snug # organize your HTTP client code to ease reuse, async compatibility & tests
 python-mocket # socket mocks
@@ -1247,7 +1247,7 @@ IPy(ipsrc).iptype() == 'PRIVATE' # check ranges 10.0.0.0–10.255.255.255, 172.1
 scapy # packet injection/manipulation for many network protocols - Alt: dpkt, can read .pcap files
 pystack # create modifiable TCP/IP stacks, based on scapy & netfilter
 pypcap # catpure network traffic
-kevin1024/vcrpy # record / replay HTTP interactions
+kevin1024/vcrpy # record / replay HTTP interactions - cf. also betamaxpy/betamax
 impacket # programmatic access to the packets and for some protocols: IP, TCP, UDP, ICMP, IGMP, ARP, NMB, DCE/RPC, SMB1-3 and MS-DCERPC
 py2bpf # Python to Berkeley Packet Filter bytecode converter
 wifi # wrapper around iwlist and /etc/network/interfaces

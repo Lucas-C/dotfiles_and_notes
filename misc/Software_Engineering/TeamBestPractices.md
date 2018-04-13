@@ -84,6 +84,17 @@ major points in the timeline of the event, information on trigger, root cause & 
 - grasp the whole architecture using [CodeVisualizationTools]
 - get along with HR and plan out-of-the-box projetcs with them that will make your team happier
 
+## Coaching new hires & bringing them up to speed
+- [Onboarding and the Cost of Team Debt] = "when employees aren't properly trained, integrated, or managed, they are operating at less than optimal efficiency and "team debt" is accrued"
+    * Productivity = Σ of talent * teamwork
+    * To improve onboarding:
+        - distribute the load of onboarding
+        - focus on technical skills, knowledge of company processes, and personal development
+- write docs
+- assign a "buddy" in the team & a "mentor" in the company
+- [Bringing Novice Developers Up To Speed] + bookmarks on coaching an intern
+- organiser un atelier en mode _Event-Sourcing_ pour expliquer le fonctionnement du projet et la terminologie
+
 ## Leadership
 cf. [#gamedev Lead Quick Start Guide] & [Things I was unprepared for as a lead developer] & TED Talk WhyGoodLeadersMakeYouFeelSafe
 "tell people what you want them to do instead of detailing what they’re doing wrong" [Criticism and Ineffective Feedback]
@@ -315,16 +326,13 @@ http://keepachangelog.com -> best practices & advices
 The Hemingway App analyzes text and scores it based on tiered reading levels.
 The assessments can help you spot potentially difficult passages in your documentation.
 It’s available as a text editor application, a web app, and even a linter, if command line applications are your thing.
-
-## Coaching new hires & bringing them up to speed
-- [Onboarding and the Cost of Team Debt] = "when employees aren't properly trained, integrated, or managed, they are operating at less than optimal efficiency and "team debt" is accrued"
-    * Productivity = Σ of talent * teamwork
-    * To improve onboarding:
-        - distribute the load of onboarding
-        - focus on technical skills, knowledge of company processes, and personal development
-- Write docs: cf. Valve & thoughbot handbooks, Amazon wiki
-- assign a "buddy" in the team & a "mentor" in the company
-- [Bringing Novice Developers Up To Speed] + bookmarks on coaching an intern
+- [Living Documentation](https://leanpub.com/livingdocumentation)
+  * make it easily searchable
+  * Core Principles of Living Documentation: Reliable, Low-Effort, Collaborative, Insightful
+  * **Living Glossary** : glossary from code (e.g. can be implemented in Python with decorators)
+> Extract the glossary of the Ubiquitous Language from the source code. Consider the source code as the Single Source of Truth,
+> and take great care of the naming of each class, interface and public method whenever they represent domain concepts.
+> Add the description of the domain concept directly into the source code, as structured comments that can be extracted by a tool
 
 ## Recruiting
 - [HowFuckedUpIsYourManagement?]

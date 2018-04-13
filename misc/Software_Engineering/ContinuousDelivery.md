@@ -1,3 +1,4 @@
+
 Continuous Delivery
 ===================
 
@@ -179,7 +180,7 @@ Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
 #### Current major limitations / known bugs
 
 - no support for YAML files merging: https://github.com/moby/moby/issues/31101
-- does not support relative paths (under Windows at least)
+- does not support relative paths (under Windows at least), contrary to `docker-compose`
 
 ### Docker for Windows current quirks / major limitations / known bugs
 

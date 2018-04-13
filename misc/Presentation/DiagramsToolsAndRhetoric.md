@@ -103,6 +103,12 @@ set completion-ignore-case on
 - [Arguments rhétologiques fallacieux](http://www.informationisbeautiful.net/visualizations/rhetological-fallacies/arguments-rhetologiques-fallacieux/)
 - [Which Online Discussion Archetype Are You](http://blog.codinghorror.com/which-online-discussion-archetype-are-you/)
 - [Bingo du troll](https://grisebouille.net/le-bingo-du-troll/)
+- [American Chopper Meme](https://www.vox.com/2018/4/10/17207588/american-chopper-meme):
+  * > Each panel comes complete with text, and makes for a mini debate — proposition, rebuttal, reaffirmation, second rebuttal, and a final statement.
+  * > the Chopper offers a lighthearted way to demonstrate that you actually understand the viewpoints of people on both sides of an issue
+  * > The meme functions, in this sense, as a miniature version of one of Plato’s dialogues.
+    > Rather than a conventional prose argument, in these books, Plato gives us drama.
+    > The dialogue format makes the line of argument more memorable and allows for the simultaneous presentation of a clear thesis and a deeper understanding of the issues.
 
 ## Benjamin G. advices
 

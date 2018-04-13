@@ -28,6 +28,8 @@ Project management best practices
 - [YouAreNotGoogle](https://blog.bradfieldcs.com/you-are-not-google-84912cf44afb)
 - [Growing Your Tech Stack: When to Say No](https://blog.codeship.com/growing-tech-stack-say-no/)
 - [EvolutionaryArchitecture](https://codeburst.io/evolutionary-architecture-27dae14b323d)
+- [KnowledgeDebt](http://amir.rachum.com/blog/2016/09/15/knowledge-debt/)
+- [A Taxonomy of Tech Debt](https://engineering.riotgames.com/news/taxonomy-tech-debt)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -78,11 +80,22 @@ UNPHAT:
   1. Build for the “now”: "Build to meet the needs for your near-term time horizon"
   2. Prefer evolution: "prefer the technological approach which gives you the maximum ability to modify / replace / evolve the architecture."
 
+### Technical debt
+- [A Taxonomy of Tech Debt]: "I define tech debt as code or data that future developers will pay a cost for." - Metrics:
+  * impact : user-facing & developer-facing issues
+  * (corollary, personnal) fix benefits : what improvments would a fix bring ?
+  * fix cost : the measure must take into consideration risks
+  * contagion : if this tech debt is allowed to continue to exist, how much will it spread?
+=> IMHO: classifying between local debt / MacGyver debt (aka homogenization) / foundational debt / data debt does not bring much help in organizing the reduction of tech debt.
+However, grouping elements of tech debts thematically may help to organize & prioritize tactical strikes on them
+E.g. fix all the doc pain points, homogenize & securize all our DB requests, improve resiliency, etc.
+
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]
 - start from a POC / MVP. [MVB]: "come with code" -> proof of concept + momentum + build motivation
 - + Diagrams !
 - Team design : Google Ventures' Product Design Sprints, cf. [ThoughbotPlaybook]
+- Event Storming
 
 ## Requirements
 - write a one-pager summing up:
@@ -103,6 +116,7 @@ UNPHAT:
     * don't: behavior-Driven Development, pseudo-narrative
     * do if enough time: live prototype, animation
 - maintain a project glossary [PP]. Document the vocabulary used in the domain and shared with clients, to avoid ambiguity (from [ThoughbotPlaybook])
+Same recommendation from Domain Driven Design / Event Storming : **ubiquitous language**
 - Agile recommend using user stories over UML use cases (that can be drawn with e.g. PlantUML). Use cases are NOT a form a requirements, just an illustration of them. They are NOT Agile, user stories are. Cf. [OnUseCasesAndUserStories]
 
 ## Agile
@@ -123,14 +137,17 @@ Any assumptions without which the story would be difficult or impossible to impl
 - Not Included
 If there is any possibility of misunderstanding what is included, it is sometimes helpful to explicitly enumerate what is not included in the Story.
 
-#### Sub-story
-The smallest unit of work that has value for our customers
+Sub-story: The smallest unit of work that has value for our customers
 
 ## Personal tasks management
 - Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins
 - For tips on priotizating issues of a service: _cf._ [ProductOwnership]
 - [Log-driven programming] > nested-thinking: never interrupt the flow, take notes of subtasks you'll achieve later on
 - Pomodoro Technique: use a timer to break down work into ~25min intervals separated by short breaks
+- [Knowledge Debt]:
+> You should, intentionally and tactically, decide which piece of information you can do without, for now. But you should also, intentionally and strategically, decide when to pay back that debt.
+> Being a programmer is about being in a continuous state of learning
+> Great programmers don’t settle on not knowing; but they are also not obesessed about learning right now
 
 ## Team tasks management
 - [EvidenceBasedScheduling]

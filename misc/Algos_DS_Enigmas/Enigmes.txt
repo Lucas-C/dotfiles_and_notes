@@ -112,3 +112,5 @@ https://handsomeone.github.io/Nonogram nonogram (also known as hanjie, picross a
 -> pourrait révéler un QR code
 
 https://chezsoi.org/shaarli/?searchtags=PuzzleGenerator
+
+https://github.com/Lucas-C/dotfiles_and_notes/tree/master/languages/web-d3/secret-grid

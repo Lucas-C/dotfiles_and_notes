@@ -38,7 +38,6 @@ Software Development Best Practices
 - [Why do record/replay tests of web applications break?](https://blog.acolyer.org/2016/05/30/why-do-recordreplay-tests-of-web-applications-break)
 - [MicroservicesPleaseDont](https://blog.komand.com/microservices-please-dont)
 - [LogstashAlternatives][https://sematext.com/blog/2016/09/13/logstash-alternatives/] : Filebeat, Fluentd, rsyslog, syslog-ng & Logagent
-- [KnowledgeDebt](http://amir.rachum.com/blog/2016/09/15/knowledge-debt/)
 - [ModernSoftwareOverEngineeringMistakes](https://medium.com/@rdsubhas/10-modern-software-engineering-mistakes-bc67fbef4fc8#.3y051ocdz)
 - [WhyYouShouldUseAMonorepo](http://www.drmaciver.com/2016/10/why-you-should-use-a-single-repository-for-all-your-companys-projects/)
 - [WhenToRepeatYourself](http://devblog.songkick.com/2016/08/31/when-to-repeat-yourself/)

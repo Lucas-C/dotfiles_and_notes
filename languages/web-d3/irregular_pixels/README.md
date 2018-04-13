@@ -15,7 +15,7 @@ Then open `index.html`
 
 ## Design notes
 
-I'm using strings to modelize 2 points in order to benefit from `===` comparison and hence the `Set` data structure.
+I'm using strings to modelize 2d points in order to benefit from `===` comparison and hence the `Set` data structure.
 
 <!--Tasks:
 - finish implementing 1st ruleset

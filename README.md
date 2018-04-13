@@ -6,8 +6,8 @@ Compatible with Ubuntu, Red Hat, OSX and Cygwin.
 
 ## Installation
 
-    git clone https://github.com/Lucas-C/linux_configuration.git
-    BASHRC_DIR=$PWD/linux_configuration
+    git clone https://github.com/Lucas-C/dotfiles_and_notes.git
+    BASHRC_DIR=$PWD/dotfiles_and_notes
     cd $HOME
     for f in .gemrc .gitconfig .inputrc .minttyrc .vimrc; do [ -e $f ] && echo "Backing up $f" && mv $f{,.bak}; ln -s $BASHRC_DIR/$f; done
     echo "source $BASHRC_DIR/.bashrc" >> .bashrc
@@ -41,4 +41,5 @@ If such file exists, it will be sourced from the main _.gitconfig_.
 
 Move all .* files in a subdir
 and use stow: http://sametmax.com/regrouper-ses-fichiers-de-settings-avec-stow/
+or https://github.com/deadc0de6/dotdrop
 -->
