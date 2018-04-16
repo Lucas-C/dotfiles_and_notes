@@ -30,6 +30,7 @@ Project management best practices
 - [EvolutionaryArchitecture](https://codeburst.io/evolutionary-architecture-27dae14b323d)
 - [KnowledgeDebt](http://amir.rachum.com/blog/2016/09/15/knowledge-debt/)
 - [A Taxonomy of Tech Debt](https://engineering.riotgames.com/news/taxonomy-tech-debt)
+- [TechnicalDebtQuadrant by Martin Fowler](https://martinfowler.com/bliki/TechnicalDebtQuadrant.html)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -89,6 +90,8 @@ UNPHAT:
 => IMHO: classifying between local debt / MacGyver debt (aka homogenization) / foundational debt / data debt does not bring much help in organizing the reduction of tech debt.
 However, grouping elements of tech debts thematically may help to organize & prioritize tactical strikes on them
 E.g. fix all the doc pain points, homogenize & securize all our DB requests, improve resiliency, etc.
+- [TechnicalDebtQuadrant by Martin Fowler]:
+> To my mind, the question of whether a design flaw is or isn't debt is the wrong question. [...] A particular benefit of the debt metaphor is that it's very handy for communicating to non-technical people.
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]

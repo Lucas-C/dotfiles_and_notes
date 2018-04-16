@@ -964,7 +964,7 @@ binascii.hexlify # display binary has hexadecimal
 """"""""""""""""""""""""""""""
 "" DBs, queues & schedulers
 """"""""""""""""""""""""""""""
-celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of celery tasks
+celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of tasks
 ampqlib, haigha, puka # AMPQ libs
 kombu (based on celery), zeromq, aiozmq, mrq # distributed app / msg passing frameworks
 dask  # task scheduling and blocked algorithms for parallel processing

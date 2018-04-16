@@ -59,6 +59,7 @@ iKAT : gain access to the underlying OS in Kiosk (browser) restricted environmen
 -> also: https://blog.netspi.com/breaking-out-of-applications-deployed-via-terminal-services-citrix-and-kiosks/
 
 https://github.com/3gstudent/Javascript-Backdoor : JSRAT is a Python script that can be used to get a remote shell on a target PC simply by making hime visit an URL with a browser
+http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet : with Bash, Perl, Python, PHP, Ruby, Java...
 
 Content-Security-Policy HTTP response header : reduce XSS risks by declaring what dynamic resources are allowed to load
 

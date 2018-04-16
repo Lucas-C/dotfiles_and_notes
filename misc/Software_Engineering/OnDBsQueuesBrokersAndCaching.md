@@ -62,7 +62,8 @@ Also: SSD caching, eg. [stec-inc/EnhanceIO][//github.com/stec-inc/EnhanceIO], re
   Worker processes TCP-connect dialog with it to pick up & execute jobs: either in the "default" tube (= channel / queue) or only jobs put in specific tubes watched
 - ActiveMQ, RabbitMQ : Message queues using AMPQ - For Redis based queues, check antirez/disque before RQ or RestMQ
   * [Key metrics for RabbitMQ monitoring](https://www.datadoghq.com/blog/rabbitmq-monitoring/)
-- Celery/Kombu : Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers
+- Celery/Kombu : Framework to use any of the above ones - note: Celery using 100% CPU is OK say developpers - Monitoring: mher/flower -
+celery_once : prevent multiple execution and queuing of tasks
 - Nameko : Python framework for building service orientated software, includes an implementation of RPC over AMQP
 - fireworq : lightweight, high-performance job queue system, based on MySQL
 - NSQ : distributed and decentralized messaging platform, written in Go (with Python lib available), agnostic to the message format (JSON, MSgPack, protocol buffers... are supported)
