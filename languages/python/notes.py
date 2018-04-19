@@ -111,7 +111,7 @@ os.stat("filename").st_ino # get inode
 .st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
 portalocker # easy API to file locking
 
-watchdog # + cmd watchmedo -> monitor/observe files changes - FROM: S&M
+watchdog # inc. cmd watchmedo -> monitor/observe files changes - FROM: S&M - not Cygwin-friendly due to ctypes.wintypes usage
 
 def bar(**kwargs): # != def bar(foo=None, **kwargs):
     foo = kwargs.pop('foo')
@@ -839,7 +839,7 @@ code = "my code bla bla"
 compiled = compile(code)
 exec compiled
 
-from dis import dis; dis(myfunc) # get dissassembly
+from dis import dis; dis(myfunc) # get dissassembly - Also, to extend Python with x86 asm modules: https://p403n1x87.github.io/python/assembly/2018/03/23/asm_python.html
 uncompyle2 prog.pyc # bytecode -> python code
 neuroo/equip # bytecode instrumentation, e.g. insert call counters logic into .pyc
 foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')) # bytecode evil alteration
@@ -1148,6 +1148,7 @@ requests.post(form_url, data={'x':'42'})
     aiohttp # for asyncio-based equivalent
     requests-futures # for asynchronous (non-blocking) HTTP requests
     txrequests # Twistted asynchronous requests
+    requests_toolbet # multipart/form-data Encoder - User-Agent constructor - SSLAdapter - cookies/ForgetfulCookieJar
     requests-cache
     requests-respectful # requests capping
     requests-jwt # auth = JWTAuth(secret, alg='HS512', header_format='Bearer %s') - usage example: https://github.com/shaarli/python-shaarli-client/blob/master/shaarli_client/client/v1.py#L205

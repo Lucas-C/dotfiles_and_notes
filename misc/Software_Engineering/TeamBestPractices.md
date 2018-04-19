@@ -66,10 +66,16 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Intro à la Sociodynamique](http://cache.media.eduscol.education.fr/file/Numerique/85/7/3._Presentation_Marc_Smia_427857.pdf)
 - [CNV & Agilité par T. Clavier & J. Quille](https://gitlab.com/azae/conferences/cnv-agilite/-/jobs/52813557/artifacts/file/2017agileFrance.pdf)
 - [Enable your Devs to do Ops - Runbooks in the DevOps era](https://blog.buildo.io/enable-your-devs-to-do-ops-9a0a870baa1)
+- [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
 + cf. [HowAndWhyToDesignYourTeamsForModernSoftwareSystems] & http://devopstopologies.com
+
+### Open-plan offices
+Cons from [Why "Agile" and especially Scrum are terrible]:
+- it’s hard to concentrate in them
+- they’re anti-intellectual, insofar as people become afraid to be caught reading books (or just thinking) on the job. When you force people to play a side game of appearing productive, in addition to their job duties, they become less productive
 
 ## Joining a new team
 - talk to a colleague each day (but not for too long, and schedule it) and question him on what he does
@@ -163,7 +169,11 @@ It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, 
 
 In general, limit meetings by making them informal chats or doing them properly: agenda (skip if empty), few participants, time-boxed, clustered on some days in the week, take notes & record team decisions [Minimum Viable Bureaucracy]
 
+Identify what's the main purpose of the meeting: **think & reflect**, **decide** or **inform**
+
 [Liberating Structures](http://www.liberatingstructures.com) 33 microstructures to replace more controlling or constraining meetings
+Ex: [1-2-4-All](http://www.liberatingstructures.com/1-1-2-4-all/) - 12min, "autoporté", _parallel processing_ - Attention: le choix de question posée est crucial
++ problème peut être découpé en plusieurs ateliers pour diverger puis converger
 
 ## Retrospectives
 cf. [RetrospectiveWiki]

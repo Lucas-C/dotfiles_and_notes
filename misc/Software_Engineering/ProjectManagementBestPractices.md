@@ -31,6 +31,7 @@ Project management best practices
 - [KnowledgeDebt](http://amir.rachum.com/blog/2016/09/15/knowledge-debt/)
 - [A Taxonomy of Tech Debt](https://engineering.riotgames.com/news/taxonomy-tech-debt)
 - [TechnicalDebtQuadrant by Martin Fowler](https://martinfowler.com/bliki/TechnicalDebtQuadrant.html)
+- [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -124,6 +125,12 @@ Same recommendation from Domain Driven Design / Event Storming : **ubiquitous la
 
 ## Agile
 [TheFailureOfAgileAndGROWS]
+[Why "Agile" and especially Scrum are terrible]:
+- "the work gets atomized into “user stories” and “iterations” that often strip a sense of accomplishment from the work, as well as any hope of setting a long-term vision for where things are going."
+Instead of working on actual, long-term projects that a person could get excited about, they’re relegated to working on atomized, feature-level “user stories” and often disallowed to work on improvements that can’t be related to short-term, immediate business needs
+- these "Agile" systems, so often misapplied, demand that they provide humiliating visibility into their time and work, despite a lack of reciprocity
+- Scrum is the worst, with its silliness around two-week “iterations”. It induces needless anxiety about microfluctuations in one’s own productivity
+- Ultimately, Agile (as practiced) and Waterfall both are forms of business-driven engineering, and that’s why neither is any good at producing quality software or happy employees.
 
 ### Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.

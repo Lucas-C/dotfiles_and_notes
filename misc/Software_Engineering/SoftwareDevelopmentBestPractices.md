@@ -57,6 +57,7 @@ Software Development Best Practices
 - [PUT vs PATCH vs JSON-PATCH](https://blog.apisyouwonthate.com/put-vs-patch-vs-json-patch-208b3bfda7ac)
 - [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
 - [Joel On Software - Things You Should Never Do](https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/)
+- [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -129,6 +130,9 @@ FROM: [Joel On Software - Things You Should Never Do]
 - Mature engineers seek out constructive criticism of their designs.
 - Mature engineers understand the non-technical areas of how they are perceived.
 - Mature engineers do not shy away from making estimates, and are always trying to get better at it.
+(another take on that subject from [Why "Agile" and especially Scrum are terrible]:
+The worst thing about estimates is that they push a company in the direction of doing work that’s estimable.
+Anything that’s actually worth doing has a non-zero chance of failure and too many unknown unknowns for estimates to be useful.)
 - Mature engineers have an innate sense of anticipation, even if they don’t know they do.
 - Mature engineers understand that not all of their projects are filled with rockstar-on-stage work.
 - Mature engineers lift the skills and expertise of those around them.

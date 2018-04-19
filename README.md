@@ -11,9 +11,13 @@ Compatible with Ubuntu, Red Hat, OSX and Cygwin.
     cd $HOME
     for f in .gemrc .gitconfig .inputrc .minttyrc .vimrc; do [ -e $f ] && echo "Backing up $f" && mv $f{,.bak}; ln -s $BASHRC_DIR/$f; done
     echo "source $BASHRC_DIR/.bashrc" >> .bashrc
-    echo 'exec /bin/bash' > .profile
 
 Any .bashrc_* file in $BASHRC_DIR will be sourced.
+
+Optionally you may need to add the following in `~/.profile` (and maybe create this file),
+but beware that this once broke the session start step and got me stuck on the login screen with a CentOS VM:
+
+    exec /bin/bash
 
 To use **screen**, create an empty *~/.use_screen* file. Similarly, you can create *~/.use_tmux*.
 
