@@ -1,23 +1,30 @@
+#!python
+
 # PURPOSE: generate a Python modules graph in JSON to be viewed by https://github.com/fzaninotto/DependencyWheel
 
 # REQUIRES: pip install modulegraph
 
-# USAGE: python gen_modules_graph.py flaskapp > infralib_packages.json
+# USAGE: gen_modules_graph.py httpie.core > modules-graph.json
 
 from __future__ import print_function
 import json, os, sys
 from modulegraph.modulegraph import ModuleGraph
 
 
-def build_modules_graph(path, root_pkg):
+def build_modules_graph(path, entrypoint_module):
+    root_pkg = entrypoint_module.split('.')[0]
     mf = ModuleGraph(path, debug=1)
-    mf.import_hook(root_pkg)
+    mf.import_hook(entrypoint_module)
 
     packages = {}  # map: name => unique id
     for m in sorted(mf.flatten(), key=lambda n: n.identifier):
-        if m.identifier.startswith(root_pkg + '.'):  # filtering only internal modules
-            if m.identifier not in packages:
-                packages[m.identifier] = len(packages)
+        if not m.identifier.startswith(root_pkg + '.'):  # keeping only internal modules
+            continue
+        module_name = m.identifier.split('.')[-1]
+        if module_name == module_name.upper() or module_name.startswith('__'):  # we ignore CONSTANTS & __version__-like metadata
+            continue
+        if m.identifier not in packages:
+            packages[m.identifier] = len(packages)
 
     n = len(packages)
     matrix = [[0]*n for _ in range(n)]
@@ -29,15 +36,21 @@ def build_modules_graph(path, root_pkg):
                 print('Module {} depends on module {}'.format(pkg_name, edge_dest_pkg_name), file=sys.stderr)
                 matrix[pkg_id][packages[edge_dest_pkg_name]] += 1
 
-    # add small increment to equally weighted dependencies to force order
-    # (recipe from: https://github.com/fzaninotto/DependencyWheel/blob/master/js/composerBuilder.js#L74 )
-    for index, row in enumerate(matrix):
-        increment = 0.001
-        for i in range(-1, n):
-            ii = (i + index) % n
-            if row[ii] == 1:
-                row[ii] += increment
-                increment += 0.001
+    # we remove all packages that have zero deps to & from other ones
+    lone_modules_may_exist = True
+    while lone_modules_may_exist:
+        lone_modules_may_exist = False
+        i = 0
+        while i < len(matrix):
+            n = len(matrix)  # this value will change as matrix shrinks
+            if all(matrix[i][j] == 0 for j in range(n)) and all(matrix[j][i] == 0 for j in range(n)):
+                print(i)
+                lone_modules_may_exist = True
+                packages = {pkg: index for pkg, index in packages.items() if index != i}
+                matrix = matrix[:i] + matrix[i+1:]
+                for j, row in enumerate(matrix):
+                    matrix[j] = row[:i] + row[i+1:]
+            i += 1
 
     modules_graph = {
         'matrix': matrix,
@@ -47,4 +60,4 @@ def build_modules_graph(path, root_pkg):
 
 
 if __name__ == '__main__':
-    print(json.dumps(build_modules_graph(sys.path[1:], sys.argv[1])))
+    print(json.dumps(build_modules_graph(['.'] + sys.path, sys.argv[1])))
