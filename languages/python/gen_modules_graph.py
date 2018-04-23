@@ -8,7 +8,7 @@
 
 from __future__ import print_function
 import json, os, sys
-from modulegraph.modulegraph import ModuleGraph
+from modulegraph.modulegraph import BaseModule, ModuleGraph
 
 
 def build_modules_graph(path, entrypoint_module):
@@ -18,11 +18,11 @@ def build_modules_graph(path, entrypoint_module):
 
     packages = {}  # map: name => unique id
     for m in sorted(mf.flatten(), key=lambda n: n.identifier):
+        if not isinstance(m, BaseModule):  # not a module import, probably a constant or function
+            continue
         if not m.identifier.startswith(root_pkg + '.'):  # keeping only internal modules
             continue
         module_name = m.identifier.split('.')[-1]
-        if module_name == module_name.upper() or module_name.startswith('__'):  # we ignore CONSTANTS & __version__-like metadata
-            continue
         if m.identifier not in packages:
             packages[m.identifier] = len(packages)
 
