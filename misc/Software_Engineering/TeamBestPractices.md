@@ -336,6 +336,7 @@ http://keepachangelog.com -> best practices & advices
 The Hemingway App analyzes text and scores it based on tiered reading levels.
 The assessments can help you spot potentially difficult passages in your documentation.
 It’s available as a text editor application, a web app, and even a linter, if command line applications are your thing.
+ - Donald Knuth advocated [literate programming](https://en.wikipedia.org/wiki/Literate_programming), where doc is written at the same time and location as the source code and extracted by automatic means
 - [Living Documentation](https://leanpub.com/livingdocumentation)
   * make it easily searchable
   * Core Principles of Living Documentation: Reliable, Low-Effort, Collaborative, Insightful

@@ -11,14 +11,17 @@ import json, os, sys
 from modulegraph.modulegraph import BaseModule, ModuleGraph
 
 
-def build_modules_graph(path, entrypoint_module):
-    root_pkg = entrypoint_module.split('.')[0]
+def build_modules_graph(path, entrypoint_modules):
+    if not len(set(m.split('.')[0] for m in entrypoint_modules)) == 1:
+        raise ValueError('All provided module entry points do not share the same root package name')
+    root_pkg = entrypoint_modules[0].split('.')[0]
     mf = ModuleGraph(path, debug=1)
-    mf.import_hook(entrypoint_module)
+    for mod in entrypoint_modules:
+        mf.import_hook(mod)
 
     packages = {}  # map: name => unique id
     for m in sorted(mf.flatten(), key=lambda n: n.identifier):
-        if not isinstance(m, BaseModule):  # not a module import, probably a constant or function
+        if not isinstance(m, BaseModule):  # not a module import, probably a constant or function or C module
             continue
         if not m.identifier.startswith(root_pkg + '.'):  # keeping only internal modules
             continue
@@ -44,9 +47,8 @@ def build_modules_graph(path, entrypoint_module):
         while i < len(matrix):
             n = len(matrix)  # this value will change as matrix shrinks
             if all(matrix[i][j] == 0 for j in range(n)) and all(matrix[j][i] == 0 for j in range(n)):
-                print(i)
                 lone_modules_may_exist = True
-                packages = {pkg: index for pkg, index in packages.items() if index != i}
+                packages = {pkg: index if index < i else index - 1 for pkg, index in packages.items() if index != i}
                 matrix = matrix[:i] + matrix[i+1:]
                 for j, row in enumerate(matrix):
                     matrix[j] = row[:i] + row[i+1:]
@@ -60,4 +62,4 @@ def build_modules_graph(path, entrypoint_module):
 
 
 if __name__ == '__main__':
-    print(json.dumps(build_modules_graph(['.'] + sys.path, sys.argv[1])))
+    print(json.dumps(build_modules_graph(['.'] + sys.path, sys.argv[1:])))
