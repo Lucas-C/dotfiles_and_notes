@@ -32,6 +32,15 @@ Quick check WEBAIM based [Wave](http://wave.webaim.org)
 [Les écueils du contrôle de saisie dynamique](http://access42.net/Les-ecueils-du-controle-de-saisie-dynamique)
 
 
+## Typographie
+[Typographie et accessibilité - Marie Guillaumet, Access42](http://mixit.access42.net/):
+- pas de `<meta name="viewport" content="maximum-scale=1.0,user-scalable=no" />`
+- pour limiter la longueur des lignes à 80 caractères max : `max-width:80ch` -> adapte la taille du texte au caractère typographique choisis
+- polices adaptées à la dyslexie, comme [Open Dyslexic](https://www.opendyslexic.org)
+- "l’interlignage et l’espace entre les paragraphes devraient être équivalent à au moins 1,5 fois la taille du texte."
+- "Si les textes ne sont pas justifiés, c’est l’idéal !"
+
+
 ## Libs
 
 https://github.com/access42/AccessTooltip : JS function to make the title attribute accessible for keyboard users

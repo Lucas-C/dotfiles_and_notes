@@ -13,6 +13,7 @@ Open source challenges
 - [Are we there yet: is open source gamification enterprise ready?](http://www.gameffective.com/is-open-source-gamification-enterprise-ready/)
 - [freeCodeCamp guide to contribute to Open Source](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) projects for newcomers
 - [Six things to know about successful open-source software](https://knightlab.northwestern.edu/2013/07/24/six-lessons-on-success-and-failure-for-open-source-software/)
+- [Open Source is awful](https://steemit.com/opensource/@crell/open-source-is-awful)
 
 ## Resources for newcomers
 - [freeCodeCamp guide to contribute to Open Source]
@@ -153,6 +154,14 @@ Also: https://openbadges.org
 
 ### Funding, financing
 - https://opencollective.com/learn-more : "Open your finances to your community"
+
+### Cons
+[Open Source is awful]:
+- "I used to think Open Source was amazing. I've since come to realize just how awful it is."
+- First, I need to draw a clear distinction between three often-confused concepts: Free Software, Open Source, and Volunteer Coding.
+- "We love to encourage developers to get involved; "give back" is the mantra."
+- That is simply the polite way of saying "do work for free and we'll pay you in exposure". We all know that's called exploitation
+- "My code is free — my time is not."
 
 ### Copyleft licenses contamination from dependencies
 Si votre projet a des dépendances, veillez à analyser leurs licenses.
