@@ -1303,8 +1303,20 @@ curl http://localhost:9091/transmission/rpc --header "X-Transmission-Session-Id:
 -}_.}_.}_.}
 Based on TiddlyWiki
 https://bitbucket.org/klembot/twinejs
-https://github.com/tweecode/twine # GUI in Python
-Example: https://github.com/sno/the-temple-of-no/issues
+https://github.com/tweecode/twine # Twine 1, GUI in Python
+https://github.com/klembot/twinejs/tree/master/src # Twine 2, NodeJS with NW.js
+Example: https://github.com/crowscrowscrows/the-temple-of-no
+Good read to understand Story Formats: https://twinery.org/wiki/twine2:what_s_new_in_twine_2#story_formats
+http://www.motoslave.net/tweego/docs/ : CLI compiler for Twine story formats, written in Go
+
+# .tws file parsing:
+import pickle, sys
+sys.path.insert(0, '../twine')
+import tiddlywiki
+with open('the-temple-of-no.tws', 'rb') as f:
+    tws = pickle.load(f)  # tws['target'] == 'sugarcane' is the story format
+for tiddler in tws['storyPanel']['widgets']:
+    print(tiddler['passage'].title, tiddler['passage'].tags)  # 'Twine.image' means base64 encoded image
 
 
 -8-8-8-8-8-8

@@ -159,7 +159,15 @@ Anything that’s actually worth doing has a non-zero chance of failure and too 
     * [XY Problem](http://xyproblem.info)
     * [anchoring effect](https://en.wikipedia.org/wiki/Anchoring) : when people consider a particular value for an unknown quantity before estimating that quantity
     * [the halo effect](https://en.wikipedia.org/wiki/Halo_effect) : the tendency to like (or dislike) everything about a person—including things you have not observed
-+ [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/)
+
+[The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/):
+- A senior developer [...] is obsessed with simplicity.
+- senior developer [...] understand that there is no “Right Way” to build software
+- A senior developer understands that everything in our field involves tradeoff
+- A senior developer thinks of more than just themselves.
+- A senior developer will understand that this job is to provide solutions to problems, not write code
+- A senior developer understands that you cannot do everything yourself, and that their primary role is to help their team get better
+- A senior developer understands that leadership is not about power, it is about empowerment. It is not about direction, it is about serving.
 
 "When facing extremely short, ambitious deadlines, one knows there are a dozen good things one can do, but very little feels justifiable in the face of a crisis, except writing code as fast as possible." [What happens when the Board Of Directors begins to panic?]
 

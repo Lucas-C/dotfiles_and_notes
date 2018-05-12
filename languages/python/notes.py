@@ -670,6 +670,7 @@ pyreverse # UML diagrams, integrated in pylint
 safety, snyk # report security vulnerabilities in dependencies
 dxa4481/truffleHog, landscapeio/dodgy # detect credentials/passwords/secrets in source code - Also, in other languages : awslabs/git-secrets, auth0/repo-supervisor
 python-security/pyt # detect vulnerabilities in Python Web Applications: XSS, SQL injection, command injection, directory traversal...
+flipkart-incubator/Astra # Automated Security Testing For REST API's
 openstack/bandit  # Python AST-based security linter
     echo -e "[bandit]\nexclude: my_proj/.eggs,my_proj/src/unittest"
     bandit --ini .banditrc --recursive my_proj/ # -lll to limit to HIGH severity issues
