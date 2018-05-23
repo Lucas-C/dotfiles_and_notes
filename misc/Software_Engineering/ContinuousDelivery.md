@@ -1,6 +1,9 @@
-
 Continuous Delivery
 ===================
+
+::: toc
+[[toc]]
+:::
 
 ## References
 - [Immutable Server](http://martinfowler.com/bliki/ImmutableServer.html) pattern
@@ -151,15 +154,21 @@ fi
 <INSERT> # paste under MinGW / Git Bash
 ```
 
-`daemon.json`: defaults to `%programdata%\docker\config\daemon.json` / `/etc/docker/daemon.json`
+`daemon.json`: defaults to `/etc/docker/daemon.json`
+
+Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
+
+### Docker for Windows
+`daemon.json`: defaults to `%programdata%\docker\config\daemon.json`
 
 Logs: `%programdata%\docker\service*.txt`
 
-Windows service:
+Windows services:
 ```
-sc interrogate com.docker.service
+sc query vmms
+sc query com.docker.service
 sc start com.docker.service
-sc stop com.docker.service
+sc stop  com.docker.service
 ```
 
 Command executed by the Docker For Windows installer to add the current user to the `docker-users` group:
@@ -167,7 +176,19 @@ Command executed by the Docker For Windows installer to add the current user to 
 net.exe localgroup docker-users GROUPEVSC\lucas_cimonn /add
 ```
 
-Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
+Checking if Hyper-V is enabled:
+```
+dism /Online /Get-FeatureInfo /FeatureName:Microsoft-Hyper-V-All
+```
+
+#### Docker for Windows current quirks / major limitations / known bugs
+
+- convert paths to unix "slash" format with a `/host_mnt` prefix
+- ["." shorthand directory mounted volumes are not supported](https://github.com/docker/for-win/issues/1080)
+- fail silently to mount volume if there is an [existing non empty directory](https://github.com/moby/moby/issues/20127)
+The [docs](https://docs.docker.com/engine/reference/builder/#usage) explicitely mentions it:
+> When using Windows-based containers, the destination of a volume inside the container must be one of: a non-existing or empty directory & a drive other than C
+- whenever you change your password (at least when using an AD account), you **must** re-share your drives in Docker settings
 
 ### docker stack
 
@@ -179,17 +200,12 @@ Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
 
 #### Current major limitations / known bugs
 
+- sometimes: `Error response from daemon: rpc error: code = 2 desc = update out of sequence`
+Solution: redepoy - cf. https://github.com/moby/moby/issues/30794
 - ~~no support for YAML files merging: https://github.com/moby/moby/issues/31101~~
   * implemented since 17.11.0-dev : https://github.com/docker/cli/commit/1872bd8
 - does not support relative paths (under Windows at least), contrary to `docker-compose`
-
-### Docker for Windows current quirks / major limitations / known bugs
-
-- convert paths to unix "slash" format with a `/host_mnt` prefix
-- ["." shorthand directory mounted volumes are not supported](https://github.com/docker/for-win/issues/1080)
-- fail silently to mount volume if there is an [existing non empty directory](https://github.com/moby/moby/issues/20127)
-The [docs](https://docs.docker.com/engine/reference/builder/#usage) explicitely mentions it:
-> When using Windows-based containers, the destination of a volume inside the container must be one of: a non-existing or empty directory & a drive other than C
+- does not currently support `host` network, e.g. giving access to localhost to services, cf. https://github.com/docker/swarmkit/issues/989
 
 ### Docker client debugging
 cf. [Using curl and the UNIX socket to talk to the Docker API], [Inspecting docker activity with socat]

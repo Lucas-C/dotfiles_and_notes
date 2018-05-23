@@ -1,6 +1,10 @@
 RiskManagement
 ==============
 
+::: toc
+[[toc]]
+:::
+
 ## Resources
 
 - bonne intro PDF: [Guide de gestion des risques des projets de développement de système](http://collections.banq.qc.ca/ark:/52327/bs53966) - Quebec 2005

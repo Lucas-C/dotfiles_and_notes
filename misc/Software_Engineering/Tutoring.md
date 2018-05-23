@@ -1,6 +1,10 @@
 Tutoring
 ========
 
+::: toc
+[[toc]]
+:::
+
 # References
 - [Les compétences des docteur·e·s](http://www.adoc-metis.com/wp/wp-content/uploads/2017/01/Competences.pdf)
 

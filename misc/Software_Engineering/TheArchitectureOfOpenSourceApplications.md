@@ -1,6 +1,10 @@
 [500 Lines or Less](http://www.aosabook.org)
 ============================================
 
+::: toc
+[[toc]]
+:::
+
 [A Simple Object Model](http://aosabook.org/en/500L/a-simple-object-model.html) by Carl Friedrich Bolz
 -> compare method-based model (like Smalltalk, Ruby, and JavaScript) with attribute-based models (like Lua and Python, which explain what are "bound methods")
 + explain "maps" instance optimization used in PyPy and the JS V8 engine, where it is called "hidden classes"

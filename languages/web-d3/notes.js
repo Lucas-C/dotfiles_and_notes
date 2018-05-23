@@ -270,7 +270,7 @@ npm install --loglevel verbose $pkg // Node Packaged Modules
 npm view $pkg_name [dist.tarball] // get URL of a package tarball
 npm shrinkwrap // locks down the versions of a package's dependencies
 
-substack/minimist // argument options parser - Alt: chevex/yargs, harthur/nomnom, divarvel/cliparse-node
+substack/minimist > substack/optimist // argument options parser - Alt: chevex/yargs, divarvel/cliparse-node, tj/commander.js
 
 var Transform = require('stream').Transform,
     PassThrough = require('stream').PassThrough;

@@ -1,5 +1,9 @@
 # [Software development is a collaborative game](http://blog.codinghorror.com/software-development-as-a-collaborative-game/)
 
+::: toc
+[[toc]]
+:::
+
 ## References
 - [Minimum Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)
 - [HowToBeGoodAtOps](https://adamhjk.github.io/good-at-ops/#/8)

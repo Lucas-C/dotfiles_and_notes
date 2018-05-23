@@ -1029,7 +1029,7 @@ pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 ericoporto/fgmk # retro RPG Game Maker
 
-Zulko/gizeh, Zulko/MoviePy, jdf/processing.py (uses Jython) # Video & image (editing - MoviePy looks like the current best tool to make GIF / webm animations
+Zulko/gizeh, Zulko/MoviePy, jdf/processing.py (uses Jython) # Video & image (editing - MoviePy looks like the current best tool to make GIF / webm animations - Also: https://github.com/1-Sisyphe/youCanCodeAGif
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 ryanfox/retread # detect reused frames in video
 

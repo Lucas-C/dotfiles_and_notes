@@ -85,7 +85,7 @@ stampery/mongoaudit : MongoDB auditing and pentesting in Python
 mimikatz : extract plaintexts Windows passwords, hash, PIN code and kerberos tickets from memory; can also perform pass-the-hash, pass-the-ticket or build Golden tickets
 mimipenguin: same as Mimikatz for Linux - must be root
 http://pwnwiki.io/#!presence/windows/blind.md # read common Windows files to discover vulnerabilities
-
+https://github.com/rootm0s/WinPwnage #  💻 Elevate, UAC bypass, persistence, privilege escalation, dll hijack techniques
 
 
 ## Reporting

@@ -1,6 +1,10 @@
 Software Development Best Practices
 ===================================
 
+::: toc
+[[toc]]
+:::
+
 ## References
 - [CC-\\w\\d+](http://fr.slideshare.net/hebel/clean-code-vortrag032009pdf) : Clean Code - Robert C. Martin - Ed. Prentice Hall
 - [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley : http://blog.codinghorror.com/a-pragmatic-quick-reference/

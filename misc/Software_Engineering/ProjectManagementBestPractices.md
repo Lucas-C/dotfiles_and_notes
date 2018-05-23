@@ -1,6 +1,10 @@
 Project management best practices
 =================================
 
+::: toc
+[[toc]]
+:::
+
 ## References
 - [PP] : The Pragmatic Programmer : Chapter 7 "Before the project" - Andrew Hunt & David Thomas
 - [VisualSpec](http://www.targetprocess.com/articles/visual-specifications.html)

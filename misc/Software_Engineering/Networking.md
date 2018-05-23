@@ -1,6 +1,10 @@
 Networking
 ==========
 
+::: toc
+[[toc]]
+:::
+
 101 : https://github.com/espadrine/Solve-Data-In-Code/blob/master/misc/network.md
 
 ## Windows

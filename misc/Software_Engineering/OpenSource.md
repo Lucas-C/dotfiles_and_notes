@@ -1,6 +1,10 @@
 Open source challenges
 =====================
 
+::: toc
+[[toc]]
+:::
+
 ## References
 - [ScalingOpenSourceCommunities](http://buytaert.net/scaling-open-source-communities)
 - [4StepsToCreatingAThrivingOpenSourceProject](https://opensource.com/life/15/5/4-steps-creating-thriving-open-source-project)

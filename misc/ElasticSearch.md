@@ -16,6 +16,12 @@ Elasticsearch networking protocols details: https://www.elastic.co/blog/found-el
 - plugin marvel (> plugin head)
 - alerting: watcher, https://github.com/Yelp/elastalert
 - superelasticsearch : Python lib providing iterated search & simpler bulk API
+- [Netflix/Raigad](https://github.com/Netflix/Raigad) runs alongside Elasticsearch to automate the following:
+    * Snapshot backup and restore.
+    * Configured deployments for a dedicated master/data/search approach.
+    * Publishing Elasticsearch monitoring metrics.
+    * Support for AWS environment.
+
 
 ## Config recommandations
 How to choose the number of nodes in a cluster: http://blog.overnetcity.com/2014/04/24/elasticsearch-the-split-brain-problem/

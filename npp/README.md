@@ -24,6 +24,8 @@ Instead, you can perform XML changes to this file, while Notepad++ is shut down,
 
 # Tips & tricks
 
+Enable "Verbose backup": https://superuser.com/a/390207/255048
+
 If you initially installed an old NPP version, manually remove `stylers.xml` and `langs.xml` to use the new `javascript.js` lexer: https://github.com/notepad-plus-plus/notepad-plus-plus/issues/2133#issuecomment-236373170
 
 Setting > Style Configure > select Javascript > add "json" User ext

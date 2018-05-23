@@ -18,7 +18,7 @@ unfuncalias touch
 alias ps='echo "Use \`pstree -a\` or \`procps -wwFAH\` to display commands arguments !" && ps'
 alias psf='ps -ef'
 alias casperjs=cyg-casperjs  # in ~/bin
-alias node=cyg-node  # in ~/bin
+#alias node=cyg-node  # in ~/bin
 alias sudo='cygstart --action=runas'
 alias java_home_win_exec='JAVA_HOME=$(cygpath -w "$JAVA_HOME") '
 
