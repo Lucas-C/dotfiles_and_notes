@@ -1308,15 +1308,9 @@ https://github.com/klembot/twinejs/tree/master/src # Twine 2, NodeJS with NW.js
 Example: https://github.com/crowscrowscrows/the-temple-of-no
 Good read to understand Story Formats: https://twinery.org/wiki/twine2:what_s_new_in_twine_2#story_formats
 http://www.motoslave.net/tweego/docs/ : CLI compiler for Twine story formats, written in Go
-
-# .tws file parsing:
-import pickle, sys
-sys.path.insert(0, '../twine')
-import tiddlywiki
-with open('the-temple-of-no.tws', 'rb') as f:
-    tws = pickle.load(f)  # tws['target'] == 'sugarcane' is the story format
-for tiddler in tws['storyPanel']['widgets']:
-    print(tiddler['passage'].title, tiddler['passage'].tags)  # 'Twine.image' means base64 encoded image
+# .tws file parsing: cf. languages/python/twine1_localizer.py
+# on the JS side, notable globals are: window.tale, window.macros, window.state -> including .hash that can be used to build a stateful URL:
+window.location.hash = state.hash
 
 
 -8-8-8-8-8-8

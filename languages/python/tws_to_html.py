@@ -4,7 +4,9 @@
 #              This produces an output similar to the Twine 1 GUI app, but different from tweecode/twine/twee (e.g. it takes into account StorySettings)
 # AUTHOR: Lucas Cimon
 # REQUIRES: tweecode/twine in PYTHONPATH
-# USAGE: ./tws_to_html.py $tws_filepath $html_filepath
+# USAGE:
+#   ./tws_to_html.py $tws_filepath $html_filepath
+#   ./tws_to_html.py --use-relative-imgs-dir img/ $tws_filepath $html_filepath
 import os, pickle, sys, tiddlywiki
 from collections import namedtuple
 from header import Header  # twine module
@@ -17,11 +19,22 @@ class TweeApp(object):
     def displayError(self, msg, **_):
         raise RuntimeError(msg)
 
-def main(twsFilepath, buildDestination):
+def main(argv):
+    if sys.argv[1] == '--use-relative-imgs-dir':
+        relative_img_dir, twsFilepath, buildDestination = sys.argv[2:5]
+    else:
+        relative_img_dir = None
+        twsFilepath, buildDestination = sys.argv[1:3]
     app = TweeApp()
     with open(twsFilepath, 'rb') as tws:
         state = pickle.load(tws)
     widgetDict = {widget['passage'].title: widget for widget in state['storyPanel']['widgets']}
+    if relative_img_dir:
+        for img in [w['passage'] for w in widgetDict.values() if w['passage'].tags == ['Twine.image']]:
+            img_path = os.path.join(relative_img_dir, '{}.{}'.format(img.title, img.text[11:14]))
+            if not os.path.exists(img_path):
+                raise EnvironmentError('Relative image not found: {}'.format(img_path))
+            img.text = img_path
     tw = build_tiddlywiki(widgetDict)
     storyFormat = state['target']
     header = Header.factory(storyFormat, os.path.join(app.builtinTargetsPath, storyFormat) + os.sep, app.builtinTargetsPath)
@@ -50,4 +63,4 @@ def build_tiddlywiki(widgetDict):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv)

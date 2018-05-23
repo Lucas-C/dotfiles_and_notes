@@ -61,11 +61,12 @@ def translate(args):
     for tiddler in tws['storyPanel']['widgets']:
         passage = tiddler['passage']
         if passage.title in translations:
-            passage.text = translations[passage.title].msgstr
+            translation = translations[passage.title]
+            passage.text = translation.msgstr
             for match in re.findall(r'\[\[[^]|]+\]\]', passage.text):
-                print Fore.RED + u'Untranslated link in passage "{}" : {}'.format(passage.title, match) + Fore.RESET
+                print >>sys.stderr, Fore.RED + u'Untranslated link in passage "{}" starting on the .po line {} : {}'.format(passage.title, translation.linenum, match).encode('utf8', 'replace') + Fore.RESET
         elif passage.text and passage.tags != ['Twine.image']:
-            print 'No traduction found for', passage.title
+            print >>sys.stderr, 'No traduction found for', passage.title
     dump_tws(tws, args.out_tws_filepath)
 
 def diff_tws_and_po(args):

@@ -114,3 +114,7 @@ https://handsomeone.github.io/Nonogram nonogram (also known as hanjie, picross a
 https://chezsoi.org/shaarli/?searchtags=PuzzleGenerator
 
 https://github.com/Lucas-C/dotfiles_and_notes/tree/master/languages/web-d3/secret-grid
+
+Mots formés à partir de tags HTML:
+<strong><body><track><time><table><source> / <small><title><embed><details><summary> / <address><mark>...
+<div><ins> / <ins><table> / <th><em> / <tr><a><p><u> / <q><u><i> ...

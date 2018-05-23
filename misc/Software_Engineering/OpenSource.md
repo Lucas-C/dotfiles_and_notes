@@ -259,3 +259,38 @@ Process, process, process:
 * Corporate Contributor License AGreement ?
 
 Demo: Github CLA bot asking contributors to sign it
+
+
+### Open Source Archetypes: A framework For Purposeful Open Source - May 2018 - moz://a
+
+- Benefits of Open Source:
+  * Lead a standardization effort in a particular area
+  * Improve product quality
+  * Amplify or expand developer base
+  * Increase the size or quality of your organization’s developer hiring pool
+  * Improve internal developer morale and retention
+  * Improve internal collaboration within one’s own organization
+  * Establish a basis for product reputation
+  * Establish a basis for organizational brand and credibility
+  * Stop someone else from establishing early dominance in an particular area
+  * Engage with users
+  * Provide transparency to customers and partners
+- Open Source Project Archetypes:
+  * Business-to-Business (B2B) Open Source
+  * Multi-Vendor Infrastructure
+  * Rocket Ship To Mars
+  * Controlled Ecosystem
+  * Wide Open
+  * Mass Market
+  * Specialty Library
+  * Trusted Vendor
+  * Upstream Dependency
+  * Bathwater
+- Questions to Consider:
+  * How many separable open source pieces are there?
+  * Who is expected to participate in the project, and why?
+  * How is the code expected to be deployed?
+  * How is the project managed and governed?
+  * What is the project’s business model or sustainability model?
+  * Which open source license does it use?
+  * Does technical architecture match social structure?
