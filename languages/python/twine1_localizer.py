@@ -3,17 +3,17 @@
 # AUTHOR: Lucas Cimon
 # REQUIRES: polib, tweecode/twine in PYTHONPATH, and optionnally colorama
 # USAGE:
-#   l10n/twine1_localizer.py po_from_tws     the-temple-of-no.tws l10n/en-US.po
-#   l10n/twine1_localizer.py diff_tws_and_po the-temple-of-no.tws l10n/en-US.po
-#   l10n/twine1_localizer.py translate       the-temple-of-no.tws l10n/fr-FR.po the-temple-of-no_fr.tws
+#   ./twine1_localizer.py po_from_tws     the-temple-of-no.tws l10n/en-US.po
+#   ./twine1_localizer.py diff_tws_and_po the-temple-of-no.tws l10n/en-US.po
+#   ./twine1_localizer.py translate       the-temple-of-no.tws l10n/fr-FR.po the-temple-of-no_fr.tws
 import argparse, difflib, pickle, polib, re, sys, tiddlywiki
 try:
-    from colorama import Fore, Back, Style, init
-    init()
+    from colorama import Fore, Style, init
+    init()  # for Windows
 except ImportError:  # fallback so that the imported classes always exist
     class ColorFallback():
         __getattr__ = lambda self, name: ''
-    Fore = Back = Style = ColorFallback()
+    Fore = Style = ColorFallback()
 
 
 def main():

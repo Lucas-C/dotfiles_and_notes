@@ -2,6 +2,8 @@
 
 cf. also "Hacking & Forensic" section in notes.py
 
+https://github.com/Hack-with-Github/Awesome-Hacking
+
 How to Start Your Career in Cyber Security by Mikko Hypponen : https://safeandsavvy.f-secure.com/2017/02/03/a-hacker-hunters-advice-for-getting-into-infosec/
 
 # Phases of Penetration Testing

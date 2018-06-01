@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
-// USAGE: md2html [--noindex] [--nocss] $mdFile > $htmlFile
+// USAGE: md2html [--noindex] [--mincss] $mdFile > $htmlFile
 // INSTALL: npm install -g markdown-it markdown-it-anchor markdown-it-table-of-contents markdown-it-container markdown-it-include markdown-it-multimd-table minimist
-var args = require('minimist')(process.argv.slice(2)),
+var args = require('minimist')(process.argv.slice(2), {boolean: true}),
     mdFilepath = args._[0];
 require('fs').readFile(mdFilepath, 'utf8', function (err, input) {
   if (err) {
@@ -13,7 +13,7 @@ require('fs').readFile(mdFilepath, 'utf8', function (err, input) {
     console.error(err.stack || err.message || String(err));
     process.exit(1);
   }
-  var md = require('markdown-it')({html: true})
+  var md = require('markdown-it')({html: true, linkify: true, typographer: true})
     .use(require('markdown-it-anchor'))
     .use(require('markdown-it-include'))
     .use(require('markdown-it-multimd-table'), {enableMultilineRows: true})
@@ -35,7 +35,7 @@ require('fs').readFile(mdFilepath, 'utf8', function (err, input) {
                       + (args.noindex ? '<meta name="robots" content="noindex">\n' : '')
                       + '</head>\n'
                       + '<body>\n');
-  if (!args.nocss) {
+  if (args.mincss) {
     process.stdout.write('<style type="text/css">\n'
                         + 'body { margin: 40px auto; max-width: 650px; line-height: 1.6; font-family: sans-serif; color: #444; padding:0 10px; text-align:justify; }\n'
                         + 'h1, h2, h3 { line-height: 1.2; }\n'

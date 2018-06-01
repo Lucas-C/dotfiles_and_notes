@@ -5,9 +5,8 @@
 # AUTHOR: Lucas Cimon
 # REQUIRES: tweecode/twine in PYTHONPATH
 # USAGE:
-#   ./tws_to_html.py $tws_filepath $html_filepath
-#   ./tws_to_html.py --use-relative-imgs-dir img/ $tws_filepath $html_filepath
-import os, pickle, sys, tiddlywiki
+#   ./tws_to_html.py [--use-relative-imgs-dir img/] [--override-js-files js/{}.min.js] $tws_filepath $html_filepath
+import argparse, os, pickle, tiddlywiki
 from collections import namedtuple
 from header import Header  # twine module
 
@@ -19,29 +18,41 @@ class TweeApp(object):
     def displayError(self, msg, **_):
         raise RuntimeError(msg)
 
-def main(argv):
-    if sys.argv[1] == '--use-relative-imgs-dir':
-        relative_img_dir, twsFilepath, buildDestination = sys.argv[2:5]
-    else:
-        relative_img_dir = None
-        twsFilepath, buildDestination = sys.argv[1:3]
+def main():
+    args = parse_args()
     app = TweeApp()
-    with open(twsFilepath, 'rb') as tws:
+    with open(args.twsFilepath, 'rb') as tws:
         state = pickle.load(tws)
     widgetDict = {widget['passage'].title: widget for widget in state['storyPanel']['widgets']}
-    if relative_img_dir:
+    if args.override_js_files:
+        for script in [w['passage'] for w in widgetDict.values() if w['passage'].tags == ['script']]:
+            script_path = args.override_js_files.format(script.title)
+            if not os.path.exists(script_path):
+                print 'Cannot override script, JS file not found: {}'.format(script_path)
+                continue
+            with open(script_path) as script_file:
+                script.text = script_file.read()
+    if args.use_relative_imgs_dir:
         for img in [w['passage'] for w in widgetDict.values() if w['passage'].tags == ['Twine.image']]:
-            img_path = os.path.join(relative_img_dir, '{}.{}'.format(img.title, img.text[11:14]))
+            img_path = os.path.join(args.use_relative_imgs_dir, '{}.{}'.format(img.title, img.text[11:14]))
             if not os.path.exists(img_path):
                 raise EnvironmentError('Relative image not found: {}'.format(img_path))
             img.text = img_path
     tw = build_tiddlywiki(widgetDict)
     storyFormat = state['target']
     header = Header.factory(storyFormat, os.path.join(app.builtinTargetsPath, storyFormat) + os.sep, app.builtinTargetsPath)
-    with open(buildDestination, 'wb') as dest:
+    with open(args.buildDestination, 'wb') as dest:
         dest.write(tw.toHtml(app, header=header,
                                   defaultName=widgetDict['StoryTitle']['passage'].text,
                                   metadata=state['metadata']).encode('utf-8-sig'))
+
+def parse_args():
+    parser = argparse.ArgumentParser(description='Export Twine 1 .tws to .html', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('--use-relative-imgs-dir')
+    parser.add_argument('--override-js-files')
+    parser.add_argument('twsFilepath')
+    parser.add_argument('buildDestination')
+    return parser.parse_args()
 
 def build_tiddlywiki(widgetDict):
     tw = tiddlywiki.TiddlyWiki()
@@ -63,4 +74,4 @@ def build_tiddlywiki(widgetDict):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()

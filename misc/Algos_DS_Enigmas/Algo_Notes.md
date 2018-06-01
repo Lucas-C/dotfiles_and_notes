@@ -36,6 +36,7 @@ Hashing:
 - 'fuzzy' hashing that gaves same result for inputs that have homologies : http://www.forensicswiki.org/wiki/Context_Triggered_Piecewise_Hashing
 - selection from "Bloomin' Marvellous" slides: MurmurHash3, xxhash, SipHash
 - google/highwayhash: Fast strong hash functions: SipHash/HighwayHash, faster that SipTreeHash
+- [A new fast hash table (2018)](https://probablydance.com/2018/05/28/a-new-fast-hash-table-in-response-to-googles-new-fast-hash-table/)
 
 Perceptual hashes:
 - https://tech.okcupid.com/evaluating-perceptual-image-hashes-okcupid/

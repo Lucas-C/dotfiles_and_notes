@@ -1195,7 +1195,8 @@ Eyepea/API-Hour # perf-oriented web APIs using AsyncIO & ujson - Alt: Sanic + uv
 nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
 featherweight # transform functions into REST web services
 Tornado # asynchronous web framework - can be used as a WSGI app with some limitations: http://www.tornadoweb.org/en/stable/guide/running.html#wsgi-and-google-app-engine
-Falcon, flask-restful # to build HTTP APIs - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions - Also: Flask has many global variables & is not thread safe (for async)
+Falcon, flask-restful # to build HTTP APIs - not asynchronous and uses a thread-local context - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions - Also: Flask has many global variables & is not thread safe (for async)
+# huge tuto: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
     flasgger # Swagger API for flask
     flask-sqlalchemy
     flask-admin # admin interface on top of an existing data model
@@ -1513,6 +1514,9 @@ def walk_files(directory, only=None):
         if not only or (only == 'files'):
             for filename in filenames:
                 yield (dirpath / filename).resolve()
+
+raise from # En Python 2: from future.utils import raise_from - Also available in pkg six
+
 
 #------------------------------------------------------------------------------
 # Python 3.3
