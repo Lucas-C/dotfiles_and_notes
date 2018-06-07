@@ -8,7 +8,7 @@
 # TODO:
 # - test https://github.com/gaojiuli/gain
 # - rate-limit like this ? https://quentin.pradet.me/blog/how-do-you-rate-limit-calls-with-asyncio.html
-import asyncio, aiohttp, html, json, sys
+import asyncio as aio, aiohttp, html, json, sys
 from async_timeout import timeout
 from collections import defaultdict
 from datetime import datetime
@@ -29,7 +29,7 @@ async def check_one_host_urls(client, queue, urls):
             resps.append((url, 'ROBOT FORBIDDEN', None))
             continue
         if resps:
-            asyncio.sleep(2) # rate-limiting 1 request every 2s per hostname
+            aio.sleep(2) # rate-limiting 1 request every 2s per hostname
         try:
             start = perf_counter()
             async with client.get(url, timeout=60) as response:
@@ -44,11 +44,10 @@ async def check_all_urls(urls, checker_results):
         urls_per_host[urlparse(url).hostname].append(url)
     #print(json.dumps({host: urls for host, urls in urls_per_host.items() if len(urls)>1}, indent=4), file=sys.stderr)
     progress_step = len(urls) // 10
-    queue = asyncio.Queue()
+    queue = aio.Queue()
     async with aiohttp.ClientSession(raise_for_status=True, connector=aiohttp.TCPConnector(verify_ssl=False, limit=100), headers = {'User-Agent': USER_AGENT}) as client:
     # default UA: https://github.com/aio-libs/aiohttp/blob/master/aiohttp/http.py#L34
-        for one_host_urls in urls_per_host.values():
-            asyncio.ensure_future(check_one_host_urls(client, queue, one_host_urls))
+        aio.gather(check_one_host_urls(client, queue, one_host_urls) for one_host_urls in urls_per_host.values())
         start = perf_counter()
         with timeout(20*60):
             for _ in range(len(urls_per_host)):
@@ -60,12 +59,12 @@ async def check_all_urls(urls, checker_results):
 
 def url_checker(urls):
     checker_results = []
-    loop = asyncio.get_event_loop()
+    loop = aio.get_event_loop()
     loop.set_debug(True)
     loop.slow_callback_duration = 1 # seconds
     try:
         loop.run_until_complete(check_all_urls(urls, checker_results))
-    except asyncio.TimeoutError:
+    except aio.TimeoutError:
         unprocessed_urls = set(urls) - set(resp[0] for resp in checker_results)
         print('20min TIMEOUT', file=sys.stderr)
         print(unprocessed_urls, file=sys.stderr)
