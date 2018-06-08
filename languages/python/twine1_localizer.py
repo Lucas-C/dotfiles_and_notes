@@ -1,12 +1,12 @@
 #!python2
 # coding: utf-8
 # AUTHOR: Lucas Cimon
-# REQUIRES: polib, tweecode/twine in PYTHONPATH, and optionnally colorama
+# REQUIRES: polib and optionnally colorama
 # USAGE:
 #   ./twine1_localizer.py po_from_tws     the-temple-of-no.tws l10n/en-US.po
 #   ./twine1_localizer.py diff_tws_and_po the-temple-of-no.tws l10n/en-US.po
 #   ./twine1_localizer.py translate       the-temple-of-no.tws l10n/fr-FR.po the-temple-of-no_fr.tws
-import argparse, difflib, pickle, polib, re, sys, tiddlywiki
+import argparse, difflib, pickle, polib, re, sys
 try:
     from colorama import Fore, Style, init
     init()  # for Windows

@@ -1310,7 +1310,7 @@ Good read to understand Story Formats: https://twinery.org/wiki/twine2:what_s_ne
 http://www.motoslave.net/tweego/docs/ : CLI compiler for Twine story formats, written in Go
 # .tws file parsing: cf. languages/python/twine1_localizer.py
 # on the JS side, notable globals are: window.tale, window.macros, window.state -> including .hash that can be used to build a stateful URL:
-window.location.hash = state.hash
+window.location.hash = state.hash // or: document.getElementById('bookmark').href
 
 
 -8-8-8-8-8-8
@@ -1319,3 +1319,9 @@ window.location.hash = state.hash
 .exe > Properties > Details # get Unity engine version used for a game
 cf. http://www.alanzucconi.com/2015/09/02/a-practical-tutorial-to-hack-and-protect-unity-games/
 AssetsBundleExtraUnityctor_2.1_64bit > Open resources.assets > Select TextAsset > Export Dump # hack dialogs - Alt: disunity
+
+
+~^~^~^~^
+~ NVDA ~
+~^~^~^~^
+%TEMP%\nvda.log

@@ -24,6 +24,11 @@ def main():
     with open(args.twsFilepath, 'rb') as tws:
         state = pickle.load(tws)
     widgetDict = {widget['passage'].title: widget for widget in state['storyPanel']['widgets']}
+    if args.css_passage_from_file:
+        if 'css' not in widgetDict:
+            raise NotImplementedError('An existing "css" passage to update is currently required')
+        with open(args.css_passage_from_file, 'rb') as css:
+            widgetDict['css']['passage'].text = css.read().decode('utf8')
     if args.override_js_files:
         for script in [w['passage'] for w in widgetDict.values() if w['passage'].tags == ['script']]:
             script_path = args.override_js_files.format(script.title)
@@ -50,6 +55,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Export Twine 1 .tws to .html', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--use-relative-imgs-dir')
     parser.add_argument('--override-js-files')
+    parser.add_argument('--css-passage-from-file')
     parser.add_argument('twsFilepath')
     parser.add_argument('buildDestination')
     return parser.parse_args()
