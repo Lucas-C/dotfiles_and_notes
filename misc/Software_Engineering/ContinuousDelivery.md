@@ -15,6 +15,8 @@ Continuous Delivery
 - [Using curl and the UNIX socket to talk to the Docker API](https://nathanleclaire.com/blog/2015/11/12/using-curl-and-the-unix-socket-to-talk-to-the-docker-api/)
 - [Inspecting docker activity with socat](https://developers.redhat.com/blog/2015/02/25/inspecting-docker-activity-with-socat/)
 - [How To Write Excellent Dockerfiles](https://rock-it.pl/how-to-write-excellent-dockerfiles/)
+- [Container Training](https://github.com/jpetazzo/container.training)
+
 
 ## Deployment automation & orchestration
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
@@ -142,7 +144,7 @@ Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
 - [`clair`](https://github.com/coreos/clair) : Vulnerability Static Analysis for Containers
 - use the Calico network plugin for Docker instead of the native Docker "overlay" : https://www.percona.com/blog/2016/08/03/testing-docker-multi-host-network-performance/
 - [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !
-- http://blog.michaelhamrah.com/2014/06/accessing-the-docker-host-server-within-a-container/ - Alt: docker.for.win.localhost builtin DNS cname
+- http://blog.michaelhamrah.com/2014/06/accessing-the-docker-host-server-within-a-container/ - Alt: `docker.for.win.localhost` builtin DNS CNAME (or `host.docker.internal`)
 
 ```
 docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
@@ -157,6 +159,26 @@ fi
 `daemon.json`: defaults to `/etc/docker/daemon.json`
 
 Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
+
+### Inspecting Docker labels / image hashes / secrets
+
+    docker inspect  --format $'{{ range $k, $v := .Config.Labels }}{{$k}}={{$v}}\n{{ end }}' $container_id  # Unix-only because of $'...' format
+
+Listing secrets used by services:
+
+    docker service inspect $service_name --format="{{ range .Spec.TaskTemplate.ContainerSpec.Secrets }}{{ json . }}{{ println }}{{ end }}"
+    docker service inspect $service_name --format="{{ range .PreviousSpec.TaskTemplate.ContainerSpec.Secrets }}{{ json . }}{{ println }}{{ end }}"
+
+Getting Docker images used by a service, with its sha256 hash :
+
+    docker service inspect $service_name --format="{{ .Spec.TaskTemplate.ContainerSpec.Image }}"
+
+### Enabling remote API
+- through `dockerd` CLI option: `-H tcp://0.0.0.0:2375` (takes priority over 2nd option below)
+- through `daemon.json` list entry `hosts` (not tested)
+
+[Connecting to the secure Docker port using curl](https://docs.docker.com/engine/security/https/#connecting-to-the-secure-docker-port-using-curl) with certificates
+
 
 ### Docker for Windows
 `daemon.json`: defaults to `%programdata%\docker\config\daemon.json`
@@ -180,6 +202,12 @@ Checking if Hyper-V is enabled:
 ```
 dism /Online /Get-FeatureInfo /FeatureName:Microsoft-Hyper-V-All
 ```
+
+Exploring the host VM (e.g. MobyLinuxVM) - Using privileged Alpine chroot (cf. https://github.com/gbraad/hostenter ) :
+```
+$ docker run --net=host --ipc=host --uts=host --pid=host -it --security-opt=seccomp=unconfined --privileged --rm -v /:/host alpine /bin/sh
+```
+
 
 #### Docker for Windows current quirks / major limitations / known bugs
 

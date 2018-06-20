@@ -18,7 +18,6 @@ Project management best practices
 - [ThoughbotPlaybook](http://playbook.thoughtbot.com)
 - [OnUseCasesAndUserStories](http://www.batimes.com/articles/user-stories-and-use-cases-dont-use-both.html)
 - [ChooseBoringTechnology](http://mcfunley.com/choose-boring-technology)
-- [RetrospectiveWiki](http://retrospectivewiki.org/index.php?title=Main_Page)
 - [10 reasons not to adopt this new toy techno in production](https://translate.google.fr/translate?sl=auto&tl=en&js=y&prev=_t&hl=fr&ie=UTF-8&u=http%3A%2F%2Feax.me%2Favoid-new-toys%2F&edit-text=)
 - [TheFailureOfAgileAndGROWS](http://blog.toolshed.com/2015/05/the-failure-of-agile.html)
 - [Les développeurs Heisenberg](http://blog.ticabri.com/blog/2015/04/21/les-developpeurs-heisenberg/) - TL;DR Vous ne pouvez pas observer un développeur sans en altérer son comportement.
@@ -97,6 +96,7 @@ However, grouping elements of tech debts thematically may help to organize & pri
 E.g. fix all the doc pain points, homogenize & securize all our DB requests, improve resiliency, etc.
 - [TechnicalDebtQuadrant by Martin Fowler]:
 > To my mind, the question of whether a design flaw is or isn't debt is the wrong question. [...] A particular benefit of the debt metaphor is that it's very handy for communicating to non-technical people.
+- [asottile/git-code-debt](https://github.com/asottile/git-code-debt)
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]
@@ -152,6 +152,43 @@ Any assumptions without which the story would be difficult or impossible to impl
 If there is any possibility of misunderstanding what is included, it is sometimes helpful to explicitly enumerate what is not included in the Story.
 
 Sub-story: The smallest unit of work that has value for our customers
+
+### Studies
+
+#### Template
+- Objectifs de l'étude
+  * Contexte: Dans le cadre de la mise en place de ...
+  * Entrants: Liens vers expression de besoin, use cases, configuration d'exemple, contraintes techniques des partenaires ou de l'environnement...
+=> Indiquer si certains points techniques sont particulièrement pressentis pour nécessiter un examen approfondi
+  * Attendus : En sortie de l'étude, nous souhaitons:
+    + qu'un REX à l'équipe + un chiffrage aient été organisés
+    + connaitre la solution technique retenue, accompagnée d'au moins un document explicatif (diagramme de séquence, schéma des interactions entre services, swagger d'API, arbre des tâches ETL, maquettes...)
+    + avoir le découpage en US : tâches technique ainsi qu'une estimation de complexité pour chacune
+- Contenu de l'étude
+Penser entre autres:
+  * à la complexité introduite par la solution, et son impact en termes de risques et maintenance
+  * à la retro-compatibilité
+  * au process de MEP
+  * à la supervision et à la gestion des erreurs (fail-fast ?)
+  * à l'impact sur les performances (ex: appels HTTP séquentiels ou parallèles, temps de réponse du partenaire...)
+- Solutions envisagées
+  * Solution A : Avantages / Inconvénients / Risques
+  * Solution B : Avantages / Inconvénients / Risques
+  * Commentaires de l'équipe
+- Résultat de l'étude
+Points soulevés lors du REX avec l'équipe
+  * point soulevé
+    + solution apportée
+  * point soulevé
+    + solution apportée
+- Solution finale retenue:
+Solution A pour les raisons principales suivantes ...
+- Liste des US
+  * créer les JIRAs
+  * indiquer l'estimation en points décidée en équipe
+  * mettre un lien vers l'étude
+  * indiquer si ces US nécessitent des BDDs et notifier le PO
+
 
 ## Personal tasks management
 - Etherpad is great: it gives flexibility, a copy/paste scratchpad, hyperlinks, a persistent history of changes, multi-users access and plenty of plugins

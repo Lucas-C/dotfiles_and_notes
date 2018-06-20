@@ -39,6 +39,7 @@ javap, JD // .class dissassembler & Java decompiler, include a GUI
 Konloch/bytecode-viewer // Bytecode viewer, decompiler & debugger
 Javasnoop // attach to a Java process or start it and intercept the calls made, then intercept these calls, view its contents & change the arguments of the methods we are intercepting or modify the return value of the function
 jmap -histo:live <pid> // Object-type histogram on a running jvm
+jinfo -flag +PrintGCDetails <PID> // change JVM arguments at runtime to avoid application restart, e.g. to turn on and off heap class histogram dumps
 
 jdb // debugger: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jdb.html
 java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n MyClass

@@ -78,7 +78,7 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 - Smalltalk first principle: "If a system is to serve the creative spirit, it must be entirely comprehensible to a single individual"
 
 > 13. Perfection (in design) is achieved not when there is nothing more to add, but rather when there is nothing more to take away.
-FROM: The Cathedral and the Bazaar by Eric S. Raymond(Attributed to Antoine de Saint-Exupéry)
+FROM: The Cathedral and the Bazaar by Eric S. Raymond (Attributed to Antoine de Saint-Exupéry)
 
 > They did it by making the single worst strategic mistake that any software company can make:
 > They decided to rewrite the code from scratch.
@@ -265,6 +265,8 @@ Dr. Leonard Richardson put together a maturity model that interprets various lev
 > The existing HTTP PUT method only allows a complete replacement of a document. This proposal adds a new HTTP method, PATCH, to modify an existing HTTP resource.
 cf. also the [JSON PATCH spec](http://jsonpatch.com)
 
+[Partial resources](https://developers.google.com/youtube/v3/getting-started#partial) : `?part=A,B&fields=e,f`
+
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 + similarly for protocols: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
@@ -297,9 +299,10 @@ cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-gen
 - Artifical coupling / Misplaced responsability [CC-G13] [CC-G14] [CC-G17]
     There is a place for everything : don't toss code in the most convenient place at hand, take the time to figure out where functions, constants, variables ought to be declared
 - when in doubt, favor composition over inheritance [JP-C6]
-- [LavaLayerAntiPattern] : "Try and have some sympathy and understanding for those who came before you.
-There was probably a good reason for why things were done the way they were. Be especially sympathetic to consistency,
-even if you don’t necessarily agree with the design or technology choices."
+- [LavaLayerAntiPattern] :
+> Try and have some sympathy and understanding for those who came before you.
+> There was probably a good reason for why things were done the way they were. Be especially sympathetic to consistency,
+> even if you don’t necessarily agree with the design or technology choices.
 
 
 ## Code programming best practices

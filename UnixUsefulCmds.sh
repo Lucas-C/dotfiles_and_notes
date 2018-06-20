@@ -992,6 +992,8 @@ export NSPR_LOG_MODULES=timestamp,nsHttp:5,nsSocketTransport:5,nsStreamPump:5,ns
 export NSPR_LOG_FILE=/tmp/firefox_http.log
 ./firefox
 
+$APPDATA/Mozilla/Firefox/Profiles/XXXXXXXX.default/Chrome/userContent.css # customized style sheet
+
 
 {#"#"#"#"#}
 {  Chrome }

@@ -21,6 +21,8 @@
         <Command name="Open in another instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD) -nosession -multiInst</Command>
         <Command name="Send via Outlook" Ctrl="yes" Alt="yes" Shift="yes" Key="79">outlook /a &quot;$(FULL_CURRENT_PATH)&quot;</Command>
     </UserDefinedCommands>
-    <PluginCommands />
+    <PluginCommands>
+        <PluginCommand moduleName="PythonScript.dll" internalID="5" Ctrl="yes" Alt="no" Shift="yes" Key="67" />
+    </PluginCommands>
     <ScintillaKeys />
 </NotepadPlus>

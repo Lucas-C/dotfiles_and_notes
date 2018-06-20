@@ -44,6 +44,7 @@ Edit > Line Operations > Sort Lines in Ascending / Descending Order
 - XML Tools -> can validate XML
 - Compare
 - Quick Color Picker +
+- Python Script with [CTags Based Autocompletion](https://github.com/bruderstein/PythonScript/blob/master/scripts/Samples/CTags%20Based%20Autocompletion.py)
 
 ## Under the hood
 

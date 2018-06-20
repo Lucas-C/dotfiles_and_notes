@@ -189,11 +189,13 @@ Ex: [1-2-4-All](http://www.liberatingstructures.com/1-1-2-4-all/) - 12min, "auto
 - spread tasks in 5 columns arbitrarily assigned a 2/3/5/8/13 points value, comparing them in terms of estimate time to completion (with no absolute estimation in man-days), e.g. with RealTimeBoard
 
 ## Retrospectives
-cf. [RetrospectiveWiki]
 - Content/Pas content/A améliorer/A continuer/A arrêter/Questions
 - Drop/Add/Keep/Improve
-
-### Idées de retrospectives
+Liens utiles:
+  * http://www.funretrospectives.com
+  * http://retrospectivewiki.org/index.php
+  * http://plans-for-retrospectives.com
+  * https://www.scrumalliance.org/community/articles/2014/april/a-reflection-on-retrospectives
 
 | Nom rétrospective                       | Description / Lien                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 |-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

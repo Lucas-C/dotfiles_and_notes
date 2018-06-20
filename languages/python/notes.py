@@ -626,7 +626,7 @@ pip # NEVER sudo !! > easyinstall - Distutils2 has been abandoned :( Check build
 pip install --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
 pip install --user $USER --src . --no-index --no-deps --no-cache-dir --upgrade --requirement requirements.txt --require-hashes # CLI tool to help with retrieving correct hashes : hashin
 pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages - Also, programatical access: pip.operations.freeze.freeze
-pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list -o ; piprot requirements.txt ; ./manage.py pipchecker
+pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list --outdated --not-required ; piprot requirements.txt ; ./manage.py pipchecker
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 pyproject.toml # PEP-518 replacement for setup.py - Alt: https://github.com/pypa/pipfile by kennethreitz
 pip-compile # recursively pin Python dependencies; part of pip-tools - Alt: pip2tgz "/var/www/packages" mypackage && pip install --index-url="file:///var/www/packages" mypackage
@@ -702,6 +702,7 @@ minimaxir/big-list-of-naughty-strings
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no --showlocals --exitfirst --cache-clear --pdb -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
+pytest -k "$(tq failure -p -a name < results.xml | awk 'NR>1{print(" or ")} {print}' ORS='')" # rerunning only failed tests, require --junit-xml=results.xml
     pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
     pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
 mschwager/memunit # check memory usage in tests
@@ -1083,6 +1084,7 @@ saucelabs/monocle, libevent, libuv, Twisted # other ASync libs, that is :
 ReactiveX/RxPY # asynchronous and event-based programming using observable collections and LINQ-style query operators
 python -m twisted.conch.stdio # Twisted REPL
 @asyncio.couroutine # aka Tulip, std in Python 3.3, port for Python 2.7 : trollius
+asyncio.ensure_future # GOTO -> considered harmful
 dabeaz/curio # Python 3 alt implementation of coroutines, with a better design: https://veriny.tf/asyncio-a-dumpster-fire-of-bad-design/
 aiofiles # local disk files read/write in asyncio applications
 
@@ -1447,6 +1449,8 @@ menu = ordereddict[ # hack to create an OrderedDict constructor - cf. http://sta
 """"""""""""
 "" Python 3
 """"""""""""
+asottile/pyupgrade # A tool (and pre-commit hook) to automatically upgrade syntax for newer versions of the language.
+
 sys.version_info[0] >= 3
 
 from __future__ import division, print_function
@@ -1473,7 +1477,7 @@ first, *rest, last = range(5) # extended iterable unpacking
 try:
     v = {}['a']
 except KeyError as e:
-    raise ValueError('failed') from e # exception chaining
+    raise ValueError('failed') from e # exception chaining - In Python 2: from future.utils import raise_from - Also available in pkg six
 
 with concurrent.futures.ProcessPoolExecutor() as executor: # Asynchronous
     processed_args = list(executor.map(big_calculation, args)) # faster than without 'executor'
@@ -1514,8 +1518,6 @@ def walk_files(directory, only=None):
         if not only or (only == 'files'):
             for filename in filenames:
                 yield (dirpath / filename).resolve()
-
-raise from # En Python 2: from future.utils import raise_from - Also available in pkg six
 
 
 #------------------------------------------------------------------------------

@@ -6,10 +6,7 @@ http://disic.github.io/guide-contribuer_accessible/ & https://github.com/access4
 http://references.modernisation.gouv.fr/kit-daudit-modeles-pour-faire-des-audits-rgaa-3
 http://disic.github.io/rgaa_methodologie/
 
-[Kit de survie du développeur aria](http://access42.net/Kit-de-survie-du-developpeur-ARIA-1-3)
-
-[No ARIA is better than Bad ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#no_aria_better_bad_aria)
-
+## HTML
 Exactly 1 <h1> per page
 
 <html lang="en-US">
@@ -22,7 +19,13 @@ ATTENTION <div> != <p> !!
 FAITES des liens d'accès rapide.
 Ils doivent etre VISIBLE (à minima au focus) : ils ne sont pas destinés aux aveugles
 
-Quick check WEBAIM based [Wave](http://wave.webaim.org)
+https://www.powermapper.com/tests/screen-readers/elements/
+
+### ARIA
+
+[Kit de survie du développeur aria](http://access42.net/Kit-de-survie-du-developpeur-ARIA-1-3)
+
+[No ARIA is better than Bad ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#no_aria_better_bad_aria)
 
 
 ## Interfaces / GUI design
@@ -47,10 +50,9 @@ https://github.com/access42/AccessTooltip : JS function to make the title attrib
 
 
 ## Outils
+Quick check WEBAIM based [Wave](http://wave.webaim.org)
 
-https://chezsoi.org/shaarli/?searchtags=Accessibility
-
-https://doc.asqatasun.org/en/index.html
+[asqatasun](https://doc.asqatasun.org/en/index.html)
 
 Contrast checkers:
 - [Colour Contrast Analyser](https://www.paciellogroup.com/resources/contrastanalyser/) (The Paciello Group) : top !
@@ -65,6 +67,8 @@ Other tools:
 - [Firefox WebDevelopper](https://addons.mozilla.org/fr/firefox/addon/web-developer/)
 - [Accessibility Viewer](https://github.com/ThePacielloGroup/aviewer/releases) (The Paciello Group)
 - [WCAG-Zoo](https://wcag-zoo.readthedocs.io/en/latest/commands.html) : Python command line tools that help provide basic validation of HTML against the accessibility guidelines laid out by the W3C Web Content Accessibility Guidelines 2.0
+
+More: https://chezsoi.org/shaarli/?searchtags=Accessibility
 
 ### NVDA
 https://www.nvda-fr.org/voix/ : installer la voix Hortense et augmenter le débit
