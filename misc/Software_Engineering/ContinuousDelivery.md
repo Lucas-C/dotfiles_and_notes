@@ -173,6 +173,8 @@ Getting Docker images used by a service, with its sha256 hash :
 
     docker service inspect $service_name --format="{{ .Spec.TaskTemplate.ContainerSpec.Image }}"
 
+Display full error message with `docker service` : `--no-trunc`
+
 ### Enabling remote API
 - through `dockerd` CLI option: `-H tcp://0.0.0.0:2375` (takes priority over 2nd option below)
 - through `daemon.json` list entry `hosts` (not tested)

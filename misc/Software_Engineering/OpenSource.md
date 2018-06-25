@@ -137,6 +137,14 @@ Also: https://openbadges.org
     - Once a project has achieved its initial release, a software architecture that is modular
   * Open-source projects flourish when developers are also users of the software
 
+- to detect credentials/passwords/secrets in source code:
+  * [dxa4481/truffleHog](https://github.com/dxa4481/truffleHog)
+  * [landscapeio/dodgy](https://github.com/landscapeio/dodgy)
+  * [Yelp/detect-secrets](https://github.com/Yelp/detect-secrets)
+  * [awslabs/git-secrets](https://github.com/awslabs/git-secrets)
+  * [auth0/repo-supervisor](https://github.com/auth0/repo-supervisor)
+
+
 ### Websites dedicated to the subject
 - https://opensource.guide/
 - https://opensource.com/resources:

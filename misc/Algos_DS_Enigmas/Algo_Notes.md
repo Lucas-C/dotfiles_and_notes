@@ -37,6 +37,8 @@ Hashing:
 - selection from "Bloomin' Marvellous" slides: MurmurHash3, xxhash, SipHash
 - google/highwayhash: Fast strong hash functions: SipHash/HighwayHash, faster that SipTreeHash
 - [A new fast hash table (2018)](https://probablydance.com/2018/05/28/a-new-fast-hash-table-in-response-to-googles-new-fast-hash-table/)
+- [Fibonacci Hashing: The Optimization that the World Forgot](https://probablydance.com/2018/06/16/fibonacci-hashing-the-optimization-that-the-world-forgot-or-a-better-alternative-to-integer-modulo/)
+> Hash tables should not be prime number sized and they should not use an integer modulo to map hashes into slots. Fibonacci hashing is just better. Yet somehow nobody is using it
 
 Perceptual hashes:
 - https://tech.okcupid.com/evaluating-perceptual-image-hashes-okcupid/

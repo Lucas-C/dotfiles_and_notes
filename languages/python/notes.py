@@ -668,7 +668,7 @@ pyreverse # UML diagrams, integrated in pylint
 
 # Security
 safety, snyk # report security vulnerabilities in dependencies
-dxa4481/truffleHog, landscapeio/dodgy # detect credentials/passwords/secrets in source code - Also, in other languages : awslabs/git-secrets, auth0/repo-supervisor
+dxa4481/truffleHog, landscapeio/dodgy, Yelp/detect-secrets # detect credentials/passwords/secrets in source code - Also, in other languages : awslabs/git-secrets, auth0/repo-supervisor
 python-security/pyt # detect vulnerabilities in Python Web Applications: XSS, SQL injection, command injection, directory traversal...
 flipkart-incubator/Astra # Automated Security Testing For REST API's
 openstack/bandit  # Python AST-based security linter
@@ -999,7 +999,7 @@ cmu-db/ottertune # automatic DBMS configuration tool
 """"""""""""""""""""""""""""""""""""""""""
 twobraids/configman > argparse (with fromfile_prefix_chars='@' to allow arguments definition in a @file) > optparse # Alt: begins > docopt, clize, click - Also: neat quick GUI compatible with argparse: chriskiehl/Gooey
 class ArgparseHelpFormatter(argparse.RawTextHelpFormatter, argparse.ArgumentDefaultsHelpFormatter): pass
-parser = argparse.ArgumentParser(description=__doc__, formatter_class=ArgparseHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve')
+parser = argparse.ArgumentParser(description=__doc__, formatter_class=ArgparseHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve', allow_abbrev=False)
 parser_group = parser.add_mutually_exclusive_group(required=True)
 parser_group.add_argument(... type=argparse.FileType('r')) # or with the helper func below: action=argparse_store_command(func_do_cmd1) and after parsing: args.command(args)
 return parser.parse_args(sys.argv[1:])
@@ -1105,7 +1105,7 @@ templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} 
 mozilla/bleach # HTML sanitizing library that escapes or strips markup and attributes
 tinycss2 > tinycss > cssutils  # CSS parsers
 hickford/MechanicalSoup
-lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2
+lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2 - also: defusedxml to sanitize XML
 kovidgoyal/html5-parser # fast C based HTML 5 parsing
 import lxml.etree, lxml.html
 html_root = lxml.html.fromstring('html string') # Alt: html_tree.getroot()

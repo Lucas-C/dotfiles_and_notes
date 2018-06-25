@@ -118,7 +118,7 @@ First proposed by Eric Brewer in 1998, then proved by Gilbert and Lynch. See als
 
 
 ### PostgreSQL
-http://www.postgresql.org/docs/current/interactive/app-psql.html#APP-PSQL-META-COMMANDS
+[Meta-Commands](http://www.postgresql.org/docs/current/interactive/app-psql.html#APP-PSQL-META-COMMANDS)
 
     \? # and \h $cmd
     \dt+ # list tables - There are many other \d... commands
@@ -126,6 +126,19 @@ http://www.postgresql.org/docs/current/interactive/app-psql.html#APP-PSQL-META-C
 
 Temporary instances for unit-testing: http://faitout.fedorainfracloud.org
 
+[PostgreSQL Features You May Not Have Tried But Should](https://pgdash.io/blog/postgres-features.html):
+- Pub/Sub Notifications
+- Table Inheritance
+- Foreign Data Wrappers: virtual tables that actually serve data from another PostgreSQL instance, or even SQLite files, MongoDB, Redis, and more
+- Partitioned Tables : sharding of a table into multiple child tables, based on a partition key.
+This allows a single, large table to be physically stored as separate tables, for better DML performance and storage management.
+- Range Types
+- Array Types
+- Triggers : execute a specific function when rows are inserted, updated or deleted from a table
+- pg_stat_statements : this extension records a wealth of information about each statement executed, including the time taken, the memory used and disk I/Os initiated
+- other index types : B-Tree, Hash, GIN, BRIN
+- Full Text Search
+- pgmetrics & pgDash : monitoring
 
 ### NoSQL DBs
 
