@@ -6,18 +6,20 @@
 #   export GITHUB_API_TOKEN=...
 #   ./dump_github_org_perms.py github_perms.yaml --new-org voyages-sncf-technologies --ignore-403s
 
-import argparse, os, sys, yaml
+from __future__ import print_function
+import argparse, os, sys
 from datetime import datetime
 
 from agithub.GitHub import GitHub
 from agithub.base import IncompleteRequest
+import yaml
 try:
-    from colorama import Fore, Style, init
+    from colorama import Fore, init  # optionnal dependency
     init()  # for Windows
 except ImportError:  # fallback so that the imported classes always exist
     class ColorFallback():
         __getattr__ = lambda self, name: ''
-    Fore = Style = ColorFallback()
+    Fore = ColorFallback()
 
 
 def main():
@@ -33,9 +35,10 @@ def main():
     if args.check_logins_with_activedirectory:
         check_logins_with_activedirectory(descriptor['members'])
     if args.dry_run:
-        return
-    with open(args.descriptor_filepath, 'w') as descriptor_file:
-        yaml.dump_all([descriptor], descriptor_file, default_flow_style=False, Dumper=NoAliasSafeDumper)
+        yaml.dump_all([descriptor], sys.stdout, default_flow_style=False, Dumper=NoAliasSafeDumper)
+    else:
+        with open(args.descriptor_filepath, 'w') as descriptor_file:
+            yaml.dump_all([descriptor], descriptor_file, default_flow_style=False, Dumper=NoAliasSafeDumper)
 
 
 def parse_args():
