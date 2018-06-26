@@ -17,6 +17,8 @@ Continuous Delivery
 - [How To Write Excellent Dockerfiles](https://rock-it.pl/how-to-write-excellent-dockerfiles/)
 - [Container Training](https://github.com/jpetazzo/container.training)
 
+## Git workflow
+- [OneFlow](http://endoflineblog.com/oneflow-a-git-branching-model-and-workflow)
 
 ## Deployment automation & orchestration
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
@@ -175,12 +177,17 @@ Getting Docker images used by a service, with its sha256 hash :
 
 Display full error message with `docker service` : `--no-trunc`
 
-### Enabling remote API
+### Docker remote REST API
 - through `dockerd` CLI option: `-H tcp://0.0.0.0:2375` (takes priority over 2nd option below)
 - through `daemon.json` list entry `hosts` (not tested)
+- [Using curl and the UNIX socket to talk to the Docker API]
+- [Inspecting docker activity with socat]
+- [Connecting to the secure Docker port using curl](https://docs.docker.com/engine/security/https/#connecting-to-the-secure-docker-port-using-curl) with certificates
 
-[Connecting to the secure Docker port using curl](https://docs.docker.com/engine/security/https/#connecting-to-the-secure-docker-port-using-curl) with certificates
+cf. [bin/docker_api.sh](https://github.com/Lucas-C/dotfiles_and_notes/blob/master/bin/docker_api.sh) :
 
+    export DOCKER_HOST=...
+    docker_api.sh /tasks?filters=$(echo '{"id": ["'$task_id'"]}' | urlencode) | jq '.[]|{ID,Status,CreatedAt,UpdatedAt}'
 
 ### Docker for Windows
 `daemon.json`: defaults to `%programdata%\docker\config\daemon.json`
@@ -236,9 +243,6 @@ Solution: redepoy - cf. https://github.com/moby/moby/issues/30794
   * implemented since 17.11.0-dev : https://github.com/docker/cli/commit/1872bd8
 - does not support relative paths (under Windows at least), contrary to `docker-compose`
 - does not currently support `host` network, e.g. giving access to localhost to services, cf. https://github.com/docker/swarmkit/issues/989
-
-### Docker client debugging
-cf. [Using curl and the UNIX socket to talk to the Docker API], [Inspecting docker activity with socat]
 
 ### Docker exec shell
 

@@ -19,7 +19,7 @@ To "anchorify" titles as Github does:
     document.querySelectorAll(selector).forEach(function (title) {
         if (!title.id) { title.id = title.textContent; }
         var a = document.createElement('a');
-        a.href = '#' + title.id;
+        a.href = document.location + '#' + title.id;
         a['aria-hidden'] = true;
         a.style.float = 'left';
         a.style['padding-right'] = '4px';

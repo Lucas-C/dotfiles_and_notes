@@ -38,8 +38,6 @@ cf. https://github.com/todogroup/repolinter
   * pre-launch checklist: https://opensource.guide/starting-a-project/#your-pre-launch-checklist
   * [Licensee](https://github.com/benbalter/licensee): detect under what license a project is distributed (Ruby) - Alt: https://github.com/pivotal/LicenseFinder
   * https://github.com/facebook/mention-bot : Automatically mention potential reviewers on pull requests.
-  * CLS: https://github.com/cla-assistant/cla-assistant & https://github.com/salesforce/salesforce-cla
-  * Github configuration as code: https://github.com/probot/settings
   * curated lists:
     - https://github.com/todogroup/awesome-oss-mgmt
     - https://www.linuxfoundation.org/tools-managing-open-source-programs/ include project health, stats & dashboard tools
@@ -124,9 +122,6 @@ Also: https://openbadges.org
   * have X contributions to external FLOSS projects by collaborators merged this year
   (a vote could also be cast to collect ideas for contributions / or a page maintained)
 
-- use Github tags to welcome & attract newcomers: `first-timers-only` `trivial` `beginner` `easy pick` `good first issue` `good-first-bug` `starter` `easy fix` `new contributor` `up-for-grabs` `your-first-pr`
-    * bonus: reference your project on http://up-for-grabs.net & https://www.codetriage.com & badge http://www.firsttimersonly.com
-
 - [Six things to know about successful open-source software] from a 2012 study by Charles Schweik and Robert English:
   * Most open-source projects are not successful
   * Successful projects have some common characteristics:
@@ -137,12 +132,21 @@ Also: https://openbadges.org
     - Once a project has achieved its initial release, a software architecture that is modular
   * Open-source projects flourish when developers are also users of the software
 
-- to detect credentials/passwords/secrets in source code:
-  * [dxa4481/truffleHog](https://github.com/dxa4481/truffleHog)
-  * [landscapeio/dodgy](https://github.com/landscapeio/dodgy)
-  * [Yelp/detect-secrets](https://github.com/Yelp/detect-secrets)
-  * [awslabs/git-secrets](https://github.com/awslabs/git-secrets)
-  * [auth0/repo-supervisor](https://github.com/auth0/repo-supervisor)
+
+### credentials / passwords / secrets detection in source code:
+- [dxa4481/truffleHog](https://github.com/dxa4481/truffleHog)
+- [landscapeio/dodgy](https://github.com/landscapeio/dodgy)
+- [Yelp/detect-secrets](https://github.com/Yelp/detect-secrets)
+- [awslabs/git-secrets](https://github.com/awslabs/git-secrets)
+- [auth0/repo-supervisor](https://github.com/auth0/repo-supervisor)
+
+
+### GitHub
+- Github configuration as code: https://github.com/probot/settings
+- [dump_github_org_perms.py](https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/dump_github_org_perms.py) & [activedirectory_github_sync.py](https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/activedirectory_github_sync.py)
+- Contributor License Agreement Bots: https://github.com/cla-assistant/cla-assistant & https://github.com/salesforce/salesforce-cla
+- use Github tags to welcome & attract newcomers: `first-timers-only` `trivial` `beginner` `easy pick` `good first issue` `good-first-bug` `starter` `easy fix` `new contributor` `up-for-grabs` `your-first-pr`
+    * bonus: reference your project on http://up-for-grabs.net & https://www.codetriage.com & badge http://www.firsttimersonly.com
 
 
 ### Websites dedicated to the subject
@@ -164,8 +168,10 @@ Also: https://openbadges.org
 - https://www.codetriage.com
 - http://linuxfr.org & https://cercll.wordpress.com/ (actualités FR)
 
+
 ### Funding, financing
 - https://opencollective.com/learn-more : "Open your finances to your community"
+
 
 ### Cons
 [Open Source is awful]:
@@ -175,8 +181,20 @@ Also: https://openbadges.org
 - That is simply the polite way of saying "do work for free and we'll pay you in exposure". We all know that's called exploitation
 - "My code is free — my time is not."
 
+
 ### Copyleft licenses contamination from dependencies
 Si votre projet a des dépendances, veillez à analyser leurs licenses.
+Typiquement, si une de vos dépendances est sous une license copyleft (ex: GPL & AGPL), vous devez utilisez cette license (ou une license compatible) pour votre projet.
+
+- [GNU licenses compatibility matrix](https://www.gnu.org/licenses/gpl-faq.en.html#AllCompatibility)
+- [Reports of GPLv3 and AGPLv3 "virality" are greatly exaggerated](https://softwareengineering.stackexchange.com/a/314908/157979) :
+  * If you use a library X that comes under GPLv3 or AGPLv3, modify its source code, but still use it as a library,
+  you have to make available the modified source code of X (but not any other part of your overall application)
+  if you distribute your own application and X has GPLv3 or AGPLv3.
+  * Richard Stallman likes the idea that all software should be free, but he does not claim infectiousness of GPL code.
+  He says "The GPL's domain does not spread by proximity or contact, only by deliberate inclusion of GPL-covered code in your program."
+
+#### Automated analysis
 Des outils existent pour automatiser cela si vous avez des dépendances en cascade (note: certains se basent sur le standard [SPDX](https://spdx.org)):
 
 - https://github.com/nexB/scancode-toolkit : développé en Python mais "language-agnostic" quant au code source analysé
@@ -185,7 +203,6 @@ Des outils existent pour automatiser cela si vous avez des dépendances en casca
 - https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Maven : plugin maven pour SonarQube, pour analyser les dépendances de pom.xml
 - https://wiki.debian.org/CopyrightReviewTools : Debian copyright review tools
 
-Typiquement, si une de vos dépendances est sous une license copyleft (ex: GPL & AGPL), vous devez utilisez cette license (ou une license compatible) pour votre projet.
 
 ### Lessons learned from "The Architecture of Open Source Applications"
 This is a personal selection:
@@ -200,6 +217,7 @@ This is a personal selection:
   * "The initial feedback and the encouragement we received from these users was instrumental in driving the project forward",
   * "most features in the system were designed as direct response to user feedback",
   * "being responsive to users does not necessarily mean doing exactly what they ask for"
+
 
 ### Le Logiciel Libre Et L'entreprise
 Par Tangui Morlier
@@ -218,13 +236,14 @@ Pourquoi une entreprise a des avantages à faire du logiciel libre ?
 - améliore la sécurité (cf. anecdote)
 - véhicule l'expertise (ex: Sensio avec Symphony)
 
+
 ### Producing Open Source Software: How to Run a Successful Free Software Project
 By Karl Fogel
 
 > Opening up means arranging the code to be comprehensible to complete strangers, setting up a development web site and email lists, and often writing documentation for the first time. All this is a lot of work. And of course, if any interested developers do show up, there is the added burden of answering their questions for a while before seeing any benefit from their presence.
 
-### The Dramatic Consequences of the Open Source revolution - Heather Miller
 
+### The Dramatic Consequences of the Open Source revolution - Heather Miller
 Our day-to-day, digital infrastructure is similar to our physical one
 
 In case of physical infra issues:
@@ -245,8 +264,8 @@ Collective Code Construction Contract: https://rfc.zeromq.org/spec:42/C4
 Contributing hackathon/sprint:
 ahead of time, library author curates ~10 todos accomplishable in 3hours by newcomers
 
-### Managing Open-Source contributions in large organizations - James Ward - Devoxx 2017
 
+### Managing Open-Source contributions in large organizations - James Ward - Devoxx 2017
 Why do open-source ?
 * build trust with customers / partners
 * create an ecosystem around a library / tool / framework
@@ -274,7 +293,6 @@ Demo: Github CLA bot asking contributors to sign it
 
 
 ### Open Source Archetypes: A framework For Purposeful Open Source - May 2018 - moz://a
-
 - Benefits of Open Source:
   * Lead a standardization effort in a particular area
   * Improve product quality

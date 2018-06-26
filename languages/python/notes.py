@@ -84,7 +84,7 @@ r"\b\w+\b"  # a word between two word separators
 m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DEBUG -> print parse tree
 m.group('word')
 # You can also call a function every time something matches a regular expression
-re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions
+re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions - Alt, more efficient lib: flashtext
 eriknyquist/librxvm # non-backtracking NFA-based regular expression library, for C and Python
 
 def CtxtMgr(object):
@@ -766,6 +766,7 @@ cd /a/path
 %timeit do_something()
 %debug # post_mortem
 %bg # run in the background
+%load_ext autoreload & %autoreload 2 # reload all changed modules every time before executing a new line. Some caveats apply, type %autoreload? to see what can go wrong
 %%javascript # and many other languages
 from IPython.display import HTML, SVG; HTML(html_string) # render HTML, SVG
 ipython notebook # now Jupyter - D3 support : wrobstory/sticky - Interesting "static" alts: janschulz/knitpy & pystitch/stitch

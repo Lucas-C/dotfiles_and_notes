@@ -755,7 +755,8 @@ ssh remote_host "$(declare -p parameters; declare -f functions) code and stuff" 
 /etc/pam.d/* # use pam_unix.so
 knockd # port knocking server
 cat $file.key $file.crt > $file.pem
-openssl s_client -CApath $ca -cert $pem -key $key -connect $host:443 -ssl3 # bare SSL client
+openssl s_client -CApath $ca -cert $cert -key $key -connect $host:443 -ssl3 # bare SSL client
+curl -v --cacert $ca --cert $cert --key $key $host:443
 openssl x509 -text -noout -in $cert.pem # get certs details
 openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
 keytool -printcert -file $cert.pem # get certs details
