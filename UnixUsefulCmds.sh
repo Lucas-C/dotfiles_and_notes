@@ -160,8 +160,9 @@ readonly LOG_FILE="$EXEC_DIR/logs/$(basename $0).log.$(date +%Y-%m-%d-%H)"
 exec > >(tee -a $LOG_FILE); exec 2>&1 # > >(cmd) constructs did not work under cygwin with v4.3.33. Of course, it also won't work if `sh` is the interpreter
 exec 5>&1; out=$(echo -e "A\nB" | tee /dev/fd/5) # capture a command output while still sending it to stdout - FROM: http://stackoverflow.com/a/16292136/636849
 date "+%F %T,%N" | cut -c-23 # Standard logs date
-date -u +%s # Seconds since EPOCH
-date -d @$seconds_since_epoch "+%F" # converts a timestamp - Under OSX: date -jf "%s" $secs "+%F"
+date -u +%s # current time in seconds since EPOCH (timestamp)
+date -d '2012-03-22 22:00:05 EDT' +%s # convert date string to seconds since EPOCH (timestamp)
+date -d @$seconds_since_epoch --iso-8601=seconds # converts a timestamp - Under OSX: date -jf "%s" $secs "+%F"
 
 # !!GOTCHA!! aliases used in functions definitions are immediately substituted,
 # NOT resolved dynamically !
@@ -759,6 +760,7 @@ openssl s_client -CApath $ca -cert $cert -key $key -connect $host:443 -ssl3 # ba
 curl -v --cacert $ca --cert $cert --key $key $host:443
 openssl x509 -text -noout -in $cert.pem # get certs details
 openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
+openssl s_client -showcerts -servername $host -connect $host:443 </dev/null | openssl x509 > ${host}cert.pem  # retrieve a server certificate
 keytool -printcert -file $cert.pem # get certs details
 sshfs # && fusermount -u
 Russell91/sshrc # bring your .*rc with you

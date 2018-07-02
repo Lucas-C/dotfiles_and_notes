@@ -219,7 +219,7 @@ def create_logger():
     return logger
 # Lazy logger: http://stackoverflow.com/a/4149231
 @deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/ - Alt: OpenStack debtcollector or even better briancurtin/deprecation
-Twangist/log_calls # logging & func calls profiling
+Twangist/log_calls # logging & func calls profiling with a decorator
 ScatterHQ/eliot # logging system for complex & distributed systems that outputs causal chains of actions happening within and across process boundaries - `Based on contexts: with start_action(...):`
 prezi/python-zipkin # -> dead project ? + no support for Python 3 : https://github.com/prezi/python-zipkin/issues/8
 string.Template # $-based substitutions
@@ -742,9 +742,8 @@ python-flamegraph # FlameGraph profiler
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
 http://mg.pov.lt/objgraph # explore Python object graphs
 snakefood # draw code base dependency graphs
-what-studio/profiling # live profiling
+what-studio/profiling # interactive continuous/live CLI profiler
 PyVmMonitor # profiler with graphs
-pyframe # made by an Uber dev, can generate flame graphs
 nvdv/vprof # Visual Python profiler
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
 fabianp/memory_profiler
@@ -1106,7 +1105,7 @@ templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} 
 mozilla/bleach # HTML sanitizing library that escapes or strips markup and attributes
 tinycss2 > tinycss > cssutils  # CSS parsers
 hickford/MechanicalSoup
-lxml > HTMLParser (std or html5lib), pyquery, beautifulsoup # use v>=3.2 - also: defusedxml to sanitize XML
+lxml > HTMLParser (std or html5lib), pyquery, BeautifulSoup # use v>=3.2 - also: defusedxml to sanitize XML
 kovidgoyal/html5-parser # fast C based HTML 5 parsing
 import lxml.etree, lxml.html
 html_root = lxml.html.fromstring('html string') # Alt: html_tree.getroot()
@@ -1267,6 +1266,7 @@ tn.write(user + "\n")
 "" Hosting ""
 """""""""""""
 zappa # serverless framework for AWS lambda / API Gateway
+cloudtools/troposphere # create AWS CloudFormation descriptions in JSON from code
 heroku
 pythonanywhere.com
 
@@ -1540,3 +1540,26 @@ uvloop  # drop-in replacement for asyncio event loop, written in Cython & 2x fas
 python -m zipapp my_project_dir  # generates a .pyz
 
 subprocess.run > check_call
+
+
+#------------------------------------------------------------------------------
+# Python 3.6 - cf. http://sametmax.com/python-3-7-sort-de-sa-coquille/
+from dataclasses import asdict, astuple, dataclass, replace
+@dataclass
+class Achat:
+    produit: str
+    prix: float
+    quantite: int = 0
+
+namedtuple # supporte les valeurs par défaut
+
+python -X dev
+python -X importtime
+
+breakpoint() # alias pour: import pdb; pdb.set_trace()
+
+dict # now ensured to be ordered
+
+importlib.resources # replace pkg_resource
+
+contextlib.nullcontext # noop context manager

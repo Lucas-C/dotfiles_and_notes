@@ -149,6 +149,11 @@ Also: https://openbadges.org
     * bonus: reference your project on http://up-for-grabs.net & https://www.codetriage.com & badge http://www.firsttimersonly.com
 
 
+### Gitlab
+- [GitLab Ultimate & Gold free for open source](https://about.gitlab.com/2018/06/05/gitlab-ultimate-and-gold-free-for-education-and-open-source/)
+- [Gitlab AutoDevops](https://docs.gitlab.com/ce/topics/autodevops/)
+
+
 ### Websites dedicated to the subject
 - https://opensource.guide/
 - https://opensource.com/resources:

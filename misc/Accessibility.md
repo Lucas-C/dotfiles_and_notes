@@ -21,6 +21,8 @@ Ils doivent etre VISIBLE (à minima au focus) : ils ne sont pas destinés aux av
 
 https://www.powermapper.com/tests/screen-readers/elements/
 
+[Conseils d'Access 42 pour les balises SVG](https://access42.net/svg-accessible)
+
 ### ARIA
 
 [Kit de survie du développeur aria](http://access42.net/Kit-de-survie-du-developpeur-ARIA-1-3)

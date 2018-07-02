@@ -188,6 +188,14 @@ cf. [bin/docker_api.sh](https://github.com/Lucas-C/dotfiles_and_notes/blob/maste
 
     export DOCKER_HOST=...
     docker_api.sh /tasks?filters=$(echo '{"id": ["'$task_id'"]}' | urlencode) | jq '.[]|{ID,Status,CreatedAt,UpdatedAt}'
+    docker_api.sh "/events?since=$(date -d 2018-06-26T15:38:00 +%s)&until=$(date +%s)" > events.log
+
+### Docker containers health
+
+Container health status log:
+
+    docker inspect $container_id | jq '.[].State.Health'
+    docker events --filter event=health_status
 
 ### Docker for Windows
 `daemon.json`: defaults to `%programdata%\docker\config\daemon.json`
