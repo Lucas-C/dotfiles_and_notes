@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # To list this file sections: $ grep '^"" ' notes.py
 
-""""""""""""""
+"""""""""""""
 "" Why Python ?
-""""""""""""""
+"""""""""""""
 - extremely readable (cf. zen of Python + [this 2013 study](http://redmonk.com/dberkholz/2013/03/25/programming-languages-ranked-by-expressiveness/))
 - simple & fast to write
 - very popular (taught in many universities)
@@ -22,43 +22,11 @@ FROM: Alex Martelli, in "Python Interviews: Discussions with Python Experts", on
 """""""
 "" Misc
 """""""
-_ # result of the last expression evaluated (in an interpreter only)
-
-r'Raw string literal: no need to double escape \{0}\{one:.5f}'.format("zero", one=1) # raw string: treat backslashes as literal characters
-'My name is {0[firstname]} {0[lastname]}'.format({'firstname': 'Jack', 'lastname': 'Vance'})
-u"Unicode string {obj.__class__} {obj!r}".format(obj=0) # for formatting with a defaultdict, use string.Formatter().vformat
-from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII - Gotchas: http://stackoverflow.com/a/827449/636849
-unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
-eyalr/unicode_mayo # detect unicode corruption
-chardet.detect(str) # Mozilla encoding detection
-str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters - Also: str.decode('utf8')
-PYTHONIOENCODING=utf_8 # http://daveagp.wordpress.com/2010/10/26/what-a-character/
-with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as UTF8
-    for line in open_file.readlines(): # Drawback: no encoding can be specified
-        yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
-with io.open('my_file', 'w', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
-try:
-    for line in fileinput.input([filename], inplace=True, backup='.bak'):
-        print(line.strip())
-except Exception as error:  # e.g. for UnicodeDecodeError
-    os.remove(filename)  # needed on Windows apparently
-    os.replace(filename + '.bak', filename)
-    raise
-fileutils.atomic_save # from mahmoud/boltons
-intern(str) # internal representation - useful for enums/atoms + cf. http://stackoverflow.com/a/15541556
-
-def find_usage(string):  # simili-grep
-    for dirpath, dnames, fnames in os.walk(STATICS_SRC_DIR):
-        for file_name in [os.path.join(dirpath, f) for f in fnames if any(f.endswith(ext) for ext in TARGET_FILES_EXTENSIONS)]:  # compatible Python 2 & 3
-            with io.open(file_name, 'r', encoding='utf-8') as open_file:  # compatible Python 2 & 3
-                for line_number, line in enumerate(open_file.readlines(), 1):
-                    if string in line:
-                        yield line, line_number
+_ # result of the last expression evaluated (in an interactive interpreter)
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) # useful at beginning of a script : change the current directory to the script parent directory
 <module>.__file__ # can refer to .py OR .pyc !!
-__all__ = ['bar', 'foo']
-# list of symbol to export from module. Default: all symbol not starting with _
+__all__ = ['bar', 'foo']  # list of symbol to export from module. Default: all symbol not starting with _
 
 __slots__ = ("attr1_name") # flyweight design pattern
 # Its proper use is "to save space in objects. Instead of having a dynamic dict that allows adding attributes to objects at anytime, there is a static structure which does not allow additions after creation. This saves the overhead of one dict for every object that uses slots." It also slightly slows down lookup time
@@ -74,19 +42,6 @@ callable(obj) # == hasattr(obj, '__call__') # both should work for functions too
 
 a, b = b, a # swapping
 
-pattern = (
-"^"         # beginning of string
-"(?P<word>" # named group start
-r"\b\w+\b"  # a word between two word separators
-"\.*?"      # non greedy wildcard
-")"         # named group end
-)
-m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DEBUG -> print parse tree
-m.group('word')
-# You can also call a function every time something matches a regular expression
-re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions - Alt, more efficient lib: flashtext
-eriknyquist/librxvm # non-backtracking NFA-based regular expression library, for C and Python
-
 def CtxtMgr(object):
     def __enter__(self): pass
     def __exit__(self, eType, eValue, eTrace): pass
@@ -98,62 +53,14 @@ def foobar():
     finally:
         # __exit__ code
 
-os.makedirs(dir_path) # + ignore OSError where .errno == errno.EEXIST and os.path.isdir(dir_path) # mkdir -p
-tempfile.gettempdir()
-tempfile.mkdtemp()
-tempfile.NamedTemporaryFile() # file automagically deleted on close() - DO NOT USE if project must be Windows-compatible : http://stackoverflow.com/a/23212515/636849
-tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
-
-StringIO # fake file from string - in module StringIO in Python 2, in io in Python 3
-glob, fnmatch # manipulate unix-like file patterns
-jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object (std in Python 3 as pathlib), and a handy walkfiles()
-os.stat("filename").st_ino # get inode
-.st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
-portalocker # easy API to file locking
-
-watchdog # inc. cmd watchmedo -> monitor/observe files changes - FROM: S&M - not Cygwin-friendly due to ctypes.wintypes usage
-
-def bar(**kwargs): # != def bar(foo=None, **kwargs):
-    foo = kwargs.pop('foo')
-
-arrow, delorean # 'better dates and times' & 'Time Travel Made Easy'
-freach/udatetime # Fast RFC3339 compliant Python date-time library, timezone aware, with strict format
-datetime.utcnow() # better than time.time()
-import pytz # pytz.utc, pytz.all_timezones
-from dateutil import parser # !! ALWAYS pass a Callable as tzinfos so that it won't use the system timezone (time.tzname)
-def _tzinfos_pytz_pst_func(tzname, tzoffset):
-    tzdata = pytz.timezone('America/Los_Angeles') if tzname == 'PST' else pytz.timezone(tzname)
-    if tzoffset:
-        tzdata += timedelta(seconds=tzoffset)
-    return tzdata
-parser.parse(date_string_with_tz, tzinfos=_tzinfos_pytz_pst_func).astimezone(pytz.utc) # !! Won't work for DST ! "Unfortunately using the tzinfo argument of the standard datetime constructors ‘’does not work’’ with pytz for many timezones."-> Alt:
-pytz.timezone('America/Los_Angeles').localize(parser.parse(date_string_without_tz)).astimezone(pytz.utc)
-radicale # CalDAV (calendar) and CardDAV (contact) server
-
 globals()["Foo"] = Foo = type('Foo', (object,), {'bar':True}) # on-the-fly class creation
 module = sys.modules[base_class.__module__].__dict__; module[name] = new.classobj(name, (base_class,), class_attributes) # cleaner Alt
-# !!WARNING!! 'type()' uses the current global __name__ as the __module__, unless it calls a metaclass constructor
+# !!WARNING!! `type()` uses the current global __name__ as the __module__, unless it calls a metaclass constructor
 # -> http://stackoverflow.com/questions/14198979/python-inheritance-metaclasses-and-type-function
 
-# It can be an alternative for Nose tests, as TestCase and generators are not compatible
-# Better is to simply create in a loop child classes of a parent TestCase that simply redefine the setUp method
-# TestCase.subTest is an alternative if data is not common to all test methods in the TestCase
-# Even more alternatives : http://stackoverflow.com/questions/2798956/python-unittest-generate-multiple-tests-programmatically
-
-# 'type' is the metaclass Python uses to create all classes behind the scenes
+# `type` is the metaclass Python uses to create all classes behind the scenes
 # aka, the most common __class__.__class__ of an object
 # But you can specify your own __metaclass__ !
-
-dir(__builtins__) # special module, and functions can be reassigned !
-@patch("that_context_mgr", MagicMock(__enter__ = lambda *args: MyReturnedObject()))
-@patch("module.open", create=True) # to patch builtins
-@patch("module.CONSTANT", new_value)
-def foo_test(open_mock):
-    input_mock = MagicMock(spec=file)
-    open_mock.return_value = input_mock
-    input_mock.__enter__.return_value.readline.return_value = "ALWAYS SAME LINE"
-
-obj_mock.side_effect = Exception('Foo42')
 
 def incr(i):
     incr.counter += i
@@ -178,33 +85,112 @@ def trace_exec_time(repeat=1, result_strategy=lambda results: results[-1]):
 @wrapt.decorator # Proper decorators by Graham Dumpleton - Also: proxy = wrapt.ObjectProxy(original)
 def pass_through(wrapped, instance, args, kwargs):
     return wrapped(*args, **kwargs) # 'splat' operator
-from tputil import make_proxy # Pypy transparent proxy : can record/intercept/modify operations
 
-# Descriptors
-class Property(object):
-    def __init__(self, fget):
-        self.__doc__ = getattr(fget, '__doc__')
-        self.fget = fget
+# Environment variables
+export PYTHONSTARTUP="$HOME/.pythonrc" # code to execute when Python starts
+PYTHONPATH : directories to add to sys.path # see also: import site - use *.pth files instead for 3rd party modules, ex: echo ~/anaconda/env3.5/lib/python3.5/site-packages > $VIRTUAL_ENV/lib/python3.5/site-packages/extra_paths.pth
+PYTHONHOME : Python interpreter directory
+PYTHONCASEOK : case insensitive module names (useful under Windows)
+PYTHONIOENCODING : force default encoding for stdin/stdout/stderr
+PYTHONHASHSEED : change seed hash() (=> more secure VM)
 
-    def __get__(self, obj, type):
-        if obj is None:
-            return self
-        return self.fget(obj)
+sys.meta_path  # a list of *finder* objects that have their find_module() methods called to see if one of the objects can find the module to be imported - cf. PEP 302
 
-buffer & memoryview
+__main__.py # code executed in case of 'python my_pkg/' or 'python -m my_pkg'
 
-class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
-    __slots__ = () # Else new attributes can still be added to that class dynamically
-    def __new__(cls): # Facultative
-         return cls.__bases__[0].__new__(cls, 'X', 'Y')
-# Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
-# For multiple inheritance with namedtuple, combine fields + use specific inheritance order:
-class Immut3DPoint(namedtuple('_Immut3DPoint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
-    __slots__ = ()
-# BUT seriously, use the "attrs" library instead: https://glyph.twistedmatrix.com/2016/08/attrs.html
-# or typing.NamedTuple: https://github.com/topper-123/Articles/blob/master/New-interesting-data-types-in-Python3.rst
-# or traitlets if you need to react when properties values change: https://traitlets.readthedocs.io/en/stable/using_traitlets.html
 
+"""""""""""""""""""""""""""""""
+"" Files, strings & encoding
+"""""""""""""""""""""""""""""""
+intern(str) # internal representation - useful for enums/atoms + cf. http://stackoverflow.com/a/15541556
+
+PYTHONIOENCODING=utf_8 # http://daveagp.wordpress.com/2010/10/26/what-a-character/
+PYTHONUTF8 # cf. https://www.python.org/dev/peps/pep-0540/
+
+r'Raw string literal: no need to double escape \{0}\{one:.5f}'.format("zero", one=1) # raw string: treat backslashes as literal characters
+'My name is {0[firstname]} {0[lastname]}'.format({'firstname': 'Jack', 'lastname': 'Vance'})
+u"Unicode string {obj.__class__} {obj!r}".format(obj=0) # for formatting with a defaultdict, use string.Formatter().vformat
+from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII - Gotchas: http://stackoverflow.com/a/827449/636849
+unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
+eyalr/unicode_mayo # detect unicode corruption
+chardet.detect(str) # Mozilla encoding detection
+str.encode('ascii') # raise a codec exception if the string doesn't only contain ASCII characters - Also: str.decode('utf8')
+with open(file_path, "rb+", buffering=0) as open_file: # open ascii as well as UTF8
+    for line in open_file.readlines(): # Drawback: no encoding can be specified
+        yield line.rstrip().decode("utf8") # or just open_file.read().decode('utf8')
+
+with io.open('my_file', 'w', encoding='utf-8') as outf: pass # force UTF8 - 'pass' => just 'touch'
+
+try:
+    for line in fileinput.input([filename], inplace=True, backup='.bak'):
+        print(line.strip())
+except Exception as error:  # e.g. for UnicodeDecodeError
+    os.remove(filename)  # needed on Windows apparently
+    os.replace(filename + '.bak', filename)
+    raise
+
+def find_usage(string):  # simili-grep
+    for dirpath, dnames, fnames in os.walk(STATICS_SRC_DIR):
+        for file_name in [os.path.join(dirpath, f) for f in fnames if any(f.endswith(ext) for ext in TARGET_FILES_EXTENSIONS)]:  # compatible Python 2 & 3
+            with io.open(file_name, 'r', encoding='utf-8') as open_file:  # compatible Python 2 & 3
+                for line_number, line in enumerate(open_file.readlines(), 1):
+                    if string in line:
+                        yield line, line_number
+
+pattern = (
+"^"         # beginning of string
+"(?P<word>" # named group start
+r"\b\w+\b"  # a word between two word separators
+"\.*?"      # non greedy wildcard
+")"         # named group end
+)
+m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DEBUG -> print parse tree
+m.group('word')
+# You can also call a function every time something matches a regular expression
+re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions - Alt, more efficient lib: flashtext
+eriknyquist/librxvm # non-backtracking NFA-based regular expression library, for C and Python
+
+os.makedirs(dir_path) # + ignore OSError where .errno == errno.EEXIST and os.path.isdir(dir_path) # mkdir -p
+tempfile.gettempdir()
+tempfile.mkdtemp()
+tempfile.NamedTemporaryFile() # file automagically deleted on close() - DO NOT USE if project must be Windows-compatible : http://stackoverflow.com/a/23212515/636849
+tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
+
+StringIO # fake file from string - in module StringIO in Python 2, in io in Python 3
+
+glob, fnmatch # manipulate unix-like file patterns
+jaraco/path.py, mikeorr/Unipath # provide a handy 'Path' object (std in Python 3 as pathlib), and a handy walkfiles()
+
+os.stat("filename").st_ino # get inode
+.st_size # in bytes. Human readable size: http://stackoverflow.com/q/1094841/636849
+
+fileutils.atomic_save # from mahmoud/boltons
+portalocker # easy API to file locking
+
+mmap # memory-mapped files
+
+
+"""""""""""""""""""
+"" Dates & time
+"""""""""""""""""""
+arrow, delorean # 'better dates and times' & 'Time Travel Made Easy'
+freach/udatetime # Fast RFC3339 compliant Python date-time library, timezone aware, with strict format
+datetime.utcnow() # better than time.time()
+import pytz # pytz.utc, pytz.all_timezones
+from dateutil import parser # !! ALWAYS pass a Callable as tzinfos so that it won't use the system timezone (time.tzname)
+def _tzinfos_pytz_pst_func(tzname, tzoffset):
+    tzdata = pytz.timezone('America/Los_Angeles') if tzname == 'PST' else pytz.timezone(tzname)
+    if tzoffset:
+        tzdata += timedelta(seconds=tzoffset)
+    return tzdata
+parser.parse(date_string_with_tz, tzinfos=_tzinfos_pytz_pst_func).astimezone(pytz.utc) # !! Won't work for DST ! "Unfortunately using the tzinfo argument of the standard datetime constructors ‘’does not work’’ with pytz for many timezones."-> Alt:
+pytz.timezone('America/Los_Angeles').localize(parser.parse(date_string_without_tz)).astimezone(pytz.utc)
+radicale # CalDAV (calendar) and CardDAV (contact) server
+
+
+"""""""""""""""""""
+"" Logging & exceptions
+"""""""""""""""""""
 if args.debug:
     logging.basicConfig(level=logging.DEBUG, stream=sys.stderr, # default stream, but explicit beats implicit
         format="%(asctime)s - pid:%(process)s %(filename)s:%(lineno)d [%(levelname)s] %(message)s")
@@ -237,29 +223,10 @@ except Exception as err: # see chain_errors module
 else: pass
 finally: pass
 
-from distutils.command.build import build
-class custom_build(build):
-    def run(self):
-        build.run(self)
-        ... # custom init
-cmdclass['build'] = custom_build
 
-# Environment variables
-export PYTHONSTARTUP="$HOME/.pythonrc" # code to execute when Python starts
-PYTHONPATH : directories to add to sys.path # see also: import site - use *.pth files instead for 3rd party modules, ex: echo ~/anaconda/env3.5/lib/python3.5/site-packages > $VIRTUAL_ENV/lib/python3.5/site-packages/extra_paths.pth
-PYTHONHOME : Python interpreter directory
-PYTHONCASEOK : case insensitive module names (useful under Windows)
-PYTHONIOENCODING : force default encoding for stdin/stdout/stderr
-PYTHONHASHSEED : change seed hash() (=> more secure VM)
-
-sys.meta_path  # a list of *finder* objects that have their find_module() methods called to see if one of the objects can find the module to be imported - cf. PEP 302
-
-__main__.py # code executed in case of 'python my_pkg/' or 'python -m my_pkg'
-
-
-""""""""""""""""""
+"""""""""""""""""""
 "" Data structures
-""""""""""""""""""
+"""""""""""""""""""
 from bisect import bisect_left # binary/dichotomic search on lists
 import heapq # min-heap: .nlargest .nsmallest
 
@@ -339,6 +306,33 @@ for index, item in enumerate(iterable): ...
 # Loop & modify transparently standard DS
 items = zip(xrange(0, len(ds)), ds) # lists, tuples & namedtuples
 items = d.iteritems() # dicts ( iteritems > items )
+
+buffer & memoryview
+
+from tputil import make_proxy # Pypy transparent proxy : can record/intercept/modify operations
+
+# Descriptors
+class Property(object):
+    def __init__(self, fget):
+        self.__doc__ = getattr(fget, '__doc__')
+        self.fget = fget
+
+    def __get__(self, obj, type):
+        if obj is None:
+            return self
+        return self.fget(obj)
+
+class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
+    __slots__ = () # Else new attributes can still be added to that class dynamically
+    def __new__(cls): # Facultative
+         return cls.__bases__[0].__new__(cls, 'X', 'Y')
+# Cool namedtuple methods: _asdict(), _replace(kwargs), _fields, namedtuple._make(iterable)
+# For multiple inheritance with namedtuple, combine fields + use specific inheritance order:
+class Immut3DPoint(namedtuple('_Immut3DPoint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
+    __slots__ = ()
+# BUT seriously, use the "attrs" library instead: https://glyph.twistedmatrix.com/2016/08/attrs.html
+# or typing.NamedTuple: https://github.com/topper-123/Articles/blob/master/New-interesting-data-types-in-Python3.rst
+# or traitlets if you need to react when properties values change: https://traitlets.readthedocs.io/en/stable/using_traitlets.html
 
 
 """""""""""""
@@ -533,9 +527,9 @@ False == False in [False]   # True
 False == (False in [False]) # False
 
 
-"""""""""""""""""""""""""""
+"""""""""""""""""""""""""
 "" Functional Programming
-"""""""""""""""""""""""""""
+"""""""""""""""""""""""""
 # Guido van Rossum is not a big fan, he wrote the very interesting 'The fate of reduce() in Python 3000'
 
 # Buitins
@@ -571,7 +565,7 @@ kennethreitz/delegator.py # handy subprocesses lib
 platform # python version, OS / machine / proc info...
 appdirs # determine appropriate platform-specific user data/config/cache/logs directory paths
 resource # limit a process resources: SPU time, heap size, stack size... Example of context manager to limit memory usage: http://stackoverflow.com/a/14024198
-print('Memory usage: {} (kb)'.format(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))  # get process memory usage
+print('Memory usage: {} (kb)'.format(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))  # get process memory usage - but BEWARE: this value does not make sense in a containerized env (I witnessed it with a Python process in Docker: the host did not allocated those >1Go)
 
 shlex.split('--f "a b"') # tokenize parameters properly
 pipes.quote() # to escape variables - Alt: shlex.quote() for Python3.3+
@@ -589,10 +583,6 @@ lordmauve/chopsticks # orchestration library to configure & control remote hosts
 - `_iter` : creates a line generator => you can chain lazy functions taking a 'input_iterator' as input & output
 - a command invocation return a `RunningCommand` object, on which you can wait for the text output (by calling `str()` on it)
 or get a list of output lines (by calling `list()` on it)
-
-import pip
-pip.main(['install', '--proxy=' + PROXY, 'requests==2.7.0', 'retrying==1.3.3', 'sh==1.11'])
-assert list(search_packages_info(['pip-tools']))[0]['version'] == '1.6.5'
 
 import sh, sys
 if sys.version_info[0] < 3:
@@ -612,10 +602,10 @@ else:
 (-> (cat "/usr/share/dict/words") (grep "-E" "^hy") (wc "-l"))
 
 
-""""""""""""""""""""""""""
+"""""""""""""""""""""""""
 "" Libs & tools for DEVS !
-""""""""""""""""""""""""""
-# Cheap virtualenv
+"""""""""""""""""""""""""
+# Cheap virtualenv - Alt: mitsuhiko/pipsi -> each pkg is installed into its own virtualenv, so you don't have to worry about different packages having conflicting dependencies
 PYTHONUSERBASE=.pip/ pip install --user $pkh
 PYTHONUSERBASE=.pip/ python -m $pkg
 pew > virtualenv # sandbox. To move an existing environment: virtualenv --relocatable $env
@@ -630,6 +620,10 @@ pip-review # check for updates of all dependency packages currently installed in
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 pyproject.toml # PEP-518 replacement for setup.py - Alt: https://github.com/pypa/pipfile by kennethreitz
 pip-compile # recursively pin Python dependencies; part of pip-tools - Alt: pip2tgz "/var/www/packages" mypackage && pip install --index-url="file:///var/www/packages" mypackage
+PyPRI # private Python index in the cloud to which you have total control of access.
+import pip
+pip.main(['install', '--proxy=' + PROXY, 'requests==2.7.0', 'retrying==1.3.3', 'sh==1.11'])
+assert list(search_packages_info(['pip-tools']))[0]['version'] == '1.6.5'
 
 def pip_compile(reqfile_lines, pip_args=[], allow_all_external=True, allow_unverified=()):  # to use pip-compile (from pip-tools) programmatically
     from tempfile import NamedTemporaryFile
@@ -666,7 +660,10 @@ liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried), google/yapf
 pyreverse # UML diagrams, integrated in pylint
 
-# Security
+
+"""""""""""""
+"" Security
+"""""""""""""
 safety, snyk # report security vulnerabilities in dependencies
 dxa4481/truffleHog, landscapeio/dodgy, Yelp/detect-secrets # detect credentials/passwords/secrets in source code - Also, in other languages : awslabs/git-secrets, auth0/repo-supervisor
 python-security/pyt # detect vulnerabilities in Python Web Applications: XSS, SQL injection, command injection, directory traversal...
@@ -681,7 +678,11 @@ wapiti  # "fuzzer", performs "black-box" scans of a web application by crawling 
 Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
 lobocv/crashreporter # store and send crash reports directly to the developers
 
-# Packaging (cf. https://packaging.python.org)
+
+"""""""""""""
+"" Packaging
+"""""""""""""
+cf. https://packaging.python.org
 pyroma # gives a rating of how well a project complies with the best practices of the Python packaging ecosystem, primarily PyPI, pip, Distribute etc.
 twine # alternative to executing setup.py, provide HTTPS connexion to Pypi, file signing & control over packaging format - Alt: flit
 setuptools_scm, vcversioner  # manage your setup.py versions by scm tags
@@ -692,11 +693,35 @@ cx_freeze to make an EXE easily # cf. this example : https://www.reddit.com/r/Py
 # Examples of Windows packaging
 deluge-torrent # with bbfreeze + GUI with pygtk: http://git.deluge-torrent.org/deluge/tree/win32/deluge-bbfreeze.py#n31
 tweecode/twine # with py2exe/py2app + GUI with wxPython
+Kivy # package apps with PyInstaller
+
+from distutils.command.build import build
+class custom_build(build):
+    def run(self):
+        build.run(self)
+        ... # custom init
+cmdclass['build'] = custom_build
 
 
 """""""""""""
 "" Testing
 """""""""""""
+# `type()` can be an alternative for Nose tests, as TestCase and generators are not compatible
+# Better is to simply create in a loop child classes of a parent TestCase that simply redefine the setUp method
+# TestCase.subTest is an alternative if data is not common to all test methods in the TestCase
+# Even more alternatives : http://stackoverflow.com/questions/2798956/python-unittest-generate-multiple-tests-programmatically
+
+dir(__builtins__) # special module, and functions can be reassigned !
+@patch("that_context_mgr", MagicMock(__enter__ = lambda *args: MyReturnedObject()))
+@patch("module.open", create=True) # to patch builtins
+@patch("module.CONSTANT", new_value)
+def foo_test(open_mock):
+    input_mock = MagicMock(spec=file)
+    open_mock.return_value = input_mock
+    input_mock.__enter__.return_value.readline.return_value = "ALWAYS SAME LINE"
+
+obj_mock.side_effect = Exception('Foo42')
+
 import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coordinates, user agents, code... - Alt: lk-geimfari/elizabeth
 minimaxir/big-list-of-naughty-strings
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
@@ -744,6 +769,7 @@ http://mg.pov.lt/objgraph # explore Python object graphs
 snakefood # draw code base dependency graphs
 what-studio/profiling # interactive continuous/live CLI profiler
 PyVmMonitor # profiler with graphs
+nschloe/tuna # profile viewer using tornado
 nvdv/vprof # Visual Python profiler
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
 fabianp/memory_profiler
@@ -873,9 +899,9 @@ deref(id(42), ctypes.c_int)[4] = 100 # change value of 42 ! - '4' is the index t
 x = lambda: None; y = type(x.__code__)(0, 0, 0, 0, 0, b'\x01', (), (), (), '', '', 0, b''); type(x)(y, {})() # SEGFAULT
 
 
-"""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 "" Libs & tools for SCIENCE !
-"""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, translation...
 LuminosoInsight/wordfreq # Access a database of word frequencies, in various natural languages.
 topia.termextract # keywords extraction (2 lines broken under Py3, cf. my fork) - Alt: rake (2 implementations exist)
@@ -913,22 +939,22 @@ jhcepas/ete # tree exploration & visualisation
 riccardoscalco/Pykov # markov chains
 
 SimpleCV # powerful computer vision tools : find image edge, keypoints, morphology; can use the Kinect
+sikuli # Java-based (with JS, Python & Ruby ports) visual workflow, able to identify images on screen using OpenCV
 python-graph-core, networkx, igraph, graph-tool # networks & graphs manipulation
 
 deap # genetic programming
 cvxopt # convex optimization
 eyounx/ZOOpt # Zeroth-Order optimization (a.k.a. derivative-free optimization/black-box optimization) does not rely on the gradient of the objective function, but instead, learns from samples of the search space. It is suitable for optimizing functions that are nondifferentiable, with many local minima, or even unknown but only testable.
 
-mmap # memory-mapped files
 joblib # memoize computations by keeping cache files on disk
 petl # extract, transform and load tables of data (ETL)
 
 rpy2 # acces to R + cf. https://www.dataquest.io/blog/python-vs-r/
 
 
-""""""""""""""""""
+"""""""""""""""""""
 "" High perfs & C
-""""""""""""""""""
+"""""""""""""""""""
 Optimization guide:
 - measure first (line_profiler !)
 - improve algorithms ? data structures (for lightweight objects, use namedtuples) ? use a cache ?
@@ -962,10 +988,12 @@ pybind11 # Seamless operability between C++11 and Python - Also: cppimport : Imp
 struct # pack/unpack binary formats
 binascii.hexlify # display binary has hexadecimal
 
+mmap # memory-mapped files
 
-""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""
 "" DBs, queues & schedulers
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of tasks
 ampqlib, haigha, puka # AMPQ libs
 kombu (based on celery), zeromq, aiozmq, mrq # distributed app / msg passing frameworks
@@ -981,7 +1009,7 @@ kibitzr # poll web pages and notify you in messenger or by e-mail
 mrjob, luigi # Hadoop / AWS map-reduce jobs
 
 kennethreitz/records # by the author of requests
-peewee, SQLAlchemy # ORM DB
+peewee, SQLAlchemy # ORM DB - USeful: absent1706/sqlalchemy-mixins
 from playhouse.sqlite_ext import SqliteExtDatabase; db = SqliteExtDatabase(':memory:') # in-memory SQLite DB with peewee
 anydbm: dbhash else gdbm else dbm else dumbdbm
 sqlite3 # std DB, persistent in a file || can be created in RAM - Alt: rogerbinns/apsw +> both allow to create custom SQL functions, aggregate functions, and collations
@@ -994,9 +1022,9 @@ redash # generic DB interface / visualization for Redshift, Google BigQuery, Pos
 cmu-db/ottertune # automatic DBMS configuration tool
 
 
-""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 "" CLI & arguments parsing
-""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 twobraids/configman > argparse (with fromfile_prefix_chars='@' to allow arguments definition in a @file) > optparse # Alt: begins > docopt, clize, click - Also: neat quick GUI compatible with argparse: chriskiehl/Gooey
 class ArgparseHelpFormatter(argparse.RawTextHelpFormatter, argparse.ArgumentDefaultsHelpFormatter): pass
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=ArgparseHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve', allow_abbrev=False)
@@ -1023,9 +1051,9 @@ bashplotlib # terminal plotting of histograms / scatterplots from list of coordi
 urwid # console user interface lib - Alt: snack, NPyScreen
 
 
-""""""""""""
+"""""""""""""
 "" Graphics
-""""""""""""
+"""""""""""""
 pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 ericoporto/fgmk # retro RPG Game Maker
@@ -1062,9 +1090,9 @@ espeak-ng # open source speech synthesizer supporting 7+ languages, based on the
 Uberi/speech_recognition # speech recognition with support for CMU Sphinx / Google Speech Recognition / Google Cloud Speech API / Wit.ai / Microsoft Bing Voice Recognition / Houndify API / IBM Speech to Text
 
 
-""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
 "" Multi-threads/processes & async
-""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
 multiprocessing, Pyro > threading # as Python can only have one thread because of the GIL - Using multiprocessing => everything should be pickable
 threading.Thread().deamon = True # The entire Python program exits when no alive non-daemon threads are left.
 threading.Event # for threads communication, including stopping: Thread.run(self): while not self.stop_event: ...
@@ -1091,9 +1119,9 @@ aiofiles # local disk files read/write in asyncio applications
 # Python 3.4+ DefaultSelector uses the best select-like function available on your system - cf. http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
 
 
-""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 "" Web: HTTP, HTML & networking
-""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 autobanh, crossbar.io # WAMP in Python
 pywebsocket, python-hyper/wsproto
 import xmlrpc.client # XML-RPC via HTTP
@@ -1271,13 +1299,15 @@ heroku
 pythonanywhere.com
 
 
-""""""""""""""""""""""""
-"" Hacking & Forensic ""
-""""""""""""""""""""""""
+"""""""""""""""""""""""""
+"" Hacking & Forensic  ""
+"""""""""""""""""""""""""
 danmcinerney/wifijammer # How to kick everyone around you off wifi with python
 Patator # Multi-threaded Service & URL Brute Forcing Tool
 
 pywin32 # Windows API, e.g. win32crypt.CryptUnprotectData - cf. http://docs.activestate.com/activepython/2.6/pywin32/PyWin32.HTML / http://timgolden.me.uk/pywin32-docs/PyWin32.html
+    excel = win32.gencache.EnsureDispatch('Excel.Application'); excel.Visible = True
+    outlook = win32.gencache.EnsureDispatch('Outlook.Application'); new_mail = outlook.CreateItem(0)
 theller/comtypes # access and implement both custom and dispatch based COM interfaces
 n1nj4sec/memorpy # search/edit Windows programs memory
 
@@ -1290,10 +1320,9 @@ Pexpect # interact with programs based on expected stdout outputs - Include pxss
 winreg # access to the Windows registry
 
 
-
-""""""""
+"""""""""""""
 "" Django
-""""""""
+"""""""""""""
 django-admin.py startproject demelons_django
 ./manage.py syncdb
 ./manage.py migrate # v1.7 migrations, previously handled by e.g. South
@@ -1342,17 +1371,20 @@ TEMPLATE_STRING_IF_INVALID = InvalidVarException()
 <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
 
 
-"""""""""""""""""""""
+"""""""""""""""""""""""""
 "" Other libs & tools
-"""""""""""""""""""""
+"""""""""""""""""""""""""
+fmoo/python-editor # programmatically open a text editor, captures the result
+
 webbrowser.open_new_tab # Firefox/Opera/Chrome instrumentation
 mozilla/gecko-dev/testing/marionette/client # remotely control a Gecko-based browser running a Marionette server - https://marionette-client.readthedocs.io
 SeleniumHQ/selenium/py # browser automation, can be combined with geckodriver for Firefox - http://selenium-python.readthedocs.io
-livereload # browser automatic reloading for development
-fmoo/python-editor # programmatically open a text editor, captures the result
 pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff
 sikuli # Java-based (with JS, Python & Ruby ports) visual workflow, able to identify images on screen using OpenCV
 pyhooked # pure Python hotkey hook: react on specific mouse/keyboard events
+
+watchdog # inc. cmd watchmedo -> monitor/observe files changes - FROM: S&M - not Cygwin-friendly due to ctypes.wintypes usage
+livereload # browser automatic reloading for development
 
 filemagic, ahupp/python-magic # interfaces to libmagic file type identification, aka the "file" command under Unix : it identifies file types by checking their headers according to a predefined list of file types
 
@@ -1425,9 +1457,9 @@ OpenTransitTools/gtfsdb # GTFS (General Transit Feed Specification) DB : public 
 pyusb  # interfaces to FTDI D2XX drivers to manipulate USB devices
 
 
-""""""""
+"""""""
 "" Fun
-""""""""
+"""""""
 for ...:
 else:  # Awkward loop construct (also exist: try/except/else)
 
@@ -1447,9 +1479,9 @@ menu = ordereddict[ # hack to create an OrderedDict constructor - cf. http://sta
 ]
 
 
-""""""""""""
+"""""""""""""
 "" Python 3
-""""""""""""
+"""""""""""""
 asottile/pyupgrade # A tool (and pre-commit hook) to automatically upgrade syntax for newer versions of the language.
 
 sys.version_info[0] >= 3
@@ -1543,7 +1575,7 @@ subprocess.run > check_call
 
 
 #------------------------------------------------------------------------------
-# Python 3.6 - cf. http://sametmax.com/python-3-7-sort-de-sa-coquille/
+# Python 3.7 - cf. http://sametmax.com/python-3-7-sort-de-sa-coquille/
 from dataclasses import asdict, astuple, dataclass, replace
 @dataclass
 class Achat:

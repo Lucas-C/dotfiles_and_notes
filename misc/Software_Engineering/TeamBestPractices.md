@@ -310,6 +310,23 @@ Learning is the goal during post-mortems (cf. [Learning Through Blameless Review
   * Modéliser ce qui n'est pas de son ressort
   * En faire à chaque fois
 
+### Chaos Engineering aka Resilience Testing
+Présentation par Sylvain Hellegouarch:
+- Steady State Hypothesis
+- devenir familier avec l'échec, l'erreur dans votre système
+- Game Days / Days Of Chaos
+- Tools:
+  * Chaos Monkey / Kong (AWS...)
+  * Chaos Kub, Kube Monkey (Kubernetes)
+  * PowerfulSeal (AWS, OpenStack, Kubernetes)
+  * Pumba (Docker, Kubernetes)
+  * Gremlin (Docker) - payant
+  * ChaoSlingr (AWS)
+  * Chaos Spring Boot : Latency / Exception / AppKiller Assaults
+  * Byte Monkey
+  * [toxiproxy](https://github.com/Shopify/toxiproxy): framework for simulating network conditions
+- [ChaosToolKit](https://chaostoolkit.org)
+
 ## Documentation:
 - Tenets:
     * the key challenge to sustaining a complex system is maintaining our *understanding* of it

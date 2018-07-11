@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-def process(src_url, sections_to_remove=()):
+def process(src_url, sections_to_remove=(), selectors_to_remove=()):
     dest_html_filepath = src_url.split('/')[-1] + '.html'
     base_url = '{0.scheme}://{0.netloc}'.format(urlparse(src_url))
     soup = BeautifulSoup(requests.get(src_url).text, 'html.parser')
@@ -24,6 +24,9 @@ def process(src_url, sections_to_remove=()):
             bye = current
             current = current.next_sibling
             bye.extract()
+    for selector in selectors_to_remove:
+        for matching_elem in soup.select(selector):
+            matching_elem.extract()
     # We transform stylesheets URLs into absolute ones
     for link in soup.find_all('link'):
         if 'stylesheet' not in link['rel']:
@@ -47,6 +50,7 @@ def process(src_url, sections_to_remove=()):
         noprint.extract()
     if soup.find(class_='ext-wpb-pagebanner-subtitle'):
         soup.find(class_='ext-wpb-pagebanner-subtitle').extract()
+    soup.find(class_='printfooter').extract()
     pre_content = soup.find(class_='pre-content')
     pre_content.insert_after(pre_content.find('h1'))
     pre_content.extract()
@@ -66,20 +70,41 @@ def process(src_url, sections_to_remove=()):
     # Some extra CSS to make the page more compact:
     extra_style = soup.new_tag('style')
     extra_style.string = '''
-#content {
-    margin-left: 0;
+html {
+  font-size: 8pt;
+}
+p, table, ul, li {
+  font-size: 8pt;
+  line-height: 10pt;
+  margin: 0;
+  width: auto !important;
+  float: none !important;
+}
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+h2 {
+  font-size: 10pt;
+  line-height: 12pt;
+}
+h3, h4, h5, h6 {
+  font-size: 8pt;
+  line-height: 10pt;
 }
 dl, p {
-    column-rule: 1px solid;
+  column-rule: 1px solid;
 }
 dl {
-    column-count: 5;
+  column-count: 5;
 }
-p {
-    column-count: 2;
+p, ul {
+  column-count: 2;
+}
+#content {
+  margin-left: 0;
 }
 .prettytable {
-    display: inline-block;
+  display: inline-block;
 }'''
     soup.body.append(extra_style)
     with open(dest_html_filepath, 'w') as f:
@@ -96,4 +121,6 @@ if __name__ == '__main__':
     process('https://fr.wikivoyage.org/wiki/Guide_linguistique_serbe',
             sections_to_remove=('Voyelles', 'Consonnes', 'Achats', 'Conduite_automobile', 'Autorités', 'Approfondir'))
     process('https://fr.wikivoyage.org/wiki/Guide_linguistique_slovaque',
-            sections_to_remove=('Voyelles_courte', 'Voyelles_longue', 'Consonne', 'Diphtongues', 'Grammaire', 'Principales_villes', 'Achats', 'Conduire', 'Autorité', 'Pays_et_langue', 'Approfondir', 'Dictionnaires'))
+            sections_to_remove=('Voyelles_courte', 'Voyelles_longue', 'Consonne', 'Diphtongues', 'Déclinaisons', 'Conjugaison', 'Grammaire', 'Mois',
+                'Principales_villes', 'Achats', 'Conduire', 'Autorité', 'Pays_et_langue', 'Noms', 'Adjectifs', 'Pronoms', 'Approfondir', 'Dictionnaires'),
+            selectors_to_remove=('table:nth-of-type(6)',))

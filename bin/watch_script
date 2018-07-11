@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+
+# Pure Python 3 script that loops forever, re-executing a given script each time it changes
+
+# USAGE: watch_script wikivoyage_downloader.py [args...]
+
+# INSPI: https://github.com/stevekrenzel/autoreload/blob/master/autoreload
+
+import os, subprocess, sys, time
+
+
+script = sys.argv[1]
+last_mtime = os.stat(script).st_mtime
+print(' '.join(sys.argv[1:]))
+subprocess.run(sys.argv[1:])
+
+while True:
+    new_mtime = os.stat(script).st_mtime
+    if new_mtime > last_mtime:
+        last_mtime = new_mtime
+        print(' '.join(sys.argv[1:]))
+        subprocess.run(sys.argv[1:])
+    time.sleep(.5)  # How often we check the filesystem for changes (in seconds)

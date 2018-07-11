@@ -35,6 +35,7 @@ Project management best practices
 - [A Taxonomy of Tech Debt](https://engineering.riotgames.com/news/taxonomy-tech-debt)
 - [TechnicalDebtQuadrant by Martin Fowler](https://martinfowler.com/bliki/TechnicalDebtQuadrant.html)
 - [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
+- [How to Ensure You’re Working on the Most Important Items Each Iteration](https://www.mountaingoatsoftware.com/blog/how-to-ensure-youre-working-on-the-most-important-items-each-iteration)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -210,6 +211,10 @@ cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
 ![](http://semat.org/wp-content/uploads/2013/03/spiral.png)
 - la règles des 3 emails: au délà, téléphonez ou déplacer vous pour discuter en personne
 - attention à [LawOfTriviality_aka_bikeshedding]
+- [How to Ensure You’re Working on the Most Important Items Each Iteration]:
+> For the agile product owner, the equivalent of the topographic map is having a larger, multi-iteration goal. Without a multi-iteration goal, the product owner is merely climbing from false peak to false peak. That product owner and team may eventually arrive at their ultimate destination, but often only after descending and climbing out of the equivalent of the 10,000-foot valley.
+> “What is important is seldom urgent, and what is urgent is seldom important.”
+> Product Owners Should Identify a Significant Objective Quarterly
 
 ### Methodologies
 - CMMI = Capability Maturity Model Integration

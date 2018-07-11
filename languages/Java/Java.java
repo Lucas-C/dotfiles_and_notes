@@ -141,6 +141,7 @@ bin/sqlline
 !connect jdbc:mysql://localhost:3306/my_table $user $password
 
 -Xss64kb // set stack size
+-XX:ExitOnOutOfMemoryError // an OutOfMemoryError will often leave the JVM in an inconsistent state. Terminating the JVM will allow it to be restarted by an external process manager. - Alt: airlift/jvmkill -> taint.org: still useful as of java 8, since that may somehow still fail occasionally despite the -XX flag
 -XX:+HeapDumpOnOutOfMemoryError // get a heap dump at the point the application crashes
 -XX:+PerfDisableSharedMem // disable JVM exporting statistics to a file in /tmp, causing pauses of 0.1-1s during garbage collection
 -Xloggc:logfilename.log // log GC status to a file with time stamps
