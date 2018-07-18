@@ -272,6 +272,8 @@ npm shrinkwrap // locks down the versions of a package's dependencies
 
 substack/minimist > substack/optimist // argument options parser - Alt: chevex/yargs, divarvel/cliparse-node, tj/commander.js
 
+bottleneck, request-rate-limiter // rate limiters
+
 var Transform = require('stream').Transform,
     PassThrough = require('stream').PassThrough;
 function makeStream(src) { // Alt: through2

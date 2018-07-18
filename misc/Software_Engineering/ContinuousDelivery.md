@@ -16,9 +16,12 @@ Continuous Delivery
 - [Inspecting docker activity with socat](https://developers.redhat.com/blog/2015/02/25/inspecting-docker-activity-with-socat/)
 - [How To Write Excellent Dockerfiles](https://rock-it.pl/how-to-write-excellent-dockerfiles/)
 - [Container Training](https://github.com/jpetazzo/container.training)
+- [Multi-stages Docker images](https://blog.hasura.io/how-to-write-dockerfiles-for-python-web-apps-6d173842ae1d#d0a8)
 
 ## Git workflow
-- [OneFlow](http://endoflineblog.com/oneflow-a-git-branching-model-and-workflow)
+- [TrunkBasedDevelopment](https://trunkbaseddevelopment.com) > Gitflow
+- very similar to [OneFlow](http://endoflineblog.com/oneflow-a-git-branching-model-and-workflow)
+
 
 ## Deployment automation & orchestration
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
@@ -143,6 +146,7 @@ Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
 - cf. [Best practices for writing Dockerfiles], [How To Write Excellent Dockerfiles], [Containers patterns]:
   * No update instructions alone in the Dockerfile + Download packages securely using GPG
   * Use gosu instead of sudo wherever possible
+- [Multi-stages Docker images]: use standard image for build, but alpine on for exec: `COPY --from=dependencies`
 - [`clair`](https://github.com/coreos/clair) : Vulnerability Static Analysis for Containers
 - use the Calico network plugin for Docker instead of the native Docker "overlay" : https://www.percona.com/blog/2016/08/03/testing-docker-multi-host-network-performance/
 - [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !

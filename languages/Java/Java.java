@@ -1,4 +1,4 @@
-Consider Groovy (& framework Grails) > Java
+ConsiderConsider Groovy (& framework Grails) > Java
 
 // Find a .class Java version
 javap -v $file.class | grep version
@@ -68,6 +68,7 @@ airlift/aircompressor // A port of Snappy, LZO and LZ4 compression libs in pure 
 OpenJDK JMH // Benchmark tool
 
 Buildr, Fradle > ant, maven // build systems
+jib // build Java Docker images with a flat classpath for better caching - cf. https://ro14nd.de/jib-vs-dmp
 mvn dependency:tree
 mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
 mvn buildplan:list # shows how goals are bound to phases - buildplan-maven-plugin from fr.jcgay.maven.plugins - Alt: https://github.com/skuro/plan-maven-plugin

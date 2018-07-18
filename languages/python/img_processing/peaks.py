@@ -20,7 +20,7 @@ except ImportError:  # optional dependency, simply print a X/Y ratio on each ste
 def main():
     args = parse_args()
     destination_image = join(dirname(args.source_image),
-                             'japanified_' + basename(args.source_image))
+                             'peaks_' + basename(args.source_image))
 
     img = Image.open(args.source_image)
     print('Format:', img.format)

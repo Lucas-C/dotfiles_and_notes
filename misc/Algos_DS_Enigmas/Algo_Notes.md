@@ -96,6 +96,8 @@ Top N values of a stream : [Top speed for top-k queries](http://lemire.me/blog/2
 Feistel networks pseudorandom permutation / one-to-one pseudo random mapping : cf. http://antirez.com/news/113
 > It’s a building block typically used in cryptography: it creates a transformation between a sequence of bits and another sequence of bits, so that the transformation is always invertible, even if you use all the kind of non linear transformations inside the Feistel network
 
+AtsushiSakai/PythonRobotics : filter localization / grid mapping / object shape recognition / SLAM - closest point matching / path planning / path tracking
+
 
 ## Crypto
 

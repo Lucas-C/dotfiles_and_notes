@@ -72,6 +72,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [CNV & Agilité par T. Clavier & J. Quille](https://gitlab.com/azae/conferences/cnv-agilite/-/jobs/52813557/artifacts/file/2017agileFrance.pdf)
 - [Enable your Devs to do Ops - Runbooks in the DevOps era](https://blog.buildo.io/enable-your-devs-to-do-ops-9a0a870baa1)
 - [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
+- [No, seriously. Root Cause is a Fallacy.](https://willgallego.com/2018/04/02/no-seriously-root-cause-is-a-fallacy/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -289,6 +290,7 @@ Liens utiles:
 - trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
 - PIE = Probability of recurrence * Impact of recurrence * Ease of addressing - cf. [PostMortemsPIEIndicator]
 - planning for a future where we're as stupid as we are today [5WhysWithHumansNotRobots]
+- [No, seriously. Root Cause is a Fallacy.]: because our systems are complex, there is never really a single unique root cause
 - if we made an incremental improvment in area A or area B, which would prevent the broadest class of problems going ahead ? [5WhysWithHumansNotRobots]
 - human error is NEVER a root cause [OnFindingRootCauses] : You can’t fix people, but you can fix systems and processes to better support them.
 Learning is the goal during post-mortems (cf. [Learning Through Blameless Reviews] for a nice quick slideshow) + questions examples : [InfiniteHows]

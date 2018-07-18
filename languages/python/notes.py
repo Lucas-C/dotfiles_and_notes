@@ -309,7 +309,7 @@ items = d.iteritems() # dicts ( iteritems > items )
 
 buffer & memoryview
 
-from tputil import make_proxy # Pypy transparent proxy : can record/intercept/modify operations
+from tputil import make_proxy # Pypi transparent proxy : can record/intercept/modify operations
 
 # Descriptors
 class Property(object):
@@ -689,6 +689,7 @@ setuptools_scm, vcversioner  # manage your setup.py versions by scm tags
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil & zipapp to generates .pyz from v3.5 -> those "Python ZIP Applications" are associated to the Python executable under Windows
 dh-virtualenv # the ultimate way of deploying python apps, over wheels & pex == self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
 cx_freeze to make an EXE easily # cf. this example : https://www.reddit.com/r/Python/comments/4if7wj/what_do_you_think_is_more_difficult_in_python/
+facebookincubator/xar # archiver packinging files into a single self-contained executable bundle, using SquashFS, apprently better than PAR archives
 
 # Examples of Windows packaging
 deluge-torrent # with bbfreeze + GUI with pygtk: http://git.deluge-torrent.org/deluge/tree/win32/deluge-bbfreeze.py#n31
@@ -935,6 +936,7 @@ scipy
  + facet_wrap('~gear')
  + theme_xkcd())
 
+AtsushiSakai/PythonRobotics # filter localization / grid mapping / object shape recognition / SLAM - closest point matching / path planning / path tracking
 jhcepas/ete # tree exploration & visualisation
 riccardoscalco/Pykov # markov chains
 
@@ -1062,9 +1064,6 @@ Zulko/gizeh, Zulko/MoviePy, jdf/processing.py (uses Jython) # Video & image (edi
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 ryanfox/retread # detect reused frames in video
 
-jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
-antiboredom/audiogrep
-
 imageio.mimsave('/movie.gif', images) # lib based on Numpy + Pillow, to read / write a wide range of image data, including animated images, video, volumetric data, and scientific formats
 neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF generation
 cairo # graphics library outputting .ps .pdf .svg & more
@@ -1080,14 +1079,20 @@ fogleman/Tiling # pavages
 graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
 
+anishathalye/neural-style # an implementation of neural style in TensorFlow
+
 Tkinter, EasyGui, EasyDialogs (MacOSX), optparse_gui (last update 2008)
 Kivy # GUI inc. multi-touch support, packaged with PyInstaller
 wxPython # port of C++ wxWidgets
 ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - ALt: cztomczak/cefpython
 
 jlsutherland/doc2text # OCR poorly scanned PDFs in bulk
+
 espeak-ng # open source speech synthesizer supporting 7+ languages, based on the eSpeak engine
 Uberi/speech_recognition # speech recognition with support for CMU Sphinx / Google Speech Recognition / Google Cloud Speech API / Wit.ai / Microsoft Bing Voice Recognition / Houndify API / IBM Speech to Text
+jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
+antiboredom/audiogrep
+
 
 
 """""""""""""""""""""""""""""""""""""
@@ -1221,6 +1226,7 @@ aws/chalice # serverless microframework for AWS (API Gateway + Lambda) - provide
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod WSGI server, very easy to launch - Alt: bjoern > meinheld > gunicorn > uwsgi
+gunicorn --reload # auto-restart on files changes
 Eyepea/API-Hour # perf-oriented web APIs using AsyncIO & ujson - Alt: Sanic + uvloop, a fast drop-in replacement for asyncio ; squeaky-pl/japronto, "screaming-fast" & based on uvloop and picohttpparser
 nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
 featherweight # transform functions into REST web services
@@ -1497,6 +1503,7 @@ def foo(x: between(3, 10), y: is_int) -> is_int:
 # http://stackoverflow.com/questions/3038033/what-are-good-uses-for-python3s-function-annotations
 http://code.activestate.com/recipes/426123/ # Port to Python 2.7
 mypy # Alt static type checker: py -3.4 -m pip install --user mypy-lang; mypy $script.py
+pyre-check # annotation-based type checker
 
 b'I am an immutable basic byte array of type "bytes"'
 bytearray(b"I am mutable")
