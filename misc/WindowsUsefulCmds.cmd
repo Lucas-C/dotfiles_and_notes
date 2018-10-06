@@ -64,6 +64,7 @@ msinfo32 &:: info computer composants
 msconfig &:: System Configuration -> can disable or re-enable software, device drivers and Windows services that run at startup, or change boot parameters
 tasklist /svc &:: list Service Host (svchost.exe) services running, with their PIDs
 services.msc &:: Services windows
+diskmgmt.msc &:: Disk & Partition Management
 magnify &:: Loupe
 cmd | clip &:: copy to clipboard
 regsvr32 %dll_file% &:: register dll
