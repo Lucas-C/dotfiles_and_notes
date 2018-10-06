@@ -32,6 +32,9 @@ Setting > Style Configure > select Javascript > add "json" User ext
 
 Edit > Line Operations > Sort Lines in Ascending / Descending Order
 
+Deleting duplicate lines : replace the regex `^(.*?)$\s+?^(?=.*^\1$)` by nothing
+(source: https://code.i-harness.com/fr/q/3c664e )
+
 ## Shortcuts
 
 - `<ALT>+<SHIFT>` : vertical selection -> useful to comment at the beggining of the line
