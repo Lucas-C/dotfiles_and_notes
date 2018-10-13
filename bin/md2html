@@ -3,7 +3,7 @@ basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
 
 case `uname` in
     *CYGWIN*) basedir=`cygpath -w "$basedir"`
-              export NODE_PATH="$(npm list -g 2>/dev/null | head -n 1)/node_modules";;
+              export NODE_PATH="$(cygpath -w $APPDATA)/npm/node_modules";;
 esac
 
 node "$basedir/md2html.js" "$@"
