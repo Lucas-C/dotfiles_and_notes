@@ -36,6 +36,8 @@ Project management best practices
 - [TechnicalDebtQuadrant by Martin Fowler](https://martinfowler.com/bliki/TechnicalDebtQuadrant.html)
 - [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
 - [How to Ensure You’re Working on the Most Important Items Each Iteration](https://www.mountaingoatsoftware.com/blog/how-to-ensure-youre-working-on-the-most-important-items-each-iteration)
+- [In Pursuit of Production Minimalism](https://brandur.org/minimalism)
+- [Run less software](https://www.intercom.com/blog/run-less-software/)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -62,6 +64,22 @@ Project management best practices
 > and the only thing that came to mind was creating a pointless middle layer that required years of effort to amputate.
 > Meanwhile, the 90th percentile search latency was about two minutes.
 > Etsy didn't fail, but it went several years without shipping anything at all.
+
+- [In Pursuit of Production Minimalism]
+  * Over time, technologies are added, but are rarely removed. This effect is dangerous
+  * Do more and more with less and less until eventually you can do everything with nothing.
+  * To recognize the effort that went into tearing down or replacing old technology, we created a ritual where we symbolically fed dead components to a flame called a burn party
+  * Mitigations
+    + Retire old technology
+    + Build common service conventions
+    + Favor simplicity and reduce moving parts
+    + Don’t use new technology the year that it’s initially released
+    + Avoid custom technology
+    + Use public services
+
+- [Run less software] :
+> The art of choosing a standard technology is that when you encounter a new problem,
+> you need to break it down into a series of subproblems that can be solved using your standard patterns and tools.
 
 - compare projects on their maturity / current activity & liveliness / community :
     commits count

@@ -8,6 +8,7 @@
 # TODO:
 # - test https://github.com/gaojiuli/gain
 # - rate-limit like this ? https://quentin.pradet.me/blog/how-do-you-rate-limit-calls-with-asyncio.html
+" - inspi from https://medium.com/@cgarciae/making-an-infinite-number-of-requests-with-python-aiohttp-pypeln-3a552b97dc95
 import asyncio as aio, aiohttp, html, json, sys
 from async_timeout import timeout
 from collections import defaultdict

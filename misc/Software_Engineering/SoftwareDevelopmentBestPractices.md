@@ -158,7 +158,7 @@ Anything that’s actually worth doing has a non-zero chance of failure and too 
     * Spurious correlations: Correlation != causality, aka "post hoc ergo propter hoc" aka "effet cigogne" (cf. eponymous website & e-penser video "le lieu le plus dangereux de France" = le lit)
     * [Dunning-Kruger Effect](//en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect) : "relatively unskilled individuals suffer from illusory superiority, mistakenly assessing their ability to be much higher than it really is"
     * [Simpson’s Paradox](//blog.forrestthewoods.com/my-favorite-paradox-14fab39524da)
-    * [Imposter Syndrom](https://www.laserfiche.com/simplicity/shut-up-imposter-syndrome-i-can-too-program/) + https://opensource.com/sitewide-search?search_api_views_fulltext=imposter%20syndrome
+    * [Imposter Syndrom](https://www.laserfiche.com/simplicity/shut-up-imposter-syndrome-i-can-too-program/) + [Related articles on opensource.com](https://opensource.com/sitewide-search?search_api_views_fulltext=imposter%20syndrome) + [Le syndrome de l’imposteur](https://medium.com/@lesvoixdelaveille/le-syndr%C3%B4me-de-limposteur-9f38c9bec0ca)
     * [Completion Bias](http://jkglei.com/momentum/)
     * [XY Problem](http://xyproblem.info)
     * [anchoring effect](https://en.wikipedia.org/wiki/Anchoring) : when people consider a particular value for an unknown quantity before estimating that quantity
@@ -367,6 +367,18 @@ Take the time to choose descriptive names. Naming things is a great power, it co
 - Poorly written comment : don't ramble, don't state the obvious, be brief [CC-C4]
 - Commented-out code [CC-C5]
 Don't use comments when you can use a function/variable to expresse the intent [CC-Chapt4]
+
+### antirez on code comments
+During my research I identified nine types of comments:
+* Function comments
+* Design comments
+* Why comments
+* Teacher comments
+* Checklist comments
+* Guide comments
+* Trivial comments
+* Debt comments
+* Backup comments
 
 ### Error handling
 - Handle as many errors as possible locally, but export as few errors as possible [SDP]

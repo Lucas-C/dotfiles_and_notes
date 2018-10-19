@@ -226,7 +226,7 @@ dism /Online /Get-FeatureInfo /FeatureName:Microsoft-Hyper-V-All
 
 Exploring the host VM (e.g. MobyLinuxVM) - Using privileged Alpine chroot (cf. https://github.com/gbraad/hostenter ) :
 ```
-$ docker run --net=host --ipc=host --uts=host --pid=host -it --security-opt=seccomp=unconfined --privileged --rm -v /:/host alpine /bin/sh
+docker run --net=host --ipc=host --uts=host --pid=host -it --security-opt=seccomp=unconfined --privileged --rm -v /:/host alpine /bin/sh
 ```
 
 

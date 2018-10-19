@@ -731,6 +731,7 @@ py.test -vv --capture=no --showlocals --exitfirst --cache-clear --pdb -k 'TestCl
 pytest -k "$(tq failure -p -a name < results.xml | awk 'NR>1{print(" or ")} {print}' ORS='')" # rerunning only failed tests, require --junit-xml=results.xml
     pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
     pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
+airspeed velocity # designed to benchmark a single project over its lifetime using a given set of benchmarks – i.e., little snippets of code that are timed - the result data is stored in JSON files
 mschwager/memunit # check memory usage in tests
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
 c-oreills/before_after # provides utilities to help test race conditions
@@ -766,6 +767,7 @@ kernprof.py --line-by-line myscript.py # line_profiler great pip package
 pyprof2calltree # use kcachegrind
 python-flamegraph # FlameGraph profiler
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
+py-spy # sampling profiler, lets you visualize what your Python program is spending time on without restarting the program, with low overhead
 http://mg.pov.lt/objgraph # explore Python object graphs
 snakefood # draw code base dependency graphs
 what-studio/profiling # interactive continuous/live CLI profiler
@@ -926,7 +928,8 @@ scipy
         JosPolfliet/pandas-profiling # -> create HTML profiling reports from pandas DataFrame objects, inc. quantiles, most frequent values, histograms & descriptive statistics
         agate # data analysis library optimized for humans, not machines; alternative to numpy and pandas that solves real-world problems with readable code
     geoplotlib, ResidentMario/geoplot
-    ResidentMario/missingno, holoviews, pascal-schetelat/Slope, # other dataviz libs
+    ResidentMario/missingno, holoviews, pascal-schetelat/Slope # other dataviz libs
+    pyecharts # line charts, bars, pie, map, radar, graphs, trees, treemaps, sunburst, gauge, calendars, 3D
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
     matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
 
@@ -1008,7 +1011,8 @@ csurfer/pypette # very simple flow controller for building complex pipelines
 
 kibitzr # poll web pages and notify you in messenger or by e-mail
 
-mrjob, luigi # Hadoop / AWS map-reduce jobs
+mrjob # run MapReduce jobs on Hadoop or AWS
+robinhood/faust # stream processing library, porting the ideas from Kafka Streams to Python
 
 kennethreitz/records # by the author of requests
 peewee, SQLAlchemy # ORM DB - USeful: absent1706/sqlalchemy-mixins
@@ -1240,8 +1244,7 @@ Falcon, flask-restful # to build HTTP APIs - not asynchronous and uses a thread-
     flask-login # user session management
 Quart # like Flask, but async
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
-Django, django-rest-framework # template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
-    django.utils.translation # i18n -> very good intro & tips: https://speakerdeck.com/pycon2015/sarina-canelake-i18n-world-domination-the-easy-way
+Django # cf. dedicated section
 pyramid # more modular alternative to Django
 + web.py # very old now, written by Aaron Swarz, used by Yandex
 WTForms # forms validation
@@ -1329,6 +1332,7 @@ winreg # access to the Windows registry
 """""""""""""
 "" Django
 """""""""""""
+# template engine 0/20 (should be replaceable soon) / ORM++, as good as SQLAlchemy but more high-level
 django-admin.py startproject demelons_django
 ./manage.py syncdb
 ./manage.py migrate # v1.7 migrations, previously handled by e.g. South
@@ -1348,6 +1352,10 @@ urlpatterns += staticfiles_urlpatterns()
 # Alt: Whitenoise
 
 AppConfig.ready() # to perform initialization tasks (such as registering signals); called as soon as the registry is fully populated; !! AVOID INTERACTING WITH THE DB !! -> use migrations and e.g. RunPython to populate the DB with initial data
+
+django-rest-framework
+django.utils.translation # i18n -> very good intro & tips: https://speakerdeck.com/pycon2015/sarina-canelake-i18n-world-domination-the-easy-way
+django-expiry # Expiry rules for Django sessions
 
 djangocolors_formatter.py # one-file recipe
 django-debug-toolbar
@@ -1447,6 +1455,7 @@ with open(sys.argv[1]) as csv_file:
 aspy.yaml, yaml # !!! yaml.load() is an unsafe operation ! Use yaml.safe_load() - Also: beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 ruamel # YAML parser / writer with support for roundtrip comments
 imbal/safeyaml # a linter for YAML as an aggressively small subset of YAML
+toml # TOML parser - Alt: TOML Kit, a parser that preserves all comments, indentations, whitespace and internal element ordering
 cPickle # binary format, generic, fast & lighweight - DO NOT USE IT ! -> "untrusted pickles can execute arbitrary Python code" + "you can’t even easily tell which classes are baked forever into your pickles" -> Alt: eeve/camel PyYaml-based serialization (inc. versionning & use YAML metadata)
 # + PyCloud make it possible to pickle functions dependencies
 marshmallow #, ORM/ODM validate input data against schemas + serialize or deserialize data from/into primitive Python types
@@ -1483,6 +1492,13 @@ menu = ordereddict[ # hack to create an OrderedDict constructor - cf. http://sta
    "login" : login,
    'signup': signup
 ]
+
+
+"""""""""""""
+"" Teaching
+"""""""""""""
+[Twitter: what software do you use to teach your students?](https://twitter.com/nnja/status/1047190883064397825)
+
 
 
 """""""""""""
