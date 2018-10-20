@@ -363,7 +363,7 @@ alias funiq="awk '"'{k[$0]++}END{for(i in k){printf("%7s %s\n", k[i], i);}}'"'" 
 # FROM: http://unix.stackexchange.com/questions/13731/is-there-a-way-to-get-the-min-max-median-and-average-of-a-list-of-numbers-in
 # One-pass stable variance algo: http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Online_algorithm
 
-stats () { # --no-header | awk '{print $3}'     # Alt: csvstat -H ( pip install csvkit ) / ministat
+stats () { # --no-header | awk '{print $3}'     # buggy if input has CRLFs - Alt: csvstat -H ( pip install csvkit ) / ministat
     [ "$1" = "--no-header" ] || printf "%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n"\
         1-SUM 2-COUNT 3-MEAN 4-STD_DEV 5-MIN 6-TP01 7-TP10 8-MEDIAN 9-TP90 10-TP99 11-MAX
     sort -n | awk 'BEGIN{n=0;sum=0;mean=0;M2=0}\

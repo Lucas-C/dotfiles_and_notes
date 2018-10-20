@@ -684,7 +684,7 @@ lobocv/crashreporter # store and send crash reports directly to the developers
 """""""""""""
 cf. https://packaging.python.org
 pyroma # gives a rating of how well a project complies with the best practices of the Python packaging ecosystem, primarily PyPI, pip, Distribute etc.
-twine # alternative to executing setup.py, provide HTTPS connexion to Pypi, file signing & control over packaging format - Alt: flit
+twine # pkg upload to Pypi - Con: requires cmarkgfm pkg which is a pain to install under Windows - Alt: hatch & poetry
 setuptools_scm, vcversioner  # manage your setup.py versions by scm tags
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil & zipapp to generates .pyz from v3.5 -> those "Python ZIP Applications" are associated to the Python executable under Windows
 dh-virtualenv # the ultimate way of deploying python apps, over wheels & pex == self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
@@ -1137,7 +1137,7 @@ import xmlrpc.client # XML-RPC via HTTP
 server = xmlrpc.client.ServerProxy("http://www.pythonchallenge.com/pc/phonebook.php")
 print(server.system.getCapabilities())  # Also: .listMethods() .methodSignature(...) .methodHelp(...)
 
-rtfd/CommonMark-py # Markdown parser - Alt: waylan/Python-Markdown (used by pelican, support extensions), miyuchina/mistletoe
+rtfd/CommonMark-py # Markdown parser - Alt: waylan/Python-Markdown (used by pelican, support extensions), miyuchina/mistletoe, theacodes/cmarkgfm
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 mozilla/bleach # HTML sanitizing library that escapes or strips markup and attributes
 tinycss2 > tinycss > cssutils  # CSS parsers
@@ -1492,13 +1492,6 @@ menu = ordereddict[ # hack to create an OrderedDict constructor - cf. http://sta
    "login" : login,
    'signup': signup
 ]
-
-
-"""""""""""""
-"" Teaching
-"""""""""""""
-[Twitter: what software do you use to teach your students?](https://twitter.com/nnja/status/1047190883064397825)
-
 
 
 """""""""""""
