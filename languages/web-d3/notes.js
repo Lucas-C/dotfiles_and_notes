@@ -263,7 +263,7 @@ hex_md5('string') // crypt/md5.js
 
 lazy.js, lodash > underscore.js // Functional prog libs
 Immutable // Facebook JS lib
-moment.js > sugar.js // parse, validate, manipulate, and display dates
+moment.js > sugar.js // parse, validate, manipulate, and display dates - not necessary needed nowadays
 
 webpack, browserify, systemJs // module bundlers
 npm install --loglevel verbose $pkg // Node Packaged Modules
@@ -271,8 +271,6 @@ npm view $pkg_name [dist.tarball] // get URL of a package tarball
 npm shrinkwrap // locks down the versions of a package's dependencies
 
 substack/minimist > substack/optimist // argument options parser - Alt: chevex/yargs, divarvel/cliparse-node, tj/commander.js
-
-bottleneck, request-rate-limiter // rate limiters
 
 var Transform = require('stream').Transform,
     PassThrough = require('stream').PassThrough;
@@ -301,6 +299,7 @@ var serveStatic = require('serve-static');
 connect().use(serveStatic(__dirname)).listen(8080);
 // Alt: npm install http-server -g && http-server
 
+bottleneck, request-rate-limiter // rate limiters
 yammer/circuit-breaker-js // Hystrix-like circuit breaker for JavaScript
 
 var fs = require("fs"); // Node.js
@@ -325,6 +324,7 @@ FGRibreau/check-build // includes:
     buddy.js // detect magic numbers
     depcheck : "how each dependency is used, which dependencies are useless, and which dependencies are missing from package.json" // Also: npm outdated
     Nsp // detect security vulnerabilities
+bundlephobia.com // find the cost of adding a npm package to your bundle - Alt: use tree shaking aka dead code removal
 
 nyc (instanbul-based, inc. coverage) > karma-runner/karma > JsTestDriver > Qunit // Testing libs
 Sinon.js // test spies, stubs and mocks - framwork agnostic & no dependencies

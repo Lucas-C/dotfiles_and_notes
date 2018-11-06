@@ -35,6 +35,12 @@ Edit > Line Operations > Sort Lines in Ascending / Descending Order
 Deleting duplicate lines : replace the regex `^(.*?)$\s+?^(?=.*^\1$)` by nothing
 (source: https://code.i-harness.com/fr/q/3c664e )
 
+Deleting all lines matching a pattern:
+1. Ctrl + F
+2. open "Mark" tab
+3. tick "Bookmark line" and click "Mark All"
+4. click "Search > Bookmark > Remove Bookmarked lines"
+
 ## Shortcuts
 
 - `<ALT>+<SHIFT>` : vertical selection -> useful to comment at the beggining of the line

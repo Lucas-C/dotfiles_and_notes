@@ -201,9 +201,8 @@ ImmutableMap.Builder<K,V>
 // http://docs.oracle.com/javase/tutorial/essential/io/formatting.html
 System.out.println("a" + "b"); System.out.format("a%s", "b");
 
-// Spring
-has support for events
-SpringFox to auto-generate Swagger from REST controllers @annotations
+SpringFox // auto-generate Swagger from Spring REST controllers @annotations
+
 <!-- DEBUG: provides /info /mappings /trace /env /configprops /metrics /health /dump /beans -->
 <dependency>
     <groupId>org.springframework.boot</groupId>

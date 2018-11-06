@@ -571,6 +571,8 @@ shlex.split('--f "a b"') # tokenize parameters properly
 pipes.quote() # to escape variables - Alt: shlex.quote() for Python3.3+
 
 lordmauve/chopsticks # orchestration library to configure & control remote hosts over SSH
+ansible
+supervisor # process control system for UNIX
 
 ### sh.py tips & tricks
 # Caveat: does not work under Windows
@@ -989,6 +991,7 @@ pefile # to read Portable Executable files, e.g. Windows .dll
 
 cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
 pybind11 # Seamless operability between C++11 and Python - Also: cppimport : Import C++ files directly from Python
+https://tech.blue-yonder.com/oxidizing-python-speeding-up-urlquoting-by-using-rust/ # writing a C-Library in Rust and invoke it from Python with cdylib, cbindgen, milksnake & cffi
 
 struct # pack/unpack binary formats
 binascii.hexlify # display binary has hexadecimal
@@ -1073,7 +1076,7 @@ neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF genera
 cairo # graphics library outputting .ps .pdf .svg & more
 pyPdf
 wand (ImageMagick binding), pillow > pil # Python Image Library
-exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags
+exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags - Alt for edit: piexif
 python-thumbnails # generates images thumbnails, e.g. for your website
 ufoym/cropman # face-aware image cropping
 andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
@@ -1137,7 +1140,7 @@ import xmlrpc.client # XML-RPC via HTTP
 server = xmlrpc.client.ServerProxy("http://www.pythonchallenge.com/pc/phonebook.php")
 print(server.system.getCapabilities())  # Also: .listMethods() .methodSignature(...) .methodHelp(...)
 
-rtfd/CommonMark-py # Markdown parser - Alt: waylan/Python-Markdown (used by pelican, support extensions), miyuchina/mistletoe, theacodes/cmarkgfm
+rtfd/CommonMark-py # Markdown parser - Alt: waylan/Python-Markdown (used by pelican, support extensions), miyuchina/mistletoe, theacodes/cmarkgfm (beware issue #13), Hultner/safemd - focusing on security, e.g. to avoid XSS
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 mozilla/bleach # HTML sanitizing library that escapes or strips markup and attributes
 tinycss2 > tinycss > cssutils  # CSS parsers
@@ -1398,7 +1401,7 @@ sikuli # Java-based (with JS, Python & Ruby ports) visual workflow, able to iden
 pyhooked # pure Python hotkey hook: react on specific mouse/keyboard events
 
 watchdog # inc. cmd watchmedo -> monitor/observe files changes - FROM: S&M - not Cygwin-friendly due to ctypes.wintypes usage
-livereload # browser automatic reloading for development
+livereload # browser automatic reloading for development - Alt: hupper for reloading server code
 
 filemagic, ahupp/python-magic # interfaces to libmagic file type identification, aka the "file" command under Unix : it identifies file types by checking their headers according to a predefined list of file types
 

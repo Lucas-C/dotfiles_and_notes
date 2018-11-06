@@ -14,7 +14,7 @@ Elasticsearch networking protocols details: https://www.elastic.co/blog/found-el
 - vagrant-elasticsearch-cluster : Create an ElasticSearch cluster with a simple single bash command
 - http://bigdesk.org/v/2.4.0/#nodes
 - plugin marvel (> plugin head)
-- alerting: watcher, https://github.com/Yelp/elastalert
+- alerting: watcher, https://github.com/Yelp/elastalert (Python)
 - superelasticsearch : Python lib providing iterated search & simpler bulk API
 - [Netflix/Raigad](https://github.com/Netflix/Raigad) runs alongside Elasticsearch to automate the following:
     * Snapshot backup and restore.

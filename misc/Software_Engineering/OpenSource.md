@@ -155,7 +155,8 @@ Also: https://openbadges.org
 
 
 ### Websites dedicated to the subject
-- https://opensource.guide/
+- https://sustainoss.org reports
+- https://opensource.guide
 - https://opensource.com/resources:
   * [How to build an open source community](https://opensource.com/life/13/9/how-build-open-source-community)
   * [How to self-promote your open source project](https://opensource.com/business/13/2/self-promoting-open-source-projects)

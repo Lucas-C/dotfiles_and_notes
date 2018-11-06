@@ -45,10 +45,14 @@ History:
 - 2016 : Jenkins v2 (by Cloudbees) with Jenkinsfile
 
 Notes:
-- fan-in / fan-out pattern:  https://www.cloudbees.com/blog/using-workflow-deliver-multi-componentapp-pipeline
+- fan-in / fan-out pattern: [Using Workflow to Deliver a Multi-Component/App Pipeline](https://www.cloudbees.com/blog/using-workflow-deliver-multi-componentapp-pipeline)
 - Best practice: write a simple documentation page for your pipeline, indicating steps already working fine and the ones you wish
 - Plugins: AnsiColor, ChuckNorris, InternetMeme, Pipeline, ShiningPanda, jenkins.sitespeed.io, ThinBackup
 - Global Security Authorization: special user "authenticated"
+- [Top 10 Best Practices for Jenkins Pipeline Plugin ](https://www.cloudbees.com/blog/top-10-best-practices-jenkins-pipeline-plugin) by CloudBees. Includes:
+  * Do: All material work within a `node`
+  * Do: Work you can within a parallel step & Acquire nodes within parallel steps
+  * Don’t: Use input within a node block & Wrap your inputs in a timeout
 
 ```
 cd ~/.jenkins/jobs/$job/workspace  # Also useful to backup/check: ~/.jenkins/jobs/$job/config.xml
@@ -151,6 +155,7 @@ Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
 - use the Calico network plugin for Docker instead of the native Docker "overlay" : https://www.percona.com/blog/2016/08/03/testing-docker-multi-host-network-performance/
 - [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !
 - http://blog.michaelhamrah.com/2014/06/accessing-the-docker-host-server-within-a-container/ - Alt: `docker.for.win.localhost` builtin DNS CNAME (or `host.docker.internal`)
+- [dive](https://github.com/wagoodman/dive) : A tool for exploring a docker image, layer contents, and discovering ways to shrink your Docker image size.
 
 ```
 docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
@@ -168,7 +173,11 @@ Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
 
 ### Inspecting Docker labels / image hashes / secrets
 
-    docker inspect  --format $'{{ range $k, $v := .Config.Labels }}{{$k}}={{$v}}\n{{ end }}' $container_id  # Unix-only because of $'...' format
+    docker inspect --format $'{{ range $k, $v := .Config.Labels }}{{$k}}={{$v}}\n{{ end }}' $container_id  # Unix-only because of $'...' format
+
+Listing running containers with their labels:
+
+    docker ps --format "table {{.ID}}\t{{.Labels}}"
 
 Listing secrets used by services:
 

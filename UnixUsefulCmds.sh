@@ -478,7 +478,7 @@ printf "%-8s\n" "${value}" # 8 spaces output formatting
 | xargs -n 1 sh -c 'echo ${0:0:3}' # 3 first characters of $string
 var=$(echo "$var" | xargs echo) # Remove leading/trailing whitespaces
 
-csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # pip install csvkit -Alt: mlr (Miller)
+csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # csvlook allow to view a CSV in a terminal console - pip install csvkit - Alt: mlr (Miller)
 
 jq -r '..|objects|.name//empty' # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
 echo '{"A1":"a1","A2":"b2","B1":"b2"}' | jq '"A." as $regex | del(.[keys[]|select(match($regex))])'

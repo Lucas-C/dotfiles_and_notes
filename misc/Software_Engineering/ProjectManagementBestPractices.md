@@ -38,6 +38,7 @@ Project management best practices
 - [How to Ensure You’re Working on the Most Important Items Each Iteration](https://www.mountaingoatsoftware.com/blog/how-to-ensure-youre-working-on-the-most-important-items-each-iteration)
 - [In Pursuit of Production Minimalism](https://brandur.org/minimalism)
 - [Run less software](https://www.intercom.com/blog/run-less-software/)
+- [We already have nice things](https://opensource.com/article/18/10/nice-things)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -65,6 +66,34 @@ Project management best practices
 > Meanwhile, the 90th percentile search latency was about two minutes.
 > Etsy didn't fail, but it went several years without shipping anything at all.
 
+- [Run less software] :
+> The art of choosing a standard technology is that when you encounter a new problem,
+> you need to break it down into a series of subproblems that can be solved using your standard patterns and tools.
+
+- compare projects on their maturity / current activity & liveliness / community :
+  + commits count
+  + creation date
+  + last commit date
+  + issues count
+  + contributors count
+
+- cf. [10 reasons not to adopt this new toy techno in production]
+- OSS projects comparator: https://www.openhub.net/p/_compare?project_0=cURL&project_1=Wget & https://libraries.io
+- [HypeDrivenDevelopment]
+- [YouAreNotGoogle]: "This is not how rational people make decisions, but it is how software engineers decide to use MapReduce." - "you got there through a ritualistic belief that imitating the giants would bring the same riches." - "As of 2016, Stack Exchange served 200 million requests per day, backed by just four SQL servers"
+UNPHAT:
+  + Understand the problem
+  + eNumerate multiple candidate solutions, don’t just start prodding at your favorite!
+  + consider a candidate solution, then read the Paper if there is one
+  + determine the Historical context in which the candidate solution was designed or developed
+  + weigh Advantages against disadvantages
+  + Think: how well this solution fits your problem ?
+- [Growing Your Tech Stack: When to Say No] : Nice walk-through of consequences & risks estimation
+> The right technology today will be the wrong technology at some point.
+- [EvolutionaryArchitecture]:
+  1. Build for the “now”: "Build to meet the needs for your near-term time horizon"
+  2. Prefer evolution: "prefer the technological approach which gives you the maximum ability to modify / replace / evolve the architecture."
+
 - [In Pursuit of Production Minimalism]
   * Over time, technologies are added, but are rarely removed. This effect is dangerous
   * Do more and more with less and less until eventually you can do everything with nothing.
@@ -77,32 +106,14 @@ Project management best practices
     + Avoid custom technology
     + Use public services
 
-- [Run less software] :
-> The art of choosing a standard technology is that when you encounter a new problem,
-> you need to break it down into a series of subproblems that can be solved using your standard patterns and tools.
+- [We already have nice things], and other reasons not to write in-house ops tools
+  + the "not invented here" (NIH) syndrome
+  + Do you need to roll it yourself ?
+    * Have we polled the greater ops community for solutions?
+    * Have we compared the costs of proprietary tools to the estimated engineering time needed to maintain an in-house solution?
+    * Have we identified open source solutions, even those that lack desired features, and attempted to contribute to them?
+    * Can we fork any open source tools that are well-written but unmaintained?
 
-- compare projects on their maturity / current activity & liveliness / community :
-    commits count
-    creation date
-    last commit date
-    issues count
-    contributors count
-- cf. [10 reasons not to adopt this new toy techno in production]
-- OSS projects comparator: https://www.openhub.net/p/_compare?project_0=cURL&project_1=Wget & https://libraries.io
-- [HypeDrivenDevelopment]
-- [YouAreNotGoogle]: "This is not how rational people make decisions, but it is how software engineers decide to use MapReduce." - "you got there through a ritualistic belief that imitating the giants would bring the same riches." - "As of 2016, Stack Exchange served 200 million requests per day, backed by just four SQL servers"
-UNPHAT:
-- Understand the problem
-- eNumerate multiple candidate solutions, don’t just start prodding at your favorite!
-- consider a candidate solution, then read the Paper if there is one
-- determine the Historical context in which the candidate solution was designed or developed
-- weigh Advantages against disadvantages
-- Think: how well this solution fits your problem ?
-- [Growing Your Tech Stack: When to Say No] : Nice walk-through of consequences & risks estimation
-> The right technology today will be the wrong technology at some point.
-- [EvolutionaryArchitecture]:
-  1. Build for the “now”: "Build to meet the needs for your near-term time horizon"
-  2. Prefer evolution: "prefer the technological approach which gives you the maximum ability to modify / replace / evolve the architecture."
 
 ### Technical debt
 - [A Taxonomy of Tech Debt]: "I define tech debt as code or data that future developers will pay a cost for." - Metrics:
@@ -123,6 +134,14 @@ E.g. fix all the doc pain points, homogenize & securize all our DB requests, imp
 - + Diagrams !
 - Team design : Google Ventures' Product Design Sprints, cf. [ThoughbotPlaybook]
 - Event Storming
+
+## Software migration from legacy
+- one strategy: use a [teeproxy](https://github.com/chrislusf/teeproxy)
+> You may have production servers running, but you need to upgrade to a new system. You want to run A/B test on both old and new systems
+> to confirm the new system can handle the production load, and want to see whether the new system can run in shadow mode continuously without any issue.
+
+> teeproxy is a reverse HTTP proxy. For each incoming request, it clones the request into 2 requests, forwards them to 2 servers.
+> The results from server A are returned as usual, but the results from server B are ignored.
 
 ## Requirements
 - write a one-pager summing up:
