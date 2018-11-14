@@ -6,6 +6,12 @@ http://disic.github.io/guide-contribuer_accessible/ & https://github.com/access4
 http://references.modernisation.gouv.fr/kit-daudit-modeles-pour-faire-des-audits-rgaa-3
 http://disic.github.io/rgaa_methodologie/
 
+Les [notices AcceDe Web](https://www.accede-web.com/notices) s’adressent de façon spécifique à chaque intervenant d’un projet web:
+- Conception graphique
+- Intégration HTML/CSS
+- Développement et interactivité
+- Contenu éditorial
+
 ## HTML
 Exactly 1 <h1> per page
 
@@ -69,6 +75,7 @@ Other tools:
 - [Firefox WebDevelopper](https://addons.mozilla.org/fr/firefox/addon/web-developer/)
 - [Accessibility Viewer](https://github.com/ThePacielloGroup/aviewer/releases) (The Paciello Group)
 - [WCAG-Zoo](https://wcag-zoo.readthedocs.io/en/latest/commands.html) : Python command line tools that help provide basic validation of HTML against the accessibility guidelines laid out by the W3C Web Content Accessibility Guidelines 2.0
+- [FF extension Axe Developer Tools](https://addons.mozilla.org/en-US/firefox/addon/axe-devtools/) : "pas de faux positif : quand elle affiche une erreur c'est réellement une erreur d'accessibilité" (2018)
 
 More: https://chezsoi.org/shaarli/?searchtags=Accessibility
 

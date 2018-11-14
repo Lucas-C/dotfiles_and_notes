@@ -383,6 +383,7 @@ json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatt
 for error in jsonschema.Draft4Validator(schema).iter_errors(data):
     print('#/' + '/'.join(map(str, error.path)), error.message)
 jsondiff
+jmespath # query language for JSON, ex: foo.*.bar[*].name[-1]
 
 
 """""""""""""""""""
@@ -1253,15 +1254,39 @@ pyramid # more modular alternative to Django
 WTForms # forms validation
 pyswagger # generates a Python client from a JSON formatted Swagger (Open API) schema
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
-# Basic request parsing:
-import re, SimpleHTTPServer, SocketServer
-class JsonHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+
+from urllib.parse import parse_qsl, unquote
+class JsonHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        request_match = re.search('param1=([^&]+)', self.path)
-        if request_match:
-            self.path = param1_match.group(1) + '.json'
-        return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
-SocketServer.TCPServer(('localhost', 8080), JsonHandler).serve_forever()
+        path, _, query_string = self.path.partition('?')
+        body = {
+            'path': unquote(path),
+            'query': dict(parse_qsl(query_string, True)),
+            'headers': {k: str(v) for k, v in self.headers.items()}
+        }
+        self._send_response(json.dumps(body).encode('utf8'), content_type='application/json')
+    def do_POST(self):
+        nbytes = int(self.headers.get('content-length', '0'))
+        body = self.rfile.read(nbytes) if nbytes else b''
+        try:
+            json.loads(body.decode('utf8'))
+            self._send_response(body, content_type='application/json')
+        except:
+            self._send_response(body, status=http.HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
+    def _send_response(self, body, status=http.HTTPStatus.OK, content_type='text/plain'):
+        self.send_response(status)
+        self.send_header('Content-type', content_type)
+        self.send_header('Content-Length', len(body))
+        self.end_headers()
+        self.wfile.write(body)
+        self.wfile.flush()
+httpd = HTTPServer(('localhost', 8080), JsonHandler)
+try:
+    httpd.serve_forever()
+except KeyboardInterrupt:
+    pass
+httpd.server_close()
+
 # Flask tricks:
 app.logger.addHandler(file_handler)
 @app.errorhandler(404) # or 500

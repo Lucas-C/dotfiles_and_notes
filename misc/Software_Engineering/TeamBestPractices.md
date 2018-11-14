@@ -73,6 +73,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Enable your Devs to do Ops - Runbooks in the DevOps era](https://blog.buildo.io/enable-your-devs-to-do-ops-9a0a870baa1)
 - [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
 - [No, seriously. Root Cause is a Fallacy.](https://willgallego.com/2018/04/02/no-seriously-root-cause-is-a-fallacy/)
+- [Some notes on running new software in production](https://jvns.ca/blog/2018/11/11/understand-the-software-you-use-in-production/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -285,6 +286,10 @@ Liens utiles:
     * "scripts longer than two lines are better treated as code; thus they should be versioned"
     * "If you find something that is outdated, but don’t have time to fix it immediately, leave a quick note or add a task for someone to update it"
     * "make sure every runbook has a clear owner and write it at the top of the document."
+- [Some notes on running new software in production]:
+  * Start using [your software] in production in a non-critical capacity (by sending a small percentage of traffic to it, on a less critical service, etc)
+  * try to have each incident only once
+  * Understand what is ok to break and isn’t
 
 ### Post-mortems
 - trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds

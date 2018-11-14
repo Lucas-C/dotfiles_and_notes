@@ -318,6 +318,13 @@ Then:
 
     vgchange -Kay
 
+#### FileNotFoundError: [WinError 3] Le chemin d’accès spécifié est introuvable: - Failed to execute script docker-compose
+
+If the file in question has a very long path, you are very likely hitting the Windows limit of 260 characters in filepaths.
+
+Curiously, this only happens with `docker-compose`, not with the `docker` command
+
+
 ### Security
 https://www.nccgroup.trust/us/our-research/understanding-and-hardening-linux-containers/
 https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.12.0_Benchmark_v1.0.0.pdf
