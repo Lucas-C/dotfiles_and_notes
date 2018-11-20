@@ -4,7 +4,6 @@
 # REQUIRES: ruamel.yaml
 
 # Equivalent of: yq merge --overwrite
-# **but lists are REPLACED, not merged**
 
 import sys
 import ruamel.yaml as yaml
@@ -21,7 +20,16 @@ def main(file_paths):
 
 def dict_update(d, u):
     for k, v in u.items():
-        d[k] = dict_update(d.get(k, CommentedMap()), v) if isinstance(v, CommentedMap) else v
+        if isinstance(v, CommentedSeq):
+            assert isinstance(d, CommentedSeq)
+            d[k] = d.get(k, []) + v
+        elif isinstance(v, CommentedMap):
+            assert isinstance(d, CommentedMap)
+            d[k] = dict_merge_recursive(d.get(k, CommentedMap()), v)
+        elif k in d:
+            raise NotImplementedError('I do not know how to merge key "{}": previous value "{}" - new value "{}"'.format(k, d[k], v))
+        else:
+            d[k] = v
     return d
 
 

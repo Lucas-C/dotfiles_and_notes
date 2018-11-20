@@ -738,6 +738,8 @@ urlwatch --urls=urls-list.txt | ifne mutt -s "Page change detected" $email_addre
 
 localtunnel.me / ngrok # Internet tunnels to localhost
 
+firejail --net=none $cmd # prevent a program access to Internet - Alt & source: https://sebsauvage.net/links/?ISP1lg
+
 
 _'_"_'_"_'_"_'_"_'_"_'_"_
 #    ssh@  SSL  :ssh    #
@@ -1145,7 +1147,7 @@ convert -delay 20 -loop 0 -dispose background -rotate -90 -resize 50% -loop 0 *.
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582 - Alt: jlsutherland/doc2text for poorly scanned PDFs
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
 barcode -b "Hello World !" -o out.ps && convert out.ps -trim out.png
-image_optimi # Optimize (lossless compress, optionally lossy) images (jpeg, png, gif, svg) using external utilities: advpng gifsicle jhead jpegoptim jpeg-recompress jpegtran optipng pngcrush pngout pngquant svgo
+image_optim # Optimize (lossless compress, optionally lossy) images (jpeg, png, gif, svg) using external utilities: advpng gifsicle jhead jpegoptim jpeg-recompress jpegtran optipng pngcrush pngout pngquant svgo
 pngquant ## 70% lossy compression
 jpegtran -perfect -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs - better than ImageMagick, cf. http://www.imagemagick.org/discourse-server/viewtopic.php?t=22141
 identify -verbose $jpg | grep -E 'Image:|Quality:' # get JPEG compression level
