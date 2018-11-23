@@ -1,10 +1,30 @@
-from contextlib import contextmanager
+from contextlib import closing
+from itertools import chain
 from gifmaze import GIFSurface, PixelCanvas, Animation
+# This script does not use the current publish version of gifmaze, but the one maintained by Zhao Liang
+# cf. https://github.com/neozhaoliang/pywonderland/issues/17
 
+WIDTH, HEIGHT = 16, 16
+BOARD = set(((1, 0), (2, 1), (0, 2), (1, 2), (2, 2)))  # Game of Life glider
 
-with closing(GIFSurface(width=16, height=16, bg_color=0)) as surface:
+def next_board(board):
+    'Implementation inspired by: https://github.com/erikrose/conway/blob/master/bin/conway.py#L105'
+    new_board = set()
+    # We need to consider only the points that are alive and their neighbors:
+    for point in board | set(chain(*map(neighbors, board))):
+        count = sum((neigh in board) for neigh in neighbors(point))
+        if count == 3 or (count == 2 and point in board):
+            new_board.add(point)
+    return new_board
+def neighbors(pt):
+    'Return the neighbors of a point, with torroidal geometry'
+    for dx in (-1, 0, 1):
+        for dy in (-1, 0, 1):
+            if dx != 0 or dy != 0:
+                yield (pt[0] + dx) % WIDTH, (pt[1] + dy) % HEIGHT
+
+with closing(GIFSurface(width=WIDTH, height=HEIGHT)) as surface:
     surface.set_palette(
-        # cf. https://www.rapidtables.com/web/color/RGB_Color.html#color-table
         [0, 0, 0]        # black
       + [255, 255, 255]  # white
       + [255, 0, 0]      # red
@@ -15,14 +35,13 @@ with closing(GIFSurface(width=16, height=16, bg_color=0)) as surface:
       + [255, 0, 255]    # magenta
     )
 
-    pixels = [(i, i) for i in range(0, 16, 2)]
-    def favicon(pcanvas, render, pixels, speed):
-        for i in range(len(pixels)):
-            pcanvas.set_pixel(*pixels[i], i)  # 2nd param is a color palette index
-            if i % speed == 0:
-                yield render(pcanvas)
-        yield render(pcanvas)
-    anim = Animation(surface)
-    anim.run(pixels=pixels, algo=favicon, speed=1, pcanvas=PixelCanvas(width=16, height=16), delay=5)
+    def favicon(pcanvas, render, board):
+        for _ in range(64):
+            for x in range(WIDTH):
+                for y in range(HEIGHT):
+                    pcanvas.set_pixel(x, y, 1 if (x, y) in board else 0)  # 2nd param is a color palette index
+            yield render(pcanvas)
+            board = next_board(board)
+    Animation(surface).run(board=BOARD, algo=favicon, pcanvas=PixelCanvas(width=WIDTH, height=HEIGHT, grid_init=1), delay=7)
 
     surface.save('favicon.gif')
