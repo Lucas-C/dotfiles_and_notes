@@ -39,7 +39,7 @@ with closing(GIFSurface(width=WIDTH, height=HEIGHT)) as surface:
         for _ in range(64):
             for x in range(WIDTH):
                 for y in range(HEIGHT):
-                    pcanvas.set_pixel(x, y, 1 if (x, y) in board else 0)  # 2nd param is a color palette index
+                    pcanvas.set_pixel(x, y, 1 if (x, y) in board else 0)  # last param is a color palette index
             yield render(pcanvas)
             board = next_board(board)
     Animation(surface).run(board=BOARD, algo=favicon, pcanvas=PixelCanvas(width=WIDTH, height=HEIGHT, grid_init=1), delay=7)
