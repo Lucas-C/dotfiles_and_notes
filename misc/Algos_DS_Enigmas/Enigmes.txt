@@ -20,7 +20,7 @@ Comment rendre cette égalité vraie le plus simplement possible ?
 111221
 312211
 
- Qu'il y a t'il deux fois dans un an et trois fois dans une année ?
+Qu'il y a t'il deux fois dans un an et trois fois dans une année ?
 
  Vous êtes dans une pièce vide, fermée et sans fenêtre. Il y a trois interrupteurs sur le mur.
 Un seul commande l'ampoule éteinte qui est dans la pièce d'à côté.
@@ -37,7 +37,7 @@ le notaire se retrouve fort embarrassé devant cette curieuse demande de répart
 (Le notaire peut ajouter son chameau à l'héritage sans aucun engagement : Il y aura alors 18 chameaux à donner aux 3 fils, et la distribution s'effectue sans problème. A la fin de l'opération, on remarque qu'il reste un chameau que le notaire peut reprendre.)
 
 
-Can you place six X¿s on this naughts and crosses board without making three-in-a-row in any direction ? (no trick)
+Can you place six X's on this naughts and crosses board without making three-in-a-row in any direction ? (no trick)
    |   |
 ___|___|___
    |   |

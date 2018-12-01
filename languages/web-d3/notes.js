@@ -358,6 +358,7 @@ TypeScript, Flow // provide static type checking
 Brython, RapydScript, Pyjamas, PythonJS // for Python
 
 Esprima // ECMAScript parser
+http://zaa.ch/jison/ // grammar parser like Bison/Yacc
 
 CommonMark // "Standard" Markdown https://github.com/jgm/stmd/blob/master/js/stmd.js
 cemerick/jsdifflib

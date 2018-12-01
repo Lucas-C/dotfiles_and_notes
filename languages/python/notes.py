@@ -558,7 +558,7 @@ python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).g
 
 from distutils import spawn
 cmd_path = spawn.find_executable('cmd') # shutil.which in Python3 / shutilwhich backport else
-subprocess.check_output([cmd_path, 'do', 'stuff'], stderr=subprocess.STDOUT, input=bytes(some_text,, 'UTF-8')) # last param added in 3.4 : https://hg.python.org/cpython/file/877f47ca3b79/Lib/subprocess.py#l614
+subprocess.check_output([cmd_path, 'do', 'stuff'], input=bytes(some_text,, 'UTF-8')) # last param added in 3.4 : https://hg.python.org/cpython/file/877f47ca3b79/Lib/subprocess.py#l614
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
 # -> I was bitten by PIPE in Cygwin: cf. pre-commit issue 379
 kennethreitz/delegator.py # handy subprocesses lib

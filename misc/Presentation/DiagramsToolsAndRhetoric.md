@@ -61,6 +61,7 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 - [gliffy](https://www.gliffy.com/examples/) : online, proprietary code
 
 ## UML
+- [nomnoml](http://www.nomnoml.com) : pretty UML diagrams based on a textual description
 - [UMLet](http://www.umlet.com) : open-source, diagrams can be export to eps, pdf, jpg, svg + new web-based UMLet: called [UMLetino](http://www.umlet.com/umletino)
 - [PlantUML](http://plantuml.com) -> conversion to PNG or SVG (Java):
 

@@ -87,6 +87,11 @@ Retrieving an encrypted secret value from `credentials.xml` -> in Groovy script 
 
     println( hudson.util.Secret.decrypt("${ENCRYPTED_PASSPHRASE_OR_PASSWORD}") )
 
+Revealing a crendential in a pipeline:
+
+    withCredentials([string(credentialsId: 'credentialsId', variable: 'TOKEN_ID')]) {
+        sh "bash -c 'echo \${TOKEN_ID:0:1} \${TOKEN_ID:1:-1}'"
+    }
 
 ### Pipeline Shared Libs
 
@@ -247,6 +252,8 @@ docker run --net=host --ipc=host --uts=host --pid=host -it --security-opt=seccom
 The [docs](https://docs.docker.com/engine/reference/builder/#usage) explicitely mentions it:
 > When using Windows-based containers, the destination of a volume inside the container must be one of: a non-existing or empty directory & a drive other than C
 - whenever you change your password (at least when using an AD account), you **must** re-share your drives in Docker settings
+- [Docker does not release disk space after deleting all images and containers](https://github.com/docker/for-win/issues/244#issuecomment-432242993):
+to shrink `MobyLinuxVM.vhdx`, move the "Disk image location" to another location in Docker settings "Advanced menu".
 
 ### docker stack
 
