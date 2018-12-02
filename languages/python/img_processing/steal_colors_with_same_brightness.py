@@ -76,7 +76,7 @@ def subst_img_colors(img, luminosity2color_palette, brightness_func):
 
 
 def luminosity(pixel):
-    r, g, b = pixel
+    r, g, b = pixel[:3]
     return 0.241*(r**2) + 0.691*(g**2) + 0.068*(b**2)
 
 
