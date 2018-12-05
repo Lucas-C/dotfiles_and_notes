@@ -68,11 +68,6 @@ def read_cstring(buffer):
             return chars
         chars += c
 
-def convert_struct_to_bytes(st):
-    buffer = create_string_buffer(sizeof(st))
-    memmove(buffer, addressof(st), sizeof(st))
-    return buffer.raw
-
 class MongoOpReply(LittleEndianStructure):
     _pack_ = True
     _fields_ = (
@@ -81,6 +76,11 @@ class MongoOpReply(LittleEndianStructure):
         ('startingFrom', c_int),
         ('numberReturned', c_int),
     )
+
+def convert_struct_to_bytes(st):
+    buffer = create_string_buffer(sizeof(st))
+    memmove(buffer, addressof(st), sizeof(st))
+    return buffer.raw
 
 class RequestHandler(StreamRequestHandler):
     def handle(self):
@@ -125,7 +125,8 @@ class RequestHandler(StreamRequestHandler):
                            'modules': [], 'allocator': 'tcmalloc', 'javascriptEngine': 'mozjs', 'sysInfo': 'deprecated', 'versionArray': [3, 4, 4, 0],
                            'openssl': {'running': 'OpenSSL 1.0.1u-fips  22 Sep 2016', 'compiled': 'OpenSSL 1.0.1u-fips  22 Sep 2016'},
                            'buildEnvironment': {'distmod': '2008plus-ssl', 'distarch': 'x86_64', 'cc': 'cl: Microsoft (R) C/C++ Optimizing Compiler Version 19.00.24218.1 for x64',
-                               'ccflags': '/nologo /EHsc /W3 /wd4355 /wd4800 /wd4267 /wd4244 /wd4290 /wd4068 /wd4351 /we4013 /we4099 /we4930 /Z7 /errorReport:none /MD /O2 /Oy- /bigobj /Gw /Gy /Zc:inline', 'cxx': 'cl: Microsoft (R) C/C++ Optimizing Compiler Version 19.00.24218.1 for x64',
+                               'ccflags': '/nologo /EHsc /W3 /wd4355 /wd4800 /wd4267 /wd4244 /wd4290 /wd4068 /wd4351 /we4013 /we4099 /we4930 /Z7 /errorReport:none /MD /O2 /Oy- /bigobj /Gw /Gy /Zc:inline',
+                               'cxx': 'cl: Microsoft (R) C/C++ Optimizing Compiler Version 19.00.24218.1 for x64',
                                'cxxflags': '/TP', 'linkflags': '/nologo /DEBUG /INCREMENTAL:NO /LARGEADDRESSAWARE /OPT:REF', 'target_arch': 'x86_64', 'target_os': 'windows'},
                            'bits': 64, 'debug': False, 'maxBsonObjectSize': 16777216, 'storageEngines': ['devnull', 'ephemeralForTest', 'mmapv1', 'wiredTiger'], 'ok': 1.0},
             b'isMaster': {'ismaster': True, 'maxBsonObjectSize': 16777216, 'maxMessageSizeBytes': 48000000, 'maxWriteBatchSize': 1000,

@@ -24,15 +24,16 @@ PAYLOADS = (
 
 tcp_connection = socket.create_connection((sys.argv[1], int(sys.argv[2])))
 payload_index = int(sys.argv[3]) if len(sys.argv) > 3 else 1
-data = PAYLOADS[payload_index]
-tcp_connection.sendall(data)
-msg_header = tcp_connection.recv(16)
+tcp_connection.sendall(PAYLOADS[payload_index])
+print('Payload sent')
+msg_header = tcp_connection.recv(16)  # reading MsgHeader, cf. https://docs.mongodb.com/manual/reference/mongodb-wire-protocol/#standard-message-header
+if not msg_header:
+    raise RuntimeError('No response from server')
 messageLength = c_int.from_buffer_copy(msg_header[:4]).value
 resp = tcp_connection.recv(messageLength - 16)
 print('SUCCESS!')
 try:
     import bson
-    doc = resp[20:] if payload_index == 0 else resp
-    print(bson.loads(doc))
+    print(bson.loads(resp[20:] if payload_index == 0 else resp))
 except ImportError:
     print(resp)
