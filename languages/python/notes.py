@@ -204,7 +204,7 @@ def create_logger():
     logger.addHandler(file_handler)
     return logger
 # Lazy logger: http://stackoverflow.com/a/4149231
-@deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/ - Alt: OpenStack debtcollector or even better briancurtin/deprecation
+@deprecated # for legacy code, generates a warning: http://code.activestate.com/recipes/391367-deprecated/ - Alt: OpenStack debtcollector or even better briancurtin/deprecation or manually: warnings.warn(message, DeprecationWarning, stacklevel=2)
 Twangist/log_calls # logging & func calls profiling with a decorator
 ScatterHQ/eliot # logging system for complex & distributed systems that outputs causal chains of actions happening within and across process boundaries - `Based on contexts: with start_action(...):`
 prezi/python-zipkin # -> dead project ? + no support for Python 3 : https://github.com/prezi/python-zipkin/issues/8
@@ -608,6 +608,7 @@ else:
 """""""""""""""""""""""""
 "" Libs & tools for DEVS !
 """""""""""""""""""""""""
+PYTHONWARNINGS=error # sets this when developing !
 # Cheap virtualenv - Alt: mitsuhiko/pipsi -> each pkg is installed into its own virtualenv, so you don't have to worry about different packages having conflicting dependencies
 PYTHONUSERBASE=.pip/ pip install --user $pkh
 PYTHONUSERBASE=.pip/ python -m $pkg
@@ -1069,6 +1070,7 @@ pysoy # 3D game engine
 ericoporto/fgmk # retro RPG Game Maker
 
 Zulko/gizeh, Zulko/MoviePy, jdf/processing.py (uses Jython) # Video & image (editing - MoviePy looks like the current best tool to make GIF / webm animations - Also: https://github.com/1-Sisyphe/youCanCodeAGif
+3b1b/manim # animation engine for explanatory math videos
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 ryanfox/retread # detect reused frames in video
 

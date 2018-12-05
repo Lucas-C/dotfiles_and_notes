@@ -417,4 +417,6 @@ It’s available as a text editor application, a web app, and even a linter, if 
   > Once a decision is made, feedback is given as quickly as possible : [this] will give the candidate a really good impression of you - even if the answer is a no.
 
 ### Language-based question
-- Python: https://www.reddit.com/r/Python/comments/6wl0qk/what_are_the_top_10_key_featuresadvanced_topics/
+- Python:
+  * [Reddit: What are the top 10 key features/"advanced" topics of Python you would expect a senior python developer to know?](https://www.reddit.com/r/Python/comments/6wl0qk/what_are_the_top_10_key_featuresadvanced_topics/)
+  * [Python interview questions for Junior / Middle / Senior devs](https://luminousmen.com/post/6)

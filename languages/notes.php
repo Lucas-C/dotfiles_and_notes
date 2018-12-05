@@ -139,7 +139,7 @@ drush feature-update / feature-revert
 drush dl diff && drush en -y diff && drush features-diff $feature_name
 
 dpm / dvm / ddebug_backtrace # devel module
-drush en -y dblog && drush watchdog-show
+drush en -y dblog && drush watchdog-show --count=100 # or --tail
 drush watchdog-delete all
 
 drush eval 'print_r(imagecache_presets())'
@@ -155,6 +155,9 @@ drush eval 'elysia_cron_initialize(); print(elysia_cron_is_channel_running("defa
 drush eval 'elysia_cron_initialize(); elysia_cron_execute_aborted("default")' # Abort an Elysia cron channel before variable_get('elysia_cron_stuck_time', 3600) seconds
 drush sql-query 'SELECT * FROM elysia_cron'
 drush sql-query 'SELECT * FROM variable' | grep elysia_cron
+drush eval 'db_query("DELETE FROM `flood`");' # Get rid of: 'Sorry, there have been more than 5 failed login attempts for this account. It is temporarily blocked'
+# Tentative manuelle de connexion LDAP: affiche l'email de l'utilisateur associé à $login / $password
+drush eval "assert((bool)module_load_include('inc', 'ldap_authentication', 'ldap_authentication')); \$wtokens = array(); print(ldap_authentication_test_credentials(ldap_authentication_get_valid_conf(), FALSE, '$login', '$password', \$wtokens)[1]['mail'].PHP_EOL);"
 
 chmod a+w sites/default/settings.php sites/default/files/
 cat <<EOF >> sites/default/settings.php

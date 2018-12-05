@@ -164,12 +164,6 @@ Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
 
 ```
 docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
-if [ -n "$DOCKER_MACHINE_NAME" ]; then  # %HOME%\.bashrc for Docker Toolbox which source it twice: the following is only evaluated on the 2nd pass
-    source .../.bashrc
-    PATH="$PATH:/.../Docker Toolbox"  # required in case of a custom installation path
-    cd ...
-fi
-<INSERT> # paste under MinGW / Git Bash
 ```
 
 `daemon.json`: defaults to `/etc/docker/daemon.json`

@@ -245,7 +245,8 @@ Named because it resembles the sectioned partitions of a ship's hull: if it is c
 
 cf. [BuildingADecentAPI]
 
-On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult], [MicroservicesPleaseDont] : they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
+On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult], [MicroservicesPleaseDont] :
+they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
 
 REST = Representational State Transfer: [How to design a REST API], [RESTful API design refcard]
 cf. also OData ISO/IEC approved, OASIS standard, defining a set of best practices for building and consuming RESTful APIs
