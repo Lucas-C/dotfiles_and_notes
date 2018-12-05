@@ -23,7 +23,7 @@ JCache API caching strategies (https://dzone.com/refcardz/java-caching):
  Transparent cache access | Read-Through and Write-Through caching
  Cache data quality       | Expiry / Eviction policy fine tuning
 
-_memcached_
+### memcached
 
 - for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
 - use a firewall !! -> beware security issues: http://www.slideshare.net/sensepost/cache-on-delivery
@@ -32,7 +32,7 @@ _memcached_
 
     echo flush_all | nc $memcache_host $port
 
-_Redis_
+### Redis
 
 - builtin datastructures: list, hash, set, sorted set, [hyperloglog](http://antirez.com/news/75)
 - easy-as-a-pie pubsub with Python
@@ -43,13 +43,21 @@ _Redis_
     redis-cli -h HOST -p PORT -n DATABASE_NUMBER llen QUEUE_NAME
     redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*   #_
 
+    # cf. https://redis.io/topics/memory-optimization#memory-allocation
     maxmemory 2mb
     maxmemory-policy noeviction # Or LRU...
+
+sripathikrishnan/redis-rdb-tools: parse Redis dump.rdb files, Analyze Memory, and Export Data to JSON
+
+    # identify the largest 100 keys in a dump
+    rdb -c memory dump_56379.rdb --largest 100 -f largest.csv
 
 twitter/twemproxy # fast, light-weight proxy for memcached and Redis
 psobot/till # cache server for immutable, time-limited object storage providing a HTTP interface
 
-[_etcd_](https://github.com/coreos/etcd) : an open-source distributed key value store, HTTP-based and using Raft, for shared configuration and service discovery. Also: [python-etcd](https://github.com/jplana/python-etcd)
+### etcd
+
+> an open-source distributed key value store, HTTP-based and using Raft, for shared configuration and service discovery. Also: [python-etcd](https://github.com/jplana/python-etcd)
 
     ./etcdctl set /foo/bar "Hello world" --ttl 10
     $ curl -L -X PUT http://127.0.0.1:4001/v2/keys/message -d value="Hello"
