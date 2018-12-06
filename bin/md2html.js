@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 // USAGE: md2html [--noindex] [--mincss] $mdFile > $htmlFile
-// INSTALL: npm install -g markdown-it markdown-it-anchor markdown-it-checkbox markdown-it-header-sections markdown-it-table-of-contents markdown-it-container markdown-it-include markdown-it-multimd-table minimist
+// INSTALL: npm install -g markdown-it markdown-it-anchor markdown-it-checkbox markdown-it-header-sections markdown-it-table-of-contents markdown-it-container markdown-it-include markdown-it-multimd-table markdown-it-smartarrows minimist
 var args = require('minimist')(process.argv.slice(2), {boolean: true}),
     mdFilepath = args._[0];
 require('fs').readFile(mdFilepath, 'utf8', function (err, input) {
@@ -19,6 +19,7 @@ require('fs').readFile(mdFilepath, 'utf8', function (err, input) {
     .use(require('markdown-it-header-sections'))
     .use(require('markdown-it-include'))
     .use(require('markdown-it-multimd-table'), {enableMultilineRows: true})
+    .use(require('markdown-it-smartarrows'))
     .use(require('markdown-it-table-of-contents'))
     .use(require('markdown-it-container'), 'classname', {
       validate: name => name.trim().length, // allow everything not empty

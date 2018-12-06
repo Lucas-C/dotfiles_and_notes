@@ -148,7 +148,11 @@ m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DE
 m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions - Alt, more efficient lib: flashtext
-eriknyquist/librxvm # non-backtracking NFA-based regular expression library, for C and Python
+eriknyquist/librxvm # non-backtracking NFA-based regular expression library, for C and Python - Alt: xysun/regex
+vi3k6i5/flashtext # Extract Keywords from sentence or Replace keywords in sentences
+pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR - cf. https://tomassetti.me/parsing-in-python/
+pycparser # C language code parser
+parso # a Python parser
 
 os.makedirs(dir_path) # + ignore OSError where .errno == errno.EEXIST and os.path.isdir(dir_path) # mkdir -p
 tempfile.gettempdir()
@@ -1410,10 +1414,6 @@ gmvault # Gmail backup CLI
 paramiko # remote SSH/SFTP connexion
 
 scales # metrics for Python, send data points to Graphite - Pros: inc. with-context to measure latency, metering-rates 1/5/15min, PmfStat => stdev, p99 - Cons: not actively maintained, its code uses lots of global state, there is test code in its source, a thread launched at import time and its documentation is incomplete
-
-pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR - cf. https://tomassetti.me/parsing-in-python/
-pycparser # C language code parser
-parso # a Python parser
 
 @retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation: deprecated! => tenacity - Alt: retrace
 

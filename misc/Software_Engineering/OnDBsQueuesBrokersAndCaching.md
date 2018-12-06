@@ -124,8 +124,38 @@ First proposed by Eric Brewer in 1998, then proved by Gilbert and Lynch. See als
 => Daniel Abadi suggested a more nuanced classification system, PACELC
 => also: [The CAP theorem is too simplistic and too widely misunderstood to be of much use for characterizing systems](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)
 
+### NoSQL DBs
 
-### PostgreSQL
+![](http://martinfowler.com/bliki/images/polyglotPersistence/polyglot.png)
+
+- E.g. MongoDB, CouchDB, Riak, Redis, Gizzard... cf. [AOSA_NoSQL]
+and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra which takes inspiration from both.
+- more BerkeleyDB, SQLite, LMDB, RocksDB > LevelDB # embedded database
+- cockroachdb/cockroach # NewSQL
+
+spotify/sparkey : simple constant key/value storage library, for read-heavy systems with infrequent large bulk inserts, inspired by CDB and Tokyo Cabinet : https://labs.spotify.com/2013/09/03/sparkey/
+
+
+#### MongoDB
+
+    show dbs
+    show collections
+    db.collec.find({})
+    db.collec.count({})
+    db.collec.remove({})
+    db.collec.drop()
+
+
+### SQL DBs
+
+https://blog.jooq.org/2016/07/05/say-no-to-venn-diagrams-when-explaining-joins/
+
+LIKE >faster> REGEXP
+
+    -- {..} /*...*/ # comments
+
+
+#### PostgreSQL
 [Meta-Commands](http://www.postgresql.org/docs/current/interactive/app-psql.html#APP-PSQL-META-COMMANDS)
 
     \? # and \h $cmd
@@ -147,26 +177,6 @@ This allows a single, large table to be physically stored as separate tables, fo
 - other index types : B-Tree, Hash, GIN, BRIN
 - Full Text Search
 - pgmetrics & pgDash : monitoring
-
-### NoSQL DBs
-
-![](http://martinfowler.com/bliki/images/polyglotPersistence/polyglot.png)
-
-- E.g. MongoDB, CouchDB, Riak, Redis, Gizzard... cf. [AOSA_NoSQL]
-and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra which takes inspiration from both.
-- more BerkeleyDB, SQLite, LMDB, RocksDB > LevelDB # embedded database
-- cockroachdb/cockroach # NewSQL
-
-spotify/sparkey : simple constant key/value storage library, for read-heavy systems with infrequent large bulk inserts, inspired by CDB and Tokyo Cabinet : https://labs.spotify.com/2013/09/03/sparkey/
-
-
-### SQL DBs
-
-https://blog.jooq.org/2016/07/05/say-no-to-venn-diagrams-when-explaining-joins/
-
-LIKE >faster> REGEXP
-
-    -- {..} /*...*/ # comments
 
 
 #### SQL*PLus

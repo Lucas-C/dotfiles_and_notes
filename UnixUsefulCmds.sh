@@ -841,6 +841,12 @@ tobert/pcstat # page cache stats for files
 free -m # how much free ram I really have ? -> look at the row that says "-/+ buffers/cache"
 vmstat 2
 sar # provides history data
+grep 'VmSwap:\s*[1-9]' /proc/*/status
+
+# Add some SWAP memory:
+dd if=/dev/zero of=$swap_file bs=1M count=2048
+mkswap $swap_file
+swapon $swap_file
 
 w / who # users currently logged
 last [-f /var/log/wtmp.1] # previous logged users
