@@ -178,6 +178,10 @@ Listing running containers with their labels:
 
     docker ps --format "table {{.ID}}\t{{.Labels}}"
 
+Listing labels of an image:
+
+    docker inspect --format "{{.ContainerConfig.Labels}}" $img_name
+
 Listing secrets used by services:
 
     docker service inspect $service_name --format="{{ range .Spec.TaskTemplate.ContainerSpec.Secrets }}{{ json . }}{{ println }}{{ end }}"

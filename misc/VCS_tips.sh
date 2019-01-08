@@ -179,6 +179,12 @@ $ git fetch origin
 $ git checkout pr/999
 # Does not allow to push. One must follow this process to do so: https://help.github.com/articles/committing-changes-to-a-pull-request-branch-created-from-a-fork/
 
+# Debugging connexion to AWS e.g. 403 errors (protip: ensure you have a "region = ..." for every profile in ~/.aws/credentials)
+HOST=git-codecommit.us-west-1.amazonaws.com
+awssec.py -u $USER
+export $(echo -e "protocol=https\npath=/v1/repos/${REPO_NAME}\nhost=${HOST}" | aws codecommit credential-helper --profile ${PROFILE} get)
+curl -v -u "$username:$password" https://${HOST}/v1/repos/${REPO_NAME}.git/info/refs?service=git-receive-pack 2> >(grep '< HTTP')
+
 
 ++++++
 + p4 +

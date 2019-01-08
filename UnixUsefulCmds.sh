@@ -131,6 +131,10 @@ set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subs
 fail () { echo "$1"; return ${2:-1}; }  # to exit the script with a given message & optional error code (default: 1) - Rely on `set -o errexit`
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 
+set -o pipefail
+(echo A; sleep .5; echo A) | grep -q A
+echo $? # 141 !!GOTCHA!! -> cf. https://stackoverflow.com/questions/19120263/why-exit-code-141-with-grep-q
+
 set -o errexit -o nounset
 cat <<EOF
 $unset

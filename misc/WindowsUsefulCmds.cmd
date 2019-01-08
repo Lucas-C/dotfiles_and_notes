@@ -134,6 +134,11 @@ cacls file /G username:F
 :: 3- Remove file
 del file
 
+::: Secure drive wipe out / partition erasure / disk data destruction
+diskpart
+select disk X
+clean all
+
 assoc .py :: get the description of a file extension / protocol
 ftype http=... :: associate program with file extension / protocol
 SetUserFTA / GetUserFTA / SetDefaultBrowser :: for Windows 10 - cf. http://kolbi.cz/blog/?p=346

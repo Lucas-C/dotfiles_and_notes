@@ -531,6 +531,9 @@ False == False in [False]   # True
 (False == False) in [False] # False
 False == (False in [False]) # False
 
+defaultdict(int)['foo']      # 0
+defaultdict(int).get('foo')  # None
+
 
 """""""""""""""""""""""""
 "" Functional Programming
@@ -543,7 +546,7 @@ from functools import partial, reduce # for Py3+ compatibility
 sum(list_of_lists, []) # flatten a list of lists - Alt: list(itertools.chain.from_iterable(l_o_l)) OR reduce(operator.concat, l_o_l)
 
 # Extra libs
-dakerfp/patterns # functional pattern matching through real DSL made by modifying the AST ; http://www.slideshare.net/dakerfp/functional-pattern-matching
+dakerfp/patterns # functional pattern matching through real DSL made by modifying the AST ; http://www.slideshare.net/dakerfp/functional-pattern-matching - Alt: santinic/pampy
 toolz # brings: pluck, tail, compose, pipe, memoize - Even faster: CyToolz
 suor/funcy
 kachayev/fn.py
@@ -737,7 +740,7 @@ import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture 
 nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no --showlocals --exitfirst --cache-clear --pdb -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
 pytest -k "$(tq failure -p -a name < results.xml | awk 'NR>1{print(" or ")} {print}' ORS='')" # rerunning only failed tests, require --junit-xml=results.xml
-    pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
+    pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/ - Alt approach: https://www.reddit.com/r/Python/comments/a4w61x/fixing_a_tough_memory_leak_in_python/
     pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
 airspeed velocity # designed to benchmark a single project over its lifetime using a given set of benchmarks – i.e., little snippets of code that are timed - the result data is stored in JSON files
 mschwager/memunit # check memory usage in tests
@@ -1004,6 +1007,8 @@ binascii.hexlify # display binary has hexadecimal
 
 mmap # memory-mapped files
 
+# C-API -> good tuto for calling Python from C: https://learning-python.com/class/Workbook/unit16.htm
+
 
 """""""""""""""""""""""""""""""
 "" DBs, queues & schedulers
@@ -1073,7 +1078,8 @@ pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 ericoporto/fgmk # retro RPG Game Maker
 
-Zulko/gizeh, Zulko/MoviePy, jdf/processing.py (uses Jython) # Video & image (editing - MoviePy looks like the current best tool to make GIF / webm animations - Also: https://github.com/1-Sisyphe/youCanCodeAGif
+Zulko/gizeh, Zulko/MoviePy, jdf/processing.py (uses Jython) # Video & image (editing - MoviePy looks like the current best tool to make GIF / webm animations - MoviePy Examples: https://zulko.github.io/blog/2014/09/20/vector-animations-with-python/ - Also: https://github.com/1-Sisyphe/youCanCodeAGif
+thoppe/pixelhouse # minimalist drawing library for making beautiful animations. Comes with beautiful gradients, instagram-like filters, and elastic transforms.
 3b1b/manim # animation engine for explanatory math videos
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 ryanfox/retread # detect reused frames in video

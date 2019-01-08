@@ -5,6 +5,8 @@
 Algorithm-based Interview Questions: https://www.careercup.com/page?sort=votes
 
 ### Python
+- [MIT 6 0001 - Introduction to Computer Science and Programming in Python (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)
+- [MIT 6 0002 - Introduction to Computational Thinking and Data Science (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0002-introduction-to-computational-thinking-and-data-science-fall-2016/)
 - BattleDev : https://www.isograd.com/FR/solutionconcours.php [FR]
 - https://github.com/norvig/pytudes
 - http://codekata.com [EN]

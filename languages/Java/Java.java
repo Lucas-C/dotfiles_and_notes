@@ -78,6 +78,8 @@ gradle dependencies
 mvn dependency-check:check # check for known CVE security issues in deps from owasp.org
 anthemengineering/infer-maven-plugin # Facebook static analyzer for Java, does not work under Windows
 
+mvn exec:java -Dexec.mainClass=
+
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-antrun-plugin</artifactId>
@@ -127,6 +129,10 @@ ssh -D 43210 -N $host
 jconsole -J-DsocksProxyHost=localhost -J-DsocksProxyPort=43210
 // 4. Use the following JMX url
 service:jmx:rmi:///jndi/rmi://$host:9876/jmxrmi
+
+org.openjdk.jol // get an estimation of an object size in memory, including referenced objects - can be CPU & time intensive for huge objects
+long sizeInBytes = GraphLayout.parseInstance(obj).totalSize();
+log.debug("Size of xxx: {}M", sizeInBytes / 1000 / 1000);
 
 Byteman // insert extra Java code into your application, either as it is loaded during JVM startup or even after it has already started running: https://developer.jboss.org/wiki/ABytemanTutorial
 
@@ -339,6 +345,13 @@ IntStream.range(1, 4) // Another use example: IntStream.iterate(0, i -> i + 2).l
         .forEach(f.bars::add))
     .flatMap(f -> f.bars.stream())
     .forEach(b -> System.out.println(b.name));
+
+public class StreamUtils {
+    public static <T> Stream<List<T>> batchIntoLists(List<T> items, Integer batchSize) {
+        return IntStream.range(0, (items.size() + batchSize - 1) / batchSize)
+                .mapToObj(i -> items.subList(i*batchSize, Math.min(items.size(), (i+1)*batchSize)));
+    }
+}
 
 // try-with-resources: any object that implements java.lang.AutoCloseable, which includes java.io.Closeable ones:
 try (BufferedReader br = new BufferedReader(new FileReader(path))) {

@@ -18,6 +18,7 @@ Open source challenges
 - [freeCodeCamp guide to contribute to Open Source](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) projects for newcomers
 - [Six things to know about successful open-source software](https://knightlab.northwestern.edu/2013/07/24/six-lessons-on-success-and-failure-for-open-source-software/)
 - [Open Source is awful](https://steemit.com/opensource/@crell/open-source-is-awful)
+- [Comparison of 7 governance models for CPython by Victor Stinner](https://discuss.python.org/t/comparison-of-the-7-governance-peps/392)
 
 ## Resources for newcomers
 - [freeCodeCamp guide to contribute to Open Source]
@@ -101,6 +102,7 @@ Market and promote your project:
   * benevolent dictator: there is an identified project facilitator
   * meritocracy / liberal contribution: everyone (with merit) commits and is responsible for everything
   * Tech Lead + Core Committers: à la Google AMP
+  * _cf._ [Comparison of 7 governance models for CPython by Victor Stinner]
 
 - [Are we there yet: is open source gamification enterprise ready?] by Gal Rimon & [To gamify or not to gamify community] by Jono Bacon -> lesssons learned:
   * Gamification is not just about trophies

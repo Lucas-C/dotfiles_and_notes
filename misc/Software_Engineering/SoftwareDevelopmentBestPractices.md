@@ -44,6 +44,7 @@ Software Development Best Practices
 - [LogstashAlternatives][https://sematext.com/blog/2016/09/13/logstash-alternatives/] : Filebeat, Fluentd, rsyslog, syslog-ng & Logagent
 - [ModernSoftwareOverEngineeringMistakes](https://medium.com/@rdsubhas/10-modern-software-engineering-mistakes-bc67fbef4fc8#.3y051ocdz)
 - [WhyYouShouldUseAMonorepo](http://www.drmaciver.com/2016/10/why-you-should-use-a-single-repository-for-all-your-companys-projects/)
+- [We’ll Never Know Whether Monorepos Are Better](https://redfin.engineering/well-never-know-whether-monorepos-are-better-2c08ab9324c0?gi=b84fa48f58da)
 - [WhenToRepeatYourself](http://devblog.songkick.com/2016/08/31/when-to-repeat-yourself/)
 - [InternetScaleServicesChecklist](https://gist.github.com/acolyer/95ef23802803cb8b4eb5)
 - [WhatsWrongWithGit?AConceptualDesignAnalysis](https://blog.acolyer.org/2016/10/24/whats-wrong-with-git-a-conceptual-design-analysis/)
@@ -267,6 +268,8 @@ Dr. Leonard Richardson put together a maturity model that interprets various lev
 cf. also the [JSON PATCH spec](http://jsonpatch.com)
 
 [Partial resources](https://developers.google.com/youtube/v3/getting-started#partial) : `?part=A,B&fields=e,f`
+Implem avec du Python : http://yaoganglian.com/2013/07/01/partial-response/
+Alt: HTTP header Range avec valeur non numérique
 
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 + similarly for protocols: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
@@ -403,6 +406,10 @@ What are logs used for ?
 - Build requires more than one step [CC-E1]
 - Tests require more than one step [CC-E2]
 - Build is too long to complete
+
+On repo structure, _cf_. [WhyYouShouldUseAMonorepo] & [We’ll Never Know Whether Monorepos Are Better]
+
+> There’s no way to measure productivity in software, so there’s no way to know whether controversial, expensive “productivity enhancing” projects actually deliver on their promise, even in hindsight.
 
 ### Tests
 - F.I.R.S.T tests : Fast Independent Repeatable Self-Validating Timely (written just before prod code) [CC-Chapt9]
