@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 // USAGE: md2html [--noindex] [--mincss] $mdFile > $htmlFile
-// INSTALL: npm install -g markdown-it markdown-it-anchor markdown-it-checkbox markdown-it-header-sections markdown-it-table-of-contents markdown-it-container markdown-it-include markdown-it-multimd-table markdown-it-smartarrows minimist
+// INSTALL: npm install -g markdown-it markdown-it-anchor git+https://git@github.com/Lucas-C/markdown-it-checkbox.git markdown-it-header-sections markdown-it-table-of-contents markdown-it-container markdown-it-include markdown-it-multimd-table markdown-it-smartarrows minimist
+const ANCHOR_ID_CHAR_RANGE_TO_IGNORE = '[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\uFFFF]+';
 var args = require('minimist')(process.argv.slice(2), {boolean: true}),
     mdFilepath = args._[0];
 require('fs').readFile(mdFilepath, 'utf8', function (err, input) {
@@ -14,7 +15,7 @@ require('fs').readFile(mdFilepath, 'utf8', function (err, input) {
     process.exit(1);
   }
   var md = require('markdown-it')({html: true, linkify: true, typographer: true})
-    .use(require('markdown-it-anchor'))
+    .use(require('markdown-it-anchor'), { slugify: s => encodeURIComponent(String(s).trim().toLowerCase().replace(new RegExp('^'+ANCHOR_ID_CHAR_RANGE_TO_IGNORE, 'g'), '').replace(new RegExp(ANCHOR_ID_CHAR_RANGE_TO_IGNORE, 'g'), '-')) })
     .use(require('markdown-it-checkbox'))
     .use(require('markdown-it-header-sections'))
     .use(require('markdown-it-include'))
