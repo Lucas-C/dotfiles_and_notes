@@ -1,12 +1,26 @@
 <!--Remains:
+- test undefined sanitizer
 - try to import a sharedmod in the fuzzer, and check if that works in oss-fuzz Docker container
 -->
 
-### cpython
+### CPython
+
+https://github.com/python/cpython/
+
+Commands to locally build fuzzer and run Python unit tests:
 
     make sharedmods && ./python.exe Lib/test/test_xxtestfuzz.py
 
 ### oss-fuzz
+
+Historical pull requests concerning CPython:
+
+- [by Jean-PierreDevin on July 2017](https://github.com/google/oss-fuzz/pull/731)
+- [by Markus Kusano on December 2018](https://github.com/google/oss-fuzz/pull/2031)
+
+Reference docs: [New project guide - Testing locally](https://github.com/google/oss-fuzz/blob/master/docs/new_project_guide.md#testing-locally)
+
+Commands I use to run the `address` sanitizer locally with Docker:
 
     python infra/helper.py build_image cpython3
     mkdir -p build/out/cpython3 build/work/cpython3
@@ -31,7 +45,9 @@ Example output:
     mkdir -p compiler-rt && cd compiler-rt && git init && git remote add -f origin https://github.com/llvm-mirror/compiler-rt.git && git config core.sparseCheckout true && echo lib/fuzzer >> .git/info/sparse-checkout && git pull origin master && cd -
 -->
 
-    # Importing /src directory from gcr.io/oss-fuzz/cpython3 image to host:
+To understand why it fails with GDB:
+
+    # Importing /src directory from gcr.io/oss-fuzz/cpython3 image to host (do it only once):
     cd build && docker run --rm gcr.io/oss-fuzz/cpython3 tar cz /src | tar xz && cd -
     # Running base-runner image with /out & /src directories mounted, then installing gdb and launchint it on libfuzzer failing test case
     winpty docker run --rm -it --privileged -e FUZZING_ENGINE=libfuzzer -e SANITIZER=address -e RUN_FUZZER_MODE=interactive -v $PWD/build/out/cpython3:/out -v $PWD/build/src:/src gcr.io/oss-fuzz-base/base-runner /bin/bash
@@ -41,6 +57,3 @@ Example output:
     # Setting a breakpoint on the last stack frame mentioned by the fuzzer error output
     b /src/cpython/Modules/_xxtestfuzz/fuzzer.c:79
     c
-
-    python infra/helper.py build_fuzzers --sanitizer undefined cpython3
-    python infra/helper.py check_build --sanitizer undefined cpython3
