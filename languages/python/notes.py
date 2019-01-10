@@ -143,7 +143,7 @@ pattern = (
 r"\b\w+\b"  # a word between two word separators
 "\.*?"      # non greedy wildcard
 ")"         # named group end
-)
+) # Alt: re.VERBOSE / re.X
 m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DEBUG -> print parse tree
 m.group('word')
 # You can also call a function every time something matches a regular expression

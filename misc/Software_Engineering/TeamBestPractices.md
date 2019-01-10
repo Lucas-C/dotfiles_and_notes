@@ -74,6 +74,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
 - [No, seriously. Root Cause is a Fallacy.](https://willgallego.com/2018/04/02/no-seriously-root-cause-is-a-fallacy/)
 - [Some notes on running new software in production](https://jvns.ca/blog/2018/11/11/understand-the-software-you-use-in-production/)
+- [CRACKING the CODING INTERVIEW](http://www.crackingthecodinginterview.com/resources.html)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -415,6 +416,7 @@ It’s available as a text editor application, a web app, and even a linter, if 
   > Throughout the interview I am looking for people that can learn quickly.
   > It’s important that all of the scoring and decision making is done independently to avoid anyone influencing anyone else.
   > Once a decision is made, feedback is given as quickly as possible : [this] will give the candidate a really good impression of you - even if the answer is a no.
+- [CRACKING the CODING INTERVIEW]: prep sheets for soft skills, coding skills, PM skills
 
 ### Language-based question
 - Python:
