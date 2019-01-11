@@ -2,6 +2,8 @@ Simpler DSL / higher level layers: c3.js b3.js d4.js a3.js (for 3D)
 Alt: Vis.js
 Simple animated gauge with C3 : http://c3js.org/samples/chart_gauge.html
 
+Non-d3-based graph drawing dataviz: http://sigmajs.org
+
 veltman/flubber // best-guess methods for smoothly interpolating between 2-D shapes, like canvas or SVG paths
 
 MetricsGraphics.js D3-based lib to visualize time-series data : http://metricsgraphicsjs.org/examples.htm

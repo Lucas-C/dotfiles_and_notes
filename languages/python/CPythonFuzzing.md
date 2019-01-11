@@ -1,12 +1,31 @@
 <!--Remains:
+- forbid some patterns in _exec fuzzer to avoid timeouts: \d**\d{5} and \d**\d+**\d
 - test other sanitizers: memory, undefined
-They fail with many "undefined reference" warnings and:
+Currently they fail with many "undefined reference" warnings and:
 
     clang-8: error: linker command failed with exit code 1 (use -v to see invocation)
     Makefile:590: recipe for target 'python.exe' failed
 
-- try to import a sharedmod in the fuzzer, and check if that works in oss-fuzz Docker container
-- pass a corpus to the fuzz_builtin_eval & fuzz_builtin_json_decode fuzz targets
+- perform fuzz testing on pypi libs including C extensions (+ using cffi ?):
+  * start with simplejson & pyyaml (+ruamel ?)
+  Currently fails:
+
+  File "/out/lib/python3.8/datetime.py", line 8, in <module>
+    import math as _math
+ImportError: /out/lib/python3.8/lib-dynload/math.cpython-38-x86_64-linux-gnu.so: undefined symbol: PyFloat_Type
+
+Looks related to: https://bugs.python.org/issue24783
+And: https://forum.isotropix.com/viewtopic.php?p=13071
+And: https://www.chiefdelphi.com/t/mjpg-streamer-now-with-opencv-input-plugin-filtering/150434/13
+
+Based on gcr.io/oss-fuzz-base/base-runner which apt install python3 in a standard way,
+it is normal to have "undefined symbol" when running:
+
+    ldd -r /out/lib/python3.8/lib-dynload/cmath*.so
+
+  * continue with cython, numpy, sqlalchemy & tornado
+  * over-the-top: filter top100 pypi packages: https://hugovk.github.io/top-pypi-packages/ (or: http://kgullikson88.github.io/blog/pypi-analysis.html)
+  to only select those defining ext_modules: https://github.com/yaml/pyyaml/blob/master/setup.py#L67 - https://github.com/tornadoweb/tornado/blob/master/setup.py#L29 - https://github.com/simplejson/simplejson/blob/master/setup.py#L9 - https://github.com/sqlalchemy/sqlalchemy/blob/master/setup.py#L11 - https://github.com/cython/cython/blob/master/setup.py#L4
 - PR oss-fuzz & cpython
 -->
 
@@ -36,7 +55,9 @@ Commands I use to run the `address` sanitizer locally with Docker:
 
 To build this very same image "manually" with the `DEBUG` & `NO_CPYTHON_RECOMPILE` environment variables defined:
 
-    docker build -t gcr.io/oss-fuzz/cpython3 projects\cpython3 && docker run --rm -it --cap-add SYS_PTRACE -e FUZZING_ENGINE=libfuzzer -e SANITIZER=address -e DEBUG=1 -v %CD%\..\cpython:/src/cpython3 -v %CD%\build\out\cpython3:/out -v %CD%\build\work\cpython3:/work -w /out/cpython gcr.io/oss-fuzz/cpython3 compile_fuzz_targets.sh
+    docker build -t gcr.io/oss-fuzz/cpython3 projects/cpython3 && docker run --rm -it --cap-add SYS_PTRACE -e FUZZING_ENGINE=libfuzzer -e SANITIZER=address -e DEBUG=1 -v %CD%\..\cpython:/src/cpython3 -v %CD%\build\out\cpython3:/out -v %CD%\build\work\cpython3:/work -w /out/cpython gcr.io/oss-fuzz/cpython3
+
+_(the command above is aimed at Docker for Windows, under Linux replace `%CD%` by `$PWD` and backslashes by slashes)_
 
 Now checking the built image & running the fuzzers:
 
