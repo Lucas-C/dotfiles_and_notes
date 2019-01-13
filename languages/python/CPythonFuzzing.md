@@ -21,13 +21,25 @@ And: https://www.chiefdelphi.com/t/mjpg-streamer-now-with-opencv-input-plugin-fi
 Based on gcr.io/oss-fuzz-base/base-runner which apt install python3 in a standard way,
 it is normal to have "undefined symbol" when running:
 
-    ldd -r /out/lib/python3.8/lib-dynload/cmath*.so
+    $ ldd -r /out/lib/python3.8/lib-dynload/cmath*.so
+
+Minimal reproducing bug:
+
+    $ clang -rdynamic -fsanitize=address -g /out/test.c -I/out/include/python3.8d /out/lib/libpython3.8.a -lutil -o /out/test
+    $ /out/test
+    ImportError: /out/lib/python3.8/lib-dynload/math.cpython-38d-x86_64-linux-gnu.so: undefined symbol: PyFloat_Type
+
+Error is trigered in C by `dlopen("/out/lib/python3.8/lib-dynload/math.cpython-38d-x86_64-linux-gnu.so", 2)` from `Python/dynload_shlib.c`, itself called through `importlib/_bootstrap.py`
 
   * continue with cython, numpy, sqlalchemy & tornado
   * over-the-top: filter top100 pypi packages: https://hugovk.github.io/top-pypi-packages/ (or: http://kgullikson88.github.io/blog/pypi-analysis.html)
   to only select those defining ext_modules: https://github.com/yaml/pyyaml/blob/master/setup.py#L67 - https://github.com/tornadoweb/tornado/blob/master/setup.py#L29 - https://github.com/simplejson/simplejson/blob/master/setup.py#L9 - https://github.com/sqlalchemy/sqlalchemy/blob/master/setup.py#L11 - https://github.com/cython/cython/blob/master/setup.py#L4
-- PR oss-fuzz & cpython
+- PR oss-fuzz (follow-up on #731) & cpython
 -->
+
+Contributions made during this exercice:
+
+- [Memory leak in Modules/main.c:pymain_parse_cmdline_impl when using the CLI flag](https://bugs.python.org/issue35720)
 
 ### CPython
 
@@ -89,6 +101,8 @@ To understand why it fails with GDB (require the `gcr.io/oss-fuzz/cpython3` to b
     docker run --rm -it --privileged -e FUZZING_ENGINE=libfuzzer -e SANITIZER=address -e RUN_FUZZER_MODE=interactive -v $PWD/build/out/cpython3:/out -v $PWD/build/src:/src -v $PWD/../cpython:/src/cpython -w /out gcr.io/oss-fuzz-base/base-runner /bin/bash
     apt install -y gdb
     gdb --args /out/fuzz_builtin_eval /out/crash-...
+    # Loading macros helpful to debug PyObjects & cie:
+    source /src/cpython/Tools/gdb/libpython.py
     start
     # Setting a breakpoint on the last stack frame mentioned by the fuzzer error output
     b /src/cpython/Modules/_xxtestfuzz/fuzzer.c:79
