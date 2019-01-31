@@ -1,3 +1,36 @@
+Limite de roles dans interface web => plugins Chrome / Firefox pour plus de contrôle
+
+## AWS cli snippets
+
+    vim ~/.aws/credentials
+    export AWS_PROFILE=
+
+    aws codecommit list-repositories
+    aws codecommit get-repository --repository-name $repo
+
+    aws ec2 describe-instances --filter Name=tag:Name,Values=$name \
+        | jq -r '.Reservations[].Instances[]|.InstanceId,.NetworkInterfaces[].Association.PublicDnsName'
+
+    pip install ssmh  # alt: ssm-sh (Go)
+    aws ssm describe-sessions --state Active
+    smsh $instance_id
+
+    aws codepipeline get-pipeline-state --name $pipeline | jq ".stageStates[]|select(.stageName=='$stage').actionStates"
+
+    aws s3 ls $bucket
+    s3_zip_list () {
+        aws s3api get-object --bucket $1 --key $2 tmp.zip
+        unzip -l tmp.zip
+        rm tmp.zip
+    }
+
+    aws logs describe-log-groups --log-group-name-prefix /aws/elasticbeanstalk/
+    for logStream in $(aws logs describe-log-streams --log-group-name $logGroup | jq -r .logStreams[].logStreamName | dos2unix); do \
+        echo $(aws logs get-log-events --log-group-name $logGroup --log-stream-name $logStream | jq -r .events[].message) \
+    done > $logGroup-events.log
+
+## Architecturing on AWS class notes
+
 AWS Technical Essentials: https://aws.amazon.com/fr/training/course-descriptions/essentials/
 
 AWS Cloud Practionner Essentials: https://aws.amazon.com/fr/training/course-descriptions/cloud-practitioner-essentials/

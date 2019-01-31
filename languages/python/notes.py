@@ -264,6 +264,8 @@ bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra, xmonader/pybloomfilt
 svpcom/hyperloglog # Super and Hyper Log Log Sketches
 jesperborgstrup/Py-IBLT # Invertible Bloom filter - Alt: http://code.activestate.com/recipes/577684-bloom-filter/
 
+immutables.Map # high-perf & memory-efficient immutable mappings implemented using Hash Array Mapped Trie (HAMT) - Better than std types.MappingProxyType because it is hashable - cf. also @dataclass
+
 l = ['a,b', 'c,d']
 from itertools import chain # also has iterator = count().next
 s = frozenset(chain.from_iterable(e.split(',') for e in l))
@@ -311,7 +313,7 @@ for index, item in enumerate(iterable): ...
 items = zip(xrange(0, len(ds)), ds) # lists, tuples & namedtuples
 items = d.iteritems() # dicts ( iteritems > items )
 
-buffer & memoryview
+buffer & memoryview # cf. https://julien.danjou.info/high-performance-in-python-with-zero-copy-and-the-buffer-protocol/
 
 from tputil import make_proxy # Pypi transparent proxy : can record/intercept/modify operations
 
@@ -335,7 +337,9 @@ class Immut2DPoint(namedtuple('_Immut2DPoint', 'x y')):
 class Immut3DPoint(namedtuple('_Immut3DPoint', Immut2DPoint._fields + ('z',)), Immut2DPoint):
     __slots__ = ()
 # BUT seriously, use the "attrs" library instead: https://glyph.twistedmatrix.com/2016/08/attrs.html
-# or typing.NamedTuple: https://github.com/topper-123/Articles/blob/master/New-interesting-data-types-in-Python3.rst
+class Point(typing.NamedTuple):  # https://github.com/topper-123/Articles/blob/master/New-interesting-data-types-in-Python3.rst
+    x: int
+    y: int
 # or traitlets if you need to react when properties values change: https://traitlets.readthedocs.io/en/stable/using_traitlets.html
 
 
@@ -701,11 +705,13 @@ zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: z
 dh-virtualenv # the ultimate way of deploying python apps, over wheels & pex == self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
 cx_freeze to make an EXE easily # cf. this example : https://www.reddit.com/r/Python/comments/4if7wj/what_do_you_think_is_more_difficult_in_python/
 facebookincubator/xar # archiver packinging files into a single self-contained executable bundle, using SquashFS, apprently better than PAR archives
+indygreg/python-build-standalone # produces self-contained, highly-portable Python distributions, containing also build artifacts (object files, libraries, etc)
 
 # Examples of Windows packaging
 deluge-torrent # with bbfreeze + GUI with pygtk: http://git.deluge-torrent.org/deluge/tree/win32/deluge-bbfreeze.py#n31
 tweecode/twine # with py2exe/py2app + GUI with wxPython
 Kivy # package apps with PyInstaller
+pynsist # used by Sam & Max with nuitka
 
 from distutils.command.build import build
 class custom_build(build):
@@ -786,7 +792,7 @@ PyVmMonitor # profiler with graphs
 nschloe/tuna # profile viewer using tornado
 nvdv/vprof # Visual Python profiler
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
-fabianp/memory_profiler
+fabianp/memory_profiler # track the memory usage of a program line by line in the source code
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
 
 from rfoo.utils import rconsole # RPC remote debugging - Alt: signal-based handle on a program to debug: http://stackoverflow.com/a/133384/636849
@@ -1014,7 +1020,7 @@ mmap # memory-mapped files
 "" DBs, queues & schedulers
 """""""""""""""""""""""""""""""
 celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of tasks
-ampqlib, haigha, puka # AMPQ libs
+ampqlib, haigha, puka, aio_pika # AMPQ libs
 kombu (based on celery), zeromq, aiozmq, mrq # distributed app / msg passing frameworks
 dask  # task scheduling and blocked algorithms for parallel processing
 sched # event scheduler - Alt: fengsp/plan, crontabber, thieman/dagobah, dbader/schedule, python-crontab, gjcarneiro/yacron, gawel/aiocron, jhuckaby/Cronicle (NodeJS with web UI)
@@ -1325,6 +1331,7 @@ Patator # Multi-threaded Service & URL Brute Forcing Tool
 pywin32 # Windows API, e.g. win32crypt.CryptUnprotectData - cf. http://docs.activestate.com/activepython/2.6/pywin32/PyWin32.HTML / http://timgolden.me.uk/pywin32-docs/PyWin32.html
     excel = win32.gencache.EnsureDispatch('Excel.Application'); excel.Visible = True
     outlook = win32.gencache.EnsureDispatch('Outlook.Application'); new_mail = outlook.CreateItem(0)
+    win10toast # create Windows 10 notifications
 theller/comtypes # access and implement both custom and dispatch based COM interfaces
 n1nj4sec/memorpy # search/edit Windows programs memory
 
@@ -1404,6 +1411,7 @@ SeleniumHQ/selenium/py # browser automation, can be combined with geckodriver fo
 pyautogui # send virtual keypresses and mouse clicks to the OS - cf. chapt 18 of AutomateTheBoringStuff
 sikuli # Java-based (with JS, Python & Ruby ports) visual workflow, able to identify images on screen using OpenCV
 pyhooked # pure Python hotkey hook: react on specific mouse/keyboard events
+boppreh/keyboard # hook and simulate global keyboard events on Windows and Linux
 
 watchdog # inc. cmd watchmedo -> monitor/observe files changes - FROM: S&M - not Cygwin-friendly due to ctypes.wintypes usage
 livereload # browser automatic reloading for development - Alt: hupper for reloading server code
@@ -1597,7 +1605,7 @@ subprocess.run > check_call
 #------------------------------------------------------------------------------
 # Python 3.7 - cf. http://sametmax.com/python-3-7-sort-de-sa-coquille/
 from dataclasses import asdict, astuple, dataclass, replace
-@dataclass
+@dataclass(repr=True, eq=True, order=True, frozen=True)
 class Achat:
     produit: str
     prix: float

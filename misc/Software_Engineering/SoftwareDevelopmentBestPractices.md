@@ -281,6 +281,12 @@ cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-gen
   > REST brings some constraints, e.g. your API must be stateless (no session persistance)
   > RPC-based APIs are great for actions [while] REST-based APIs are great for modeling your domain
 
+Handling deprecation:
+- full API version change + `Sunset` or `Warning: 299 - "Deprecated API"` HTTP header
+- OpenAPI `deprecated: true`
+- `207 Multi-Status` or `410 (Gone)` if the resource disappeared
+- add handling of deprecation warnings into **clients**
+
 ### The UNIX Philosophy by Mike Gancarz
 1. Small is beautiful.
 2. Make each program do one thing well.

@@ -4,7 +4,7 @@ gcc -Wall -fPIC -shared -o myfopen.so myfopen.c
 LD_PRELOAD=./myfopen.so cat $file
 man ld.so
 
-# Follow p$rogram system calls (man syscalls) !! -f => follow fork
+# Follow program system calls (man syscalls) !! -f => follow fork
 strace -f -p $pid -e open,access,poll,select,connect,recvfrom,sendto [-c] #stats
 strace -f -e trace=network -s 10000 $cmd # capture network traffic
 # Bug: http://lethargy.org/~jesus/writes/beware-of-strace ; https://bugzilla.redhat.com/show_bug.cgi?id=590172
@@ -48,6 +48,8 @@ wtrace :: strace-like based on Event Tracing for Windows
 #          GDB
 # 0xBADDCAFE 0xD15EA5E
 # Alt: Oracle dbx
+
+peda # Python Exploit Development Assistance for GDB : https://github.com/longld/peda
 
 ulimit -c # check if core dumps are enabled
 ulimit -S -c unlimited && echo 'kernel.core_pattern = /tmp/core2' >>/etc/sysctl.conf # enable core dumps

@@ -75,6 +75,8 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [No, seriously. Root Cause is a Fallacy.](https://willgallego.com/2018/04/02/no-seriously-root-cause-is-a-fallacy/)
 - [Some notes on running new software in production](https://jvns.ca/blog/2018/11/11/understand-the-software-you-use-in-production/)
 - [CRACKING the CODING INTERVIEW](http://www.crackingthecodinginterview.com/resources.html)
+- [Pour que les backlog grooming ne soient plus une corvée](http://www.theobserverself.com/corvee-backlog-grooming/)
+- [Weighted Shortest Job First](https://www.scaledagileframework.com/wsjf/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -99,11 +101,13 @@ Cons from [Why "Agile" and especially Scrum are terrible]:
 - get along with HR and plan out-of-the-box projetcs with them that will make your team happier
 
 ## Coaching new hires & bringing them up to speed
+- **First**: publicly tell her/him WELCOME + invite them to have launch or have a drink
 - [Onboarding and the Cost of Team Debt] = "when employees aren't properly trained, integrated, or managed, they are operating at less than optimal efficiency and "team debt" is accrued"
     * Productivity = Σ of talent * teamwork
     * To improve onboarding:
         - distribute the load of onboarding
         - focus on technical skills, knowledge of company processes, and personal development
+- provide a basic map / schema of Where is What ?
 - write docs
 - assign a "buddy" in the team & a "mentor" in the company
 - [Bringing Novice Developers Up To Speed] + bookmarks on coaching an intern
@@ -141,6 +145,9 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
   * Estimates are not deadlines
   * Take your holidays
 - draw a technical/functional skills matrix of your team
+  Avengers-style:
+    * determine your "Dilts" role among: doer, conceptor, coordinator, systemic vision
+    * cross matrix: Team / Products / Systemic & Vision VS Roles / Skills / Aspirations
 - [What Google Learned From Its Quest to Build the Perfect Team] :
     * Two behaviors that all the good teams generally shared:
         - First, on the good teams, members spoke in roughly the same proportion. " if only one person or a small group spoke all the time, the collective intelligence declined".
@@ -188,12 +195,16 @@ Ex: [1-2-4-All](http://www.liberatingstructures.com/1-1-2-4-all/) - 12min, "auto
 + problème peut être découpé en plusieurs ateliers pour diverger puis converger
 
 ### Collective tasks estimation
+- [Pour que les backlog grooming ne soient plus une corvée]
 - planning poker
 - spread tasks in 5 columns arbitrarily assigned a 2/3/5/8/13 points value, comparing them in terms of estimate time to completion (with no absolute estimation in man-days), e.g. with RealTimeBoard
+- [Weighted Shortest Job First] (WSJF) = _Cost of Delay_ / _Job Duration_, where _Cost of Delay_ = _User-business value_ + _Time criticality_ + _Risk reduction-opportunity enablement value_
+and all values can be estimated on a 1-13 scale using planning poker cards
 
 ## Retrospectives
 - Content/Pas content/A améliorer/A continuer/A arrêter/Questions
 - Drop/Add/Keep/Improve
+- Ecocycle schema of products maturity: https://www.taesch.com/references-cards/ecocycle
 
 Liens utiles:
 * http://www.funretrospectives.com

@@ -1,5 +1,4 @@
 <!--Remains:
-- forbid some patterns in _exec fuzzer to avoid timeouts: \d**\d{5} and \d**\d+**\d
 - test other sanitizers: memory, undefined
 Currently they fail with many "undefined reference" warnings and:
 
@@ -7,31 +6,7 @@ Currently they fail with many "undefined reference" warnings and:
     Makefile:590: recipe for target 'python.exe' failed
 
 - perform fuzz testing on pypi libs including C extensions (+ using cffi ?):
-  * start with simplejson & pyyaml (+ruamel ?)
-  Currently fails:
-
-  File "/out/lib/python3.8/datetime.py", line 8, in <module>
-    import math as _math
-ImportError: /out/lib/python3.8/lib-dynload/math.cpython-38-x86_64-linux-gnu.so: undefined symbol: PyFloat_Type
-
-Looks related to: https://bugs.python.org/issue24783
-And: https://forum.isotropix.com/viewtopic.php?p=13071
-And: https://www.chiefdelphi.com/t/mjpg-streamer-now-with-opencv-input-plugin-filtering/150434/13
-
-Based on gcr.io/oss-fuzz-base/base-runner which apt install python3 in a standard way,
-it is normal to have "undefined symbol" when running:
-
-    $ ldd -r /out/lib/python3.8/lib-dynload/cmath*.so
-
-Minimal reproducing bug:
-
-    $ clang -rdynamic -fsanitize=address -g /out/test.c -I/out/include/python3.8d /out/lib/libpython3.8.a -lutil -o /out/test
-    $ /out/test
-    ImportError: /out/lib/python3.8/lib-dynload/math.cpython-38d-x86_64-linux-gnu.so: undefined symbol: PyFloat_Type
-
-Error is trigered in C by `dlopen("/out/lib/python3.8/lib-dynload/math.cpython-38d-x86_64-linux-gnu.so", 2)` from `Python/dynload_shlib.c`, itself called through `importlib/_bootstrap.py`
-
-  * continue with cython, numpy, sqlalchemy & tornado
+  * cython, numpy, sqlalchemy & tornado
   * over-the-top: filter top100 pypi packages: https://hugovk.github.io/top-pypi-packages/ (or: http://kgullikson88.github.io/blog/pypi-analysis.html)
   to only select those defining ext_modules: https://github.com/yaml/pyyaml/blob/master/setup.py#L67 - https://github.com/tornadoweb/tornado/blob/master/setup.py#L29 - https://github.com/simplejson/simplejson/blob/master/setup.py#L9 - https://github.com/sqlalchemy/sqlalchemy/blob/master/setup.py#L11 - https://github.com/cython/cython/blob/master/setup.py#L4
 - PR oss-fuzz (follow-up on #731) & cpython

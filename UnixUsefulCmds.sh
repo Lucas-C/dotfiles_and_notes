@@ -303,7 +303,7 @@ for i in {1..8}; do echo "$(tput setaf $i)color_$i$(tput sgr0)"; done # colored 
 tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc # put a clock in the top right corner
 
 select value in choice1 choice2; do break; done # interactive multiple choices menu
-read -s password # 'silent' user input, no characters are displayed - Also: -n $chars_count so a <Enter> keypress is not needed
+read -p 'Password: ' -s password # 'silent' user input, no characters are displayed - Also: -n $chars_count so a <Enter> keypress is not needed
 strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n' # 30 characters password generation
 stty -echo # disable TTY output
 stty -echo -icanon time 0 min 0 # non-blocking read trick FROM: http://stackoverflow.com/a/5297780
