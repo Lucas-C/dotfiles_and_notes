@@ -218,6 +218,8 @@ POLA = Principle of least astonishment (or surprise => POLS) : "People are part 
 [SystemDesignPrimer]: how to design large-scale systems, with diagram-based examples -> Performance vs scalability / Latency vs throughput / Availability vs consistency / DNS & CDN / Load balancer / Reverse proxy / Microservices / Service discovery / RDBMS & NoSQL / Cache / Asynchronism / Communication / Security
 cf. also [DistributedSystemsAndTheEndOfTheAPI]
 
+useful tool to draw architecture diagrams: [yEd](https://www.yworks.com/products/yed) (used at oui.sncf)
+
 [Architecture Review Working Group : Multiple Perspectives On Technical Problems and Solutions]:
 > Excellent, it sounds like you have a hypothesis! We are gonna do an architecture review.
 > If it’s as obvious a solution as you think it is, it should be easy for the rest of the org to come to the same conclusion, and that will make implementing and maintaining it that much easier.

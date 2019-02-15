@@ -227,6 +227,8 @@ except Exception as err: # see chain_errors module
 else: pass
 finally: pass
 
+from returns.result import Result, Success, Failure  # "Make your functions return something meaningful, typed, and safe" - Railway Oriented Programming - cf. https://sobolevn.me/2019/02/python-exceptions-considered-an-antipattern
+
 
 """""""""""""""""""
 "" Data structures
@@ -569,7 +571,7 @@ python -c 'import sys, re; sys.stdout.writelines([str(re.search("REGEX", line).g
 
 from distutils import spawn
 cmd_path = spawn.find_executable('cmd') # shutil.which in Python3 / shutilwhich backport else
-subprocess.check_output([cmd_path, 'do', 'stuff'], input=bytes(some_text,, 'UTF-8')) # last param added in 3.4 : https://hg.python.org/cpython/file/877f47ca3b79/Lib/subprocess.py#l614
+subprocess.check_output([cmd_path, 'do', 'stuff'], input=bytes(some_text, 'UTF-8')) # last param added in 3.4 : https://hg.python.org/cpython/file/877f47ca3b79/Lib/subprocess.py#l614
 # AVOID PIPE ! Flaws & workarounds: http://www.macaronikazoo.com/?p=607 ; http://eyalarubas.com/python-subproc-nonblock.html
 # -> I was bitten by PIPE in Cygwin: cf. pre-commit issue 379
 kennethreitz/delegator.py # handy subprocesses lib
@@ -689,6 +691,7 @@ openstack/bandit  # Python AST-based security linter
 openstack/syntribos  # automated API security testing tool
 sqlmap  # automatic SQL injection and database takeover tool
 wapiti  # "fuzzer", performs "black-box" scans of a web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data
+python-afl # find bugs by fuzzing input - cf. https://barro.github.io/2018/01/taking-a-look-at-python-afl/
 
 Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
 lobocv/crashreporter # store and send crash reports directly to the developers
@@ -710,8 +713,8 @@ indygreg/python-build-standalone # produces self-contained, highly-portable Pyth
 # Examples of Windows packaging
 deluge-torrent # with bbfreeze + GUI with pygtk: http://git.deluge-torrent.org/deluge/tree/win32/deluge-bbfreeze.py#n31
 tweecode/twine # with py2exe/py2app + GUI with wxPython
-Kivy # package apps with PyInstaller
-pynsist # used by Sam & Max with nuitka
+Kivy # package apps with PyInstaller - Simple usage under Windows: pyinstaller --onefile --noupx hello.py
+pynsist # used by Sam & Max with nuitka (installer for non-web apps)
 
 from distutils.command.build import build
 class custom_build(build):
@@ -748,6 +751,7 @@ py.test -vv --capture=no --showlocals --exitfirst --cache-clear --pdb -k 'TestCl
 pytest -k "$(tq failure -p -a name < results.xml | awk 'NR>1{print(" or ")} {print}' ORS='')" # rerunning only failed tests, require --junit-xml=results.xml
     pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/ - Alt approach: https://www.reddit.com/r/Python/comments/a4w61x/fixing_a_tough_memory_leak_in_python/
     pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
+    pytest-play # REST APi testing based on YAMLs files
 airspeed velocity # designed to benchmark a single project over its lifetime using a given set of benchmarks – i.e., little snippets of code that are timed - the result data is stored in JSON files
 mschwager/memunit # check memory usage in tests
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
@@ -1019,7 +1023,7 @@ mmap # memory-mapped files
 """""""""""""""""""""""""""""""
 "" DBs, queues & schedulers
 """""""""""""""""""""""""""""""
-celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of tasks
+celery # distributed task queue - Monitoring: mher/flower - Alt: pyres, huey & rq (both based on Redis) - Also: celery_once to prevent multiple execution and queuing of tasks + https://www.distributedpython.com/2018/07/03/simple-celery-setup/
 ampqlib, haigha, puka, aio_pika # AMPQ libs
 kombu (based on celery), zeromq, aiozmq, mrq # distributed app / msg passing frameworks
 dask  # task scheduling and blocked algorithms for parallel processing
@@ -1236,7 +1240,7 @@ def passthrough_http_proxy(http_proxy, real_request_url):
         response = session.get(real_request_url)
         response.raise_for_status()
         return response.text
-responses/httmock # a mocking library for requests
+responses/httmock # a mocking library for requests - Alt: getsentry/responses
 betamaxpy/betamax # VCR/Wiremock-like HTTP mock: record & replay requests - cf. also: kevin1024/vcrpy
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
 ariebovenberg/snug # organize your HTTP client code to ease reuse, async compatibility & tests
@@ -1264,6 +1268,8 @@ Falcon, flask-restful # to build HTTP APIs - not asynchronous and uses a thread-
     flask-admin # admin interface on top of an existing data model
     flask-babel # adds i18n and l10n support
     flask-login # user session management
+    Flask-HTTPAuth # Basic, Digest and Token HTTP authentication
+    Talisman / Secure.py # add HTTP headers protecting against common webapps security issues
 Quart # like Flask, but async
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
 Django # cf. dedicated section

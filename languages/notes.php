@@ -156,6 +156,7 @@ drush eval 'elysia_cron_initialize(); elysia_cron_execute_aborted("default")' # 
 drush sql-query 'SELECT * FROM elysia_cron'
 drush sql-query 'SELECT * FROM variable' | grep elysia_cron
 drush eval 'db_query("DELETE FROM `flood`");' # Get rid of: 'Sorry, there have been more than 5 failed login attempts for this account. It is temporarily blocked'
+dush vget maintenance_mode / dush vset maintenance_mode 1  # cmd differs depending on Drupal version: https://drupal.stackexchange.com/a/32/52139
 # Tentative manuelle de connexion LDAP: affiche l'email de l'utilisateur associé à $login / $password
 drush eval "assert((bool)module_load_include('inc', 'ldap_authentication', 'ldap_authentication')); \$wtokens = array(); print(ldap_authentication_test_credentials(ldap_authentication_get_valid_conf(), FALSE, '$login', '$password', \$wtokens)[1]['mail'].PHP_EOL);"
 
@@ -204,3 +205,4 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" **%T/%D*
 nginx -t  # help diagnosing service start failure
 yandex/gixy  # configuration static analyzer in Python to prevent security misconfiguration and automate flaw detection
 https://news.ycombinator.com/item?id=14617879 # speed-up advices
+https://blog.scalyr.com/2019/01/guide-to-nginx-metrics/ # metrics to watch

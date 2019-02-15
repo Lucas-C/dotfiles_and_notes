@@ -62,6 +62,14 @@ FROM: http://stackoverflow.com/a/10269715/636849
 
 Also cf. **software_defined_networking.md**
 
+## BGP
+
+> The internet is a large collection of ISP’s that are all numerically identified with a standardised and unique ISP number, called an Autonomous System Number or ASN ( or AS for shorter ).
+> These AS’es need a way to exchange routes with each other, since they will own ranges of IP addresses, and need a way to tell other ISPs that their routers can route these IP addresses.
+> For this, the world has settled on Border Gateway Protocol or BGP.
+
+Source & more details: https://blog.benjojo.co.uk/post/eve-online-bgp-internet
+
 ## Other protocols
 - [SCTP](http://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol)
 - [Tsunami](http://tsunami-udp.sourceforge.net) : A fast user-space file transfer protocol that uses TCP control and UDP data
