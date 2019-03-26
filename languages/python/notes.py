@@ -749,7 +749,7 @@ import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture 
 nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no --showlocals --exitfirst --cache-clear --pdb -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
 pytest -k "$(tq failure -p -a name < results.xml | awk 'NR>1{print(" or ")} {print}' ORS='')" # rerunning only failed tests, require --junit-xml=results.xml
-    pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/ - Alt approach: https://www.reddit.com/r/Python/comments/a4w61x/fixing_a_tough_memory_leak_in_python/
+    pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
     pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
     pytest-play # REST APi testing based on YAMLs files
 airspeed velocity # designed to benchmark a single project over its lifetime using a given set of benchmarks – i.e., little snippets of code that are timed - the result data is stored in JSON files
@@ -796,9 +796,9 @@ PyVmMonitor # profiler with graphs
 nschloe/tuna # profile viewer using tornado
 nvdv/vprof # Visual Python profiler
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
-fabianp/memory_profiler # track the memory usage of a program line by line in the source code
+fabianp/memory_profiler # track the memory usage of a program line by line in the source code - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
-
+memleax # utility producing a report of C call stacks where a process memory allocations are not matched by deallocations - Demo + LD_PRELOAD usage: https://www.reddit.com/r/Python/comments/a4w61x/fixing_a_tough_memory_leak_in_python/
 from rfoo.utils import rconsole # RPC remote debugging - Alt: signal-based handle on a program to debug: http://stackoverflow.com/a/133384/636849
 rconsole.spawn_server()
 $ rconsole

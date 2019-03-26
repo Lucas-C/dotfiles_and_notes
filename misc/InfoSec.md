@@ -146,6 +146,10 @@ http://flaws.cloud
 https://github.com/andresriancho/nimbostratus : Tools for fingerprinting and exploiting Amazon cloud infrastructures
 https://github.com/RhinoSecurityLabs/Security-Research/tree/master/tools/aws-pentest-tools : buckethead.py searches across every AWS region for a variety of bucket names based on a domain name, subdomains, affixes given and more
 
+## HTTPS & certs
+
+https://github.com/trimstray/htrace.sh : shell script for http/https troubleshooting and profiling - a simple wrapper script around several open source security tools
+
 ## Wifi
 - Wireless hacking 101: http://www.kalitutorials.net/2016/08/things-you-should-know-wireless-hacking.html
 - sniffage wifi passwords with Cain: http://www.oxid.it/cain.html

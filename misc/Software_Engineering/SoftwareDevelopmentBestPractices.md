@@ -63,6 +63,11 @@ Software Development Best Practices
 - [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
 - [Joel On Software - Things You Should Never Do](https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/)
 - [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
+- [The log/event processing pipeline you can't have](https://apenwarr.ca/log/20190216)
+- [#CODE REVIEW Ce truc qui ne sert à rien @scharrier](https://speakerdeck.com/scharrier/code-review-devfest-nantes)
+- [11 proven practices for more effective, efficient peer code review](https://www.ibm.com/developerworks/rational/library/11-proven-practices-for-peer-review/)
+- [Best Kept Secrets of Peer Code Review](https://smartbear.com/SmartBear/media/pdfs/best-kept-secrets-of-peer-code-review.pdf)
+- [Ce que j’ai appris de mes 3000 Code Reviews](https://medium.com/@mickael_andrieu/ce-que-jai-appris-de-mes-3000-code-reviews-b0de1ee5ccee)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -224,6 +229,9 @@ useful tool to draw architecture diagrams: [yEd](https://www.yworks.com/products
 > Excellent, it sounds like you have a hypothesis! We are gonna do an architecture review.
 > If it’s as obvious a solution as you think it is, it should be easy for the rest of the org to come to the same conclusion, and that will make implementing and maintaining it that much easier.
 > If it has some downsides that aren’t apparent, we will at least have a chance to tease those out!
+
+[The log/event processing pipeline you can't have] : very efficient, low tech, zero "big data" tool, praised by JMason
+-> reading notes: https://chezsoi.org/shaarli/?UJHL3Q
 
 ### Resilience patterns
 FROM: https://docs.microsoft.com/en-us/azure/architecture/patterns/
@@ -470,37 +478,40 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
   7. Frame feedback as requests, not commands
   8. Tie notes to principles, not opinions
 
-#### Code reviews guidelines (from @scharrier)
-Pour tout le monde
-- je fais preuve d’empathie
-- je reste humble
-- je ne suis pas ironique
-- je n’insulte pas
+#### Code reviews guidelines
+[#CODE REVIEW Ce truc qui ne sert à rien @scharrier]
 
-Je suis reviewer:
-- je ne suis pas directif
-- je suis explicite
-- je montre le positif
-
-Je suis reviewé:
-- je suis reconnaissant
-- je ne prends pas pour moi
-- j’explique mes choix
-- je réponds à tout
-- je n’abandonne pas
-
-Vous n’êtes pas d’accord ?
-Discutez de visu, ou demandez à un tiers.
-
-In fine, celui qui maintient DÉCIDE,
-Quitte à refaire une PR après.
-
-cf. https://speakerdeck.com/scharrier/code-review-devfest-nantes
+> Pour tout le monde
+> - je fais preuve d’empathie
+> - je reste humble
+> - je ne suis pas ironique
+> - je n’insulte pas
+>
+> Je suis reviewer:
+> - je ne suis pas directif
+> - je suis explicite
+> - je montre le positif
+>
+> Je suis reviewé:
+> - je suis reconnaissant
+> - je ne prends pas pour moi
+> - j’explique mes choix
+> - je réponds à tout
+> - je n’abandonne pas
+>
+> Vous n’êtes pas d’accord ?
+> Discutez de visu, ou demandez à un tiers.
+>
+> In fine, celui qui maintient DÉCIDE,
+> Quitte à refaire une PR après.
 
 + [A Guide to Naming Variables] : "minimize distance and boilerplate : as coders our job is to communicate to human readers, not computers."
-+ [11 proven practices for more effective, efficient peer code review](https://www.ibm.com/developerworks/rational/library/11-proven-practices-for-peer-review/)
-+ [Best Kept Secrets of Peer Code Review](https://smartbear.com/SmartBear/media/pdfs/best-kept-secrets-of-peer-code-review.pdf)
-
++ [11 proven practices for more effective, efficient peer code review]
++ [Best Kept Secrets of Peer Code Review]
++ [Ce que j’ai appris de mes 3000 Code Reviews]:
+  * La Code Review est une source de connaissance
+  * La Code Review est un moyen de communication
+  * La Code Review pour améliorer la qualité du Code?
 
 ## Functional programming
 cf. [Functional Programming Patterns]

@@ -38,10 +38,11 @@ JCache API caching strategies (https://dzone.com/refcardz/java-caching):
 - easy-as-a-pie pubsub with Python
 - **MULTI** allows to combine multiple operations atomically & consistently, and **WATCH** allows isolation. [AOSA]
 
+    redis-cli -h HOST -p PORT -n DATABASE_NUMBER info [keyspace|memory|...]
     redis-cli ping
-    redis-cli info keyspace # Also: memory
-    redis-cli -h HOST -p PORT -n DATABASE_NUMBER llen QUEUE_NAME
-    redis-cli -h HOST -p PORT -n DATABASE_NUMBER keys \*   #_
+    redis-cli monitor  # log every command received by Redis, very useful for debugging
+    redis-cli llen QUEUE_NAME
+    redis-cli keys \*
 
     # cf. https://redis.io/topics/memory-optimization#memory-allocation
     maxmemory 2mb
@@ -54,6 +55,8 @@ sripathikrishnan/redis-rdb-tools: parse Redis dump.rdb files, Analyze Memory, an
 
 twitter/twemproxy # fast, light-weight proxy for memcached and Redis
 psobot/till # cache server for immutable, time-limited object storage providing a HTTP interface
+
+https://www.compose.com/articles/how-to-talk-raw-redis/
 
 ### etcd
 
@@ -140,10 +143,25 @@ spotify/sparkey : simple constant key/value storage library, for read-heavy syst
 
     show dbs
     show collections
+    db.collec.stats()
     db.collec.find({})
     db.collec.count({})
     db.collec.remove({})
-    db.collec.drop()
+    db.getCollectionNames().forEach(c => db[c].drop())
+
+https://github.com/voyages-sncf-technologies/hesperides/blob/develop/mongo_create_collections.js :
+
+    ['module', 'platform', 'techno'].forEach(c => {
+        printjson(db.createCollection(c, {collation: {locale: 'fr', strength: 2}}))
+        printjson(db[c].createIndex({key: 1}))
+        print(c, 'indexes:')
+        printjson(db[c].getIndexes())
+    })
+
+Mongo shell: !! it connects to the 1st node of the connexion URI, even if it is not a primary.
+To allow executing commands on a non-primary node:
+
+    node:SECONDARY> rs.slaveOk()
 
 
 ### SQL DBs
