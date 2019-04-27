@@ -39,6 +39,7 @@ Project management best practices
 - [In Pursuit of Production Minimalism](https://brandur.org/minimalism)
 - [Run less software](https://www.intercom.com/blog/run-less-software/)
 - [We already have nice things](https://opensource.com/article/18/10/nice-things)
+- [Using 6 Page and 2 Page Documents To Make Organizational Decisions](https://medium.com/@inowland/using-6-page-and-2-page-documents-to-make-organizational-decisions-3216badde909)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -114,8 +115,7 @@ UNPHAT:
     * Have we identified open source solutions, even those that lack desired features, and attempted to contribute to them?
     * Can we fork any open source tools that are well-written but unmaintained?
 
-
-### Technical debt
+## Technical debt
 - [A Taxonomy of Tech Debt]: "I define tech debt as code or data that future developers will pay a cost for." - Metrics:
   * impact : user-facing & developer-facing issues
   * (corollary, personnal) fix benefits : what improvments would a fix bring ?
@@ -192,6 +192,7 @@ If there is any possibility of misunderstanding what is included, it is sometime
 Sub-story: The smallest unit of work that has value for our customers
 
 ### Studies
+- [Using 6 Page and 2 Page Documents To Make Organizational Decisions]
 
 #### Template
 - Objectifs de l'étude

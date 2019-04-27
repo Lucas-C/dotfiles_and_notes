@@ -4,8 +4,6 @@
 // @version      0.1
 // @description  Allow to navigate through Evan Dahm's online comics with arrow keys: Rice Boy, Order of Tales & Vattu
 // @author       Lucas Cimon
-// @match        https://tampermonkey.net/index.php?version=4.8.5847&ext=fire&updated=true
-// @grant        none
 // @include      http://www.rice-boy.com/order/index.php?c=*
 // @include      http://www.rice-boy.com/see/index.php?c=*
 // @include      http://www.rice-boy.com/vattu/index.php?c=*

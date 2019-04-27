@@ -29,6 +29,8 @@ Limite de roles dans interface web => plugins Chrome / Firefox pour plus de cont
         echo $(aws logs get-log-events --log-group-name $logGroup --log-stream-name $logStream | jq -r .events[].message) \
     done > $logGroup-events.log
 
+    lucagrulla/cw: The best way to tail AWS CloudWatch Logs from your terminal
+
 ## Architecturing on AWS class notes
 
 AWS Technical Essentials: https://aws.amazon.com/fr/training/course-descriptions/essentials/

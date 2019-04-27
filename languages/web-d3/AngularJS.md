@@ -47,6 +47,7 @@ http://aosabook.org/en/500L/web-spreadsheet.html : demonstrate interesting ES6 f
     var scope = angular.element($0).scope()
     var $rootScope = angular.element(document.body).scope() // if <body> has the 'ng-app' attribute
     angular.element($('div.vboardPinboard')).controller()
+    angular.element($('#some-element-id')).scope()
     scope.$$watchers // useful to debug ng-repeat perf issues
 
     var injector = angular.element(document.body).injector()

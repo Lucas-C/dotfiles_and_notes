@@ -25,7 +25,7 @@ man ascii # display ASCII table
 cal / ncal -w # quick calendar - Also: calcurse, wyrd
 look # find English words (or lines in a file) beginning with a string
 
-# 'top' < 'htop'
+# top
 * display full command path of processes : "c"
 * sort column highlighting : Press "x"
 * sorting : Pick a column with "<" & ">"
@@ -37,6 +37,9 @@ RES: resident size, how much actual physical memory a process is consuming (heap
 DATA is the amount of VIRT used that isn't shared and that isn't code-text; i.e., it is the virtual stack and heap of the process
 SHR: how much of the VIRT size is actually sharable memory or libraries
 SWAP: bogus
+# htop > top
+- Hide userland threads : https://askubuntu.com/a/312543/185582
+
 pstree -p [$OPT_PID] # hierarchy of processes
 
 pgrep -f $procname_pattern | xargs ps -fp # or kill - Alt: pidof $procname

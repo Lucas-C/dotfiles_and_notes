@@ -93,6 +93,7 @@ PYTHONHOME : Python interpreter directory
 PYTHONCASEOK : case insensitive module names (useful under Windows)
 PYTHONIOENCODING : force default encoding for stdin/stdout/stderr
 PYTHONHASHSEED : change seed hash() (=> more secure VM)
+PYTHONUNBUFFERED=1  # required to flush logs in docker-compose -> https://github.com/docker/compose/issues/4837#issuecomment-302765592
 
 sys.meta_path  # a list of *finder* objects that have their find_module() methods called to see if one of the objects can find the module to be imported - cf. PEP 302
 
@@ -150,7 +151,7 @@ m.group('word')
 re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions - Alt, more efficient lib: flashtext
 eriknyquist/librxvm # non-backtracking NFA-based regular expression library, for C and Python - Alt: xysun/regex
 vi3k6i5/flashtext # Extract Keywords from sentence or Replace keywords in sentences
-pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR - cf. https://tomassetti.me/parsing-in-python/
+pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR - cf. https://tomassetti.me/parsing-in-python/ & lark-parser/lark for Earley & LALR(1)
 pycparser # C language code parser
 parso # a Python parser
 
@@ -357,6 +358,7 @@ collections.defaultdict # autovivification: def tree(): return defaultdict(tree)
 
 isinstance(obj, collections.Hashable)
 
+list.sort() is slightly faster & memory efficient than sorted(list)
 collections.OrderedDict # remember insertion order
 OrderedDict(sorted(d.iteritems(), key=lambda e: e[1])) # sort a dict by its values
 grantjenks/sorted_containers # faster: SortedList, SortedDict, SortedSet
@@ -540,6 +542,13 @@ False == (False in [False]) # False
 defaultdict(int)['foo']      # 0
 defaultdict(int).get('foo')  # None
 
+e = 2.718
+try:
+    1/0
+except ZeroDivisionError as e:
+    pass
+print(e)  # raise a NameError - cf. https://pydist.com/blog/python-except
+
 
 """""""""""""""""""""""""
 "" Functional Programming
@@ -676,6 +685,12 @@ coverage report # ASCII report - Alt: html, xml
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried), google/yapf
 pyreverse # UML diagrams, integrated in pylint
+
+Dobiasd/enterprython # type-based dependency-injection
+carta/flipper-client # feature flipping engine
+
+joeyespo/grip # preview GitHub Markdown files locally before committing them
+vaab/gitchangelog # creates a changelog from git log history - I configured it for keepachangelog.com format on the Hesperides project
 
 
 """""""""""""
@@ -893,6 +908,9 @@ exec compiled
 
 from dis import dis; dis(myfunc) # get dissassembly - Also, to extend Python with x86 asm modules: https://p403n1x87.github.io/python/assembly/2018/03/23/asm_python.html
 uncompyle2 prog.pyc # bytecode -> python code
+from elftools.elf.elffile import ELFFile # eliben/pyelftools - parse ELF and DWARF formats
+capstone # multi-platform, multi-architecture disassembly framework
+
 neuroo/equip # bytecode instrumentation, e.g. insert call counters logic into .pyc
 foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')) # bytecode evil alteration
 astor / astunparse # AST 'unparse' : tree -> source
@@ -1097,7 +1115,7 @@ ryanfox/retread # detect reused frames in video
 imageio.mimsave('/movie.gif', images) # lib based on Numpy + Pillow, to read / write a wide range of image data, including animated images, video, volumetric data, and scientific formats
 neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF generation
 cairo # graphics library outputting .ps .pdf .svg & more
-pyPdf
+pyPdf # Alt: pdfrw - Tuto to extract info / rotate / merge / split / add watermark / encrypt : https://realpython.com/pdf-python/
 wand (ImageMagick binding), pillow > pil # Python Image Library
 exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags - Alt for edit: piexif
 python-thumbnails # generates images thumbnails, e.g. for your website
@@ -1472,6 +1490,10 @@ with open(sys.argv[1]) as csv_file:
         writer.writerow(row)
 aspy.yaml, yaml # !!! yaml.load() is an unsafe operation ! Use yaml.safe_load() - Also: beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 ruamel # YAML parser / writer with support for roundtrip comments
+def extract_comments_from_yaml_ordereddict(d):
+    for pair in d.ca.items.values():
+        for comment_token in pair[1]:
+            yield comment_token.value
 imbal/safeyaml # a linter for YAML as an aggressively small subset of YAML
 toml # TOML parser - Alt: TOML Kit, a parser that preserves all comments, indentations, whitespace and internal element ordering
 cPickle # binary format, generic, fast & lighweight - DO NOT USE IT ! -> "untrusted pickles can execute arbitrary Python code" + "you can’t even easily tell which classes are baked forever into your pickles" -> Alt: eeve/camel PyYaml-based serialization (inc. versionning & use YAML metadata)
@@ -1572,7 +1594,7 @@ from enum import Enum, IntEnum
 from functools import \
         singledispatch, \ @foo.register(int) def _(obj, verbose=False): ...
     total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
-    lru_cache # memoize / cache for pure functions ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property ; or boltons.cacheutils.LRI / boltons.cacheutils.LRU
+    lru_cache # memoize / cache for pure functions - avoid using it as a decorator so that the cache is local and not module-global ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property ; or boltons.cacheutils.LRI / boltons.cacheutils.LRU
 
 collections.ChainMap({}, d1, d2) # view of multiple dicts - Hidden Py2.7 backport: from ConfigParser import _Chainmap as ChainMap - Alt: Py2ChainMap
 

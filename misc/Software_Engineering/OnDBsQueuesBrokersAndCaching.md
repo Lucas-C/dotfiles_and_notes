@@ -207,6 +207,8 @@ This allows a single, large table to be physically stored as separate tables, fo
 
 #### SQLite
 
+[DB browser for SQLite](https://sqlitebrowser.org)
+
 https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html
 
     sqlite3 extensions.sqlite 'select id, optionsURL from addon;' # Firefox extensions

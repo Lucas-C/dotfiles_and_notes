@@ -54,7 +54,7 @@ phishing        sniffer  redirections +---->orce brute
 
 ### Reverse engineering
 radare2 : unix-like reverse engineering framework and commandline tools
-
+capstone : multi-platform, multi-architecture disassembly framework, with Python bindings
 
 ## Exploitation
 iKAT : gain access to the underlying OS in Kiosk (browser) restricted environment http://ikat.ha.cked.net/Windows/index.html
@@ -91,10 +91,6 @@ http://pwnwiki.io/#!presence/windows/blind.md # read common Windows files to dis
 https://github.com/rootm0s/WinPwnage #  💻 Elevate, UAC bypass, persistence, privilege escalation, dll hijack techniques
 
 
-## Reporting
-
-
-
 # Other
 
 ## Frameworks
@@ -107,18 +103,16 @@ https://n0where.net/popular-pentesting-scanner-v3n0m Python pentesting scanner
 ## Dependency checking
 maven check deps: https://blog.lanyonm.org/articles/2015/12/22/continuous-security-owasp-java-vulnerability-check.html
 
-
 ## Cryptography
 SSL3 est mort depuis 2015/12/22/continuous-security-owasp-java-vulnerability-check
 PBKDF2 : new Public-Key Cryptography Standard
-
 
 ## Obfuscation
 shc : Bash Shell Script Compiler, converts shell scripts directly into binaries http://www.datsi.fi.upm.es/~frosal/
 -> uncompile with yanncam/UnSHc
 
 ## Reference orgs
-OWASP: https://www.owasp.org/index.php/OWASP_Cheat_Sheet_Series
+OWASP: https://www.owasp.org/index.php/OWASP_Cheat_Sheet_Series + https://github.com/OWASP/CheatSheetSeries/blob/master/Index.md
 General Data Protection Regulation
 Organismes d'Importance Vitale
 

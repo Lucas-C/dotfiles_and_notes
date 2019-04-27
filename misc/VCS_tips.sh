@@ -1,6 +1,6 @@
 - [5 Useful Tips For A Better Commit Message](https://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message)
 - adopt a convention in the shortname, like a prefix: [$issue_number] - DEV|BUGFIX - ...
-- [Semantic Commit Messages](https://seesparkbox.com/foundry/semantic_commit_messages)
+- [Semantic Commit Messages](https://seesparkbox.com/foundry/semantic_commit_messages) -> [Conventional Commits](https://www.conventionalcommits.org)
 
 #-----#
 # SVN #
@@ -184,6 +184,8 @@ HOST=git-codecommit.us-west-1.amazonaws.com
 awssec.py -u $USER
 export $(echo -e "protocol=https\npath=/v1/repos/${REPO_NAME}\nhost=${HOST}" | aws codecommit credential-helper --profile ${PROFILE} get)
 curl -v -u "$username:$password" https://${HOST}/v1/repos/${REPO_NAME}.git/info/refs?service=git-receive-pack 2> >(grep '< HTTP')
+
+Git bomb: https://kate.io/blog/making-your-own-exploding-git-repos/
 
 
 ++++++

@@ -69,8 +69,10 @@ airlift/aircompressor // A port of Snappy, LZO and LZ4 compression libs in pure 
 
 OpenJDK JMH // Benchmark tool
 
-Buildr, Fradle > ant, maven // build systems
 jib // build Java Docker images with a flat classpath for better caching - cf. https://ro14nd.de/jib-vs-dmp
+-XX:+UseContainerSupport / -XX:+UseCGroupMemoryLimitForHeap requires -XX:+UnlockExperimentalVMOptions // cf. https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e
+
+Buildr, Fradle > ant, maven // build systems
 mvn dependency:tree
 mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
 mvn buildplan:list # shows how goals are bound to phases - buildplan-maven-plugin from fr.jcgay.maven.plugins - Alt: https://github.com/skuro/plan-maven-plugin

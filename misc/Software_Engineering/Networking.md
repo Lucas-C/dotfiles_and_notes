@@ -28,13 +28,19 @@ Example, to watch Elasticsearch native Java protocol traffic:
     Time per request:       0.861 [ms] (mean)
     $ boom -n 10 http://my.json/service # Python package
 
-### SOP
+### Single Origin Policy
 
-Techniques for Bypassing the Single Origin Policy
+Techniques for Bypassing the SOP:
 - CORS : beware of the wildcard !
 - JSONP (JSON with Padding) : either (1) ensure that a JSONP request never returns sensitive data, or (2) use another mechanism in place of cookies (e.g., secret tokens) to authorize the request
 - The document.domain property relaxation:  2 documents from distinct origins communicate by setting their domain properties to a common value
 - PostMessage/ReceiveMessage browser API : "it is the responsibility of the receiving document to additionally check the srcOrigin parameter to ensure that the message is coming from a trustworthy document."
+
+## IP
+RFC 1918 – "Address Allocation for Private Internets" :
+- 10.0.0.0 – 10.255.255.255
+- 172.16.0.0 – 172.31.255.255
+- 192.168.0.0 – 192.168.255.255
 
 ## TCP
 - reception acknowledged, packets ordered
