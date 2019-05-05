@@ -50,10 +50,11 @@ def parse_args():
     parser.add_argument('login_mapping_file', help=' ')
     parser.add_argument('--dry-run', action='store_true', help=' ')
     parser.add_argument('--ignore-ldap-certs', action='store_true', help=' ')
+    args = parser.parse_args()
     for var in ('GITHUB_API_TOKEN', 'LDAP_URL', 'LDAP_DC', 'LDAP_BIND_USER', 'LDAP_PASSWORD'):
         if var not in os.environ:
             raise EnvironmentError('The {} environment variable must be defined'.format(var))
-        settattr(args, var.lower(), os.environ[var])
+        setattr(args, var.lower(), os.environ[var])
     return args
 
 
