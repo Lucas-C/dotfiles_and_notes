@@ -190,9 +190,18 @@ In general, limit meetings by making them informal chats or doing them properly:
 
 Identify what's the main purpose of the meeting: **think & reflect**, **decide** or **inform**
 
+Décision commune par consensus, explitie : demander si quelqu'un a un concern / une objection.
+Si personne ne se manifeste -> adopté
+
 [Liberating Structures](http://www.liberatingstructures.com) 33 microstructures to replace more controlling or constraining meetings
-Ex: [1-2-4-All](http://www.liberatingstructures.com/1-1-2-4-all/) - 12min, "autoporté", _parallel processing_ - Attention: le choix de question posée est crucial
-+ problème peut être découpé en plusieurs ateliers pour diverger puis converger
+\+ problème peut être découpé en plusieurs ateliers pour diverger puis converger
+Exemples :
+- [1-2-4-All](http://www.liberatingstructures.com/1-1-2-4-all/) - 12min, "autoporté", _parallel processing_ - Attention: le choix de question posée est crucial
+- [Troika consulting](http://www.liberatingstructures.com/8-troika-consulting%20/) - 30min - by groups of 3 persons - in each round, one participant is the “client,” the others “consultants”
+
+ROTI (_Return On Time Invested_) : vote à main levée de 1 à 5, de excellent à inutile
+
+Dot Voting : une fois les idées listées (sous forme de post-its par exemple) chacun répartit N votes parmi elles (en traçant des bâtons)
 
 ### Collective tasks estimation
 - [Pour que les backlog grooming ne soient plus une corvée]:
