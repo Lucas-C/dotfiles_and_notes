@@ -99,6 +99,7 @@ w3af
 FuzzBunch -> used by the NSA : https://github.com/fuzzbunch/fuzzbunch
 wapiti -> modular & in Python, website "fuzzer", performs "black-box" scans of a web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data
 https://n0where.net/popular-pentesting-scanner-v3n0m Python pentesting scanner
+./gobuster -u http://ctf.example:12345 -w Filenames_or_Directories_All.wordlist  # file/directory scanner
 
 ## Dependency checking
 maven check deps: https://blog.lanyonm.org/articles/2015/12/22/continuous-security-owasp-java-vulnerability-check.html

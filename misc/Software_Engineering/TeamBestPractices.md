@@ -395,7 +395,7 @@ It’s available as a text editor application, a web app, and even a linter, if 
 > and take great care of the naming of each class, interface and public method whenever they represent domain concepts.
 > Add the description of the domain concept directly into the source code, as structured comments that can be extracted by a tool
 
-## Recruiting
+## Recruiting / recrutement
 - [HowFuckedUpIsYourManagement?]
 - prebrief, debrief, assigned competences, bar raiser
 - codility.com & cie
@@ -440,6 +440,10 @@ It’s available as a text editor application, a web app, and even a linter, if 
   > It’s important that all of the scoring and decision making is done independently to avoid anyone influencing anyone else.
   > Once a decision is made, feedback is given as quickly as possible : [this] will give the candidate a really good impression of you - even if the answer is a no.
 - [CRACKING the CODING INTERVIEW]: prep sheets for soft skills, coding skills, PM skills
+
+### Outils
+- cf. https://chezsoi.org/shaarli/?searchterm=&searchtags=Recruting+
+- http://collabedit.com
 
 ### Language-based question
 - Python:

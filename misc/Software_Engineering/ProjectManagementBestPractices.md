@@ -48,7 +48,7 @@ Project management best practices
 - Evolution de projet/carrière/etc. fréquente.
 - 1 journée par mois en mode "quicky/échange/etc."
 - Fêter les petites victoires comme les grandes !
-- Processus de recrutement exigent : coding, 2h de review, etc.
+- Processus de recrutement exigeant : coding, 2h de review, etc.
 
 ## Choosing the right techno
 - [AYoungLadysPrimerToTechnicalDecisionMaking], especially the Manifesto on slide 26

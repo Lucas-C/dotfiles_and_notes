@@ -206,6 +206,9 @@ goto:eof
 
 call:foo
 
+:: read %PASSWORD% secretely - cf. https://stackoverflow.com/a/20343074/636849
+for /f "usebackq tokens=*" %%p in (`powershell -Command "$pword = read-host 'Enter Password' -AsSecureString ; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)"`) do set PASSWORD=%%p
+
 
 '''''''''''''
 '' VBScript

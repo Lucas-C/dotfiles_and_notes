@@ -30,6 +30,12 @@ Console debug:
 
 # Angular 1.5
 
+one-way bindings : '<'
+
+Pour accéder à un formulaire depuis un contrôleur lorsqu'il y a des _nested scope_ intermédiaires dans l'arbre HTML : https://stackoverflow.com/a/23862411/636849
+À noter également que le formulaire n'est pas immédiatement disponible lors de l'initialisation du contrôleur.
+
+
 http://aosabook.org/en/500L/web-spreadsheet.html : demonstrate interesting ES6 features
 - redirect-based graceful degradation to ES5
 - `ng-model="sheet[col+row]" ng-change="calc()" ng-model-options="{debounce: 200}" ng-keydown="keydown($event, col, row)`
@@ -38,11 +44,15 @@ http://aosabook.org/en/500L/web-spreadsheet.html : demonstrate interesting ES6 f
 - `#${ col }${ row + direction }` : template string
 - web worker : why ? sandboxing + user can continue to navigate without getting blocked by computation in the main thread
 
-"The scope is not the model, the scope refers to the model"
-"Whenever you have ng-model there's gotta be a dot in there somewhere. If you don't have a dot, you're doing it wrong"
-  -> Misko Hevery's talk on AngularJS Best Practices
+> The scope is not the model, the scope refers to the model
 
-"Use the scope option to create isolate scopes when making **components** that you want to **reuse** throughout your app."
+> Whenever you have ng-model there's gotta be a dot in there somewhere. If you don't have a dot, you're doing it wrong
+-> Misko Hevery's talk on AngularJS Best Practices
+
+I can be just a matter of prefixing with `$ctrl.`
+Link: http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html
+
+> Use the scope option to create isolate scopes when making **components** that you want to **reuse** throughout your app.
 
     var scope = angular.element($0).scope()
     var $rootScope = angular.element(document.body).scope() // if <body> has the 'ng-app' attribute
@@ -57,10 +67,11 @@ http://www.thoughtworks.com/insights/blog/using-page-objects-overcome-protractor
 
 ui-router debug: http://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router/
 
-One-time bindings: {{::color}}
-.on() -> .one() // Once lony !
+One-time bindings: `{{::color}}`
 
-href="javascript:$.noop"
+`.on()` -> `.one()` // Once lony !
+
+    href="javascript:$.noop"
 
     $interpolate('Hello {{name | uppercase}}!')({name:'Angular'})
 

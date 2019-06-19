@@ -1,3 +1,4 @@
+data:text/html, <html contenteditable> // quick notepad
 
 // In Firefox Web Console
 javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
@@ -12,6 +13,7 @@ console.memory // JS heap info
 
 debugger // breakpoint for debugger
 performance.timing // and performance.memory : useful debugging informations
+performance.memory : jsHeapSizeLimit, totalJSHeapSize & usedJSHeapSize
 console.profile('profileName') & console.profileEnd('profileName')
 
 while (e.firstChild) { e.removeChild(e.firstChild); } >>faster>> e.innerHTML = ''

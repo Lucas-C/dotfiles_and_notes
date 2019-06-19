@@ -697,6 +697,7 @@ RCPT TO: <address-to-check@domain.com>
 
 w3m > elinks > links > lynx # http://askubuntu.com/questions/15988/browse-internet-inside-terminal
 lynx -dump -stdin # convert HTML to text
+tidy -modify --force-output yes -indent -wrap 160 -ashtml -utf8 --quiet yes --show-errors 0 $html_file || true # fault-tolerant HTML beautifier / prettifier
 wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com # Alt: axel.alioth.debian.org - can use multiple connections (and mirrors) to download one file
   -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
   -k --convert-links : convert the links in the document to make them suitable for local viewing

@@ -18,10 +18,14 @@ Continuous Delivery
 - [Container Training](https://github.com/jpetazzo/container.training)
 - [Multi-stages Docker images](https://blog.hasura.io/how-to-write-dockerfiles-for-python-web-apps-6d173842ae1d#d0a8)
 
+## general tips & tricks
+Waiting on a HTTP service to be up:
+
+    wget --waitretry=5 --retry-connrefused -T 60 -O - $ENDPOINT
+
 ## Git workflow
 - [TrunkBasedDevelopment](https://trunkbaseddevelopment.com) > Gitflow
 - very similar to [OneFlow](http://endoflineblog.com/oneflow-a-git-branching-model-and-workflow)
-
 
 ## Deployment automation & orchestration
 From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt & Puppet: simple & configurable enough + not to "dev-oriented" (cf. also omniti-labs/ansible-dk)
@@ -90,7 +94,7 @@ Retrieving an encrypted secret value from `credentials.xml` -> in Groovy script 
 Revealing a crendential in a pipeline:
 
     withCredentials([string(credentialsId: 'credentialsId', variable: 'TOKEN_ID')]) {
-        sh "bash -c 'echo \${TOKEN_ID:0:1} \${TOKEN_ID:1:-1}'"
+        sh "bash -c 'echo \${TOKEN_ID:0:1}\${TOKEN_ID:1:-1}'"
     }
 
 ### Pipeline Shared Libs

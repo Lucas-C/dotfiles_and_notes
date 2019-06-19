@@ -68,6 +68,7 @@ Software Development Best Practices
 - [11 proven practices for more effective, efficient peer code review](https://www.ibm.com/developerworks/rational/library/11-proven-practices-for-peer-review/)
 - [Best Kept Secrets of Peer Code Review](https://smartbear.com/SmartBear/media/pdfs/best-kept-secrets-of-peer-code-review.pdf)
 - [Ce que j’ai appris de mes 3000 Code Reviews](https://medium.com/@mickael_andrieu/ce-que-jai-appris-de-mes-3000-code-reviews-b0de1ee5ccee)
+- [DDD vite fait](https://www.infoq.com/fr/minibooks/domain-driven-design-quickly/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -232,6 +233,12 @@ useful tool to draw architecture diagrams: [yEd](https://www.yworks.com/products
 
 [The log/event processing pipeline you can't have] : very efficient, low tech, zero "big data" tool, praised by JMason
 -> reading notes: https://chezsoi.org/shaarli/?UJHL3Q
+
+A few notes on _Domain Driven Design_ cf. [DDD vite fait]:
+- a useful diagram in the PDF gather the major concepts
+- most important concept: _ubiquituous langage_, to exchange about the domain model.
+Everyone, both domain experts & devs, must be convinced of the importance of building such shared vocabulary, and idealy keep a glossary.
+- beware of _analysis paralysis_ : when teams start to be affraid to make conception decisions
 
 ### Resilience patterns
 FROM: https://docs.microsoft.com/en-us/azure/architecture/patterns/

@@ -549,6 +549,11 @@ except ZeroDivisionError as e:
     pass
 print(e)  # raise a NameError - cf. https://pydist.com/blog/python-except
 
+d = {}
+sys.getsizeof(d)  # 240
+d.clear()
+sys.getsizeof(d)  # 72 - cf. https://lerner.co.il/2019/05/12/python-dicts-and-memory-usage/
+
 
 """""""""""""""""""""""""
 "" Functional Programming
@@ -1168,6 +1173,13 @@ python -m twisted.conch.stdio # Twisted REPL
 asyncio.ensure_future # GOTO -> considered harmful
 dabeaz/curio # Python 3 alt implementation of coroutines, with a better design: https://veriny.tf/asyncio-a-dumpster-fire-of-bad-design/
 aiofiles # local disk files read/write in asyncio applications
+
+# Things I Wish They Told Me About The Multiprocessing Module in Python 3, with code examples - https://pyvideo.org/pycon-us-2019/things-i-wish-they-told-me-about-the-multiprocessing-module-in-python-3.html
+# #1: Don't Share, Pass Messages
+# #2: Always clean up after yourself
+# #3: Obey all Signals
+# #4: Don't ever wait forever
+# #5: Report, and log all the things
 
 # Python 3.4+ DefaultSelector uses the best select-like function available on your system - cf. http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
 
