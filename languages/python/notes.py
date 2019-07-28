@@ -292,7 +292,7 @@ class CustomGenerator(object): # minimal generator protocol
         yield stuff
         #OR
         return self # then must implement 'next(self)' (__next__ in Python3)
-@coroutine # == generator. This decorator is equivalent to a first call to .next()
+@coroutine # == asyncio generator. This decorator is equivalent to a first call to .next()
 def printer():
     while True:
         value = yield 'waiting'
@@ -848,7 +848,6 @@ from base64 import b64encode
 img_base64 = b64encode(img_bytes.getvalue()).decode('utf-8')
 from IPython.display import HTML
 HTML('<img src="data:image/png;base64,{0}"/>'.format(img_base64))
-colorsys # rgb / yiq / hls / hsv conversions
 
 # PDB tricks
 import sys; from subprocess import call; call(['/usr/bin/bash'], stderr=sys.stderr, stdin=sys.stdin, shell=True) # launch an interactive Bash session
@@ -1073,6 +1072,7 @@ stephenmcd/hot-redis, getsentry/rb, closeio/redis-hashring, fengsp/rc.Cache, col
 pylibmc # memcache client in C
 redash # generic DB interface / visualization for Redshift, Google BigQuery, PostgreSQL, MySQL, Graphite, Presto, Google Spreadsheets, Cloudera Impala, Hive
 cmu-db/ottertune # automatic DBMS configuration tool
+jeffknupp/sandman2 # automatically generate a RESTful API service for your legacy database
 
 
 """""""""""""""""""""""""""""""
@@ -1080,6 +1080,11 @@ cmu-db/ottertune # automatic DBMS configuration tool
 """""""""""""""""""""""""""""""
 twobraids/configman > argparse (with fromfile_prefix_chars='@' to allow arguments definition in a @file) > optparse # Alt: begins > docopt, clize, click - Also: neat quick GUI compatible with argparse: chriskiehl/Gooey
 class ArgparseHelpFormatter(argparse.RawTextHelpFormatter, argparse.ArgumentDefaultsHelpFormatter): pass
+class ArgparseHelpFormatter(argparse.RawTextHelpFormatter):
+    def _get_help_string(self, action):  # Inspiré de ArgumentDefaultsHelpFormatter mais affiche les valeurs par défaut non-nulles
+        if "%(default)" not in action.help and action.default not in (argparse.SUPPRESS, None):
+            action.help += " (default: %(default)s)"
+        return action.help
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=ArgparseHelpFormatter, fromfile_prefix_chars='@', parents=[parent_parser], conflict_handler='resolve', allow_abbrev=False)
 parser_group = parser.add_mutually_exclusive_group(required=True)
 parser_group.add_argument(... type=argparse.FileType('r')) # or with the helper func below: action=argparse_store_command(func_do_cmd1) and after parsing: args.command(args)
@@ -1132,12 +1137,16 @@ fogleman/Tiling # pavages
 graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
 
+colorsys # rgb / yiq / hls / hsv conversions
+makkoncept/colorpalette # Flask app that extracts palette of dominating colors from image - heroku app available
+
 anishathalye/neural-style # an implementation of neural style in TensorFlow
 
 Tkinter, EasyGui, EasyDialogs (MacOSX), optparse_gui (last update 2008)
 Kivy # GUI inc. multi-touch support, packaged with PyInstaller
 wxPython # port of C++ wxWidgets
 ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - ALt: cztomczak/cefpython
+curses # terminal dialogs/interface - Ex: https://gist.github.com/claymcleod/b670285f334acd56ad1c
 
 jlsutherland/doc2text # OCR poorly scanned PDFs in bulk
 
@@ -1256,7 +1265,6 @@ response = requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_r
 if 400 <= response.status_code < 600:
     raise requests.HTTPError(str(response.status_code) + '\n' + response.text)
 status_string = requests.status_codes._codes[404][0]; status_string = ' '.join(w.capitalize() for w in status_string.split('_')) # Alt: httplib.responses, cf. HTTP_STATUS_LINES in Bottle code: http://bottlepy.org/docs/dev/bottle.py
-# pylint: disable=too-many-arguments
 def passthrough_http_proxy(http_proxy, real_request_url):
     proxy_host, proxy_port = http_proxy.split(':')
     class HTTPProxyAdapter(requests.adapters.HTTPAdapter):
@@ -1434,6 +1442,11 @@ class InvalidVarException(object):
 TEMPLATE_STRING_IF_INVALID = InvalidVarException()
 
 <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
+
+import logging as l
+lg = l.getLogger('django.db.backends')
+lg.setLevel(l.DEBUG)
+lg.addHandler(l.StreamHandler()) # Pour que le SQL de tous vos appels à la BDD soient affichés dans le terminal
 
 
 """""""""""""""""""""""""

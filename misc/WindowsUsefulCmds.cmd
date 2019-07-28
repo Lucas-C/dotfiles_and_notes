@@ -110,7 +110,6 @@ Windows Master Control Panel shortcut: {ED7BA470-8E54-465E-825C-99712043E01C}
 - Defrag
 - désactiver l'indexation des disques
 - perfmon.exe /res / resmon.exe / Sysinternals ProcessExplorer (select File > "Show Details for All Processes" to display network usage)
-- Farbar Service Scanner : http://www.bleepingcomputer.com/download/farbar-service-scanner/dl/62
 
 ::: Deeper clean-up/checks
 sfc /scannow &:: To restore system files
@@ -120,6 +119,7 @@ DISM.exe /Online /Cleanup-image /Scanhealth &:: on Win7, one needs to run KB9478
 :: -> when you run this command, DISM uses Windows Update to provide the files that are required to fix corruptions. However, if your Windows Update client is already broken, use a running Windows installation as the repair source, or use a Windows side-by-side folder from a network share or from a removable media, such as the Windows DVD, as the source of the files. To do this, run the following command instead:
 DISM.exe /Online /Cleanup-Image /RestoreHealth /Source:C:\RepairSource\Windows /LimitAccess
 findstr /c:"[SR]" %windir%\logs\cbs\cbs.log >sfcdetails.txt &:: to read CBS.Log
+net stop wuauserv && del /q /s C:\Windows\SoftwareDistribution\* && net start wuauserv :: FROM: https://www.malekal.com/vider-catalogue-softwaredistribution-mise-a-jour-windows-update/
 
 ::: Install Windows Update .msu without looking for updates
 sc query wuauserv | find "RUNNING"  &:: check that it is running (it restarts every minute or so)

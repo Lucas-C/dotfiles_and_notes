@@ -1,27 +1,28 @@
 Note: Sadly, I cannot find the original challenge on codingame.com :(
 All I remember is that it was a blackbox puzzle where all you had was text inputs/outputs, and a final "Game Over" message.
+And I loved it ;)
 
-TODO:
-- make `py.test hero_explorerinstinct.py` pass in order to have proper exploration logic
+**Ideas / next steps / WIP**:
+
+- make hero able to beat AI: `python AnswerRunner.py level0.txt ia_exploring_and_chasing.py`
+- strengthen `AutonomousRunner.py` unit tests so that `zipapp.sh` "black box mode" never crashes unexpectedly
+- make `hero_ghostcloseby.py` functions aware of walls so that the hero does not fear ghosts behind them
+- build other levels
 - guess CodingGame scoring
-- take a glance at Cygwin mkfifo code
 
 
 # Runner usage
 
-    mkfifo fifo0 fifo1; ./Runner.py level0.txt ia_exploring_and_chasing.py > fifo0 < fifo1 & ./Answer.py < fifo0 > fifo1
+    ./AutonomousRunner.py
 
-Alt:
+# Black box enigma
 
-    (coproc ./Runner.py level0.txt ia_exploring_and_chasing.py; eval "exec ./Answer.py <&${COPROC[0]} >&${COPROC[1]}")
-
-Note: this does not seem to run properly under Cygwin.
-
+    ./zipapp.sh
 
 # Conventions
 
-INIT: Y X Z
-Per-round: a b c d & coords
+- INIT: Y X Z
+- Per-round: a b c d & coords
 
 
 # Deductions

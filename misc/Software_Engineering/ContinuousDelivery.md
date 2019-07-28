@@ -174,9 +174,21 @@ docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you ne
 
 Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
 
+### Container build best practices
+
+_cf._ Hesperides & VBoard
+
+- 2-stages builds
+- `envsubst` from package `gettext`
+- support `$JAVA_OPTS`
+- `HEALTHCHECK`
+- Maven dependencies caching : [`mvn dependency:go-offline`](https://medium.com/@nieldw/caching-maven-dependencies-in-a-docker-build-dca6ca7ad612)
+
 ### Inspecting Docker labels / image hashes / secrets
 
     docker inspect --format $'{{ range $k, $v := .Config.Labels }}{{$k}}={{$v}}\n{{ end }}' $container_id  # Unix-only because of $'...' format
+    docker container inspect --format '{{.NetworkSettings.IPAddress}}' $container_id
+    docker container inspect --format '{{json .NetworkSettings.Networks}}' $container_id
 
 Listing running containers with their labels:
 

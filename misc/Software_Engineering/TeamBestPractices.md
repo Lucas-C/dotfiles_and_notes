@@ -21,7 +21,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [AuthoringStyleGuide](https://github.com/tooling/authoring-styleguide)
 - [TeachDontTell](http://stevelosh.com/blog/2013/09/teach-dont-tell/)
 - [BeautifulDocs](https://github.com/PharkMillups/beautiful-docs)
-- [WriteTheDocs](http://docs.writethedocs.org)
+- [WriteTheDocs](https://www.writethedocs.org)
 - [WhatToWrite](http://jacobian.org/writing/what-to-write/)
 - [FrontendJobInterviewQuestions](https://github.com/h5bp/Front-end-Developer-Interview-Questions) & [Front End Interview Handbook](https://github.com/yangshun/front-end-interview-handbook)
 - [#gamedev Lead Quick Start Guide](http://web.archive.org/web/20140701034212/http://www.altdev.co/2013/11/05/gamedev-lead-quick-start-guide/)
@@ -340,6 +340,7 @@ Learning is the goal during post-mortems (cf. [Learning Through Blameless Review
   * Partir d'une défaillance trop générale
   * Modéliser ce qui n'est pas de son ressort
   * En faire à chaque fois
+- cf. [PostMortemTemplate.md](PostMortemTemplate.md)
 
 ### Chaos Engineering aka Resilience Testing
 Présentation par Sylvain Hellegouarch:

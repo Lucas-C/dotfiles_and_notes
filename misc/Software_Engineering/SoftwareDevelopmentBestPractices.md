@@ -69,6 +69,7 @@ Software Development Best Practices
 - [Best Kept Secrets of Peer Code Review](https://smartbear.com/SmartBear/media/pdfs/best-kept-secrets-of-peer-code-review.pdf)
 - [Ce que j’ai appris de mes 3000 Code Reviews](https://medium.com/@mickael_andrieu/ce-que-jai-appris-de-mes-3000-code-reviews-b0de1ee5ccee)
 - [DDD vite fait](https://www.infoq.com/fr/minibooks/domain-driven-design-quickly/)
+- [Rachel Kroll Reliability list](http://rachelbythebay.com/w/2019/07/21/reliability/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -256,6 +257,12 @@ Named because it resembles the sectioned partitions of a ship's hull: if it is c
 - Compensating Transaction : Undo the work performed by a series of steps, which together define an eventually consistent operation.
 - Extensive Parameter Checking: often neglected
 > Be conservative in what you send, be liberal in what you accept (Postel's law / Robustness principle)
+
+[Rachel Kroll Reliability list]:
+- rollbacks need to be possible 
+- new states (enums) need to be forward compatible 
+- more than one person should be able to ship a given binary.
+- using weak or ambiguous formats for storage will get us in trouble
 
 ### APIs, REST vs RPC, microservices
 

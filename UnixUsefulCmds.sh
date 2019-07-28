@@ -149,7 +149,7 @@ ok_or_ko () { return; }; ok_or_ko
 ok_or_ko () { return 256; }; ok_or_ko # !!GOTCHA!! Returns 0
 ok_or_ko () { return -1; }; ok_or_ko
 
-bash -n $script # Check syntax without executing
+bash -n $script # Check syntax without executing - More powerful alt in Haskell: koalaman/shellcheck
 bash --debugger $script
 bash --posix # => $POSIXLY_CORRECT=y
 

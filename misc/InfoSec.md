@@ -53,8 +53,11 @@ phishing        sniffer  redirections +---->orce brute
 ## Vulnerability Analysis
 
 ### Reverse engineering
+cf. https://www.reddit.com/r/ReverseEngineering
 radare2 : unix-like reverse engineering framework and commandline tools
 capstone : multi-platform, multi-architecture disassembly framework, with Python bindings
+GDB-PEDA : open-source Python Exploit Development Assistance for GDB - Tuto: https://osandamalith.com/2019/02/11/linux-reverse-engineering-ctfs-for-beginners/
+GHIDRA : An open-source software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate
 
 ## Exploitation
 iKAT : gain access to the underlying OS in Kiosk (browser) restricted environment http://ikat.ha.cked.net/Windows/index.html

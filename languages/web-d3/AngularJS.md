@@ -63,6 +63,8 @@ Link: http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html
     var injector = angular.element(document.body).injector()
     injector.get('serviceName')
 
+    <pre><code>{{ scopeAttribute | json }}</code></pre>
+
 http://www.thoughtworks.com/insights/blog/using-page-objects-overcome-protractors-shortcomings
 
 ui-router debug: http://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router/

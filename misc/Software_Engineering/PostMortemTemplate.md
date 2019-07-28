@@ -1,3 +1,5 @@
+![](AleksiBriclot-PostMortem.jpg)
+
 ## Liste des post-mortems
 
 ...

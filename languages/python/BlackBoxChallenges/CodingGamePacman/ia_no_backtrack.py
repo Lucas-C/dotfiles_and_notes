@@ -3,12 +3,10 @@
 # - choose a random next position, that is NOT its previous one
 
 import random
-from ia_utils import adjacent_moves, get_blocked_coords
+from ia_utils import get_allowed_moves
 
 def compute_ghost_pos(pos, level, memory):
-    moves = adjacent_moves(pos)
-    for blocked_pos in get_blocked_coords(list(moves), level):
-        moves.remove(blocked_pos)
+    moves = get_allowed_moves(pos, level)
     if not moves:
         return pos
     if len(moves) == 1:

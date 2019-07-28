@@ -2,8 +2,8 @@
 #--------------------------------------------------------------------------------------------------#
 import sys
 
-DIST_WHERE_GHOSTS_ARE_A_POTENTIAL_THREAT = 7
-DIST_WHERE_GHOSTS_ARE_A_DEFINITIVE_THREAT = 5
+DIST_WHERE_GHOSTS_ARE_A_POTENTIAL_THREAT = 9
+DIST_WHERE_GHOSTS_ARE_A_DEFINITIVE_THREAT = 7
 
 BLOCK_RISK = {
     '#': 0,
