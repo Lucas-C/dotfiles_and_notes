@@ -52,7 +52,7 @@ def main(level, ia_name_or_path='ia_exploring_and_chasing', hero_strat_name='opt
         pacman_dir = answer.iteration(*iter_args)
         if sleep:
             time.sleep(sleep)
-        print(pacman_dir, file=sys.stderr)
+        debug_print(pacman_dir)
         move_pacman(level, pacman_dir)
         for i, old_ghost_pos in enumerate(ghosts):
             set_tile(level, old_ghost_pos, '_')

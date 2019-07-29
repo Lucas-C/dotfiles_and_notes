@@ -1,7 +1,5 @@
 **Ideas / next steps / WIP**:
 
-- build a rand level generator (using a `$SEED` env var)
-
 
 # Runner usage
 
