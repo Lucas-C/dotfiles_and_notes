@@ -2,6 +2,8 @@ Note: Sadly, I cannot find the original challenge on codingame.com :(
 All I remember is that it was a blackbox puzzle where all you had was text inputs/outputs, and a final "Game Over" message.
 And I loved it ;)
 
+This project became https://framagit.org/Lucas-C/python-blackbox-challenges
+
 **Ideas / next steps / WIP**:
 
 - make hero able to beat AI: `python AnswerRunner.py level0.txt ia_exploring_and_chasing.py`

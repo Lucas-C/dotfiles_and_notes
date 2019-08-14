@@ -31,7 +31,7 @@ def parse_args():
     parser.add_argument('--explicit', action='store_true', help='Makes it easier by providing detailed error messages')
     parser.add_argument('--iteration-sleep', type=float, default=.1, help='Time to sleep between loops')
     return parser.parse_args()
-    
+
 
 def main(level, ia_name_or_path='ia_exploring_and_chasing', hero_strat_name='optimal', sleep=.1):
     ghosts = list(get_ghosts_pos(level))
@@ -45,7 +45,7 @@ def main(level, ia_name_or_path='ia_exploring_and_chasing', hero_strat_name='opt
     answer = hero_strat_module.Answer(*init_args)
 
     while True:
-        iter_args = []        
+        iter_args = []
         def write_output(*args):
             iter_args.append(' '.join(map(str, args)))
         print_cg_formatted_level(write_output, level, ghosts)

@@ -96,6 +96,10 @@ Returning several values from `then` (so that you can chain it with `then(functi
         return $q(function (resolve) { resolve(data[0], data[1]); });
     }).then (function (d0, d1) { ...
 
+**Perf issues** analysis :
+
+- https://github.com/kentcdodds/ng-stats (with a very handy bookmarklet)
+- [`getWatchers`](https://medium.com/@kentcdodds/counting-angularjs-watchers-11c5134dc2ef)
 
 Testing $resource-based services (from http://stackoverflow.com/a/18523642/636849) using jasmine-jquery to load fixtures without $http:
 
