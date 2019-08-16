@@ -392,7 +392,7 @@ ijson  # battle-tested, fantastically more memory-efficient
 ultrajson >faster> simplejson >faster>(not in my experience on CSC in Py3) json  # Also: mitghi/cyjson - Note for ultrajson: it can fail silently: https://github.com/esnme/ultrajson/issues/134 - Good read: https://blog.ionelmc.ro/2015/11/22/memory-use-and-speed-of-json-parsers/
 def sets_converter(obj): return list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
-for error in jsonschema.Draft4Validator(schema).iter_errors(data):
+for error in jsonschema.Draft4Validator(schema).iter_errors(data): # Alt: kwalify - YAML/JSON validation library based on a schema
     print('#/' + '/'.join(map(str, error.path)), error.message)
 jsondiff
 jmespath # query language for JSON, ex: foo.*.bar[*].name[-1]
