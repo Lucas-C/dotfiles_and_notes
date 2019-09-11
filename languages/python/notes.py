@@ -375,7 +375,7 @@ dict.__missing__ # invoked for missing items
 assert d == dict(**d)  # !!WARNING!! only works if `d` keys are strings
 dict(y, **x) # union of dicts, duplicates are resolved in favor of x !!WARNING!! only works if `d` keys are strings - Prefer the following in 3.5+ : {**defaults, **user}
 
-class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308 - or simply use types.SimpleNamespace
+class Bunch(dict): # or inherit from defaultdict - http://code.activestate.com/recipes/52308 - or simply use types.SimpleNamespace or argparse.Namespace
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
 def Tree(): # fs = Tree(); fs['all']['the']['way']['down']
@@ -1280,6 +1280,21 @@ def passthrough_http_proxy(http_proxy, real_request_url):
         response = session.get(real_request_url)
         response.raise_for_status()
         return response.text
+class HttpSession(Session):
+    'Allow to configure once and for all timeout, headers & verify parameters'
+    def __init__(self, *args, **kwargs):
+        self.timeout = kwargs.pop('timeout', None)
+        self.verify = kwargs.pop('verify', True)
+        extra_headers = kwargs.pop('headers', {})
+        Session.__init__(self, *args, **kwargs)
+        self.headers.update(extra_headers)
+    # Override: https://github.com/psf/requests/blob/v2.22.0/requests/sessions.py#L466
+    def request(self, *args, **kwargs):
+        if 'timeout' not in kwargs:
+            kwargs['timeout'] = self.timeout
+        if 'verify' not in kwargs:
+            kwargs['verify'] = self.verify
+        return Session.request(self, *args, **kwargs)
 responses/httmock # a mocking library for requests - Alt: getsentry/responses
 betamaxpy/betamax # VCR/Wiremock-like HTTP mock: record & replay requests - cf. also: kevin1024/vcrpy
 HTTPretty # Testing HTTP requests without any server, acting at socket-level

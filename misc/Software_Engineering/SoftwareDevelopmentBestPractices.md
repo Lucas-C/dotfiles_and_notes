@@ -70,6 +70,7 @@ Software Development Best Practices
 - [Ce que j’ai appris de mes 3000 Code Reviews](https://medium.com/@mickael_andrieu/ce-que-jai-appris-de-mes-3000-code-reviews-b0de1ee5ccee)
 - [DDD vite fait](https://www.infoq.com/fr/minibooks/domain-driven-design-quickly/)
 - [Rachel Kroll Reliability list](http://rachelbythebay.com/w/2019/07/21/reliability/)
+- [Google Code Review Developer Guide](https://google.github.io/eng-practices/review/)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -259,8 +260,8 @@ Named because it resembles the sectioned partitions of a ship's hull: if it is c
 > Be conservative in what you send, be liberal in what you accept (Postel's law / Robustness principle)
 
 [Rachel Kroll Reliability list]:
-- rollbacks need to be possible 
-- new states (enums) need to be forward compatible 
+- rollbacks need to be possible
+- new states (enums) need to be forward compatible
 - more than one person should be able to ship a given binary.
 - using weak or ambiguous formats for storage will get us in trouble
 
@@ -491,6 +492,7 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
   6. Never say “you”
   7. Frame feedback as requests, not commands
   8. Tie notes to principles, not opinions
+* [Google Code Review Developer Guide]
 
 #### Code reviews guidelines
 [#CODE REVIEW Ce truc qui ne sert à rien @scharrier]

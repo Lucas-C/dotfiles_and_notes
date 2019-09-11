@@ -10,19 +10,22 @@ from twilio.rest import Client
 # Interesting twilio widget: https://www.twilio.com/labs/twimlets/menu
 # Alt: bandwidth, nexmo, plivo, sinch
 
-def main(argv):
-    client = Client(os.environ['TWILIO_ACCOUNT_SID'], os.environ['TWILIO_AUTH_TOKEN'])
+def main():
+    if len(sys.argv) < 2:
+        raise ValueError('Missing destination number arg. 1st Twilio source number available: {}'.format(src_phone_number))
+    send_text_msg(os.environ['TWILIO_ACCOUNT_SID'],
+                  os.environ['TWILIO_AUTH_TOKEN'],
+                  sys.argv[1], sys.stdin.read())
+
+def send_text_msg(account_sid, auth_token, dst_phone_number, message)
+    client = Client(account_sid, auth_token)
     src_phone_number = client.incoming_phone_numbers.list()[0].phone_number
     print('src_phone_number=', src_phone_number)
-    if len(sys.argv) < 2:
-        print('Missing destination number arg. 1st Twilio source number available: {}'.format(src_phone_number))
-        return
-    dst_phone_number = sys.argv[1]
-    message = client.messages.create(body=sys.stdin.read(), from_=src_phone_number, to=dst_phone_number)
+    message = client.messages.create(body=message, from_=src_phone_number, to=dst_phone_number)
     while message.status != 'delivered':
         time.sleep(1)
         message = client.messages.get(message.sid).fetch()
         print(message.status, message.date_sent)
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()
