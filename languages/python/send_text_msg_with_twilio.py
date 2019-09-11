@@ -17,7 +17,7 @@ def main():
                   os.environ['TWILIO_AUTH_TOKEN'],
                   sys.argv[1], sys.stdin.read())
 
-def send_text_msg(account_sid, auth_token, dst_phone_number, message)
+def send_text_msg(account_sid, auth_token, dst_phone_number, message):
     client = Client(account_sid, auth_token)
     src_phone_number = client.incoming_phone_numbers.list()[0].phone_number
     print('src_phone_number=', src_phone_number)
