@@ -8,7 +8,7 @@ Compatible with Ubuntu, Red Hat, OSX and Cygwin.
 
 ## Code snippets hosted with GitHub Pages
 
-- https://lucas-c.github.io/dotfiles_and_notes/folded_puzzle.html
+- https://lucas-c.github.io/dotfiles_and_notes/languages/web-d3/folded_puzzle.html
 
 
 ## Installation

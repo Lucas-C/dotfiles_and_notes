@@ -1,6 +1,4 @@
 language: minimal
-script:
-- mv languages/web-d3/folded_puzzle.html .
 deploy:
   provider: pages
   skip-cleanup: true
