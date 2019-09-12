@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/Lucas-C/dotfiles_and_notes.svg?branch=master)](https://travis-ci.org/Lucas-C/dotfiles_and_notes)
-
 Linux configuration files
 =========================
 

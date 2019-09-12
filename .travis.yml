@@ -1,4 +1,6 @@
 language: minimal
+git:
+  depth: 1
 deploy:
   provider: pages
   skip-cleanup: true
