@@ -1,9 +1,4 @@
-language: python
-python: "3.7"
-cache: pip
-install: pip install pylint
 script:
-- pylint languages/python/*.py
 - mv languages/web-d3/folded_puzzle.html .
 deploy:
   provider: pages
