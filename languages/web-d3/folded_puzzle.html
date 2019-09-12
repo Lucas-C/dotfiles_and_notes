@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Folded puzzle</title>
+    <style>
+    body {
+      margin: 4rem auto;
+      line-height: 1.6;
+      font-family: sans-serif;
+      color: #444;
+    }
+    svg {
+      width: 100%;
+      height: auto;
+    }
+    @media screen {
+      body { max-width: 60rem; }
+    }
+    @media print {
+      .no-print { display: none; }
+    }
+    </style>
+  </head>
+  <body>
+    <div>Puzzle origin:
+      <ul>
+        <li><a href="http://www.geom.uiuc.edu/docs/forum/ElPuz/">the Elephant puzzle</a> and <a href="http://www.geom.uiuc.edu/docs/forum/ElPuz/SolElPz.html">its solution</a></li>
+        <li><a href="https://erikdemaine.org/puzzles/CSAIL2006/">CSAIL 2006 Beaver puzzle</a></li>
+      </ul>
+    </div>
+    <div class="no-print">
+      <label for="folded-img">Sélectionner une autre image:</label>
+      <input id="folded-img" type="file" />
+      <script>
+      document.querySelector('#folded-img').addEventListener('change', function() {
+        let reader = new FileReader()
+        reader.addEventListener('load', function() {
+            let dataUrl = this.result;
+            console.log('dataUrl:', dataUrl);
+            [].forEach.call(document.getElementsByTagName('image'), image => image.setAttributeNS('http://www.w3.org/1999/xlink', 'href', dataUrl))
+        });
+        reader.readAsDataURL(this.files[0])
+      })
+      </script>
+    </div>
+    <svg style="position: absolute; top: -9000px;">
+      <defs>
+        <pattern id="head-down" width="1" height="1">
+          <image xlink:href="folded.png" x="160" y="-50" width="500" height="500"/>
+        </pattern>
+        <pattern id="body-up" width="1" height="1">
+          <image xlink:href="folded.png" x="-40" y="-50" width="500" height="500"/>
+        </pattern>
+        <pattern id="tail-down" width="1" height="1">
+          <image xlink:href="folded.png" x="-240" y="-50" width="500" height="500"/>
+        </pattern>
+        <pattern id="head-up-rot60" width="1" height="1">
+          <polygon points="0,0 200,346.41 400,0"
+                   style="fill:url(#head-down)" transform="rotate(60, 100, 173.21)"/>
+        </pattern>
+        <pattern id="head-rot180" width="1" height="1">
+          <polygon points="0,0 200,346.41 400,0"
+                   style="fill:url(#head-down)" transform="rotate(180, 200, 173.21)"/>
+        </pattern>
+        <pattern id="head-up-rot300" width="1" height="1">
+          <polygon points="0,0 200,346.41 400,0"
+                   style="fill:url(#head-down)" transform="rotate(-60, 100, 173.21)"/>
+        </pattern>
+        <pattern id="body-down-rot60" width="1" height="1">
+          <polygon points="0,346.41 200,0 400,346.41"
+                   style="fill:url(#body-up)" transform="rotate(60, 300, 173.21)"/>
+        </pattern>
+        <pattern id="body-up-rot120" width="1" height="1">
+          <polygon points="400,346.41 200,0 0,346.41"
+                   style="fill:url(#body-up)" transform="rotate(120, 200, 230.94)"/>
+        </pattern>
+        <pattern id="body-rot180" width="1" height="1">
+          <polygon points="0,346.41 200,0 400,346.41"
+                   style="fill:url(#body-up)" transform="rotate(180, 200, 173.21)"/>
+        </pattern>
+        <pattern id="body-down-rot300" width="1" height="1">
+          <polygon points="0,346.41 200,0 400,346.41"
+                   style="fill:url(#body-up)" transform="rotate(-60, 100, 173.21)"/>
+        </pattern>
+        <pattern id="tail-down-rot240" width="1" height="1">
+          <polygon points="0,346.41 200,0 400,346.41"
+                   style="fill:url(#tail-down)" transform="rotate(-60, 100, 173.21)"/>
+        </pattern>
+      </defs>
+    </svg>
+    <svg width="1400" height="360" viewBox="-700 -700 1400 360" style="display: none"><!-- Left for debugging -->
+      <polygon points="-200,-346.41 -400,-692.82 0,-692.82"
+               style="fill:url(#head-down);stroke:black;stroke-width:1" />
+      <polygon points="-200,-346.41 0,-692.82 200,-346.41"
+               style="fill:url(#body-up);stroke:black;stroke-width:1" />
+      <polygon points="200,-346.41 0,-692.82 400,-692.82"
+               style="fill:url(#tail-down);stroke:black;stroke-width:1" />
+    </svg>
+    <svg width="1400" height="1400" viewBox="-700 -700 1400 1400">
+      <polygon points="-200,-346.41 0,-692.82 200,-346.41"
+               style="fill:url(#head-up-rot300);stroke:black;stroke-width:1" />
+
+      <polygon points="-400,0 -600,-346.41 -200,-346.41"
+               style="fill:url(#tail-down);stroke:black;stroke-width:1"/>
+      <polygon points="0,0 -400,0 -200,-346.41"
+               style="fill:url(#body-up-rot120);stroke:black;stroke-width:1" />
+      <polygon points="0,0 -200,-346.41 200,-346.41"
+               style="fill:url(#tail-down);stroke:black;stroke-width:1"/>
+      <polygon points="0,0 200,-346.41 400, 0"
+               style="fill:url(#head-up-rot60);stroke:black;stroke-width:1" />
+      <polygon points="400,0 200,-346.41 600,-346.41"
+               style="fill:url(#body-rot180);stroke:black;stroke-width:1" />
+
+      <polygon points="-200,346.41 -600,346.41 -400,0"
+               style="fill:url(#head-rot180);stroke:black;stroke-width:1"/>
+      <polygon points="0,0 -200,346.41 -400,0"
+               style="fill:url(#body-down-rot60);stroke:black;stroke-width:1" />
+      <polygon points="0,0 200,346.41 -200,346.41"
+               style="fill:url(#body-up);stroke:black;stroke-width:1" />
+      <polygon points="0,0 400,0 200,346.41"
+               style="fill:url(#body-down-rot300);stroke:black;stroke-width:1" />
+      <polygon points="400,0 200,346.41 600,346.41"
+               style="fill:url(#head-up-rot300);stroke:black;stroke-width:1" />
+
+      <polygon points="0,692.82 200,346.41 -200,346.41"
+               style="fill:url(#tail-down-rot240);stroke:black;stroke-width:1" />
+
+      <polygon points="0,0 400,0" style="stroke:black;stroke-width:5"/>
+      <text x="430" y="0" dy=".3em" font-size="3rem">&#9986;</text>
+    </svg>
+    <footer>
+    <p>Created by Lucas Cimon : <a href="https://chezsoi.org/lucas/blog/">https://chezsoi.org/lucas/blog/</a></p>
+    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+    </footer>
+  </body>
+</html>

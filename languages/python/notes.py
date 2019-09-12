@@ -1281,20 +1281,19 @@ def passthrough_http_proxy(http_proxy, real_request_url):
         response.raise_for_status()
         return response.text
 class HttpSession(Session):
-    'Allow to configure once and for all timeout, headers & verify parameters'
+    'Allow to configure a timeout for all requests'
     def __init__(self, *args, **kwargs):
         self.timeout = kwargs.pop('timeout', None)
-        self.verify = kwargs.pop('verify', True)
-        extra_headers = kwargs.pop('headers', {})
         Session.__init__(self, *args, **kwargs)
-        self.headers.update(extra_headers)
     # Override: https://github.com/psf/requests/blob/v2.22.0/requests/sessions.py#L466
+    # pylint: disable=arguments-differ
     def request(self, *args, **kwargs):
-        if 'timeout' not in kwargs:
+        if 'timeout' not in kwargs and self.timeout is not None:
             kwargs['timeout'] = self.timeout
-        if 'verify' not in kwargs:
-            kwargs['verify'] = self.verify
         return Session.request(self, *args, **kwargs)
+http_session = HttpSession(timeout=5)
+http_session.headers['User-Agent'] = USER_AGENT
+http_session.verify = False
 responses/httmock # a mocking library for requests - Alt: getsentry/responses
 betamaxpy/betamax # VCR/Wiremock-like HTTP mock: record & replay requests - cf. also: kevin1024/vcrpy
 HTTPretty # Testing HTTP requests without any server, acting at socket-level

@@ -1,7 +1,14 @@
+[![Build Status](https://travis-ci.org/Lucas-C/dotfiles_and_notes.svg?branch=master)](https://travis-ci.org/Lucas-C/dotfiles_and_notes)
+
 Linux configuration files
 =========================
 
 Compatible with Ubuntu, Red Hat, OSX and Cygwin.
+
+
+## Code snippets hosted with GitHub Pages
+
+- https://lucas-c.github.io/dotfiles_and_notes/folded_puzzle.html
 
 
 ## Installation
