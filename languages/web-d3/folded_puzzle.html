@@ -64,84 +64,84 @@
     <svg width="1400" height="1400" viewBox="-700 -700 1400 1400"
          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs style="position: absolute; top: -9000px;">
-        <pattern id="head-down" width="1" height="1">
-          <image xlink:href="folded.png" x="160" y="-50" width="500" height="500"/>
+        <pattern id="head" width="1" height="1">
+          <image xlink:href="folded.jpg" x="160" y="-50" width="500" height="500"/>
         </pattern>
-        <pattern id="body-up" width="1" height="1">
-          <image xlink:href="folded.png" x="-40" y="-50" width="500" height="500"/>
+        <pattern id="body" width="1" height="1">
+          <image xlink:href="folded.jpg" x="-40" y="-50" width="500" height="500"/>
         </pattern>
-        <pattern id="tail-down" width="1" height="1">
-          <image xlink:href="folded.png" x="-240" y="-50" width="500" height="500"/>
+        <pattern id="tail" width="1" height="1">
+          <image xlink:href="folded.jpg" x="-240" y="-50" width="500" height="500"/>
         </pattern>
-        <pattern id="head-up-rot60" width="1" height="1">
+        <pattern id="head-rot60" width="1" height="1">
           <polygon points="0,0 200,346.41 400,0"
-                   fill="url(#head-down)" transform="rotate(60, 100, 173.21)"/>
+                   fill="url(#head)" transform="rotate(60, 100, 173.21)"/>
         </pattern>
         <pattern id="head-rot180" width="1" height="1">
           <polygon points="0,0 200,346.41 400,0"
-                   fill="url(#head-down)" transform="rotate(180, 200, 173.21)"/>
+                   fill="url(#head)" transform="rotate(180, 200, 173.21)"/>
         </pattern>
-        <pattern id="head-up-rot300" width="1" height="1">
+        <pattern id="head-rot300" width="1" height="1">
           <polygon points="0,0 200,346.41 400,0"
-                   fill="url(#head-down)" transform="rotate(-60, 100, 173.21)"/>
+                   fill="url(#head)" transform="rotate(-60, 300, 173.21)"/>
         </pattern>
-        <pattern id="body-down-rot60" width="1" height="1">
+        <pattern id="body-rot60" width="1" height="1">
           <polygon points="0,346.41 200,0 400,346.41"
-                   fill="url(#body-up)" transform="rotate(60, 300, 173.21)"/>
+                   fill="url(#body)" transform="rotate(60, 300, 173.21)"/>
         </pattern>
-        <pattern id="body-up-rot120" width="1" height="1">
-          <polygon points="400,346.41 200,0 0,346.41"
-                   fill="url(#body-up)" transform="rotate(120, 200, 230.94)"/>
+        <pattern id="body-rot120" width="1" height="1">
+          <polygon points="0,346.41 200,0 400,346.41"
+                   fill="url(#body)" transform="rotate(120, 200, 230.94)"/>
         </pattern>
         <pattern id="body-rot180" width="1" height="1">
           <polygon points="0,346.41 200,0 400,346.41"
-                   fill="url(#body-up)" transform="rotate(180, 200, 173.21)"/>
+                   fill="url(#body)" transform="rotate(180, 200, 173.21)"/>
         </pattern>
-        <pattern id="body-down-rot300" width="1" height="1">
+        <pattern id="body-rot300" width="1" height="1">
           <polygon points="0,346.41 200,0 400,346.41"
-                   fill="url(#body-up)" transform="rotate(-60, 100, 173.21)"/>
+                   fill="url(#body)" transform="rotate(-60, 100, 173.21)"/>
         </pattern>
-        <pattern id="tail-down-rot240" width="1" height="1">
-          <polygon points="0,346.41 200,0 400,346.41"
-                   fill="url(#tail-down)" transform="rotate(-60, 100, 173.21)"/>
+        <pattern id="tail-rot120" width="1" height="1">
+          <polygon points="0,0 200,346.41 400,0"
+                   fill="url(#tail)" transform="rotate(-120, 200, 115.47)"/>
         </pattern>
       </defs>
 
       <!-- Left for debugging if needed: -->
       <polygon points="-200,-346.41 -400,-692.82 0,-692.82"
-               fill="url(#head-down)" style="stroke:black;stroke-width:1; display: none" />
+               fill="url(#head)" style="stroke:black;stroke-width:1; display: none" />
       <polygon points="-200,-346.41 0,-692.82 200,-346.41"
-               fill="url(#body-up)" style="stroke:black;stroke-width:1;   display: none" />
+               fill="url(#body)" style="stroke:black;stroke-width:1;   display: none" />
       <polygon points="200,-346.41 0,-692.82 400,-692.82"
-               fill="url(#tail-down)" style="stroke:black;stroke-width:1; display: none" />
+               fill="url(#tail)" style="stroke:black;stroke-width:1; display: none" />
 
       <polygon points="-200,-346.41 0,-692.82 200,-346.41"
-               fill="url(#head-up-rot300)" style="stroke:black;stroke-width:1" />
+               fill="url(#head-rot300)" style="stroke:black;stroke-width:1" />
 
       <polygon points="-400,0 -600,-346.41 -200,-346.41"
-               fill="url(#tail-down)" style="stroke:black;stroke-width:1"/>
+               fill="url(#tail)" style="stroke:black;stroke-width:1"/>
       <polygon points="0,0 -400,0 -200,-346.41"
-               fill="url(#body-up-rot120)" style="stroke:black;stroke-width:1" />
+               fill="url(#body-rot120)" style="stroke:black;stroke-width:1" />
       <polygon points="0,0 -200,-346.41 200,-346.41"
-               fill="url(#tail-down)" style="stroke:black;stroke-width:1"/>
+               fill="url(#tail)" style="stroke:black;stroke-width:1"/>
       <polygon points="0,0 200,-346.41 400, 0"
-               fill="url(#head-up-rot60)" style="stroke:black;stroke-width:1" />
+               fill="url(#head-rot60)" style="stroke:black;stroke-width:1" />
       <polygon points="400,0 200,-346.41 600,-346.41"
                fill="url(#body-rot180)" style="stroke:black;stroke-width:1" />
 
       <polygon points="-200,346.41 -600,346.41 -400,0"
                fill="url(#head-rot180)" style="stroke:black;stroke-width:1"/>
       <polygon points="0,0 -200,346.41 -400,0"
-               fill="url(#body-down-rot60)" style="stroke:black;stroke-width:1" />
+               fill="url(#body-rot60)" style="stroke:black;stroke-width:1" />
       <polygon points="0,0 200,346.41 -200,346.41"
-               fill="url(#body-up)" style="stroke:black;stroke-width:1" />
+               fill="url(#body)" style="stroke:black;stroke-width:1" />
       <polygon points="0,0 400,0 200,346.41"
-               fill="url(#body-down-rot300)" style="stroke:black;stroke-width:1" />
+               fill="url(#body-rot300)" style="stroke:black;stroke-width:1" />
       <polygon points="400,0 200,346.41 600,346.41"
-               fill="url(#head-up-rot300)" style="stroke:black;stroke-width:1" />
+               fill="url(#head-rot300)" style="stroke:black;stroke-width:1" />
 
       <polygon points="0,692.82 200,346.41 -200,346.41"
-               fill="url(#tail-down-rot240)" style="stroke:black;stroke-width:1" />
+               fill="url(#tail-rot120)" style="stroke:black;stroke-width:1" />
 
       <polygon points="0,0 400,0" style="stroke:black;stroke-width:5"/>
       <text x="430" y="0" dy=".3em" font-size="3em">&#9986;</text>
