@@ -21,7 +21,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug')
     parser.add_argument('--type', choices=list(POSTS_TYPES._keys), required=True)
-    parser.add_argument('--house-types', choices=list(HOUSE_TYPES._keys), nargs='+', default=[HOUSE_TYPES.APART, HOUSE_TYPES.HOUSE])
+    parser.add_argument('--house-types', choices=list(HOUSE_TYPES._keys), nargs='+', default=['APART', 'HOUSE'])
     parser.add_argument('--area-min', type=int)
     parser.add_argument('--area-max', type=int)
     parser.add_argument('--cost-min', type=int)
