@@ -4,10 +4,10 @@
 #  export PYTHONPATH=/opt/weboob/modules:~/lucasc_dotfiles_and_notes/languages/python
 #  ./leboncoin_watcher.py [--alert-cmd $CMD] [--alert-phone-number $NB] [--debug] < cities.txt
 
-# This script relies on https://github.com/laurentb/weboob/tree/master/modules
+# This script relies on the weboob Pypi package, and https://github.com/laurentb/weboob/tree/master/modules/leboncoin
 # and https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/send_text_msg_with_twilio.py for alerting through SMS.
 # Its state is stored as a list of URLs in a leboncoin.json in the current directory.
-# Example input file formatting:
+# Example of input file format:
 #   Trélazé (49800)
 #   Angers (toute la ville)
 
@@ -20,6 +20,13 @@ from leboncoin.browser import LeboncoinBrowser
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug')
+    parser.add_argument('--type', choices=list(POSTS_TYPES._keys), required=True)
+    parser.add_argument('--house-types', choices=list(HOUSE_TYPES._keys), nargs='+', default=[HOUSE_TYPES.APART, HOUSE_TYPES.HOUSE])
+    parser.add_argument('--area-min', type=int)
+    parser.add_argument('--area-max', type=int)
+    parser.add_argument('--cost-min', type=int)
+    parser.add_argument('--cost-max', type=int)
+    parser.add_argument('--nb-rooms', type=int)
     parser.add_argument('--alert-cmd', help='CLI command that takes a message as 1st argument')
     parser.add_argument('--alert-phone-number', help='Will use Twilio API, require $TWILIO_ACCOUNT_SID & $TWILIO_AUTH_TOKEN en vars')
     parser.add_argument('infile', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
@@ -39,10 +46,18 @@ def query_for_cities(args):
 
     browser = LeboncoinBrowser()
     query = Query()
-    # TODO: as an improvment those values could be provided as CLI args:
-    query.type = POSTS_TYPES.RENT
-    query.house_types = [HOUSE_TYPES.APART, HOUSE_TYPES.HOUSE]
-    query.cost_max = 800
+    query.type = POSTS_TYPES[args.type]
+    query.house_types = [HOUSE_TYPES[ht] for ht in args.house_types]
+    if query.area_min:
+        query.area_min = args.area_min
+    if query.area_max:
+        query.area_max = args.area_max
+    if query.cost_min:
+        query.cost_min = args.cost_min
+    if query.cost_max:
+        query.cost_max = args.cost_max
+    if query.nb_rooms:
+        query.nb_rooms = args.nb_rooms
     new_urls = []
     for i in range(0, len(cities), 10):  # if the frontend tells the truth, the API supports max 10 cities at a time
         query.cities = cities[i:i+10]
@@ -58,7 +73,8 @@ def query_for_cities(args):
     print(diff_urls.replace(r'\n', '\n'))
     if diff_urls:
         msg = r'Nouvelle(s) annonce(s) LeBonCoin:\n' + diff_urls
-        check_output([args.alert_cmd, msg])
+        if args.alert_cmd:
+            check_output([args.alert_cmd, msg])
         if args.alert_phone_number:
             from send_text_msg_with_twilio import send_text_msg
             send_text_msg(os.environ['TWILIO_ACCOUNT_SID'], os.environ['TWILIO_AUTH_TOKEN'], args.alert_phone_number, msg)

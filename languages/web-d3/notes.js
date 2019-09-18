@@ -236,27 +236,7 @@ new, with // NEVER use them as variables ! They're reserved keywords
 //~\~\~\~\\
 "use strict";
 
-// Find out JS version
-<script language="javascript">var js_version="1.0"</script>
-<script language="javascript1.1">var js_version="1.1"</script>
-<script language="javascript1.2">var js_version="1.2"</script>
-<script language="javascript1.3">var js_version="1.3"</script>
-<script language="javascript1.4">var js_version="1.4"</script>
-<script language="javascript1.5">var js_version="1.5"</script>
-<script language="javascript1.6">var js_version="1.6"</script>
-
-// Javascript 1.7
-let > var // BUT DO NOT USE IT IN A BROWSER !! -> for(let i=0; i<10000; i++){console.log(typeof null =='undefined')}
-
-array comprehension
-generators
-[a, b] = [b, a] // destructuring assignement
-// Javascript 1.8
-f = function(x) x*x // lambda notation with expression closure
-Array.reduce
-
-asm.js // static subset of JS, can be compiled ahead, include static typing
-// Rarely hand-written: C++ -> LLVM bytecode -> asm.js
+asm.js // static subset of JS, can be compiled ahead, include static typing - Rarely hand-written: C++ -> LLVM bytecode -> asm.js
 
 ParallelJS // .mapPar() .filterPar() .reducePar()
 
@@ -346,7 +326,7 @@ Promise.all(fetchLogsPromises).then(function (fetchedLogs) {
     });
 });
 
-// E4X is an official JavaScript standard that adds direct support for XML
+E4X // official JavaScript standard that adds direct support for XML
 
 Google Closure Compiler, Library & Linter //  Markdown Optimize JS code
 Google V8 // Open Source high perf JS engine written in C++. Features :
@@ -363,11 +343,9 @@ Esprima // ECMAScript parser
 http://zaa.ch/jison/ // grammar parser like Bison/Yacc
 
 CommonMark // "Standard" Markdown https://github.com/jgm/stmd/blob/master/js/stmd.js
-cemerick/jsdifflib
+cemerick/jsdifflib // reimplement Python difflib + provide HTML side-by-side rendering
 
 sweetalert // pretty replacement for 'alert'
-
-ywng/Progressive-News-Cloud, jasondavies/d3-cloud // word clouds generators
 
 esprima // JS AST manipulation: parsing, rewrite, refactoring ; + escodegen for code generation - Also: substack/node-falafel based on acorn
 
