@@ -38,8 +38,8 @@ cf. https://github.com/todogroup/repolinter
 - other tools:
   * pre-launch checklist: https://opensource.guide/starting-a-project/#your-pre-launch-checklist
   * [Licensee](https://github.com/benbalter/licensee): detect under what license a project is distributed (Ruby) - Alt: https://github.com/pivotal/LicenseFinder
-  * https://github.com/facebook/mention-bot : Automatically mention potential reviewers on pull requests.
   * curated lists:
+    - https://opensource.guide/best-practices/#bring-in-the-robots : include `mention-bot`, `no-response`, `dependabot-preview`...
     - https://github.com/todogroup/awesome-oss-mgmt
     - https://www.linuxfoundation.org/tools-managing-open-source-programs/ include project health, stats & dashboard tools
 
@@ -246,9 +246,35 @@ Pourquoi une entreprise a des avantages à faire du logiciel libre ?
 
 
 ### Producing Open Source Software: How to Run a Successful Free Software Project
-By Karl Fogel
+By Karl Fogel, 2005-2013 - https://producingoss.com
+Traduit par Framasoft en français : https://framabook.org/produire-du-logiciel-libre-2/
+
+#### Chapter 1 - Introduction
+
+> An open license does not guarantee that hordes of active developers will suddenly devote their time to your project
 
 > Opening up means arranging the code to be comprehensible to complete strangers, setting up a development web site and email lists, and often writing documentation for the first time. All this is a lot of work. And of course, if any interested developers do show up, there is the added burden of answering their questions for a while before seeing any benefit from their presence.
+
+> software, unlike other creative forms like prose or the visual arts, must pass semi-objective tests in order to be considered successful: it must run, and be reasonably free of bugs. This gives all participants in a project a kind of automatic common ground, a reason and a framework for working together without worrying too much about qualifications or motivations beyond the technical.
+
+> If someone writes good code, you don't ask them whether they do it for moral reasons, or because their employer paid them to, or because they're building up their résumé, or whatever. You evaluate the contribution on technical grounds, and respond on technical grounds.
+
+#### Chapter 2 - Getting started
+
+> the very first thing a visitor learns about a project is what its home page looks like. Most of us can tell in one glance whether a home page was thrown together quickly or was given serious thought. This is the first piece of information your project puts out, and the impression it creates will carry over to the rest of the project by
+association.
+
+> By giving off this aura of preparedness, the project sends out a message: "Your time will not be wasted if you get involved," which is exactly what people need to hear.
+
+> You and the other founders must decide what the project is really about — that is, decide its limitations, what it won't do as well as what it will — and write up a mission statement.
+
+> For large projects, it is a good idea to own the project's name in as many of the relevant namespaces on the Internet as you can
+
+> State That the Project is Free
+
+> Features and Requirements List
+
+> Development Status : Visitors usually want to know how a project is doing. For new projects, they want to know the gap between the project's promise and current reality. For mature projects, they want to know how actively it is maintained, how often it puts out new releases, how responsive it is likely to be to bug reports, etc.
 
 
 ### The Dramatic Consequences of the Open Source revolution - Heather Miller

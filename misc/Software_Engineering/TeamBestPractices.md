@@ -96,7 +96,6 @@ Cons from [Why "Agile" and especially Scrum are terrible]:
     * Use the information you acquire as effectively as possible
 - ask people to have lunch with them (force yourself !)
 - ask people for coffee breaks (force yourself !)
-- hang cheat-sheets in home toilets to learn stuff
 - grasp the whole architecture using [CodeVisualizationTools]
 - get along with HR and plan out-of-the-box projetcs with them that will make your team happier
 

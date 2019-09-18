@@ -1553,6 +1553,19 @@ OpenTransitTools/gtfsdb # GTFS (General Transit Feed Specification) DB : public 
 pyusb  # interfaces to FTDI D2XX drivers to manipulate USB devices
 
 
+"""""""""""""
+"" Architecture
+"""""""""""""
+Clean Architecture by Leonardo Giordani: inspired by Robert Martin ideas (and to me, very close to an hexagonal architecture)
+- layered & spherical: it has inner layers encompassed by outer ones, the former being oblivious of the existence of the latter
+- the deeper a layer is, the more abstract & buisness-oriented it is
+- Talk inwards with simple structures, talk outwards through interfaces
+- main layers:
+  * Entities: lightweight domain models
+  * Use cases: as small a possible
+  * External systems: HTTP API, database...
+
+
 """""""
 "" Fun
 """""""

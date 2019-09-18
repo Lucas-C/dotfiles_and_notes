@@ -1,3 +1,24 @@
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i DiagramsToolsAndRhetoric.md
+-->
+
+<!-- toc -->
+
+- [Tools](#tools)
+    * [Font effects](#font-effects)
+    * [Markdown](#markdown)
+    * [API specs : Open API, Swagger, API Blueprint, RAML...](#api-specs--open-api-swagger-api-blueprint-raml)
+- [Diagrams](#diagrams)
+    * [Word / tag clouds](#word--tag-clouds)
+    * [UML](#uml)
+    * [Sequence diagrams](#sequence-diagrams)
+    * [Histograms](#histograms)
+- [Command-line tips & tricks for demos](#command-line-tips--tricks-for-demos)
+- [Rhetoric](#rhetoric)
+    * [Benjamin G. advices](#benjamin-g-advices)
+
+<!-- tocstop -->
+
 # Tools
 
 - [Reveal.js](https://revealjs.com) & [Impress.js](https://github.com/impress/impress.js/) & [DZSlides](http://paulrouget.com/dzslides/) & [Eagle.js](https://github.com/Zulko/eagle.js)
@@ -5,6 +26,10 @@
     * WebComponent that to hightlight parts of the screen, like code: https://github.com/binomed/mask-highlighter
 - [MathJax JS](https://www.mathjax.org)
 - [pandoc](http://pandoc.org) : swiss-army knife that can convert documents in Markdown, reStructuredText, textile, HTML, DocBook, LaTeX, MediaWiki markup, TWiki markup, OPML, Emacs Org-Mode, Txt2Tags, Microsoft Word docx, LibreOffice ODT, EPUB...
+- [JupyterLab](https://jupyter.org) : a web-based interactive development environment for Jupyter notebooks, code, and data
+
+## Font effects
+- [flamingtext](https://flamingtext.fr)
 
 ## Markdown
 
@@ -60,6 +85,12 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 - [ivanceras/svgbobrus](https://github.com/ivanceras/svgbobrus) : convert ascii diagram scribbles into SVG (Rust)
 - [gliffy](https://www.gliffy.com/examples/) : online, proprietary code
 
+## Word / tag clouds
+
+- [nuagesdemots.fr](https://www.nuagesdemots.fr) : uses [timdream/wordcloud2.js](https://github.com/timdream/wordcloud2.js)
+- [https://github.com/ywng/Progressive-News-Cloud](Progressive-News-Cloud)
+- [https://github.com/jasondavies/d3-cloud](jasondavies/d3-cloud)
+
 ## UML
 - [nomnoml](http://www.nomnoml.com) : pretty UML diagrams based on a textual description
 - [UMLet](http://www.umlet.com) : open-source, diagrams can be export to eps, pdf, jpg, svg + new web-based UMLet: called [UMLetino](http://www.umlet.com/umletino)
@@ -73,6 +104,7 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 
 ## Histograms
 - [tehmaze/diagram](https://github.com/tehmaze/diagram) : text mode utf8 diagrams in colors, in Python
+- <https://plot.ly> examples: https://plot.ly/javascript/histograms/
 
 
 # Command-line tips & tricks for demos
