@@ -2,7 +2,7 @@
 
 # USAGE:
 #  export PYTHONPATH=/opt/weboob/modules:~/lucasc_dotfiles_and_notes/languages/python
-#  ./leboncoin_watcher.py [--alert-cmd $CMD] [--alert-phone-number $NB] [--debug] < cities.txt
+#  ./leboncoin_watcher.py --type RENT [--cost-max 800] [--alert-cmd $CMD] [--alert-phone-number $NB] [--debug] cities.txt
 
 # This script relies on the weboob Pypi package, and https://github.com/laurentb/weboob/tree/master/modules/leboncoin
 # and https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/send_text_msg_with_twilio.py for alerting through SMS.
