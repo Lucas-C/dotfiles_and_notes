@@ -26,41 +26,10 @@
   </head>
   <body>
     <blockquote>
-     The problem is to fold the above triangles into a tetrahedron so that the head, body, and tail of the image match up, and so that the remaining face is blank.
+      Fold this star-shaped puzzle into three triangles that make a complete beaver.
+      You may only fold along the lines.
     </blockquote>
-    <div>Puzzle origin:
-      <ul>
-        <li><a href="http://www.geom.uiuc.edu/docs/forum/ElPuz/">the Elephant puzzle</a> and <a href="http://www.geom.uiuc.edu/docs/forum/ElPuz/SolElPz.html">its solution</a></li>
-        <li><a href="https://erikdemaine.org/puzzles/CSAIL2006/">CSAIL 2006 Beaver puzzle</a></li>
-      </ul>
-    </div>
-    <div class="no-print">
-      <label for="folded-img">Select an image:</label>
-      <input id="folded-img" type="file" />
-      <div id="download-section" style="display: none">
-        <a id="download-link">Click here to download SVG file</a>
-        <p>(there are numerous websites that can then convert this SVG file to an easily printable PDF)</p>
-      </div>
-      <script>
-      document.getElementById('folded-img').addEventListener('change', function() {
-        const uploadedFile = this.files[0]
-        const reader = new FileReader()
-        reader.addEventListener('load', function() {
-            const dataUrl = this.result
-            console.log('dataUrl:', dataUrl);
-            [].forEach.call(document.getElementsByTagName('image'), image => image.setAttributeNS('http://www.w3.org/1999/xlink', 'href', dataUrl))
-            // Generating a downloable SVG file:
-            const svgData = document.getElementsByTagName('svg')[0].outerHTML
-            const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'})
-            const downloadButton = document.getElementById('download-link')
-            downloadButton.href = URL.createObjectURL(svgBlob)
-            downloadButton.download = uploadedFile.name.split('.')[0] + '.svg'
-            document.getElementById('download-section').style.display = 'block'
-        });
-        reader.readAsDataURL(uploadedFile)
-      })
-      </script>
-    </div>
+    <div>This is a customizable version of <a href="https://erikdemaine.org/puzzles/CSAIL2006/">Erik &amp; Martin Demaine's puzzle for CSAIL 2006</a>.</div>
     <svg width="1400" height="1400" viewBox="-700 -700 1400 1400"
          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs style="position: absolute; top: -9000px;">
@@ -111,14 +80,14 @@
       <polygon points="-200,-346.41 -400,-692.82 0,-692.82"
                fill="url(#head)" style="stroke:black;stroke-width:1; display: none" />
       <polygon points="-200,-346.41 0,-692.82 200,-346.41"
-               fill="url(#body)" style="stroke:black;stroke-width:1;   display: none" />
+               fill="url(#body)" style="stroke:black;stroke-width:1; display: none" />
       <polygon points="200,-346.41 0,-692.82 400,-692.82"
                fill="url(#tail)" style="stroke:black;stroke-width:1; display: none" />
 
       <polygon points="-200,-346.41 0,-692.82 200,-346.41"
                fill="url(#head-rot300)" style="stroke:black;stroke-width:1" />
 
-      <polygon points="-400,0 -600,-346.41 -200,-346.41"
+      <polygon points="-400,0 -600,-346.41 -200,-346.41" class="side"
                fill="url(#tail)" style="stroke:black;stroke-width:1"/>
       <polygon points="0,0 -400,0 -200,-346.41"
                fill="url(#body-rot120)" style="stroke:black;stroke-width:1" />
@@ -126,7 +95,7 @@
                fill="url(#tail)" style="stroke:black;stroke-width:1"/>
       <polygon points="0,0 200,-346.41 400, 0"
                fill="url(#head-rot60)" style="stroke:black;stroke-width:1" />
-      <polygon points="400,0 200,-346.41 600,-346.41"
+      <polygon points="400,0 200,-346.41 600,-346.41" class="side"
                fill="url(#body-rot180)" style="stroke:black;stroke-width:1" />
 
       <polygon points="-200,346.41 -600,346.41 -400,0"
@@ -137,7 +106,7 @@
                fill="url(#body)" style="stroke:black;stroke-width:1" />
       <polygon points="0,0 400,0 200,346.41"
                fill="url(#body-rot300)" style="stroke:black;stroke-width:1" />
-      <polygon points="400,0 200,346.41 600,346.41"
+      <polygon points="400,0 200,346.41 600,346.41" class="side"
                fill="url(#head-rot300)" style="stroke:black;stroke-width:1" />
 
       <polygon points="0,692.82 200,346.41 -200,346.41"
@@ -145,10 +114,58 @@
 
       <polygon points="0,0 400,0" style="stroke:black;stroke-width:5"/>
       <text x="430" y="0" dy=".3em" font-size="3em">&#9986;</text>
+
+      <polygon points="-200,-346.41 0,0" class="first-fold"/>
+      <polygon points="-200,346.41 200,346.41" class="first-fold"/>
+      <polygon points="200,346.41 400,0" class="first-fold"/>
     </svg>
+    <div><button id="hint-1">Hint 1</button><span id="hint-1-text" style="display: none">Final beaver faces</span></div>
+    <div><button id="hint-2">Hint 2</button><span id="hint-2-text" style="display: none">Three first folds</span></div>
+    <p>Image source: <a href="https://www.publicdomainpictures.net/en/view-image.php?image=182570&picture=native-art-21">publicdomainpictures.net</a></p>
+    <div class="no-print">
+      <label for="folded-img">Select another image:</label>
+      <input id="folded-img" type="file" />
+      <div id="download-section" style="display: none">
+        <a id="download-link">Click here to download SVG file</a>
+        <p>(there are numerous websites that can then convert this SVG file to an easily printable PDF)</p>
+      </div>
+    </div>
     <footer>
     <p>Created by Lucas Cimon : <a href="https://chezsoi.org/lucas/blog/">https://chezsoi.org/lucas/blog/</a></p>
     <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
     </footer>
+    <script>
+    document.getElementById('folded-img').addEventListener('change', function() {
+      const uploadedFile = this.files[0]
+      const reader = new FileReader()
+      reader.addEventListener('load', function() {
+          const dataUrl = this.result
+          console.log('dataUrl:', dataUrl);
+          [].forEach.call(document.getElementsByTagName('image'), image => image.setAttributeNS('http://www.w3.org/1999/xlink', 'href', dataUrl))
+          // Generating a downloable SVG file:
+          const svgData = document.getElementsByTagName('svg')[0].outerHTML
+          const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'})
+          const downloadButton = document.getElementById('download-link')
+          downloadButton.href = URL.createObjectURL(svgBlob)
+          downloadButton.download = uploadedFile.name.split('.')[0] + '.svg'
+          document.getElementById('download-section').style.display = 'block'
+      });
+      reader.readAsDataURL(uploadedFile)
+    })
+    document.getElementById('hint-1').onclick = () => {
+      [].forEach.call(document.getElementsByClassName('side'), side => {
+          side.style.stroke = 'red'
+          side.style['stroke-width'] = 3
+      })
+      document.getElementById('hint-1-text').style.display = 'block'
+    }
+    document.getElementById('hint-2').onclick = () => {
+      [].forEach.call(document.getElementsByClassName('first-fold'), side => {
+          side.style.stroke = 'blue'
+          side.style['stroke-width'] = 3
+      })
+      document.getElementById('hint-2-text').style.display = 'block'
+    }
+    </script>
   </body>
 </html>

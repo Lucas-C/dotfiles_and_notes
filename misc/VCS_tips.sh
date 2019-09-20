@@ -187,6 +187,10 @@ curl -v -u "$username:$password" https://${HOST}/v1/repos/${REPO_NAME}.git/info/
 
 Git bomb: https://kate.io/blog/making-your-own-exploding-git-repos/
 
+GitHub issues & PRs graphs for a repo : https://gist.github.com/Lucas-C/5c9730756e7b3f795c6d121d38a9ce88
+
+Storing meta-data along commits, e.g. for benchmarking execution time per commit through a pre-commit hook : https://stackoverflow.com/a/40496777/636849
+
 
 ++++++
 + p4 +
