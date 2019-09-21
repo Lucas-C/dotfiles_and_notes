@@ -102,7 +102,8 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 - [WebSequenceDiagrams](https://www.websequencediagrams.com/embedding.html) : recommended by the IETF (web API)
 - [UMLet](http://www.umlet.com)
 
-## Histograms
+## Histograms & other graphs
+- [Chart.js](https://www.chartjs.org) : used on https://nf-co.re/stats#github_prs
 - [tehmaze/diagram](https://github.com/tehmaze/diagram) : text mode utf8 diagrams in colors, in Python
 - <https://plot.ly> examples: https://plot.ly/javascript/histograms/
 
