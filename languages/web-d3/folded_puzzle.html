@@ -119,8 +119,9 @@
       <polygon points="-200,346.41 200,346.41" class="first-fold"/>
       <polygon points="200,346.41 400,0" class="first-fold"/>
     </svg>
-    <div><button id="hint-1">Hint 1</button><span id="hint-1-text" style="display: none">Final beaver faces</span></div>
-    <div><button id="hint-2">Hint 2</button><span id="hint-2-text" style="display: none">Three first folds</span></div>
+    <div><button id="hint-1">Hint 1</button><span id="hint-1-text" style="display: none">You must form a tetrahedron</span></div>
+    <div><button id="hint-2">Hint 2</button><span id="hint-2-text" style="display: none">The final beaver faces are shown in red</span></div>
+    <div><button id="hint-3">Hint 3</button><span id="hint-3-text" style="display: none">The three first folds are shown in blue</span></div>
     <p>Image source: <a href="https://www.publicdomainpictures.net/en/view-image.php?image=182570&picture=native-art-21">publicdomainpictures.net</a></p>
     <div class="no-print">
       <label for="folded-img">Select another image:</label>
@@ -153,18 +154,21 @@
       reader.readAsDataURL(uploadedFile)
     })
     document.getElementById('hint-1').onclick = () => {
+      document.getElementById('hint-1-text').style.display = 'block'
+    }
+    document.getElementById('hint-2').onclick = () => {
       [].forEach.call(document.getElementsByClassName('side'), side => {
           side.style.stroke = 'red'
           side.style['stroke-width'] = 3
       })
-      document.getElementById('hint-1-text').style.display = 'block'
+      document.getElementById('hint-2-text').style.display = 'block'
     }
-    document.getElementById('hint-2').onclick = () => {
+    document.getElementById('hint-3').onclick = () => {
       [].forEach.call(document.getElementsByClassName('first-fold'), side => {
           side.style.stroke = 'blue'
           side.style['stroke-width'] = 3
       })
-      document.getElementById('hint-2-text').style.display = 'block'
+      document.getElementById('hint-3-text').style.display = 'block'
     }
     </script>
   </body>
