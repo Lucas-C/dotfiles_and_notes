@@ -19,7 +19,6 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
 def main(argv=None):
-    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', action='store_true')
     parser.add_argument('--type', choices=list(POSTS_TYPES._keys), required=True)
@@ -53,6 +52,8 @@ def query_for_cities(args):
     proxy = None
     if args.proxies:
         proxy = {'https': random.choice(list(args.proxies)).strip()}
+        LeboncoinBrowser.VERIFY = False
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     browser = LeboncoinBrowser(proxy=proxy)
     query = Query()
     query.type = POSTS_TYPES[args.type]
