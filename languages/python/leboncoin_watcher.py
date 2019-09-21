@@ -29,6 +29,7 @@ def main(argv=None):
     parser.add_argument('--nb-rooms', type=int)
     parser.add_argument('--alert-cmd', help='CLI command that takes a message as 1st argument')
     parser.add_argument('--alert-phone-number', help='Will use Twilio API, require $TWILIO_ACCOUNT_SID & $TWILIO_AUTH_TOKEN en vars')
+    parser.add_argument('--proxies', type=argparse.FileType('r'))
     parser.add_argument('infile', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     query_for_cities(parser.parse_args())
 
@@ -41,10 +42,13 @@ def query_for_cities(args):
         for handler in logging.root.handlers:
             handler.setLevel(logging.DEBUG)
 
-    with open('leboncoin.json') as json_file:
-        prev_urls = json.load(json_file)
+    try:
+        with open('leboncoin.json') as json_file:
+            prev_urls = json.load(json_file)
+    except FileNotFoundError:
+        prev_urls = []
 
-    browser = LeboncoinBrowser()
+    browser = LeboncoinBrowser(proxy=[line.strip() for line in args.proxies] if args.proxies else None)
     query = Query()
     query.type = POSTS_TYPES[args.type]
     query.house_types = [HOUSE_TYPES[ht] for ht in args.house_types]
