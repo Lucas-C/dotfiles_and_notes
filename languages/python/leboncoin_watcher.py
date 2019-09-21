@@ -13,8 +13,10 @@
 
 import argparse, json, logging, os, random, sys
 from subprocess import check_output
+
 from weboob.capabilities.housing import City, Query, HOUSE_TYPES, POSTS_TYPES
 from leboncoin.browser import LeboncoinBrowser
+import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
