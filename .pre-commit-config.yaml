@@ -1,6 +1,6 @@
 repos:
 -   repo: git://github.com/pre-commit/pre-commit-hooks
-    sha: v2.0.0
+    rev: v2.3.0
     hooks:
     -   id: check-json
     -   id: check-merge-conflict
@@ -10,7 +10,7 @@ repos:
     -   id: check-xml
     -   id: check-yaml
 -   repo: git://github.com/Lucas-C/pre-commit-hooks
-    sha: v1.1.6
+    rev: v1.1.7
     hooks:
     -   id: remove-crlf
         exclude: npp/.*\.xml
