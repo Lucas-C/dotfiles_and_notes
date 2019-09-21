@@ -15,9 +15,11 @@ import argparse, json, logging, os, random, sys
 from subprocess import check_output
 from weboob.capabilities.housing import City, Query, HOUSE_TYPES, POSTS_TYPES
 from leboncoin.browser import LeboncoinBrowser
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
 def main(argv=None):
+    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', action='store_true')
     parser.add_argument('--type', choices=list(POSTS_TYPES._keys), required=True)
