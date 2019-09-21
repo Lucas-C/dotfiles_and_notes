@@ -1,6 +1,9 @@
 language: minimal
 git:
   depth: 1
+script:
+# Avoid error: The tag {% on line 18 in languages/web-d3/bookmarklets.md was not properly closed with %}
+- rm languages/web-d3/bookmarklets.md
 deploy:
   provider: pages
   skip-cleanup: true
