@@ -50,7 +50,7 @@ def query_for_cities(args):
 
     proxy = None
     if args.proxies:
-        proxy = {'https:': random.choice(list(args.proxies)).strip()}
+        proxy = {'https': random.choice(list(args.proxies)).strip()}
     browser = LeboncoinBrowser(proxy=proxy)
     query = Query()
     query.type = POSTS_TYPES[args.type]
