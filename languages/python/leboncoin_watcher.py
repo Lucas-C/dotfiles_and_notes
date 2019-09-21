@@ -11,7 +11,7 @@
 #   Trélazé (49800)
 #   Angers (toute la ville)
 
-import argparse, json, logging, os, sys
+import argparse, json, logging, os, random, sys
 from subprocess import check_output
 from weboob.capabilities.housing import City, Query, HOUSE_TYPES, POSTS_TYPES
 from leboncoin.browser import LeboncoinBrowser
@@ -19,7 +19,7 @@ from leboncoin.browser import LeboncoinBrowser
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--debug')
+    parser.add_argument('--debug', action='store_true')
     parser.add_argument('--type', choices=list(POSTS_TYPES._keys), required=True)
     parser.add_argument('--house-types', choices=list(HOUSE_TYPES._keys), nargs='+', default=['APART', 'HOUSE'])
     parser.add_argument('--area-min', type=int)
@@ -48,7 +48,10 @@ def query_for_cities(args):
     except FileNotFoundError:
         prev_urls = []
 
-    browser = LeboncoinBrowser(proxy=[line.strip() for line in args.proxies] if args.proxies else None)
+    proxy = None
+    if args.proxies:
+        proxy = {'https:': random.choice(list(args.proxies)).strip()}
+    browser = LeboncoinBrowser(proxy=proxy)
     query = Query()
     query.type = POSTS_TYPES[args.type]
     query.house_types = [HOUSE_TYPES[ht] for ht in args.house_types]
