@@ -507,8 +507,8 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
 > In fine, celui qui maintient DÉCIDE,
 > Quitte à refaire une PR après.
 
-* [PreMergeCodeReviews]
-* [How to Do Code Reviews Like a Human]:
++ [PreMergeCodeReviews]
++ [How to Do Code Reviews Like a Human]:
   1. Let computers do the boring parts
   2. Settle style arguments with a style guide
   3. Start reviewing immediately
@@ -517,7 +517,15 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
   6. Never say “you”
   7. Frame feedback as requests, not commands
   8. Tie notes to principles, not opinions
-* [Google Code Review Developer Guide]
++ [Google Code Review Developer Guide]: Que regarder durant une revue de code ?
+  * Design: est-ce que le code est bien pensé pour s'intégrer à l'architecture du système ?
+  * Functionality: Est-ce que le code va fonctionner tel que le développeur le souhaite ? Tel que l'utilisateur final le souhaite ?
+  * Complexity: Est-ce que le code pourrait être rendu plus simple ? Est-ce que le prochain développeur qui lira ce code le comprendre et pourra le modifier facilement ?
+  * Tests: Est-ce que le code est testé par des tests automatisés ?
+  * Naming: Est-ce que le développeur a choisi des noms de variables, classes, méthods, etc. qui soient clairs ?
+  * Comments: Est-ce que les commentaires sont compréhensibles et utiles ?
+  * Style: Est-ce que le code suit votre style guide ?
+  * Documentation: Est-ce que la documentation associée à ce code (technique & utilisateur) a été mise à jour ?
 + [Ce que j’ai appris de mes 3000 Code Reviews]:
   * La Code Review est une source de connaissance
   * La Code Review est un moyen de communication
