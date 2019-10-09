@@ -36,7 +36,6 @@ Software Development Best Practices
 - [ResponseTimes-The3ImportantLimits](http://www.nngroup.com/articles/response-times-3-important-limits/)
 - [What happens when the Board Of Directors begins to panic?](http://www.smashcompany.com/business/what-happens-when-the-board-of-directors-begins-to-panic)
 - [Why code review beats testing: evidence from decades of programming research](https://kev.inburke.com/kevin/the-best-ways-to-find-bugs-in-your-code/)
-- [Best practices for code review](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
 - [Why Should Software Architects Write Code](http://blog.ieeesoftware.org/2016/02/why-should-software-architects-write.html)
 - [A Guide to Naming Variables](http://a-nickels-worth.blogspot.fr/2016/04/a-guide-to-naming-variables.html)
 - [Why do record/replay tests of web applications break?](https://blog.acolyer.org/2016/05/30/why-do-recordreplay-tests-of-web-applications-break)
@@ -65,8 +64,6 @@ Software Development Best Practices
 - [Why "Agile" and especially Scrum are terrible](https://michaelochurch.wordpress.com/2015/06/06/why-agile-and-especially-scrum-are-terrible/)
 - [The log/event processing pipeline you can't have](https://apenwarr.ca/log/20190216)
 - [#CODE REVIEW Ce truc qui ne sert à rien @scharrier](https://speakerdeck.com/scharrier/code-review-devfest-nantes)
-- [11 proven practices for more effective, efficient peer code review](https://www.ibm.com/developerworks/rational/library/11-proven-practices-for-peer-review/)
-- [Best Kept Secrets of Peer Code Review](https://smartbear.com/SmartBear/media/pdfs/best-kept-secrets-of-peer-code-review.pdf)
 - [Ce que j’ai appris de mes 3000 Code Reviews](https://medium.com/@mickael_andrieu/ce-que-jai-appris-de-mes-3000-code-reviews-b0de1ee5ccee)
 - [DDD vite fait](https://www.infoq.com/fr/minibooks/domain-driven-design-quickly/)
 - [Rachel Kroll Reliability list](http://rachelbythebay.com/w/2019/07/21/reliability/)
@@ -482,17 +479,6 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
 * TDD: automated, easy to follow, autonomously done
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
 * Do it well: use proper tools, including automated static analysis (findbugs, ArtisticStyle for C/C++/Java, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
-* cf. [Best practices for code review] [PreMergeCodeReviews]
-* [How to Do Code Reviews Like a Human]:
-  1. Let computers do the boring parts
-  2. Settle style arguments with a style guide
-  3. Start reviewing immediately
-  4. Start high level and work your way down
-  5. Be generous with code examples
-  6. Never say “you”
-  7. Frame feedback as requests, not commands
-  8. Tie notes to principles, not opinions
-* [Google Code Review Developer Guide]
 
 #### Code reviews guidelines
 [#CODE REVIEW Ce truc qui ne sert à rien @scharrier]
@@ -521,13 +507,42 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
 > In fine, celui qui maintient DÉCIDE,
 > Quitte à refaire une PR après.
 
-+ [A Guide to Naming Variables] : "minimize distance and boilerplate : as coders our job is to communicate to human readers, not computers."
-+ [11 proven practices for more effective, efficient peer code review]
-+ [Best Kept Secrets of Peer Code Review]
+* [PreMergeCodeReviews]
+* [How to Do Code Reviews Like a Human]:
+  1. Let computers do the boring parts
+  2. Settle style arguments with a style guide
+  3. Start reviewing immediately
+  4. Start high level and work your way down
+  5. Be generous with code examples
+  6. Never say “you”
+  7. Frame feedback as requests, not commands
+  8. Tie notes to principles, not opinions
+* [Google Code Review Developer Guide]
 + [Ce que j’ai appris de mes 3000 Code Reviews]:
   * La Code Review est une source de connaissance
   * La Code Review est un moyen de communication
   * La Code Review pour améliorer la qualité du Code?
+
+  * Pointer les erreurs, et aussi les choses que vous trouvez bien faites
+  * Dans tous les cas, remerciez les gens qui relisent et valident votre code / la personne qui fait la contribution, même si vous la refusez
+  * Si quelque chose n’est pas clair, posez des questions !
+  * N’hésitez pas non plus à rapatrier le code sur votre machine et à essayer
+
+"minimize distance and boilerplate : as coders our job is to communicate to human readers, not computers." [A Guide to Naming Variables]
+
+#### Établissez vos standards d'équipe
+Il est important de documenter, pour votre équipe, quelles règles de fonctionnement vous vous fixez :
+
+- suivez-vous un code style ? (si vous avez des outils pour l'automatiser, c'est encore mieux !)
+- quel est le processus de revue de code :
+    * à qui demander une revue ?
+    * quand est-ce qu'une revue de code est terminée ? (ex: quand le reviewer à "clôturé" tous les points)
+    * qui merge la MR/PR ?
+- si votre équipe a de nombreux repos git, listez ce qu'ils doivent tous contenir : README (que doit-il contenir ?), CHANGELOG, Gitlab/Github CI avec linter & process de release...
+- comment trancher une décision technique en cas d'avis divergeant ? Qui arbitre ?
+- avez-vous un processus défini pour effectuer des études d'impact ou documenter vos choix techniques ? (exemple)
+
+Bien sûr, au fil de vos revues de code, n'hésitez pas à compléter ces standards, à les faire "vivre" au fur et à mesure que vous décidez collectivement de vos best practices.
 
 ## Functional programming
 cf. [Functional Programming Patterns]

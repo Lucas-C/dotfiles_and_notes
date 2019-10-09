@@ -40,6 +40,7 @@ Project management best practices
 - [Run less software](https://www.intercom.com/blog/run-less-software/)
 - [We already have nice things](https://opensource.com/article/18/10/nice-things)
 - [Using 6 Page and 2 Page Documents To Make Organizational Decisions](https://medium.com/@inowland/using-6-page-and-2-page-documents-to-make-organizational-decisions-3216badde909)
+- [La dette technique : une supercherie mythologique pour galériens de l’IT](https://medium.com/@waxzce/la-dette-technique-une-supercherie-mythologique-pour-gal%C3%A9riens-de-lit-7ed0dfbf39c7)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -127,6 +128,7 @@ E.g. fix all the doc pain points, homogenize & securize all our DB requests, imp
 - [TechnicalDebtQuadrant by Martin Fowler]:
 > To my mind, the question of whether a design flaw is or isn't debt is the wrong question. [...] A particular benefit of the debt metaphor is that it's very handy for communicating to non-technical people.
 - [asottile/git-code-debt](https://github.com/asottile/git-code-debt)
+- [La dette technique : une supercherie mythologique pour galériens de l’IT] -> en terme de vocbulaire, mieux vaut parler de d'**investissement**
 
 ## Design
 - interface design + decoupling >>more critical>> component design [MVB]

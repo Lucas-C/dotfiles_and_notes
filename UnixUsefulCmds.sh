@@ -64,7 +64,7 @@ write / mesg # 2nd control write access
 wall # broadcast message
 
 byobu, screen, txmux # text-based window managers and terminal multiplexers
-ttyrec, ipbt, ttygif, playitagainsam, KeyboardFire/mkcast # record & playback terminal sessions - Last one provides a JS player - Also: LICEcap to record desktop actions into a GIF
+ttyrec, ipbt, ttygif, playitagainsam, KeyboardFire/mkcast # record & playback ascii/unicode terminal sessions - Last one provides a JS player - Also: LICEcap to record desktop actions into a GIF - Comparative analysis: https://intoli.com/blog/terminal-recorders/
 licecap # record any screen interaction as GIF - cf. http://superuser.com/a/657800/255048
 
 export -f bash_func; xargs -P 0 -i sh -c 'bash_func "$@" || exit 255' _ {} # "if the command exits with a status of 255, xargs will stop immediately" => fail fast - Alt: GNU parallel, mfisk/filemap 'fm' Map-Reduce command
