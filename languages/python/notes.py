@@ -318,7 +318,7 @@ items = d.iteritems() # dicts ( iteritems > items )
 
 buffer & memoryview # cf. https://julien.danjou.info/high-performance-in-python-with-zero-copy-and-the-buffer-protocol/
 
-from tputil import make_proxy # Pypi transparent proxy : can record/intercept/modify operations
+from tputil import make_proxy # record/intercept/modify operations on list, from Pypi code, deprecated
 
 # Descriptors
 class Property(object):
@@ -686,6 +686,7 @@ coverage erase
 coverage run --source=path/to/python/src -m any_module_eg_behave
 coverage report # ASCII report - Alt: html, xml
 
+csvoss/onelinerizer # Convert any Python 2 file into a single line of code
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried), google/yapf
 pyreverse # UML diagrams, integrated in pylint
@@ -728,6 +729,7 @@ dh-virtualenv # the ultimate way of deploying python apps, over wheels & pex == 
 cx_freeze to make an EXE easily # cf. this example : https://www.reddit.com/r/Python/comments/4if7wj/what_do_you_think_is_more_difficult_in_python/
 facebookincubator/xar # archiver packinging files into a single self-contained executable bundle, using SquashFS, apprently better than PAR archives
 indygreg/python-build-standalone # produces self-contained, highly-portable Python distributions, containing also build artifacts (object files, libraries, etc)
+autopub # automatically publish package releases upon pull request merge
 
 # Examples of Windows packaging
 deluge-torrent # with bbfreeze + GUI with pygtk: http://git.deluge-torrent.org/deluge/tree/win32/deluge-bbfreeze.py#n31
@@ -780,7 +782,7 @@ import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueEr
 import doctest # include tests as part of the documentation
 AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
 behave # Behavior Driven Development - Comparison with alts: https://pythonhosted.org/behave/comparison.html
-brodie/cram # generic command-line app testing
+brodie/cram # generic command-line (CLI) app testing - Alt: Bats (TAP-compliant, bash), autoexpect, Tush, Aruba
 import capsys # capture stdin/out
 import tmpdir # generate a tmp dir for the time of the unit test
 import hypothesis # feed you test with known to break edge cases - "based on a fuzzer-kind of mechanics where data generation is based off a byte stream that can get higher or lower in complexity"
@@ -820,6 +822,8 @@ StackImpact Python Agent # production profiler: CPU, memory allocations, excepti
 fabianp/memory_profiler # track the memory usage of a program line by line in the source code - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
 memleax # utility producing a report of C call stacks where a process memory allocations are not matched by deallocations - Demo + LD_PRELOAD usage: https://www.reddit.com/r/Python/comments/a4w61x/fixing_a_tough_memory_leak_in_python/
+cProfile + psutil.Process().num_ctx_switches # cf. https://pythonspeed.com/articles/custom-python-profiler/
+
 from rfoo.utils import rconsole # RPC remote debugging - Alt: signal-based handle on a program to debug: http://stackoverflow.com/a/133384/636849
 rconsole.spawn_server()
 $ rconsole
@@ -1135,6 +1139,7 @@ andersbll/neural_artistic_style # transfer the style of one image to the subject
 lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
 AAlib, legofy # ASCII/Lego rendering, cf. ascii_art_email.py
 fogleman/Tiling # pavages
+nuno-faria/tiler # create an image using all kinds of other smaller images
 graphviz # graphs generation and export as images
 pyexiv2 # images EXIF manipulation
 
@@ -1301,6 +1306,7 @@ ariebovenberg/snug # organize your HTTP client code to ease reuse, async compati
 python-mocket # socket mocks
 
 spiderclub/haipproxy # IP proxy pool, powered by Scrapy and Redis
+community-libs/vaurien # TCP proxy to simulate chaos between your application and a backend server - Originated at Mozilla, not much maintained - Alt: Shopify/toxiproxy in Ruby
 
 superelasticsearch # provide iterated search & simpler bulk API
 ramses # API generation framework: based on RAML, ElasticSearch & Pyramid -> https://realpython.com/blog/python/create-a-rest-api-in-minutes-with-pyramid-and-ramses/ & https://www.elastic.co/blog/make-an-elasticsearch-powered-rest-api-for-any-data-with-ramses
@@ -1323,6 +1329,7 @@ Falcon, flask-restful # to build HTTP APIs - not asynchronous and uses a thread-
     flask-babel # adds i18n and l10n support
     flask-login # user session management
     Flask-HTTPAuth # Basic, Digest and Token HTTP authentication
+    mjhea0/awesome-flask # A curated list of awesome things related to Flask
     Talisman / Secure.py # add HTTP headers protecting against common webapps security issues
 Quart # like Flask, but async
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
