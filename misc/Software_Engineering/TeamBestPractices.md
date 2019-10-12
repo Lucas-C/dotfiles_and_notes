@@ -100,10 +100,33 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [CRACKING the CODING INTERVIEW](http://www.crackingthecodinginterview.com/resources.html)
 - [Pour que les backlog grooming ne soient plus une corvée](http://www.theobserverself.com/corvee-backlog-grooming/)
 - [Weighted Shortest Job First](https://www.scaledagileframework.com/wsjf/)
+- [Agile Engineering Fluency - Stages of practice map](https://arlobelshee.github.io/AgileEngineeringFluency/Stages_of_practice_map.html)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
 + cf. [HowAndWhyToDesignYourTeamsForModernSoftwareSystems] & http://devopstopologies.com
+
+[Agile Engineering Fluency - Stages of practice map]:
+- Traditional well done
+- Work as a team
+- Core modern engineering
+- Adaptive engineering
+- Leverage capabilities
+- Eliminate debt and change the rules
+- Take advantage of being awesome
+
+Tracks:
+- Check your work (TDD, Exploratory Testing)
+- Write good code (Refactoring, Design, Recovering legacy code)
+- Ship at will (Continuous Integration, Continuous Deployment, Dev Ops)
+- Know what to build (Stories, Vertical Decomposition, Planning)
+- Discipline and learning (Pairing, Mobbing)
+- Improve as a team (Teams, Retrospectives)
+- Not hurried (Velocity, Planning to Capacity)
+
+Specifies when:
+- Doing A is nearly required to do B
+- Doing A helps a lot when doing B
 
 ### Open-plan offices
 Cons from [Why "Agile" and especially Scrum are terrible]:
