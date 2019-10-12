@@ -230,6 +230,8 @@ finally: pass
 
 from returns.result import Result, Success, Failure  # "Make your functions return something meaningful, typed, and safe" - Railway Oriented Programming - cf. https://sobolevn.me/2019/02/python-exceptions-considered-an-antipattern
 
+Delgan/loguru # Features: values of variables, color, rotation / retention / compression, can be structured as JSON, asynchronous / thread-safe / multiprocess-safe
+
 
 """""""""""""""""""
 "" Data structures
