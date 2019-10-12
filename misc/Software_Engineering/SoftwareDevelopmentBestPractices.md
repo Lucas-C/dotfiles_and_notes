@@ -1,9 +1,41 @@
 Software Development Best Practices
 ===================================
 
-::: toc
-[[toc]]
-:::
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i SoftwareDevelopmentBestPractices.md
+-->
+
+<!-- toc -->
+
+- [References](#references)
+- [Main design "mantras"](#main-design-mantras)
+    * [On optimization & readability](#on-optimization--readability)
+    * [Performance-oriented design advices](#performance-oriented-design-advices)
+- [Good work habits / self-organization](#good-work-habits--self-organization)
+    * [Be rigorous and clean after yourself](#be-rigorous-and-clean-after-yourself)
+    * [On beeing a senior engineer](#on-beeing-a-senior-engineer)
+    * [The Ten Commandments of Egoless Programming](#the-ten-commandments-of-egoless-programming)
+- [Design principles](#design-principles)
+    * [Resilience patterns](#resilience-patterns)
+    * [APIs, REST vs RPC, microservices](#apis-rest-vs-rpc-microservices)
+    * [The UNIX Philosophy by Mike Gancarz](#the-unix-philosophy-by-mike-gancarz)
+    * [Design smells](#design-smells)
+- [Code programming best practices](#code-programming-best-practices)
+    * [Code intent should be obvious](#code-intent-should-be-obvious)
+    * [Code formatting](#code-formatting)
+    * [Names](#names)
+    * [Functions smells](#functions-smells)
+    * [Comments smells](#comments-smells)
+    * [antirez on code comments](#antirez-on-code-comments)
+    * [Error handling](#error-handling)
+    * [Logs](#logs)
+    * [Build system smells](#build-system-smells)
+    * [Tests](#tests)
+    * [Code review > TDD [CRoTDD]](#code-review--tdd-crotdd)
+- [Functional programming](#functional-programming)
+- [Fun quotes](#fun-quotes)
+
+<!-- tocstop -->
 
 ## References
 - [CC-\\w\\d+](http://fr.slideshare.net/hebel/clean-code-vortrag032009pdf) : Clean Code - Robert C. Martin - Ed. Prentice Hall
@@ -68,6 +100,7 @@ Software Development Best Practices
 - [DDD vite fait](https://www.infoq.com/fr/minibooks/domain-driven-design-quickly/)
 - [Rachel Kroll Reliability list](http://rachelbythebay.com/w/2019/07/21/reliability/)
 - [Google Code Review Developer Guide](https://google.github.io/eng-practices/review/)
+- [How to be a programmer](http://refcnt.org/~sts/docs/various/HowToBeAProgrammer.html)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -180,6 +213,10 @@ Anything that’s actually worth doing has a non-zero chance of failure and too 
 - A senior developer understands that leadership is not about power, it is about empowerment. It is not about direction, it is about serving.
 
 "When facing extremely short, ambitious deadlines, one knows there are a dozen good things one can do, but very little feels justifiable in the face of a crisis, except writing code as fast as possible." [What happens when the Board Of Directors begins to panic?]
+
+[How to be a programmer] by Robert L. Read,
+lists skills to develop for beginner (personnal, team), intermediate (personnal, team, judgment)
+and advanced (Technological Judgment, Compromising Wisely, Serving Your Team) programmers
 
 ### The Ten Commandments of Egoless Programming
 - Understand and accept that you will make mistakes.

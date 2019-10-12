@@ -1,9 +1,41 @@
 [500 Lines or Less](http://www.aosabook.org)
 ============================================
 
-::: toc
-[[toc]]
-:::
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i TheArchitectureOfOpenSourceApplications.md
+-->
+
+<!-- toc -->
+
+- [The Architecture of Open Source Applications](#the-architecture-of-open-source-applications)
+    * [Asterisk by Russell Bryant](#asterisk-by-russell-bryant)
+    * [Audacity by James Crook](#audacity-by-james-crook)
+    * [The Bourne-Again Shell by Chet Ramey](#the-bourne-again-shell-by-chet-ramey)
+    * [Berkeley DB by Margo Seltzer & Keith Bostic](#berkeley-db-by-margo-seltzer--keith-bostic)
+    * [CMake by Bill Hoffman & Kenneth Martin](#cmake-by-bill-hoffman--kenneth-martin)
+    * [Eclipse by Kim Moir](#eclipse-by-kim-moir)
+    * [Graphite by Chris David](#graphite-by-chris-david)
+    * [The Hadoop Distributed File System by Robert Chansler, Hairong Kuang, Sanjay Radia, Konstantin Shvachko & Suresh Srinivas](#the-hadoop-distributed-file-system-by-robert-chansler-hairong-kuang-sanjay-radia-konstantin-shvachko--suresh-srinivas)
+    * [Continuous Integration by C. Titus Brown and Rosangela Canino-Koning](#continuous-integration-by-c-titus-brown-and-rosangela-canino-koning)
+    * [Jitsi by Emil Ivov](#jitsi-by-emil-ivov)
+    * [LLVM by Chris Lattner](#llvm-by-chris-lattner)
+    * [Mercurial by Dirkjan Ochtman](#mercurial-by-dirkjan-ochtman)
+    * [The NoSQL Ecosystem by Adam Marcus](#the-nosql-ecosystem-by-adam-marcus)
+    * [Python packaging by Tarek Ziadé](#python-packaging-by-tarek-ziade)
+    * [Riak and Erlang/OTP by Francesco Cesarini, Andy Gross and Justin Sheehy](#riak-and-erlangotp-by-francesco-cesarini-andy-gross-and-justin-sheehy)
+    * [Selenium WebDriver by Simon Stewart](#selenium-webdriver-by-simon-stewart)
+    * [Sendmail by Eric Allman](#sendmail-by-eric-allman)
+    * [SnowFlock by Roy Bryant and Andrés Lagar-Cavilla](#snowflock-by-roy-bryant-and-andres-lagar-cavilla)
+    * [SocialCalc by Audrey Tang](#socialcalc-by-audrey-tang)
+        + [From SocialCalc to EtherCacl by Audrey Tang](#from-socialcalc-to-ethercacl-by-audrey-tang)
+    * [Telepathy by Danielle Madeley](#telepathy-by-danielle-madeley)
+    * [Thousand Parsec by Alan Laudicina and Aaron Mavrinac](#thousand-parsec-by-alan-laudicina-and-aaron-mavrinac)
+    * [Violet by Cay Horstmann](#violet-by-cay-horstmann)
+    * [VisTrails by Juliana Freire, David Koop, Emanuele Santos, Carlos Scheidegger, Claudio Silva, and Huy T. Vo](#vistrails-by-juliana-freire-david-koop-emanuele-santos-carlos-scheidegger-claudio-silva-and-huy-t-vo)
+    * [VTK by Berk Geveci and Will Schroeder](#vtk-by-berk-geveci-and-will-schroeder)
+    * [Battle For Wesnoth by Richard Shimooka and David White](#battle-for-wesnoth-by-richard-shimooka-and-david-white)
+
+<!-- tocstop -->
 
 [A Simple Object Model](http://aosabook.org/en/500L/a-simple-object-model.html) by Carl Friedrich Bolz
 -> compare method-based model (like Smalltalk, Ruby, and JavaScript) with attribute-based models (like Lua and Python, which explain what are "bound methods")

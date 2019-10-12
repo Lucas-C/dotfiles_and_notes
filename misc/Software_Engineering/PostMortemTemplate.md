@@ -1,5 +1,29 @@
 ![](AleksiBriclot-PostMortem.jpg)
 
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i PostMortemTemplate.md
+-->
+
+<!-- toc -->
+
+- [Liste des post-mortems](#liste-des-post-mortems)
+- [Pourquoi ?](#pourquoi-)
+    * [Exemples dans l'industrie & ressources](#exemples-dans-lindustrie--ressources)
+- [Fonctionnement](#fonctionnement)
+    * [QUAND faire un post-mortem ?](#quand-faire-un-post-mortem-)
+    * [A QUEL MOMENT le réaliser ?](#a-quel-moment-le-realiser-)
+    * [QUI le prend en charge ?](#qui-le-prend-en-charge-)
+    * [COMMENT se passe la réunion de post-mortem ?](#comment-se-passe-la-reunion-de-post-mortem-)
+    * [COMMENT on communique dessus ?](#comment-on-communique-dessus-)
+- [Template](#template)
+    * [Résumé (5min)](#resume-5min)
+    * [Impact utilisateur & métriques (10 min)](#impact-utilisateur--metriques-10-min)
+    * [Chronologie (15min)](#chronologie-15min)
+    * [Ce qui a bien fonctionné / ce qui peut être amélioré (15min)](#ce-qui-a-bien-fonctionne--ce-qui-peut-etre-ameliore-15min)
+    * [Actions identifiées (5min)](#actions-identifiees-5min)
+
+<!-- tocstop -->
+
 ## Liste des post-mortems
 
 ...

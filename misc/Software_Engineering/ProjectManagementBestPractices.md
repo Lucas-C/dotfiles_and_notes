@@ -1,9 +1,28 @@
 Project management best practices
 =================================
 
-::: toc
-[[toc]]
-:::
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i ProjectManagementBestPractices.md
+-->
+
+<!-- toc -->
+
+- [References](#references)
+    * ["Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015](#comment-manager-des-geeks-agilite-methodologie--tests---luc-legardeur---devoxx-paris-2015)
+- [Choosing the right techno](#choosing-the-right-techno)
+- [Technical debt](#technical-debt)
+- [Design](#design)
+- [Software migration from legacy](#software-migration-from-legacy)
+- [Requirements](#requirements)
+- [Agile](#agile)
+    * [Stories](#stories)
+    * [Studies](#studies)
+- [Personal tasks management](#personal-tasks-management)
+- [Team tasks management](#team-tasks-management)
+    * [Methodologies](#methodologies)
+- [User-testing](#user-testing)
+
+<!-- tocstop -->
 
 ## References
 - [PP] : The Pragmatic Programmer : Chapter 7 "Before the project" - Andrew Hunt & David Thomas
@@ -163,6 +182,7 @@ E.g. fix all the doc pain points, homogenize & securize all our DB requests, imp
     * do: sketches, flows, storyboard, paper prototype, short narratives, wireframe (e.g. Axure RP, tsx/shireframe, or Keynote as Thib did)
     * don't: behavior-Driven Development, pseudo-narrative
     * do if enough time: live prototype, animation
+    * https://github.com/LisaDziuba/Awesome-Design-Tools
 - maintain a project glossary [PP]. Document the vocabulary used in the domain and shared with clients, to avoid ambiguity (from [ThoughbotPlaybook])
 Same recommendation from Domain Driven Design / Event Storming : **ubiquitous language**
 - Agile recommend using user stories over UML use cases (that can be drawn with e.g. PlantUML). Use cases are NOT a form a requirements, just an illustration of them. They are NOT Agile, user stories are. Cf. [OnUseCasesAndUserStories]

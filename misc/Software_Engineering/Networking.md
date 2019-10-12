@@ -1,9 +1,24 @@
 Networking
 ==========
 
-::: toc
-[[toc]]
-:::
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i Networking.md
+-->
+
+<!-- toc -->
+
+- [Windows](#windows)
+- [HTTP](#http)
+    * [Single Origin Policy](#single-origin-policy)
+- [IP](#ip)
+- [TCP](#tcp)
+- [UDP](#udp)
+- [DNS](#dns)
+- [BGP](#bgp)
+- [Other protocols](#other-protocols)
+- [Monitoring tools](#monitoring-tools)
+
+<!-- tocstop -->
 
 101 : https://github.com/espadrine/Solve-Data-In-Code/blob/master/misc/network.md
 
