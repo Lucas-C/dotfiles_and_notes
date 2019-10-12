@@ -1,9 +1,25 @@
 On DBs, Queues, Brokers and Caching
 ===================================
 
-::: toc
-[[toc]]
-:::
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i OnDBsQueuesBrokersAndCaching.md
+-->
+
+<!-- toc -->
+
+    * [References](#references)
+    * [Memory caching system](#memory-caching-system)
+        + [memcached](#memcached)
+        + [Redis](#redis)
+        + [etcd](#etcd)
+    * [Queues](#queues)
+    * [Storage layer for numeric data series over time](#storage-layer-for-numeric-data-series-over-time)
+        + [Graphite](#graphite)
+    * [DBs](#dbs)
+        + [NoSQL DBs](#nosql-dbs)
+        + [SQL DBs](#sql-dbs)
+
+<!-- tocstop -->
 
 ## References
 - [AOSA_NoSQL] : [The Architecture of Open Source Applications](http://www.aosabook.org) chapter dedicated to NoSQL
@@ -44,9 +60,8 @@ JCache API caching strategies (https://dzone.com/refcardz/java-caching):
     redis-cli llen QUEUE_NAME
     redis-cli keys \*
 
-    # cf. https://redis.io/topics/memory-optimization#memory-allocation
     maxmemory 2mb
-    maxmemory-policy noeviction # Or LRU...
+    maxmemory-policy noeviction # Or LRU... - cf. https://redis.io/topics/memory-optimization#memory-allocation
 
 sripathikrishnan/redis-rdb-tools: parse Redis dump.rdb files, Analyze Memory, and Export Data to JSON
 

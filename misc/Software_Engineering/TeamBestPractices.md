@@ -1,9 +1,32 @@
 # Software development is a collaborative game
 cf. http://blog.codinghorror.com/software-development-as-a-collaborative-game/
 
-::: toc
-[[toc]]
-:::
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i TeamBestPractices.md
+-->
+
+<!-- toc -->
+
+- [References](#references)
+- [Teams organization](#teams-organization)
+    * [Open-plan offices](#open-plan-offices)
+- [Joining a new team](#joining-a-new-team)
+- [Coaching new hires & bringing them up to speed](#coaching-new-hires--bringing-them-up-to-speed)
+- [Leadership](#leadership)
+- [Team culture building & best practices](#team-culture-building--best-practices)
+- [Stand-up & meetings](#stand-up--meetings)
+    * [Collective tasks estimation](#collective-tasks-estimation)
+- [Retrospectives](#retrospectives)
+- [Define team metrics](#define-team-metrics)
+- [Ops](#ops)
+    * [Post-mortems](#post-mortems)
+    * [Chaos Engineering aka Resilience Testing](#chaos-engineering-aka-resilience-testing)
+- [Documentation:](#documentation)
+- [Recruiting / recrutement](#recruiting--recrutement)
+    * [Outils](#outils)
+    * [Language-based question](#language-based-question)
+
+<!-- tocstop -->
 
 ## References
 - [Minimum Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)

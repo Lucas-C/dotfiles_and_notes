@@ -4,6 +4,8 @@
 #   export GITHUB_OAUTH_TOKEN=...
 #   ./get_github_repo_stats.py pulls toto/tata --closed-after 2019-01-01
 
+# API DOC: https://developer.github.com/v3/issues/
+
 import argparse, json, os, sys
 from datetime import datetime
 
@@ -17,12 +19,14 @@ def main():
     args = parse_args()
     ag = GitHubAPIWrapper(token=os.environ['GITHUB_OAUTH_TOKEN'])
     org, repo = args.org_repo.split('/')
-    issues = ag.repos[org][repo].issues.get(state='all')
+    issues = ag.repos[org][repo].issues.get(state='all', labels=args.labels)
     def filter_pull_or_issue(issue):
         return 'pull_request' in issue if args.pull_or_issue == 'pulls' else 'pull_request' not in issue
     issues = [issue for issue in issues if filter_pull_or_issue(issue)]
     if args.closed_after:
         issues = [issue for issue in issues if issue['closed_at'] and datetime.strptime(issue['closed_at'], '%Y-%m-%dT%H:%M:%SZ') > args.closed_after]
+    if args.created_since:
+        issues = [issue for issue in issues if datetime.strptime(issue['created_at'], '%Y-%m-%dT%H:%M:%SZ') > args.created_since]
     print(json.dumps(issues, indent=2, sort_keys=True))
 
 
@@ -31,6 +35,8 @@ def parse_args():
     parser.add_argument('pull_or_issue', choices=('issues', 'pulls'))
     parser.add_argument('org_repo')
     parser.add_argument('--closed-after', type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    parser.add_argument('--created-since', type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    parser.add_argument('--labels', help='Comma separated list')
     return parser.parse_args()
 
 

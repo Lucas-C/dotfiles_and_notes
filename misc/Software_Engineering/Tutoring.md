@@ -1,9 +1,24 @@
 Tutoring
 ========
 
-::: toc
-[[toc]]
-:::
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i Tutoring.md
+-->
+
+<!-- toc -->
+
+- [References](#references)
+- [Alternance](#alternance)
+- [Conseils d'encadrement](#conseils-dencadrement)
+    * [S'accorder](#saccorder)
+    * [Suivi](#suivi)
+        + [Entretiens hebdos](#entretiens-hebdos)
+        + [Entretiens de progression](#entretiens-de-progression)
+        + [Questions à poser](#questions-a-poser)
+    * [A la fin](#a-la-fin)
+- [Outils](#outils)
+
+<!-- tocstop -->
 
 # References
 - [Les compétences des docteur·e·s](http://www.adoc-metis.com/wp/wp-content/uploads/2017/01/Competences.pdf)

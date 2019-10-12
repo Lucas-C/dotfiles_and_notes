@@ -1,9 +1,22 @@
 Concurrency
 ===========
 
-::: toc
-[[toc]]
-:::
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i Concurrency.md
+-->
+
+<!-- toc -->
+
+- [References:](#references)
+- [Basic definitions:](#basic-definitions)
+- [Execution models:](#execution-models)
+- [Architecture patterns](#architecture-patterns)
+- [Advices](#advices)
+    * [Distributed systems](#distributed-systems)
+- [Java](#java)
+    * [Standard classes](#standard-classes)
+
+<!-- tocstop -->
 
 !! Asynchrone != Parallel != Concurrent
 

@@ -1,3 +1,16 @@
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i Teaching.md
+-->
+
+<!-- toc -->
+
+- [Stages of learning](#stages-of-learning)
+- [TP / Code katas](#tp--code-katas)
+    * [Python](#python)
+- [Online platforms](#online-platforms)
+
+<!-- tocstop -->
+
 ## Stages of learning
 - [Shu Ha Ri](https://en.wikipedia.org/wiki/Shuhari) du judo / Di Ren Tian du wushu
 

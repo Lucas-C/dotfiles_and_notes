@@ -1,9 +1,20 @@
 RiskManagement
 ==============
 
-::: toc
-[[toc]]
-:::
+<!-- To update this Table Of Contents:
+    markdown-toc --indent "    " --maxdepth 3 -i RiskManagement.md
+-->
+
+<!-- toc -->
+
+- [Resources](#resources)
+- [Définition ?](#definition-)
+- [Quelques types de risques](#quelques-types-de-risques)
+- [Comment les adresser ?](#comment-les-adresser-)
+- [Mise en application concrète](#mise-en-application-concrete)
+    * [Atelier en équipe d'identification puis classement des risques](#atelier-en-equipe-didentification-puis-classement-des-risques)
+
+<!-- tocstop -->
 
 ## Resources
 
