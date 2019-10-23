@@ -8,15 +8,11 @@
 # real    0m1,694s
 
 import sys
-from problem007 import build_prime_sieve
+from problem007 import build_prime_sieve, primes_from
 
 if __name__ == '__main__':
     prime_sieve = build_prime_sieve(2000000)
     primes_count = prime_sieve.count(True)
     print('Sieve primes count:', primes_count, file=sys.stderr)
     print('Sieve size in memory: %sb' % prime_sieve.buffer_info()[1], file=sys.stderr)
-    total = 0
-    for n, is_prime in enumerate(prime_sieve):
-        if is_prime:
-            total += n
-    print(total)
+    print(sum(primes_from(prime_sieve)))

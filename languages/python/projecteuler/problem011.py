@@ -28,5 +28,58 @@ GRID = '''\
 
 # time ./problem11.py
 
+GRID = [list(map(int, row.split(' '))) for row in GRID.splitlines()]
+
+TEST_GRID = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+]
+
+from functools import reduce
+
+def test_columns():
+    assert list(columns(TEST_GRID)) == [
+        [1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9],
+    ]
+
+def columns(grid):
+    for j in range(len(grid[0])):
+        yield [grid[i][j] for i in range(len(grid))]
+
+def test_diagonals():
+    assert list(diagonals(TEST_GRID, True)) == [
+        [1],
+        [4, 2],
+        [7, 5, 3],
+        [8, 6],
+        [9],
+    ]
+    assert list(diagonals(TEST_GRID, False)) == [
+        [7],
+        [4, 8],
+        [1, 5, 9],
+        [2, 6],
+        [3],
+    ]
+
+def diagonals(grid, dir):
+    N = len(grid)
+    M = len(grid[0])
+    for i in range(N):
+        yield [grid[i-j if dir else N-1+j-i][j] for j in range(i+1)]
+    for j in range(1, M):
+        yield [grid[i if dir else N-1-i][M-1+j-i] for i in reversed(range(j, M))]
+
+def chunk_splitter(line, n):
+    return (line[i:i+n] for i in range(0, len(line), n-1))
+
 if __name__ == '__main__':
-    pass
+    max, product = 0, None
+    for line in GRID + list(columns(GRID)) + list(diagonals(GRID, True)) + list(diagonals(GRID, False)):
+        for chunk in chunk_splitter(line, n=4):
+            if sum(chunk) > max:
+                max, product = sum(chunk), reduce((lambda x, y: x * y), chunk)
+    print(product)
