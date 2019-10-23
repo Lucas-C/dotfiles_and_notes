@@ -1663,7 +1663,9 @@ from enum import Enum, IntEnum
 from functools import \
         singledispatch, \ @foo.register(int) def _(obj, verbose=False): ...
     total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
-    lru_cache # memoize / cache for pure functions - avoid using it as a decorator so that the cache is local and not module-global ; Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties ; or: pypi/cached-property ; or boltons.cacheutils.LRI / boltons.cacheutils.LRU
+    lru_cache # memoize / cache for pure functions - avoid using it as a decorator so that the cache is local and not module-global
+    # Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties
+    # Alt: pypi/cached-property / boltons.cacheutils.LRI / boltons.cacheutils.LRU
 
 collections.ChainMap({}, d1, d2) # view of multiple dicts - Hidden Py2.7 backport: from ConfigParser import _Chainmap as ChainMap - Alt: Py2ChainMap
 

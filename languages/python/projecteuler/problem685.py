@@ -11,7 +11,7 @@
 #  f(n, 1) == (str(n % 9) if n % 9 else '') + (n // 9 * '9')
 
 # time ./problem665.py
-#-> NOT SOLVED YET, too slow...
+#-> NOT SOLVED YET, too slow... -> must optimize string operations?
 
 from itertools import count
 import sys
@@ -85,19 +85,21 @@ def f(n, m):
 
 def f_str(n, m):
     r = (str(n % 9) if n % 9 else '') + (n // 9 * '9')  # f(n, 1)
+    if m != 1:
+        print('m:', m, file=sys.stderr)
     for _ in range(1, m):
         lower_digit_pos, lower_digit = next((len(r)-i-1, k) for i, k in enumerate(r[::-1]) if k != '0')
-        if lower_digit_pos == 0:  # we grow the string
-            assert n < 10
-            r = '1' + str(n - 1).zfill(len(r))
-        else:
-            try:
-                prev_non9_digit_pos, prev_non9_digit = next((len(r[:lower_digit_pos])-i-1, k) for i, k in enumerate(r[lower_digit_pos-1::-1]) if k != '9')
-                new_digit_value = int(prev_non9_digit) + 1
-                left_digits_sum = sum(map(int, r[:prev_non9_digit_pos])) + new_digit_value
-                r = r[:prev_non9_digit_pos] + str(new_digit_value) + f_str(n-left_digits_sum, 1).zfill(len(r) - prev_non9_digit_pos - 1)
-            except StopIteration:  # there are only 9s on the left
-                r = '1' + f_str(n-1, 1).zfill(len(r))
+        try:
+            if lower_digit_pos == 0:
+                raise StopIteration
+            prev_non9_digit_pos, prev_non9_digit = next((len(r[:lower_digit_pos])-i-1, k) for i, k in enumerate(r[lower_digit_pos-1::-1]) if k != '9')
+            new_digit_value = int(prev_non9_digit) + 1
+            left_digits_sum = sum(map(int, r[:prev_non9_digit_pos])) + new_digit_value
+            r = r[:prev_non9_digit_pos] + str(new_digit_value) + f_str(n-left_digits_sum, 1).zfill(len(r) - prev_non9_digit_pos - 1)
+        except StopIteration:  # there are only 9s on the left or lower_digit_pos == 0 => we grow the string:
+            r = '1' + f_str(n-1, 1).zfill(len(r))
+    if m != 1:
+        print('len(f(n, m)):', len(r), file=sys.stderr)
     return r
 
 def f_naive(n, m):

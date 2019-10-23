@@ -33,6 +33,11 @@ def build_prime_sieve(n):
                 sieve[j] = False
     return sieve
 
+def primes_from(prime_sieve):
+    for n, is_prime in enumerate(prime_sieve):
+        if is_prime:
+            yield n
+
 if __name__ == '__main__':
     # First, build a sieve big enough to contain 10 001 primes:
     prime_sieve = build_prime_sieve(104750)  # this size is a guess refined by tests
@@ -41,12 +46,5 @@ if __name__ == '__main__':
     print('Sieve primes count:', primes_count, file=sys.stderr)
     print('Sieve size in memory: %sb' % prime_sieve.buffer_info()[1], file=sys.stderr)
     # Second, find 10 001st prime:
-    i = 0
-    last_prime = None
-    for n, is_prime in enumerate(prime_sieve):
-        if is_prime:
-            last_prime = n
-            i += 1
-            if i == 10001:
-                break
-    print(last_prime)
+    primes = list(primes_from(prime_sieve))
+    print(primes[10000])
