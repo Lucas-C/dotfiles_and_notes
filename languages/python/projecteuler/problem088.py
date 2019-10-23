@@ -17,15 +17,16 @@
 
 # LEMMES:
 #  - N(k) > k                                       (trivial)
-#  - for all k factors f_i composing N(k), f_i <= k (unproved)
 #  - N(k) <= 2*k                                    (unproved)
+#  - for all k factors f_i composing N(k), f_i <= k (stem from above one, by absurd)
 #  - the number of factors f_i>=2 composing N(k)
-#    is lower than log2(k)                          (unproved)
+#    is lower than log2(k)                          (trivial, by absurd)
 
 #   k=7: 12 = 1 × 1 × 1 × 1 × 3 x 4 = 1 + 1 + 1 + 1 + 1 + 3 + 4
 #   k=8: 16 = 1 × 1 × 1 × 1 × 1 × 2 x 8 = 1 + 1 + 1 + 1 + 1 + 1 + 2 + 8
 #   k=9: 15 = 1 × 1 × 1 × 1 × 1 × 1 × 3 x 5 = 1 + 1 + 1 + 1 + 1 + 1 + 1 + 3 + 5
-#   k=60: 120 = 1 × 1 x ... x 2 x 60 = 1 + 1 + ... + 2 + 60
+#   k=60: 72 = 1 × 1 x ... x 2 x 4 x 9 = 1 + 1 + ... + 2 + 4 + 9
+#   k=444: 888 = 1 × 1 x ... x 2 x 444 = 1 + 1 + ... + 2 + 444
 
 # time ./problem88.py
 #-> NOT SOLVED YET, too slow... -> must re-think diffs-to-product table build logic?
@@ -35,14 +36,16 @@ from functools import reduce
 from itertools import count
 from math import floor, log2
 
-MAX_K = 1500                     # takes around 48s to complete... we are far from reaching MAX_K=12000 :(
-                                 # the bottleneck is clearly the diffs-to-product building phase
-MAX_FACTORS = floor(log2(MAX_K)) # exclusive max number of factors of ALL N(k) products, ignoring x1
-MAX_VALUE = MAX_K                # max factor value
+MAX_K = 1500                      # takes around 48s to complete... we are far from reaching MAX_K=12000 :(
+                                  # the bottleneck is clearly the diffs-to-product building phase
+MAX_FACTORS = floor(log2(MAX_K))  # exclusive max number of factors of ALL N(k) products, ignoring x1
+MAX_VALUE = MAX_K                 # max factor value
 print('MAX_FACTORS=%s' % MAX_FACTORS)
 
 def test_product_total_combinations():
-    assert list(product_total_combinations(2, 5, 2)) == [
+    global MAX_VALUE
+    MAX_VALUE=4
+    assert list(product_total_combinations(2, 2)) == [
         (2*2, 2+2),
         (2*3, 2+3),
         (2*4, 2+4),
@@ -50,15 +53,17 @@ def test_product_total_combinations():
         (3*4, 3+4),
         (4*4, 4+4),
     ]
-    assert list(product_total_combinations(2, 4, 3)) == [
+    MAX_VALUE=3
+    assert list(product_total_combinations(2, 3)) == [
         (2*2*2, 2+2+2),
         (2*2*3, 2+2+3),
         (2*3*3, 2+3+3),
         (3*3*3, 3+3+3),
     ]
+    MAX_VALUE=5
     global UPPER_BOUND
-    UPPER_BOUND = 10
-    assert list(product_total_combinations(2, 5, 2)) == [
+    UPPER_BOUND = 9
+    assert list(product_total_combinations(2, 2)) == [
         (2*2, 2+2),
         (2*3, 2+3),
         (2*4, 2+4),
@@ -93,7 +98,7 @@ def product_total_combinations(start, seq_length, product=1, total=0):
         yield from product_total_combinations(i, seq_length-1, product*i, total+i)
 
 if STORE_FACTORS:  # override above function to returns factors instead of only their product:
-    def product_total_combinations(start, end, seq_length, factors=(), total=0):
+    def product_total_combinations(start, seq_length, factors=(), total=0):
         if factors:
             product = product_from(factors)
             if product > UPPER_BOUND or total > UPPER_BOUND or (product - total) > MAX_DIFF:
@@ -101,8 +106,8 @@ if STORE_FACTORS:  # override above function to returns factors instead of only 
         if seq_length == 0:
             yield (factors, total)
             return
-        for i in range(start, end):
-            yield from product_total_combinations(i, end, seq_length-1, factors+(i,), total+i)
+        for i in range(start, MAX_VALUE+1):
+            yield from product_total_combinations(i, seq_length-1, factors+(i,), total+i)
 
 if __name__ == '__main__':
     diffs_to_product = {}  # factors_count -> { (product-sum) -> product }
@@ -116,6 +121,7 @@ if __name__ == '__main__':
         diffs_to_product[factors_count] = diff_to_product
         print('Built diff-to-product table of length %s for #factors=%s' % (len(diff_to_product), factors_count), file=sys.stderr)
     all_Nks = set()
+    max_Nk_minus_k, special_k = 0, None
     for k in range(2, MAX_K+1):
         min_product, optimal_factors_count, optimal_factors = None, None, None
         for factors_count in range(2, k+1):
@@ -133,4 +139,7 @@ if __name__ == '__main__':
         if STORE_FACTORS:
             print('  factors:', optimal_factors, file=sys.stderr)
         all_Nks.add(min_product)
+        if min_product - k > max_Nk_minus_k:
+            max_Nk_minus_k, special_k = min_product - k, k
+    print('Max(N(k)-k)=%s for k=%s' % (max_Nk_minus_k, special_k), file=sys.stderr)
     print(sum(all_Nks))
