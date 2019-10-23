@@ -22,13 +22,13 @@ Comment rendre cette égalité vraie le plus simplement possible ?
 
 Qu'il y a t'il deux fois dans un an et trois fois dans une année ?
 
- Vous êtes dans une pièce vide, fermée et sans fenêtre. Il y a trois interrupteurs sur le mur.
+Vous êtes dans une pièce vide, fermée et sans fenêtre. Il y a trois interrupteurs sur le mur.
 Un seul commande l'ampoule éteinte qui est dans la pièce d'à côté.
 Votre but est de déterminer quel est le bon interrupteur. Seulement,
 vous n'avez droit qu'à une manipulation avant d'aller dans l'autre pièce pour énoncer votre verdict.
   Comment faire pour trouver le bon interrupteur à coup sûr ?
 
-  Un puissant Cheik vient de mourir. A la lecture de son testament, le notaire qui s'est rendu sur place
+Un puissant Cheik vient de mourir. A la lecture de son testament, le notaire qui s'est rendu sur place
 annonce que le défunt lègue ses 17 chameaux à distribuer comme suit entre ses 3 fils :
 le premier doit en recevoir la moitié, le second le tiers et le dernier le neuvième. Mais bien évidemment,
 le notaire se retrouve fort embarrassé devant cette curieuse demande de répartition.
@@ -81,12 +81,16 @@ Touche ne touche pas.
 Mars touche alors que Terre ne touche pas.
 
 
-Monsieur X visitait un des nombreux châteaux d’Europe. Le guide expliquait que l’un des moyens de défense les plus utilisés à l’époque était les douves. Celles que Monsieur X visitait formaient un immense carré, de 10 mètres de large et de 15 mètres de profondeur.
+Monsieur X visitait un des nombreux châteaux d’Europe.
+Le guide expliquait que l’un des moyens de défense les plus utilisés à l’époque était les douves.
+Celles que Monsieur X visitait formaient un immense carré, de 10 mètres de large et de 15 mètres de profondeur.
 Monsieur X se vanta de pouvoir les traverser sans se mouiller en utilisant deux planches de 9 mètres et rien d’autre.
 Comment a-t-il fait ?
 
 
-Vous avez besoin d'un litre d'eau, exactement un litre. Vous disposez pour cela d'un récipient de capacité trois litres et d'un autre de cinq litres. Combien de fois devez-vous remplir un récipient au robinet ?
+Vous avez besoin d'un litre d'eau, exactement un litre.
+Vous disposez pour cela d'un récipient de capacité trois litres et d'un autre de cinq litres.
+Combien de fois devez-vous remplir un récipient au robinet ?
 
 [Enigme du trésor des pirates](http://www.enigmasters.com/2007/06/enigme-logique-le-tresor-des-pirates.html)
 
@@ -98,8 +102,11 @@ Vous avez besoin d'un litre d'eau, exactement un litre. Vous disposez pour cela 
 
 Enigme de la ficelle et des 2 prisonniers (apprise en Irlande)
 
-So there's this king. Someone breaks into his wine cellar where he stores 1000 bottles of wine. This person proceeds to poison one of the 1000 bottles, but gets away too quickly for the king's guard to see which one he poisoned or to catch him.
-The king needs the remaining 999 safe bottles for his party in 4 weeks. The king has 10 servants who he considers disposable. The poison takes about 3 weeks to take effect, and any amount of it will kill whoever drinks it. How can he figure out which bottle was poisoned in time for the party?
+So there's this king. Someone breaks into his wine cellar where he stores 1000 bottles of wine.
+This person proceeds to poison one of the 1000 bottles, but gets away too quickly for the king's guard to see which one he poisoned or to catch him.
+The king needs the remaining 999 safe bottles for his party in 4 weeks.
+The king has 10 servants who he considers disposable. The poison takes about 3 weeks to take effect, and any amount of it will kill whoever drinks it.
+How can he figure out which bottle was poisoned in time for the party?
 FROM: http://www.mindcipher.com/puzzles/121
 
 [Enigme des 2 cordelettes qui se consument en 45min](http://www.enigme-facile.fr/mesurer-45-mn-avec-un-briquet-318)

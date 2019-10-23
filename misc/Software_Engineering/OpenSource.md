@@ -39,7 +39,7 @@ cf. https://github.com/todogroup/repolinter
   * pre-launch checklist: https://opensource.guide/starting-a-project/#your-pre-launch-checklist
   * [Licensee](https://github.com/benbalter/licensee): detect under what license a project is distributed (Ruby) - Alt: https://github.com/pivotal/LicenseFinder
   * curated lists:
-    - https://opensource.guide/best-practices/#bring-in-the-robots : include `mention-bot`, `no-response`, `dependabot-preview`...
+    - https://opensource.guide/best-practices/#bring-in-the-robots : include `mention-bot`, `no-response` or `stale`, `dependabot-preview`...
     - https://github.com/todogroup/awesome-oss-mgmt
     - https://www.linuxfoundation.org/tools-managing-open-source-programs/ include project health, stats & dashboard tools
 

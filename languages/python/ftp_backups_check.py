@@ -23,7 +23,8 @@ def main(args):
 
         for md5_line in md5_lines:
             md5, filename = md5_line.split()
-            print(filename, md5, sizeof_fmt(ftp.size(filename)))
+            print(filename, md5)
+            print('-> has size:', sizeof_fmt(ftp.size(filename)))
             if not args.check_archives:
                 continue
             file_full_path = os.path.join(tmp_dir, filename)

@@ -391,7 +391,7 @@ jab/bidict # provide key -> value & value -> key access
 dictutils.OrderedMultiDict # from mahmoud/boltons
 
 ijson  # battle-tested, fantastically more memory-efficient
-ultrajson >faster> simplejson >faster>(not in my experience on CSC in Py3) json  # Also: mitghi/cyjson - Note for ultrajson: it can fail silently: https://github.com/esnme/ultrajson/issues/134 - Good read: https://blog.ionelmc.ro/2015/11/22/memory-use-and-speed-of-json-parsers/
+ultrajson >faster> simplejson >faster>(not in my experience on CSC in Py3) json  # Also: rapidjson - ijl/orjson - mitghi/cyjson - Note for ultrajson: it can fail silently: https://github.com/esnme/ultrajson/issues/134 - Good read: https://blog.ionelmc.ro/2015/11/22/memory-use-and-speed-of-json-parsers/
 def sets_converter(obj): return list(obj) if isinstance(obj, set) else obj.__dict__ # or pass custom json.JSONEncoder as the 'cls' argument to 'dumps'
 json.dumps(d, sort_keys=True, indent=4, default=sets_converter) # pretty formatting - Alt: pprint.pformat - Also: -mjson.tool
 for error in jsonschema.Draft4Validator(schema).iter_errors(data): # Alt: kwalify - YAML/JSON validation library based on a schema
@@ -983,6 +983,10 @@ scipy
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
     matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
 
+z3-solver # SMT (satisfiability modulo theories) solver
+    https://ericpony.github.io/z3py-tutorial/guide-examples.htm
+    How I Cheat at Maths - Z3 101 by chown in Phrack #69
+
 (ggplot(mtcars, aes('wt', 'mpg', color='factor(gear)'))
  + geom_point()
  + stat_smooth(method='lm')
@@ -1015,7 +1019,9 @@ Optimization guide:
 - improve algorithms ? data structures (for lightweight objects, use namedtuples) ? use a cache ?
 - Numba (faster than Cython, which is faster than Pypy) + Numpy (vectorized operations are way faster than Pyhton slow loops - use: ufuncs, aggregates, broadcasting, slicing & masking)
 
-Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C - AlanCristhian/statically that provides the @statically.typed decorator
+Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C
+    AlanCristhian/statically : provides the @statically.typed decorator to compile a Python function with Cython
+    fast_crash.pyx # nice Cython multiprocessing (OpenMP) code sample from "Personalized PGP Key IDs for fun and profit" by Filippo Valsorda in Phrack #69
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler, but does not support C extensions. Also: PyPy-STM
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
 Jython / Py4J # intercommunicate with Java -> Jython has pip, but won't support lib depending on multiprocessing - however, it has excellent support for built-in Java threads: http://www.jython.org/jythonbook/en/1.0/Concurrency.html

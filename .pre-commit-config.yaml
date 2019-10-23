@@ -5,8 +5,6 @@ repos:
     -   id: check-json
     -   id: check-merge-conflict
     -   id: trailing-whitespace
-        args:
-        - --no-markdown-linebreak-ext
     -   id: check-xml
     -   id: check-yaml
 -   repo: git://github.com/Lucas-C/pre-commit-hooks

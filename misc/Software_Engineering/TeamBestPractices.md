@@ -101,6 +101,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Pour que les backlog grooming ne soient plus une corvée](http://www.theobserverself.com/corvee-backlog-grooming/)
 - [Weighted Shortest Job First](https://www.scaledagileframework.com/wsjf/)
 - [Agile Engineering Fluency - Stages of practice map](https://arlobelshee.github.io/AgileEngineeringFluency/Stages_of_practice_map.html)
+- [Faire équipe](https://larlet.fr/david/blog/2019/faire-equipe/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -127,6 +128,13 @@ Tracks:
 Specifies when:
 - Doing A is nearly required to do B
 - Doing A helps a lot when doing B
+
+[Faire équipe]:
+  * Les rituels
+  * Les pratiques
+  * Les joies
+  > Peut-être est-ce cela faire équipe : partager l’enthousiasme de faire des choses ensemble qui permettent de mieux se connaître.
+  * L’arithmétique
 
 ### Open-plan offices
 Cons from [Why "Agile" and especially Scrum are terrible]:
