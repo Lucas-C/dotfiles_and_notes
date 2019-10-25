@@ -73,6 +73,7 @@ mstsc &:: builtin but less secure TeamViewer-like
 secpol.msc &:: Security Policy Editor -> can for example gives permision to a user to create symlinks
 rundll32 sysdm.cpl,EditEnvironmentVariables &:: user env variables
 rundll32 "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ImageView_Fullscreen $path_to_img_without_quotes &:: Open Windows Image Viewer
+reg query $key :: get registry key value
 
 upx -9 my_homemade_cmd.exe &:: executable packer/compressor/optimizer
 
@@ -102,7 +103,7 @@ Windows Master Control Panel shortcut: {ED7BA470-8E54-465E-825C-99712043E01C}
 
 ::: Usual cleanup steps
 - create a restoration point
-- cleanmgr.exe &:: Click the Clean up System Files button & enable the Windows Update Cleanup option !
+- cleanmgr.exe &:: Click the Clean up System Files button & enable the Windows Update Cleanup option ! -> can free many Go by removing installers
 - CCCleaner
 - Malwarebytes (+ possibly HijackThis)
 - WinDirStat / SpaceMonger
