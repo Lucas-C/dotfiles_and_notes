@@ -857,6 +857,7 @@ from IPython.display import HTML
 HTML('<img src="data:image/png;base64,{0}"/>'.format(img_base64))
 
 # PDB tricks
+~/.pdbrc # to persist history: https://stackoverflow.com/a/35866289/636849
 import sys; from subprocess import call; call(['/usr/bin/bash'], stderr=sys.stderr, stdin=sys.stdin, shell=True) # launch an interactive Bash session
 !p = ... / !list(...) # make it possible to start a cmdline with pdb commands
 !import code; code.interact(local=vars()) # simply `interact` in Python 3
@@ -1175,6 +1176,7 @@ antiboredom/audiogrep
 """""""""""""""""""""""""""""""""""""
 "" Multi-threads/processes & async
 """""""""""""""""""""""""""""""""""""
+# Raymond Hettinger Keynote on Concurrency: https://pybay.com/site_media/slides/raymond2017-keynote/intro.html
 multiprocessing, Pyro > threading # as Python can only have one thread because of the GIL - Using multiprocessing => everything should be pickable
 threading.Thread().deamon = True # The entire Python program exits when no alive non-daemon threads are left.
 threading.Event # for threads communication, including stopping: Thread.run(self): while not self.stop_event: ...

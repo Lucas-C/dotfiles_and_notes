@@ -172,13 +172,6 @@ git-identify () { # USAGE: git-identify file hash
     done
 }
 
-# Checkout GitHub pull requests locally: add the following line in corresponding .git/config section - FROM: https://gist.github.com/piscisaureus/3342247
-[remote "origin"]
-    fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
-$ git fetch origin
-$ git checkout pr/999
-# Does not allow to push. One must follow this process to do so: https://help.github.com/articles/committing-changes-to-a-pull-request-branch-created-from-a-fork/
-
 # Debugging connexion to AWS e.g. 403 errors (protip: ensure you have a "region = ..." for every profile in ~/.aws/credentials)
 HOST=git-codecommit.us-west-1.amazonaws.com
 awssec.py -u $USER
@@ -187,9 +180,21 @@ curl -v -u "$username:$password" https://${HOST}/v1/repos/${REPO_NAME}.git/info/
 
 Git bomb: https://kate.io/blog/making-your-own-exploding-git-repos/
 
-GitHub issues & PRs graphs for a repo : https://gist.github.com/Lucas-C/5c9730756e7b3f795c6d121d38a9ce88
-
 Storing meta-data along commits, e.g. for benchmarking execution time per commit through a pre-commit hook : https://stackoverflow.com/a/40496777/636849
+
+@#~#~#~#@
+~ GitHub
+@#~#~#~#@
+# Checkout GitHub pull requests locally: add the following line in corresponding .git/config section - FROM: https://gist.github.com/piscisaureus/3342247
+[remote "origin"]
+    fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+$ git fetch origin
+$ git checkout pr/999
+# Does not allow to push. One must follow this process to do so: https://help.github.com/articles/committing-changes-to-a-pull-request-branch-created-from-a-fork/
+
+GitHub issues & PRs graphs for a repo : https://chezsoi.org/lucas/blog/github-project-statistics-and-python-interactive-coding.html
+
+Using the Status API to convey information directly into pull requests: https://tryexceptpass.org/article/continuous-builds-reporting-status/
 
 
 ++++++

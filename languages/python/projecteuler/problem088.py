@@ -28,6 +28,9 @@
 #   k=60: 72 = 1 × 1 x ... x 2 x 4 x 9 = 1 + 1 + ... + 2 + 4 + 9
 #   k=444: 888 = 1 × 1 x ... x 2 x 444 = 1 + 1 + ... + 2 + 444
 
+# Sum(set(N(k<=444)))=25834
+# Sum(set(N(k<=1500)))=187741
+
 # time ./problem88.py
 #-> NOT SOLVED YET, too slow... -> must re-think diffs-to-product table build logic?
 
@@ -36,10 +39,10 @@ from functools import reduce
 from itertools import count
 from math import floor, log2
 
-MAX_K = 1500                      # takes around 48s to complete... we are far from reaching MAX_K=12000 :(
-                                  # the bottleneck is clearly the diffs-to-product building phase
+MAX_K = 1500                     # takes around 48s to complete... we are far from reaching MAX_K=12000 :(
+                                 # the bottleneck is clearly the diffs-to-product building phase
 MAX_FACTORS = floor(log2(MAX_K))  # exclusive max number of factors of ALL N(k) products, ignoring x1
-MAX_VALUE = MAX_K                 # max factor value
+MAX_VALUE = MAX_K                # max factor value
 print('MAX_FACTORS=%s' % MAX_FACTORS)
 
 def test_product_total_combinations():
@@ -109,29 +112,41 @@ if STORE_FACTORS:  # override above function to returns factors instead of only 
         for i in range(start, MAX_VALUE+1):
             yield from product_total_combinations(i, seq_length-1, factors+(i,), total+i)
 
+# Actually >2x slower than product_total_combinations for MAX_K=1500
+def populate_diffs_to_product(diffs_to_product, start=2, seq_length=1, product=1, total=0):
+    if seq_length > MAX_FACTORS+1 or product > UPPER_BOUND or total > UPPER_BOUND or (product - total) > MAX_DIFF:
+        return
+    diff_to_product = diffs_to_product[seq_length]
+    for i in range(start, MAX_VALUE+1):
+        new_product, new_total = product*i, total+i
+        diff = new_product - new_total
+        existing_product = diff_to_product.get(diff)
+        if not existing_product or new_product < existing_product:
+            diff_to_product[diff] = new_product
+        populate_diffs_to_product(diffs_to_product, start, seq_length+1, new_product, new_total)
+
 if __name__ == '__main__':
-    diffs_to_product = {}  # factors_count -> { (product-sum) -> product }
+    diffs_to_product = [{} for _ in range(MAX_FACTORS+1)]  # factors_count -> { (product-sum) -> product }
     for factors_count in range(2, MAX_FACTORS+1):
-        diff_to_product = {}
+        diff_to_product = diffs_to_product[factors_count]
         for stored, total in product_total_combinations(start=2, seq_length=factors_count):
             product = product_from(stored)
             diff = product - total
             if diff not in diff_to_product or product < product_from(diff_to_product[diff]):
                 diff_to_product[diff] = stored
-        diffs_to_product[factors_count] = diff_to_product
         print('Built diff-to-product table of length %s for #factors=%s' % (len(diff_to_product), factors_count), file=sys.stderr)
+    # populate_diffs_to_product(diffs_to_product)
+    # for factors_count, diff_to_product in sorted(diffs_to_product.items()):
+        # print('diff-to-product table for #factors=%s has length %s ' % (factors_count, len(diffs_to_product[factors_count])), file=sys.stderr)
     all_Nks = set()
     max_Nk_minus_k, special_k = 0, None
     for k in range(2, MAX_K+1):
         min_product, optimal_factors_count, optimal_factors = None, None, None
-        for factors_count in range(2, k+1):
-            sum_of_ones = k - factors_count
-            if factors_count not in diffs_to_product:
-                if min_product is None:
-                    raise RuntimeError('MAX_FACTORS or MAX_VALUE is too low ! (k=%s)' % k)
-                break  # not sure why it's OK, naively we should `continue`
-            if sum_of_ones in diffs_to_product[factors_count]:
-                stored = diffs_to_product[factors_count][sum_of_ones]
+        for factors_count in range(2, min(k, MAX_FACTORS)+1):
+            diff_to_product = diffs_to_product[factors_count]
+            sum_of_ones = k - factors_count  # this is the sum of all the unary factors of N(k)
+            stored = diff_to_product.get(sum_of_ones)
+            if stored:
                 product = product_from(stored)
                 if min_product is None or product < min_product:
                     min_product, optimal_factors_count, optimal_factors = product, factors_count, stored
