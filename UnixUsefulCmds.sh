@@ -386,7 +386,7 @@ python -c "from fcntl import ioctl ; from termios import FIONREAD ; from ctypes 
 ulimit -p # should get max pipe size, but WRONG : defined in pipe_fs_i.h
 fcntl(fd, F_SETPIPE_SZ, size) # to change max size, if Linux > 2.6.35 (/proc/sys/fs/pipe-max-size)
 
-gnuplot -e "set term dumb; plot '<seq 1 9'" # ASCII graph - Alt, with UTF8 & colors: https://github.com/tehmaze/diagram
+gnuplot -e "set term dumb; plot '<seq 1 9'" # ASCII graph - Alternatives like bashplotlib, with UTF8 & colors, in notes.py
 gnuplot -e "set term dumb size 200,50; plot [-5:6.5] sin(x) with impulse"
 loop_cfg_file=/tmp/gnuplot_loop.cfg
 in_data_file=/tmp/gnuplot_in.data

@@ -52,3 +52,16 @@ Move all .* files in a subdir
 and use stow: http://sametmax.com/regrouper-ses-fichiers-de-settings-avec-stow/
 or https://github.com/deadc0de6/dotdrop
 -->
+
+## Project Euler
+
+[![](https://projecteuler.net/profile/Lucas-C.png)](https://projecteuler.net)
+
+I love to work as a pair to solve algorithmic/maths problems :)
+
+So if you know me, do not hesitate to suggest we work on one of those problems together!
+
+I used to store my solutions to those problems here, but following the Project Euler policy,
+I moved them to a private Gitlab repository in order for them not to be public.
+
+<!-- Idea: include copy of https://projecteuler.net/progress here ? -->

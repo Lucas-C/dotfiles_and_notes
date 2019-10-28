@@ -1119,7 +1119,7 @@ pyreadline, readline, rlcompleter, python-prompt-toolkit
 termcolor, colorama # cross-platform colored terminal text
 tqdm # KISS progress bar - Alt, maybe better: Minibar
 tabulate (handles Markdown with tablefmt='pipe'), PrettyTable, Leviathan1995/Pylsy # pretty ASCII tables output
-bashplotlib # terminal plotting of histograms / scatterplots from list of coordinates
+termgraph # terminal plotting of histograms / scatterplots from list of coordinates - Some (little less polished) alts: bashplotlib, tehmaze/diagram
 urwid # console user interface lib - Alt: snack, NPyScreen
 
 
