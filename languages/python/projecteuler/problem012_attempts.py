@@ -5,7 +5,7 @@
 from numba import jit, prange
 #from sympy.ntheory import divisors
 
-DIVISORS_GOAL = 5000
+DIVISORS_GOAL = 500
 
 @jit(nopython=True, parallel=True)
 def divisors_count(n):

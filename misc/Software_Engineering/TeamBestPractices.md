@@ -102,6 +102,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Weighted Shortest Job First](https://www.scaledagileframework.com/wsjf/)
 - [Agile Engineering Fluency - Stages of practice map](https://arlobelshee.github.io/AgileEngineeringFluency/Stages_of_practice_map.html)
 - [Faire équipe](https://larlet.fr/david/blog/2019/faire-equipe/)
+- [An epic treatise on scheduling, bug tracking, and triage](https://apenwarr.ca/log/20171213)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -135,6 +136,12 @@ Specifies when:
   * Les joies
   > Peut-être est-ce cela faire équipe : partager l’enthousiasme de faire des choses ensemble qui permettent de mieux se connaître.
   * L’arithmétique
+
+[An epic treatise on scheduling, bug tracking, and triage]:
+Talk from experience. Explain the benefit of some Agile practices.
+  * highlight the importance of non-negotiable work rates, and why setting deadlines is a bad idea and can be avoided
+  * highlight the importance of bug triaging and give some practical recommendations (inc. the terible bug bankrupcy & bug clutter)
+  * restricted multitasking, how to organize short biweekly team meetings, estimating Stories with points & tracking them using user-visible features...
 
 ### Open-plan offices
 Cons from [Why "Agile" and especially Scrum are terrible]:
@@ -461,7 +468,8 @@ It’s available as a text editor application, a web app, and even a linter, if 
     * cf. [FrontendJobInterviewQuestions] & [Front End Interview Handbook]
     * cf. [What happens when you type google.com into your browser and press enter?]
     * cf. [JoeStumpTechnicalInterviewQuestions]
-- cf. [HowAProgrammerReadsYourResumeVsARecruiter] & [Interviewing is broken] & [We Hire the Best, Just Like Everyone Else] : "Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."
+- cf. [HowAProgrammerReadsYourResumeVsARecruiter] & [Interviewing is broken] & [We Hire the Best, Just Like Everyone Else] :
+"Bring them in for a few days, see if they can set up the dev environment, assign them some bugs nobody else wants to fix, have them meet everyone. - Pay them. - Decide if you want to keep paying them."
 - [Foursquare](http://engineering.foursquare.com/2016/04/04/improving-our-engineering-interview-process/) :
 > "We forgo technical phone interviews whenever possible. They’re typically unpleasant for everyone involved and we felt like the environment of a phone screen wasn’t conducive to learning about a candidate’s abilities comprehensively. Instead we give out a take-home exercise that takes about three hours."
 - [HiringEngineeringManagers]: clearly define your interview process:
