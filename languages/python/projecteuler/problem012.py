@@ -15,35 +15,54 @@
 # What is the value of the first triangle number to have over five hundred divisors?
 
 # Notes:
+# Of course, the number of divisors goes up and down in this series:
 #     36: 1,2,3,4,6,9,12,18,36
 #     45: 1,3,5,9,15,45
-
-#   Experimentally, T > 45000150000 (<=> n > 300000)
-#     [tested with sympy.ntheory.divisors (takes 4min) / numba.jit-ed naive divisors_count (takes 45s)]
-#   Moved further with numba.prange (took 6min): T > 4500001500000 (<=> n > 3000000)
-
-#   Experimentally, in the series of triangles, new records of T with high #divisors have only low prime factors
-#   This is very relative, not absolute:
-#     (n=1664) T=1385280: #168 (prime factors: [2, 3, 5, 13, 37])
-#     (n=1728) T=1493856: #192 (prime factors: [2, 3, 7, 13, 19])
-#     (n=2015) T=2031120: #240 (prime factors: [2, 3, 5, 7, 13, 31])
 
 # LEMMES:
 #   T = n(n+1)/2
 #   T >> 250² (because srqt(T)>#D(T)/2)
 #   if N has #D(N) divisors, 2*N does not necessarily has 2*#D(N) divisors (ex: 15)
 
+#   Experimentally, T > 45000150000 (<=> n > 300000)
+#     [tested with sympy.ntheory.divisors (takes 4min) / numba.jit-ed naive divisors_count (takes 45s)]
+#   Moved further with numba.prange (took 6min): T > 4500001500000 (<=> n > 3000000)
+
+#   Experimentally, in the series of triangles, new records of T with high #divisors have only low prime factors.
+#   This is very relative, not absolute (n.b. 37 is the 12th prime number):
+#     (n=1664) T=1385280: #168 (prime factors: [2, 3, 5, 13, 37])
+#     (n=1728) T=1493856: #192 (prime factors: [2, 3, 7, 13, 19])
+#     (n=2015) T=2031120: #240 (prime factors: [2, 3, 5, 7, 13, 31])
+#   If we follow this lead, we could try to produce triangle numbers from a set of small primes with various exponents.
+#   Giving a guess on the target number #prime-factors, from the progression revealed by `gen_triangles_divisors_up_to`:
+#   if n*10 => #primes-factors+2, then for our target n>3000000, #primes-factors>13, which I think we can handle.
+#   We will need an efficient "is a number N a triangle" criterion, that is a fast integer square root of 2N.
+
+#   Another idea: we could keep the original approach of testing all triangle numbers,
+#   but use this fact to have a fast pre-check filter:
+#   if less than X numbers among the Y first primes divide N, then we skip it.
+
+# Finally got it ! My initial mistake was to target 5000 divisors instead of 500... :(
+
 # time ./problem012.py
-#-> NOT SOLVED YET, too slow...
+# GOT IT ! n=12375 T=76576500 #divisors=576
+# real    0m1,167s
 
 import sys
 
-DIVISORS_GOAL = 5000
+from problem007 import build_prime_sieve, primes_from
+FIRST_PRIMES = list(primes_from(build_prime_sieve(100)))
+MIN_SMALL_PRIMES_FACTORS = 6
 
-def gen_triangles_divisors_up_to(max_n, only_divisors_count=False, only_length_records=False):
+DIVISORS_GOAL = 500
+
+def pre_check(T):
+    return sum(1 for p in FIRST_PRIMES if T % p == 0) >= MIN_SMALL_PRIMES_FACTORS
+
+def gen_triangles_divisors(n_values, only_divisors_count=False, only_length_records=False):
     'For problem exploration'
     max_length = 0
-    for n in range(1, max_n):
+    for n in n_values:
         T = n*(n+1)//2
         divs = sorted(divisors(T))
         if not only_length_records or len(divs) > max_length:
@@ -91,13 +110,18 @@ def prime_factors(n):
     return f
 
 if __name__ == '__main__':
-    gen_triangles_divisors_up_to(6000, only_length_records=True, only_divisors_count=True)
-    exit(0)
-    for n in range(1, 3000000):
+    # gen_triangles_divisors(range(1, 6000), only_length_records=True, only_divisors_count=True)
+    # gen_triangles_divisors([14742000], only_divisors_count=True) # 1280 divisors
+    for n in range(1, 30000):
         T = n*(n+1)//2
-        count = len(divisors(n))
-        if count >= DIVISORS_GOAL:
-            print(n, T)
-            break
         if n % 1000 == 0:
-            print('Progress: n=%s T=%s #divisors=%s' % (n, T, count), file=sys.stderr)
+            print('Progress: n=%s T=%s' % (n, T), file=sys.stderr)
+        if not pre_check(T):
+            continue
+        count = len(divisors(T))
+        if n % 1000 == 0:
+            print('pre-check OK: #divisors=%s' % count, file=sys.stderr)
+        if count >= DIVISORS_GOAL:
+            print(prime_factors(T), file=sys.stderr)
+            print('FOUND: n=%s T=%s #divisors=%s' % (n, T, count))
+            break
