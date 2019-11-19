@@ -179,7 +179,7 @@ Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
 _cf._ Hesperides & VBoard
 
 - 2-stages builds
-- `envsubst` from package `gettext`
+- `envsubst` from package `gettext` - Alt with jinja2: https://stackoverflow.com/a/35009576/636849
 - support `$JAVA_OPTS`
 - `HEALTHCHECK`
 - Maven dependencies caching : [`mvn dependency:go-offline`](https://medium.com/@nieldw/caching-maven-dependencies-in-a-docker-build-dca6ca7ad612)

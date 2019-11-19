@@ -23,6 +23,13 @@
     </UserDefinedCommands>
     <PluginCommands>
         <PluginCommand moduleName="PythonScript.dll" internalID="5" Ctrl="yes" Alt="no" Shift="yes" Key="67" />
+        <PluginCommand moduleName="PythonScript.dll" internalID="9" Ctrl="no" Alt="yes" Shift="yes" Key="13" />
+        <PluginCommand moduleName="PythonScript.dll" internalID="10" Ctrl="yes" Alt="no" Shift="yes" Key="13" />
+        <PluginCommand moduleName="PythonScript.dll" internalID="11" Ctrl="no" Alt="no" Shift="no" Key="0" />
+        <PluginCommand moduleName="PythonScript.dll" internalID="12" Ctrl="no" Alt="no" Shift="no" Key="0" />
+        <PluginCommand moduleName="PythonScript.dll" internalID="13" Ctrl="yes" Alt="yes" Shift="yes" Key="76" />
     </PluginCommands>
-    <ScintillaKeys />
+    <ScintillaKeys>
+        <ScintKey ScintID="2329" menuCmdID="0" Ctrl="no" Alt="no" Shift="no" Key="13" />
+    </ScintillaKeys>
 </NotepadPlus>
