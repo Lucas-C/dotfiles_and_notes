@@ -93,9 +93,9 @@
     autocrlf = false
     # To share the same CRLF settings: echo '*.txt -crlf' > .gitattributes
 
-[credential]
+#[credential]
     # can be emptied with: git credential-cache exit
-    helper = cache --timeout=3600
+    #helper = cache --timeout=3600
 
 # for $deity's sake, check that anything we're getting is complete and sane on a regular basis
 [transfer]

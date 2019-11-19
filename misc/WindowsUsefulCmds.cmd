@@ -58,7 +58,8 @@ xperf -d latency.etl
 wtrace :: strace-like based on Event Tracing for Windows
 userdump %pid% :: download: https://www.microsoft.com/en-us/download/details.aspx?id=4060
 
-powercfg -h off/on &:: as admin, delete hiberfil.sys
+powercfg /hibernate off/on &:: as admin, delete hiberfil.sys
+shutdown /h :: mise en veille prolongée
 schtasks &:: task scheduler
 msinfo32 &:: info computer composants
 msconfig &:: System Configuration -> can disable or re-enable software, device drivers and Windows services that run at startup, or change boot parameters

@@ -736,7 +736,12 @@ autopub # automatically publish package releases upon pull request merge
 # Examples of Windows packaging
 deluge-torrent # with bbfreeze + GUI with pygtk: http://git.deluge-torrent.org/deluge/tree/win32/deluge-bbfreeze.py#n31
 tweecode/twine # with py2exe/py2app + GUI with wxPython
-Kivy # package apps with PyInstaller - Simple usage under Windows: pyinstaller --onefile --noupx hello.py
+Kivy # package apps with PyInstaller
+pyinstaller --onefile cli.py # Use --noupx under Windows - I successfully used this in a Gitlab CI, with upload to Artifactory
+# A Travis CI build script example using wine (one may also require Xvfb): https://github.com/spesmilo/electrum/blob/master/contrib/build-wine/prepare-wine.sh
+# Quoting https://github.com/pyinstaller/pyinstaller/wiki/FAQ#gnulinux on its limitations:
+> The executable that PyInstaller builds is not fully static, in that it still depends on the system libc.
+> [A] solution is to use a tool like StaticX to create a fully-static bundled version of your PyInstaller application.
 pynsist # used by Sam & Max with nuitka (installer for non-web apps)
 PyOxidizer
 
@@ -814,6 +819,7 @@ python-flamegraph # FlameGraph profiler
 P403n1x87/austin # frame stack sampler for CPython
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
 py-spy # sampling profiler, lets you visualize what your Python program is spending time on without restarting the program, with low overhead
+# Usage example: https://blog.redash.io/how-we-spotted-and-fixed-a-performance-degradation-in-our-python-code/
 http://mg.pov.lt/objgraph # explore Python object graphs
 snakefood # draw code base dependency graphs
 what-studio/profiling # interactive continuous/live CLI profiler
@@ -1161,10 +1167,11 @@ ribab/quadart # producing quad-tree art
 Tkinter, EasyGui, EasyDialogs (MacOSX), optparse_gui (last update 2008)
 Kivy # GUI inc. multi-touch support, packaged with PyInstaller
 wxPython # port of C++ wxWidgets
-ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - ALt: cztomczak/cefpython
+ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - Alt: cztomczak/cefpython
 curses # terminal dialogs/interface - Ex: https://gist.github.com/claymcleod/b670285f334acd56ad1c
 
 jlsutherland/doc2text # OCR poorly scanned PDFs in bulk
+fonttools # playing with font kerning: https://readevalprint.com/Schmelvetica.html
 
 espeak-ng # open source speech synthesizer supporting 7+ languages, based on the eSpeak engine
 Uberi/speech_recognition # speech recognition with support for CMU Sphinx / Google Speech Recognition / Google Cloud Speech API / Wit.ai / Microsoft Bing Voice Recognition / Houndify API / IBM Speech to Text

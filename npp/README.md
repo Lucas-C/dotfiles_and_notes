@@ -55,6 +55,15 @@ Deleting all lines matching a pattern:
 - Quick Color Picker +
 - Python Script with [CTags Based Autocompletion](https://github.com/bruderstein/PythonScript/blob/master/scripts/Samples/CTags%20Based%20Autocompletion.py)
 
+Un exemple de script, qui peut-être bindé à un raccourci via `Settings > Shortcut Mapper`,
+une fois ajouté au `Menu` via `Plugins > Python Script > Configuration`:
+
+    console.show()
+    console.clear()
+    console.run('C:\Users\lucas_cimon\AppData\Roaming\Python\Python36\Scripts\pylint.exe "%s"' % notepad.getCurrentFilename())
+
+- [PyPadPlusPlus](https://github.com/bitagoras/PyPadPlusPlus#installation)
+
 ## Under the hood
 
 Link between a theme `LexerType name` and its lexer, e.g. `SCLEX_CPP` for `javascript.js` : https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/ScitillaComponent/ScintillaEditView.cpp#L142
