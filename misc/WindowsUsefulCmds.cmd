@@ -80,7 +80,7 @@ upx -9 my_homemade_cmd.exe &:: executable packer/compressor/optimizer
 
 nssm64.exe edit service_name &:: then nssm64.exe start service_name - Powerful wrapper around builtin sc create service_name binpath= c:\bla\bla\bla.exe start= auto type= own
 
-robocopy /MIR "C:\Source" "E:\Destination" /LOG:robocopy.log /XD C:\Dir\To\Exclude &:: Backup + handle filepaths over 260 chars
+robocopy /MIR "C:\Source" "E:\Destination" /LOG:robocopy.log /XD C:\Dir\To\Exclude /R:2 &:: Backup + handle filepaths over 260 chars
 
 psr &:: builtin users action recorder - Also: LICEcap to record actions as a GIF
 

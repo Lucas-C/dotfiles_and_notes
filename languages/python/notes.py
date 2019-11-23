@@ -646,7 +646,7 @@ pew > virtualenv # sandbox. To move an existing environment: virtualenv --reloca
 guyzmo/buildstrap # to create a standalone buildout environment (~ virtual env)
 
 pip install --editable $path_or_git_url # Install a project in editable mode (i.e. setuptools "develop mode") from a local project path or a VCS url. FROM: S&M
-pip install --user $USER --src . --no-index --no-deps --no-cache-dir --upgrade --requirement requirements.txt --require-hashes # CLI tool to help with retrieving correct hashes : hashin
+pip install --user $USER --src . --no-index --no-deps --no-cache-dir --upgrade --upgrade-strategy eager --requirement requirements.txt --require-hashes # CLI tool to help with retrieving correct hashes : hashin
 pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages - Also, programatical access: pip.operations.freeze.freeze
 pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list --outdated --not-required ; piprot requirements.txt ; ./manage.py pipchecker
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
@@ -989,6 +989,7 @@ scipy
     pyecharts # line charts, bars, pie, map, radar, graphs, trees, treemaps, sunburst, gauge, calendars, 3D
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
     matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
+pyprimesieve # one of the fastest prime sieve implementaions (C++)
 
 z3-solver # SMT (satisfiability modulo theories) solver
     https://ericpony.github.io/z3py-tutorial/guide-examples.htm
@@ -1116,6 +1117,11 @@ def argparse_store_command(callback, attr_name='command'):
         def __call__(self, parser, namespace, values, option_string=None):
             setattr(namespace, attr_name, callback)
     return StoreCommandAction
+def environ_or_required(key):  # FROM: https://stackoverflow.com/a/45392259/636849
+    if os.environ.get(key):
+        return {'default': os.environ.get(key)}
+    return {'required': True}
+parser.add_argument('--thing', **environ_or_required('THING'))
 
 code.InteractiveConsole().interact() # interactive python prompt
 
