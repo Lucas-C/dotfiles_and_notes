@@ -39,6 +39,8 @@ def search_for_game_vendors(args):
         return
     msg = 'Nouvelle(s) offre(s) Okkazeo pour le jeu '
     msg += args.name if args.name else str(args.game_id)
+    if args.department:
+        msg += ' dans le departement ' + str(args.department)
     print(msg)
     if args.alert_cmd:
         check_output([args.alert_cmd, msg])
