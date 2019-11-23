@@ -107,6 +107,7 @@
 
 [diff]
     renames = true
+    submodule = log
 
 [pull]
     rebase = preserve

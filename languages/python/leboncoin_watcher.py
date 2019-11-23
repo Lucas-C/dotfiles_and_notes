@@ -21,6 +21,9 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
 def main(argv=None):
+    query_for_cities(parse_args(argv))
+
+def parse_args(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', action='store_true')
     parser.add_argument('--type', choices=list(POSTS_TYPES._keys), required=True)
@@ -34,8 +37,7 @@ def main(argv=None):
     parser.add_argument('--alert-phone-number', help='Will use Twilio API, require $TWILIO_ACCOUNT_SID & $TWILIO_AUTH_TOKEN en vars')
     parser.add_argument('--proxies', type=argparse.FileType('r'))
     parser.add_argument('infile', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
-    query_for_cities(parser.parse_args())
-
+    return parser.parse_args(argv)
 
 def query_for_cities(args):
     cities = [city(line.strip()) for line in args.infile]
