@@ -125,3 +125,146 @@ https://github.com/Lucas-C/dotfiles_and_notes/tree/master/languages/web-d3/secre
 Mots formés à partir de tags HTML:
 <strong><body><track><time><table><source> / <small><title><embed><details><summary> / <address><mark>...
 <div><ins> / <ins><table> / <th><em> / <tr><a><p><u> / <q><u><i> ...
+
+Substitution monoalphabétique des « hommes dansants » de Sherlock Holmes -> [GL Dancing Men Font](https://www.fontspace.com/gutenberg-labo/gl-dancingmen)
+
+### Calendrier de l'Avent 2018
+
+    Quels sont les trois nombres positifs qui donnent le même résultat quand on les multiplie et quand on les additionne ensemble ?
+
+    Quelle est la suite logique des lettres suivantes ?
+    U - D - T - Q
+
+    En 2018, j'ai trouvé 1.92 € en petites pièces par terre.
+    Sachant que j'ai trouvé autant de pièces de 1 cens, de 5 cens et de 10 cens,
+    combient de pièces ai-je ramassé au total ?
+    Où trouve-t-on samedi avant vendredi ?
+
+    Lors d'un repas de famille où tout le mondre trinque avec tout le monde,
+    tu dénombres 28 tintements de verre.
+    Combien de personnes sont présentes ?
+
+    Quelle est la suite logique des nombres suivantes ?
+    1 - 11 - 21 - 1211 - 111221
+
+    En se rendant à un point d'eau, un éléphant croisa 6 girafes.
+    Chaque girafe transportait 3 singes sur son dos.
+    Chaque singe avait 2 oiseaux sur l'épaule.
+    Combien d'animaux se rendaient au point d'eau ?
+
+    Il y a ... fois le nombre 1 dans cette énigme ;
+    Il y a ... fois le nombre 2 dans cette énigme ;
+    Il y a ... fois le nombre 3 dans cette énigme ;
+    Il y a ... fois le nombre 4 dans cette énigme.
+    Quels chiffres doivent remplacer les pointillés ?
+
+    Monsieur Green, Monsieur Red et Monsieur Blue prennent un verre à l’hôtel. L’un porte un costume rouge, l’autre un vert et le troisième un bleu. «Avez-vous remarqué dit l’homme en costume bleu, que bien que la couleur de nos costumes corresponde à nos noms, aucun d’entre nous ne porte un costume dont la couleur corresponde à son propre nom ?» Monsieur Red regarda les deux autres et dit: «Vous avez tout à fait raison.»
+    Quelle est la couleur du costume de chacun de ces hommes ?
+    (réponds au format: "M. ... : couleur du costume")
+
+    Quelle est la suite logique de cette série : RRSLINTTE ?
+
+    Sachant que :
+    - 8809 vaut 6
+    - 7111 vaut 0
+    - 2172 vaut 0
+    - 6666 vaut 4
+    - 1111 vaut 0
+    - 3213 vaut 0
+    - 7662 vaut 2
+    - 9312 vaut 1
+    - 0000 vaut 4
+    - 2222 vaut 0
+    - 3333 vaut 0
+    - 5555 vaut 0
+    - 8193 vaut 3
+    - 8096 vaut 5
+    - 7777 vaut 0
+    - 9999 vaut 4
+    - 7756 vaut 1
+    - 6855 vaut 3
+    - 9881 vaut 5
+    - 5531 vaut 0
+    Combien vaut 2581 ?
+
+    40 personnes forment un cercle, et ont toutes le même discours :
+    "je ne mens jamais mais mon voisin de gauche ment toujours".
+    Combien y-a-t'il de menteurs ?
+
+    On peut y mettre ses papiers,
+    Son argent ou bien ses clés.
+    C’est aussi une façon de se coiffer,
+    Ou bien encore un fruit à déguster.
+    Qui suis-je ?
+
+    Dans un étang, il y a un nénuphar qui double de surface chaque jour.
+    En sachant que le nénuphar remplit en ce moment 1/4 de l'étang,
+    dans combien de jours l'étang sera rempli en entier ?
+
+    Plus je sèche, plus je suis mouillée.
+    Qui suis-je ?
+
+    Je n'ai qu'une couleur, mais milles formes.
+    Je flotte sur l'eau mais ne suis jamais mouillée.
+    Et jamais je ne souffre d'être piétinée.
+    Qui suis-je ?
+
+    Deux enfants, un garçon et une fille, sont nés le même jour et le même mois de la même année et des mêmes parents.
+    Pourtant, ils ne sont pas jumeaux.
+    Comment est-ce possible ?
+
+    On se sert de moi pour s’habiller en toute discrétion, pour prendre sa douche, mais de moins en moins pour téléphoner dehors.
+    Qui suis-je ?
+
+    Quel est le nombre entier à deux chiffres qui divisé par la somme de ses deux chiffres donne pour résultat la somme de ses deux chiffres ?
+
+    Sans moi, s'effondreraient les cathédrales ;
+    Je suis la solution ;
+    Pour m'élever depuis le sol ;
+    Et atteindre le paradis.
+    Qui suis-je ?
+
+    Un chocolatier prépare un kilo de petits chocolats qui font chacun plus de 10 grammes. Une fois qu’il a terminé, il souhaite les placer dans une boîte. Le problème, c’est qu’à chaque fois qu’il les met en rangées de deux, de trois, de quatre, de cinq ou de six, il reste un chocolat.
+    Combien de chocolat a t-il fait au total ?
+
+    Je fais trembler les gens depuis la nuit des temps
+    l’homme me combat régulièrement.
+    Chez toi, je suis enfermé derrière une porte,
+    et je crains le soleil.
+    Qui suis-je ?
+
+    Pierre décide de peindre les 6 faces d’un cube de dimensions 3x3x3 cm.
+    Puis il le découpe en petits cubes de 1x1x1 cm.
+    Combien de petits cubes auront au moins une face peinte ?
+
+    Le pape en a un mais ne l’utilise pas,
+    Ton père en a un et ta mère l’emploie,
+    Les nones n’en ont pas besoin,
+    Le mari de ton amie en a un aussi et ton amie l’a adopté.
+
+#### Réponses
+
+1: 1,2,3
+2: C
+3: 36
+4: dictionnaire
+5: 8
+6: 312211
+7: 1
+8: 2, 3, 2, 1
+9: M. Green: bleu - M. Blue: rouge - M. Red: vert
+10: EEE
+11: 2
+12: 20
+13: banane
+14: 2
+15: serviette
+16: ombre
+17: triplé
+18: cabine
+19: 81
+20: clef
+21: 61
+22: froid
+23: 26
+24: nom de famille

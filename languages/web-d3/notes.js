@@ -248,6 +248,7 @@ Immutable // Facebook JS lib
 moment.js > sugar.js // parse, validate, manipulate, and display dates - not necessary needed nowadays
 
 webpack, browserify, systemJs // module bundlers
+npm-consider install ... // Get deps count & total size
 npm install --loglevel verbose $pkg // Node Packaged Modules
 npm view $pkg_name [dist.tarball] // get URL of a package tarball
 npm shrinkwrap // locks down the versions of a package's dependencies

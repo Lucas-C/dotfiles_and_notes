@@ -58,6 +58,8 @@ radare2 : unix-like reverse engineering framework and commandline tools
 capstone : multi-platform, multi-architecture disassembly framework, with Python bindings
 GDB-PEDA : open-source Python Exploit Development Assistance for GDB - Tuto: https://osandamalith.com/2019/02/11/linux-reverse-engineering-ctfs-for-beginners/
 GHIDRA : An open-source software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate
+https://qira.me is a a timeless debugger: all state is tracked while a program is running, so you can debug in the past
+-> for Windows, WinDbgPreview provide Integrated Time Travel Debugging
 
 ## Exploitation
 iKAT : gain access to the underlying OS in Kiosk (browser) restricted environment http://ikat.ha.cked.net/Windows/index.html
