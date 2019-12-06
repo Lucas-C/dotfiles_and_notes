@@ -308,7 +308,7 @@ rmcover () {
     find -L ${@:-.} -name "*,cover" | xargs rm -rf;
 }
 rmpyc () {
-    find -L ${@:-.} -name "*.pyc" -o -name __pycache__ | xargs rm -rf;
+    find -L ${@:-.} -name "*.pyc" -o -name "*,cover" -o -name __pycache__ | xargs rm -rf;
 }
 
 

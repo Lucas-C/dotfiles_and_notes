@@ -821,6 +821,7 @@ https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like 
 py-spy # sampling profiler, lets you visualize what your Python program is spending time on without restarting the program, with low overhead
 # Usage example: https://blog.redash.io/how-we-spotted-and-fixed-a-performance-degradation-in-our-python-code/
 http://mg.pov.lt/objgraph # explore Python object graphs
+yappi # multithread/CPU time profiling
 snakefood # draw code base dependency graphs
 what-studio/profiling # interactive continuous/live CLI profiler
 PyVmMonitor # profiler with graphs
@@ -989,7 +990,7 @@ scipy
     pyecharts # line charts, bars, pie, map, radar, graphs, trees, treemaps, sunburst, gauge, calendars, 3D
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
     matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
-pyprimesieve # one of the fastest prime sieve implementaions (C++)
+hickford/primesieve-python # one of the fastest prime sieve implementaions (C++)
 
 z3-solver # SMT (satisfiability modulo theories) solver
     https://ericpony.github.io/z3py-tutorial/guide-examples.htm

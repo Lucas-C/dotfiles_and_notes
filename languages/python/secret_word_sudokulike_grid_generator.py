@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # cf. https://chezsoi.org/lucas/blog/hiding-secret-words-in-sudokus-with-python.html
 
@@ -30,7 +30,7 @@
 #   S B . . E . . D               S B Q N E M L D
 #   . . . Q D S B .               M L N Q D S B E
 
-import argparse, math, sys
+import argparse, math
 from copy import deepcopy
 from functools import reduce
 from itertools import product
@@ -54,7 +54,7 @@ except ImportError:  # fallback so that the imported classes always exist
 # @jit(nopython=True)
 
 
-FILLING_RATIO = .6  # a good comprimise between hollow-enough grid and computing-time (given the current dummy generation algorithm)
+FILLING_RATIO = .6  # a good compromise between hollow-enough grid and computing-time (given the current dummy generation algorithm)
 
 
 def main():
@@ -75,7 +75,8 @@ def parse_args():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter, allow_abbrev=False)
     parser.add_argument('hidden_word', help=' ')
     parser.add_argument('--no-boxes-constraint', action='store_true', help=' ')
-    parser.add_argument('--require-each-letter-in-grid', action='store_true', help=' ')
+    parser.add_argument('--require-each-letter-in-grid', action='store_true',
+                        help='Ensure each letter of the secret word is present in the initial grid')
     args = parser.parse_args()
     args.hidden_word = args.hidden_word.upper()
     setattr(args, 'grid_size', len(args.hidden_word))
@@ -115,20 +116,28 @@ def print_grid(grid, args):
 
 def gen_puzzle_grid(args):
     full_grid = next(solve_sudoku(init_grid(args), args.boxes_dims))
+    is_hollow_grid_valid = None
+    if args.require_each_letter_in_grid:
+        def is_hollow_grid_invalid(hollow_grid):
+            count_uses = lambda letter: sum(row.count(letter) for row in hollow_grid)
+            return not any(count_uses(l) == 0 for l in args.letters)
+    return gen_sudoku_grid(full_grid, args.boxes_dims, is_hollow_grid_valid)
+
+def gen_sudoku_grid(full_grid, boxes_dims, is_hollow_grid_valid=None):
+    grid_size = len(full_grid)
     # "Dummy" approach: we randomly puncture holes in the grid and hope it is has a unique solution.
     # This could be improved algorithmically and/or using numpy/numba, but so far it suffices to my needs.
+    print('Generatig sudoku grid with holes:')
     while True:
-        sys.stdout.write('.'); sys.stdout.flush()
+        print('.', end='', flush=True)
         hollow_grid = deepcopy(full_grid)
-        cells = [(i, j) for i in range(args.grid_size) for j in range(args.grid_size)]
+        cells = [(i, j) for i in range(grid_size) for j in range(grid_size)]
         shuffle(cells)
-        for i, j in cells[:int(FILLING_RATIO * args.grid_size ** 2)]:
+        for i, j in cells[:int(FILLING_RATIO * grid_size ** 2)]:
             hollow_grid[i][j] = 0
-        if args.require_each_letter_in_grid:
-            count_uses = lambda grid, letter: sum(row.count(letter) for row in grid)
-            if any(count_uses(hollow_grid, l) == 0 for l in args.letters):
-                continue
-        if len(list(solve_sudoku(deepcopy(hollow_grid), args.boxes_dims))) == 1:
+        if is_hollow_grid_valid and not is_hollow_grid_valid(hollow_grid):
+            continue
+        if len(list(solve_sudoku(deepcopy(hollow_grid), boxes_dims))) == 1:
             return hollow_grid
 
 def init_grid(args):

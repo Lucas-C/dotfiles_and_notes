@@ -130,7 +130,7 @@ otfinfo & cie # lcdf-typetools utilities for manipulating PostScript Type 1, Typ
 fontforge # std pkg (exist in Cygwin) to convert fonts formats: OTF, TTF, EOT - used by zoltan-dulac/css3FontConverter
 pip install --user brotlipy fonttools # provide the `ttx` that convert otf/ttf files into editable XML ones
 
-set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS - cf. http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS - cf. http://redsymbol.net/articles/unofficial-bash-strict-mode/ / https://kvz.io/bash-best-practices.html / https://gist.github.com/outro56/4a2403ae8fefdeb832a5
 fail () { echo "$1"; return ${2:-1}; }  # to exit the script with a given message & optional error code (default: 1) - Rely on `set -o errexit`
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 
@@ -1159,6 +1159,18 @@ composite # merge images
 gifsicle "$gif" -I | sed -ne 's/.* \([0-9]\+\) images/\1/p' # frames count + cf. stopmo_logo/gen_anim.sh
 convert -delay 20 -loop 0 -dispose background -rotate -90 -resize 50% -loop 0 *.png out.gif
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582 - Alt: jlsutherland/doc2text for poorly scanned PDFs
+    tesseract --print-parameters | sort
+    tesseract $img_filepath stdout -l eng --oem 0 --psm 6 tessaract.config  # https://machinelearningmedium.com/2019/01/15/breaking-down-tesseract-ocr/
+        # after some testing, it revealed difficult to disable word-splitting, nor select the font to use or at least specify it is monospaced...
+        # Options descriptions: https://guides.gdpicture.com/content/Affecting%20Tesseract%20OCR%20engine%20with%20special%20parameters.html
+        load_system_dawg 0
+        load_freq_dawg 0
+        tessedit_enable_dict_correction 0
+        wordrec_enable_assoc 0
+        tessedit_char_whitelist abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/
+        tessedit_write_images 1
+        tessedit_debug_fonts 1
+        debug_file tesseract.log
 qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII ! - Alt: Python qrcode
 barcode -b "Hello World !" -o out.ps && convert out.ps -trim out.png
 image_optim # Optimize (lossless compress, optionally lossy) images (jpeg, png, gif, svg) using external utilities: advpng gifsicle jhead jpegoptim jpeg-recompress jpegtran optipng pngcrush pngout pngquant svgo

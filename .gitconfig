@@ -74,7 +74,7 @@
     branches = branch --all --format '%(align:left,40)%(if)%(push)%(then)%(color:green)%(else)%(color:red)%(end)%(refname:short)%(color:reset)%(end) %(objectname:short) %(authordate:short) %(align:left,20)%(authorname)%(end) %(contents:subject)'
 
     prune-remotes = "!git remote prune origin && git branch --merged master | grep -v '^[ *]*master$' | xargs --no-run-if-empty git branch -d"
-    prune-local-branches-without-remote = "!git branch -vv | grep -E ': (gone|disparue)\\]' |  grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -d"
+    prune-local-branches-without-remote = "!git branch -vv | grep -E ': (gone|disparue)\\]' |  grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -D"
 
 [apply]
     whitespace = nowarn

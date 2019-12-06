@@ -89,7 +89,9 @@ dir %WINDIR%\Microsoft.Net\Framework\v* /O:-N /B &:: Check .NET version
 reg add HKLM\software\javasoft /v "SPONSORS" /t REG_SZ /d "DISABLE" /f
 reg add HKLM\SOFTWARE\Wow6432Node\JavaSoft /v "SPONSORS" /t REG_SZ /d "DISABLE" /f
 
-icacls * /T /C /RESET &:: reset files permissions - Also: /setowner %UserDomain%\%UserName% /T
+icacls * /reset /T /C &:: reset files permissions
+         /setowner %UserDomain%\%UserName% /T /C
+         /grant %USERNAME%:F * /T /C &:: F = Full Access
 :: Default .dll owner : NT SERVICE\TrustedInstaller
 :: In case some files are owned by System, and you modify their owner / permissions: -> tip from: http://eurekamoment.eu/?p=737
 psexec -i -s -d cmd &:: "run as" System user
@@ -129,8 +131,8 @@ net stop wuauserv  &:: disable the service before executing the .msu
 
 ::: Remove a file as admin :
 :: 1- Take ownership of the files
-takeown /f file
-takeown /f directory /r
+takeown /f %file%
+takeown /f %dir% /r /D y
 :: 2- Give yourself full rights on the file:
 cacls file /G username:F
 :: 3- Remove file

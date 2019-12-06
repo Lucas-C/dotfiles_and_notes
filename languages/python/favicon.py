@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 from contextlib import closing
 from itertools import chain
 from gifmaze import GIFSurface, PixelCanvas, Animation
-# This script does not use the current publish version of gifmaze, but the one maintained by Zhao Liang
+# This script does not use the current published version of gifmaze, but the one maintained by Zhao Liang, at commit 5a571e4
 # cf. https://github.com/neozhaoliang/pywonderland/issues/17
 
 WIDTH, HEIGHT = 16, 16

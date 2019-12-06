@@ -205,6 +205,7 @@ Typiquement, si une de vos dépendances est sous une license copyleft (ex: GPL &
 #### Automated analysis
 Des outils existent pour automatiser cela si vous avez des dépendances en cascade (note: certains se basent sur le standard [SPDX](https://spdx.org)):
 
+- https://reuse.software/comparison/
 - https://github.com/nexB/scancode-toolkit : développé en Python mais "language-agnostic" quant au code source analysé
 - https://www.npmjs.com/package/licensecheck : développé en NodeJS, pour des projets NodeJS
 - https://github.com/fossology/fossology : conteneur Docker dispo, développé en PHP, mais "language-agnostic" quant au code source analysé

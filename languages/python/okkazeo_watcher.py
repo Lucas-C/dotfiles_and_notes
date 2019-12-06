@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
-# Note: les CGV n'interdisent pas ce type de scraping, en date du 2019/11/23
+# Note: les CGV du site n'interdisent pas ce type de scraping, en date du 2019/11/23 :
 # -> https://www.okkazeo.com/okkazeo/cgv
 
 import argparse, os
-
 
 from bs4 import BeautifulSoup
 import requests
