@@ -54,7 +54,7 @@ except ImportError:  # fallback so that the imported classes always exist
 # @jit(nopython=True)
 
 
-FILLING_RATIO = .6  # a good compromise between hollow-enough grid and computing-time (given the current dummy generation algorithm)
+DEFAULT_FILLING_RATIO = .4
 
 
 def main():
@@ -74,15 +74,22 @@ def main():
 def parse_args():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter, allow_abbrev=False)
     parser.add_argument('hidden_word', help=' ')
-    parser.add_argument('--no-boxes-constraint', action='store_true', help=' ')
+    parser.add_argument('--grid-size', type=int, help='Default to the lenght of the hidden word, to form the diagonal')
+    parser.add_argument('--filling-letters', type=list, help='Default to randomly picked letters')
+    parser.add_argument('--empty-diagonal', action='store_true', help='Ensure the diagonal is empty in the generated grid')
+    parser.add_argument('--filling-ratio', type=float, default=DEFAULT_FILLING_RATIO, help='Defines how much the generated grid must be initially filled')
+    parser.add_argument('--no-boxes-constraint', action='store_true', help='Default to the biggest factors of the grid size')
     parser.add_argument('--require-each-letter-in-grid', action='store_true',
                         help='Ensure each letter of the secret word is present in the initial grid')
     args = parser.parse_args()
     args.hidden_word = args.hidden_word.upper()
-    setattr(args, 'grid_size', len(args.hidden_word))
+    if not args.grid_size:
+        args.grid_size = len(args.hidden_word)
+    elif args.grid_size < len(args.hidden_word):
+        parser.error('--grid-size must be greater or equal than the hidden word length')
     letters = set(args.hidden_word)
     while len(letters) != args.grid_size:
-        letters.add(choice(ascii_uppercase))
+        letters.add(args.filling_letters.pop(0) if args.filling_letters else choice(ascii_uppercase))
     setattr(args, 'letters', list(letters))
     setattr(args, 'boxes_dims', None if args.no_boxes_constraint else biggest_factors(args.grid_size))
     return args
@@ -121,9 +128,9 @@ def gen_puzzle_grid(args):
         def is_hollow_grid_invalid(hollow_grid):
             count_uses = lambda letter: sum(row.count(letter) for row in hollow_grid)
             return not any(count_uses(l) == 0 for l in args.letters)
-    return gen_sudoku_grid(full_grid, args.boxes_dims, is_hollow_grid_valid)
+    return gen_sudoku_grid(full_grid, args.boxes_dims, args.empty_diagonal, args.filling_ratio, is_hollow_grid_valid)
 
-def gen_sudoku_grid(full_grid, boxes_dims, is_hollow_grid_valid=None):
+def gen_sudoku_grid(full_grid, boxes_dims, diagonal_must_be_empty=False, filling_ratio=DEFAULT_FILLING_RATIO, is_hollow_grid_valid=None):
     grid_size = len(full_grid)
     # "Dummy" approach: we randomly puncture holes in the grid and hope it is has a unique solution.
     # This could be improved algorithmically and/or using numpy/numba, but so far it suffices to my needs.
@@ -133,11 +140,16 @@ def gen_sudoku_grid(full_grid, boxes_dims, is_hollow_grid_valid=None):
         hollow_grid = deepcopy(full_grid)
         cells = [(i, j) for i in range(grid_size) for j in range(grid_size)]
         shuffle(cells)
-        for i, j in cells[:int(FILLING_RATIO * grid_size ** 2)]:
+        if diagonal_must_be_empty:
+            for i in range(grid_size):
+                cells.remove((i, i))
+                cells.insert(0, (i, i))
+        for i, j in cells[:int((1-filling_ratio) * grid_size ** 2)]:
             hollow_grid[i][j] = 0
         if is_hollow_grid_valid and not is_hollow_grid_valid(hollow_grid):
             continue
-        if len(list(solve_sudoku(deepcopy(hollow_grid), boxes_dims))) == 1:
+        solutions_count = len(list(solve_sudoku(deepcopy(hollow_grid), boxes_dims)))
+        if solutions_count == 1:
             return hollow_grid
 
 def init_grid(args):

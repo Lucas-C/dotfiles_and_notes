@@ -93,10 +93,15 @@ Vous disposez pour cela d'un récipient de capacité trois litres et d'un autre 
 Combien de fois devez-vous remplir un récipient au robinet ?
 
 [Enigme du trésor des pirates](http://www.enigmasters.com/2007/06/enigme-logique-le-tresor-des-pirates.html)
+> 5 pirates se partagent un butin de 100 pièces. Chacun va à son tour proposer un partage : si la majorité est contre, il est éliminé et on contontinue.
+> Quel part du butin peut espérer le 1er ?
 
 [Enigme des 100 prisonniers et de l'ampoule](http://submoon.freeshell.org/fr/sphinx/lightbulb.html)
 
 [Enigme des 100 chapeaux noir ou blanc](http://www.think-underground.com/post/2008/10/05/Enigme-difficile-%3A-les-100-chapeaux)
+> 100 hommes alignés en une rangée, capables de voir uniquement les chapeaux de ceux devant eux.
+> En partant de celui voyant tous les autres, chacun doit dire noir OU blanc : s'il ne s'agit pas de la couleur de son chapeau, ont est éliminé
+> Sachant que les 100 individus ont eu le temps de préparer un stratégie au préalable, comment en sauver 99 ?
 
 [How to communicate six bits of information by the flip of a single coin?](http://datagenetics.com/blog/december12014/index.html)
 
@@ -127,6 +132,18 @@ Mots formés à partir de tags HTML:
 <div><ins> / <ins><table> / <th><em> / <tr><a><p><u> / <q><u><i> ...
 
 Substitution monoalphabétique des « hommes dansants » de Sherlock Holmes -> [GL Dancing Men Font](https://www.fontspace.com/gutenberg-labo/gl-dancingmen)
+
+    6 ⊕ 4 -> 210
+    9 ⊕ 2 -> 711
+    8 ⊕ 5 -> 313
+    5 ⊕ 2 -> 37
+    7 ⊕ 6 -> ???
+
+Jeu du 30: ? + ? + ? = 30, à compléter avec 1, 3, 5, 7, 9, 11, 13, 15
+cf. https://diconombre.pagesperso-orange.fr/Nb30a50/Nb30Nb.htm#jeu30
+
+Logic puzzles: https://thegriddle.net/tags/story/2
+
 
 ### Calendrier de l'Avent 2018
 
