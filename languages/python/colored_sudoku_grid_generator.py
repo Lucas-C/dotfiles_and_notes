@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
-# For a given secret word of 27 letters or less, this program provides a 3-colored sudoku grid,
+# For a given secret word of max 27 letters, this program provides a 3-colored sudoku grid,
 # that when solved reveals the hidden word.
+
+# TODO: improving display as currently "dimmed" empty green cells
+#       are very hard to distinguish from grey (dimmed white) ones
 
 # USAGE:
 #   PYTHONPATH=. ./colored_sudoku_grid_generator.py 'te quiero'
@@ -33,7 +36,7 @@ def main():
     print('\n')
     print('Grid:')
     print_colored_grid(colored_grid, hidden_word_coords)
-    print('Hidden word letters coords:', hidden_word_coords)
+    print('Hidden word letters coords:', sorted(hidden_word_coords))
     print()
     print('Deciphering table:')
     print_cipher_table()
