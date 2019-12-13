@@ -65,7 +65,7 @@ module = sys.modules[base_class.__module__].__dict__; module[name] = new.classob
 def incr(i):
     incr.counter += i
     return incr.counter
-inner.counter = 0 # Function attribute
+incr.counter = 0 # Function attribute
 obj.method = types.MethodType(function, obj) # binding functions into methods
 
 # For a decorator that takes no arg, just get rid of the enclosing function. Deep dive on them at: http://blog.dscpl.com.au/2014/01/implementing-universal-decorator.html
