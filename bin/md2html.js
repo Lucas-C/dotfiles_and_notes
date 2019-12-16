@@ -77,8 +77,12 @@ if (require.main === module) { // means we are executed as a script
 if (typeof window !== 'undefined') { // means we are executed in a browser
   window.onload = () => {
     const div = document.createElement('div');
-    div.innerHTML = md2html(document.body.textContent);
-    document.body.textContent = '';
+    // We move any existing <style> tag to the document <head> to ignore them:
+    for (const style of document.body.getElementsByTagName('style')) {
+      document.head.appendChild(style);
+    }
+    div.innerHTML = md2html(document.body.innerHTML);
+    document.body.innerHTML = '';
     document.body.append(div.children[0]);
   };
 }
