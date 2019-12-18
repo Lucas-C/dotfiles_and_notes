@@ -1284,6 +1284,7 @@ requests.post(form_url, data={'x':'42'})
     aiohttp # for asyncio-based equivalent
     requests-futures # for asynchronous (non-blocking) HTTP requests
     txrequests # Twistted asynchronous requests
+    httpx # async (both fully or under the hood with a sync frontend) HTTP 1.1 & 2 client with a similar API to requests
     requests_toolbet # multipart/form-data Encoder - User-Agent constructor - SSLAdapter - cookies/ForgetfulCookieJar
     requests-cache
     requests-respectful # requests capping
@@ -1345,7 +1346,9 @@ Eyepea/API-Hour # perf-oriented web APIs using AsyncIO & ujson - Alt: Sanic + uv
 nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
 featherweight # transform functions into REST web services
 Tornado # asynchronous web framework - can be used as a WSGI app with some limitations: http://www.tornadoweb.org/en/stable/guide/running.html#wsgi-and-google-app-engine
-Falcon, flask-restful # to build HTTP APIs - not asynchronous and uses a thread-local context - Alt: hug, based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions - Also: Flask has many global variables & is not thread safe (for async)
+Falcon, flask-restful # to build HTTP APIs - not asynchronous and uses a thread-local context - note that Flask has many global variables & is not thread safe (for async)
+hug # Flask alt based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
+FastAPI # ReDoc & SwaggerUI + Pydantic + sStarlette = an async Flask alt which supports WebSocket & GraphQL
 # huge tuto: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
     flasgger # Swagger API for flask
     flask-sqlalchemy
