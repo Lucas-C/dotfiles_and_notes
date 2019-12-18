@@ -78,8 +78,11 @@ if (typeof window !== 'undefined') { // means we are executed in a browser
   window.onload = () => {
     const div = document.createElement('div');
     // We move any existing <style> tag to the document <head> to ignore them:
-    for (const style of document.body.getElementsByTagName('style')) {
-      document.head.appendChild(style);
+    for (const styleElem of document.body.getElementsByTagName('style')) {
+      document.head.appendChild(styleElem);
+    }
+    for (const linkElem of document.body.getElementsByTagName('link')) {
+      document.head.appendChild(linkElem);
     }
     div.innerHTML = md2html(document.body.innerHTML);
     document.body.innerHTML = '';
