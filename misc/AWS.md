@@ -4,6 +4,7 @@ Limite de roles dans interface web => plugins Chrome / Firefox pour plus de cont
 
     vim ~/.aws/credentials
     export AWS_PROFILE=
+    aws sts get-caller-identity # whoami
 
     aws codecommit list-repositories
     aws codecommit get-repository --repository-name $repo
@@ -23,6 +24,7 @@ Limite de roles dans interface web => plugins Chrome / Firefox pour plus de cont
         unzip -l tmp.zip
         rm tmp.zip
     }
+    aws s3 cp --recursive $dir s3://$bucket/$path
 
     aws logs describe-log-groups --log-group-name-prefix /aws/elasticbeanstalk/
     for logStream in $(aws logs describe-log-streams --log-group-name $logGroup | jq -r .logStreams[].logStreamName | dos2unix); do \
