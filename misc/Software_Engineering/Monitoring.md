@@ -1,4 +1,6 @@
 ## Service monitoring
+[AWS Recos: Instrumenting distributed systems for operational visibility](https://aws.amazon.com/fr/builders-library/instrumenting-distributed-systems-for-operational-visibility/)
+
 cf. https://github.com/ripienaar/free-for-dev#monitoring
 
 - Errors monitoring:

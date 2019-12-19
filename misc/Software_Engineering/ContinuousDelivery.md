@@ -6,6 +6,7 @@ Continuous Delivery
 :::
 
 ## References
+- [AWS: Going faster with continuous delivery](https://aws.amazon.com/fr/builders-library/going-faster-with-continuous-delivery/)
 - [Immutable Server](http://martinfowler.com/bliki/ImmutableServer.html) pattern
 - [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/)
 - [Continuous Delivery with Containers](http://www.slideshare.net/dbryant_uk/oreillynginx-2016-continuous-delivery-with-containers-the-trials-and-tribulations)

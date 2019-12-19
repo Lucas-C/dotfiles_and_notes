@@ -28,6 +28,8 @@ On DBs, Queues, Brokers and Caching
 ## Memory caching system
 DO NOT "underestimate the complexities and issues caching brings along with it" : [You're probably wrong about caching](http://msol.io/blog/tech/youre-probably-wrong-about-caching/)
 
+[AWS Recos: Caching challenges and strategies](https://aws.amazon.com/fr/builders-library/caching-challenges-and-strategies/)
+
 write-through VS write-around VS write-back caching policies (with Python) : https://shahriar.svbtle.com/Understanding-writethrough-writearound-and-writeback-caching-with-python
 
 JCache API caching strategies (https://dzone.com/refcardz/java-caching):
@@ -104,6 +106,7 @@ Some queues property from [Redis author](http://antirez.com/news/78):
 - best-effort checks to avoid to re-delivery a message after a timeout if the message was already processed
 - handle, during normal operations, messages as a FIFO
 - auto cleanup of the internal data structures
+- [AWS Recos: Avoiding insurmountable queue backlogs](https://aws.amazon.com/fr/builders-library/avoiding-insurmountable-queue-backlogs/)
 
 
 ## Storage layer for numeric data series over time

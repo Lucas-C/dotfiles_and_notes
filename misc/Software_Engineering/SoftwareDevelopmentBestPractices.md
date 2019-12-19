@@ -278,11 +278,12 @@ Everyone, both domain experts & devs, must be convinced of the importance of bui
 
 ### Resilience patterns
 FROM: https://docs.microsoft.com/en-us/azure/architecture/patterns/
-- Timeouts
+- Timeouts: cf. also [AWS Recos: Timeouts, retries and backoff with jitter](https://aws.amazon.com/fr/builders-library/timeouts-retries-and-backoff-with-jitter/)
 - Retry : handle anticipated, temporary failures of a partner service or network resource by transparently retrying an operation that failed, ideally with an exponential backoff logic
 - Back Pressure (ex: `Retry-After` HTTP header)
 - Circuit Breaker : preserve a remote service or resource that may fall down
 - Health Endpoint Monitoring : Implement functional checks in an application that external tools can access through exposed endpoints at regular intervals.
+cf. also [AWS Recos: Implementing health checks](https://aws.amazon.com/fr/builders-library/implementing-health-checks/)
 - Asynchronous Communication
 - Fail Fast
 - Idempotency
@@ -294,7 +295,7 @@ Named because it resembles the sectioned partitions of a ship's hull: if it is c
 > Be conservative in what you send, be liberal in what you accept (Postel's law / Robustness principle)
 
 [Rachel Kroll Reliability list]:
-- rollbacks need to be possible
+- rollbacks need to be possible - cf. also [AWS Recos: Ensuring rollback safety during deployments](https://aws.amazon.com/fr/builders-library/ensuring-rollback-safety-during-deployments/)
 - new states (enums) need to be forward compatible
 - more than one person should be able to ship a given binary.
 - using weak or ambiguous formats for storage will get us in trouble
@@ -345,6 +346,9 @@ Handling deprecation:
 - OpenAPI `deprecated: true`
 - `207 Multi-Status` or `410 (Gone)` if the resource disappeared
 - add handling of deprecation warnings into **clients**
+
+[The Amazon Builders' Library](https://aws.amazon.com/fr/builders-library/)
+
 
 ### The UNIX Philosophy by Mike Gancarz
 1. Small is beautiful.
