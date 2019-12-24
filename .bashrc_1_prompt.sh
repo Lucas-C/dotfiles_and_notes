@@ -20,8 +20,9 @@ export C_error='1;31' # bold red
 export C_branch='0;33' # yellow
 export C_chrooted='0;36' # cyan
 export C_virtualenv='0;34' # blue
+export C_admin='1;35' # bold magenta
 
-export HOST_COLOR='1;35' # magenta
+export HOST_COLOR=$T_normal
 export DIRCOLOR=$T_normal
 export USER_STYLE=$T_normal
 export EXIT_CODE=0
@@ -37,6 +38,7 @@ fi
 
 export PS1=\
 '\[\e[${USER_STYLE}m\]\u\[\e[${T_normal}m\]'\
+'@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]'\
 '\[\e[${C_chrooted}m\]${IS_CHROOTED_PROMPT}\[\e[${T_normal}m\]'\
 '\[\e[${C_branch}m\][${GIT_BRANCH}]\[\e[${T_normal}m\]'\
 '\[\e[${C_virtualenv}m\]('$(basename "${VIRTUAL_ENV:-}")')\[\e[${T_normal}m\]'\
@@ -58,6 +60,8 @@ prompt_command ()
 
     if [ -S "$SSH_AUTH_SOCK" ]; then # exists and is a socket
         USER_STYLE=$T_underline
+    elif [[ $USER =~ adm ]]; then
+        USER_STYLE=$C_admin
     else
         USER_STYLE=$T_normal
     fi
