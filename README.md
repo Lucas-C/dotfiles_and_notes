@@ -36,6 +36,8 @@ As admin, execute the following to create those symlinks:
 	ln -s /cygdrive/d
 	ln -s /cygdrive/e
 
+_cf._ [misc/installCygwin.sh](misc/installCygwin.sh)
+
 ### Enabling pre-commit hooks
 
 [Install Yelp pre-commit hooks](http://pre-commit.com/#install) and then :
