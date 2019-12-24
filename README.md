@@ -14,7 +14,7 @@ Compatible with Ubuntu, Red Hat, OSX and Cygwin.
     git clone https://github.com/Lucas-C/dotfiles_and_notes.git
     BASHRC_DIR=$PWD/dotfiles_and_notes
     cd $HOME
-    for f in .gemrc .gitconfig .inputrc .minttyrc .vimrc; do [ -e $f ] && echo "Backing up $f" && mv $f{,.bak}; ln -s $BASHRC_DIR/$f; done
+    for f in .colordiffrc .gemrc .gitconfig .inputrc .irbrc .minttyrc .pythonrc .screenrc .tmux.conf .vimrc; do [ -e $f ] && echo "Backing up $f" && mv $f{,.bak}; ln -s $BASHRC_DIR/$f; done
     echo "source $BASHRC_DIR/.bashrc" >> .bashrc
 
 Any .bashrc_* file in $BASHRC_DIR will be sourced.
