@@ -28,6 +28,14 @@ To use **screen**, create an empty *~/.use_screen* file. Similarly, you can crea
 
 The .zshrc file is here to invoke _bash_ even if _zsh_ is the default shell.
 
+Finally, the `.bashrc_*` files rely on the existence of `/c`, `/d`, etc.
+As admin, execute the following to create those symlinks:
+
+	cd /
+	ln -s /cygdrive/c
+	ln -s /cygdrive/d
+	ln -s /cygdrive/e
+
 ### Enabling pre-commit hooks
 
 [Install Yelp pre-commit hooks](http://pre-commit.com/#install) and then :
