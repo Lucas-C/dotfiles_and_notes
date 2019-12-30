@@ -23,6 +23,7 @@ Test set membership aka sketching data structures:
 - Count-Mink sketch explanation: http://research.neustar.biz/2011/09/13/streaming-algorithms-and-sketches/ ; another, with Bloom filter too: http://lkozma.net/blog/sketching-data-structures/
 - Use prime numbers to represent set elements: http://www.stdlib.net/~colmmacc/2010/09/02/prime-and-proper/
 - with time decay: [Flower Filter](http://eng.kifi.com/flower-filter-an-update/)
+- [Xor Filters: Faster and Smaller Than Bloom Filters](https://lemire.me/blog/2019/12/19/xor-filters-faster-and-smaller-than-bloom-filters/)
 
 (Frugal) streaming algorithms:
 - Space-efficient quantiles computation / moving_window median algorithms

@@ -320,9 +320,9 @@ alias upper='tr "[:lower:]" "[:upper:]"'
 
 html_escape () { python -c 'import html, sys; sys.stdout.writelines([html.escape(line) for line in sys.stdin])'; }
 html_unescape () { python -c 'import html, sys; sys.stdout.writelines([html.unescape(line) for line in sys.stdin])'; }
-urlencode () { python -c 'import sys; from urllib.parse import quote_plus; sys.stdout.writelines([quote_plus(line) for line in sys.stdin])'; }
+urlencode () { python3 -c 'import sys; from urllib.parse import quote_plus; sys.stdout.writelines([quote_plus(line) for line in sys.stdin])'; }
 # Alt: perl -wne 'chomp; s/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg; print "$_\n"'; }
-urldecode () { python -c 'import sys; from urllib.parse import unquote; sys.stdout.writelines([unquote(line) for line in sys.stdin])'; }
+urldecode () { python3 -c 'import sys; from urllib.parse import unquote; sys.stdout.writelines([unquote(line) for line in sys.stdin])'; }
 # Alt: sed -e's/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g' | xargs echo -e; }
 iconv_help () {
     local file=${1:-\$file}
