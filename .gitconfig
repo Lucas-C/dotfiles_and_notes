@@ -75,6 +75,7 @@
 
     prune-remotes = "!git remote prune origin && git branch --merged master | grep -v '^[ *]*master$' | xargs --no-run-if-empty git branch -d"
     prune-local-branches-without-remote = "!git branch -vv | grep -E ': (gone|disparue)\\]' |  grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -D"
+    permission-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 
 [apply]
     whitespace = nowarn

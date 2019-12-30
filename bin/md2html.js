@@ -1,5 +1,5 @@
 'use strict';
-// CLI USAGE: md2html [--noindex] [--mincss] $mdFile > $htmlFile
+// CLI USAGE: md2html [--mincss] [--noindex] [--title=TITLE] $mdFile > $htmlFile
 // INSTALL: npm install -g markdown-it markdown-it-anchor git+https://git@github.com/Lucas-C/markdown-it-checkbox.git markdown-it-header-sections markdown-it-table-of-contents markdown-it-container markdown-it-include markdown-it-multimd-table markdown-it-smartarrows minimist
 const ANCHOR_ID_CHAR_RANGE_TO_IGNORE = '[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\uFFFF]+';
 
@@ -49,7 +49,7 @@ if (require.main === module) { // means we are executed as a script
                         + '<html>\n'
                         + '<head>\n'
                         + '<meta charset="UTF-8">\n'
-                        + '<title>' + require('path').basename(mdFilepath, '.md') + '</title>\n'
+                        + '<title>' + (args.title || require('path').basename(mdFilepath, '.md')) + '</title>\n'
                         + (args.noindex ? '<meta name="robots" content="noindex">\n' : '')
                         + '</head>\n'
                         + '<body>\n');

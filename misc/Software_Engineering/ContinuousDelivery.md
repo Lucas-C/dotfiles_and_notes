@@ -185,6 +185,24 @@ _cf._ Hesperides & VBoard
 - `HEALTHCHECK`
 - Maven dependencies caching : [`mvn dependency:go-offline`](https://medium.com/@nieldw/caching-maven-dependencies-in-a-docker-build-dca6ca7ad612)
 
+#### Healthcheck without curl nor wget
+
+    #!/bin/bash
+    check_http() {
+      set -e
+      # Read and write to TCP socket through the 3rd file handle
+      exec 3<> /dev/tcp/127.0.0.1/8081
+      # HTTP 101: Send the tinyest correct HTTP Request
+      printf "GET / HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: close\r\n\r\n" >&3
+      read -r result <&3
+      echo "${result}"|grep 200
+    }
+    # timeout http_check after 1 min
+    if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+       timeout 60 bash -c "source ${0} && check_http"
+    fi
+
+
 ### Inspecting Docker labels / image hashes / secrets
 
     docker inspect --format $'{{ range $k, $v := .Config.Labels }}{{$k}}={{$v}}\n{{ end }}' $container_id  # Unix-only because of $'...' format
