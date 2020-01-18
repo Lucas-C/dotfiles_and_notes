@@ -1,9 +1,20 @@
 Statistics & benchmarking
 =========================
 
-Tools for server banchmarking aka stress / load / performances testing: cf. bookmarks
+Tools for server banchmarking aka stress / load / performances testing: cf. [bookmarks](https://chezsoi.org/shaarli/?searchterm=&searchtags=Server_%2F_WebApp_Load_stress_testing+)
 
-    ab -n5000 -c50 "http://path/to/app?params" # Apache Benchmarking - Alt: tarekziade/boom (Python), locustio/locust (Python), wg/wrk (C), JoeDog/siege (C), shoreditch-ops/artillery (NodeJS), tsenart/vegeta (Go)
+    ab -n5000 -c50 "http://path/to/app?params" # Apache Benchmarking
+
+Alternatives :
+
+- https://k6.io (Go + NodeJS)
+- tarekziade/boom (Python)
+- locustio/locust (Python)
+- wg/wrk (C)
+- JoeDog/siege (C)
+- shoreditch-ops/artillery (NodeJS)
+- tsenart/vegeta (Go)
+- Tsung (Erlang)
 
 # REPEAT your tests !
 
