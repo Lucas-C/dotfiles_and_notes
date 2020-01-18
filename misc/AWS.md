@@ -31,6 +31,9 @@ Limite de roles dans interface web => plugins Chrome / Firefox pour plus de cont
         echo $(aws logs get-log-events --log-group-name $logGroup --log-stream-name $logStream | jq -r .events[].message) \
     done > $logGroup-events.log
 
+    aws cognito-identity list-identity-pools --max-results 10
+    aws cognito-idp list-user-pools --max-results 10
+
     lucagrulla/cw: The best way to tail AWS CloudWatch Logs from your terminal
 
 ## Architecturing on AWS class notes

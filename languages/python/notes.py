@@ -1324,6 +1324,8 @@ class HttpSession(Session):
 http_session = HttpSession(timeout=5)
 http_session.headers['User-Agent'] = USER_AGENT
 http_session.verify = False
+from http.client import HTTPConnection
+HTTPConnection.debuglevel = 2  # enable verbose HTTP calls details on stdout for Python 3
 responses/httmock # a mocking library for requests - Alt: getsentry/responses
 betamaxpy/betamax # VCR/Wiremock-like HTTP mock: record & replay requests - cf. also: kevin1024/vcrpy
 HTTPretty # Testing HTTP requests without any server, acting at socket-level
