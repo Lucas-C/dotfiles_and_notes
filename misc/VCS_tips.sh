@@ -1,6 +1,15 @@
-- [5 Useful Tips For A Better Commit Message](https://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message)
+- [5 Useful Tips For A Better Commit Message](https://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message):
+  1. The first line should always be 50 characters or less
+  2. add spell checking and automatic wrapping through ~/.vimrc
+  3. Never use the -m <msg> / --message=<msg> flag to git commit
+  4. Answer the following questions: Why is this change necessary? How does it address the issue? What side effects does this change have?
+  5. Consider including a link to the issue/story/card in the commit message a standard for your project
+Bonus from [A guide on commit messages](https://yvonnickfrin.dev/a-guide-on-commit-messages) by Yvonnick Frin & Chris Beams:
+  * Use the imperative mood in the subject line
+  * While doing pair-programming, add your coworkers names in your commit messages
 - adopt a convention in the shortname, like a prefix: [$issue_number] - DEV|BUGFIX - ...
 - [Semantic Commit Messages](https://seesparkbox.com/foundry/semantic_commit_messages) -> [Conventional Commits](https://www.conventionalcommits.org)
+- [gitmoji](https://gitmoji.carloscuesta.me) : An emoji guide for your commit messages
 
 #-----#
 # SVN #
