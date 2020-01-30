@@ -897,6 +897,7 @@ dmidecode
 shutdown -r -F now # force FCSK disk check - Or: touch /forcefsck - Alt:
 smartctl -a /dev/sdb2 # scan a device - Alt: gsmartcontrol or above
 
+yum list installed
 dpkg -S /path/to/cmd # to find what package a command belong to - Alt: apt-file search /path/to/cmd / yum provides $cmd OR '*/boost/bin.hpp' / rpm -qif $(which cmd)
 dpkg -L $pkg # list files installed by a package on the system - Alt: apt-get list $pkg - or - dpkg-deb -c $deb
 rpm -q --whatrequires $pkg # list dependencies - Alt: apt-cache rdepends $pkg
