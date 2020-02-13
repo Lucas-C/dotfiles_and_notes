@@ -101,6 +101,7 @@ Software Development Best Practices
 - [Rachel Kroll Reliability list](http://rachelbythebay.com/w/2019/07/21/reliability/)
 - [Google Code Review Developer Guide](https://google.github.io/eng-practices/review/)
 - [How to be a programmer](http://refcnt.org/~sts/docs/various/HowToBeAProgrammer.html)
+- [Pythonic code review @ RedHat](https://access.redhat.com/blogs/766093/posts/2802001)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -578,6 +579,11 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
   * N’hésitez pas non plus à rapatrier le code sur votre machine et à essayer
 
 "minimize distance and boilerplate : as coders our job is to communicate to human readers, not computers." [A Guide to Naming Variables]
+
+[Pythonic code review @ RedHat]:
+> For a review to be a productive and relatively comfortable experience, a reviewer should stay positive, thankful,
+> honestly praise the author's work and talent in a genuine matter. Suggested changes should be justified by solid
+> technical grounds, and never by the reviewer's personal taste.
 
 #### Établissez vos standards d'équipe
 Il est important de documenter, pour votre équipe, quelles règles de fonctionnement vous vous fixez :
