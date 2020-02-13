@@ -4,44 +4,88 @@
 #   export GITHUB_OAUTH_TOKEN=...
 #   ./github_graphql_get_reposecurityvulnerabilities.py
 
-import json, os, requests, sys
+import json, requests
 
-MAX_FETCHED = 100
+API_KEY = "YOUR_API_KEY"
+variables = {"number_of_repos": 100, "number_of_vulns": 100}
 
-def main():
-    graphql_query = '''query {
-        viewer {
-            login repositories(isFork: false, first: MAX_FETCHED) { # only fetching source repos
-                nodes {
-                    name
-                    vulnerabilityAlerts(first: MAX_FETCHED) {
-                        nodes {
-                            packageName
-                            affectedRange
-                            externalReference
-                            fixedIn
-                        }
-                    }
-                }
+graphql_query = '''query($number_of_repos:Int!, $number_of_vulns:Int!, $next_cursor:String) {
+  organization(login: "gelatoas") {
+repositories(first: $number_of_repos after:$next_cursor) {
+  totalCount
+  pageInfo {
+    hasNextPage
+    hasPreviousPage
+    startCursor
+    endCursor
+  }
+  nodes {
+    name
+    isArchived
+    vulnerabilityAlerts(first: $number_of_vulns) {
+      totalCount
+      nodes {
+        createdAt
+        vulnerableRequirements
+        dismissedAt
+        dismissReason
+        securityVulnerability {
+          advisory {
+            description
+            identifiers 
+              { 
+                value
+              }
             }
+          severity
+          package {
+            ecosystem
+            name
+          }
+          updatedAt
+          vulnerableVersionRange
         }
-    }'''.replace('MAX_FETCHED', str(MAX_FETCHED))  # not using str.format because of the numerous curly braces
+      }
+    }
+  }
+}
+}
+}'''
+
+
+def getResults(variables):
     response = requests.post('https://api.github.com/graphql',
-                             data=json.dumps({'query': graphql_query}),
-                             headers={'Authorization': 'bearer ' + os.environ['GITHUB_OAUTH_TOKEN'],  # cf. https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql
-                                      'Accept': 'application/vnd.github.vixen-preview+json'})  # cf. https://developer.github.com/v4/previews/#repository-vulnerability-alerts
+                             data=json.dumps({'query': graphql_query, 'variables': variables}),
+                             headers={'Authorization': 'bearer ' + API_KEY,
+                                      # cf. https://developer.github.com/v4/guides/forming-calls/#authenticating-with
+                                      # -graphql
+                                      'Accept': 'application/vnd.github.vixen-preview+json'})  # cf.
+    # https://developer.github.com/v4/previews/#repository-vulnerability-alerts
     response.raise_for_status()
-    viewer_results = response.json()['data']['viewer']
-    if len(viewer_results['repositories']['nodes']) == MAX_FETCHED:
-        print('WARNING: You are hitting the max of {} repos fetched, while you probably have more, and pagination is currently not implemented'.format(MAX_FETCHED), file=sys.stderr)
-    for repo in viewer_results['repositories']['nodes']:
+    #print(response.text)
+    viewer_results = response.json()['data']['organization']
+
+    return viewer_results
+
+
+def printResults(result):
+    for repo in result['repositories']['nodes']:
         if not repo['vulnerabilityAlerts']['nodes']:
             continue
-        if len(repo['vulnerabilityAlerts']['nodes']) == MAX_FETCHED:
-            print('WARNING: You are hitting the max of {} alerts fetched, while you probably have more, and pagination is currently not implemented'.format(MAX_FETCHED), file=sys.stderr)
-        print('https://github.com/{}/{}/network/alerts'.format(viewer_results['login'], repo['name']))
+        #print('https://github.com/{}/{}/network/alerts'.format("gelatoas", repo['name']))
+        results_json = {"repo": {"name": repo['name']}}
         for alert in repo['vulnerabilityAlerts']['nodes']:
-            print('- ' + json.dumps(alert))
+            results_json.update(alert)
+            print(json.dumps(results_json))
+
+
+def main():
+    result = getResults(variables)
+    while result['repositories']['pageInfo']['hasNextPage'] == True:
+        printResults(result)
+        nextCursor = result['repositories']['pageInfo']['endCursor']
+        variables.update({"next_cursor": nextCursor})
+        result = getResults(variables)
 
 
 if __name__ == '__main__':
