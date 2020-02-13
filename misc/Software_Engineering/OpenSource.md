@@ -175,6 +175,10 @@ Also: https://openbadges.org
   * "Organization contributions are not counted (yet) and commits as collaborator to another repository is not counted." (from FAQ)
 - https://www.codetriage.com
 - http://linuxfr.org & https://cercll.wordpress.com/ (actualités FR)
+- https://www.theopensourceway.org
+  * [Organizing a community - checklist](https://www.theopensourceway.org/wiki/Organizing_a_community_-_checklist)
+  * [Books you should read](https://www.theopensourceway.org/wiki/Books_you_should_read)
+  * [Guidelines outline](https://github.com/theopensourceway/guidebook/blob/master/OUTLINE.adoc)
 
 
 ### Funding, financing

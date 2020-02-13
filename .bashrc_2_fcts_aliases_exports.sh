@@ -603,7 +603,7 @@ timestamp_converter () {
 }
 
 pre_commit_all_cache_repos () {  # Requires sqlite3
-    sqlite3 -header -column ~/.cache/pre-commit/db.db "SELECT repo, ref, path FROM repos ORDER BY repo;"
+    sqlite3 -header -column ~/.cache/pre-commit/db.db < <(echo -e ".width 50\nSELECT repo, ref, path FROM repos ORDER BY repo;")
 }
 
 pre_commit_local_cache_repos () {  # Requires PyYaml & sqlite3
@@ -624,7 +624,7 @@ pre_commit_db_rm_repo () {  # Requires sqlite3
         return 1
     fi
     rm -rf "$repo_path"
-    sqlite3 ~/.cache/pre-commit/db.db "DELETE FROM repos WHERE repo = '$repo';";
+    sqlite3 ~/.cache/pre-commit/db.db "DELETE FROM repos WHERE repo LIKE '%${repo}%';";
 }
 
 font_dflt_fix () {  # cf. https://chezsoi.org/lucas/blog/2016/02/11/en-fixing-fonts-that-raise-a-dflt-table-error-in-firefox/

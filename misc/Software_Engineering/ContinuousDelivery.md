@@ -255,7 +255,7 @@ Logs: `%programdata%\docker\service*.txt`
 
 Windows services:
 ```
-sc query vmms
+sc query vmms &:: Hyper-V
 sc query com.docker.service
 sc start com.docker.service
 sc stop  com.docker.service
@@ -276,6 +276,12 @@ Exploring the host VM (e.g. MobyLinuxVM) - Using privileged Alpine chroot (cf. h
 docker run --net=host --ipc=host --uts=host --pid=host -it --security-opt=seccomp=unconfined --privileged --rm -v /:/host alpine /bin/sh
 ```
 
+
+#### Troubleshooting
+_cf._ https://docs.docker.com/docker-for-windows/troubleshoot/
+
+    docker-machine ls &:: if none found, you may want to: docker-machine create --driver hyperv default
+    "C:\Program Files\Docker\Docker\resources\com.docker.diagnose.exe" gather
 
 #### Docker for Windows current quirks / major limitations / known bugs
 
@@ -363,6 +369,15 @@ Then:
 If the file in question has a very long path, you are very likely hitting the Windows limit of 260 characters in filepaths.
 
 Curiously, this only happens with `docker-compose`, not with the `docker` command
+
+#### Cannot start service XXX: b'driver failed programming external connectivity on endpoint YYY: Error starting userland proxy: /forwards/expose/port returned unexpected status: 500'
+_cf._ https://github.com/docker/for-win/issues/2722
+
+Find the process using the blocking port with PowerShell: `Get-Process -Id (Get-NetTCPConnection -LocalPort <port>).OwningProcess`
+
+If killing it fails, and also "Reset to factory defauls" and "sc stop/start com.docker.service/vmms" services, try:
+
+     netcfg -d &:: then restart Windows
 
 
 ### Security

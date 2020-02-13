@@ -149,6 +149,7 @@ m = re.search(pattern, "Un... Deux... Trois...", re.DOTALL|re.MULTILINE) # re.DE
 m.group('word')
 # You can also call a function every time something matches a regular expression
 re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions - Alt, more efficient lib: flashtext
+'A B\tC\n'.translate({ord('\t'): ' ', ord('\n'): ''})  # multi-replace
 eriknyquist/librxvm # non-backtracking NFA-based regular expression library, for C and Python - Alt: xysun/regex
 vi3k6i5/flashtext # Extract Keywords from sentence or Replace keywords in sentences
 pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR - cf. https://tomassetti.me/parsing-in-python/ & lark-parser/lark for Earley & LALR(1)
@@ -556,6 +557,9 @@ sys.getsizeof(d)  # 240
 d.clear()
 sys.getsizeof(d)  # 72 - cf. https://lerner.co.il/2019/05/12/python-dicts-and-memory-usage/
 
+f = open('/tmp/a', 'w'); open(f.fileno()) # OK
+open(open('/tmp/b', 'w').fileno())        # KO - cf. http://hondu.co/blog/open-and-python
+
 
 """""""""""""""""""""""""
 "" Functional Programming
@@ -595,6 +599,7 @@ kennethreitz/delegator.py # handy subprocesses lib
 platform # python version, OS / machine / proc info...
 appdirs # determine appropriate platform-specific user data/config/cache/logs directory paths
 resource # limit a process resources: SPU time, heap size, stack size... Example of context manager to limit memory usage: http://stackoverflow.com/a/14024198
+.setrlimit(RLIMIT_AS, (size, hard)) / .setrlimit(RLIMIT_CPU, (seconds, hard)); signal(SIGXCPU, time_exceeded)  # cf. https://martinheinz.dev/blog/1
 print('Memory usage: {} (kb)'.format(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))  # get process memory usage - but BEWARE: this value does not make sense in a containerized env (I witnessed it with a Python process in Docker: the host did not allocated those >1Go)
 
 shlex.split('--f "a b"') # tokenize parameters properly
@@ -827,6 +832,7 @@ what-studio/profiling # interactive continuous/live CLI profiler
 PyVmMonitor # profiler with graphs
 nschloe/tuna # profile viewer using tornado
 nvdv/vprof # Visual Python profiler
+emeryberger/scalene # a high-performance, high-precision CPU and memory profiler
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
 fabianp/memory_profiler # track the memory usage of a program line by line in the source code - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
@@ -1150,6 +1156,7 @@ pygst # GStreamer : media-processing framework : audio & video playback, recordi
 ryanfox/retread # detect reused frames in video
 
 imageio.mimsave('/movie.gif', images) # lib based on Numpy + Pillow, to read / write a wide range of image data, including animated images, video, volumetric data, and scientific formats
+-> can be used with pygifsicle to build GIF images, cf. https://medium.com/swlh/python-animated-images-6a85b9b68f86
 neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF generation
 cairo # graphics library outputting .ps .pdf .svg & more
 pyPdf # Alt: pdfrw - Tuto to extract info / rotate / merge / split / add watermark / encrypt : https://realpython.com/pdf-python/
@@ -1170,6 +1177,7 @@ makkoncept/colorpalette # Flask app that extracts palette of dominating colors f
 
 anishathalye/neural-style # an implementation of neural style in TensorFlow
 ribab/quadart # producing quad-tree art
+lucashadfield/speck # line art image renderer
 
 Tkinter, EasyGui, EasyDialogs (MacOSX), optparse_gui (last update 2008)
 Kivy # GUI inc. multi-touch support, packaged with PyInstaller
@@ -1291,6 +1299,15 @@ requests.post(form_url, data={'x':'42'})
     requests-jwt # auth = JWTAuth(secret, alg='HS512', header_format='Bearer %s') - usage example: https://github.com/shaarli/python-shaarli-client/blob/master/shaarli_client/client/v1.py#L205
     requests.packages.urllib3.util.retry # can retry on connect/read/all failures, cf. https://www.peterbe.com/plog/best-practice-with-retries-with-requests
 connect timeout / read timeout / download size limit : https://benbernardblog.com/the-case-of-the-mysterious-python-crash/
+def requests_get_with_max_size(url):
+    with closing(requests.get(url, stream=True, timeout=TIMEOUT)) as response:
+        response.raise_for_status()
+        content = ''
+        for chunk in response.iter_content(chunk_size=GET_CHUNK_SIZE, decode_unicode=True):
+            content += chunk if response.encoding else chunk.decode()
+            if len(content) >= MAX_RESPONSE_LENGTH:
+                raise RuntimeError("The response was too large (greater than {0} bytes).".format(MAX_RESPONSE_LENGTH))
+        return content, response.headers
 session.post(url, files={'upload': ('filename', file_to_upload, 'application/javascript')},
                   data={'action': 'upload', 'target': '/test/'}).raise_for_status()
 response = requests.get(url, headers={"Client-IP":ip, "User-Agent": ua}, allow_redirects=true, stream=True)  # WARNING on POST params usage: json= != data=
@@ -1560,7 +1577,7 @@ hmac.compare_digest(a, b) # String equality check that prevent timing analysis
 jaraco/keyring # access the system keyring service, so that you can set_password / get_password - Support: Mac OS X Keychain, Freedesktop Secret Service (requires secretstorage), KWallet (requires dbus), Windows Credential Vault
 
 ConfigParser, configobj # std configuration files format
-csvkit > csv (csv.DictReader >handier> csv.reader), xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python, csvx
+csvkit > csv (csv.DictReader >handier> csv.reader), xlwt, xlrd, openpyxl < tablib # generic wrapper around all those. Also: pyxll to write Excel addins & macros in Python, csvx, pylightxl
 writer = csvkit.writer(sys.stdout)
 with open(sys.argv[1]) as csv_file:
     for row in csvkit.reader(csv_file):
