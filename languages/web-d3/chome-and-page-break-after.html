@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Bug repro</title>
+  </head>
+  <body style="border: 1px solid green">
+    <div style="width: 50rem">A</div>
+    <div style="page-break-after: always"></div>
+    <div style="width: 100%; height: 50rem; border: 2px solid blue">
+      Annoying issue with <code>page-break-after</code> and Chrome PDF export:
+      removing the single letter "A" above increases this blue "div" height in the resulting PDF.
+    </div>
+  </body>
+</html>

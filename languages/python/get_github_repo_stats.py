@@ -19,14 +19,19 @@ def main():
     args = parse_args()
     ag = GitHubAPIWrapper(token=os.environ['GITHUB_OAUTH_TOKEN'])
     org, repo = args.org_repo.split('/')
-    issues = ag.repos[org][repo].issues.get(state='all', labels=args.labels)
+    kwargs = {'labels': args.labels} if args.labels else {}
+    issues = ag.repos[org][repo].issues.get(state='all', **kwargs)
     def filter_pull_or_issue(issue):
         return 'pull_request' in issue if args.pull_or_issue == 'pulls' else 'pull_request' not in issue
     issues = [issue for issue in issues if filter_pull_or_issue(issue)]
     if args.closed_after:
         issues = [issue for issue in issues if issue['closed_at'] and datetime.strptime(issue['closed_at'], '%Y-%m-%dT%H:%M:%SZ') > args.closed_after]
-    if args.created_since:
-        issues = [issue for issue in issues if datetime.strptime(issue['created_at'], '%Y-%m-%dT%H:%M:%SZ') > args.created_since]
+    if args.closed_before:
+        issues = [issue for issue in issues if issue['closed_at'] and datetime.strptime(issue['closed_at'], '%Y-%m-%dT%H:%M:%SZ') < args.closed_before]
+    if args.created_after:
+        issues = [issue for issue in issues if datetime.strptime(issue['created_at'], '%Y-%m-%dT%H:%M:%SZ') > args.created_after]
+    if args.created_before:
+        issues = [issue for issue in issues if datetime.strptime(issue['created_at'], '%Y-%m-%dT%H:%M:%SZ') < args.created_before]
     print(json.dumps(issues, indent=2, sort_keys=True))
 
 
@@ -35,7 +40,9 @@ def parse_args():
     parser.add_argument('pull_or_issue', choices=('issues', 'pulls'))
     parser.add_argument('org_repo')
     parser.add_argument('--closed-after', type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
-    parser.add_argument('--created-since', type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    parser.add_argument('--closed-before', type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    parser.add_argument('--created-after', type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    parser.add_argument('--created-before', type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
     parser.add_argument('--labels', help='Comma separated list')
     return parser.parse_args()
 
@@ -79,6 +86,7 @@ class HTTPRequester:
     def __call__(self, *args, **kwargs):
         all_results, page = [], 1
         while len(all_results) % self.MAX_RESULTS_COUNT == 0:
+            print('.', end='', file=sys.stderr)
             results = self._fetch(*args, page=page, **kwargs)
             if len(results) == 0:
                 return all_results
@@ -88,8 +96,6 @@ class HTTPRequester:
 
     def _fetch(self, *args, **kwargs):
         http_code, response = self.http_method_executer(*args, **kwargs)
-        if http_code == 404:
-            return []
         if http_code == 403 and self.ignore_403s:
             print('HTTP {}: {}'.format(http_code, response['message']), file=sys.stderr)
             return []

@@ -55,6 +55,8 @@ bzr add $file / commit $files -m $msg
 *******
 = Git =
 *******
+Tuto / Refcard: https://github.com/ineat/refcards/blob/master/git/FR.md
+
 Next/previous commits: $commit^ (first parent) & $commit~ (first child)
 
 curl 'https://raw.githubusercontent.com/eacousineau/util/master/git-new-workdir.sh' > .git-new-workdir.sh

@@ -73,17 +73,16 @@ def parse_args():
     parser.add_argument('--number-of-repos', type=int, default=100, help=' ')
     parser.add_argument('--number-of-vulns', type=int, default=100, help=' ')
     parser.add_argument('--only-urls', action='store_true', help=' ')
-    parser.add_argument('--github-oauth-token', **environ_or_required('GITHUB_OAUTH_TOKEN'))
+    parser.add_argument('--github-oauth-token', **in_env_or_required('GITHUB_OAUTH_TOKEN'))
     args = parser.parse_args()
     if not (args.org or args.user):
         parser.error('One of --user / --org must be provided')
     if args.org and args.user:
         parser.error('Only one of --user / --org must be provided')
-    args.next_cursor = None  # need to be initialized
     return args
 
 
-def environ_or_required(key):
+def in_env_or_required(key):
     if os.environ.get(key):
         return {'default': os.environ.get(key)}
     return {'required': True}

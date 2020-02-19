@@ -39,6 +39,10 @@ From __fle__ @ AFPY barcamp, Ansible is a good compromise between Fabric, Salt &
 - "Salt was born as a distributed remote execution system used to execute commands and query data on remote nodes."
 "Ultra high-performance for large deployments." (LinkedIn use it)
 
+## Travis
+- `travis_retry`: https://github.com/travis-ci/travis-build/tree/master/lib/travis/build/bash
+- a build script example using wine: https://github.com/spesmilo/electrum/blob/master/contrib/build-wine/prepare-wine.sh
+
 ## Buildbot
 Jenkins alternative, in Python: https://buildbot.net
 

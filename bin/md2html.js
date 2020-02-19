@@ -46,7 +46,7 @@ if (require.main === module) { // means we are executed as a script
       process.exit(1);
     }
     process.stdout.write('<!DOCTYPE html>\n'
-                        + '<html>\n'
+                        + `<html lang="${args.lang || 'fr'}">\n`
                         + '<head>\n'
                         + '<meta charset="UTF-8">\n'
                         + '<title>' + (args.title || require('path').basename(mdFilepath, '.md')) + '</title>\n'
