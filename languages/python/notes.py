@@ -656,6 +656,7 @@ pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pip
 pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list --outdated --not-required ; piprot requirements.txt ; ./manage.py pipchecker
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 pyproject.toml # PEP-518 replacement for setup.py - Alt: https://github.com/pypa/pipfile by kennethreitz
+python setup.py check --strict  # validate meta-data, ensuring all required args are present - To go further: setuptools-lint
 pip-compile # recursively pin Python dependencies; part of pip-tools - Alt: pip2tgz "/var/www/packages" mypackage && pip install --index-url="file:///var/www/packages" mypackage
 PyPRI # private Python index in the cloud to which you have total control of access.
 import pip
@@ -1185,6 +1186,7 @@ wxPython # port of C++ wxWidgets
 ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - Alt: cztomczak/cefpython
 curses # terminal dialogs/interface - Ex: https://gist.github.com/claymcleod/b670285f334acd56ad1c
 
+pytesseract.image_to_string
 jlsutherland/doc2text # OCR poorly scanned PDFs in bulk
 fonttools # playing with font kerning: https://readevalprint.com/Schmelvetica.html
 
