@@ -1200,6 +1200,7 @@ link:$url # Search for pages that link to a URL
 https://www.google.fr/search?q=5%2B(-sqrt(1-x^2-(y-abs(x))^2))*sin(100*((10-x^2-(y-abs(x))^2))),+x+is+from+-1+to+1,+y+is+from+-1+to+1.5,+z+is+from+1+to+6 # 3D heart surface
 
 youtube-dl --ignore-errors --format best --extract-audio FLF8xTv55ZmwikWWmWLPEAZQ # download playlist as .m4a files - in case of HTTP error 500, try -f18
+youtube-dl --write-auto-sub --skip-download --sub-lang fr https://www.youtube.com/watch?v=$id
 normalize-audio *.mp3
 
 # Snippet-search

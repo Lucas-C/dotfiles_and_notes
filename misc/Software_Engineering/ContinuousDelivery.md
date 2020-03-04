@@ -96,10 +96,14 @@ Retrieving an encrypted secret value from `credentials.xml` -> in Groovy script 
 
     println( hudson.util.Secret.decrypt("${ENCRYPTED_PASSPHRASE_OR_PASSWORD}") )
 
-Revealing a crendential in a pipeline:
+Revealing a credential in a pipeline:
 
     withCredentials([string(credentialsId: 'credentialsId', variable: 'TOKEN_ID')]) {
-        sh "bash -c 'echo \${TOKEN_ID:0:1}\${TOKEN_ID:1:-1}'"
+        sh "bash -c 'echo \${TOKEN_ID:0:1} \${TOKEN_ID:1}'"
+    }
+    withCredentials([usernamePassword(credentialsId: 'credentialsId', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        sh "bash -c 'echo \${USERNAME:0:1} \${USERNAME:1}'"
+        sh "bash -c 'echo \${PASSWORD:0:1} \${PASSWORD:1}'"
     }
 
 ### Pipeline Shared Libs
