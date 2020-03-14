@@ -57,7 +57,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Bringing Novice Developers Up To Speed](https://www.mendix.com/think-tank/tips-for-bringing-novice-developers-up-to-speed/)
 - [Criticism and Ineffective Feedback](https://www.kateheddleston.com/blog/criticism-and-ineffective-feedback)
 - [Onboarding and the Cost of Team Debt](https://kateheddleston.com/blog/onboarding-and-the-cost-of-team-debt)
-- [Things I was unprepared for as a lead developer](http://dev-human.com/entries/2015/09/07/things-i-was-unprepared-for/)
+- [Things I was unprepared for as a lead developer](https://www.techspot.com/news/62243-things-unprepared-lead-developer.html)
 - [DefendingYourTime](https://archive.is/TQOdt)
 - [Alarm design: From nuclear power to WebOps](http://humanisticsystems.com/2015/10/16/fit-for-purpose-questions-about-alarm-system-design-from-theory-and-practice/)
 - [Climbing out of the software death spiral](http://tinyletter.com/programming-beyond-practices/letters/beginning-to-climb-out-of-the-software-death-spiral)
@@ -89,7 +89,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [HowToMoMonitoringTheSREGoldenSignals](https://www.slideshare.net/OpsStack/how-to-monitoring-the-sre-golden-signals-ebook/)
 - [How To Establish a High Severity Incident Management Program](https://www.gremlin.com/how-to-establish-a-high-severity-incident-management-program/)
 - [STAR method of behavioral interviewing](https://www.vawizard.org/wiz-pdf/STAR_Method_Interviews.pdf)
-- [liste des émotions & sentiments](http://www.groupeconscientia.com/uploads/DOC_Liste_EmotionsSentiments.pdf)
+- [Liste des émotions & sentiments](http://www.groupeconscientia.com/uploads/DOC_Liste_EmotionsSentiments.pdf)
 - [Core Protocols](http://www.mccarthyshow.com/online/)
 - [Intro à la Sociodynamique](http://cache.media.eduscol.education.fr/file/Numerique/85/7/3._Presentation_Marc_Smia_427857.pdf)
 - [CNV & Agilité par T. Clavier & J. Quille](https://gitlab.com/azae/conferences/cnv-agilite/-/jobs/52813557/artifacts/file/2017agileFrance.pdf)
@@ -181,6 +181,16 @@ Daniel Pink motivational building blocks from "The puzzle of motivation" :
 - mastery: to get better and better at something that matters
 - purpose: to do what we do in the service of something larger than ourselves
 
+[Amazon Principal Engineering Community Tenets](https://www.amazon.jobs/en/landing_pages/pe-community-tenets) :
+- Exemplary Practitioner
+- Technically Fearless
+- Balanced and Pragmatic
+- Illuminate and Clarify
+- Flexible in Approach
+- Respect What Came Before
+- Learn, Educate, and Advocate
+- Have Resounding Impact
+
 ## Team culture building & best practices
 - two main tenets: RESPECT & TRUST people.
 How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [Minimum Viable Bureaucracy] + [TrekOps] + [MAPP] on trust, autonomy & Agile methods in Michelin
@@ -231,7 +241,7 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
     * Make it obvious when your team is doing well: celebrate glorious failure
     * Make your communication clear, and your expectations explicit: f you expect someone to do something for you, ask for a specific commitment – “When might this be done?”, rather than assuming everyone agrees on its urgency
     * Make your team feel safe
-- exercice d'écoute empathique -> cf [liste des émotions & sentiments]
+- exercice d'écoute empathique -> cf [Liste des émotions & sentiments]
 - [Core Protocols]:
   * pass:  decline to participate in something
   * check-in: indicate your engagement + express feelings

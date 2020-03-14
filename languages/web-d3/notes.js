@@ -230,6 +230,8 @@ Print( 1000000000000000128 ); // prints 1000000000000000100
 
 new, with // NEVER use them as variables ! They're reserved keywords
 
+!function $(){console.log('!'+$+'()')}() // quine
+
 
 //~\~\~\\
 // LIBS \\
