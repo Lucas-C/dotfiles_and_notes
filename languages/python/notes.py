@@ -560,6 +560,9 @@ sys.getsizeof(d)  # 72 - cf. https://lerner.co.il/2019/05/12/python-dicts-and-me
 f = open('/tmp/a', 'w'); open(f.fileno()) # OK
 open(open('/tmp/b', 'w').fileno())        # KO - cf. http://hondu.co/blog/open-and-python
 
+echo $SHELL                                            # /bin/bash
+python -c "import os; print(os.environ.get('SHELL'))"  # None
+
 
 """""""""""""""""""""""""
 "" Functional Programming
