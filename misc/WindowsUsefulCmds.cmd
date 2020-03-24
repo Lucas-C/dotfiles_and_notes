@@ -127,6 +127,7 @@ net stop wuauserv && del /q /s C:\Windows\SoftwareDistribution\* && net start wu
 
 ::: Install Windows Update .msu without looking for updates
 sc query wuauserv | find "RUNNING"  &:: check that it is running (it restarts every minute or so)
+sc qc %service%  &:: display service config, can be edited with: sc config $service binPath= "..."
 net stop wuauserv  &:: disable the service before executing the .msu
 
 ::: Remove a file as admin :

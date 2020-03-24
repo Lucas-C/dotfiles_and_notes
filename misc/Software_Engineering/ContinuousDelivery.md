@@ -169,7 +169,8 @@ Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
   * No update instructions alone in the Dockerfile + Download packages securely using GPG
   * Use gosu instead of sudo wherever possible
 - [Multi-stages Docker images]: use standard image for build, but alpine on for exec: `COPY --from=dependencies`
-- [`clair`](https://github.com/coreos/clair) : Vulnerability Static Analysis for Containers - Also: [Anchore](https://github.com/anchore/anchore-engine)
+- [`clair`](https://github.com/coreos/clair) : Vulnerability Static Analysis for Containers
+  Also: [Anchore](https://github.com/anchore/anchore-engine) - [trivy](https://github.com/aquasecurity/trivy#comparison-with-other-scanners)
 - use the Calico network plugin for Docker instead of the native Docker "overlay" : https://www.percona.com/blog/2016/08/03/testing-docker-multi-host-network-performance/
 - [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !
 - http://blog.michaelhamrah.com/2014/06/accessing-the-docker-host-server-within-a-container/ - Alt: `docker.for.win.localhost` builtin DNS CNAME (or `host.docker.internal`)

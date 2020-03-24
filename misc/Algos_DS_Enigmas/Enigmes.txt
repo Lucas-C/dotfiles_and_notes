@@ -144,6 +144,8 @@ cf. https://diconombre.pagesperso-orange.fr/Nb30a50/Nb30Nb.htm#jeu30
 
 Logic puzzles: https://thegriddle.net/tags/story/2
 
+Fractal maze : https://cstheory.stackexchange.com/questions/11024/decidability-of-fractal-maze
+
 
 ### Calendrier de l'Avent 2018
 
