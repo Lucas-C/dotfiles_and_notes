@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 # LIVE INSTANCE: https://chezsoi.org/lucas/jdr/rpg-dice
+# USAGE: ./rpg_dice.py
 # INSTALL:
 #   pew new rpg-dice -p python3
 #   pip install flask
@@ -18,7 +19,7 @@
 import os
 from datetime import datetime
 from random import randrange
-from flask import Flask, request
+from flask import Flask, jsonify, request
 
 BASE_URL = os.environ.get('BASE_URL', 'https://chezsoi.org/lucas/jdr/rpg-dice')
 BASE_HTML = '''<!DOCTYPE html>
@@ -26,7 +27,6 @@ BASE_HTML = '''<!DOCTYPE html>
   <meta charset="utf-8"/>
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  {meta}
   <title>rpg-dice</title>
   <style>
   body {{
@@ -76,7 +76,7 @@ DIE_ROLLS_PER_ROOM = {}
 app = Flask(__name__)
 
 @app.route('/<room>', methods=('GET', 'POST'))
-def room(room):
+def room_html(room):
     die_rolls = DIE_ROLLS_PER_ROOM.setdefault(room, [])
     name = ''
     if request.method == 'POST':
@@ -84,36 +84,60 @@ def room(room):
         die = 1 + randrange(6)
         hour = datetime.now().strftime('%X')
         die_rolls.append((name, die, hour))
-    html_die_rolls = '\n'.join(to_html(die_roll) for die_roll in reversed(die_rolls))
+    json_endpoint = f'{BASE_URL}/{room}/json'
     return BASE_HTML.format(
-        meta=f'<meta http-equiv="refresh" content="3; URL={BASE_URL}/{room}">',
         body='''
         <form onsubmit="return this.name.value.length >= 3" method="POST">
           <label for="name">Name:</label>
           <input type="text" minlength="3" name="name">
           <input type="submit" value="Roll the die">
         </form>
-        <ul>{html_die_rolls}</ul>
+        <ul></ul>
         <script>
         const nameAlreadyTyped = '{name}';
         if (nameAlreadyTyped) document.forms[0].name.value = nameAlreadyTyped;
+        window.dieRolls = [];
+        function watchForever() {{
+          fetch('{json_endpoint}').then(resp => resp.json()).then(dieRolls => {{
+            if (dieRolls.length != window.dieRolls.length) {{
+              window.dieRolls = dieRolls;
+              const ul = document.getElementsByTagName('ul')[0];
+              while (ul.firstChild) {{ ul.removeChild(ul.firstChild); }}
+              dieRolls.forEach(dieRoll => {{
+                const li = document.createElement('li');
+                li.innerHTML = `${{dieRoll.player}}: <s>${{dieRoll.dieChar}}</s> (${{dieRoll.hour}})`;
+                ul.appendChild(li);
+              }});
+            }}
+            setTimeout(watchForever, 2000);
+          }}).catch(error => console.error(error));
+        }}
+        watchForever();
         </script>'''.format(**locals()))
 
+@app.route('/<room>/json')
+def room_json(room):
+    die_rolls = DIE_ROLLS_PER_ROOM.setdefault(room, [])
+    return jsonify([to_json(die_roll) for die_roll in reversed(die_rolls)])
+
 @app.route('/')
-def homepage():
-    return BASE_HTML.format(meta='', body='''
+def homepage_html():
+    return BASE_HTML.format(body='''
         <a>Create room</a>
         <script>
         const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         let room = '';
-        while (room.length < 6) { room += CHARS[Math.floor(Math.random() * CHARS.length)]; }
-        document.getElementsByTagName('a')[0].href = room;
-        </script>''')
+        while (room.length < 6) {{ room += CHARS[Math.floor(Math.random() * CHARS.length)]; }}
+        document.getElementsByTagName('a')[0].href = '{BASE_URL}/' + room;
+        </script>'''.format(BASE_URL=BASE_URL))
 
-def to_html(die_roll):
-   player, die, hour = die_roll
-   emoji = emojify(die)
-   return '<li>{player}: <s>{emoji}</s> ({hour})</li>'.format(**locals())
+def to_json(die_roll):
+    player, die, hour = die_roll
+    return {
+        'player': player,
+        'dieChar': emojify(die),
+        'hour': hour,
+    }
 
 def emojify(die):
     return {1: '⚀', 2: '⚁', 3: '⚂', 4: '⚃', 5: '⚄', 6: '⚅'}[die]
