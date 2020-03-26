@@ -54,7 +54,9 @@ BASE_HTML = '''<!DOCTYPE html>
     font-size: 2rem;
     display: block;
     margin: 1rem auto;
+    max-width: 15rem;
   }}
+  p {{ font-size: 1.5rem; }}
   s {{ /* dices */
     text-decoration: none;
     font-size: 4rem;
@@ -92,6 +94,7 @@ def room_html(room):
           <input type="text" minlength="3" name="name">
           <input type="submit" value="Roll the die">
         </form>
+        <p>The die rolls of all people using this URL are displayed below :</p>
         <ul></ul>
         <script>
         const nameAlreadyTyped = '{name}';
