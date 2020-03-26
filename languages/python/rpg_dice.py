@@ -40,11 +40,13 @@ BASE_HTML = '''<!DOCTYPE html>
   img {{
     display: block;
     margin: 0 auto;
+    max-width: 15rem;
   }}
+  figcaption {{ font-size: .8rem; }}
   body > a {{
     display: block;
     text-decoration: none;
-    margin: 5rem auto;
+    margin: 3rem auto;
     width: 16rem;
     background: aliceblue;
     border-radius: 1rem;
@@ -68,25 +70,28 @@ BASE_HTML = '''<!DOCTYPE html>
 </head>
 <body>
   <h1>rpg-dice</h1>
-  <img alt="A pair of dice" src="https://chezsoi.org/lucas/blog/images/jdr/dice.png">
+  <figure>
+    <img alt="A pair of dice" src="https://chezsoi.org/lucas/jdr/dice.png">
+    <figcaption><a href="https://www.deviantart.com/durpy/art/Cutie-Mark-Dice-294117495">Cutie Mark - Dice by Durpy</a> - CC BY-NC 3.0</figcaption>
+  </figure>
   {body}
   <footer>Source code: <a href="https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/rpg_dice.py">rpg_dice.py</a></footer>
 </body>
 </html>'''
-DIE_ROLLS_PER_ROOM = {}
+DIE_ROLLS_PER_TABLE = {}
 
 app = Flask(__name__)
 
-@app.route('/<room>', methods=('GET', 'POST'))
-def room_html(room):
-    die_rolls = DIE_ROLLS_PER_ROOM.setdefault(room, [])
+@app.route('/<table>', methods=('GET', 'POST'))
+def table_html(table):
+    die_rolls = DIE_ROLLS_PER_TABLE.setdefault(table, [])
     name = ''
     if request.method == 'POST':
         name = request.form['name']
         die = 1 + randrange(6)
         hour = datetime.now().strftime('%X')
         die_rolls.append((name, die, hour))
-    json_endpoint = f'{BASE_URL}/{room}/json'
+    json_endpoint = f'{BASE_URL}/{table}/json'
     return BASE_HTML.format(
         body='''
         <form onsubmit="return this.name.value.length >= 3" method="POST">
@@ -118,20 +123,20 @@ def room_html(room):
         watchForever();
         </script>'''.format(**locals()))
 
-@app.route('/<room>/json')
-def room_json(room):
-    die_rolls = DIE_ROLLS_PER_ROOM.setdefault(room, [])
+@app.route('/<table>/json')
+def table_json(table):
+    die_rolls = DIE_ROLLS_PER_TABLE.setdefault(table, [])
     return jsonify([to_json(die_roll) for die_roll in reversed(die_rolls)])
 
 @app.route('/')
 def homepage_html():
     return BASE_HTML.format(body='''
-        <a>Create room</a>
+        <a class="enter-table">Create table</a>
         <script>
         const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-        let room = '';
-        while (room.length < 6) {{ room += CHARS[Math.floor(Math.random() * CHARS.length)]; }}
-        document.getElementsByTagName('a')[0].href = '{BASE_URL}/' + room;
+        let table = '';
+        while (table.length < 6) {{ table += CHARS[Math.floor(Math.random() * CHARS.length)]; }}
+        document.getElementsByClassName('enter-table')[0].href = '{BASE_URL}/' + table;
         </script>'''.format(BASE_URL=BASE_URL))
 
 def to_json(die_roll):
