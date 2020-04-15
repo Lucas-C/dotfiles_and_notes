@@ -52,12 +52,13 @@ BASE_HTML = '''<!DOCTYPE html>
     border-radius: 1rem;
     padding: 2rem 0;
   }}
-  label, input {{
+  button, label, input {{
     font-size: 2rem;
     display: block;
     margin: 1rem auto;
     max-width: 15rem;
   }}
+  input[type="number"] {{ width: 4rem; }}
   p {{ font-size: 1.5rem; }}
   s {{ /* dices */
     text-decoration: none;
@@ -66,6 +67,14 @@ BASE_HTML = '''<!DOCTYPE html>
     vertical-align: bottom;
   }}
   footer {{ font-size: 1.5rem; }}
+  #timer {{
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 20rem;
+    margin: 0 auto;
+  }}
   </style>
 </head>
 <body>
@@ -94,22 +103,40 @@ def table_html(table):
     json_endpoint = f'{BASE_URL}/{table}/json'
     return BASE_HTML.format(
         body='''
+        <div id="timer" style="visibility: hidden">
+          <button onclick="startTimer(this)">Start timer</button>
+          <input type="number" value="20"></input>min
+        </div>
         <form onsubmit="return this.name.value.length >= 3" method="POST">
           <label for="name">Name:</label>
           <input type="text" minlength="3" name="name">
           <input type="submit" value="Roll the die">
         </form>
         <p>The die rolls of all people using this URL are displayed below :</p>
-        <ul></ul>
+        <ul id="rolls"></ul>
         <script>
         const nameAlreadyTyped = '{name}';
+        const queryParams = new URLSearchParams(location.search);
+        if (queryParams.get('timer')) {{
+          document.getElementById('timer').style.visibility = 'visible';
+        }}
         if (nameAlreadyTyped) document.forms[0].name.value = nameAlreadyTyped;
         window.dieRolls = [];
+        function startTimer(button) {{
+          chrono(button.parentNode, new Date());
+          button.nextElementSibling.remove();
+          button.remove();
+        }}
+        function chrono(timerElem, startTime) {{
+          let remaingSeconds = 20 * 60 - Math.floor((new Date() - startTime) / 1000);
+          timerElem.textContent = `${{Math.floor(remaingSeconds / 60)}}:${{(remaingSeconds % 60 + '').padStart(2, '0')}}`;
+          setTimeout(chrono, 1000, timerElem, startTime);
+        }}
         function watchForever() {{
           fetch('{json_endpoint}').then(resp => resp.json()).then(dieRolls => {{
             if (dieRolls.length != window.dieRolls.length) {{
               window.dieRolls = dieRolls;
-              const ul = document.getElementsByTagName('ul')[0];
+              const ul = document.getElementById('rolls');
               while (ul.firstChild) {{ ul.removeChild(ul.firstChild); }}
               dieRolls.forEach(dieRoll => {{
                 const li = document.createElement('li');
@@ -131,12 +158,12 @@ def table_json(table):
 @app.route('/')
 def homepage_html():
     return BASE_HTML.format(body='''
-        <a class="enter-table">Create table</a>
+        <a id="enter-table">Create table</a>
         <script>
         const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         let table = '';
         while (table.length < 6) {{ table += CHARS[Math.floor(Math.random() * CHARS.length)]; }}
-        document.getElementsByClassName('enter-table')[0].href = '{BASE_URL}/' + table;
+        document.getElementById('enter-table').href = '{BASE_URL}/' + table;
         </script>'''.format(BASE_URL=BASE_URL))
 
 def to_json(die_roll):
