@@ -103,6 +103,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Agile Engineering Fluency - Stages of practice map](https://arlobelshee.github.io/AgileEngineeringFluency/Stages_of_practice_map.html)
 - [Faire équipe](https://larlet.fr/david/blog/2019/faire-equipe/)
 - [An epic treatise on scheduling, bug tracking, and triage](https://apenwarr.ca/log/20171213)
+- [Monitoring Complex Systems: Keeping Your Head on Straight in a Hard World](https://fr.slideshare.net/BrianTroutwine1/erlang-factory-berlin-monitoring-complex-systems-keeping-your-head-on-straight-in-a-hard-world)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -431,7 +432,7 @@ Présentation par Sylvain Hellegouarch:
 
 ## Documentation:
 - Tenets:
-    * the key challenge to sustaining a complex system is maintaining our *understanding* of it
+    * the key challenge to sustaining a complex system is maintaining our *understanding* of it (cf. [Monitoring Complex Systems: Keeping Your Head on Straight in a Hard World])
     * documentation reduce accidents
     * trouble is, documentation goes out of date -> _instrumentation_ reflects the reality of the system as it exists
     * it is possible to have too little info, or too much, or present it badly
@@ -445,7 +446,6 @@ http://keepachangelog.com -> best practices & advices
     * include the wiki as part of task processes : sprints, ops, deployments...
     * get a leader whose goal is to motivate & educate others
     * templaaaaates are awesome. Alt: script page generation (e.g. for dashboards depending on parameters: IP, hostnames...)
-- use Doxygen / Docurium for code documentation
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
 - simple dashboard for JSON APIs : [freeboard](https://github.com/Freeboard/freeboard)
 - http://www.mkdocs.org : simple static doc website generation from Markdown, "à la" ReadTheDocs
