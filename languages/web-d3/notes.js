@@ -349,6 +349,8 @@ CommonMark // "Standard" Markdown https://github.com/jgm/stmd/blob/master/js/stm
 cemerick/jsdifflib // reimplement Python difflib + provide HTML side-by-side rendering
 
 sweetalert // pretty replacement for 'alert'
+roll-a-die // display a die roll
+https://pqina.nl/flip/ # count down to an event, visualize a fund raising campaign, show a clock or a sale counter
 
 esprima // JS AST manipulation: parsing, rewrite, refactoring ; + escodegen for code generation - Also: substack/node-falafel based on acorn
 
