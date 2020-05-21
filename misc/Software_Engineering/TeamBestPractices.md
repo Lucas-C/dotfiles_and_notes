@@ -104,6 +104,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Faire équipe](https://larlet.fr/david/blog/2019/faire-equipe/)
 - [An epic treatise on scheduling, bug tracking, and triage](https://apenwarr.ca/log/20171213)
 - [Monitoring Complex Systems: Keeping Your Head on Straight in a Hard World](https://fr.slideshare.net/BrianTroutwine1/erlang-factory-berlin-monitoring-complex-systems-keeping-your-head-on-straight-in-a-hard-world)
+- [What is Spike in Scrum?](https://www.visual-paradigm.com/scrum/what-is-scrum-spike/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -283,6 +284,8 @@ Dot Voting : une fois les idées listées (sous forme de post-its par exemple) c
 - spread tasks in 5 columns arbitrarily assigned a 2/3/5/8/13 points value, comparing them in terms of estimate time to completion (with no absolute estimation in man-days), e.g. with RealTimeBoard
 - [Weighted Shortest Job First] (WSJF) = _Cost of Delay_ / _Job Duration_, where _Cost of Delay_ = _User-business value_ + _Time criticality_ + _Risk reduction-opportunity enablement value_
 and all values can be estimated on a 1-13 scale using planning poker cards
+- [What is Spike in Scrum?]
+> Spikes are an invention of Extreme Programming (XP), are a special type of user story that is used to gain the knowledge necessary to reduce the risk of a technical approach. A spike has a maximum time-box size [...] A Spike is a great way to mitigate risks early and allows the team ascertain feedback and develop an understanding on an upcoming PBI’s complexity.
 
 ## Retrospectives
 - Content/Pas content/A améliorer/A continuer/A arrêter/Questions

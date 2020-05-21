@@ -72,35 +72,6 @@ OpenJDK JMH // Benchmark tool
 jib // build Java Docker images with a flat classpath for better caching - cf. https://ro14nd.de/jib-vs-dmp
 -XX:+UseContainerSupport / -XX:+UseCGroupMemoryLimitForHeap requires -XX:+UnlockExperimentalVMOptions // cf. https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e
 
-Buildr, Fradle > ant, maven // build systems
-mvn dependency:tree
-mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
-mvn buildplan:list # shows how goals are bound to phases - buildplan-maven-plugin from fr.jcgay.maven.plugins - Alt: https://github.com/skuro/plan-maven-plugin
-gradle dependencies
-mvn dependency-check:check # check for known CVE security issues in deps from owasp.org
-anthemengineering/infer-maven-plugin # Facebook static analyzer for Java, does not work under Windows
-
-mvn exec:java -Dexec.mainClass=
-
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-antrun-plugin</artifactId>
-    <version>1.1</version>
-    <executions>
-        <execution>
-            <phase>validate</phase>
-            <goals>
-                <goal>run</goal>
-            </goals>
-            <configuration>
-                <tasks>
-                    <echo>PATH=${env.PATH}</echo>
-                </tasks>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
-
 sudo update-alternatives --config java
 
 jps, jstat // Std perf monitoring tools: http://www.orace.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.html
@@ -375,3 +346,48 @@ curl -v -u 'my_user:my_pass' 0.0.0.0:8080/manager/text/list
     <role rolename="admin-gui"/>
     <role rolename="admin-script"/>
     <user username="my_user" password="my_pass" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>
+
+
+/****************
+ * Build systems
+ ****************/
+Buildr, Fradle > ant, maven // build systems
+
+mvn dependency:tree
+mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
+mvn help:effective-settings
+mvn help:effective-pom > effective-pom.xml
+
+mvn fr.jcgay.maven.plugins:buildplan-maven-plugin:list # shows how goals are bound to phases - Alt: https://github.com/skuro/plan-maven-plugin
+
+mvn dependency-check:check # check for known CVE security issues in deps from owasp.org
+anthemengineering/infer-maven-plugin # Facebook static analyzer for Java, does not work under Windows
+
+mvn help:evaluate -Dexpression=settings.localRepository
+mvn versions:display-plugin-updates
+
+mvn dependency:go-offline --batch-mode
+mvn jar:jar deploy:deploy  # réalise UNIQUEMENT l'upload de l'artifact, sans reconstruire le JAR
+
+mvn exec:java -Dexec.mainClass=
+
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-antrun-plugin</artifactId>
+    <version>1.1</version>
+    <executions>
+        <execution>
+            <phase>validate</phase>
+            <goals>
+                <goal>run</goal>
+            </goals>
+            <configuration>
+                <tasks>
+                    <echo>PATH=${env.PATH}</echo>
+                </tasks>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+
+gradle dependencies

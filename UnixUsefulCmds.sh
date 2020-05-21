@@ -702,6 +702,7 @@ wget --random-wait --recursive -e robots=off -U mozilla http://www.example.com #
   -p --page-requisites : download all the files necessary to properly display a page: inlined images, sounds, CSS...
   -k --convert-links : convert the links in the document to make them suitable for local viewing
   --no-parent : do not ever ascend to the parent directory when retrieving recursively
+  --span-hosts --domains=domainA,domainB
   -A --accept acclist -R --reject rejlist : comma-separated list of filename suffixes or patterns to accept or reject
   -l --level=depth : default = 5
   -c --continue : continue getting a partially-downloaded file
