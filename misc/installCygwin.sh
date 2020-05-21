@@ -20,7 +20,7 @@ if [ "$(stat -c '%U' /proc)" != "$USER" ]; then
     exit 1
 fi
 
-lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg  # Alt: kou1okada/apt-cyg
 mkdir -p ~/bin && install apt-cyg ~/bin && rm apt-cyg
 echo 'PATH="$PATH:~/bin"' >> ~/.bashrc && PATH="$PATH:~/bin"
 apt-cyg install wget

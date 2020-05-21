@@ -131,7 +131,9 @@ git remote show origin
 
 git fetch upstream && git rebase upstream/master && git push --force-with-lease # Sync a fork
 
-### Work on feature branches rather than mainline : best practice, or not ? -> https://speakerdeck.com/tdpauw/xp2017-feature-branching-is-evil
+### Work on feature branches rather than mainline :
+* best practice, or not ? -> https://speakerdeck.com/tdpauw/xp2017-feature-branching-is-evil
+* Martin Fowler branching patterns : https://martinfowler.com/articles/branching-patterns.html
 # Create a new feature branch:
 git co -b $branch_name --track origin/mainline # checkout -b <=> create branch && checkout
 # Commit feature branch and fast forward changes to mainline
