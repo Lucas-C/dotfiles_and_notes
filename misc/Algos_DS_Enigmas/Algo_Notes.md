@@ -99,6 +99,10 @@ Feistel networks pseudorandom permutation / one-to-one pseudo random mapping : c
 
 AtsushiSakai/PythonRobotics : filter localization / grid mapping / object shape recognition / SLAM - closest point matching / path planning / path tracking
 
+**Frecency** : Frecency is any heuristic that combines the **frequency** and **recency** into a single measure.
+> Some web browsers use frecency to predict the likelihood of revisiting a given web page or reusing a given HTTP cache entry
+SOURCE: https://en.wikipedia.org/wiki/Frecency
+
 
 ## Crypto
 
@@ -106,3 +110,5 @@ encrypting a file with its hash as the key, aka convergent encryption :
 https://www.reddit.com/r/crypto/comments/40kq5x/what_are_the_ramifications_of_encrypting_a_file/
 Benefit: you can easily check the file integrity
 Benefit 2: if no random prefix/suffix is added (=> weaker security), it can be used as unique identifier for deduping
+
+

@@ -769,9 +769,9 @@ knockd # port knocking server
 cat $file.key $file.crt > $file.pem
 openssl s_client -CApath $ca -cert $cert -key $key -connect $host:443 -ssl3 # bare SSL client
 curl -v --cacert $ca --cert $cert --key $key $host:443
-openssl x509 -text -noout -in $cert.pem # get certs details
+openssl x509 -text -dates -noout -in $cert.pem # get certs details - For full chain: https://kdecherf.com/blog/2015/04/10/show-the-certificate-chain-of-a-local-x509-file/#fnref-disqus
 openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
-openssl s_client -showcerts -servername $host -connect $host:443 </dev/null | openssl x509 > ${host}cert.pem  # retrieve a server certificate
+openssl s_client -showcerts -servername $host -connect $host:443 </dev/null | openssl x509 > ${host}cert.pem  # retrieve a server certificate - can detect "certificate has expired"
 keytool -printcert -file $cert.pem # get certs details
 sshfs # && fusermount -u
 Russell91/sshrc # bring your .*rc with you
@@ -1014,6 +1014,10 @@ export NSPR_LOG_FILE=/tmp/firefox_http.log
 ./firefox
 
 $APPDATA/Mozilla/Firefox/Profiles/XXXXXXXX.default/Chrome/userContent.css # customized style sheet
+# sqlite3 places.sqlite
+    SELECT datetime(visit_date/1000000,'unixepoch') AS visit_date, url, title, visit_count
+    FROM moz_places, moz_historyvisits WHERE moz_places.id = moz_historyvisits.place_id
+    ORDER BY visit_date DESC LIMIT 10;
 
 
 {#"#"#"#"#}

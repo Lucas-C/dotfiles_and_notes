@@ -264,6 +264,7 @@ JaredMHall/reline # CLI tool to reformat a text into a specified number of words
 
 kayzh/LSHash # locality sensitive hashing
 JohannesBuchner/imagehash  # perceptual hashes lib, supports: average hashing (aHash), perception hashing (pHash), difference hashing (dHash), wavelet hashing, like pHash but uses DWT instead of DCT (wHash)
+zacharyvoase/humanhash # humanize(digest) == 'three-georgia-xray-jig'
 pavlovml/match # Scalable reverse image search built on Kubernetes and Elasticsearch
 
 bitly/dablooms, axiak/pybloomfiltermmap, crankycoder/hydra, xmonader/pybloomfilter, TerbiumLabs/pyblume, jaybaird/python-bloomfilter
@@ -1033,6 +1034,8 @@ rpy2 # acces to R + cf. https://www.dataquest.io/blog/python-vs-r/
 """""""""""""""""""
 "" High perfs & C
 """""""""""""""""""
+Shaarli: https://chezsoi.org/shaarli/?searchtags=performances+Python
+
 Optimization guide:
 - measure first (line_profiler !)
 - improve algorithms ? data structures (for lightweight objects, use namedtuples) ? use a cache ?
@@ -1162,26 +1165,27 @@ ryanfox/retread # detect reused frames in video
 imageio.mimsave('/movie.gif', images) # lib based on Numpy + Pillow, to read / write a wide range of image data, including animated images, video, volumetric data, and scientific formats
 -> can be used with pygifsicle to build GIF images, cf. https://medium.com/swlh/python-animated-images-6a85b9b68f86
 neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF generation
+
 cairo # graphics library outputting .ps .pdf .svg & more
 pyPdf # Alt: pdfrw - Tuto to extract info / rotate / merge / split / add watermark / encrypt : https://realpython.com/pdf-python/
 wand (ImageMagick binding), pillow > pil # Python Image Library
 exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags - Alt for edit: piexif
+pyexiv2 # images EXIF manipulation
 python-thumbnails # generates images thumbnails, e.g. for your website
 ufoym/cropman # face-aware image cropping
-andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
 lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
-AAlib, legofy # ASCII/Lego rendering, cf. ascii_art_email.py
-fogleman/Tiling # pavages
-nuno-faria/tiler # create an image using all kinds of other smaller images
 graphviz # graphs generation and export as images
-pyexiv2 # images EXIF manipulation
-
 colorsys # rgb / yiq / hls / hsv conversions
 makkoncept/colorpalette # Flask app that extracts palette of dominating colors from image - heroku app available
 
+AAlib, legofy # ASCII/Lego rendering, cf. ascii_art_email.py
+fogleman/Tiling # pavages
+nuno-faria/tiler # create an image using all kinds of other smaller images
+andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
 anishathalye/neural-style # an implementation of neural style in TensorFlow
 ribab/quadart # producing quad-tree art
 lucashadfield/speck # line art image renderer
+ahmedkhalf/Circle-Evolution # Evolutionary Art Using Circles
 
 Tkinter, EasyGui, EasyDialogs (MacOSX), optparse_gui (last update 2008)
 Kivy # GUI inc. multi-touch support, packaged with PyInstaller
