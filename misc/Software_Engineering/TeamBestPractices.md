@@ -109,6 +109,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
 + cf. [HowAndWhyToDesignYourTeamsForModernSoftwareSystems] & http://devopstopologies.com
++ https://bonkersworld.net/organizational-charts
 
 [Agile Engineering Fluency - Stages of practice map]:
 - Traditional well done

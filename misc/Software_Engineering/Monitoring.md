@@ -19,6 +19,7 @@ cf. https://github.com/ripienaar/free-for-dev#monitoring
   * https://lambstatus.github.io (NodeJS, hosted on AWS Lambda)
   * https://sourcegraph.github.io/checkup/ (Go)
   * https://github.com/adamcooke/staytus (Ruby)
+  * https://github.com/statping/statping (Go)
 - active healthcheck monitoring:
   * https://healthchecks.io : "Get Notified When Your Cron Jobs Fail"
   * https://deadmanssnitch.com : "Kiss Silent Failures Goodbye"

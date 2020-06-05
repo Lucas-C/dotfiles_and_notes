@@ -106,6 +106,15 @@ Revealing a credential in a pipeline:
         sh "bash -c 'echo \${PASSWORD:0:1} \${PASSWORD:1}'"
     }
 
+Listing all credentials:
+
+    import com.cloudbees.plugins.credentials.common.StandardUsernameCredentials
+    import com.cloudbees.plugins.credentials.CredentialsProvider
+    def creds = CredentialsProvider.lookupCredentials(StandardUsernameCredentials.class, Jenkins.instance, null, null)
+    for (c in creds) {
+        println(String.format("id=%s desc=%s scope=%s", c.id, c.description, c.scope))
+    }
+
 ### Pipeline Shared Libs
 
 https://github.com/jenkinsci/workflow-cps-global-lib-plugin
