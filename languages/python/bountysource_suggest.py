@@ -2,7 +2,7 @@
 
 # This script will search for bounties in all GitHub repositories you have already contributed to
 
-# USAGE: GITHUB_TOKEN=... GITHUB_USER=... ./bounty_suggest.py
+# USAGE: GITHUB_TOKEN=... GITHUB_USER=... ./bountysource_suggest.py
 # (the GITHUB_TOKEN does not need an specific permission, and is optionnal but will help to avoid "API rate limit exceeded" errors)
 # REQUIRES: pip install --user pygithub requests
 

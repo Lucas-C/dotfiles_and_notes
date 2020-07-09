@@ -4,11 +4,13 @@
 #   export GITHUB_OAUTH_TOKEN=...
 #   ./github_graphql_get_reposecurityvulnerabilities.py --help
 
+# Online explorer: https://developer.github.com/v4/explorer/
+
 import argparse, json, os, requests, sys
 
 
 GRAPHQL_QUERY = '''query($login:String!, $number_of_repos:Int!, $number_of_vulns:Int!, $next_cursor:String) {
-  org_or_user(login: $login) {
+  $org_or_user(login: $login) {
     repositories(first: $number_of_repos, after: $next_cursor) {  # for users, we could also use repositoriesContributedTo
       totalCount
       pageInfo {
@@ -93,7 +95,7 @@ def query_graphql_api(args):
     variables = vars(args)
     variables['login'] = args.org or args.user
     response = requests.post('https://api.github.com/graphql',
-                             data=json.dumps({'query': GRAPHQL_QUERY.replace('org_or_user', org_or_user), 'variables': variables}),
+                             data=json.dumps({'query': GRAPHQL_QUERY.replace('$org_or_user', org_or_user), 'variables': variables}),
                              headers={'Authorization': 'bearer ' + args.github_oauth_token,  # cf. https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql
                                       'Accept': 'application/vnd.github.vixen-preview+json'})  # cf. https://developer.github.com/v4/previews/#repository-vulnerability-alerts
     response.raise_for_status()

@@ -119,6 +119,7 @@ FROM: http://www.mindcipher.com/puzzles/121
 "On colore un plan avec trois couleurs. Montrer qu'il existe deux points de la meme couleur distants de 1m"
 
     ./secret_decoder.py 190 < secret_msg.txt > decoded.txt
+    echo -en "ceci est un indice !" | ./letter_reverser.py
 
 https://handsomeone.github.io/Nonogram nonogram (also known as hanjie, picross and griddlers) editor and solver
 -> pourrait révéler un QR code

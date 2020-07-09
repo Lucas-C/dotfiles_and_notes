@@ -105,6 +105,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [An epic treatise on scheduling, bug tracking, and triage](https://apenwarr.ca/log/20171213)
 - [Monitoring Complex Systems: Keeping Your Head on Straight in a Hard World](https://fr.slideshare.net/BrianTroutwine1/erlang-factory-berlin-monitoring-complex-systems-keeping-your-head-on-straight-in-a-hard-world)
 - [What is Spike in Scrum?](https://www.visual-paradigm.com/scrum/what-is-scrum-spike/)
+- [Rethinking how we interview in Microsoft’s Developer Division](https://blog.usejournal.com/rethinking-how-we-interview-in-microsofts-developer-division-8f404cfd075a)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -516,6 +517,15 @@ It’s available as a text editor application, a web app, and even a linter, if 
   > It’s important that all of the scoring and decision making is done independently to avoid anyone influencing anyone else.
   > Once a decision is made, feedback is given as quickly as possible : [this] will give the candidate a really good impression of you - even if the answer is a no.
 - [CRACKING the CODING INTERVIEW]: prep sheets for soft skills, coding skills, PM skills
+- [Rethinking how we interview in Microsoft’s Developer Division] for Project Managers:
+  * Share the interview in advance
+  * Use a real problem
+  * Give access to data
+  * Make it interactive
+  * Follow a single scenario
+  * Pair interviewers
+  * Hold feedback until the end
+  * Give feedback on the process too
 
 ### Outils
 - cf. https://chezsoi.org/shaarli/?searchterm=&searchtags=Recruting+

@@ -735,7 +735,6 @@ lobocv/crashreporter # store and send crash reports directly to the developers
 cf. https://packaging.python.org
 pyroma # gives a rating of how well a project complies with the best practices of the Python packaging ecosystem, primarily PyPI, pip, Distribute etc.
 twine # pkg upload to Pypi - Con: requires cmarkgfm pkg which is a pain to install under Windows - Alt: hatch & poetry
-setuptools_scm, vcversioner  # manage your setup.py versions by scm tags
 zip -r ../myapp.egg # Make an .egg - You just need a ./__main__.py - See also: zipimport, pkgutil & zipapp to generates .pyz from v3.5 -> those "Python ZIP Applications" are associated to the Python executable under Windows
 dh-virtualenv # the ultimate way of deploying python apps, over wheels & pex == self-contained executable virtual environments : carefully constructed zip files with a #!/usr/bin/env python and special __main__.py - see PEP 441
 cx_freeze to make an EXE easily # cf. this example : https://www.reddit.com/r/Python/comments/4if7wj/what_do_you_think_is_more_difficult_in_python/
@@ -761,6 +760,13 @@ class custom_build(build):
         build.run(self)
         ... # custom init
 cmdclass['build'] = custom_build
+
+# VERSION: can a package version be only defined only in one place ?
+__version__ in __init__.py + setup.py # PEP 396 compliant but both need to be kept in sync.
+                                      # One can import __version__ in setup.py, but this should NOT mean
+                                      # that the package must be installed for setup.py to be interpreted
+__version__ = importlib.metadata.version(sys.modules[__name__]) # AttributeError: partially initialized module ... (most likely due to a circular import)
+setuptools_scm, vcversioner  # manage your setup.py versions by scm tags
 
 
 """""""""""""
@@ -1194,6 +1200,7 @@ ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - Alt: cztomczak/cefpytho
 curses # terminal dialogs/interface - Ex: https://gist.github.com/claymcleod/b670285f334acd56ad1c
 
 pytesseract.image_to_string
+JaidedAI/EasyOCR
 jlsutherland/doc2text # OCR poorly scanned PDFs in bulk
 fonttools # playing with font kerning: https://readevalprint.com/Schmelvetica.html
 

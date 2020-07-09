@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 # Transform some text so that it can be read by reversing the device.
+# Inspired by 1337 5|*34|< & calculator spelling
 # USAGE: echo -en "ceci est un indice !" | ./letter_reverser.py
 
 import sys
