@@ -153,7 +153,13 @@ gri
 git push
 
 .git/hooks/post-receive # any executable, e.g. bash script
-pre-commit/pre-commit # great hooks manager + cf. https://github.com/Yelp/venv-update/blob/a5960acab7101a1e70c57945b2038fef9d005aed/.pre-commit-config.yaml#L15-L22
+pre-commit/pre-commit # great hooks manager + cf. https://github.com/Yelp/venv-update/blob/a5960ac/.pre-commit-config.yaml#L15-L22
+
+Storing meta-data along commits, e.g. for benchmarking execution time per commit through a pre-commit hook : https://stackoverflow.com/a/40496777/636849
+Basic pre-commit hook:
+
+    #!/bin/sh
+    cmd $(git diff --cached --name-only --diff-filter=ACM)
 
 # Only checkout a subdirectory
 git config core.sparsecheckout true
@@ -193,7 +199,6 @@ curl -v -u "$username:$password" https://${HOST}/v1/repos/${REPO_NAME}.git/info/
 
 Git bomb: https://kate.io/blog/making-your-own-exploding-git-repos/
 
-Storing meta-data along commits, e.g. for benchmarking execution time per commit through a pre-commit hook : https://stackoverflow.com/a/40496777/636849
 
 @#~#~#~#@
 ~ GitHub

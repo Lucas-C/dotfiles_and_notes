@@ -26,14 +26,14 @@ PATH=$GOPATH/bin:$PATH
 
 export SHELL # needed for pew: https://github.com/berdario/pew/blob/master/pew/pew.py#L169
 
+export DISPLAY=:0 # for xclip, can be checked with 'w' cmd
+export LOG=1 # for notify-osd
+
 export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
 export HISTTIMEFORMAT="%F %T "
 export HISTCONTROL=ignoreboth # ignoredups and ignorespace
 shopt -s histappend # append to the history file, don't overwrite it
 alias r='fc -s' # 'repeat' - USAGE: r [old=new] [cmd] : runs last command [matching $cmd if provided], after performing the OLD=NEW substitution
-
-export DISPLAY=:0 # for xclip, can be checked with 'w' cmd
-export LOG=1 # for notify-osd
 
 # The following is better than a blunt 'export LANG=C',
 # that would also break support for non-ASCII caracters in the terminal.
@@ -44,6 +44,12 @@ alias sed='LANG=C LC_ALL=C sed'
 alias awk='LANG=C LC_ALL=C awk'
 alias sort='LANG=C LC_ALL=C sort'
 
+swap() { # swap 2 files
+    local tmpfile=$(mktemp $(dirname "$1")/XXXXXX)
+    mv "$1" "$tmpfile"
+    mv "$2" "$1"
+    mv "$tmpfile" "$2"
+}
 
 #---------------
 # Text display
@@ -196,6 +202,31 @@ alias gdp='git diff -U999999999 --no-color HEAD'
 alias gri='git rebase --interactive'
 alias gsp='git stash && git pull && git stash pop'
 
+pre_commit_all_cache_repos () {  # Requires sqlite3
+    sqlite3 -header -column ~/.cache/pre-commit/db.db < <(echo -e ".width 50\nSELECT repo, ref, path FROM repos ORDER BY repo;")
+}
+
+pre_commit_local_cache_repos () {  # Requires PyYaml & sqlite3
+    < $(git rev-parse --show-toplevel)/.pre-commit-config.yaml \
+        python -c "from __future__ import print_function; import sys, yaml; print('\n'.join(h['repo']+' '+h['sha'] for h in yaml.load(sys.stdin) if h['repo'] != 'local'))" \
+        | while read repo sha; do
+            echo $repo
+            sqlite3 ~/.cache/pre-commit/db.db "SELECT ref, path FROM repos WHERE repo = '$repo' AND ref = '$sha';"
+            echo
+        done
+}
+
+pre_commit_db_rm_repo () {  # Requires sqlite3
+    local repo=${1?'Missing parameter'}
+    local repo_path=$(sqlite3 ~/.cache/pre-commit/db.db "SELECT path FROM repos WHERE LIKE '%${repo}%';")
+    if [ -z "$repo_path" ]; then
+        echo "No repository known for repo $repo"
+        return 1
+    fi
+    rm -rf "$repo_path"
+    sqlite3 ~/.cache/pre-commit/db.db "DELETE FROM repos WHERE repo LIKE '%${repo}%';";
+}
+
 
 #------------
 # One-letter
@@ -220,6 +251,7 @@ alias ...="cd ../.."
 #----------
 alias tkcon='tkcon -load Tk'
 
+LIBSODIUM_MAKE_ARGS=-j4  # for pynacl - cf. https://github.com/pyca/pynacl/issues/302
 python () {
     if [ "$#" -eq 0 ]; then
         PYTHONSTARTUP=$BASHRC_DIR/.pythonrc $(type -P python)
@@ -229,12 +261,8 @@ python () {
 }
 alias djshell='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ./manage.py shell_plus --use-pythonrc'
 alias ipy='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ipython --pdb'
-alias ipy3='PYTHONSTARTUP=$BASHRC_DIR/.pythonrc ipython3 --pdb'
 py_module_path () { # USAGE: py_module_path $module_name [$py_version]
     python${2:-} -c "from __future__ import print_function; import $1; print($1.__file__ if hasattr($1, '__file__') else 'builtin')" | sed 's/pyc$/py/'
-}
-py_module_dir () {
-    dirname $(py_module_path $1)
 }
 
 find_constants () {
@@ -251,7 +279,6 @@ find_constants_values () {
 #alias perl='rlwrap --remember --multi-line --substitute-prompt "> " $(type -P perl)' # Also, use the debugger: perl -d -e 1
 alias node_repl="env NODE_NO_READLINE=1 rlwrap --remember --multi-line node -e 'require(\"repl\").start({useColors: true})'" # OK under Cygwin, but neither .exit/CTRL+D work, use CTRL+C
 alias lua='rlwrap --remember --multi-line --always-readline $(type -P lua)'
-alias lua5.2='rlwrap --remember --multi-line --always-readline $(type -P lua5.2)'
 cljs_rhino () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline cljsbuild repl-rhino "$@"; }
 cljs_node () { rlwrap --remember --multi-line --quote-characters '"' --break-chars "(){}[],^%3@\\\";:'" lein trampoline noderepl "$@"; }
 
@@ -529,7 +556,6 @@ message () { # ARGS: $message* [$header]
     echo -e "$header\n$message" | xmessage -center -file -
 }
 
-unfuncalias alert
 alert () { # USAGE: cmd; alert $ [OR] cmd <CTRL-z> bg; wait %1; alert
     local retcode=$?
     local history_last2lines=$(history | tail -n2 | sed -e 's/^\s*[0-9]\+\s*//')
@@ -600,31 +626,6 @@ gif_framecount_reducer () { # args: $gif_path $frames_reduction_factor
 timestamp_converter () {
     echo $@ | gawk '{print strftime("%c", $0)}'
     # Or date -d @$TIMESTAMP but neither work on OSX
-}
-
-pre_commit_all_cache_repos () {  # Requires sqlite3
-    sqlite3 -header -column ~/.cache/pre-commit/db.db < <(echo -e ".width 50\nSELECT repo, ref, path FROM repos ORDER BY repo;")
-}
-
-pre_commit_local_cache_repos () {  # Requires PyYaml & sqlite3
-    < $(git rev-parse --show-toplevel)/.pre-commit-config.yaml \
-        python -c "from __future__ import print_function; import sys, yaml; print('\n'.join(h['repo']+' '+h['sha'] for h in yaml.load(sys.stdin) if h['repo'] != 'local'))" \
-        | while read repo sha; do
-            echo $repo
-            sqlite3 ~/.cache/pre-commit/db.db "SELECT ref, path FROM repos WHERE repo = '$repo' AND ref = '$sha';"
-            echo
-        done
-}
-
-pre_commit_db_rm_repo () {  # Requires sqlite3
-    local repo=${1?'Missing parameter'}
-    local repo_path=$(sqlite3 ~/.cache/pre-commit/db.db "SELECT path FROM repos WHERE repo = '$repo';")
-    if [ -z "$repo_path" ]; then
-        echo "No repository known for repo $repo"
-        return 1
-    fi
-    rm -rf "$repo_path"
-    sqlite3 ~/.cache/pre-commit/db.db "DELETE FROM repos WHERE repo LIKE '%${repo}%';";
 }
 
 font_dflt_fix () {  # cf. https://chezsoi.org/lucas/blog/2016/02/11/en-fixing-fonts-that-raise-a-dflt-table-error-in-firefox/

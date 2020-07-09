@@ -65,6 +65,7 @@
     commits-heatmap = "!git ls-tree -r -z --name-only HEAD | xargs -0 -n1 -I{} sh -c 'echo $(git rev-list HEAD --count {}) {}' | sort -n"
 
     ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'{}  %h  %cd\n' {}^{commit} | sort --version-sort"
+    rm-tags = "!git tag --list | xargs -I{} git tag -d {}"
     # List all [Labels] in commit msgs, stripping digits
     ls-labels = "!git log --pretty=format:%s | sed -e 's/[0-9]//g' -e 's/^Revert \"//' -e 's/\\(\\[[^]]\\+\\]\\)[^[]*/\\1\\n/g' | grep -F [ | sort | uniq -c"
 
@@ -76,6 +77,10 @@
     prune-remotes = "!git remote prune origin && git branch --merged master | grep -v '^[ *]*master$' | xargs --no-run-if-empty git branch -d"
     prune-local-branches-without-remote = "!git branch -vv | grep -E ': (gone|disparue)\\]' |  grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -D"
     permission-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
+
+    # Source: How to properly rebase and deal with a contributor's PR gist -> https://gist.github.com/hkaj/97c16a9ec6df6e6f1e18
+    checkoutpr = "!f() { git fetch origin refs/pull/$1/head:pr/$1; git checkout pr/$1; }; f"
+    checkoutcontrib = "!f() { git fetch $1 $2 && git checkout -b $3 $1/$2 && git rebase master; }; f"
 
 [apply]
     whitespace = nowarn

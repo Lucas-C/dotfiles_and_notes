@@ -60,6 +60,8 @@ GDB-PEDA : open-source Python Exploit Development Assistance for GDB - Tuto: htt
 GHIDRA : An open-source software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate
 https://qira.me is a a timeless debugger: all state is tracked while a program is running, so you can debug in the past
 -> for Windows, WinDbgPreview provide Integrated Time Travel Debugging
+Binary vizualizers: https://reverseengineering.stackexchange.com/a/6011/33675
+    inc. binwalk, a good Python script to perform a quick CLI analysis
 
 ## Exploitation
 iKAT : gain access to the underlying OS in Kiosk (browser) restricted environment http://ikat.ha.cked.net/Windows/index.html

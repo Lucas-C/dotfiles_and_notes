@@ -443,6 +443,7 @@ gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer
 pdfjam file1.pdf file2.pdf 1,3- `# optional selector` --nup 2x1 --landscape --outfile out.pdf # printer-friendly version - Also: pdf270 to rotate
 xournal # edit PDF as background images, and export to PDF. To manipulate its vectorial data, with the risk of skewed visual output: LibreOfficeDraw / PDFEdit
 convert -density 150 $pdf -flatten $png # pdf2png ; opt: -sharpen 0x1.0
+verapdf --format text -v $pdf # CLI validator - Alt: https://www.access-for-all.ch/en/pdf-lab/ (non CLI)
 
 tr -c '[:alnum:]' _ # slugify by replacing non alphanumeric characters
 function capitalize () {
@@ -1013,7 +1014,8 @@ export NSPR_LOG_MODULES=timestamp,nsHttp:5,nsSocketTransport:5,nsStreamPump:5,ns
 export NSPR_LOG_FILE=/tmp/firefox_http.log
 ./firefox
 
-$APPDATA/Mozilla/Firefox/Profiles/XXXXXXXX.default/Chrome/userContent.css # customized style sheet
+$APPDATA/Mozilla/Firefox/Profiles/*/chrome/userContent.css # custom CSS - the chrome dir may not exist initially
+    # -> require toolkit.legacyUserProfileCustomizations.stylesheets=true in about:config
 # sqlite3 places.sqlite
     SELECT datetime(visit_date/1000000,'unixepoch') AS visit_date, url, title, visit_count
     FROM moz_places, moz_historyvisits WHERE moz_places.id = moz_historyvisits.place_id
@@ -1205,7 +1207,7 @@ link:$url # Search for pages that link to a URL
 https://www.google.fr/search?q=5%2B(-sqrt(1-x^2-(y-abs(x))^2))*sin(100*((10-x^2-(y-abs(x))^2))),+x+is+from+-1+to+1,+y+is+from+-1+to+1.5,+z+is+from+1+to+6 # 3D heart surface
 
 youtube-dl --ignore-errors --format best --extract-audio FLF8xTv55ZmwikWWmWLPEAZQ # download playlist as .m4a files - in case of HTTP error 500, try -f18
-youtube-dl --write-auto-sub --skip-download --sub-lang fr https://www.youtube.com/watch?v=$id
+youtube-dl --write-auto-sub --skip-download --sub-lang fr https://www.youtube.com/watch?v=$id | grep -A1 -F ' --> '
 normalize-audio *.mp3
 
 # Snippet-search
