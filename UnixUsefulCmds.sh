@@ -444,6 +444,7 @@ pdfjam file1.pdf file2.pdf 1,3- `# optional selector` --nup 2x1 --landscape --ou
 xournal # edit PDF as background images, and export to PDF. To manipulate its vectorial data, with the risk of skewed visual output: LibreOfficeDraw / PDFEdit
 convert -density 150 $pdf -flatten $png # pdf2png ; opt: -sharpen 0x1.0
 verapdf --format text -v $pdf # CLI validator - Alt: https://www.access-for-all.ch/en/pdf-lab/ (non CLI)
+qpdf --qdf --object-streams=disable $pdf qpdf-$pdf # pretty-format & annotate a PDF syntax
 
 tr -c '[:alnum:]' _ # slugify by replacing non alphanumeric characters
 function capitalize () {
