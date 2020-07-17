@@ -151,7 +151,6 @@ m.group('word')
 re.sub('a|b|c', rep_func, string) # def rep_func(matchobj): ... - More powerful than str.replace for substitutions - Alt, more efficient lib: flashtext
 'A B\tC\n'.translate({ord('\t'): ' ', ord('\n'): ''})  # multi-replace
 eriknyquist/librxvm # non-backtracking NFA-based regular expression library, for C and Python - Alt: xysun/regex
-vi3k6i5/flashtext # Extract Keywords from sentence or Replace keywords in sentences
 pyparsing # create and execute simple grammars instead of regex/lex/yacc - http://pyparsing.wikispaces.com/HowToUsePyparsing - Also: parsimonious (used at eBay) & parsley for EBNF & erezsh/lark for LALR - cf. https://tomassetti.me/parsing-in-python/ & lark-parser/lark for Earley & LALR(1)
 pycparser # C language code parser
 parso # a Python parser
@@ -259,7 +258,6 @@ conceptsandtraining/libtree # deal with large, hierarchical data sets. Runs on t
 
 marisa-trie, datrie, chartrie, hat-trie, pyjudy, biopython # Tries comparison: http://kmike.ru/python-data-structures/
 kmicke/DAWG # Directed Acyclic Word Graphs
-ahocorasick, acora # Aho-Corasick automaton : quick multiple-keyword search across text
 JaredMHall/reline # CLI tool to reformat a text into a specified number of words per line/characters per line
 
 kayzh/LSHash # locality sensitive hashing
@@ -989,6 +987,10 @@ sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-
 goose3 # take any news article or article-type web page and not only extract what is the main body of the article but also all meta data and most probable image candidate
 deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .ps ... Alt for PDF: euske/pdfminer/blob/master/tools/pdf2txt.py
 snowballstemmer # supports 15 languages
+ahocorasick, acora # Aho-Corasick automaton : quick multiple-keyword search across text
+vi3k6i5/flashtext # Extract Keywords from sentence or Replace keywords in sentences
+superelasticsearch # provide iterated search & simpler bulk API
+lunr # parses a set of documents and creates an inverted index for quick full text searches
 
 decimal.Decimal # contrary to floats : 3*0.1 - 0.3 == 0.0
 fractions
@@ -1173,7 +1175,7 @@ imageio.mimsave('/movie.gif', images) # lib based on Numpy + Pillow, to read / w
 neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF generation
 
 cairo # graphics library outputting .ps .pdf .svg & more
-pyPdf # Alt: pdfrw - Tuto to extract info / rotate / merge / split / add watermark / encrypt : https://realpython.com/pdf-python/
+pyPdf2 # Alt: pdfrw - Tuto to extract info / rotate / merge / split / add watermark / encrypt : https://realpython.com/pdf-python/ & craft_pdf_with_remote_img.py
 wand (ImageMagick binding), pillow > pil # Python Image Library
 exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags - Alt for edit: piexif
 pyexiv2 # images EXIF manipulation

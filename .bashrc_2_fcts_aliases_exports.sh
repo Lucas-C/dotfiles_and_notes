@@ -14,7 +14,10 @@ PATH=$BASHRC_DIR/bin:$PATH
 NPM_PACKAGES="$HOME/.npm-packages"
 #echo "prefix = $NPM_PACKAGES" >> ~/.npmrc
 PATH="$PATH:$NPM_PACKAGES/bin"
-MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+MANPATH="$NPM_PACKAGES/share/man"
+if type manpath >/dev/null 2>&1; then  # from man-db package
+  MANPATH="$MANPATH:$(manpath)"
+fi
 NODE_PATH="$NPM_PACKAGES/lib/node_modules"
 
 if [ -n "${VIRTUAL_ENV:-}" ]; then
