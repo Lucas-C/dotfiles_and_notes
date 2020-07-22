@@ -1076,6 +1076,7 @@ pefile # to read Portable Executable files, e.g. Windows .dll
 cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
 pybind11 # Seamless operability between C++11 and Python - Also: cppimport : Import C++ files directly from Python
 https://tech.blue-yonder.com/oxidizing-python-speeding-up-urlquoting-by-using-rust/ # writing a C-Library in Rust and invoke it from Python with cdylib, cbindgen, milksnake & cffi
+pyduktape # evaluate JS from Python, used in heroine-dusk PDF port
 
 struct # pack/unpack binary formats
 binascii.hexlify # display binary has hexadecimal
@@ -1175,7 +1176,8 @@ imageio.mimsave('/movie.gif', images) # lib based on Numpy + Pillow, to read / w
 neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF generation
 
 cairo # graphics library outputting .ps .pdf .svg & more
-pyPdf2 # Alt: pdfrw - Tuto to extract info / rotate / merge / split / add watermark / encrypt : https://realpython.com/pdf-python/ & craft_pdf_with_remote_img.py
+pikepdf # edit & validate existing PDFs, using qpdf - Alt: pdfrw, pyPdf2 - Tuto to extract info / rotate / merge / split / add watermark / encrypt: https://realpython.com/pdf-python/ & craft_pdf_with_remote_img.py
+PyFPDF # generate PDFs from scratch - Alt: reportlab - cf. https://github.com/MrBitBucket/reportlab-mirror/tree/master/docs & https://github.com/driscollis/reportlabbookcode
 wand (ImageMagick binding), pillow > pil # Python Image Library
 exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags - Alt for edit: piexif
 pyexiv2 # images EXIF manipulation
@@ -1778,3 +1780,8 @@ dict # now ensured to be ordered
 importlib.resources # replace pkg_resource
 
 contextlib.nullcontext # noop context manager
+
+
+#-----------
+# Python 3.8
+functools.cached_property
