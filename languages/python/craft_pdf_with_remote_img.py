@@ -43,11 +43,10 @@ alt_img = PdfDict(
     FFilter=PdfName.DCTDecode)
 alt_img.indirect = true
 
-alternates = PdfArray()
-alternates.indirect = true
-alternates.append(PdfDict(
+alternates = PdfArray([PdfDict(
     DefaultForPrinting = True,
-    Image = alt_img))
+    Image = alt_img)])
+alternates.indirect = true
 
 img_name = PdfName('Image-9960')
 img = img_kid.Resources.XObject[img_name]
