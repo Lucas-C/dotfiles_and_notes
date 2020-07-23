@@ -5,7 +5,6 @@
 # USAGE: ./install-pdfchecker.sh [$install_dir_path]
 
 set -o pipefail -o errexit -o nounset -o xtrace
-cd $(dirname ${BASH_SOURCE[0]})
 
 DOWNLOADED_ZIP_FILENAME=PDF-CHECKER-Lin64.zip
 BSX_INSTALLER_FILENAME=setup_PDF_Checker_Linux64_1.5.2.bsx
