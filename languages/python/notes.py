@@ -347,6 +347,8 @@ class Point(typing.NamedTuple):  # https://github.com/topper-123/Articles/blob/m
     y: int
 # or traitlets if you need to react when properties values change: https://traitlets.readthedocs.io/en/stable/using_traitlets.html
 
+@pikepdf._methods.augments # Attach methods of a support class to an existing class
+
 
 """""""""""""
 "" dict & set
@@ -790,7 +792,7 @@ import faker # generate test data: phone numbers, IPs, URLs, md5 hashes, geo coo
 minimaxir/big-list-of-naughty-strings
 import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture /path/to/test_file:TestCase.test_function - Also: http://exogen.github.io/nose-achievements/
 nosetest # -vv --collect-only # for debug
-py.test -vv --capture=no --showlocals --exitfirst --cache-clear --pdb -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
+py.test -vv --capture=no/-s --showlocals/-l --strict-config --strict-markers --exitfirst --cache-clear --pdb -m $marker -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
 pytest -k "$(tq failure -p -a name < results.xml | awk 'NR>1{print(" or ")} {print}' ORS='')" # rerunning only failed tests, require --junit-xml=results.xml
     pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
     pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
@@ -824,10 +826,11 @@ dhellmann/smiley # application tracer, record & report, inspired by rad2py/wiki/
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
 timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000)
 
-python -m cProfile myscript.py -o output.pstats # cProfile.Profile().dump_stats(filename)
+python -m cProfile -o output.pstats script.py # cProfile.Profile().dump_stats('output.pstats')
+from pstats import Stats; stats = Stats(); stats.add('output.pstats'); stats.sort_stats('cumulative'); stats.print_stats()
 gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
 pycallgraph graphviz -- ./mypythonscript.py # Alt for recursion tree: carlsborg/rcviz
-kernprof.py --line-by-line myscript.py # line_profiler great pip package
+kernprof.py --line-by-line myscript.py # from line_profiler pip package, great but does not cupport Cygwin
 pyprof2calltree # use kcachegrind
 python-flamegraph # FlameGraph profiler
 P403n1x87/austin # frame stack sampler for CPython
@@ -1035,6 +1038,7 @@ eyounx/ZOOpt # Zeroth-Order optimization (a.k.a. derivative-free optimization/bl
 
 joblib # memoize computations by keeping cache files on disk
 petl # extract, transform and load tables of data (ETL)
+@ratelim..patient # themiurgo/ratelim: limits the number of times a function is called during a time interval
 
 rpy2 # acces to R + cf. https://www.dataquest.io/blog/python-vs-r/
 
@@ -1785,3 +1789,5 @@ contextlib.nullcontext # noop context manager
 #-----------
 # Python 3.8
 functools.cached_property
+
+f'{expr=}'  # expand to the text of the expression, an equal sign, then the representation of the evaluated expression

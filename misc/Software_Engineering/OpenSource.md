@@ -19,6 +19,7 @@ Open source challenges
 - [Six things to know about successful open-source software](https://knightlab.northwestern.edu/2013/07/24/six-lessons-on-success-and-failure-for-open-source-software/)
 - [Open Source is awful](https://steemit.com/opensource/@crell/open-source-is-awful)
 - [Comparison of 7 governance models for CPython by Victor Stinner](https://discuss.python.org/t/comparison-of-the-7-governance-peps/392)
+- [The Meme Hustler - Tim O’Reilly’s crazy talk | Evgeny Morozov - The Baffler](https://thebaffler.com/salvos/the-meme-hustler)
 
 ## Resources for newcomers
 - [freeCodeCamp guide to contribute to Open Source]
@@ -187,11 +188,15 @@ Also: https://openbadges.org
 
 ### Cons
 [Open Source is awful]:
-- "I used to think Open Source was amazing. I've since come to realize just how awful it is."
-- First, I need to draw a clear distinction between three often-confused concepts: Free Software, Open Source, and Volunteer Coding.
-- "We love to encourage developers to get involved; "give back" is the mantra."
-- That is simply the polite way of saying "do work for free and we'll pay you in exposure". We all know that's called exploitation
-- "My code is free — my time is not."
+> I used to think Open Source was amazing. I've since come to realize just how awful it is.
+
+> First, I need to draw a clear distinction between three often-confused concepts: Free Software, Open Source, and Volunteer Coding.
+
+> We love to encourage developers to get involved; "give back" is the mantra.
+
+> That is simply the polite way of saying "do work for free and we'll pay you in exposure". We all know that's called exploitation
+
+> My code is free — my time is not.
 
 
 ### Copyleft licenses contamination from dependencies
@@ -363,3 +368,19 @@ Demo: Github CLA bot asking contributors to sign it
   * What is the project’s business model or sustainability model?
   * Which open source license does it use?
   * Does technical architecture match social structure?
+
+
+### Open Source vs Logiciel Libre (Free as in "free speech")
+History:
+- [The Meme Hustler - Tim O’Reilly’s crazy talk | Evgeny Morozov - The Baffler]
+
+> Stallman’s may not have been the best software on offer, but some sacrifice of technological efficiency was a price worth paying for emancipation.
+
+> Any move to subject the fruits of developers’ labor to public regulation, even if its goal was to promote a greater uptake of open source software, must be opposed, since it would taint the reputation of open source as technologically and economically superior to proprietary software.
+
+> As O’Reilly put it in 2010, “the art of promoting openness is not to make it a moral crusade, but rather to highlight the competitive advantages of openness.”
+
+Licenses & related websites of interest:
+- [Climate Strike Software](https://github.com/climate-strike/license)
+- [The Hippocratic License](https://firstdonoharm.dev)
+- https://tldrlegal.com

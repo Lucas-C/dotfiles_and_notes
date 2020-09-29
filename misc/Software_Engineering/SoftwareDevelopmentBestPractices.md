@@ -102,6 +102,8 @@ Software Development Best Practices
 - [Google Code Review Developer Guide](https://google.github.io/eng-practices/review/)
 - [How to be a programmer](http://refcnt.org/~sts/docs/various/HowToBeAProgrammer.html)
 - [Pythonic code review @ RedHat](https://access.redhat.com/blogs/766093/posts/2802001)
+- [Being a Senior Engineer at Google / Microsoft / Stripe](https://www.zainrizvi.io/blog/whats-it-like-as-a-senior-engineer/)
+- [50 biais cognitifs](https://sebsauvage.net/galerie/photos/Bordel/50-biais-cognitifs.png)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -177,9 +179,9 @@ FROM: [Joel On Software - Things You Should Never Do]
 - Mature engineers seek out constructive criticism of their designs.
 - Mature engineers understand the non-technical areas of how they are perceived.
 - Mature engineers do not shy away from making estimates, and are always trying to get better at it.
-(another take on that subject from [Why "Agile" and especially Scrum are terrible]:
-The worst thing about estimates is that they push a company in the direction of doing work that’s estimable.
-Anything that’s actually worth doing has a non-zero chance of failure and too many unknown unknowns for estimates to be useful.)
+Another take on that subject from [Why "Agile" and especially Scrum are terrible]:
+> The worst thing about estimates is that they push a company in the direction of doing work that’s estimable.
+> Anything that’s actually worth doing has a non-zero chance of failure and too many unknown unknowns for estimates to be useful.
 - Mature engineers have an innate sense of anticipation, even if they don’t know they do.
 - Mature engineers understand that not all of their projects are filled with rockstar-on-stage work.
 - Mature engineers lift the skills and expertise of those around them.
@@ -204,8 +206,9 @@ Anything that’s actually worth doing has a non-zero chance of failure and too 
     * [Imposter Syndrom](https://www.laserfiche.com/simplicity/shut-up-imposter-syndrome-i-can-too-program/) + [Related articles on opensource.com](https://opensource.com/sitewide-search?search_api_views_fulltext=imposter%20syndrome) + [Le syndrome de l’imposteur](https://medium.com/@lesvoixdelaveille/le-syndr%C3%B4me-de-limposteur-9f38c9bec0ca)
     * [Completion Bias](http://jkglei.com/momentum/)
     * [XY Problem](http://xyproblem.info)
-    * [anchoring effect](https://en.wikipedia.org/wiki/Anchoring) : when people consider a particular value for an unknown quantity before estimating that quantity
+    * [anchoring effect](https://en.wikipedia.org/wiki/Anchoring) : when people consider a particular value for an unknown quantity before estimating that quantity. - _cf._ experimetn quoted by Greg Wilson in [TeamBestPractices.md](TeamBestPractices.md)
     * [the halo effect](https://en.wikipedia.org/wiki/Halo_effect) : the tendency to like (or dislike) everything about a person—including things you have not observed
+    * [50 biais cognitifs]
 
 [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/):
 - A senior developer [...] is obsessed with simplicity.
@@ -221,6 +224,15 @@ Anything that’s actually worth doing has a non-zero chance of failure and too 
 [How to be a programmer] by Robert L. Read,
 lists skills to develop for beginner (personnal, team), intermediate (personnal, team, judgment)
 and advanced (Technological Judgment, Compromising Wisely, Serving Your Team) programmers
+
+[Being a Senior Engineer at Google / Microsoft / Stripe]
+> At the senior levels most of your time goes into identifying **what** needs to be built and **how** to build it.
+> You have to research what the problem looks like. You talk to others and get everyone to agree on what needs to be done.
+> These are your new tools:
+> - Research the problem
+> - Design the solution
+> - Build consensus
+
 
 ### The Ten Commandments of Egoless Programming
 - Understand and accept that you will make mistakes.
@@ -630,12 +642,12 @@ cf. [Functional Programming Patterns]
 - "Expertise is not about picking good solution, it is about picking the future bad one at the right time." Eric Bréhault, Makina Corpus
 - [The Parable of the Two Programmers](http://www.csd.uwo.ca/~magi/personal/humour/Computer_Audience/The%20Parable%20of%20the%20Two%20Programmers.html)
 - [The story of Mel](http://www.catb.org/jargon/html/story-of-mel.html) :
-"I have often felt that programming is an art form,
-whose real value can only be appreciated
-by another versed in the same arcane art;
-there are lovely gems and brilliant coups
-hidden from human view and admiration, sometimes forever,
-by the very nature of the process.
-You can learn a lot about an individual
-just by reading through his code,
-even in hexadecimal."
+> "I have often felt that programming is an art form,
+> whose real value can only be appreciated
+> by another versed in the same arcane art;
+> there are lovely gems and brilliant coups
+> hidden from human view and admiration, sometimes forever,
+> by the very nature of the process.
+> You can learn a lot about an individual
+> just by reading through his code,
+> even in hexadecimal."

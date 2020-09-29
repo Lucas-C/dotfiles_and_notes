@@ -106,6 +106,8 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Monitoring Complex Systems: Keeping Your Head on Straight in a Hard World](https://fr.slideshare.net/BrianTroutwine1/erlang-factory-berlin-monitoring-complex-systems-keeping-your-head-on-straight-in-a-hard-world)
 - [What is Spike in Scrum?](https://www.visual-paradigm.com/scrum/what-is-scrum-spike/)
 - [Rethinking how we interview in Microsoft’s Developer Division](https://blog.usejournal.com/rethinking-how-we-interview-in-microsofts-developer-division-8f404cfd075a)
+- [Greg Wilson - What We Actually Know About Software Development, and Why We Believe It's True](https://vimeo.com/9270320)
+- [Have interviewers practice](https://rework.withgoogle.com/guides/hiring-train-your-interviewers/steps/giving-interviewers-practice/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -288,6 +290,17 @@ Dot Voting : une fois les idées listées (sous forme de post-its par exemple) c
 and all values can be estimated on a 1-13 scale using planning poker cards
 - [What is Spike in Scrum?]
 > Spikes are an invention of Extreme Programming (XP), are a special type of user story that is used to gain the knowledge necessary to reduce the risk of a technical approach. A spike has a maximum time-box size [...] A Spike is a great way to mitigate risks early and allows the team ascertain feedback and develop an understanding on an upcoming PBI’s complexity.
+- Anchor effect (bias) :
+> For a given test software project and a random group of developpers,
+> a single sentence in the specs **estimating that it should take** 2 or 20 months to complete,
+> is the main statistical drive explaining **why it took, in the end**, 5 or 15 months to produce it,
+> **regardless of how much** experience the developpers have in the domain,
+> how much experience they have in software development in general,
+> what techniques they're using or how familiar they are with the tools.
+Experiment by Aranda & Easterbrook (2005)
+Source: [Greg Wilson - What We Actually Know About Software Development, and Why We Believe It's True] - 15:55
+- If more than 20-25% of a component has to be revised,
+it's better to rewrite it from scratch (Thomas et al, 1997)
 
 ## Retrospectives
 - Content/Pas content/A améliorer/A continuer/A arrêter/Questions
@@ -526,6 +539,8 @@ It’s available as a text editor application, a web app, and even a linter, if 
   * Pair interviewers
   * Hold feedback until the end
   * Give feedback on the process too
+- [Have interviewers practice]:
+> Some teams calibrate new interviewers by having them shadow more experienced interviewers. After interviewers have shadowed a few interviews, the hiring team may ask them to “reverse shadow” where the new interviewer runs the interview and the experienced interviewer observes to provide feedback.
 
 ### Outils
 - cf. https://chezsoi.org/shaarli/?searchterm=&searchtags=Recruting+

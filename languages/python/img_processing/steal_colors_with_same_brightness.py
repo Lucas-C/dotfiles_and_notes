@@ -27,6 +27,7 @@ def main():
     print('Mode:', img.mode)
 
     steal_colors(img, args.palette_img)
+    print('Writing to:', destination_image)
     img.save(destination_image)
 
 
@@ -52,6 +53,7 @@ class Palette():
         with Image.open(palette_img_src) as palette_img:
             palette_img_height = palette_img.size[1]
             list(tqdm(self._build_palette(palette_img, brightness_func), total=palette_img_height))
+        print('Palette size:', len(self.palette))
         self.sorted_keys = sorted(self.palette.keys())
     def _build_palette(self, palette_img, brightness_func):
         width, height = palette_img.size
@@ -63,7 +65,8 @@ class Palette():
             yield 'ROW_COMPLETE' # progress tracking
     def __getitem__(self, key):
         i = bisect_left(self.sorted_keys, key)  # O(logN)
-        return self.palette[self.sorted_keys[i]]
+        brightness = max(self.sorted_keys) if i == len(self.sorted_keys) else self.sorted_keys[i]
+        return self.palette[brightness]
 
 
 def subst_img_colors(img, luminosity2color_palette, brightness_func):
@@ -76,6 +79,8 @@ def subst_img_colors(img, luminosity2color_palette, brightness_func):
 
 
 def luminosity(pixel):
+    if len(pixel) > 3 and not pixel[3]:
+        return 0  # transparent
     r, g, b = pixel[:3]
     return 0.241*(r**2) + 0.691*(g**2) + 0.068*(b**2)
 
