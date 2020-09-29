@@ -18,6 +18,11 @@ Continuous Delivery
 - [How To Write Excellent Dockerfiles](https://rock-it.pl/how-to-write-excellent-dockerfiles/)
 - [Container Training](https://github.com/jpetazzo/container.training)
 - [Multi-stages Docker images](https://blog.hasura.io/how-to-write-dockerfiles-for-python-web-apps-6d173842ae1d#d0a8)
+- [Faster CI Builds with Docker Layer Caching and BuildKit](https://testdriven.io/blog/faster-ci-builds-with-docker-cache/)
+- [GoogleContainerTools/distroless](https://github.com/GoogleContainerTools/distroless/)
+- [Faster CI Builds with Docker Layer Caching and BuildKit](https://testdriven.io/blog/faster-ci-builds-with-docker-cache/)
+- [Caching Maven dependencies in a Docker build](https://medium.com/@nieldw/caching-maven-dependencies-in-a-docker-build-dca6ca7ad612)
+- [Creating Efficient Docker Images with Spring Boot 2.3](https://spring.io/blog/2020/08/14/creating-efficient-docker-images-with-spring-boot-2-3)
 
 ## general tips & tricks
 Waiting on a HTTP service to be up:
@@ -197,11 +202,16 @@ Docker daemon healthcheck: curl http://localhost:2375/v1.25/info
 
 _cf._ Hesperides & VBoard
 
-- 2-stages builds
+- [Multi-stages Docker images]
 - `envsubst` from package `gettext` - Alt with jinja2: https://stackoverflow.com/a/35009576/636849
-- support `$JAVA_OPTS`
 - `HEALTHCHECK`
-- Maven dependencies caching : [`mvn dependency:go-offline`](https://medium.com/@nieldw/caching-maven-dependencies-in-a-docker-build-dca6ca7ad612)
+- [GoogleContainerTools/distroless]
+- [Faster CI Builds with Docker Layer Caching and BuildKit]
+
+For Java apps:
+- support `$JAVA_OPTS`
+- Maven dependencies caching : `mvn dependency:go-offline` (_cf._ [Caching Maven dependencies in a Docker build])
+- Spring Boot layered JARs, _cf._ [Creating Efficient Docker Images with Spring Boot 2.3]
 
 #### Healthcheck without curl nor wget
 
@@ -406,6 +416,57 @@ https://benchmarks.cisecurity.org/tools2/docker/CIS_Docker_1.12.0_Benchmark_v1.0
 winpty: https://github.com/rprichard/winpty/issues/64
 
     winpty docker exec -i -t 11e68e488021 /bin/bash
+
+
+## k8s
+
+- [Graceful shutdown and zero downtime deployments](https://learnk8s.io/graceful-shutdown)
+
+> Instead of immediately shutting down your Pods, you should consider waiting a little bit longer in your application or set up a preStop hook.
+
+    NS=...  # k8s namespace
+    kubectl -n $NS get deployments/event/pods/services          # liste les entités du cluster
+    kubectl -n $NS describe pod $pod                            # état détaillé d'un pod
+    kubectl -n $NS logs -f $pod
+    kubectl -n $NS exec -it $pod sh
+    kubectl -n $NS rollout restart deployment/usl-demo-project  # relance un déploiement
+    kubectl -n $NS scale deploy usl-demo-project --replicas=0   # supprime toutes les replicas d'un déploiement
+    kubectl cluster-info
+
+Pour tester que l'appli est "UP", et qu'elle répond bien aux requêtes HTTP,
+vous pouvez créer un proxy jusqu'à un pod et ainsi la requêter :
+
+    kubectl -n $NS port-forward usl-demo-project-X-Y 80:8080  # $locallyExposedPort:$containerPort
+
+La durée de vie du proxy est celle de cette commande `kubectl port-forward`.
+Tant que ce processus s'exécute, vous pouvez accéder à votre appli :
+
+    curl http://127.0.0.1:80/manage/health
+
+Ce type de proxy sert uniquement à faire des tests.
+En production, il faudra mettre en place [un NodePort ou un LoadBalancer](https://www.ovh.com/blog/getting-external-traffic-into-kubernetes-clusterip-nodeport-loadbalancer-and-ingress/).
+
+[k9s](https://github.com/derailed/k9s) : CLI to make it easier to navigate, observe and manage your applications in the wild
+Useful shortcuts:
+- `CTRL+D` : delete a resource
+- `SHIFT+F` : launch _port-forward_. `:pf` to list all active ones
+
+With AWS:
+
+    aws --profile $AWS_PROFILE sts get-caller-identity
+    aws eks --profile $AWS_PROFILE --region=$AWS_REGION list-clusters
+    aws eks --profile $AWS_PROFILE --region=$AWS_REGION update-kubeconfig --name $AWS_EKS_CLUSTER --alias $AWS_EKS_CONTEXT  # this cmd updates ~/.kube/config
+
+With osprey:
+
+    echo -e "${USERNAME}\n${PASSWORD}" | osprey user login --group $ONPREMS_EKS_CONTEXT # this cmd updates ~/.kube/config
+
+
+## helm
+
+    helm --kube-context $AWS_EKS_CONTEXT --namespace $AWS_EKS_NAMESPACE list
+    helm --kube-context $AWS_EKS_CONTEXT --namespace $AWS_EKS_NAMESPACE upgrade --install --render-subchart-notes --atomic --timeout ${HELM_TIMEOUT} --values ./values/aws.yaml --set tag=$TAG $PROJECT --debug .
+    helm --kube-context $AWS_EKS_CONTEXT --namespace $AWS_EKS_NAMESPACE list
 
 
 ## Puppet

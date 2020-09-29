@@ -23,7 +23,7 @@
 
 - [Reveal.js](https://revealjs.com) & [Impress.js](https://github.com/impress/impress.js/) & [DZSlides](http://paulrouget.com/dzslides/) & [Eagle.js](https://github.com/Zulko/eagle.js)
     * extra Reveal.js themes : [by jefBinomed aka JF Garreau](https://github.com/binomed/binomed_docs/tree/master/Prez)
-    * WebComponent that to hightlight parts of the screen, like code: https://github.com/binomed/mask-highlighter
+    * WebComponent to hightlight parts of the screen, like code: https://github.com/binomed/mask-highlighter
 - [MathJax JS](https://www.mathjax.org)
 - [pandoc](http://pandoc.org) : swiss-army knife that can convert documents in Markdown, reStructuredText, textile, HTML, DocBook, LaTeX, MediaWiki markup, TWiki markup, OPML, Emacs Org-Mode, Txt2Tags, Microsoft Word docx, LibreOffice ODT, EPUB...
 - [JupyterLab](https://jupyter.org) : a web-based interactive development environment for Jupyter notebooks, code, and data
