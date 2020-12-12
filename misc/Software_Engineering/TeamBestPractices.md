@@ -54,7 +54,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [CodeVisualizationTools](https://softvis.wordpress.com/tools/)
 - [ThePowerOfStableTeams](http://firstround.com/review/Twitter-Engineering-SVP-Chris-Fry-on-the-Power-of-Stable-Teams/)
 - [MAPP] : Management Autonome de la Performance et du Progrès - [MichelinManufacturingWay](https://www.youtube.com/watch?v=ztsGX4YNkQ4)
-- [Bringing Novice Developers Up To Speed](https://www.mendix.com/think-tank/tips-for-bringing-novice-developers-up-to-speed/)
+- [Bringing Novice Developers Up To Speed](https://web.archive.org/web/20181210003120/https://www.mendix.com/blog/tips-for-bringing-novice-developers-up-to-speed/)
 - [Criticism and Ineffective Feedback](https://www.kateheddleston.com/blog/criticism-and-ineffective-feedback)
 - [Onboarding and the Cost of Team Debt](https://kateheddleston.com/blog/onboarding-and-the-cost-of-team-debt)
 - [Things I was unprepared for as a lead developer](https://www.techspot.com/news/62243-things-unprepared-lead-developer.html)
@@ -107,7 +107,12 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [What is Spike in Scrum?](https://www.visual-paradigm.com/scrum/what-is-scrum-spike/)
 - [Rethinking how we interview in Microsoft’s Developer Division](https://blog.usejournal.com/rethinking-how-we-interview-in-microsofts-developer-division-8f404cfd075a)
 - [Greg Wilson - What We Actually Know About Software Development, and Why We Believe It's True](https://vimeo.com/9270320)
+- [Technical interview exercises](http://www.colinhowe.co.uk/general/2018/05/30/technical-interview-exercises/)
 - [Have interviewers practice](https://rework.withgoogle.com/guides/hiring-train-your-interviewers/steps/giving-interviewers-practice/)
+- [Valve Handbook For New Employees](https://steamcdn-a.akamaihd.net/apps/valve/Valve_NewEmployeeHandbook.pdf)
+- [Using 6 Page and 2 Page Documents To Make Organizational Decisions](https://medium.com/@inowland/using-6-page-and-2-page-documents-to-make-organizational-decisions-3216badde909)
+- [Les ADR pour garder une trace de tous les choix d'architecture](https://blog.stack-labs.com/code/adr-to-remember-past-archiectural-decisions/)
+- [L1221-6 à L1221-9 du Code du travail (Section 2: Recrutement)](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006177850/2008-05-01/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -176,8 +181,21 @@ Cons from [Why "Agile" and especially Scrum are terrible]:
 - provide a basic map / schema of Where is What ?
 - write docs
 - assign a "buddy" in the team & a "mentor" in the company
-- [Bringing Novice Developers Up To Speed] + bookmarks on coaching an intern
+- [Bringing Novice Developers Up To Speed]
+    * Key elements: Autonomy / Mastery / Purpose
+    * Each novice has a tech mentor to meet with regularly, ideally the team lead
+    * Encourage questions, and make it safe to ask anything.
+    * Implement a regular pairing schedule
+    * Make sure that code is systematically reviewed
+    * Junior developers need individual learning goals with self-defined objectives
+- cf. also bookmarks on coaching an intern
 - organiser un atelier en mode _Event-Sourcing_ pour expliquer le fonctionnement du projet et la terminologie
+- initier un wiki que les nouveaux arrivants complèteront au fur et à mesure,
+avec des sections "liens utiles" / "à installer sur son poste" / "par où commencer" / "nos méthodos & rituels d'équipe"
+- prévoir un court dispositif du type 1h / jour avec un collègue différent pour présenter un sujet
+- [Valve Handbook For New Employees]
+    * present the team history a bit
+    * Your First Month / What To Work On
 
 ## Leadership
 cf. [#gamedev Lead Quick Start Guide] & [Things I was unprepared for as a lead developer] & TED Talk WhyGoodLeadersMakeYouFeelSafe
@@ -311,7 +329,7 @@ Liens utiles:
 * http://www.funretrospectives.com
 * http://retrospectivewiki.org
 * https://retromat.org
-* https://www.scrumalliance.org/community/articles/2014/april/a-reflection-on-retrospectives
+* https://www.scrumalliance.org/community/member-articles/699
 
 | Nom rétrospective                       | Description / Lien                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |-----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -449,7 +467,7 @@ Présentation par Sylvain Hellegouarch:
 - [ChaosToolKit](https://chaostoolkit.org)
 
 ## Documentation:
-- Tenets:
+- Operational doc Tenets:
     * the key challenge to sustaining a complex system is maintaining our *understanding* of it (cf. [Monitoring Complex Systems: Keeping Your Head on Straight in a Hard World])
     * documentation reduce accidents
     * trouble is, documentation goes out of date -> _instrumentation_ reflects the reality of the system as it exists
@@ -483,13 +501,16 @@ It’s available as a text editor application, a web app, and even a linter, if 
 > Extract the glossary of the Ubiquitous Language from the source code. Consider the source code as the Single Source of Truth,
 > and take great care of the naming of each class, interface and public method whenever they represent domain concepts.
 > Add the description of the domain concept directly into the source code, as structured comments that can be extracted by a tool
+- [Using 6 Page and 2 Page Documents To Make Organizational Decisions]
+- Lightweight Architecture Decision Records: cf. [Les ADR pour garder une trace de tous les choix d'architecture]
 
 ## Recruiting / recrutement
 - [HowFuckedUpIsYourManagement?]
 - prebrief, debrief, assigned competences, bar raiser
 - codility.com & cie
 - recruiting shared and detailed: what soft/tech competencies to assess, how to evaluate code, loop prebrief/debrief process... cf. [Five essential phone screen questions]
-- [STAR method of behavioral interviewing](https://www.vawizard.org/wiz-pdf/STAR_Method_Interviews.pdf) -> Probe -> Challenge
+- [STAR method of behavioral interviewing] -> Probe -> Challenge
+  In just one picture: http://chezsoi.org/lucas/wwcb/photos/STAR-methodology.png
 - some soft skills: teamwork, conflict resolution, listening, coordination...
 - sample questions:
     * describe me the organisational methods you used on past project to tackle work efficiently. E.g. todo-list, programming journal, task planning software, time & emails management...
@@ -517,7 +538,7 @@ It’s available as a text editor application, a web app, and even a linter, if 
   * Be collaborative
   * Try to make the problems feel as real-world as possible
 - [Test technique Xebia](https://github.com/snilyes/mowitnow)
-- [Technical interview exercises](http://www.colinhowe.co.uk/general/2018/05/30/technical-interview-exercises/) :
+- [Technical interview exercises] :
   > It’s an engineers market: You’re in competition with a lot of other companies and so you have to try and make this process as rewarding as possible for the candidate to ensure that they stay interested in your company.
   * Why we interview:
     + Understanding if the role/company/candidate are a fit for each other? It’s a two-way thing
@@ -541,6 +562,13 @@ It’s available as a text editor application, a web app, and even a linter, if 
   * Give feedback on the process too
 - [Have interviewers practice]:
 > Some teams calibrate new interviewers by having them shadow more experienced interviewers. After interviewers have shadowed a few interviews, the hiring team may ask them to “reverse shadow” where the new interviewer runs the interview and the experienced interviewer observes to provide feedback.
+- Articles [L1221-6 à L1221-9 du Code du travail (Section 2: Recrutement)] :
+
+> Le candidat à un emploi est expressément informé, préalablement à leur mise en oeuvre, des méthodes et techniques d'aide au recrutement utilisées à son égard.
+> Les résultats obtenus sont confidentiels.
+> Les méthodes et techniques d'aide au recrutement ou d'évaluation des candidats à un emploi doivent être pertinentes au regard de la finalité poursuivie.
+
+> Aucune information concernant personnellement un candidat à un emploi ne peut être collectée par un dispositif qui n'a pas été porté préalablement à sa connaissance.
 
 ### Outils
 - cf. https://chezsoi.org/shaarli/?searchterm=&searchtags=Recruting+

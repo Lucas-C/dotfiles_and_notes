@@ -5,17 +5,6 @@
 
 from __future__ import unicode_literals, print_function, absolute_import
 
-try:
-    import readline
-except ImportError:
-    print('Module readline not available.')
-else:
-    import rlcompleter
-    if 'libedit' in readline.__doc__:
-        readline.parse_and_bind('bind ^I rl_complete')
-    else:
-        readline.parse_and_bind('tab: complete')
-
 # Automatically importing useful standard libs
 import json, os, re, sys
 from pprint import pprint

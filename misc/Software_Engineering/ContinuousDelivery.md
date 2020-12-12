@@ -189,6 +189,8 @@ Uni testing with Spock: https://github.com/macg33zr/pipelineUnit
 - [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !
 - http://blog.michaelhamrah.com/2014/06/accessing-the-docker-host-server-within-a-container/ - Alt: `docker.for.win.localhost` builtin DNS CNAME (or `host.docker.internal`)
 - [dive](https://github.com/wagoodman/dive) : A tool for exploring a docker image, layer contents, and discovering ways to shrink your Docker image size.
+- [hadolint](https://github.com/hadolint/hadolint) : Dockerfile linter in Haskell
+- [skopeo](https://github.com/containers/skopeo) : CLI to inspect images without pulling them, and also perform copy/delete/sync operations
 
 ```
 docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
@@ -345,6 +347,21 @@ Solution: redepoy - cf. https://github.com/moby/moby/issues/30794
     curl https://raw.githubusercontent.com/Lucas-C/dotfiles_and_notes/master/.vimrc > ~/.vimrc
     alias vim='TERM= vim'  # explanation: https://github.com/moby/moby/issues/13817#issuecomment-254088147
 
+### Pulling a Docker image from AWS ECR
+
+    export DEFAULT_AWS_REGION=eu-west-1
+    export ECR_ENDPOINT=$AWS_ACCOUNT_ID.dkr.ecr.$DEFAULT_AWS_REGION.amazonaws.com
+    export AWS_PROFILE=...
+    export IMAGE=hesperides/hesperides
+    aws ecr describe-images --repository-name $IMAGE --query "sort_by(imageDetails,& imagePushedAt)[*]"
+    aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_ENDPOINT
+    docker pull $ECR_ENDPOINT/$IMAGE:$TAG
+
+Bonus, with `skopeo`:
+
+    aws ecr get-login-password | skopeo login --username AWS --password-stdin $ECR_ENDPOINT
+    skopeo inspect docker://$ECR_ENDPOINT/$IMAGE:$TAG
+
 ### FAQ
 
 #### mounting <Windows path> to rootfs .../merged at ... caused "not a directory"
@@ -427,11 +444,13 @@ winpty: https://github.com/rprichard/winpty/issues/64
     NS=...  # k8s namespace
     kubectl -n $NS get deployments/event/pods/services          # liste les entités du cluster
     kubectl -n $NS describe pod $pod                            # état détaillé d'un pod
+    kubectl -n $NS describe deployment ...
     kubectl -n $NS logs -f $pod
     kubectl -n $NS exec -it $pod sh
     kubectl -n $NS rollout restart deployment/usl-demo-project  # relance un déploiement
     kubectl -n $NS scale deploy usl-demo-project --replicas=0   # supprime toutes les replicas d'un déploiement
     kubectl cluster-info
+    # --debug -v9
 
 Pour tester que l'appli est "UP", et qu'elle répond bien aux requêtes HTTP,
 vous pouvez créer un proxy jusqu'à un pod et ainsi la requêter :

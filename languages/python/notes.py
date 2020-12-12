@@ -564,6 +564,11 @@ open(open('/tmp/b', 'w').fileno())        # KO - cf. http://hondu.co/blog/open-a
 echo $SHELL                                            # /bin/bash
 python -c "import os; print(os.environ.get('SHELL'))"  # None
 
+class CustomHash:
+    def __init__(self, hash): self.hash = hash
+    def __hash__(self): return self.hash
+CustomHash(1) in [CustomHash(1)]  # False, because "in" uses id(obj)
+
 
 """""""""""""""""""""""""
 "" Functional Programming
@@ -604,7 +609,6 @@ platform # python version, OS / machine / proc info...
 appdirs # determine appropriate platform-specific user data/config/cache/logs directory paths
 resource # limit a process resources: SPU time, heap size, stack size... Example of context manager to limit memory usage: http://stackoverflow.com/a/14024198
 .setrlimit(RLIMIT_AS, (size, hard)) / .setrlimit(RLIMIT_CPU, (seconds, hard)); signal(SIGXCPU, time_exceeded)  # cf. https://martinheinz.dev/blog/1
-print('Memory usage: {} (kb)'.format(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))  # get process memory usage - but BEWARE: this value does not make sense in a containerized env (I witnessed it with a Python process in Docker: the host did not allocated those >1Go)
 
 shlex.split('--f "a b"') # tokenize parameters properly
 pipes.quote() # to escape variables - Alt: shlex.quote() for Python3.3+
@@ -702,6 +706,7 @@ csvoss/onelinerizer # Convert any Python 2 file into a single line of code
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried), google/yapf
 pyreverse # UML diagrams, integrated in pylint
+pinetr2e/napkin # write UML sequence diagrams
 
 Dobiasd/enterprython # type-based dependency-injection
 carta/flipper-client # feature flipping engine
@@ -795,6 +800,7 @@ nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no/-s --showlocals/-l --strict-config --strict-markers --exitfirst --cache-clear --pdb -m $marker -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
 pytest -k "$(tq failure -p -a name < results.xml | awk 'NR>1{print(" or ")} {print}' ORS='')" # rerunning only failed tests, require --junit-xml=results.xml
     pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
+    pytest-monitor # Analyze resources consumption (memory / time / CPU) & keep an history
     pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
     pytest-play # REST APi testing based on YAMLs files
 airspeed velocity # designed to benchmark a single project over its lifetime using a given set of benchmarks – i.e., little snippets of code that are timed - the result data is stored in JSON files
@@ -830,7 +836,7 @@ python -m cProfile -o output.pstats script.py # cProfile.Profile().dump_stats('o
 from pstats import Stats; stats = Stats(); stats.add('output.pstats'); stats.sort_stats('cumulative'); stats.print_stats()
 gprof2dot.py -f pstats output.pstats | dot -Tpng -o output.png
 pycallgraph graphviz -- ./mypythonscript.py # Alt for recursion tree: carlsborg/rcviz
-kernprof.py --line-by-line myscript.py # from line_profiler pip package, great but does not cupport Cygwin
+kernprof --line-by-line myscript.py # from line_profiler pip package, great but does not support Cygwin
 pyprof2calltree # use kcachegrind
 python-flamegraph # FlameGraph profiler
 P403n1x87/austin # frame stack sampler for CPython
@@ -846,7 +852,7 @@ nschloe/tuna # profile viewer using tornado
 nvdv/vprof # Visual Python profiler
 emeryberger/scalene # a high-performance, high-precision CPU and memory profiler
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
-fabianp/memory_profiler # track the memory usage of a program line by line in the source code - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
+fabianp/memory_profiler # track the memory usage of a program line by line in the source code - require psutil => not usable with Cygwin - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
 memleax # utility producing a report of C call stacks where a process memory allocations are not matched by deallocations - Demo + LD_PRELOAD usage: https://www.reddit.com/r/Python/comments/a4w61x/fixing_a_tough_memory_leak_in_python/
 cProfile + psutil.Process().num_ctx_switches # cf. https://pythonspeed.com/articles/custom-python-profiler/
@@ -965,7 +971,9 @@ h.iso(...objects...).sp
 # Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
 asizeof # the simplest solution from: https://pympler.readthedocs.org/en/latest/related.html
 rogerhu/gdb-heap
-import tracemalloc # Python3
+print('Memory usage:', resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1000, 'MB')  # peak process memory usage - unit: https://stackoverflow.com/questions/938733/total-memory-used-by-python-process#comment35291064_7669482 - but BEWARE: this value does not make sense in a containerized env (I witnessed it with a Python process in Docker: the host did not allocated those >1Go)
+summary.print_(summary.summarize(muppy.get_objects()))
+import tracemalloc # Python3, stats on allocated memory blocks per filename & line number
 
 def get_refcount(obj):
     """Valid for CPython implementation only"""
@@ -1011,18 +1019,19 @@ scipy
     ResidentMario/missingno, holoviews, pascal-schetelat/Slope # other dataviz libs
     pyecharts # line charts, bars, pie, map, radar, graphs, trees, treemaps, sunburst, gauge, calendars, 3D
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
-    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/), yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
+    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/)
+    yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
+    (ggplot(mtcars, aes('wt', 'mpg', color='factor(gear)'))
+     + geom_point()
+     + stat_smooth(method='lm')
+     + facet_wrap('~gear')
+     + theme_xkcd())
+
 hickford/primesieve-python # one of the fastest prime sieve implementaions (C++)
 
 z3-solver # SMT (satisfiability modulo theories) solver
     https://ericpony.github.io/z3py-tutorial/guide-examples.htm
     How I Cheat at Maths - Z3 101 by chown in Phrack #69
-
-(ggplot(mtcars, aes('wt', 'mpg', color='factor(gear)'))
- + geom_point()
- + stat_smooth(method='lm')
- + facet_wrap('~gear')
- + theme_xkcd())
 
 AtsushiSakai/PythonRobotics # filter localization / grid mapping / object shape recognition / SLAM - closest point matching / path planning / path tracking
 jhcepas/ete # tree exploration & visualisation
@@ -1077,8 +1086,10 @@ libc = ctypes.CDLL("libc.so.6")
 libc.printf("An int %d, a double %f\n", 1234, ctypes.c_double(3.14))
 pefile # to read Portable Executable files, e.g. Windows .dll
 
+# Calling C or C++ From Python: https://realpython.com/python-bindings-overview/
 cffi # C Foreign Function Interface for Python : call compiled C code from interface declarations written in C
 pybind11 # Seamless operability between C++11 and Python - Also: cppimport : Import C++ files directly from Python
+
 https://tech.blue-yonder.com/oxidizing-python-speeding-up-urlquoting-by-using-rust/ # writing a C-Library in Rust and invoke it from Python with cdylib, cbindgen, milksnake & cffi
 pyduktape # evaluate JS from Python, used in heroine-dusk PDF port
 
@@ -1206,6 +1217,7 @@ Kivy # GUI inc. multi-touch support, packaged with PyInstaller
 wxPython # port of C++ wxWidgets
 ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - Alt: cztomczak/cefpython
 curses # terminal dialogs/interface - Ex: https://gist.github.com/claymcleod/b670285f334acd56ad1c
+PySide2 # access to the complete Qt 5.12+ framework
 
 pytesseract.image_to_string
 JaidedAI/EasyOCR
@@ -1271,6 +1283,7 @@ mozilla/bleach # HTML sanitizing library that escapes or strips markup and attr
 tinycss2 > tinycss > cssutils  # CSS parsers
 hickford/MechanicalSoup
 lxml > HTMLParser (std or html5lib), pyquery, BeautifulSoup # use v>=3.2 - also: defusedxml to sanitize XML
+parser=lxml.html.HTMLParser(collect_ids=False)  # avoids a memory leak: https://benbernardblog.com/tracking-down-a-freaky-python-memory-leak-part-2/
 kovidgoyal/html5-parser # fast C based HTML 5 parsing
 import lxml.etree, lxml.html
 html_root = lxml.html.fromstring('html string') # Alt: html_tree.getroot()
@@ -1392,8 +1405,9 @@ Tornado # asynchronous web framework - can be used as a WSGI app with some limit
 Falcon, flask-restful # to build HTTP APIs - not asynchronous and uses a thread-local context - note that Flask has many global variables & is not thread safe (for async)
 hug # Flask alt based on Falcon, which provides auto documentation, input validation, type-handling with annotations and automatic versions
 FastAPI # ReDoc & SwaggerUI + Pydantic + sStarlette = an async Flask alt which supports WebSocket & GraphQL
-# huge tuto: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+Flask(__name__, static_folder='..', static_url_path='', template_folder='.') # huge tuto: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
     flasgger # Swagger API for flask
+    Flask-Caching
     flask-sqlalchemy
     flask-admin # admin interface on top of an existing data model
     flask-babel # adds i18n and l10n support
@@ -1401,6 +1415,7 @@ FastAPI # ReDoc & SwaggerUI + Pydantic + sStarlette = an async Flask alt which s
     Flask-HTTPAuth # Basic, Digest and Token HTTP authentication
     mjhea0/awesome-flask # A curated list of awesome things related to Flask
     Talisman / Secure.py # add HTTP headers protecting against common webapps security issues
+tiangolo/meinheld-gunicorn-flask-docker # Docker image with Meinheld managed by Gunicorn for high-performance web applications in Flask using Python 3, with performance auto-tuning
 Quart # like Flask, but async
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
 Django # cf. dedicated section
@@ -1606,6 +1621,7 @@ writer = csvkit.writer(sys.stdout)
 with open(sys.argv[1]) as csv_file:
     for row in csvkit.reader(csv_file):
         writer.writerow(row)
+harelba/q  # run SQL directly on CSV or TSV files
 aspy.yaml, yaml # !!! yaml.load() is an unsafe operation ! Use yaml.safe_load() - Also: beware the inconsistent behaviours: http://pyyaml.org/ticket/355
 ruamel # YAML parser / writer with support for roundtrip comments
 def extract_comments_from_yaml_ordereddict(d):
@@ -1701,12 +1717,12 @@ except KeyError as e:
 
 with concurrent.futures.ProcessPoolExecutor() as executor: # Asynchronous
     processed_args = list(executor.map(big_calculation, args)) # faster than without 'executor'
-    futures_url = {executor.submit(other_big_calc, arg) for arg in processed_args}
+    futures = {executor.submit(other_big_calc, arg) for arg in processed_args}
     for future in as_completed(futures):
-        url = futures[future]
         if future.exception():
             raise future.exception()
         yield future.result()
+wait(futures, return_when=FIRST_EXCEPTION)  # cf. http://masnun.com/2016/03/29/python-a-quick-introduction-to-the-concurrent-futures-module.html
 
 yield from iterator # delegate
 

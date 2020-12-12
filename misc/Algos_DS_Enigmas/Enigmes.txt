@@ -288,3 +288,6 @@ Fractal maze : https://cstheory.stackexchange.com/questions/11024/decidability-o
 22: froid
 23: 26
 24: nom de famille
+
+Grille 3x3 Pierre-Papier-Ciseaux :
+https://www.reddit.com/r/puzzles/comments/i5yfh0/a_grid_puzzle_based_on_rock_paper_scissors/

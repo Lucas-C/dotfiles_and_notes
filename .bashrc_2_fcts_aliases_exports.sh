@@ -553,9 +553,7 @@ message () { # ARGS: $message* [$header]
     local message=${1?'Missing message'}
     local header="${@: -1}"
     type -p figlet >/dev/null && [ -n "$header" ] && header=$(figlet $header)
-    ps -o stat= -p $$ | grep -q +
-    local in_background=$? # 0 if in background : we need to check as 'play' gets stuck if launch in background
-    type -p play >/dev/null && [ $in_background -ne 0 ] && play -n synth 0.1 tri 1000 2>/dev/null # beep !
+    type -p play >/dev/null && play -n synth 0.1 tri 1000 2>/dev/null # beep !
     echo -e "$header\n$message" | xmessage -center -file -
 }
 
