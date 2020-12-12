@@ -58,7 +58,6 @@ Project management best practices
 - [In Pursuit of Production Minimalism](https://brandur.org/minimalism)
 - [Run less software](https://www.intercom.com/blog/run-less-software/)
 - [We already have nice things](https://opensource.com/article/18/10/nice-things)
-- [Using 6 Page and 2 Page Documents To Make Organizational Decisions](https://medium.com/@inowland/using-6-page-and-2-page-documents-to-make-organizational-decisions-3216badde909)
 - [La dette technique : une supercherie mythologique pour galériens de l’IT](https://medium.com/@waxzce/la-dette-technique-une-supercherie-mythologique-pour-gal%C3%A9riens-de-lit-7ed0dfbf39c7)
 - [The Gartner Hype Cycle is … hype. Don’t use it as an excuse](https://davidgerard.co.uk/blockchain/2019/10/03/the-gartner-hype-cycle-is-hype-dont-use-it-as-an-excuse/)
 - [5 arguments to make managers care about technical debt](https://understandlegacycode.com/blog/5-arguments-to-make-managers-care-about-technical-debt/)
@@ -73,7 +72,13 @@ Project management best practices
 - Processus de recrutement exigeant : coding, 2h de review, etc.
 
 ## Choosing the right techno
-- [AYoungLadysPrimerToTechnicalDecisionMaking], especially the Manifesto on slide 26
+- [AYoungLadysPrimerToTechnicalDecisionMaking] - Manifesto on slide 26:
+    1. Technology serves the mission
+    2. Reuse solutions
+    3. Create friction for adding new components
+    4. Choose boring technology, when you can
+    5. Spend your risk tokens on key differentiators
+    6. The longer you survive, the more operational impact trumps all
 - [QuelquesConseilsPourAméliorerVotreProcessDeChoixDOutil]
 - cf. [TechnologyRadar] & its innovation adoption lifecycle
 - [ChooseBoringTechnology] :
@@ -225,9 +230,6 @@ Any assumptions without which the story would be difficult or impossible to impl
 If there is any possibility of misunderstanding what is included, it is sometimes helpful to explicitly enumerate what is not included in the Story.
 
 Sub-story: The smallest unit of work that has value for our customers
-
-### Studies
-- [Using 6 Page and 2 Page Documents To Make Organizational Decisions]
 
 #### Template
 - Objectifs de l'étude

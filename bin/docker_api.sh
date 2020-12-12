@@ -8,7 +8,7 @@ while [ "$#" -gt 1 ]; do
 done
 URI=${1?'Required'}
 : ${DOCKER_HOST?'Required'}
-API_VERSION=${API_VERSION:-v1.35}  # cf. https://docs.docker.com/engine/api/v1.35/
+API_VERSION=${API_VERSION:-v1.35}  # cf. https://docs.docker.com/engine/api/latest/
 
 if [[ $(uname) =~ CYGWIN ]]; then
     CERTS_DIR="$(cygpath $USERPROFILE\\.docker\\certs\\$(echo $DOCKER_HOST | tr : _))"

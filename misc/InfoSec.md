@@ -27,7 +27,7 @@ OWASP Zap Proxy (Zed Attack Proxy) concurrent OSS de Burp
 ## Threat Modeling
 Méthodologie d'attaque:
 (diagramme/mindmap généré via http://asciiflow.com, convertissable en image avec ditaa)
-
+```
                                      +-----------------+
  +--------------------------+        |                 |
  |                          |        |  Devenir riche  |             +-----------------+
@@ -47,7 +47,7 @@ Méthodologie d'attaque:
       |             |       |         |    XSS
       v             v       v         |
 phishing        sniffer  redirections +---->orce brute
-
+```
 
 
 ## Vulnerability Analysis
@@ -75,6 +75,9 @@ Content-Security-Policy HTTP response header : reduce XSS risks by declaring wha
 
 [browser autofill phishing](https://github.com/anttiviljami/browser-autofill-phishing)
 [Target="_blank" - the most underestimated vulnerability ever](https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/)
+
+- [faille IDOR](https://chezsoi.org/lucas/wwcb/photos/faille-IDOR.png)
+- [faille OpenRedirect](https://chezsoi.org/lucas/wwcb/photos/faille-OpenRedirect.png)
 
 https://github.com/x0rz/EQGRP - NSA hacking tools - Decrypted content of eqgrp-auction-file.tar.xz released by "The Shadow Brokers" : supposedly a free sample of the files exfiltrated from the Equation Group
 
@@ -143,8 +146,14 @@ https://github.com/benschw/springboard : cli utility to help get your secrets in
 
 https://github.com/square/keywhiz : A system for distributing and managing secrets
 
+## Disposable email providers
+- https://github.com/FGRibreau/mailchecker
+- https://github.com/martenson/disposable-email-domains
+- https://github.com/ivolo/disposable-email-domains
+- https://github.com/Igor-Rabodzei/isDisposable
+
 ## AWS
-http://flaws.cloud
+http://flaws.cloud : a challenge to learn about common mistakes and gotchas when using AWS
 https://github.com/andresriancho/nimbostratus : Tools for fingerprinting and exploiting Amazon cloud infrastructures
 https://github.com/RhinoSecurityLabs/Security-Research/tree/master/tools/aws-pentest-tools : buckethead.py searches across every AWS region for a variety of bucket names based on a domain name, subdomains, affixes given and more
 

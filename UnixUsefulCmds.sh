@@ -445,6 +445,7 @@ xournal # edit PDF as background images, and export to PDF. To manipulate its ve
 convert -density 150 $pdf -flatten $png # pdf2png ; opt: -sharpen 0x1.0
 verapdf --format text -v $pdf # CLI validator - Alt: https://www.access-for-all.ch/en/pdf-lab/ (non CLI)
 qpdf --qdf --object-streams=disable $pdf qpdf-$pdf # pretty-format & annotate a PDF syntax
+mutool clean -g -g -g -l -z $in.pdf $out.pdf  # https://mupdf.com/docs/manual-mutool-clean.html
 
 tr -c '[:alnum:]' _ # slugify by replacing non alphanumeric characters
 function capitalize () {
@@ -524,6 +525,7 @@ find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long' - Alt to mtime: -newer $than_this_file
 fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte - Also: findimagedupes
+fdupes -r $dir --delete --immediate  # delete duplicates - Alt: rm $(fdupes --omitfirst --sameline -r $dir)
 
 rename \  _ * # Replace whitespaces by underscores
 

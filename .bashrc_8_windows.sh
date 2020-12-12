@@ -7,6 +7,7 @@
 
 PATH=$PATH:/c/Windows/System32
 PATH=$PATH:/c/Windows
+PATH="$PATH:/c/Program Files$X86/Windows Kits/10/Debuggers/x64"
 
 if ! [ -s ~/.dir_colors ]; then
     curl -s 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > ~/.dir_colors
@@ -48,20 +49,12 @@ swap_win_hosts () {
 
 [ -r "/cygdrive/c/Program Files (x86)" ] && export X86=\ \(x86\)
 
-atom () {
-    $(cygpath "$LOCALAPPDATA\atom\bin\atom.cmd") $(convertWinArgs "$@")
-}
-
 NPP_BIN='/cygdrive/c/Program Files/Notepad++/notepad++.exe'
 test -e "$NPP_BIN" || NPP_BIN="/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe"
 npp () {
     for f in "$@"; do
         "$NPP_BIN" $(convertWinArgs "$f")
     done
-}
-
-pspad () {
-    "/cygdrive/c/Program Files$X86/PSPad editor/PSPad" $(convertWinArgs "$@")
 }
 
 bat () {
@@ -133,6 +126,12 @@ convert_win_cmd_output_encoding () { # USAGE: _ netstat --help
 alias _=convert_win_cmd_output_encoding
 
 alias tcpdump="WinDump.exe" # or RawCap + Wireshark
+
+message () { # ARGS: $message* [$header]
+    local message=${1?'Missing message'}
+    type -p play >/dev/null && play -n synth 0.1 tri 1000 2>/dev/null # beep !
+    msg $USERNAME "$message"
+}
 
 
 # USING PHP/COMPOSER/DRUSH WITH CYGWIN IS A BAD IDEA

@@ -31,10 +31,10 @@ The .zshrc file is here to invoke _bash_ even if _zsh_ is the default shell.
 Finally, the `.bashrc_*` files rely on the existence of `/c`, `/d`, etc.
 As admin, execute the following to create those symlinks:
 
-	cd /
-	ln -s /cygdrive/c
-	ln -s /cygdrive/d
-	ln -s /cygdrive/e
+    cd /
+    ln -s /cygdrive/c
+    ln -s /cygdrive/d
+    ln -s /cygdrive/e
 
 _cf._ [misc/installCygwin.sh](misc/installCygwin.sh)
 
@@ -62,6 +62,10 @@ Move all .* files in a subdir
 and use stow: http://sametmax.com/regrouper-ses-fichiers-de-settings-avec-stow/
 or https://github.com/deadc0de6/dotdrop
 -->
+
+### Gimp custom shortcuts install
+
+    cp gimp-menurc $APPDATA/GIMP/2.10/menurc
 
 ## Project Euler
 

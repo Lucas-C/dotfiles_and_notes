@@ -17,6 +17,7 @@
 #   }
 
 import os
+from collections import OrderedDict
 from datetime import datetime
 from random import randrange
 from flask import Flask, jsonify, request
@@ -87,7 +88,8 @@ BASE_HTML = '''<!DOCTYPE html>
   <footer>Source code: <a href="https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/rpg_dice.py">rpg_dice.py</a></footer>
 </body>
 </html>'''
-DIE_ROLLS_PER_TABLE = {}
+DIE_ROLLS_PER_TABLE = OrderedDict()  # in-memory data state
+MAX_TABLES_COUNT = 50
 
 app = Flask(__name__)
 
@@ -96,6 +98,7 @@ def table_html(table):
     die_rolls = DIE_ROLLS_PER_TABLE.setdefault(table, [])
     name = ''
     if request.method == 'POST':
+        autocleanup()
         name = request.form['name']
         die = 1 + randrange(6)
         hour = datetime.now().strftime('%X')
@@ -176,6 +179,11 @@ def to_json(die_roll):
 
 def emojify(die):
     return {1: '⚀', 2: '⚁', 3: '⚂', 4: '⚃', 5: '⚄', 6: '⚅'}[die]
+
+def autocleanup():
+    while len(DIE_ROLLS_PER_TABLE) > MAX_TABLES_COUNT:
+        table, _ = DIE_ROLLS_PER_TABLE.popitem(last=True)
+        print('autocleanup removed table:', table)
 
 
 if __name__ == '__main__':
