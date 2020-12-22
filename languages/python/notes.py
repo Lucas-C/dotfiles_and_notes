@@ -1171,6 +1171,7 @@ tqdm # KISS progress bar - Alt, maybe better: Minibar
 tabulate (handles Markdown with tablefmt='pipe'), PrettyTable, Leviathan1995/Pylsy # pretty ASCII tables output
 termgraph # terminal plotting of histograms / scatterplots from list of coordinates - Some (little less polished) alts: bashplotlib, tehmaze/diagram
 urwid # console user interface lib - Alt: snack, NPyScreen
+willmcgugan/rich # rich text and beautiful formatting in the terminal: pretty tables, progress bars, markdown, syntax highlighted source code, tracebacks
 
 
 """""""""""""

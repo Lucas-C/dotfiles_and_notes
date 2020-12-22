@@ -437,12 +437,16 @@ winpty: https://github.com/rprichard/winpty/issues/64
 
 ## k8s
 
+- [Kubernetes Cheat Sheet (PDF)](https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf)
+- [kubectl-neat](https://github.com/itaysk/kubectl-neat) : Remove clutter from Kubernetes manifests to make them more readable
 - [Graceful shutdown and zero downtime deployments](https://learnk8s.io/graceful-shutdown)
 
 > Instead of immediately shutting down your Pods, you should consider waiting a little bit longer in your application or set up a preStop hook.
 
     NS=...  # k8s namespace
+    kubectl -n $NS api-resources
     kubectl -n $NS get deployments/event/pods/services          # liste les entités du cluster
+    kubectl -n $NS get rs -o wide                               # liste les ReplicaSets
     kubectl -n $NS describe pod $pod                            # état détaillé d'un pod
     kubectl -n $NS describe deployment ...
     kubectl -n $NS logs -f $pod
@@ -479,6 +483,30 @@ With AWS:
 With osprey:
 
     echo -e "${USERNAME}\n${PASSWORD}" | osprey user login --group $ONPREMS_EKS_CONTEXT # this cmd updates ~/.kube/config
+
+- an app / container can write in `/dev/termination-log` on failure to help diagnosing the failure cause
+
+Installing `ingress-nginx` with Docker for Windows:
+
+* https://stackoverflow.com/a/65219093/636849
+* https://stackoverflow.com/a/62713105/636849
+
+Debugging `ingress-nginx`:
+
+    nginx=$(kubectl get pods -n ingress-nginx | egrep -o '^ingress-nginx-controller-[a-zA-Z0-9]+-[a-zA-Z0-9]+ ')
+    kubectl logs -n ingress-nginx $nginx --follow
+    kubectl exec -n ingress-nginx $nginx -- cat /etc/nginx/nginx.conf
+
+### Hands-on
+
+https://github.com/nocquidant/hello-trainee
+
+    kubectl config use-context docker-desktop
+    kubectl run hello-trainee --image nocquidant/hello-trainee
+    kubectl expose --port 80 --target-port 8488 pod/hello-trainee --type=NodePort --name hello-trainee-svc
+    kubectl get all
+    PORT=$(kubectl get service hello-trainee-svc -o jsonpath="{.spec.ports[0].nodePort}")
+    curl localhost:$PORT/hello
 
 
 ## helm

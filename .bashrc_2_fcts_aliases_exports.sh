@@ -235,6 +235,7 @@ pre_commit_db_rm_repo () {  # Requires sqlite3
 # One-letter
 #------------
 alias e='$EDITOR'
+alias k=kubectl
 f () { ( nohup firefox "${@:-$(cat)}" >~/firefox.log 2>&1 & ); }
 t () { # Execute some cmd with start/end timestamps
     date +"# Started: %c - @%s"
