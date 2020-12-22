@@ -104,6 +104,7 @@ Software Development Best Practices
 - [Pythonic code review @ RedHat](https://access.redhat.com/blogs/766093/posts/2802001)
 - [Being a Senior Engineer at Google / Microsoft / Stripe](https://www.zainrizvi.io/blog/whats-it-like-as-a-senior-engineer/)
 - [50 biais cognitifs](https://sebsauvage.net/galerie/photos/Bordel/50-biais-cognitifs.png)
+- [Command Line Interface Guidelines](https://clig.dev)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -291,6 +292,8 @@ A few notes on _Domain Driven Design_ cf. [DDD vite fait]:
 - most important concept: _ubiquituous langage_, to exchange about the domain model.
 Everyone, both domain experts & devs, must be convinced of the importance of building such shared vocabulary, and idealy keep a glossary.
 - beware of _analysis paralysis_ : when teams start to be affraid to make conception decisions
+
+[Command Line Interface Guidelines] : An open-source guide to help you write better command-line programs, taking traditional UNIX principles and updating them for the modern day.
 
 ### Resilience patterns
 FROM: https://docs.microsoft.com/en-us/azure/architecture/patterns/

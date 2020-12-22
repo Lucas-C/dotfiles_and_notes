@@ -113,6 +113,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Using 6 Page and 2 Page Documents To Make Organizational Decisions](https://medium.com/@inowland/using-6-page-and-2-page-documents-to-make-organizational-decisions-3216badde909)
 - [Les ADR pour garder une trace de tous les choix d'architecture](https://blog.stack-labs.com/code/adr-to-remember-past-archiectural-decisions/)
 - [L1221-6 à L1221-9 du Code du travail (Section 2: Recrutement)](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006177850/2008-05-01/)
+- [Managing developer identities in autonomous teams](https://kislayverma.com/organizations/managing-developer-identities-in-autonomous-teams/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -214,6 +215,10 @@ Daniel Pink motivational building blocks from "The puzzle of motivation" :
 - Respect What Came Before
 - Learn, Educate, and Advocate
 - Have Resounding Impact
+
+[Managing developer identities in autonomous teams]
+> An autonomous team is a team which is responsible for solving a specific business problem. The members of this team cut across system boundaries to solve business problems
+> The challenge of the manager is to get his team to engage with the problem statement. [...] The ability to do this, in my opinion, the hallmark of a great manager/leader
 
 ## Team culture building & best practices
 - two main tenets: RESPECT & TRUST people.

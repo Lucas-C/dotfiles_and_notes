@@ -158,6 +158,7 @@ Fractal maze : https://cstheory.stackexchange.com/questions/11024/decidability-o
     En 2018, j'ai trouvé 1.92 € en petites pièces par terre.
     Sachant que j'ai trouvé autant de pièces de 1 cens, de 5 cens et de 10 cens,
     combient de pièces ai-je ramassé au total ?
+
     Où trouve-t-on samedi avant vendredi ?
 
     Lors d'un repas de famille où tout le mondre trinque avec tout le monde,
@@ -291,3 +292,10 @@ Fractal maze : https://cstheory.stackexchange.com/questions/11024/decidability-o
 
 Grille 3x3 Pierre-Papier-Ciseaux :
 https://www.reddit.com/r/puzzles/comments/i5yfh0/a_grid_puzzle_based_on_rock_paper_scissors/
+
+The Colored Maze Game :
+https://www.reddit.com/r/puzzles/comments/k7jwla/colored_wall_maze/
+
+https://www.puzzle-aquarium.com (by PuzzleTeam)
+
+https://www.reddit.com/r/puzzles/comments/gkcnj5/dizzy_districts/
