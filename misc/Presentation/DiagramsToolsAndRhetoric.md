@@ -38,6 +38,8 @@
 There are many alternatives: in [bash](https://github.com/ekalinin/github-markdown-toc), [Python](https://github.com/rasbt/markdown-toclify)
 - [grip](https://github.com/joeyespo/grip) : preview GitHub Markdown files like READMEs (Python), interactively on localhost or as a single HTML `--export`
 
+Nice HTML collapsible panel: [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details)
+
 To "anchorify" titles as Github does:
 ```javascript
 ['h2', 'h3'].forEach(function (selector) {

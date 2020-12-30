@@ -299,3 +299,15 @@ https://www.reddit.com/r/puzzles/comments/k7jwla/colored_wall_maze/
 https://www.puzzle-aquarium.com (by PuzzleTeam)
 
 https://www.reddit.com/r/puzzles/comments/gkcnj5/dizzy_districts/
+
+https://www.consumethismedia.com/etp-room-writeups
+> Every episode, we design a full, audio only escape room that we run (like a dnd game) for a guest. But we also make the full notes available for free to anyone who wants to run them with friends.
+
+https://www.reddit.com/r/mathriddles/comments/ia1c59/a_game_of_ping_pong/
+> Bob , Alice, and Tim decided to play ping pong. Only two people can play at a time, so they agree that two of them will start playing, and then whoever loses the game will swap out with the player who was sitting out.
+> Bob played 17 games, Alice played 15 games, and Tim played 10 games.
+> Who lost the second game?
+
+https://www.brainzilla.com/logic/kyudoku/
+> In this logic puzzle you have to choose nine unique numbers (1 through 9) so that each row and column has a sum of 9 or less.
+-> could lead to a 9-digits code
