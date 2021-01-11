@@ -158,7 +158,7 @@ parso # a Python parser
 os.makedirs(dir_path) # + ignore OSError where .errno == errno.EEXIST and os.path.isdir(dir_path) # mkdir -p
 tempfile.gettempdir()
 tempfile.mkdtemp()
-tempfile.NamedTemporaryFile() # file automagically deleted on close() - DO NOT USE if project must be Windows-compatible : http://stackoverflow.com/a/23212515/636849
+tempfile.NamedTemporaryFile() # file automagically deleted on close() - DO NOT USE if project must be Windows-compatible : http://stackoverflow.com/a/23212515/636849 - Also got bad surprises when used in a Github Actions pipeline (probably Docker): https://github.com/alexanderankin/pyfpdf/pull/33
 tempfile.SpooledTemporaryFile(max_size=X) # ditto but file kept in memory as long as size < X
 
 StringIO # fake file from string - in module StringIO in Python 2, in io in Python 3
@@ -1167,7 +1167,7 @@ argcomplete # command line tab completion, for bash & argparse
 pyreadline, readline, rlcompleter, python-prompt-toolkit
 
 termcolor, colorama # cross-platform colored terminal text
-tqdm # KISS progress bar - Alt, maybe better: Minibar
+tqdm # KISS progress bar - Alt, maybe better: Minibar, rsalmei/alive-progress
 tabulate (handles Markdown with tablefmt='pipe'), PrettyTable, Leviathan1995/Pylsy # pretty ASCII tables output
 termgraph # terminal plotting of histograms / scatterplots from list of coordinates - Some (little less polished) alts: bashplotlib, tehmaze/diagram
 urwid # console user interface lib - Alt: snack, NPyScreen
@@ -1194,6 +1194,8 @@ neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF genera
 cairo # graphics library outputting .ps .pdf .svg & more
 pikepdf # edit & validate existing PDFs, using qpdf - Alt: pdfrw, pyPdf2 - Tuto to extract info / rotate / merge / split / add watermark / encrypt: https://realpython.com/pdf-python/ & craft_pdf_with_remote_img.py
 PyFPDF # generate PDFs from scratch - Alt: reportlab - cf. https://github.com/MrBitBucket/reportlab-mirror/tree/master/docs & https://github.com/driscollis/reportlabbookcode
+Kozea/WeasyPrint # HTML to PDF converter
+PyMuPDF # access links and bookmarks; render pages in raster & vector formats; search for text; extract fonts, text and images...
 wand (ImageMagick binding), pillow > pil # Python Image Library
 exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags - Alt for edit: piexif
 pyexiv2 # images EXIF manipulation
