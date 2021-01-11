@@ -3,16 +3,18 @@
 # Script to re-build a PDF xref table
 # once it has been manually edited
 
-# USAGE: ./set_pdf_xref.py in.pdf [out.pdf]
+# USAGE: ./set_pdf_xref.py in.pdf [--inplace|out.pdf]
 
 import sys
-from pdfrw import PdfReader, PdfWriter
 
 
 def main():
     input_filepath = sys.argv[1]
-    print(input_filepath)
-    output_filepath = sys.argv[2] if len(sys.argv) > 2 else 'out-' + input_filepath
+    if len(sys.argv) > 2:
+        output_filepath = input_filepath if sys.argv[2] == '--inplace' else sys.argv[2]
+    else:
+        output_filepath = 'out-' + input_filepath
+        print('Output generated to:', output_filepath)
 
     with open(input_filepath, 'rb') as input_file:
         data = input_file.read()
@@ -23,9 +25,13 @@ def main():
     if xref_pos != int(data[startxref_start:startxref_end]):
         data = data[:startxref_start] + str(xref_pos).encode() + data[startxref_end:]
 
-    out = PdfWriter()
-    out.addpage(PdfReader(fdata=data).pages[0])
-    out.write(output_filepath)
+    with open(output_filepath, 'wb') as output_file:
+        output_file.write(data)
+
+    # from pdfrw import PdfReader, PdfWriter
+    # out = PdfWriter()
+    # out.addpage(PdfReader(fdata=data).pages[0])
+    # out.write(output_filepath)
 
 
 if __name__ == '__main__':

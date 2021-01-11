@@ -272,7 +272,7 @@ Fractal maze : https://cstheory.stackexchange.com/questions/11024/decidability-o
 5: 8
 6: 312211
 7: 1
-8: 2, 3, 2, 1
+8: 2, 3, 2, 1 ou 3, 1, 3, 1
 9: M. Green: bleu - M. Blue: rouge - M. Red: vert
 10: EEE
 11: 2
