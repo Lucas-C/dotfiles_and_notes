@@ -30,6 +30,9 @@ Algorithm-based Interview Questions: https://www.careercup.com/page?sort=votes
 - http://shf.github.io/Python-Workshop/
 - [Reddit learnpython top resources of the year](https://www.reddit.com/r/learnpython/top/?t=year)
 - [tuvtran/project-based-learning](https://github.com/tuvtran/project-based-learning/blob/master/README.md#python)
+- logic puzzle: https://enigmes-a-thematiques.fr/front/enigme/2433
+Solution: abs int hex len ord
+
 
 ## Online platforms
 - [Qwiklabs AWS](https://run.qwiklab.com/catalog?cloud=AWS) (1 credit == 1 dollar)

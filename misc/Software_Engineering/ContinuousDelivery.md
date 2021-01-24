@@ -530,6 +530,9 @@ $content = inline_template("...Hurrah ! Ruby code !...")
 notify { "var: ${var}": }
 ```
 
+["Evaluation Error: Error while evaluating a Function Call, Cannot allocate memory" when executing external Ruby commands in Puppet](https://support.puppet.com/hc/en-us/articles/360005992274--Evaluation-Error-Error-while-evaluating-a-Function-Call-Cannot-allocate-memory-when-executing-external-Ruby-commands-in-Puppet-Enterprise-2018-1-0-and-later)
+> If you're getting a Cannot allocate memory error in puppetserver.log or in the output of a Puppet run, you might need to remove backticks from external commands in your Ruby functions.
+
 
 ## OpenStack
 ```
