@@ -1186,6 +1186,7 @@ qrencode -o $png $url && zbarimg -q $png # from zbar-tools - Can generate ASCII 
 barcode -b "Hello World !" -o out.ps && convert out.ps -trim out.png
 image_optim # Optimize (lossless compress, optionally lossy) images (jpeg, png, gif, svg) using external utilities: advpng gifsicle jhead jpegoptim jpeg-recompress jpegtran optipng pngcrush pngout pngquant svgo
 pngquant ## 70% lossy compression
+svgo $svg # Nodejs-based optimizing tool
 jpegtran -perfect -optimize -progressive -grayscale -outfile $out_file $in_file # FROM: libjpeg-turbo-progs - better than ImageMagick, cf. http://www.imagemagick.org/discourse-server/viewtopic.php?t=22141
 identify -verbose $jpg | grep -E 'Image:|Quality:' # get JPEG compression level
 identify -verbose $jpg | grep 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq $'\xff\xc2' $jpg - cf. https://en.wikipedia.org/wiki/JPEG#Syntax_and_structure

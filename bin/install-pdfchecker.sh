@@ -10,7 +10,7 @@ DOWNLOADED_ZIP_FILENAME=PDF-CHECKER-Lin64.zip
 INSTALL_DIR_PATH=${1:-$PWD/PDF_Checker}
 export TMPDIR=$(mktemp -d /tmp/pdfchecker.XXXXXX)
 
-wget --no-check-certificate https://www.datalogics.com/pdflibinfo/grzqordg/che-lin64-MfeaURpvtQXzGKjY/$DOWNLOADED_ZIP_FILENAME
+wget --quiet --no-check-certificate https://www.datalogics.com/pdflibinfo/grzqordg/che-lin64-MfeaURpvtQXzGKjY/$DOWNLOADED_ZIP_FILENAME
 unzip $DOWNLOADED_ZIP_FILENAME
 rm $DOWNLOADED_ZIP_FILENAME
 

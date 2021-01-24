@@ -20,6 +20,7 @@ Open source challenges
 - [Open Source is awful](https://steemit.com/opensource/@crell/open-source-is-awful)
 - [Comparison of 7 governance models for CPython by Victor Stinner](https://discuss.python.org/t/comparison-of-the-7-governance-peps/392)
 - [The Meme Hustler - Tim O’Reilly’s crazy talk | Evgeny Morozov - The Baffler](https://thebaffler.com/salvos/the-meme-hustler)
+- [The struggles of an open source maintainer - @antirez](http://antirez.com/news/129)
 
 ## Resources for newcomers
 - [freeCodeCamp guide to contribute to Open Source]
@@ -384,3 +385,14 @@ Licenses & related websites of interest:
 - [Climate Strike Software](https://github.com/climate-strike/license)
 - [The Hippocratic License](https://firstdonoharm.dev)
 - https://tldrlegal.com
+
+
+### The struggles of an open source maintainer - @antirez
+http://antirez.com/news/129 FROM https://github.com/nayafia/awesome-maintainers
+
+> This creates an obvious congestion. Most people try to address it in the wrong way: using pragmatism. Let’s close the issue after two weeks of no original poster replies, after we ask some question. Close all the issues that are not very well specified. And other “inbox zero” solutions. The reality is that to process community feedbacks very well you have to take the time needed
+> So what happens? That you start to prioritize more and more what to look at and what not. And you feel you are a piece of shit at ignoring so many things and people, and also the contributor believes you don’t care about what others have to give you. It’s a complex situation.
+
+> Sometimes I just stop looking at issues and PRs for weeks, because I’m coding or designing: that is the work I really love and enjoy. However this in turn creates ways more pressure on me, psychologically. To do what I love and I can do well I’ve to feel like shit.
+
+> the sum of the productivity of me working just when I want is greater than the productivity I’ve when I’m forced to work every day in a steady way.
