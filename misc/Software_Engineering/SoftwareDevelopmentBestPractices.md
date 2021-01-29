@@ -209,6 +209,7 @@ Another take on that subject from [Why "Agile" and especially Scrum are terrible
     * [XY Problem](http://xyproblem.info)
     * [anchoring effect](https://en.wikipedia.org/wiki/Anchoring) : when people consider a particular value for an unknown quantity before estimating that quantity. - _cf._ experimetn quoted by Greg Wilson in [TeamBestPractices.md](TeamBestPractices.md)
     * [the halo effect](https://en.wikipedia.org/wiki/Halo_effect) : the tendency to like (or dislike) everything about a person—including things you have not observed
+    * [Zeigarnik effect](https://en.wikipedia.org/wiki/Zeigarnik_effect) postulates that people remember unfinished or interrupted tasks better than completed tasks
     * [50 biais cognitifs]
 
 [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/):
