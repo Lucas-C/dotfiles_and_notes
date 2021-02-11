@@ -128,7 +128,7 @@ figlist | sed '1,/Figlet fonts/d;/:/,$d' | xargs -I{} figlet -f {} Hello # ASCII
 fc-scan fc-list fc-validate ... # standard unix commands to manage and get info on fonts
 otfinfo & cie # lcdf-typetools utilities for manipulating PostScript Type 1, Type 1 Multiple Master, OpenType, and TrueType fonts
 fontforge # std pkg (exist in Cygwin) to convert fonts formats: OTF, TTF, EOT - used by zoltan-dulac/css3FontConverter
-pip install --user brotlipy fonttools # provide the `ttx` that convert otf/ttf files into editable XML ones
+pip install --user brotlipy fonttools # provide the `ttx` command that convert otf/ttf files into editable XML ones
 
 set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS - cf. http://redsymbol.net/articles/unofficial-bash-strict-mode/ / https://kvz.io/bash-best-practices.html / https://gist.github.com/outro56/4a2403ae8fefdeb832a5
 fail () { echo "$1"; return ${2:-1}; }  # to exit the script with a given message & optional error code (default: 1) - Rely on `set -o errexit`
@@ -524,7 +524,7 @@ agedu -s $dir #then -w / -t - Alt: ncdu + all tools listed in http://dev.yorhel.
 find . -type d -name .git -prune -o -type f -print # Ignore .git
 find -regex 'pat\|tern' # >>>way>more>efficient>than>>> \( -path ./pat -o -path ./tern \) -prune -o -print
 find . -mtime +730 -print0 | xargs -0 --max-args 150 rm -f # to avoid 'Argument List Too Long' - Alt to mtime: -newer $than_this_file
-fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte - Also: findimagedupes
+fdupes -r $dir # find duplicate files: size then MD5 then byte-by-byte - Also: findimagedupes and x10 faster: czkawka
 fdupes -r $dir --delete --immediate  # delete duplicates - Alt: rm $(fdupes --omitfirst --sameline -r $dir)
 
 rename \  _ * # Replace whitespaces by underscores

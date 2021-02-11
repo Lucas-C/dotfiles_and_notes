@@ -167,6 +167,12 @@ https://github.com/trimstray/htrace.sh : shell script for http/https troubleshoo
 - https://github.com/derv82/wifite2 (Python)
 - https://github.com/wi-fi-analyzer/fluxion : MITM attacks (Python)
 
+## Sandboxing
+
+Preventing network access: http://www.hackerfactor.com/blog/index.php?/archives/910-Without-a-Net.html
+
+    LD_PRELOAD=./no-net.so ffmpeg
+
 # Formation @VSCT by Antonio Fortes
 
 Techniques Opératoires d'Intrusion:

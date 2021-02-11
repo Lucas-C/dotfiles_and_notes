@@ -211,10 +211,10 @@ pre_commit_all_cache_repos () {  # Requires sqlite3
 
 pre_commit_local_cache_repos () {  # Requires PyYaml & sqlite3
     < $(git rev-parse --show-toplevel)/.pre-commit-config.yaml \
-        python -c "from __future__ import print_function; import sys, yaml; print('\n'.join(h['repo']+' '+h['sha'] for h in yaml.load(sys.stdin) if h['repo'] != 'local'))" \
-        | while read repo sha; do
+        python3 -c "from __future__ import print_function; import sys, yaml; print('\n'.join(h['repo']+' '+h['rev'] for h in yaml.load(sys.stdin)['repos'] if h['repo'] != 'local'))" \
+        | while read repo rev; do
             echo $repo
-            sqlite3 ~/.cache/pre-commit/db.db "SELECT ref, path FROM repos WHERE repo = '$repo' AND ref = '$sha';"
+            sqlite3 ~/.cache/pre-commit/db.db "SELECT ref, path FROM repos WHERE repo = '$repo' AND ref = '$rev';"
             echo
         done
 }

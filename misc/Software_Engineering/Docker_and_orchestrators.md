@@ -33,6 +33,7 @@ Docker & orchestrators
 - [hadolint](https://github.com/hadolint/hadolint) : Dockerfile linter in Haskell
 - [skopeo](https://github.com/containers/skopeo) : CLI to inspect images without pulling them, and also perform copy/delete/sync operations
 - [google/cadvisor](https://github.com/google/cadvisor) : Container Advisor provides information on resource usage and performances of running containers. It is a running daemon that collects, aggregates & exports metrics.
+- [LocalStack](https://github.com/localstack/localstack) : a fully functional local AWS cloud stack & easy-to-use test/mocking framework, using Docker & Python
 
 ```
 docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
