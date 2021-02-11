@@ -17,9 +17,13 @@ cf. https://github.com/ripienaar/free-for-dev#monitoring
   * https://cachethq.io (PHP) -> [recipe](https://www.reddit.com/r/sysadmin/comments/6r5rzq/xpost_from_rhomelab_is_there_something_similar_to/dl304ed/) to setup a CentOS7 EC2 AMI on AWS
   * https://github.com/jayfk/statuspage (Python, using Github issues for incidents & Github Pages for hosting)
   * https://lambstatus.github.io (NodeJS, hosted on AWS Lambda)
-  * https://sourcegraph.github.io/checkup/ (Go)
   * https://github.com/adamcooke/staytus (Ruby)
-  * https://github.com/statping/statping (Go)
+  * also measuring uptime:
+    + https://github.com/upptime/upptime (powered entirely by GitHub Actions and Issues)
+    + https://sourcegraph.github.io/checkup/ (Go, multi backends)
+    + https://github.com/statping/statping (Go, Docker img available, TimeRange may not work?)
+    + https://github.com/statuspal/statuspal (NodeJS + PosteGreSQL, Docker img available, last update 2018)
+    + https://github.com/fzaninotto/uptime (NodeJS + MongoD, last update 2015)
 - active healthcheck monitoring:
   * https://healthchecks.io : "Get Notified When Your Cron Jobs Fail"
   * https://deadmanssnitch.com : "Kiss Silent Failures Goodbye"

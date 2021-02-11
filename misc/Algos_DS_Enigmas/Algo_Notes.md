@@ -54,6 +54,7 @@ Compression:
 - Google Snappy (10x faster, 50% worse compression than LZMA (7z))
 - Google Zopfli (5% more compression, 100x slower than LZMA (7z))
 - Google Brotli: better than zlib, LZMA (7z) and Snappy/Zopfli in term of speed AND compression ratio
+- Facebook Zstd: very fast lossless data compression algorithm, comparable to lzma, lzham, ppmx, lza or bzip2; use LZ4 & xxHash libs
 
 -> Pinterest predefined dictionary to optimize Zlib DEFLATE LZ77 stage : https://engineering.pinterest.com/blog/evolving-mysql-compression-part-2
 
