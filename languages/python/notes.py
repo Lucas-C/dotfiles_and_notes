@@ -614,7 +614,6 @@ shlex.split('--f "a b"') # tokenize parameters properly
 pipes.quote() # to escape variables - Alt: shlex.quote() for Python3.3+
 
 lordmauve/chopsticks # orchestration library to configure & control remote hosts over SSH
-ansible
 supervisor # process control system for UNIX
 
 ### sh.py tips & tricks
@@ -1670,6 +1669,29 @@ Clean Architecture by Leonardo Giordani: inspired by Robert Martin ideas (and to
   * Entities: lightweight domain models
   * Use cases: as small a possible
   * External systems: HTTP API, database...
+
+
+"""""""""""""
+"" Ansible
+"""""""""""""
+ansible-galaxy install -r requirements.yml
+ansible-playbook -i inventory_remote.py --extra-vars "ansible_sudo_pass=$ORKA_PASSWORD" -t playbook-name main.yml -vv
+
+any_errors_fatal: true
+
+- name: Get new VM IP & port
+  shell: ./inventory_remote.py
+  register: inventory_remote
+
+- set_fact:
+    inventory: "{{ inventory_remote.stdout | from_json }}"
+
+- name: Wait for VM to accept SSH connexions
+  with_dict: "{{ inventory._meta.hostvars }}"
+  wait_for:
+    host: "{{ item.key }}"
+    port: "{{ item.value.ansible_port }}"
+    timeout: 60
 
 
 """""""
