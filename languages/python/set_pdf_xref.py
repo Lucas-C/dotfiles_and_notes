@@ -26,7 +26,7 @@ def main():
         obj_index = data.index(match, obj_index)
         xref_table.append(f'{obj_index:010} 00000 n ')
     xref_table.insert(0, f'0 {len(xref_table)}')
-    data = data[:xref_start] + '\n'.join(xref_table).encode() + data[xref_end:]
+    data = data[:xref_start] + '\n'.join(xref_table).encode() + b'\n' + data[xref_end:]
 
     # Update startxref:
     xref_pos = data.index(b'\nxref') + 1
