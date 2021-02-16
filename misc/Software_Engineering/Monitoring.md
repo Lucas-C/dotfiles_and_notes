@@ -19,11 +19,13 @@ cf. https://github.com/ripienaar/free-for-dev#monitoring
   * https://lambstatus.github.io (NodeJS, hosted on AWS Lambda)
   * https://github.com/adamcooke/staytus (Ruby)
   * also measuring uptime:
+    + https://sourcegraph.github.io/checkup/ (Go, Docker img available, HTTP/TCP/DNS/TLS checks & customizable checks, many DBs supported)
     + https://github.com/upptime/upptime (powered entirely by GitHub Actions and Issues)
-    + https://sourcegraph.github.io/checkup/ (Go, multi backends)
-    + https://github.com/statping/statping (Go, Docker img available, TimeRange may not work?)
-    + https://github.com/statuspal/statuspal (NodeJS + PosteGreSQL, Docker img available, last update 2018)
-    + https://github.com/fzaninotto/uptime (NodeJS + MongoD, last update 2015)
+    + https://github.com/statping/statping (Go, Docker img available, history charts, HTTP/TCP/ICMP checks, 3 usable DBs, Prometheus export, TimeRange may not work?)
+    + https://github.com/statuspal/statuspal (NodeJS + PosteGreSQL, Docker img available, uptime graphs, last update 2018)
+    + https://github.com/fzaninotto/uptime (NodeJS + MongoD, history charts, last update 2015)
+    + https://github.com/arachnys/cabot (Python, Docker img available, with HTTP, Graphite & Jenkins checks, with embedded Hackpads)
+    + https://github.com/phpservermon/phpservermon (PHP, with history graphs, TCP & HTTP checks, many notifications providers)
 - active healthcheck monitoring:
   * https://healthchecks.io : "Get Notified When Your Cron Jobs Fail"
   * https://deadmanssnitch.com : "Kiss Silent Failures Goodbye"

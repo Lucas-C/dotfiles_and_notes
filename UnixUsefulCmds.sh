@@ -1,4 +1,4 @@
-# Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
+# Author: Lucas Cimon (github.com/Lucas-C/dotfiles_and_notes)
 <CTRL>+<SUPER>+<LEFT>/<RIGHT> # half-maximize a window on one side, in Ubuntu
 
 ~°~°~°~°~°~°~°~°~°~°~
