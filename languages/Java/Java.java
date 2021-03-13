@@ -353,19 +353,23 @@ curl -v -u 'my_user:my_pass' 0.0.0.0:8080/manager/text/list
  ****************/
 Buildr, Fradle > ant, maven // build systems
 
-mvn dependency:tree
-mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
 mvn help:effective-settings
 mvn help:effective-pom > effective-pom.xml
+
+mvn dependency:tree
+mvn dependency:resolve-plugins # + cf. recurse_resolve_mvn_plugins_dependencies.sh
+mvn versions:display-plugin-updates
+mvn versions:display-dependency-updates
+mvn versions:use-releases
+mvn versions:use-latest-releases
 
 mvn fr.jcgay.maven.plugins:buildplan-maven-plugin:list # shows how goals are bound to phases - Alt: https://github.com/skuro/plan-maven-plugin
 
 mvn dependency-check:check # check for known CVE security issues in deps from owasp.org
+
 anthemengineering/infer-maven-plugin # Facebook static analyzer for Java, does not work under Windows
 
 mvn help:evaluate -Dexpression=settings.localRepository
-mvn versions:display-plugin-updates
-
 mvn dependency:go-offline --batch-mode
 mvn jar:jar deploy:deploy  # réalise UNIQUEMENT l'upload de l'artifact, sans reconstruire le JAR
 

@@ -7,6 +7,7 @@ Continuous Delivery
 
 ## References
 - [AWS: Going faster with continuous delivery](https://aws.amazon.com/fr/builders-library/going-faster-with-continuous-delivery/)
+- [Reproducible builds](https://reproducible-builds.org)
 - [Immutable Server by Martin Fowler](http://martinfowler.com/bliki/ImmutableServer.html) pattern
 - [Continuous Delivery with Containers](http://www.slideshare.net/dbryant_uk/oreillynginx-2016-continuous-delivery-with-containers-the-trials-and-tribulations) (2016)
 - [Building a Functional Puppet Workflow](http://garylarizza.com/blog/2014/02/17/puppet-workflow-part-1/)

@@ -111,8 +111,33 @@ wapiti -> modular & in Python, website "fuzzer", performs "black-box" scans of a
 https://n0where.net/popular-pentesting-scanner-v3n0m Python pentesting scanner
 ./gobuster -u http://ctf.example:12345 -w Filenames_or_Directories_All.wordlist  # file/directory scanner
 
-## Dependency checking
-maven check deps: https://blog.lanyonm.org/articles/2015/12/22/continuous-security-owasp-java-vulnerability-check.html
+## CD/CI pipelines
+- Employez un registry interne (ex: JFrog Artifactory)
+  * hébergement de vos propres bibliothèques & livrables de projet, pour du code & des binaires que vous ne voulez pas nécessairement rendre publics
+  * sécurité : configuré pour éviter des attaques de type Dependency Confusion
+  * résilience : si le registry public est DOWN, les dépendances de votre projet seront toujours accessibles, vous permettant de le reconstruire sans être impacté
+- Ne stockez aucun secret dans votre code source :
+évitez de versionner dans votre repository git tout credential sensible : mot de passe, token, certificat privé...
+Une solution pour stocker vos secrets et les employer de manière sécurisée dans vos pipelines est HashiCorp Vault.
+- Configurez DependaBot / Renovate sur vos repos afin de rester le plus à jour possible dans vos dépendances
+
+### Avec Maven (Java)
+- N'employez jamais les mots-clefs dépréciés LATEST  ou RELEASE dans vos pom.xml, qui peuvent vous exposer à des attaques de type _Dependency Confusion_
+([Maven 3.x Compatibility Notes on RELEASE and LATEST metaversions](https://cwiki.apache.org/confluence/display/MAVEN/Maven+3.x+Compatibility+Notes#Maven3.xCompatibilityNotes-PluginMetaversionResolution))
+- Utilisez le [plugin dependency-check](https://jeremylong.github.io/DependencyCheck/dependency-check-maven/) dans votre pipeline
+
+### Avec Gradle (Java)
+- Utilisez le plugin dependency-check dans votre pipeline : https://gitlab.socrate.vsct.fr/gitlab-ci.yml/usl-demo-project-java/-/merge_requests/76
+
+### Avec npm (Node JS)
+- Employez "npm ci" plutôt que "npm install" dans vos pipelines afin d'employer le package-lock.json et d'assurer que vos builds sont toujours identiques
+([article explicatif en anglais](https://betterprogramming.pub/npm-ci-vs-npm-install-which-should-you-use-in-your-node-js-projects-51e07cb71e26))
+- Invoquez [npm audit](https://docs.npmjs.com/cli/v7/commands/npm-audit) dans vos pipelines pour détecter d'éventuelles vulnérabilités dans vos dépendances
+- Invoquez [retire](https://github.com/Retirejs/retire.js) dans vos pipelines pour détecter d'éventuelles vulnérabilités dans vos dépendances
+
+### Avec pip (Python)
+- Invoquez [safety](https://github.com/pyupio/safety-db) dans vos pipelines pour détecter d'éventuelles vulnérabilités dans vos dépendances
+- Invoquez le linter de sécurité [bandit](https://github.com/PyCQA/bandit) dans vos pipelines
 
 ## Cryptography
 SSL3 est mort depuis 2015/12/22/continuous-security-owasp-java-vulnerability-check
@@ -145,6 +170,8 @@ https://github.com/benschw/springboard : cli utility to help get your secrets in
 -> Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing
 
 https://github.com/square/keywhiz : A system for distributing and managing secrets
+
+https://github.com/zricethezav/gitleaks : detect hardcoded secrets like passwords, API keys, and tokens in git repos
 
 ## Disposable email providers
 - https://github.com/FGRibreau/mailchecker

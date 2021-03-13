@@ -29,7 +29,12 @@ Docker & orchestrators
 - use the Calico network plugin for Docker instead of the native Docker "overlay" : https://www.percona.com/blog/2016/08/03/testing-docker-multi-host-network-performance/
 - [Docker image dissection](http://blog.jeduncan.com/docker-image-dissection.html=) : its tarballs all the way down !
 - http://blog.michaelhamrah.com/2014/06/accessing-the-docker-host-server-within-a-container/ - Alt: `docker.for.win.localhost` builtin DNS CNAME (or `host.docker.internal`)
-- [dive](https://github.com/wagoodman/dive) : A tool for exploring a docker image, layer contents, and discovering ways to shrink your Docker image size.
+- [dive](https://github.com/wagoodman/dive) : A tool for exploring a docker image, layer contents, and discovering ways to shrink your Docker image size. Quick alternative to run in an image:
+
+    wget https://dev.yorhel.nl/download/ncdu-linux-x86_64-1.15.1.tar.gz
+    tar xzvf ncdu-linux-x86_64-1.15.1.tar.gz
+    ./ncdu /
+
 - [hadolint](https://github.com/hadolint/hadolint) : Dockerfile linter in Haskell
 - [skopeo](https://github.com/containers/skopeo) : CLI to inspect images without pulling them, and also perform copy/delete/sync operations
 - [google/cadvisor](https://github.com/google/cadvisor) : Container Advisor provides information on resource usage and performances of running containers. It is a running daemon that collects, aggregates & exports metrics.

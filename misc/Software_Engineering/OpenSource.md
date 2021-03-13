@@ -36,6 +36,7 @@ Open source challenges
 cf. https://github.com/todogroup/repolinter
   * README templates: https://open-source-guide.18f.gov/making-readmes-readable/ https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
   * CONTRIBUTING.md content: https://opensource.guide/starting-a-project/#writing-your-contributing-guidelines
+  * [ARCHITECTURE.md](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html): "specify only things which are unlikely to frequently change" - "Start with a bird’s eye overview of the problem being solved" - "Do name important files, modules, and types" - "Explicitly call-out architectural invariants" - "Point out boundaries between layers and systems as well"
 
 - other tools:
   * pre-launch checklist: https://opensource.guide/starting-a-project/#your-pre-launch-checklist
