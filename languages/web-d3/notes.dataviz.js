@@ -1,12 +1,21 @@
+See also: https://chezsoi.org/shaarli/?searchterm=&searchtags=DataVisualization+Javascript
+
+https://gionkunz.github.io/chartist-js/ // simple responsive charts, only 10KB (gzip) with no dependencies
+
+https://visjs.org  // alternative to d3.js
+http://sigmajs.org // graph/network drawing (non-d3-based)
+
+https://roughjs.com // draw in a sketchy, hand-drawn-like, style
+veltman/flubber // best-guess methods for smoothly interpolating between 2D shapes, like canvas or SVG paths
+
+
+/*~*~*~*~*/
+/* d3.js */
+/*~*~*~*~*/
 Simpler DSL / higher level layers: c3.js b3.js d4.js a3.js (for 3D)
-Alt: Vis.js
 Simple animated gauge with C3 : http://c3js.org/samples/chart_gauge.html
 
-Non-d3-based graph drawing dataviz: http://sigmajs.org
-
-veltman/flubber // best-guess methods for smoothly interpolating between 2-D shapes, like canvas or SVG paths
-
-MetricsGraphics.js D3-based lib to visualize time-series data : http://metricsgraphicsjs.org/examples.htm
+MetricsGraphics.js // D3-based lib to visualize time-series data : http://metricsgraphicsjs.org/examples.htm
 Alt: https://square.github.io/cubism/
 
 d3.select("css-selector").append("elem") // Also: selectAll

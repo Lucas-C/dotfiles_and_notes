@@ -1039,6 +1039,7 @@ hickford/primesieve-python # one of the fastest prime sieve implementaions (C++)
 z3-solver # SMT (satisfiability modulo theories) solver
     https://ericpony.github.io/z3py-tutorial/guide-examples.htm
     How I Cheat at Maths - Z3 101 by chown in Phrack #69
+kiwisolver # a set of contraints that can be either equalities or inequalities (>= and <=), each of which can have an associated strength making more or less important to respect when solving the problem
 
 AtsushiSakai/PythonRobotics # filter localization / grid mapping / object shape recognition / SLAM - closest point matching / path planning / path tracking
 jhcepas/ete # tree exploration & visualisation
@@ -1098,7 +1099,7 @@ cffi # C Foreign Function Interface for Python : call compiled C code from inter
 pybind11 # Seamless operability between C++11 and Python - Also: cppimport : Import C++ files directly from Python
 
 https://tech.blue-yonder.com/oxidizing-python-speeding-up-urlquoting-by-using-rust/ # writing a C-Library in Rust and invoke it from Python with cdylib, cbindgen, milksnake & cffi
-pyduktape # evaluate JS from Python, used in heroine-dusk PDF port
+pyduktape # evaluate JS from Python, used in Undying Dusk
 
 struct # pack/unpack binary formats
 binascii.hexlify # display binary has hexadecimal
@@ -1200,7 +1201,8 @@ neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF genera
 
 cairo # graphics library outputting .ps .pdf .svg & more
 pikepdf # edit & validate existing PDFs, using qpdf - Tuto to extract info / rotate / merge / split / add watermark / encrypt: https://realpython.com/pdf-python/ & craft_pdf_with_remote_img.py
-PyFPDF # generate PDFs from scratch - Alt: https://github.com/pmaupin/pdfrw#other-libraries - cf. https://github.com/MrBitBucket/reportlab-mirror/tree/master/docs & https://github.com/driscollis/reportlabbookcode
+fpdf2 # generate PDFs from scratch - Alt: https://github.com/pmaupin/pdfrw#other-libraries - cf. https://github.com/MrBitBucket/reportlab-mirror/tree/master/docs & https://github.com/driscollis/reportlabbookcode
+xhtml2pdf # generate PDF documents from HTML content, with automated flow control such as pagination and keeping text together
 camelot # extract tables from PDFs - require NumPy - webapp side project: excalibur
 Kozea/WeasyPrint # HTML to PDF converter
 PyMuPDF # access links and bookmarks; render pages in raster & vector formats; search for text; extract fonts, text and images...

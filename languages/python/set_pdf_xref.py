@@ -4,6 +4,8 @@
 
 # USAGE: ./set_pdf_xref.py in.pdf [--inplace|out.pdf]
 
+# Note: handle very large PDF badly due to the use of regular expressions
+
 import re, sys
 
 
@@ -19,7 +21,11 @@ def main():
         data = input_file.read()
 
     # Build xref table:
-    xref_start = data.index(b'\nxref\n') + len('\nxref\n')
+    try:
+        xref_start = data.index(b'\nxref\n') + len('\nxref\n')
+    except ValueError as error:
+        print('No "xref" line found. Try to call "qpdf --qdf --object-streams=disable" on the file beforehand', file=sys.stderr)
+        sys.exit(1)
     xref_end = data.index(b'trailer ', xref_start)
     xref_table, obj_index = ['0000000000 65535 f '], None
     for match in re.findall(b'[0-9]+ 0 obj\n', data):
