@@ -654,7 +654,11 @@ bind / dnsmasq / lwresd / unbound # DNS daemon
 nsscache / nss_db / nscd (broken: ignore TTL) # Cache /etc/{passwd,group,shadow,...} - Notes: nscd-aggstats, nscd -g
 getent ahostsv4 www.google.com # whole query through NSS
 rndc # display various DNS cache control commands, part of Bind9 tools suite
+rndc flush # flush bind cache
 rndc -p 954 dumpdb -cache # dump the cache in $(find /var -name named_dump.db) ; lwresd $port can be figured out with lsof/nmap
+systemctl status systemd-resolved.service # or restart - systemd-resolved stub resolver available at 127.0.0.53
+systemd-resolve --status # or --flush-caches
+systemd-resolve -t a $domain # test resolution
 # View queries bypassing lwresd
 /usr/sbin/tcpdump -pnl -s0 -c150 udp and dst port 53 and src port not \
     $(/usr/sbin/lsof -n -i4udp | awk '$1 == "lwresd" && $NF !~ /:921$/ { print substr($NF,3); exit }')

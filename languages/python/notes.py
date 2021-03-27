@@ -1294,7 +1294,7 @@ rtfd/CommonMark-py # Markdown parser - Alt: waylan/Python-Markdown (used by peli
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 mozilla/bleach # HTML sanitizing library that escapes or strips markup and attributes
 tinycss2 > tinycss > cssutils  # CSS parsers
-hickford/MechanicalSoup
+hickford/MechanicalSoup  # automate interaction with websites: handle cookies, redirects, links and forms, but not JavaScript
 lxml > HTMLParser (std or html5lib), pyquery, BeautifulSoup # use v>=3.2 - also: defusedxml to sanitize XML
 parser=lxml.html.HTMLParser(collect_ids=False)  # avoids a memory leak: https://benbernardblog.com/tracking-down-a-freaky-python-memory-leak-part-2/
 kovidgoyal/html5-parser # fast C based HTML 5 parsing
