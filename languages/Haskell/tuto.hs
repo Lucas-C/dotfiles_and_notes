@@ -609,10 +609,10 @@ instance Monoid (DiffList a) where
     (DiffList f) `mappend` (DiffList g) = DiffList (\xs -> f (g xs))
 
 -- # State monad #
--- s -> (a,s) 
+-- s -> (a,s)
 
 -- # Monadic functions #
--- liftM :: (Monad m) => (a -> b) -> m a -> m b -- Equivalent to 'fmap' 
+-- liftM :: (Monad m) => (a -> b) -> m a -> m b -- Equivalent to 'fmap'
 -- ap :: (Monad m) => m (a -> b) -> m a -> m b  -- Equivalent to '<*>'
 -- liftM2 :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c -- Equivalent to 'liftA2'
 

@@ -9,7 +9,7 @@ Sujets et corrigés : https://www.isograd.com/FR/solutionconcours.php
 
 ### Gants
 ##### Objectif
-L'hiver approche, c'est le moment de préparer vos vacances au ski. L'objectif de ce challenge est de déterminer combien de paires de gants vous pouvez constituer à partir des gants que vous trouvez dans votre tiroir. 
+L'hiver approche, c'est le moment de préparer vos vacances au ski. L'objectif de ce challenge est de déterminer combien de paires de gants vous pouvez constituer à partir des gants que vous trouvez dans votre tiroir.
 
 Une paire de gants est constituée de deux gants de même couleur.
 

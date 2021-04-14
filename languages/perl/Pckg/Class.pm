@@ -21,13 +21,13 @@ sub hello {
 }
 
 sub new {
-    my ($class,$param1,$param2) = @_; 
+    my ($class,$param1,$param2) = @_;
     $class = ref($class) || $class; # In case constructor is called on Object, not with Class->
     my $self = {};  # or $class->SUPER::new() if inheritance
-    bless($self, $class); 
+    bless($self, $class);
     $self->{PARAM1} = $param1;
     $self->{_PARAM2} = $param2; # UNDERSCORE => PRIVATE (convention)
-    return $self; 
+    return $self;
 }
 
 sub DESTROY {

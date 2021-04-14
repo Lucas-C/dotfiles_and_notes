@@ -20,7 +20,7 @@ function permgen (a, n)
         end
     end
 end
-    
+
 function printResult (a)
     for i,v in ipairs(a) do
         io.write(v, " ")

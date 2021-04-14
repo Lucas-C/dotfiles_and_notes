@@ -12,7 +12,7 @@
 
 /*
     Fixed size vectors with log(n) reverse-access
-    
+
     WHY FIXED SIZE ?
     => if vector reallocated => pointers invalided => reverse-search map invalided
 
@@ -34,7 +34,7 @@
     private:
         std::vector<T> owner_;
         std::map<const T*, size_t> indices_;
-    
+
     public:
         MapArray(size_t fixedSize) : owner_(), indices_() {
             owner_.reserve(fixedSize);
@@ -90,7 +90,7 @@
             owner_.push_back(v);
             return index;
         }
-    
+
         // Cost = O(size)
         int find(const T& v) const {
             std::less<const T*> functor;
@@ -98,7 +98,7 @@
                 if (!functor(&v, &owner_[i]) && !functor(&owner_[i], &v))
                     return i;
             return -1;
-        }    
+        }
     */
 
 #endif // _DEF_H_MapArray
