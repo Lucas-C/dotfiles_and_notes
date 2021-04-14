@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Script to extract a line with a known prefix from a PDF file.
+# Script to extract a line containing a known substring from a PDF file.
 # Used to extract the exchange rate from an AWS VAT invoice.
 
 # INSTALL: pip install pdfrw
@@ -10,26 +10,26 @@ from pdfrw import PdfReader
 
 
 IN_FILEPATH = 'EUINFR21-266592.pdf'
-TARGET_ANCHOR = '00010016001700010018000a00190001001a0001'.upper()  # known string prefix (encoded)
-# = encode(' (1 USD = ', CMAP)
+TARGET_SUBSTRING_ENCODED = '001700010018000a00190001001a0001'.upper()  # = encode('1 USD = ', CMAP)
 
 
 def main():
     page = PdfReader(IN_FILEPATH, decompress=True).pages[0]
     lines = page.Contents.stream.split('\n')
     for i, line in enumerate(lines):
-        if TARGET_ANCHOR in line:
+        if TARGET_SUBSTRING_ENCODED in line:
             matching_line = line
             break
     assert matching_line
+    encoded_str = matching_line.split('[')[1].split(']')[0]
+    # Retrieve the latest font selected with Tf before that line:
     for j in range(i - 1, 0, -1):
         line = lines[j]
         if ' /F' in line:
             font_id = next(word for word in line.split(' ') if word.startswith('/F'))
             break
-    assert font_id  # would allow to retrieve the CMap def in the /Page > /Resources > /Font dict
+    assert font_id
     font = page.Resources.Font[font_id]
-    encoded_str = matching_line.split('[')[1].split(']')[0]
     print(decode(encoded_str.lower(), font2cmap(font)))
 
 
@@ -70,15 +70,6 @@ def encode(s_in, cmap=None):
     else:
         s_out = s_tmp
     return f'<{s_out}>'
-
-
-def decode_multilines(page_content_stream, cmap):
-    "Decode all strings in a page object stream from a PDF file formatted with qpdf --qdf"
-    s = ''
-    for line in page_content_stream.split('\n'):
-        if line.startswith('<'):
-            s += line.split(' ', 1)[0][1:-1]
-    return decode(s, cmap)
 
 
 if __name__ == '__main__':
