@@ -3,34 +3,39 @@
 # Script to extract a line containing a known substring from a PDF file.
 # Used to extract the exchange rate from an AWS VAT invoice.
 
+# USAGE: ./pdf_extract_text_line.py EUINFR21-266592.pdf '1 USD = '
 # INSTALL: pip install pdfrw
 
-import binascii
+import argparse, binascii
 from pdfrw import PdfReader
 
 
-IN_FILEPATH = 'EUINFR21-266592.pdf'
-TARGET_SUBSTRING_ENCODED = '001700010018000a00190001001a0001'.upper()  # = encode('1 USD = ', CMAP)
-
-
 def main():
-    page = PdfReader(IN_FILEPATH, decompress=True).pages[0]
-    lines = page.Contents.stream.split('\n')
-    for i, line in enumerate(lines):
-        if TARGET_SUBSTRING_ENCODED in line:
-            matching_line = line
+    args = parse_args()
+    page = PdfReader(args.pdf_filepath, decompress=True).pages[args.page_index]
+    encoded_target_substrings = [(encode(args.target_substring, font2cmap(font))[1:-1].upper(), font_id)
+                                 for font_id, font in page.Resources.Font.items()]
+    matching_line = None
+    for i, line in enumerate(page.Contents.stream.split('\n')):
+        for encoded_substring, font_id in encoded_target_substrings:
+            if encoded_substring in line:
+                matching_line = line
+                break  # font_id is also captured here
+        if matching_line:
             break
-    assert matching_line
+    else:
+        raise IndexError('Target substring not found in PDF on page {}'.format(args.page_index))
     encoded_str = matching_line.split('[')[1].split(']')[0]
-    # Retrieve the latest font selected with Tf before that line:
-    for j in range(i - 1, 0, -1):
-        line = lines[j]
-        if ' /F' in line:
-            font_id = next(word for word in line.split(' ') if word.startswith('/F'))
-            break
-    assert font_id
     font = page.Resources.Font[font_id]
     print(decode(encoded_str.lower(), font2cmap(font)))
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter, allow_abbrev=False)
+    parser.add_argument('pdf_filepath')
+    parser.add_argument('target_substring')
+    parser.add_argument('--page-index', type=int, default='0')
+    return parser.parse_args()
 
 
 def font2cmap(font):
