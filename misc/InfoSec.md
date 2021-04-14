@@ -139,6 +139,7 @@ Une solution pour stocker vos secrets et les employer de manière sécurisée da
 - Invoquez [safety](https://github.com/pyupio/safety-db) dans vos pipelines pour détecter d'éventuelles vulnérabilités dans vos dépendances
 - Invoquez le linter de sécurité [bandit](https://github.com/PyCQA/bandit) dans vos pipelines
 
+
 ## Cryptography
 SSL3 est mort depuis 2015/12/22/continuous-security-owasp-java-vulnerability-check
 PBKDF2 : new Public-Key Cryptography Standard
@@ -151,6 +152,10 @@ shc : Bash Shell Script Compiler, converts shell scripts directly into binaries 
 OWASP: https://www.owasp.org/index.php/OWASP_Cheat_Sheet_Series + https://github.com/OWASP/CheatSheetSeries/blob/master/Index.md
 General Data Protection Regulation
 Organismes d'Importance Vitale
+Center for Internet Security -> [CIS benchmarks](https://www.cisecurity.org/cis-benchmarks/): configuration guidelines across many products to safeguard systems against cyber threats
+Join a Community
+
+
 
 ## Information sources
 http://www.theregister.co.uk/security/

@@ -95,7 +95,11 @@ icacls * /reset /T /C &:: reset files permissions
 :: Default .dll owner : NT SERVICE\TrustedInstaller
 :: In case some files are owned by System, and you modify their owner / permissions: -> tip from: http://eurekamoment.eu/?p=737
 psexec -i -s -d cmd &:: "run as" System user
-takeown /a /r /f pita_directory &:: recurively give ownership of files to Admin
+:: A good strategy to fix file ownerships (e.g. for Cygwin issues):
+cd %pita_directory%
+takeown /a /r /f . &:: (as admin) recursively give ownership of files in directory to admin
+icacls . /grant %USER%:F /t /l &:: (as admin) recursively give full control (all permissions) to $USER on files in directory (fail fast -> any failure must be investigated & cmd re-run when problem is solved)
+takeown /f /r . &:: (as %USER%)
 
 junction (directory symbolic links), pskill, pslist, TCPView... &:: Sysinternals Process Utilities
 handle.exe -a | grep ': Key\|pid:' | grep 'COMPONENTS\|pid:' | grep -B1 'COMPONENTS' &:: Find all PIDs of processes using RegKeys containing 'COMPONENTS'

@@ -1,4 +1,4 @@
-# Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
+# Author: Lucas Cimon (github.com/Lucas-C/dotfiles_and_notes)
 
 # Source global definitions
 [ -e /etc/bashrc ] && source /etc/bashrc
