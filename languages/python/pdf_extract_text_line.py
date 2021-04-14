@@ -7,27 +7,34 @@
 # INSTALL: pip install pdfrw
 
 import argparse, binascii
-from pdfrw import PdfReader
+from pdfrw import PdfArray, PdfReader
 
 
 def main():
     args = parse_args()
     page = PdfReader(args.pdf_filepath, decompress=True).pages[args.page_index]
-    encoded_target_substrings = [(encode(args.target_substring, font2cmap(font))[1:-1].upper(), font_id)
+    target_substrings = [(encode(args.target_substring, font2cmap(font))[1:-1].upper(), font_id)
                                  for font_id, font in page.Resources.Font.items()]
+    target_substrings.append((args.target_substring, None))
+    contents = page.Contents if isinstance(page.Contents, PdfArray) else [page.Contents]
     matching_line = None
-    for i, line in enumerate(page.Contents.stream.split('\n')):
-        for encoded_substring, font_id in encoded_target_substrings:
-            if encoded_substring in line:
-                matching_line = line
-                break  # font_id is also captured here
+    for content in contents:
+        for i, line in enumerate(content.stream.split('\n')):
+            for encoded_substring, font_id in target_substrings:
+                if encoded_substring in line:
+                    matching_line = line
+                    break  # font_id is also captured here
+            if matching_line:
+                break
         if matching_line:
             break
-    else:
+    if not matching_line:
         raise IndexError('Target substring not found in PDF on page {}'.format(args.page_index))
-    encoded_str = matching_line.split('[')[1].split(']')[0]
-    font = page.Resources.Font[font_id]
-    print(decode(encoded_str.lower(), font2cmap(font)))
+    matching_str = matching_line.split('[')[1].split(']')[0]
+    if font_id is None:
+        print(matching_str)
+    else:
+        print(decode(matching_str, font2cmap(page.Resources.Font[font_id])))
 
 
 def parse_args():
@@ -41,20 +48,21 @@ def parse_args():
 def font2cmap(font):
     if not font.ToUnicode:
         return None
-    font_lines = font.ToUnicode.stream.split('\n')
-    bfchar_table_start_index = next(i for i, line in enumerate(font_lines) if line.endswith('beginbfchar'))
-    bfchar_table_end_index = next(i for i, line in enumerate(font_lines) if line.endswith('endbfchar'))
-    bfchar_table_lines = font_lines[bfchar_table_start_index+1:bfchar_table_end_index]
+    font_words = font.ToUnicode.stream.replace('\n', ' ').split(' ')
+    bfchar_table_start_index = next(i for i, word in enumerate(font_words) if word == 'beginbfchar')
+    bfchar_table_end_index = next(i for i, word in enumerate(font_words) if word == 'endbfchar')
+    bfchar_table_words = font_words[bfchar_table_start_index+1:bfchar_table_end_index]
     cmap = {}
-    for line in bfchar_table_lines:
-        a, b = line.split(' ')
-        cmap[a[1:-1]] = b[1:-1]
+    for a, b in zip(bfchar_table_words[::2], bfchar_table_words[1::2]):
+        cmap[a[1:-1].lower()] = b[1:-1].lower()
     return cmap
 
 
 def decode(s_in, cmap=None):
+    s_in = s_in.lower()
     if len(s_in) > 1 and s_in[0] == '<' and s_in[-1] == '>':
         s_in = s_in[1:-1]
+    assert all(c in '0123456789abcdef' for c in s_in)
     if cmap:
         s_out = ''
         for quatuor in [s_in[4*i:4*i+4] for i in range(len(s_in) - 3)]:
