@@ -290,7 +290,7 @@ $baz = sub { my $sum = 0; $sum += $_ for @_; $sum }; #Redefinition, sum
 sub curry {
     my ($func, @args) = @_;
     return sub {
-        &$func(@args, @_); 
+        &$func(@args, @_);
     }
 }
 my $curried = curry $baz, 5, 7, 9;
@@ -423,7 +423,7 @@ sub AUTOLOAD {
 Devel:NYTProf # per-function, per-line, per-block  & per-opcode profiler with call-graph visualiation provided by nytprofcg
 Perl DTrace # real-time stats on function entry & exit
 
-# Switch (given and when) 
+# Switch (given and when)
 
 # http://www.perl.com/pub/2007/06/07/better-code-through-destruction.html
 
@@ -491,5 +491,5 @@ for (@lines) {
 __DATA__
 some good data
 some bad data
-more good data 
+more good data
 more good data

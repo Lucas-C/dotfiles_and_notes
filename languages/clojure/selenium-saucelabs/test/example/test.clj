@@ -22,7 +22,7 @@
                      :device-orientation "portrait"}])
 
 
-;; Each test is just a function taking the RemoteWebDriver as an argument; 
+;; Each test is just a function taking the RemoteWebDriver as an argument;
 ;; note the use of the clojure.test/is macro
 (defn google-logo
   "Checks whether the google logo has the correct title"

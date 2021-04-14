@@ -1,6 +1,6 @@
 /*
  * This test illustrate that Java only resolve parameter type
- * at COMPILATION TIME, not during RUNTIME 
+ * at COMPILATION TIME, not during RUNTIME
  * This is detailed in chapter 6 of "Java Puzzlers" by Joshua Bloch & Neal Gafter:
  *  THERE IS NO DYNAMIC DISPATCH ON STATIC METHODS !
 */

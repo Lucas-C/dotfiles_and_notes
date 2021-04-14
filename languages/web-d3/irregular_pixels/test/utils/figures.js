@@ -3,57 +3,57 @@ export const DUAL_FIG_4x4_IN_4x4 = {
   A: `
   XX
  XXX
-XXX 
+XXX
 XX  `,
   B: `
-XX  
-XXX 
+XX
+XXX
  XXX
   XX`
 }
 
 export const DUAL_FIG_4x4_IN_6x6 = {
   A: `
-  XX  
- XXX  
-XXX   
-XX    
-      
+  XX
+ XXX
+XXX
+XX
+
       `,
   B: `
-XX    
-XXX   
- XXX  
-  XX  
-      
+XX
+XXX
+ XXX
+  XX
+
       `
 }
 
 export const DIAMOND_4x4 = `
- XX 
+ XX
 XXXX
 XXXX
  XX `
 
 export const DIAMOND_5x5 = `
-  X  
- XXX 
+  X
+ XXX
 XXXXX
- XXX 
+ XXX
   X  `
 
 export const RECTANGLE_3x5 = `
-     
- XXX 
- XXX 
- XXX 
- XXX 
- XXX 
+
+ XXX
+ XXX
+ XXX
+ XXX
+ XXX
      `
 
 export const ONLY_DIAGS = `
-  X  
- XXX 
+  X
+ XXX
 XXXXX
- XXX 
+ XXX
   XX `

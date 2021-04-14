@@ -14,14 +14,14 @@ public class IsoContest {
     int res2 = 0;
     int max = 0;
 
-    line = sc.nextLine();    
+    line = sc.nextLine();
     int n = Integer.parseInt(line);
     int[] poto = new int[n];
 
     int f=0;
     while(sc.hasNextLine()){
-      line = sc.nextLine();    
-      poto[f] = Integer.parseInt(line);            
+      line = sc.nextLine();
+      poto[f] = Integer.parseInt(line);
       f++;
     }
     for(int i =0; i <n; i++){

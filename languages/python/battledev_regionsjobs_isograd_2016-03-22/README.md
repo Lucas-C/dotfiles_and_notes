@@ -107,7 +107,7 @@ Notez qu'il est tout à fait possible d'avoir 3 poteaux à la même hauteur, auq
 **Entrée**
 
 - Ligne 1 : un entier N compris entre 1 et 100000 indiquant le nombre de poteaux de l'entrée.
-- Lignes 2 à N+1 : un entier compris entre 1 et 100000 représentant la hauteur d'un poteau. 
+- Lignes 2 à N+1 : un entier compris entre 1 et 100000 représentant la hauteur d'un poteau.
 
 **Sortie**
 
