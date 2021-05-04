@@ -6,6 +6,7 @@
 #   ./twine1_localizer.py po_from_tws     the-temple-of-no.tws l10n/en-US.po
 #   ./twine1_localizer.py diff_tws_and_po the-temple-of-no.tws l10n/en-US.po
 #   ./twine1_localizer.py translate       the-temple-of-no.tws l10n/fr-FR.po the-temple-of-no_fr.tws
+# Check also: https://github.com/python/cpython/blob/master/Tools/i18n/pygettext.py
 import argparse, difflib, pickle, polib, re, sys
 try:
     from colorama import Fore, Style, init

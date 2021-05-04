@@ -1,6 +1,10 @@
 # Author: Lucas Cimon (github.com/Lucas-C/dotfiles_and_notes)
 <CTRL>+<SUPER>+<LEFT>/<RIGHT> # half-maximize a window on one side, in Ubuntu
 
+Linters:
+* https://github.com/koalaman/shellcheck
+* https://github.com/mvdan/sh
+
 ~°~°~°~°~°~°~°~°~°~°~
 ### SHELL & misc  ###
 ~°~°~°~°~°~°~°~°~°~°~

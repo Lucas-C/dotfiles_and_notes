@@ -199,6 +199,7 @@ radicale # CalDAV (calendar) and CardDAV (contact) server
 if args.debug:
     logging.basicConfig(level=logging.DEBUG, stream=sys.stderr, # default stream, but explicit beats implicit
         format="%(asctime)s - pid:%(process)s %(filename)s:%(lineno)d [%(levelname)s] %(message)s")
+        # all availables format fields: thread, module, name, funcName... https://docs.python.org/3/library/logging.html#logrecord-attributes
 else:
     logging.basicConfig(level=logging.INFO, stream=sys.stderr, format="%(message)s")
 def create_logger():
@@ -1000,10 +1001,12 @@ nltk, TextBlob # Text analysis : noun phrase extraction, sentiment analysis, tra
 LuminosoInsight/wordfreq # Access a database of word frequencies, in various natural languages.
 topia.termextract # keywords extraction (2 lines broken under Py3, cf. my fork) - Alt: rake (2 implementations exist)
 difflib # compare text/strings/sequences
-fuzzywuzzy # fuzzy string comparison ratios, token ratios...
+fuzzywuzzy # fuzzy string comparison ratios, token ratios, levenstein distance... Alt: maxbachmann/RapidFuzz
 sumy # text summarization - Install: sudo aptitude install libxml2-dev libxslt1-dev && pip install sumy && python -m nltk.downloader -d /usr/share/nltk_data all # 1.7GB
 goose3 # take any news article or article-type web page and not only extract what is the main body of the article but also all meta data and most probable image candidate
 deanmalmgren/textract # extract text from .doc .gif .jpg .oft .pdf .png .pptx .ps ... Alt for PDF: euske/pdfminer/blob/master/tools/pdf2txt.py
+from pdfminer.high_level import extract_text, LAParams  # from pdfminer.six
+extract_text(pdf_filepath, page_numbers=[0], laparams=LAParams(char_margin=5))  # this param is useful for lines of text is words far apart
 snowballstemmer # supports 15 languages
 ahocorasick, acora # Aho-Corasick automaton : quick multiple-keyword search across text
 vi3k6i5/flashtext # Extract Keywords from sentence or Replace keywords in sentences
@@ -1241,7 +1244,6 @@ espeak-ng # open source speech synthesizer supporting 7+ languages, based on the
 Uberi/speech_recognition # speech recognition with support for CMU Sphinx / Google Speech Recognition / Google Cloud Speech API / Wit.ai / Microsoft Bing Voice Recognition / Houndify API / IBM Speech to Text
 jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
 antiboredom/audiogrep
-
 
 
 """""""""""""""""""""""""""""""""""""
@@ -1586,7 +1588,7 @@ boppreh/keyboard # hook and simulate global keyboard events on Windows and Linux
 watchdog # inc. cmd watchmedo -> monitor/observe files changes - FROM: S&M - not Cygwin-friendly due to ctypes.wintypes usage
 livereload # browser automatic reloading for development - Alt: hupper for reloading server code
 
-filemagic, ahupp/python-magic # interfaces to libmagic file type identification, aka the "file" command under Unix : it identifies file types by checking their headers according to a predefined list of file types
+filemagic, ahupp/python-magic # interfaces to libmagic file type identification, aka the "file" command under Unix : it identifies file types by checking their headers according to a predefined list of file types - Alt: commit/identify
 
 reload(module) # Python 2 only, else : importlib.reload
 modulefinder # determine the set of modules imported by a script
