@@ -94,3 +94,17 @@ Note on EC2 instances Network Performance: it's always possible to get dedicated
 
 server vs VM vs instance
 CPU vs VCPU vs ECU
+
+
+## Other notes
+
+There are 4 types of load balancers :
+
+* The old ELB Classic, the historic one, capable of both HTTP(S) and TCP forwarding
+* The Network Load Balancer, capable of TCP transparent forwarding and really really really fast…
+* The Application Load Balancer, capable of HTTP(S) forwarding.
+  If used for HTTPS, always act as a TLS termination proxy/bridge
+* The Gateway Load Balancer (end of 2020), works on Layer 3 (IP), capable of deploy, scale, and manage virtual appliances, such as Firewalls, IDS, IPS and DPI systems.
+
+Can perform health checks and decide which backend server can receive traffic
+

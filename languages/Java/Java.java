@@ -394,4 +394,6 @@ mvn exec:java -Dexec.mainClass=
     </executions>
 </plugin>
 
+takari // enables safe concurrent use of the local repository (.m2/repository)
+
 gradle dependencies

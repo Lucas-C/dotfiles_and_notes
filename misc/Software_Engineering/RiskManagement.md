@@ -22,6 +22,7 @@ RiskManagement
 - gestion du risque dans un projet Agile: [slideshare](https://fr.slideshare.net/bduplessis/risk-in-agilemanagement)
 - [diagramme](http://nkerzazi.adilou.com/Ressources/cmmi/contents_fr_1_2/RSKM_Diagram.html) des critères du modèle CMMI, domaine RSKM
 - open source risk tracking tool: https://www.simplerisk.com - [online demo](https://www.simplerisk.com/demo) - [source code on GitHub](https://github.com/simplerisk)
+- [RiskScale.md](./RiskScale.md)
 
 
 ## Définition ?
@@ -105,4 +106,3 @@ la personne qui a enoncé le risque et ses 2 voisins directs votent,
 puis discutent jusqu'à se mettre d'accord. Si quelqu'un a identifé le même risque, son score est augmenté de 2.5 points.
 - on priorise avec formule arbitraire PxG
 - on émet & discute des solutions du top5 (qui diminueraient le risque ou la gravité)
-
