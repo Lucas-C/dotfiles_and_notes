@@ -220,6 +220,9 @@ string.Template # $-based substitutions
 # - vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
 logger = logging.getLogger(__name__)
 
+from logging_tree import printout  # from logging_tree package
+printout()  # print out the details of the current logging configuration.
+
 import exceptions # contains the list of all std ones
 try: Ellipsis # like 'pass' but as an object, not a statement
 except Exception as err: # see chain_errors module
@@ -1273,7 +1276,9 @@ asyncio.ensure_future # GOTO -> considered harmful
 dabeaz/curio # Python 3 alt implementation of coroutines, with a better design: https://veriny.tf/asyncio-a-dumpster-fire-of-bad-design/
 aiofiles # local disk files read/write in asyncio applications
 
-# Things I Wish They Told Me About The Multiprocessing Module in Python 3, with code examples - https://pyvideo.org/pycon-us-2019/things-i-wish-they-told-me-about-the-multiprocessing-module-in-python-3.html
+# Things I Wish They Told Me About The Multiprocessing Module in Python 3, with code examples:
+# * https://pyvideo.org/pycon-us-2019/things-i-wish-they-told-me-about-the-multiprocessing-module-in-python-3.html
+# * https://www.cloudcity.io/blog/2019/02/27/things-i-wish-they-told-me-about-multiprocessing-in-python/
 # #1: Don't Share, Pass Messages
 # #2: Always clean up after yourself
 # #3: Obey all Signals
@@ -1409,6 +1414,8 @@ ramses # API generation framework: based on RAML, ElasticSearch & Pyramid -> htt
 Kinto # minimalist JSON storage service, easy to bootstrap with Heroku/Docker, by Mozilla: https://kinto.readthedocs.io/en/stable/tutorials/install.html
 
 aws/chalice # serverless microframework for AWS (API Gateway + Lambda) - provides: CLI for creating, deploying, and managing your app / an API to declare routes & views / automatic IAM policy generation
+awslabs/aws-lambda-powertools-python # utilities for AWS Lambda functions to ease adopting best practices such as tracing, structured logging, custom metrics, and more
+
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod WSGI server, very easy to launch - Alt: bjoern > meinheld > gunicorn > uwsgi
@@ -1430,8 +1437,9 @@ Flask(__name__, static_folder='..', static_url_path='', template_folder='.') # h
     Flask-HTTPAuth # Basic, Digest and Token HTTP authentication
     mjhea0/awesome-flask # A curated list of awesome things related to Flask
     Talisman / Secure.py # add HTTP headers protecting against common webapps security issues
-tiangolo/meinheld-gunicorn-flask-docker # Docker image with Meinheld managed by Gunicorn for high-performance web applications in Flask using Python 3, with performance auto-tuning
-Quart # like Flask, but async
+tiangolo/meinheld-gunicorn-flask-docker # Docker image with Meinheld managed by Gunicorn for high-performance web applications in Flask using Python 3, with performance auto-tuning - Alt: tiangolo/uvicorn-gunicorn-docker
+Quart # like Flask, but async -> ASGI
+Uvicorn # lightning-fast ASGI server implementation, using uvloop and httptools
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
 Django # cf. dedicated section
 pyramid # more modular alternative to Django
@@ -1678,10 +1686,18 @@ Clean Architecture by Leonardo Giordani: inspired by Robert Martin ideas (and to
 """""""""""""
 "" Ansible
 """""""""""""
+pip install "ansible-lint[yamllint]" && ansible-lint
 ansible-galaxy install -r requirements.yml
 ansible-playbook -i inventory_remote.py --extra-vars "ansible_sudo_pass=$ORKA_PASSWORD" -t playbook-name main.yml -vv
+ansible-community/molecule # playbook testing with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios
+mitogen-hq/mitogen # execute Ansible playbooks in a more efficient way (decreases the execution time)
 
+# Enable strict / fail-fast mode:
 any_errors_fatal: true
+
+# Enable task execution time profiling in ansible.cfg:
+[defaults]
+callback_whitelist = ansible.posix.profile_tasks
 
 - name: Get new VM IP & port
   shell: ./inventory_remote.py

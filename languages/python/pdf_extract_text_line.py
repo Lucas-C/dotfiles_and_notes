@@ -16,7 +16,8 @@ def main():
     page = PdfReader(args.pdf_filepath, decompress=True).pages[args.page_index]
     fonts = page.Resources.Font or {}
     for form in (page.Resources.XObject or {}).values():
-        fonts.update(form.Resources.Font or {})
+        if form.Resources and form.Resources.Font:
+            fonts.update(form.Resources.Font)
     target_substrings = [(encode(args.target_substring, font2cmap(font))[1:-1].upper(), font_id)
                                  for font_id, font in fonts.items()]
     target_substrings.append((args.target_substring, None))

@@ -56,6 +56,7 @@ bzr add $file / commit $files -m $msg
 = Git =
 *******
 Tuto / Refcard: https://github.com/ineat/refcards/blob/master/git/FR.md
+An open source game about learning Git: https://ohmygit.org
 
 Next/previous commits: $commit^ (first parent) & $commit~ (first child)
 

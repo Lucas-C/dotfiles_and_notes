@@ -99,6 +99,7 @@ celery_once : prevent multiple execution and queuing of tasks
 - Nameko : Python framework for building service orientated software, includes an implementation of RPC over AMQP
 - fireworq : lightweight, high-performance job queue system, based on MySQL
 - NSQ : distributed and decentralized messaging platform, written in Go (with Python lib available), agnostic to the message format (JSON, MSgPack, protocol buffers... are supported)
+- [Dead Letter Queue](https://en.wikipedia.org/wiki/Dead_letter_queue) pattern: store "failing" messages that could not be processed, for several potential reasons
 
 Some queues property from [Redis author](http://antirez.com/news/78):
 - at-most-once / at-least-once delivery property
@@ -144,6 +145,8 @@ The CAP theorem: Consistency, Availability, and Partition tolerance, pick at mos
 First proposed by Eric Brewer in 1998, then proved by Gilbert and Lynch. See also ACID, BASE & [AOSA_NoSQL]
 => Daniel Abadi suggested a more nuanced classification system, PACELC
 => also: [The CAP theorem is too simplistic and too widely misunderstood to be of much use for characterizing systems](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)
+
+[nocodb](https://github.com/nocodb/nocodb): Open Source Airtable Alternative, turns any MySQL, PostgreSQL, SQL Server, SQLite & MariaDB into a smart-spreadsheet
 
 ### NoSQL DBs
 

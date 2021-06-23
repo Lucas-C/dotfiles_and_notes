@@ -39,3 +39,4 @@ Solution: abs int hex len ord
 - [katakoda](https://katacoda.com) : Learn new technologies using real environments right in your browser
 Interactive Learning and Training Platform for Software Engineers
 Ex playground for Python: https://www.katacoda.com/courses/python/playground
+- [play-with-docker](https://labs.play-with-docker.com): free Alpine Linux Virtual Machine in the cloud where you can build and run Docker containers, through your web browser

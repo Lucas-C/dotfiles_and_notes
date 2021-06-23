@@ -620,7 +620,7 @@ ss -lp [-t|-u] # list only listening TCP/UDP sockets/ports
 dropwatch # to find out where are packets dropped
 hping # packets crafting
 httpry # simple packet sniffer that logs HTTP traffic (like Apache access logs)
-mitmproxy --host # interactive examination and modification of HTTP traffic - cf. blog.philippheckel.com but no need for -T - Alt: CharlesProxy, BurpProxy, Fiddler on Windows
+mitmproxy # interactive examination and modification of HTTP traffic - cf. blog.philippheckel.com but no need for -T - Alt: CharlesProxy, BurpProxy, Fiddler on Windows
 mitmdump # tcpdump-like: view, record, and programmatically transform HTTP traffic
 
 # Dump all tcp transmission to a specific IP :
