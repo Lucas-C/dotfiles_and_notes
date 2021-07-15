@@ -87,10 +87,12 @@ class HTTPRequester:
         all_results, page = [], 1
         while len(all_results) % self.MAX_RESULTS_COUNT == 0:
             print('.', end='', file=sys.stderr)
-            results = self._fetch(*args, page=page, **kwargs)
-            if len(results) == 0:
+            result = self._fetch(*args, page=page, **kwargs)
+            if not isinstance(result, list):
+                return result
+            if len(result) == 0:
                 return all_results
-            all_results.extend(results)
+            all_results.extend(result)
             page += 1
         return all_results
 

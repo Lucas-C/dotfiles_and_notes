@@ -558,6 +558,7 @@ message () { # ARGS: $message* [$header]
     echo -e "$header\n$message" | xmessage -center -file -
 }
 
+unfuncalias alert
 alert () { # USAGE: cmd; alert $ [OR] cmd <CTRL-z> bg; wait %1; alert
     local retcode=$?
     local history_last2lines=$(history | tail -n2 | sed -e 's/^\s*[0-9]\+\s*//')

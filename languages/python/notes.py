@@ -1384,18 +1384,26 @@ def passthrough_http_proxy(http_proxy, real_request_url):
         response = session.get(real_request_url)
         response.raise_for_status()
         return response.text
-class HttpSession(Session):
+class HttpSession(requests.Session):
     'Allow to configure a timeout for all requests'
     def __init__(self, *args, **kwargs):
         self.timeout = kwargs.pop('timeout', None)
-        Session.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
     # Override: https://github.com/psf/requests/blob/v2.22.0/requests/sessions.py#L466
-    # pylint: disable=arguments-differ
     def request(self, *args, **kwargs):
         if 'timeout' not in kwargs and self.timeout is not None:
             kwargs['timeout'] = self.timeout
-        return Session.request(self, *args, **kwargs)
+        return super().request(*args, **kwargs)
+class SessionWithPrefixUrl(requests.Session):
+    # Recipe from: https://github.com/psf/requests/issues/2554#issuecomment-109341010
+    def __init__(self, prefix_url):
+        self.prefix_url = prefix_url
+        super().__init__()
+    def request(self, method, url, *args, **kwargs):
+        url = urljoin(self.prefix_url, url)
+        return super().request(method, url, *args, **kwargs)
 http_session = HttpSession(timeout=5)
+http_session.mount('https://', HTTPAdapter(max_retries=3))
 http_session.headers['User-Agent'] = USER_AGENT
 http_session.verify = False
 from http.client import HTTPConnection

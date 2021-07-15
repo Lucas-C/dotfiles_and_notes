@@ -576,8 +576,9 @@ It’s available as a text editor application, a web app, and even a linter, if 
 > Aucune information concernant personnellement un candidat à un emploi ne peut être collectée par un dispositif qui n'a pas été porté préalablement à sa connaissance.
 
 ### Outils
-- cf. https://chezsoi.org/shaarli/?searchterm=&searchtags=Recruting+
+- cf. https://chezsoi.org/shaarli/?searchterm=&searchtags=Recruting
 - http://collabedit.com
+- https://sharemycode.fr
 
 ### Language-based question
 - Python:
