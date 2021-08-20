@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
+# LICENSE: MIT
 import resource, sys
 from typing import NamedTuple
 import gizeh
 import moviepy.editor as mpy
 
 W,H = 256,256 # width, height, in pixels
-duration = 2 # duration of the clip, in seconds
 gs = None  # current GameState
 
 def main():
@@ -17,7 +17,7 @@ def main():
     clip = mpy.VideoClip(make_frame, duration=(gs.depth() - 1)*.5)
     clip.write_gif("peg_solitaire_alt_european_solution.gif", fps=2, opt="OptimizePlus", fuzz=10)
 
-def dist_to_corner(x, y):
+def dist_to_corner(x, y):  # shortest Manhattan distance to any of the 4 board corners
     return min(x + y, 6-x + y, x + 6-y, 6-x + 6-y)
 ALL_POSITIONS = tuple((x, y) for x in range(7) for y in range(7)
                              if dist_to_corner(x, y) > 1)  # european board
@@ -75,13 +75,6 @@ class Board(NamedTuple):
                     border += 1
         return border
 
-def test_pawns_symetries():
-    board = Board(pawns=tuple(pos for pos in ALL_POSITIONS if pos != (2, 0)))
-    symetries_of_symetries = set()
-    for pawns in board.pawns_symetries():
-        symetries_of_symetries.update(Board(pawns).pawns_symetries())
-    assert len(symetries_of_symetries) == 8
-
 class GameState(NamedTuple):
     board: Board
     src_pawn: tuple = None
@@ -105,7 +98,7 @@ def solver(initial_board, goal):
     # & https://github.com/mkhrapov/peg-solitaire-solver/blob/master/src/main/java/org/khrapov/pegsolitaire/solver/Position.java#L213
     # Without this heuristic, I was already removing board symetries but couldn't find a solution with less than 4 remaining pawns.
     pruningNumber = 250
-    boards_visited = {hash(initial_board.pawns)}
+    boards_visited = {hash(initial_board.pawns)}  # storing only hashes to keep the memory usage low
     generation = [GameState(initial_board)]
     while generation:
         next_gen = []
@@ -135,7 +128,7 @@ def make_frame(t):
     for x, y, is_pawn in board.iter_positions():
         fill = (0, 0, 1) if is_pawn else (0, 0, 0)
         gizeh.circle(10, xy=(to_x(x), to_y(y)), fill=fill).draw(surface)
-    if src_pawn and dst_pawn:  # Draw move arrow:
+    if src_pawn and dst_pawn:  # Draw "move" arrow:
         x1, y1 = src_pawn
         x2, y2 = dst_pawn
         x, y = (x1 + x2) / 2, (y1 + y2) / 2
