@@ -105,8 +105,29 @@ Software Development Best Practices
 - [Being a Senior Engineer at Google / Microsoft / Stripe](https://www.zainrizvi.io/blog/whats-it-like-as-a-senior-engineer/)
 - [50 biais cognitifs](https://sebsauvage.net/galerie/photos/Bordel/50-biais-cognitifs.png)
 - [Command Line Interface Guidelines](https://clig.dev)
+- [What I learned from Software Engineering at Google](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/)
+- [Shortcuts - a handy guide to cognitive biases](https://www.shortcogs.com)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
+
+## What is Software Engineering?
+
+[What I learned from Software Engineering at Google]:
+> Programming is about writing code. You take a task and write code to solve it.
+> Software engineering is when you take that piece of code and consider:
+> * How will this task evolve?
+> * How will this code adapt to those changes?
+> * What does this code encourage others to do?
+> * How does this code encourage other programmers to use it?
+> * How will I understand this code in 5 months?
+> * How will a busy team member jumping around grok this?
+> * What happens when the business becomes bigger?
+> * When will this code stop being good enough?
+> * How does it scale?
+> * How does it generalize?
+> * What hidden dependencies are there?
+> That's engineering 👉 considering the long-term effects of your code.
+> Both direct and indirect.
 
 ## Main design "mantras"
 - KISS & YAGNI : Keep It Super Simple & You Aren't Gonna Need It
@@ -211,6 +232,7 @@ Another take on that subject from [Why "Agile" and especially Scrum are terrible
     * [the halo effect](https://en.wikipedia.org/wiki/Halo_effect) : the tendency to like (or dislike) everything about a person—including things you have not observed
     * [Zeigarnik effect](https://en.wikipedia.org/wiki/Zeigarnik_effect) postulates that people remember unfinished or interrupted tasks better than completed tasks
     * [50 biais cognitifs]
+    * [Shortcuts - a handy guide to cognitive biases](https://www.shortcogs.com) EN/FR
 
 [The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/):
 - A senior developer [...] is obsessed with simplicity.

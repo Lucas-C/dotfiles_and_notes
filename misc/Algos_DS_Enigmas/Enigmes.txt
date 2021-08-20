@@ -312,6 +312,9 @@ https://www.brainzilla.com/logic/kyudoku/
 > In this logic puzzle you have to choose nine unique numbers (1 through 9) so that each row and column has a sum of 9 or less.
 -> could lead to a 9-digits code
 
+## Basé sur des dés
+Three Dice Trick (3d6) : https://www.youtube.com/watch?v=27qhUZbHKao
+
 ## Programming-based
 https://enigmes-a-thematiques.fr/front/enigme/2433
 Solution: abs int hex len ord

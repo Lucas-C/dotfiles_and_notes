@@ -133,3 +133,5 @@
 
 [include]
     path = ~/.gitconfig_user
+[init]
+    defaultBranch = main

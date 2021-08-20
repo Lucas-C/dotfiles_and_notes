@@ -245,6 +245,14 @@ https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html
     .mode column
     .headers on
 
+[Towards Inserting One Billion Rows in SQLite Under A Minute](https://avi.im/blag/2021/fast-sqlite-inserts/) via https://sebsauvage.net/links/?DYeYQw
+
+    PRAGMA journal_mode = OFF;
+    PRAGMA synchronous = 0;
+    PRAGMA cache_size = 1000000;
+    PRAGMA locking_mode = EXCLUSIVE;
+    PRAGMA temp_store = MEMORY;
+
 
 #### MySQL
 [5 subtle ways you're using MySQL as a queue, and why it'll bite you](https://blog.engineyard.com/2011/5-subtle-ways-youre-using-mysql-as-a-queue-and-why-itll-bite-you)

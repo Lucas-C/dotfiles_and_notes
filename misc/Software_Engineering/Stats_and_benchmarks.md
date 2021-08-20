@@ -7,6 +7,7 @@ Tools for server banchmarking aka stress / load / performances testing: cf. [boo
 
 Alternatives :
 
+- Gatling (Scala avec Akka et Netty)
 - https://k6.io (Go + NodeJS)
 - tarekziade/boom (Python)
 - locustio/locust (Python)

@@ -673,3 +673,7 @@ int main() {
 EOF
 )"
 }
+
+# Recipe from: https://stackoverflow.com/questions/47691479/listing-all-resources-in-a-namespace#comment105095503_53016918
+# The k8s namespace must be provided as argument
+alias k8s-show-ns=" kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n"

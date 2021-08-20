@@ -114,6 +114,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Les ADR pour garder une trace de tous les choix d'architecture](https://blog.stack-labs.com/code/adr-to-remember-past-archiectural-decisions/)
 - [L1221-6 à L1221-9 du Code du travail (Section 2: Recrutement)](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006177850/2008-05-01/)
 - [Managing developer identities in autonomous teams](https://kislayverma.com/organizations/managing-developer-identities-in-autonomous-teams/)
+- [Agile at 20: The Failed Rebellion](https://www.simplethread.com/agile-at-20-the-failed-rebellion/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -154,6 +155,13 @@ Talk from experience. Explain the benefit of some Agile practices.
   * highlight the importance of non-negotiable work rates, and why setting deadlines is a bad idea and can be avoided
   * highlight the importance of bug triaging and give some practical recommendations (inc. the terible bug bankrupcy & bug clutter)
   * restricted multitasking, how to organize short biweekly team meetings, estimating Stories with points & tracking them using user-visible features...
+
+[Agile at 20: The Failed Rebellion]
+> Scrum was invented to function in hostile environments.
+> It’s a contract between hard-pushing managers and developers needing time to think and explore.
+
+> When “Agile” ideas are applied poorly, they often lead to more interference with developers,
+> less time to do the work, higher pressure, and demands to “go faster”.
 
 ### Open-plan offices
 Cons from [Why "Agile" and especially Scrum are terrible]:

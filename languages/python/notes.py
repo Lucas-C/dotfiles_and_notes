@@ -727,7 +727,7 @@ vaab/gitchangelog # creates a changelog from git log history - I configured it f
 "" Security
 """""""""""""
 safety, snyk # report security vulnerabilities in dependencies
-dxa4481/truffleHog, landscapeio/dodgy, Yelp/detect-secrets # detect credentials/passwords/secrets in source code - Also, in other languages : awslabs/git-secrets, auth0/repo-supervisor
+dxa4481/truffleHog, landscapeio/dodgy, Yelp/detect-secrets # detect credentials/passwords/secrets in source code - Also, in other languages : awslabs/git-secrets, auth0/repo-supervisor, zricethezav/gitleaks
 python-security/pyt # detect vulnerabilities in Python Web Applications: XSS, SQL injection, command injection, directory traversal...
 flipkart-incubator/Astra # Automated Security Testing For REST API's
 openstack/bandit  # Python AST-based security linter
@@ -1426,7 +1426,7 @@ awslabs/aws-lambda-powertools-python # utilities for AWS Lambda functions to eas
 
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
-CherryPy # good prod WSGI server, very easy to launch - Alt: bjoern > meinheld > gunicorn > uwsgi
+CherryPy # good prod WSGI server, very easy to launch - Alt: bjoern > meinheld > gunicorn > uwsgi (in terms of perfs)
 gunicorn --reload # auto-restart on files changes
 Eyepea/API-Hour # perf-oriented web APIs using AsyncIO & ujson - Alt: Sanic + uvloop, a fast drop-in replacement for asyncio ; squeaky-pl/japronto, "screaming-fast" & based on uvloop and picohttpparser
 nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
@@ -1870,3 +1870,35 @@ contextlib.nullcontext # noop context manager
 functools.cached_property
 
 f'{expr=}'  # expand to the text of the expression, an equal sign, then the representation of the evaluated expression
+
+if (n := len(a)) > 10:  # Assignment expressions
+
+def f(a, b, /, c, d, *, e, f):  # Positional-only parameters
+
+from importlib.metadata import version, requires, files
+version('requests')  # '2.22.0'
+list(requires('requests'))  # ['chardet (<3.1.0,>=3.0.2)']
+list(files('requests'))[:5]
+
+asyncio.run()  # is now stable API
+
+
+#-----------
+# Python 3.9
+{"a": 1} | {"a": 2}  # dict union. Also: |=
+
+str.removeprefix(prefix) and str.removesuffix(suffix)  # new methods
+
+zoneinfo  # new builtin module providing IANA time zones like Pypi tzdata package used to do
+
++ speed improvements
+
+
+#-----------
+# Python 3.10
+
+PYTHONWARNDEFAULTENCODING : raise EncodingWarning when no encoding was specified when opening text files
+
+match event.get():
+    case Click(position=(x, y)):
+        handle_click_at(x, y)

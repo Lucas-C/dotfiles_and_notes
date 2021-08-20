@@ -303,6 +303,9 @@ winpty: https://github.com/rprichard/winpty/issues/64
     kubectl -n $NS scale deploy usl-demo-project --replicas=0   # supprime toutes les replicas d'un déploiement
     kubectl cluster-info
     # --debug -v9
+    k8s-show-ns $NS
+    # Quickly launching an interactive shell:
+    kubectl run tmp-shell --restart=Never --rm -i --tty --image centos -- /bin/bash
 
 Pour tester que l'appli est "UP", et qu'elle répond bien aux requêtes HTTP,
 vous pouvez créer un proxy jusqu'à un pod et ainsi la requêter :
