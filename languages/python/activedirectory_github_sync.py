@@ -1,10 +1,18 @@
 #!/usr/bin/env python
-
 '''
 Script to ensure GitHub users in an organization
 match the ones in an internal ActiveDirectory,
 so that when enterprise members leave
 they loose their rights on GitHub repos.
+
+USAGE:
+  pip install python-ldap requests
+  export GITHUB_API_TOKEN=...
+  export LDAP_URL=...
+  export LDAP_BASE_DN=...
+  export LDAP_BIND_USER=...
+  export LDAP_BIND_PASSWORD=...
+  ./activedirectory_github_sync.py voyages-sncf-technologies org_members.json
 
 Notes:
 * currently does not handle orgs with #members > 100,
@@ -12,7 +20,6 @@ Notes:
 * this could easily be made into an AWS lambda function,
   with the JSON file stored on S3
 '''
-
 from __future__ import print_function
 import argparse, json, os, sys
 
@@ -22,20 +29,12 @@ try:  # optional dependency
 except ImportError:
     tqdm = lambda _: _
 
-# USAGE:
-#   pip install python-ldap requests
-#   export GITHUB_API_TOKEN=...
-#   export LDAP_URL=...
-#   export LDAP_BASE_DN=...
-#   export LDAP_BIND_USER=...
-#   export LDAP_BIND_PASSWORD=...
-#   ./activedirectory_github_sync.py voyages-sncf-technologies org_members.json
 
 def main():
     args = parse_args()
     ad_client = ActiveDirectoryClient(args)
     session = requests.Session()
-    session.auth = ('', os.environ['GITHUB_API_TOKEN'])
+    session.auth = ('', args.github_api_token)
     try:
         with open(args.login_mapping_file) as login_mapping_file:
             login_mapping = json.load(login_mapping_file)
@@ -103,10 +102,10 @@ def get_user_emails(session, gh_login, stop_at_first_match=True):
 def parse_args():
     parser = argparse.ArgumentParser(formatter_class=ArgparseHelpFormatter,
                                      description=__doc__, allow_abbrev=False)
-    parser.add_argument('org', help=' ')
+    parser.add_argument('org', help='GIthub organization name')
     parser.add_argument('login_mapping_file', help='A JSON file mapping GitHub usernames to LDAP usernames')
-    parser.add_argument('--dry-run', action='store_true', help=' ')
-    parser.add_argument('--ignore-ldap-certs', action='store_true', help=' ')
+    parser.add_argument('--dry-run', action='store_true', help='Do not delete GitHub users not edit the JSON mapping file')
+    parser.add_argument('--ignore-ldap-certs', action='store_true', help='Sets TLS_REQUIRE_CERT to NEVER')
     args = parser.parse_args()
     for var in ('GITHUB_API_TOKEN', 'LDAP_URL', 'LDAP_BASE_DN', 'LDAP_BIND_USER', 'LDAP_BIND_PASSWORD'):
         if var not in os.environ:
