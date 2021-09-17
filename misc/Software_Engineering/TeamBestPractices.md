@@ -115,6 +115,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [L1221-6 à L1221-9 du Code du travail (Section 2: Recrutement)](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006177850/2008-05-01/)
 - [Managing developer identities in autonomous teams](https://kislayverma.com/organizations/managing-developer-identities-in-autonomous-teams/)
 - [Agile at 20: The Failed Rebellion](https://www.simplethread.com/agile-at-20-the-failed-rebellion/)
+- [The DevOps Phenomenon / CALMS framework](https://queue.acm.org/detail.cfm?id=3338532)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -230,7 +231,11 @@ Daniel Pink motivational building blocks from "The puzzle of motivation" :
 
 ## Team culture building & best practices
 - two main tenets: RESPECT & TRUST people.
-How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [Minimum Viable Bureaucracy] + [TrekOps] + [MAPP] on trust, autonomy & Agile methods in Michelin
+How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [Minimum Viable Bureaucracy] + [MAPP] on trust, autonomy & Agile methods in Michelin
+- [TrekOps]
+> Something that is really great about Star Trek, is that when a character notices something is amiss,
+> and they are the only one to see it, **the rest of the crew doesn’t just dismiss their concerns offhand**.
+> **Their concerns are ALWAYS valid**.
 - write down team tenets as guidelines for priorities
 - define clear team goals with deadlines
 - build a team brand: catchy name, logo, slogan... [PP]
@@ -431,9 +436,15 @@ Liens utiles:
     * "If you find something that is outdated, but don’t have time to fix it immediately, leave a quick note or add a task for someone to update it"
     * "make sure every runbook has a clear owner and write it at the top of the document."
 - [Some notes on running new software in production]:
-  * Start using [your software] in production in a non-critical capacity (by sending a small percentage of traffic to it, on a less critical service, etc)
-  * try to have each incident only once
-  * Understand what is ok to break and isn’t
+    * Start using [your software] in production in a non-critical capacity (by sending a small percentage of traffic to it, on a less critical service, etc)
+    * try to have each incident only once
+    * Understand what is ok to break and isn’t
+- [The DevOps Phenomenon / CALMS]:
+    * **Culture**: mutual trust, willingness to learn and continuous improvement, constant flow of information, open-mindedness to changes and experimentation
+    * **Automation**: deployment pipelines (CI/CD), comprehensive test automation
+    * **Lean**: minimize WIP state, shorten and amplify feedback loops, look for opportunities to remove waste, fix errors as they are discovered
+    * **Measurement**: monitoring, system metrics, KPIs
+    * **Sharing**: sharing knowledge & practices, including successes & failures, learn from each other's experiences, proactively communicate, shadowing & pairing on tasks
 
 ### Post-mortems
 - trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds

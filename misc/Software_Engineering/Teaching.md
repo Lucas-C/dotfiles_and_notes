@@ -27,6 +27,7 @@
 * https://silentteacher.toxicode.fr : for the very basics
 
 ### Python
+- [Formation Python d'Aurélien](https://python2021q1.uptime-formation.fr/)
 - [MIT 6 0001 - Introduction to Computer Science and Programming in Python (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)
 - [MIT 6 0002 - Introduction to Computational Thinking and Data Science (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0002-introduction-to-computational-thinking-and-data-science-fall-2016/)
 - BattleDev : https://www.isograd.com/FR/solutionconcours.php [FR]

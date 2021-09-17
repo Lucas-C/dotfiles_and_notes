@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Author: Lucas Cimon
 # LICENSE: MIT
 import resource, sys
 from typing import NamedTuple
@@ -34,9 +35,6 @@ class Board(NamedTuple):
         return '\n'.join(''.join(' ' if dist_to_corner(x, y) <= 1 else ('O' if (x, y) in self.pawns else '.')
                                  for x in range(7))
                          for y in range(7))
-    def iter_positions(self):
-        for x, y in ALL_POSITIONS:
-            yield (x, y, (x, y) in self.pawns)
     def next_moves(self):
         for pawn in self.pawns:
             x, y = pawn
@@ -125,8 +123,8 @@ def make_frame(t):
     board, src_pawn, dst_pawn, gs = gs.board, gs.src_pawn, gs.dst_pawn, gs.prev_state
     surface = gizeh.Surface(W, H, bg_color=(255, 255, 255))
     # Draw board:
-    for x, y, is_pawn in board.iter_positions():
-        fill = (0, 0, 1) if is_pawn else (0, 0, 0)
+    for x, y in ALL_POSITIONS:
+        fill = (0, 0, 1) if (x, y) in board.pawns else (0, 0, 0)
         gizeh.circle(10, xy=(to_x(x), to_y(y)), fill=fill).draw(surface)
     if src_pawn and dst_pawn:  # Draw "move" arrow:
         x1, y1 = src_pawn

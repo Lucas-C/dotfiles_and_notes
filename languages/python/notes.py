@@ -1033,6 +1033,7 @@ scipy
     pyecharts # line charts, bars, pie, map, radar, graphs, trees, treemaps, sunburst, gauge, calendars, 3D
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
     matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/)
+        prettymaps  # draw customized maps from OpenStreetMap data
     yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
     (ggplot(mtcars, aes('wt', 'mpg', color='factor(gear)'))
      + geom_point()
@@ -1195,7 +1196,7 @@ pyglet # windowing and multimedia lib
 pysoy # 3D game engine
 ericoporto/fgmk # retro RPG Game Maker
 
-Zulko/gizeh, Zulko/MoviePy, jdf/processing.py (uses Jython) # Video & image (editing - MoviePy looks like the current best tool to make GIF / webm animations - MoviePy Examples: https://zulko.github.io/blog/2014/09/20/vector-animations-with-python/ - Also: https://github.com/1-Sisyphe/youCanCodeAGif
+Zulko/gizeh, Zulko/MoviePy, ManimCommunity/manim, jdf/processing.py (uses Jython) # Video & image (editing - MoviePy looks like the current best tool to make GIF / webm animations - MoviePy Examples: https://zulko.github.io/blog/2014/09/20/vector-animations-with-python/ - Also: https://github.com/1-Sisyphe/youCanCodeAGif
 thoppe/pixelhouse # minimalist drawing library for making beautiful animations. Comes with beautiful gradients, instagram-like filters, and elastic transforms.
 3b1b/manim # animation engine for explanatory math videos
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
@@ -1337,8 +1338,16 @@ except urllib.error.HTTPError as http_error:
     if http_error.code == 404:
         return None
     raise
-basic_auth = 'Basic ' + b64encode((username + ':' + password).encode('ascii')).decode("ascii")
-headers = {'Authorization' : args.basic_auth, 'Content-Type': 'application/json; charset=utf-8'}
+def http_get(url, basic_auth_creds=None, timeout_in_secs=5, parse_json=False):  # useful in AWS lambdas
+    req = urllib.request.Request(url)
+    if basic_auth_creds:
+        encoded_creds = base64.b64encode(('%s:%s' % basic_auth_creds).encode('utf-8'))
+        req.add_header('Authorization', 'Basic %s' % encoded_creds.decode('utf-8'))
+    with urllib.request.urlopen(req, timeout=timeout_in_secs) as resp:
+        if parse_json:
+            return json.load(resp)
+        return resp.read().decode('utf-8')
+headers = {'Content-Type': 'application/json; charset=utf-8'}
 data = json.dumps(payload).encode('utf-8')
 urllib.request.urlopen(urllib.request.Request(url, method='PUT', headers=headers, data=data),
                        context=ssl._create_unverified_context())

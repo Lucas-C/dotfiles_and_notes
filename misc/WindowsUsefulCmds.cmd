@@ -99,7 +99,7 @@ psexec -i -s -d cmd &:: "run as" System user
 cd %pita_directory%
 takeown /a /r /f . &:: (as admin) recursively give ownership of files in directory to admin
 icacls . /grant %USER%:F /t /l &:: (as admin) recursively give full control (all permissions) to $USER on files in directory (fail fast -> any failure must be investigated & cmd re-run when problem is solved)
-takeown /f /r . &:: (as %USER%)
+takeown /r /f . &:: (as %USER%)
 
 junction (directory symbolic links), pskill, pslist, TCPView... &:: Sysinternals Process Utilities
 handle.exe -a | grep ': Key\|pid:' | grep 'COMPONENTS\|pid:' | grep -B1 'COMPONENTS' &:: Find all PIDs of processes using RegKeys containing 'COMPONENTS'
