@@ -5,6 +5,12 @@ Script to ensure GitHub users in an organization
 match the ones in an internal ActiveDirectory,
 so that when enterprise members leave
 they loose their rights on GitHub repos.
+
+Notes:
+* currently does not handle orgs with #members > 100,
+  but this would just require adding support for pagination (trivial)
+* this could easily be made into an AWS lambda function,
+  with the JSON file stored on S3
 '''
 
 from __future__ import print_function
@@ -39,16 +45,24 @@ def main():
     resp = session.get(f'https://api.github.com/orgs/{args.org}/members', params={'per_page': 100})
     resp.raise_for_status()
     org_members = set(member['login'] for member in resp.json())
+    new_gh_users = False
     for gh_login in org_members - set(login_mapping.keys()):
-        print('New GitHub user in org: {}'.format(gh_login), file=sys.stderr)
-        print('Looking for its email address:')
+        print('New GitHub user detected in org: {}'.format(gh_login), file=sys.stderr)
+        login_mapping[gh_login] = ''
+        new_gh_users = True
+        print('Looking for its email address to help figure their matching ActiveDirectory username...')
         user_email = get_user_emails(session, gh_login)
         if user_email:
             print('Associated user email found:', user_email)
-        login_mapping[gh_login] = ''
+        else:
+            print('No user email could be found')
+    if new_gh_users:
+        print('Matching ActiveDirectory usernames will have to be manually added to the JSON mapping file')
+    login_mapping_changed = new_gh_users
     for gh_login in set(login_mapping.keys()) - org_members:
         print('User removed from GitHub org: {}'.format(gh_login), file=sys.stderr)
         del login_mapping[gh_login]
+        login_mapping_changed = True
 
     for gh_login, ad_login in list(login_mapping.items()):
         if ad_login and not ad_client.retrieve_from_login(ad_login):
@@ -56,21 +70,24 @@ def main():
             if not args.dry_run:
                 session.delete(f'https://api.github.com/orgs/{args.org}/members/{gh_login}').raise_for_status()
             login_mapping = {ghlogin: adlogin for ghlogin, adlogin in login_mapping.items() if ghlogin != gh_login}
+            login_mapping_changed = True
 
     if not args.dry_run:
         with open(args.login_mapping_file, 'w') as login_mapping_file:
             json.dump(login_mapping, login_mapping_file, sort_keys=True, indent=4)
+        if login_mapping_changed:
+            print('{} has been modified'.format(args.login_mapping_file))
 
 
 def get_user_emails(session, gh_login, stop_at_first_match=True):
-    resp = session.get(f'https://api.github.com/users/{gh_login}/repos')
+    resp = session.get(f'https://api.github.com/users/{gh_login}/repos', params={'per_page': 100})
     resp.raise_for_status()
     repos = resp.json()
     emails = set()
     for repo in tqdm(repos):
         if repo['size'] == 0:
             continue
-        resp = session.get(f'https://api.github.com/repos/{repo["full_name"]}/commits')
+        resp = session.get(f'https://api.github.com/repos/{repo["full_name"]}/commits', params={'per_page': 100})
         resp.raise_for_status()
         for commit in resp.json():
             author = commit['author']

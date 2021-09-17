@@ -303,7 +303,13 @@ POLA = Principle of least astonishment (or surprise => POLS) : "People are part 
 
 [DesignPatternForHumans] : Ultra-simplified explanation to design patterns
 
-[SystemDesignPrimer]: how to design large-scale systems, with diagram-based examples -> Performance vs scalability / Latency vs throughput / Availability vs consistency / DNS & CDN / Load balancer / Reverse proxy / Microservices / Service discovery / RDBMS & NoSQL / Cache / Asynchronism / Communication / Security
+[SystemDesignPrimer]: how to design large-scale systems, with diagram-based examples
+-> Performance vs scalability / Latency vs throughput / Availability vs consistency / DNS & CDN / Load balancer
+ / Reverse proxy / Microservices / Service discovery / RDBMS & NoSQL / Cache / Asynchronism / Communication / Security
+On RDBs: Master-slave replication / Master-master replication / Federation (= functional partitioning) / Sharding
+       / Denormalization / SQL tuning
+NoSQL: Key-value store / Document store / Wide column store / Graph Database
+
 cf. also [DistributedSystemsAndTheEndOfTheAPI]
 
 useful tool to draw architecture diagrams: [yEd](https://www.yworks.com/products/yed) (used at oui.sncf)
