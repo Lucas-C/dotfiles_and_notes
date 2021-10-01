@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Script to copy a directory over a fast LAN connexion
+# !! Beware to use the correct IPs, NOT the wlan0 one !!
+# Also make sure that the receiver IP is defined as static in /etc/network/interfaces,
+# otherwise the ethernet link will constantly drop
+# Lucas Cimon 2011/10/06, modified on 2016/09/10
+
+set -o pipefail -o errexit -o nounset -o xtrace
+
+USE_COMPRESSION= #-z -compression doesn't really speed up things (tested for a big 700Mo iso)
+IPV6=-6
+VERBOSE=-v
+BUFFER_CMD="| mbuffer -s 1K -m 512M" # this is optionnal and can just be the empty string
+DEFAUL_PORT=7000
+
+print_usage () {
+	cat <<END
+    USAGE: cd /path/to/dir && $(basename $0) --receive [port=$DEFAUL_PORT]
+           cd /path/to/dir && $(basename $0) --send host [port=$DEFAUL_PORT]
+END
+}
+
+if [ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    print_usage
+    exit -1
+fi
+
+if [ "$1" = "--receive" ]; then
+	PORT=${2:-$DEFAUL_PORT}
+    echo "Starting to listen, ready to write files in $PWD"
+    echo '-> to track progress, run: watch "ip addr show && cat /sys/class/thermal/thermal_zone*/temp && iostat -kx"'
+	nc $IPV6 $VERBOSE -l $PORT | tar $VERBOSE -x $USE_COMPRESSION $VERBOSE -mf-
+elif [ "$1" = "--send" ]; then
+    HOST=$2
+    PORT=${3:-$DEFAUL_PORT}
+    echo "Now sending directory $PWD to $HOST:$PORT"
+	eval tar --exclude .git $VERBOSE -c $USE_COMPRESSION $VERBOSE . $BUFFER_CMD | nc $VERBOSE $HOST $PORT
+else
+    print_usage
+    exit -1
+fi

@@ -49,12 +49,20 @@ swap_win_hosts () {
 
 [ -r "/cygdrive/c/Program Files (x86)" ] && export X86=\ \(x86\)
 
+atom () {
+    $(cygpath "$LOCALAPPDATA\atom\bin\atom.cmd") $(convertWinArgs "$@")
+}
+
 NPP_BIN='/cygdrive/c/Program Files/Notepad++/notepad++.exe'
 test -e "$NPP_BIN" || NPP_BIN="/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe"
 npp () {
     for f in "$@"; do
         "$NPP_BIN" $(convertWinArgs "$f")
     done
+}
+
+pspad () {
+    "/cygdrive/c/Program Files$X86/PSPad editor/PSPad" $(convertWinArgs "$@")
 }
 
 bat () {
