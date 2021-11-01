@@ -4,5 +4,6 @@
 
 ### Single ones
 - https://html5up.net/landed (CC-BY 3.0) : nice parallax effect -> https://mush-radio.chezsoi.org/
+- https://html5up.net/prologue (CC-BY 3.0) -> https://chezsoi.org/lucas/jdr/AdR/
 - https://html5up.net/zerofour (CC-BY 3.0) -> https://lucas-c.frama.io/python-blackbox-challenges/
 - https://github.com/StartBootstrap/startbootstrap-freelancer -> EVG Thibault

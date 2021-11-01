@@ -11,6 +11,16 @@ The sentence leading up to the notation.<sup><a href="#fn1" id="ref1"><small>1</
 <!-- Fallback when SVG is not supported -->
 <img src="logo.svg" onerror="this.src = 'logo.png';" alt="logo" width="140" height="140"/
 
+<!-- Defer the loading of the image until the user scrolls to them -->
+<img loading="lazy" src="...">
+
+<!-- Email/tel:SMS links -->
+<a href="mailto:...?subject=...&body=..."> <a href="tel:..."> <a href="sms:...&body=">
+
+<!-- Pages opened with `target="_blank"` allow the new page to access the original’s `window.opener`.
+     This can have security and performance implications. You can disable that behaviour: -->
+<a target="_blank" href="..." rel="noopener noreferrer">
+
 chrissimpkins/six-four <!-- Encode & embed images as base64 -->
 
 <!--Use protocol-relative URLs (starting with //) like so:-->
@@ -33,6 +43,12 @@ chrissimpkins/six-four <!-- Encode & embed images as base64 -->
 
 <meta name="robots" content="noindex"> <!-- hide from search engines -->
 
+<input type="reset">  <!-- create a clear button for the form -->
+<input spellcheck>    <!--  -->
+<input type="search"> <!-- adds a "clear" button -->
+
+<video poster="path/to/preview/image">
+
 <select>
   <optgroup label="Group 1">
     <option value="option1"> Option 1 </option>
@@ -40,6 +56,11 @@ chrissimpkins/six-four <!-- Encode & embed images as base64 -->
   </optgroup>
   <optgroup label="Group 2"> ...
 </select>
+
+<details>
+    <summary>Details</summary>
+    Something small enough to escape casual notice.
+</details>
 
 <abbr title="World Wide Web">WWW</abbr>
 

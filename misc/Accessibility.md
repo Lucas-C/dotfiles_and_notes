@@ -1,4 +1,4 @@
-# Accessibility
+# Accessibility (a11y)
 
 RGAA: http://references.modernisation.gouv.fr/rgaa-accessibilite
 http://disic.github.io/guide-contribuer_accessible/ & https://github.com/access42/guide-auditeur
@@ -138,7 +138,7 @@ Règle des 3 clics : au-delà, chute exponentielle des réussites en navigation 
 <!-- la zone de contenu principale est structurée via un élément main, affectée du rôle main. C'est cet élément qui est la cible du lien d'évitement. Un tabindex=-1 permet de synchroniser la reprise du focus avec la tabulation pour certains navigateur.
 L'élément main n'étant pas sectionnant, il est contenu dans un élément section afin de produire un plan du document cohérent. Cette section prends comme nom le premier titre h(x) de ses enfants, ici il n'y en a pas, pour améliorer la restitution une propriété aria-label permet de lui donner un nom plus pertinent.
 Chaque sous-partie indépendante est structurée via un élément article pour construire le plan du document suivant :
--section machine de turing
+ -section machine de turing
  -article commandez une machine
  -article définition
  -article introduction
@@ -187,3 +187,8 @@ Ne pas utiliser de <hX> dans des <form>, mais plutôt des <legend> de <fieldset>
 Changer le titre de la page en cas d'erreur de validation de formulaire
 
 Messages d'erreur (exemple: en-tête en cas d'erreur de contrôle de formulaire) : role="alert"
+
+
+## Questions dont je n'ai pas encore trouvé la réponse
+* comment inclure des numéros de téléphone sur des pages web
+  de manière accessible (=> pas d'image) mais en évitant la collecte de données par des robots ?

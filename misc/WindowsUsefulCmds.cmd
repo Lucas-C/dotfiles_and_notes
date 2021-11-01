@@ -15,7 +15,7 @@ Cmder conf file: %CMDER_ROOT%\vendor\init.bat
 
 @set "PATH=%PATH%;C:\Program Files (x86)\Mozilla Firefox"
 
-@set PATH=%PATH%;%TOOLS%\Python34\Scripts
+@set PATH=%PATH%;%TOOLS%\Python38\Scripts
 @set PATH=%PATH%;%TOOLS%\Python27\Scripts
 @set PATH=%PATH%;%APPDATA%\Python\Scripts
 

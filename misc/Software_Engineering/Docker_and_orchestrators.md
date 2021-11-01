@@ -17,6 +17,7 @@ Docker & orchestrators
 - [GoogleContainerTools/distroless](https://github.com/GoogleContainerTools/distroless/)
 - [Caching Maven dependencies in a Docker build](https://medium.com/@nieldw/caching-maven-dependencies-in-a-docker-build-dca6ca7ad612)
 - [Creating Efficient Docker Images with Spring Boot 2.3](https://spring.io/blog/2020/08/14/creating-efficient-docker-images-with-spring-boot-2-3)
+- [Checkov: cloud infrastructure configuration scanner](https://www.checkov.io): CLI to analyze IaC: Terraform, CloudFormation, Kubernetes, Helm, ARM Templates and Serverless framework
 
 
 ## Docker
@@ -365,3 +366,4 @@ https://github.com/nocquidant/hello-trainee
     helm --kube-context $AWS_EKS_CONTEXT --namespace $AWS_EKS_NAMESPACE list
     helm --kube-context $AWS_EKS_CONTEXT --namespace $AWS_EKS_NAMESPACE upgrade --install --render-subchart-notes --atomic --timeout ${HELM_TIMEOUT} --values ./values/aws.yaml --set tag=$TAG $PROJECT --debug .
     helm --kube-context $AWS_EKS_CONTEXT --namespace $AWS_EKS_NAMESPACE list
+

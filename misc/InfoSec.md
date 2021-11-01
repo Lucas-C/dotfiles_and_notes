@@ -67,9 +67,6 @@ Binary vizualizers: https://reverseengineering.stackexchange.com/a/6011/33675
 iKAT : gain access to the underlying OS in Kiosk (browser) restricted environment http://ikat.ha.cked.net/Windows/index.html
 -> also: https://blog.netspi.com/breaking-out-of-applications-deployed-via-terminal-services-citrix-and-kiosks/
 
-https://github.com/3gstudent/Javascript-Backdoor : JSRAT is a Python script that can be used to get a remote shell on a target PC simply by making hime visit an URL with a browser
-http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet : with Bash, Perl, Python, PHP, Ruby, Java...
-
 s0md3v/XSStrike - a Cross Site Scripting detection suite (Python)
 Content-Security-Policy HTTP response header : reduce XSS risks by declaring what dynamic resources are allowed to load
 
@@ -80,6 +77,13 @@ Content-Security-Policy HTTP response header : reduce XSS risks by declaring wha
 - [faille OpenRedirect](https://chezsoi.org/lucas/wwcb/photos/faille-OpenRedirect.png)
 
 https://github.com/x0rz/EQGRP - NSA hacking tools - Decrypted content of eqgrp-auction-file.tar.xz released by "The Shadow Brokers" : supposedly a free sample of the files exfiltrated from the Equation Group
+
+### Remote shell
+https://github.com/3gstudent/Javascript-Backdoor : JSRAT is a Python script that can be used to get a remote shell on a target PC simply by making him visit an URL with a browser
+http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet : with Bash, Perl, Python, PHP, Ruby, Java, xterm
+https://podalirius.net/en/articles/unix-reverse-shells-cheatsheet/ : with awk, C, Dart, Go, Groovy, Java, Lua, Netcat, Node.js, encrypted with OpenSSL, Perl, PHP, Python, Ruby, /dev/tcp, Socat, TclSh, Telnet, Wget
+https://alamot.github.io/reverse_shells/
+https://github.com/ShutdownRepo/shellerator
 
 ### DB attacks
 sqlmap.py -r burp_raw_exemple_request.txt

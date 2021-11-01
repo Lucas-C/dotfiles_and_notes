@@ -14,14 +14,15 @@ def main():
     stop_area = sys.argv[1]
     json_resp = http_get(f'https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:SNCF:{stop_area}/departures?data_freshness=realtime',
                          auth=(os.environ['API_KEY'], ''), parse_json=True)
-
+    with open('sncf.json', 'w+') as json_file:
+        json.dump(json_resp, json_file)
     print('Departs en gare:')
     for departure in json_resp['departures']:
         name = departure['display_informations']['name']
         direction = departure['display_informations']['direction'].split(' (')[0]
         commercial_mode = departure['display_informations']['commercial_mode']
         departure_date_time = departure['stop_date_time']['departure_date_time']
-        base_departure_date_time = departure['stop_date_time']['base_departure_date_time']
+        base_departure_date_time = departure['stop_date_time'].get('base_departure_date_time', departure_date_time)
         if departure_date_time != base_departure_date_time:
             delay_msg = f' (retard: {time_diff(base_departure_date_time, departure_date_time)}min)'
         else:
@@ -32,14 +33,15 @@ def main():
         print('Disruptions:')
     for disruption in json_resp['disruptions']:
         status = disruption['status']  # active, future...
+        if 'messages' not in disruption:
+            print(disruption)
+            continue
         assert len(disruption['messages']) == 1, len(disruption['messages'])
         msg = disruption['messages'][0]['text']
         updated_at = disruption['updated_at']
         for impacted_object in disruption['impacted_objects']:
             for impacted_stop in impacted_object['impacted_stops']:
-                base_arrival_time = impacted_stop['base_arrival_time']
                 amended_arrival_time = impacted_stop['amended_arrival_time']
-                base_departure_time = impacted_stop['base_departure_time']
                 amended_departure_time = impacted_stop['amended_departure_time']
                 cause = impacted_stop['cause'] or 'unknown cause'
                 stop_point_name = impacted_stop['stop_point']['name']

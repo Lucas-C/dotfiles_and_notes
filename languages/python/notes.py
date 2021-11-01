@@ -93,6 +93,7 @@ PYTHONHOME : Python interpreter directory
 PYTHONCASEOK : case insensitive module names (useful under Windows)
 PYTHONIOENCODING : force default encoding for stdin/stdout/stderr
 PYTHONHASHSEED : change seed hash() (=> more secure VM)
+PYTHONINSPECT : enter interactive mode after executing the script or the command
 PYTHONUNBUFFERED=1  # required to flush logs in docker-compose -> https://github.com/docker/compose/issues/4837#issuecomment-302765592
 
 sys.meta_path  # a list of *finder* objects that have their find_module() methods called to see if one of the objects can find the module to be imported - cf. PEP 302
@@ -572,6 +573,10 @@ class CustomHash:
     def __init__(self, hash): self.hash = hash
     def __hash__(self): return self.hash
 CustomHash(1) in [CustomHash(1)]  # False, because "in" uses id(obj)
+
+urllib.request.urlopen(url).read()
+env['HTTPS_PROXY'] = ...
+urllib.request.urlopen(url).read()  # Ignores proxy, require a call to urllib.request.install_opener(None) beforehand
 
 
 """""""""""""""""""""""""
@@ -1338,15 +1343,20 @@ except urllib.error.HTTPError as http_error:
     if http_error.code == 404:
         return None
     raise
-def http_get(url, basic_auth_creds=None, timeout_in_secs=5, parse_json=False):  # useful in AWS lambdas
-    req = urllib.request.Request(url)
+def http_do(verb, url, basic_auth_creds=None, timeout_in_secs=5, json_payload=None, parse_json=False):  # useful in AWS lambdas
+    data = json.dumps(json_payload).encode('utf8') if json_payload else None
+    req = urllib.request.Request(url, method=verb, data=data)
     if basic_auth_creds:
         encoded_creds = base64.b64encode(('%s:%s' % basic_auth_creds).encode('utf-8'))
         req.add_header('Authorization', 'Basic %s' % encoded_creds.decode('utf-8'))
-    with urllib.request.urlopen(req, timeout=timeout_in_secs) as resp:
-        if parse_json:
-            return json.load(resp)
-        return resp.read().decode('utf-8')
+    try:
+        with urllib.request.urlopen(req, timeout=timeout_in_secs) as resp:
+            if parse_json:
+                return json.load(resp)
+            return resp.read().decode('utf-8')
+    except urllib.request.HTTPError as error:
+        print(error.file.read().decode('utf8'))
+        raise
 headers = {'Content-Type': 'application/json; charset=utf-8'}
 data = json.dumps(payload).encode('utf-8')
 urllib.request.urlopen(urllib.request.Request(url, method='PUT', headers=headers, data=data),
@@ -1626,7 +1636,7 @@ paramiko # remote SSH/SFTP connexion
 
 scales # metrics for Python, send data points to Graphite - Pros: inc. with-context to measure latency, metering-rates 1/5/15min, PmfStat => stdev, p99 - Cons: not actively maintained, its code uses lots of global state, there is test code in its source, a thread launched at import time and its documentation is incomplete
 
-@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation: deprecated! => tenacity - Alt: retrace
+@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation: deprecated! => tenacity - Alt: retrace, tenacity
 
 daviddrysdale/python-phonenumbers # port of Google's libphonenumber to validate phone numbers
 TwilioLookupsClient().phone_numbers.get("15108675309", include_carrier_info=True) # Twilio API phone number validation

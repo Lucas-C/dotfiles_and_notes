@@ -46,6 +46,7 @@ JCache API caching strategies (https://dzone.com/refcardz/java-caching):
 - for deployment scaling: facebook/mcrouter + http://pdos.csail.mit.edu/6.824-2013/papers/memcache-fb.pdf
 - use a firewall !! -> beware security issues: http://www.slideshare.net/sensepost/cache-on-delivery
 - `mcsauna` : track the hottest keys on your memcached instances, reporting back in a graphite-friendly format
+- https://github.com/Orange-OpenSource/bmc-cache : in-kernel memcache based on eBPF, improves throughput up to 18x
 - commands: https://github.com/memcached/memcached/wiki/Commands - Ex:
 
     echo flush_all | nc $memcache_host $port
@@ -157,7 +158,12 @@ and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra whi
 - more BerkeleyDB, SQLite, LMDB, RocksDB > LevelDB # embedded database
 - cockroachdb/cockroach # NewSQL
 
-spotify/sparkey : simple constant key/value storage library, for read-heavy systems with infrequent large bulk inserts, inspired by CDB and Tokyo Cabinet : https://labs.spotify.com/2013/09/03/sparkey/
+spotify/sparkey : simple constant key/value storage library, for read-heavy systems with infrequent large bulk inserts,
+    inspired by CDB and Tokyo Cabinet : https://labs.spotify.com/2013/09/03/sparkey/
+
+[The Three DynamoDB Limits You Need to Know](https://www.alexdebrie.com/posts/dynamodb-limits/):
+    the item size limit; the page size limit for Query and Scan operations; and the partition throughput limits.
+
 
 
 #### MongoDB
@@ -268,6 +274,9 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
 [MyWebSQL web admin UI](http://freedif.org/mywebsql-web-based-database-administration-panel/)
 
 [Why Uber Engineering Switched from Postgres to MySQL](https://eng.uber.com/mysql-migration/)
+
+[vitess](https://github.com/vitessio/vitess): database clustering system for horizontal scaling of MySQL through generalized sharding.
+Core component of GiThub & YouTube's infrastructure.
 
     mysqladmin --defaults-file=/etc/mysql/debian.cnf status # mysqladmin config file can be found in /etc/init.d/mysql, along MySQL own one: /etc/mysql/my.cnf
 

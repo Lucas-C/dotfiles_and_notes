@@ -71,6 +71,7 @@ OpenJDK JMH // Benchmark tool
 
 jib // build Java Docker images with a flat classpath for better caching - cf. https://ro14nd.de/jib-vs-dmp
 -XX:+UseContainerSupport / -XX:+UseCGroupMemoryLimitForHeap requires -XX:+UnlockExperimentalVMOptions // cf. https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e
+-XX:MinRAMPercentage=20.0 -XX:MaxRAMPercentage=75.0 -XX:+HeapDumpOnOutOfMemoryError // cf. https://blog.nebrass.fr/playing-with-the-jvm-inside-docker-containers/
 
 sudo update-alternatives --config java
 
@@ -131,6 +132,10 @@ bin/sqlline
 kill -3 <pid> // dump a full stack trace and heap summary, including generational garbage collection details
 jstack -l $pid
 
+openssl x509 -outform der -in cert.pem -out cert.der
+keytool -keystore truststore -import -file cert.der -storepass "" -noprompt
+keytool -keystore truststore -list -storepass ""
+// To change a keystore password (tested): https://gist.github.com/zach-klippenstein/4631307
 
 // String / ByteString correct conversion :
 String asString = new String( byteString.getArray(), "UTF-8" );

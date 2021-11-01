@@ -300,7 +300,7 @@ echo BlaBlaBla
 exec 8>&- # Close file descriptor
 
 /var/tmp is better than /tmp # as filling it is less system impacting
-tdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)" # mktemp dir & default value
+tmpdir="$(mktemp -d ${TMPDIR:-/tmp}/$0_XXXXXX)" # mktemp dir & default value
 /dev/shmi # Use RAM for tmp files - monitor usage with ipcs -m
 
 for i in {0..255}; do printf "\x1b[38;5;${i}mcolor${i}\x1b[0m\n"; done # display all 256 colors
@@ -1177,6 +1177,7 @@ composite # merge images
 
 gifsicle "$gif" -I | sed -ne 's/.* \([0-9]\+\) images/\1/p' # frames count + cf. stopmo_logo/gen_anim.sh
 convert -delay 20 -loop 0 -dispose background -rotate -90 -resize 50% -loop 0 *.png out.gif
+convert -delay 20 -loop 0 img.png -duplicate 40 -strip -coalesce -layers Optimize img.gif
 tesseract-ocr # Google OCR / text extraction - http://askubuntu.com/a/280713/185582 - Alt: jlsutherland/doc2text for poorly scanned PDFs
     tesseract --print-parameters | sort
     tesseract $img_filepath stdout -l eng --oem 0 --psm 6 tessaract.config  # https://machinelearningmedium.com/2019/01/15/breaking-down-tesseract-ocr/
