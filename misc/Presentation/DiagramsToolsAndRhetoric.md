@@ -83,6 +83,7 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 - [asciiflow](http://asciiflow.com/#Draw) : online + OSS (Javascript) -> https://github.com/lewish/asciiflow2
 - [mapio/GraphvizAnim](https://github.com/mapio/GraphvizAnim) : animated graph visualizations, based on graphviz (Python)
 - [draw.io](https://www.draw.io) : diagrams stored as XML, online editor, OSS (Java) -> https://github.com/jgraph/draw.io
+  It has a "scribble mode": [Introducing draw.io’s new sketch feature](https://drawio-app.com/introducing-draw-ios-new-sketch-feature/)
 - [kroki](https://kroki.io) : HTTP API to create diagrams from textual descriptions, with support for BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag, PacketDiag, RackDiag), BPMN, Bytefield, C4 (with PlantUML), Ditaa, Erd, Excalidraw, GraphViz, Mermaid, Nomnoml, Pikchr, PlantUML, SvgBob, UMLet, Vega, Vega-Lite, WaveDrom...
 - [ditaa](http://ditaa.sourceforge.net/) : ascii-art to images (Java) -> ne supporte pas les accents :(
 - [blampe/goat](https://github.com/blampe/goat) : render ASCII art as SVG diagrams (Go)

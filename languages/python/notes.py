@@ -578,6 +578,8 @@ urllib.request.urlopen(url).read()
 env['HTTPS_PROXY'] = ...
 urllib.request.urlopen(url).read()  # Ignores proxy, require a call to urllib.request.install_opener(None) beforehand
 
+a = a[0] = {}  # creates a self-referential dict - https://susam.in/blog/peculiar-self-references.html
+
 
 """""""""""""""""""""""""
 "" Functional Programming
@@ -1859,6 +1861,12 @@ uvloop  # drop-in replacement for asyncio event loop, written in Cython & 2x fas
 python -m zipapp my_project_dir  # generates a .pyz
 
 subprocess.run > check_call
+
+
+#------------------------------------------------------------------------------
+# Python 3.6
+f-strings
+subclassable typing.NamedTuple
 
 
 #------------------------------------------------------------------------------

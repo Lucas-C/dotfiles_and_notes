@@ -9,7 +9,7 @@ Alternatives :
 
 - Gatling (Scala avec Akka et Netty)
 - https://k6.io (Go + NodeJS)
-- tarekziade/boom (Python)
+- loads/molotov (Python)
 - locustio/locust (Python)
 - wg/wrk (C)
 - JoeDog/siege (C)

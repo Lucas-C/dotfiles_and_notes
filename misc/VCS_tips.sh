@@ -9,6 +9,7 @@ Bonus from [A guide on commit messages](https://yvonnickfrin.dev/a-guide-on-comm
   * While doing pair-programming, add your coworkers names in your commit messages
 - adopt a convention in the shortname, like a prefix: [$issue_number] - DEV|BUGFIX - ...
 - [Semantic Commit Messages](https://seesparkbox.com/foundry/semantic_commit_messages) -> [Conventional Commits](https://www.conventionalcommits.org)
+- [Elegant git commit guidelines](https://elegant.oncrashreboot.com/git-commit-guidelines)
 - [gitmoji](https://gitmoji.carloscuesta.me) : An emoji guide for your commit messages
 
 #-----#

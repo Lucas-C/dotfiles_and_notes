@@ -67,7 +67,7 @@ tasklist /svc &:: list Service Host (svchost.exe) services running, with their P
 services.msc &:: Services windows
 diskmgmt.msc &:: Disk & Partition Management
 magnify &:: Loupe
-cmd | clip &:: copy to clipboard
+cmd | clip &:: copy to clipboard - Hold CTRL + INSERT to copy Windows error messages
 regsvr32 %dll_file% &:: register dll
 vssadmin list shadows &:: list available Volume Shadow Copies aka restore points, cf. http://superuser.com/a/165576)
 mstsc &:: builtin but less secure TeamViewer-like
