@@ -61,6 +61,7 @@ Project management best practices
 - [La dette technique : une supercherie mythologique pour galériens de l’IT](https://medium.com/@waxzce/la-dette-technique-une-supercherie-mythologique-pour-gal%C3%A9riens-de-lit-7ed0dfbf39c7)
 - [The Gartner Hype Cycle is … hype. Don’t use it as an excuse](https://davidgerard.co.uk/blockchain/2019/10/03/the-gartner-hype-cycle-is-hype-dont-use-it-as-an-excuse/)
 - [5 arguments to make managers care about technical debt](https://understandlegacycode.com/blog/5-arguments-to-make-managers-care-about-technical-debt/)
+- [Is tasking developers with creating detailed estimates a waste of company money?](https://iism.org/article/is-tasking-developers-with-creating-detailed-estimates-a-waste-of-company-money-42)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -293,6 +294,8 @@ cf. the [game cards](http://www.ivarjacobson.com/alphastatecards/)
 > That product owner and team may eventually arrive at their ultimate destination, but often only after descending and climbing out of the equivalent of the 10,000-foot valley.
 > “What is important is seldom urgent, and what is urgent is seldom important.”
 > Product Owners Should Identify a Significant Objective Quarterly
+- [Is tasking developers with creating detailed estimates a waste of company money?]:
+> use historicals to set good expectations and let engineers focus on creating amazing software that your customers really want!
 
 ### Methodologies
 - CMMI = Capability Maturity Model Integration

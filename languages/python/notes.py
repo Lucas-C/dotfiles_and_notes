@@ -740,6 +740,7 @@ flipkart-incubator/Astra # Automated Security Testing For REST API's
 openstack/bandit  # Python AST-based security linter
     echo -e "[bandit]\nexclude: my_proj/.eggs,my_proj/src/unittest"
     bandit --ini .banditrc --recursive my_proj/ # -lll to limit to HIGH severity issues
+returntocorp/semgrep # static analysis tool for finding bugs, suggested in Gitlab pipelines by default
 openstack/syntribos  # automated API security testing tool
 sqlmap  # automatic SQL injection and database takeover tool
 wapiti  # "fuzzer", performs "black-box" scans of a web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data
@@ -830,7 +831,7 @@ c-oreills/before_after # provides utilities to help test race conditions
 import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueError)'
 import doctest # include tests as part of the documentation
 AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
-behave # Behavior Driven Development - Comparison with alts: https://pythonhosted.org/behave/comparison.html
+behave # Behavior Driven Development (BDD) - Comparison with alts: https://pythonhosted.org/behave/comparison.html
 brodie/cram # generic command-line (CLI) app testing - Alt: Bats (TAP-compliant, bash), autoexpect, Tush, Aruba
 import capsys # capture stdin/out
 import tmpdir # generate a tmp dir for the time of the unit test
@@ -1216,9 +1217,8 @@ neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF genera
 cairo # graphics library outputting .ps .pdf .svg & more
 pikepdf # edit & validate existing PDFs, using qpdf - Tuto to extract info / rotate / merge / split / add watermark / encrypt: https://realpython.com/pdf-python/ & craft_pdf_with_remote_img.py
 fpdf2 # generate PDFs from scratch - Alt: https://github.com/pmaupin/pdfrw#other-libraries - cf. https://github.com/MrBitBucket/reportlab-mirror/tree/master/docs & https://github.com/driscollis/reportlabbookcode
-xhtml2pdf # generate PDF documents from HTML content, with automated flow control such as pagination and keeping text together
+xhtml2pdf # generate PDF documents from HTML content, with automated flow control such as pagination and keeping text together - Alt: Kozea/WeasyPrint
 camelot # extract tables from PDFs - require NumPy - webapp side project: excalibur
-Kozea/WeasyPrint # HTML to PDF converter
 PyMuPDF # access links and bookmarks; render pages in raster & vector formats; search for text; extract fonts, text and images...
 wand (ImageMagick binding), pillow > pil # Python Image Library
 exif = {ExifTags.TAGS[k]: v for k, v in Image.open('img.jpg')._getexif().items()} # from PIL import Image, ExifTags - Alt for edit: piexif
@@ -1226,6 +1226,7 @@ pyexiv2 # images EXIF manipulation
 python-thumbnails # generates images thumbnails, e.g. for your website
 ufoym/cropman # face-aware image cropping
 lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
+requests.post('https://zxing.org/w/decode', files={'f': open('qr.png', 'rb')})  # able to decode more images than pyzbar / zbarlight in my experience
 graphviz # graphs generation and export as images
 colorsys # rgb / yiq / hls / hsv conversions
 makkoncept/colorpalette # Flask app that extracts palette of dominating colors from image - heroku app available
@@ -1255,6 +1256,7 @@ espeak-ng # open source speech synthesizer supporting 7+ languages, based on the
 Uberi/speech_recognition # speech recognition with support for CMU Sphinx / Google Speech Recognition / Google Cloud Speech API / Wit.ai / Microsoft Bing Voice Recognition / Houndify API / IBM Speech to Text
 jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
 antiboredom/audiogrep
+playsound # pure Python, cross platform, single function module with no dependencies for playing sounds
 
 
 """""""""""""""""""""""""""""""""""""
@@ -1313,6 +1315,7 @@ hickford/MechanicalSoup  # automate interaction with websites: handle cookies, r
 lxml > HTMLParser (std or html5lib), pyquery, BeautifulSoup # use v>=3.2 - also: defusedxml to sanitize XML
 parser=lxml.html.HTMLParser(collect_ids=False)  # avoids a memory leak: https://benbernardblog.com/tracking-down-a-freaky-python-memory-leak-part-2/
 kovidgoyal/html5-parser # fast C based HTML 5 parsing
+
 import lxml.etree, lxml.html
 html_root = lxml.html.fromstring('html string') # Alt: html_tree.getroot()
 html_tree = lxml.etree.ElementTree(html_root) # Alt: lxml.etree.parse(some_file_like_object)
@@ -1375,7 +1378,12 @@ requests.post(form_url, data={'x':'42'})
     requests-cache
     requests-respectful # requests capping
     requests-jwt # auth = JWTAuth(secret, alg='HS512', header_format='Bearer %s') - usage example: https://github.com/shaarli/python-shaarli-client/blob/master/shaarli_client/client/v1.py#L205
+    cloudscraper # bypass Cloudflare's anti-bot page
     requests.packages.urllib3.util.retry # can retry on connect/read/all failures, cf. https://www.peterbe.com/plog/best-practice-with-retries-with-requests
+        if retries:
+            adapter = HTTPAdapter(max_retries=Retry(total=retries, read=retries, connect=retries, backoff_factor=backoff_factor))
+            session.mount('http://', adapter)
+            session.mount('https://', adapter)
 connect timeout / read timeout / download size limit : https://benbernardblog.com/the-case-of-the-mysterious-python-crash/
 def requests_get_with_max_size(url):
     with closing(requests.get(url, stream=True, timeout=TIMEOUT)) as response:
@@ -1438,7 +1446,6 @@ python-mocket # socket mocks
 spiderclub/haipproxy # IP proxy pool, powered by Scrapy and Redis
 community-libs/vaurien # TCP proxy to simulate chaos between your application and a backend server - Originated at Mozilla, not much maintained - Alt: Shopify/toxiproxy in Ruby
 
-superelasticsearch # provide iterated search & simpler bulk API
 ramses # API generation framework: based on RAML, ElasticSearch & Pyramid -> https://realpython.com/blog/python/create-a-rest-api-in-minutes-with-pyramid-and-ramses/ & https://www.elastic.co/blog/make-an-elasticsearch-powered-rest-api-for-any-data-with-ramses
 Kinto # minimalist JSON storage service, easy to bootstrap with Heroku/Docker, by Mozilla: https://kinto.readthedocs.io/en/stable/tutorials/install.html
 
@@ -1467,11 +1474,11 @@ Flask(__name__, static_folder='..', static_url_path='', template_folder='.') # h
     mjhea0/awesome-flask # A curated list of awesome things related to Flask
     Talisman / Secure.py # add HTTP headers protecting against common webapps security issues
 tiangolo/meinheld-gunicorn-flask-docker # Docker image with Meinheld managed by Gunicorn for high-performance web applications in Flask using Python 3, with performance auto-tuning - Alt: tiangolo/uvicorn-gunicorn-docker
-Quart # like Flask, but async -> ASGI
+Quart # like Flask, but async -> ASGI - ~3x faster than Flask - cf. https://www.metal3d.org/blog/2020/de-flask-%C3%A0-quart/
 Uvicorn # lightning-fast ASGI server implementation, using uvloop and httptools
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
 Django # cf. dedicated section
-pyramid # more modular alternative to Django
+pyramid # more modular alternative to Django (= Pylons project)
 + web.py # very old now, written by Aaron Swarz, used by Yandex
 WTForms # forms validation
 pyswagger # generates a Python client from a JSON formatted Swagger (Open API) schema
@@ -1483,7 +1490,11 @@ app.logger.addHandler(file_handler)
 def internal_error(exception):
     app.logger.exception("Error 404: %r", {k:getattr(exception, k) for k in dir(exception)})
     raise_chained(exception, 'Error 500: ') # In Python 3: raise XYZ from exception
-# Also, catch-all URL: http://flask.pocoo.org/snippets/57/
+app.config.update({  # Loading configuration from env variables:
+    'DB_PORT': int(os.environ.get('DB_PORT', Config.DB_PORT))
+})
+catch-all URL: http://flask.pocoo.org/snippets/57/
+using Dependency Injector with Flask blueprints: https://python-dependency-injector.ets-labs.org/examples/flask-blueprints.html
 
 def application(env, start_response): # Most basic native WSGI app
     start_response('200 OK', [('Content-Type', 'text/html')])
@@ -1491,6 +1502,8 @@ def application(env, start_response): # Most basic native WSGI app
 if __name__ == '__main__': # to launch a small WSGI server directly, without uwsgi / gunicorn / etc.
     from wsgiref.simple_server import make_server
     make_server('localhost', 8088, application).serve_forever()
+
+saimn/sigal # simple static gallery generator
 
 make html # Pelican static HTML files generation, using Jinja2 templates
 make serve # preview Pelican articles in localhost, with optional autoreload on edit (devserver)
@@ -1515,6 +1528,9 @@ kootenpv/access_points # scan your WiFi and get access point information and sig
 tn = telnetlib.Telnet('example.com')
 tn.read_until("login: ")
 tn.write(user + "\n")
+
+Brython.info # replace Javascript as the scripting language for the Web
+Pyodide # Python with the scientific stack, compiled to WebAssembly
 
 
 """""""""""""
@@ -1580,7 +1596,7 @@ djangocolors_formatter.py # one-file recipe
 django-debug-toolbar
 django-toolbelt
 
-Tastypie # webservice framework to creating REST-style APIs, e.g. for an autocompletion service
+Tastypie # webservice framework to create REST-style APIs, e.g. for an autocompletion service
 factoryboy # > fixtures for DB testing (personnal opinion: several fixtures can sometimes be simpler AND avoid dangerous over-mocking) - Alt: mixer
 pifpaf # suite of fixtures and a CLI tool that allows to start and stop daemons for a quick throw-away usage - supports: PostgreSQL, MySQL, memcached, InfluxDB, etcd, Redis, Elasticsearch, Zookeeper, Gnocchi, Aodh, Ceph, RabbitMQ, FakeS3, Consul, Keystone, CouchDB, S3rver, MongoDB, OpenStack Swift, Vault
 

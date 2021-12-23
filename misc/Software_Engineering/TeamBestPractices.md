@@ -116,6 +116,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Managing developer identities in autonomous teams](https://kislayverma.com/organizations/managing-developer-identities-in-autonomous-teams/)
 - [Agile at 20: The Failed Rebellion](https://www.simplethread.com/agile-at-20-the-failed-rebellion/)
 - [The DevOps Phenomenon / CALMS framework](https://queue.acm.org/detail.cfm?id=3338532)
+- [Why Don’t Tech Companies Pay Their Engineers to Stay?](https://marker.medium.com/why-dont-tech-companies-pay-their-engineers-to-stay-b9c7e4b751e9)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -594,6 +595,8 @@ It’s available as a text editor application, a web app, and even a linter, if 
 > Les méthodes et techniques d'aide au recrutement ou d'évaluation des candidats à un emploi doivent être pertinentes au regard de la finalité poursuivie.
 
 > Aucune information concernant personnellement un candidat à un emploi ne peut être collectée par un dispositif qui n'a pas été porté préalablement à sa connaissance.
+- [Why Don’t Tech Companies Pay Their Engineers to Stay?]:
+> The hard truth that many companies struggle to wrap their heads around is that they should be paying their long-tenured engineers above market rate. This is because an engineer that’s been working at a company for a long time will be more impactful specifically at that company than at any other company.
 
 ### Outils
 - cf. https://chezsoi.org/shaarli/?searchterm=&searchtags=Recruting

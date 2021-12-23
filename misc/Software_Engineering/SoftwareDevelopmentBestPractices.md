@@ -39,6 +39,7 @@ Software Development Best Practices
 
 ## References
 - [CC-\\w\\d+](http://fr.slideshare.net/hebel/clean-code-vortrag032009pdf) : Clean Code - Robert C. Martin - Ed. Prentice Hall
+  It has criticism: https://qntm.org/clean
 - [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley : http://blog.codinghorror.com/a-pragmatic-quick-reference/
 - [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) - Amy Brown & Greg Wilson
 - [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter - Ed. Addison-Wesley
@@ -61,7 +62,7 @@ Software Development Best Practices
 - [How to design a REST API](http://blog.octo.com/en/design-a-rest-api/) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
 - [RESTful API design refcard](http://blog.octo.com/wp-content/uploads/2014/10/RESTful-API-design-OCTO-Quick-Reference-Card-2.2.pdf)
 - [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development](http://neverworkintheory.org/2011/08/31/comparing-the-defect-reduction-benefits-of-code-inspection-and-test-driven-development.html)
-- [TestPyramid](http://martinfowler.com/bliki/TestPyramid.html) & [IceCreamConeAntipattern](http://watirmelon.com/2012/01/31/introducing-the-software-testing-ice-cream-cone/)
+- [TestPyramid](http://martinfowler.com/bliki/TestPyramid.html) & [IceCreamConeAntipattern](https://saeedgatson.com/the-software-testing-ice-cream-cone/)
 - [John Carmack discusses the art and science of software engineering](//blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/)
 - [The microservices cargo cult](http://www.stavros.io/posts/microservices-cargo-cult/)
 - [LatencyNumbersEveryProgrammerShouldKnow](https://gist.github.com/hellerbarde/2843375)
@@ -155,6 +156,7 @@ FROM: [Joel On Software - Things You Should Never Do]
 ### On optimization & readability
 - "About 97% of the time: **premature optimization is the root of all evil**." - Donald Knuth, 1974
 - "Sometimes duplicating things, either code or data, can significantly simplifies a system. DRY isn't absolute." - John Carmack, 2016
+  _cf._ also https://overreacted.io/goodbye-clean-code/ & https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction
 - "Optimization work is so appealing, with incremental and objective rewards, but it is easy to overestimate value relative to other tasks" - John Carmack, 2015
 - Rob Pike's 5 rules of optimizations:
     - Rule 1. You can't tell where a program is going to spend its time. Bottlenecks occur in surprising places, so don't try to second guess and put in a speed hack until you've proven that's where the bottleneck is.

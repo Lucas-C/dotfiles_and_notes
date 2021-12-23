@@ -11,7 +11,7 @@ Alternatives :
 - https://k6.io (Go + NodeJS)
 - loads/molotov (Python)
 - locustio/locust (Python)
-- wg/wrk (C)
+- wg/wrk (C) modern HTTP benchmarking tool
 - JoeDog/siege (C)
 - shoreditch-ops/artillery (NodeJS)
 - tsenart/vegeta (Go)

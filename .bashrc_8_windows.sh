@@ -26,9 +26,9 @@ alias java_home_win_exec='JAVA_HOME=$(cygpath -w "$JAVA_HOME") '
 convertWinArgs () {
     while [ "$1" ]; do
         case $1 in
-        /*) echo "$(cygpath -w $1)" ;;
+        /*) cygpath -w "$1";;
         [A-Z]:*) echo "$1" ;;
-        *) echo "$(cygpath -w $PWD/$1)" ;;
+        *) cygpath -w "$PWD/$1";
         esac
         shift
     done
@@ -57,7 +57,7 @@ NPP_BIN='/cygdrive/c/Program Files/Notepad++/notepad++.exe'
 test -e "$NPP_BIN" || NPP_BIN="/cygdrive/c/Program Files$X86/Notepad++/notepad++.exe"
 npp () {
     for f in "$@"; do
-        "$NPP_BIN" $(convertWinArgs "$f")
+        "$NPP_BIN" "$(convertWinArgs $f)";
     done
 }
 

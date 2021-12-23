@@ -27,7 +27,99 @@
 * https://silentteacher.toxicode.fr : for the very basics
 
 ### Python
-- [Formation Python d'Aurélien](https://python2021q1.uptime-formation.fr/)
+- [Uptime Formation](https://python2021q1.uptime-formation.fr/) (Aurélien)
+    * Introduction
+    * Mémo Syntaxe Python
+    * Partie 1 - Notions de base
+    * Partie 2 - Notions plus avancées
+    * Partie 3 - POO
+    * Partie 4 - Python Object Model et modules
+    * Introduction à Flask
+    * Exporter les supports en pdf
+    * Tutoriels utiles
+    * Bibliographie
+- [Un zeste de Python par entwanne @ ZesteDeSavoir](https://zestedesavoir.com/contenus/beta/2514/un-zeste-de-python/)
+    I. Premiers pas avec Python
+        1. Présentation du langage
+        2. Installation
+        3. Prise en main de l'interpréteur
+        4. Écrire du code dans des fichiers
+        5. Fichiers ou interpréteur interactif ?
+    II. Manipuler des données
+        1. Retour sur la calculatrice
+        2. Des variables pour sauvegarder nos résultats
+        3. Manipuler du texte
+        4. Interactions
+        5. Objets et méthodes
+        6. TP : Combat en tour par tour
+    III. Des programmes moins déterminés
+        1. Les conditions (if/elif/else)
+        2. Expressions booléennes
+        3. TP : Ajoutons des conditions à notre jeu
+        4. Les listes
+        5. Itérer sur nos listes avec des boucles for
+        6. Boucler sur une condition (while)
+        7. Algorithmes
+        8. TP : Ajoutons des boucles à notre jeu
+    IV. Types de données
+        1. Retour sur les types précédents
+        2. Les dictionnaires
+        3. Itérer sur un dictionnaire
+        4. Les tuples
+        5. TP
+    V. Les fonctions
+        1. Des fonctions pour factoriser
+        2. Fonctions paramétrées
+        3. Retours de fonctions
+        4. Paramètres et types mutables
+        5. Fonctions de tests
+        6. TP : Intégrons des fonctions à notre application
+    VI. Entrées / sorties
+        1. Découper son code en modules
+        2. Lire un fichier en Python
+        3. Itérer sur un fichier
+        4. Écrire dans un fichier
+        5. Chaînes de formatage
+        6. Gérer les exceptions (try/except)
+        7. Formater les données
+        8. Arguments de la ligne de commande
+        9. Les paquets
+        10. TP : Sauvegarder la partie
+    VII. Aller plus loin
+        1. Les autres types de données
+        2. Retour sur les conditions
+        3. Retour sur les boucles
+        4. Retour sur les fonctions
+        5. Retour sur les variables
+        6. Retour sur les exceptions
+        7. Débogage
+    VIII. La bibliothèque standard
+        1. Tour d'horizon de la bibliothèque standard
+        2. Un peu d'aléatoire
+        3. Gestion du temps
+        4. Expressions rationnelles
+        5. TP : Monstre sauvage
+        6. Un peu de réseau
+        7. Plusieurs tâches en même temps
+        8. TP
+        9. Installer des modules complémentaires
+    IX. Exercices
+        1. Premiers pas avec Python
+        2. Manipuler des données
+        3. Des programmes moins déterminés
+        4. Types de données
+        5. Types de données
+        6. Entrées / sorties
+        7. Aller plus loin
+    X. Annexes
+        1. Glossaire et mots clés
+        2. Quelques modules complémentaires bien utiles
+        3. Tests
+        4. Outils
+        5. Packaging
+        6. Bases de données
+        7. Les erreurs courantes en Python
+        8. Ressources
 - https://py-rates.fr
 - https://py.checkio.org
 - [MIT 6 0001 - Introduction to Computer Science and Programming in Python (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)

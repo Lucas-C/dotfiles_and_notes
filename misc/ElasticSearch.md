@@ -21,6 +21,7 @@ Elasticsearch networking protocols details: https://www.elastic.co/blog/found-el
     * Configured deployments for a dedicated master/data/search approach.
     * Publishing Elasticsearch monitoring metrics.
     * Support for AWS environment.
+- list plugins: `GET /_cat/plugins`
 
 
 ## Config recommandations

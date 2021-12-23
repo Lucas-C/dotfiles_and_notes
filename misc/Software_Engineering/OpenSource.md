@@ -186,6 +186,7 @@ Also: https://openbadges.org
 
 ### Funding, financing
 - https://opencollective.com/learn-more : "Open your finances to your community"
+- demandes de subvention européenne : https://nlnet.nl/propose/
 
 
 ### Cons
