@@ -93,7 +93,7 @@ Vous disposez pour cela d'un récipient de capacité trois litres et d'un autre 
 Combien de fois devez-vous remplir un récipient au robinet ?
 
 [Enigme du trésor des pirates](http://www.enigmasters.com/2007/06/enigme-logique-le-tresor-des-pirates.html)
-> 5 pirates se partagent un butin de 100 pièces. Chacun va à son tour proposer un partage : si la majorité est contre, il est éliminé et on contontinue.
+> 5 pirates se partagent un butin de 100 pièces. Chacun va à son tour proposer un partage : si la majorité est contre, il est éliminé et on continue.
 > Quel part du butin peut espérer le 1er ?
 
 [Enigme des 100 prisonniers et de l'ampoule](http://submoon.freeshell.org/fr/sphinx/lightbulb.html)

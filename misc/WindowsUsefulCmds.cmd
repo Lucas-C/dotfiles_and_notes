@@ -185,6 +185,8 @@ CleanMgr automation script: http://stackoverflow.com/a/35214197/636849
 
 How to bypass the PowerShell execution policy : https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/
 
+Get-Process -Id (Get-NetTCPConnection -LocalPort $Port).OwningProcess # get the name of a process using a given port
+
 
 ::::::::::
 :: Batch

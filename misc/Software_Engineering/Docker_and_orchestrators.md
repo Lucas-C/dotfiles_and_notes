@@ -39,7 +39,7 @@ Docker & orchestrators
 - [hadolint](https://github.com/hadolint/hadolint) : Dockerfile linter in Haskell
 - [skopeo](https://github.com/containers/skopeo) : CLI to inspect images without pulling them, and also perform copy/delete/sync operations
 - [google/cadvisor](https://github.com/google/cadvisor) : Container Advisor provides information on resource usage and performances of running containers. It is a running daemon that collects, aggregates & exports metrics.
-- [LocalStack](https://github.com/localstack/localstack) : a fully functional local AWS cloud stack & easy-to-use test/mocking framework, using Docker & Python
+- [LocalStack](https://github.com/localstack/localstack) : a fully functional local AWS cloud stack & easy-to-use test/mocking framework, using Docker & Python - Alt for lambdas: AWS SAM (Serverless Application Model)
 
 ```
 docker run --read-only ... # CONTAINERS ARE NOT IMMUTABLE BY DEFAULT ! If you need tmp files, use --tmpfs /tmp (since 1.10)
@@ -111,6 +111,11 @@ Display full error message with `docker service` : `--no-trunc`
 - through `dockerd` CLI option: `-H tcp://0.0.0.0:2375` (takes priority over 2nd option below)
 - through `daemon.json` list entry `hosts` (not tested)
 - [Using curl and the UNIX socket to talk to the Docker API]
+
+    curl --unix-socket /var/run/docker.sock http://localhost/containers/json  # or http://localhost/v1.35/containers/json
+    curl --unix-socket /var/run/docker.sock http://localhost/images/json
+    curl --unix-socket /var/run/docker.sock http://localhost/events
+
 - [Inspecting docker activity with socat]
 - [Connecting to the secure Docker port using curl](https://docs.docker.com/engine/security/https/#connecting-to-the-secure-docker-port-using-curl) with certificates
 

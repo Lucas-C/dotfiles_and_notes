@@ -104,6 +104,9 @@ AtsushiSakai/PythonRobotics : filter localization / grid mapping / object shape 
 > Some web browsers use frecency to predict the likelihood of revisiting a given web page or reusing a given HTTP cache entry
 SOURCE: https://en.wikipedia.org/wiki/Frecency
 
+**jump point search** (JPS) is an optimization to the A* pathfinding / search algorithm for uniform-cost grids
+SOURCE: https://en.wikipedia.org/wiki/Jump_point_search
+
 
 ## Crypto
 

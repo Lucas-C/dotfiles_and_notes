@@ -139,6 +139,7 @@ Solution: abs int hex len ord
 
 
 ## Online platforms
+- [Google Colaboratory](https://colab.research.google.com/notebooks/intro.ipynb) : notebooks Jupyter
 - [Qwiklabs AWS](https://run.qwiklab.com/catalog?cloud=AWS) (1 credit == 1 dollar)
 - [katakoda](https://katacoda.com) : Learn new technologies using real environments right in your browser
 Interactive Learning and Training Platform for Software Engineers

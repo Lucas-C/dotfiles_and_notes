@@ -580,6 +580,8 @@ urllib.request.urlopen(url).read()  # Ignores proxy, require a call to urllib.re
 
 a = a[0] = {}  # creates a self-referential dict - https://susam.in/blog/peculiar-self-references.html
 
+hash(-1) == hash(-2)
+
 
 """""""""""""""""""""""""
 "" Functional Programming

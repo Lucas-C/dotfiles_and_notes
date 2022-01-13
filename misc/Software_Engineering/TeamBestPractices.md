@@ -309,8 +309,8 @@ Si personne ne se manifeste -> adopté
 [Liberating Structures](http://www.liberatingstructures.com) 33 microstructures to replace more controlling or constraining meetings
 \+ problème peut être découpé en plusieurs ateliers pour diverger puis converger
 Exemples :
-- [1-2-4-All](http://www.liberatingstructures.com/1-1-2-4-all/) - 12min, "autoporté", _parallel processing_ - Attention: le choix de question posée est crucial
-- [Troika consulting](http://www.liberatingstructures.com/8-troika-consulting%20/) - 30min - by groups of 3 persons - in each round, one participant is the “client,” the others “consultants”
+- [1-2-4-All](http://www.liberatingstructures.com/1-1-2-4-all/) - 12min, "autoporté", _parallel processing_ - **Attention**: le choix de question posée est crucial
+- [Troika consulting](http://www.liberatingstructures.com/8-troika-consulting%20/) - 30min - by groups of 3 persons - in each round, one participant is the “client”, the others “consultants”
 
 ROTI (_Return On Time Invested_) : vote à main levée de 1 à 5, de excellent à inutile
 
