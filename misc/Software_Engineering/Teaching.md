@@ -26,6 +26,9 @@
 ### Javascipt
 * https://silentteacher.toxicode.fr : for the very basics
 
+### Shell
+- https://www.learnshell.org
+
 ### Python
 - [Uptime Formation](https://python2021q1.uptime-formation.fr/) (Aurélien)
     * Introduction
@@ -132,6 +135,7 @@
 - https://gitlab.com/azae/craft/legacy-testing-kata-python [EN]
 - https://learnbyexample.gitbooks.io/python-basics/
 - http://shf.github.io/Python-Workshop/
+- https://trypython.jcubic.pl/
 - [Python projects-based-learning](https://github.com/tuvtran/project-based-learning/blob/master/README.md#python)
 - [Reddit learnpython top resources of the year](https://www.reddit.com/r/learnpython/top/?t=year)
 - logic puzzle: https://enigmes-a-thematiques.fr/front/enigme/2433
@@ -139,11 +143,18 @@ Solution: abs int hex len ord
 
 
 ## Online platforms
-- [Google Colaboratory](https://colab.research.google.com/notebooks/intro.ipynb) : notebooks Jupyter
-- [Qwiklabs AWS](https://run.qwiklab.com/catalog?cloud=AWS) (1 credit == 1 dollar)
+- https://exercism.io
+
+### Tools & platforms to write docs / tutorials / practical exercises
+- https://github.com/Kibibit/command-lime : build you web-based CLI onboarding demo in a fake terminal
 - [katakoda](https://katacoda.com) : Learn new technologies using real environments right in your browser
 Interactive Learning and Training Platform for Software Engineers
 => Docker Weaveworks Kubernetes OpenShift Hashicorp Envoy Proxy Istio Hashicorp Consul Hashicorp Vault Linux Jenkins Prometheus OpenTracing Ansible Tensorflow Git Rlang Go .NET Node.js Ruby
 Ex playground for Python: https://www.katacoda.com/courses/python/playground
-- [play-with-docker](https://labs.play-with-docker.com): free Alpine Linux Virtual Machine in the cloud where you can build and run Docker containers, through your web browser
-- https://exercism.io
+- [Google Colaboratory](https://colab.research.google.com/notebooks/intro.ipynb) : notebooks Jupyter
+- [TutorialsPoint](https://www.tutorialspoint.com/codingground.htm) Online Compilers and Interpreters,
+  ex: [Bash Shell Online](https://www.tutorialspoint.com/unix_terminal_online.php)
+- https://bellard.org/jslinux/ / https://copy.sh
+- [play-with-docker](https://labs.play-with-docker.com): free Alpine Linux Virtual Machine in the cloud where you can build and run Docker containers,
+  through your web browser. Require a docker.com account.
+- [Qwiklabs AWS](https://run.qwiklab.com/catalog?cloud=AWS) (1 credit == 1 dollar)

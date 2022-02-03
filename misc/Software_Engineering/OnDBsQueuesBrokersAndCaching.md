@@ -259,6 +259,21 @@ https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html
     PRAGMA locking_mode = EXCLUSIVE;
     PRAGMA temp_store = MEMORY;
 
+[The ultimate SQLite extension set](https://antonz.org/sqlean/):
+
+* **crypto**: cryptographic hashes like MD5 or SHA-256.
+* **fileio**: read and write files and catalogs.
+* **fuzzy**: fuzzy string matching and phonetics.
+* **ipaddr**: IP address manipulation.
+* **json1**: JSON functions.
+* **math**: math functions.
+* **re**: regular expressions.
+* **stats**: math statistics — median, percentiles, etc.
+* **text**: string functions.
+* **unicode**: Unicode support.
+* **uuid**: Universally Unique IDentifiers.
+* **vsv**: CSV files as virtual tables.
+
 
 #### MySQL
 [5 subtle ways you're using MySQL as a queue, and why it'll bite you](https://blog.engineyard.com/2011/5-subtle-ways-youre-using-mysql-as-a-queue-and-why-itll-bite-you)

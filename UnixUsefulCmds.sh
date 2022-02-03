@@ -85,22 +85,25 @@ perl -wle 'exit 1 if (1 x shift) !~ /^1?$|^(11+?)\1+$/' # Primality testing with
 
 a(){ echo $2 \\$1 $1 $2 $1 ;};a \' ' a(){ echo $2 \\$1 $1 $2 $1 ;};a ' # Quine
 
-dig +short TXT google-public-dns-a.google.com # check without 'TXT'
 dig +short TXT istheinternetonfire.com
 m57/dnsteal  # DNS Exfiltration tool for stealthily sending files over DNS requests
 traceroute -m 60 216.81.59.173; telnet towel.blinkenlights.nl # Star Wars
 ssh sshtron.zachlatta.com # https://github.com/zachlatta/sshtron
+telnet mapscii.me # https://github.com/rastapasta/mapscii
 
 echo "You can simulate on-screen typing just like in the movies" | pv -qL 10
 
 rainbow_cursor_worm () { a=1;x=1;y=1;xd=1;yd=1;while true;do if [[ $x == $LINES || $x == 0 ]]; then xd=$(( $xd *-1 )) ; fi ; if [[ $y == $COLUMNS || $y == 0 ]]; then yd=$(( $yd * -1 )) ; fi ; x=$(( $x + $xd )); y=$(( $y + $yd )); printf "\33[%s;%sH\33[48;5;%sm \33[0m" $x $y $(($a%199+16)) ;a=$(( $a + 1 )) ; sleep 0.001 ;done; } # FROM: http://www.climagic.org/coolstuff/cursor-tricks.html
-worms -d 20; rain -d 20 # from bsdgames
 nms # Sneakers movie encryption effect FROM: bartobri/no-more-secrets
 
 ( play -q -n synth sine F2 sine C3 remix - fade 0 4 .1 norm -4 bend 0.5,2399,2 fade 0 4.0 0.5 & )
 echo 'main(t){for(;;t++)putchar(((t<<1)^((t<<1)+(t>>7)&t>>12))|t>>(4-(1^7&(t>>19)))|t>>7);}' | cc -x c - -o crowd && ./crowd | aplay # or `play -r 8000 -c 1 -t u8 <(... && ./crowd)` from sox package - FROM: http://canonical.org/~kragen/bytebeat/
 
-bcd, ppt, morse # reformat input as punch cards, paper tape or morse code - from bsdgames package
+# from bsdgames package, in /usr/games/ :
+worms -d 20; rain -d 20
+ppt 'SECRET MSG' > out; cat out; ppt -d < out
+morse 'SECRET MSG' > out; cat out; morse -d < out
+
 bastet (tetris), myman (pacman)
 csokoban, cmines & cblocks # from cgames: the 1st can only be played in CTRL+ALT+F1 terminal, the 2nd is Mines Sweeper, the 3rd is played by mouse
 curseofwar -i4 -q1 -dee -W16 -H16 # awesome real-time RTS

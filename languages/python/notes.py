@@ -871,7 +871,7 @@ what-studio/profiling # interactive continuous/live CLI profiler
 PyVmMonitor # profiler with graphs
 nschloe/tuna # profile viewer using tornado
 nvdv/vprof # Visual Python profiler
-emeryberger/scalene # a high-performance, high-precision CPU and memory profiler
+emeryberger/scalene # a high-performance, high-precision CPU and memory profiler - Ex: https://www.reddit.com/r/Python/comments/s1oqb7/that_time_i_optimized_a_python_program_by_5000x/
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
 fabianp/memory_profiler # track the memory usage of a program line by line in the source code - require psutil => not usable with Cygwin - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
@@ -1539,6 +1539,7 @@ Pyodide # Python with the scientific stack, compiled to WebAssembly
 "" Hosting ""
 """""""""""""
 zappa # serverless framework for AWS lambda / API Gateway
+foxmask/shaarpy # Shaarli in Django
 cloudtools/troposphere # create AWS CloudFormation descriptions in JSON from code
 heroku
 pythonanywhere.com
@@ -1650,6 +1651,7 @@ modulefinder # determine the set of modules imported by a script
 
 asynchat, irc, sleekxmpp, embolalia/willie # IRC/XMPP bots
 mailr, mailbox, imaplib, smtpd, smptplib, kootenpv/yagmail # for emails, cf. ascii_art_email.py
+Miksus/red-mail  # makes sending emails trivial and has advanced features such as: Attachments, Templating (with Jinja), Embedded images, Prettified tables, Send as cc or bcc, Gmail preconfigured
 modoboa # email hosting made simple, with webUI + amavis + monitoring, for postfix & dovecot
 gmvault # Gmail backup CLI
 paramiko # remote SSH/SFTP connexion
@@ -1693,6 +1695,7 @@ with open(sys.argv[1]) as csv_file:
         writer.writerow(row)
 harelba/q  # run SQL directly on CSV or TSV files
 aspy.yaml, yaml # !!! yaml.load() is an unsafe operation ! Use yaml.safe_load() - Also: beware the inconsistent behaviours: http://pyyaml.org/ticket/355
+# How to load/dump YAML and convert tagged nodes to almost-native types: https://death.andgravity.com/any-yaml
 ruamel # YAML parser / writer with support for roundtrip comments
 def extract_comments_from_yaml_ordereddict(d):
     for pair in d.ca.items.values():

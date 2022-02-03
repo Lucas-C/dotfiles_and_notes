@@ -576,7 +576,7 @@ cf. [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven 
 * You **need** TDD !! (or at least some kind of automated systematic testing) [QETDDM]
 * TDD: automated, easy to follow, autonomously done
 * CR: increase code quality & reduce defect rate, mutual learning, feeling better (get team mates attention + share responsability -> team building) - For a introductory presentation: [CRTP]
-* Do it well: use proper tools, including automated static analysis (findbugs, ArtisticStyle for C/C++/Java, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
+* Do it well: use proper tools, including automated static analysis (findbugs, ArtisticStyle = `astyle` for C/C++/Java, checkstyle + [Cyclomatic]), syntax-checkers...); make it part of the process; detail purpose & testing; track CR ids in commits; no meeting -> can be done at anytime; make it constructive, informal & fun
 
 #### Code reviews guidelines
 [#CODE REVIEW Ce truc qui ne sert à rien @scharrier]

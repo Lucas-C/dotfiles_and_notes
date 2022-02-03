@@ -321,7 +321,7 @@ nodemon // watch files in current directory, and restart a script on any change 
 
 var logs = driver.manage().logs(), // driver is a selenium-webdriver instance
     fetchLogsPromises = _.map(webdriver.logging.Type, logs.get.bind(logs)); // !! native .map does not work here - there are 5 logging.Type defined here: https://github.com/SeleniumHQ/selenium/blob/master/javascript/webdriver/logging.js#L234
-Promise.all(fetchLogsPromises).then(function (fetchedLogs) {
+Promise.all(fetchLogsPromises).then(function (fetchedLogs) { // Alt: Promise.allSettled
     fetchedLogs.forEach(function (logs, logIndex) {
         logs.forEach(function (log) {
             console.log('\x1b[3%sm%s [%s] %s\x1b[0m', logIndex + 1, new Date(log.timestamp), log.level.name, log.message);

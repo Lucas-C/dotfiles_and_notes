@@ -1,5 +1,5 @@
 #!/usr/bin/python2
-# Original idea: http://sametmax.com/floodsport
+# Original idea: http://sametmax2.com/floodsport
 # Max gmail subject width on my display: 74
 
 import aalib

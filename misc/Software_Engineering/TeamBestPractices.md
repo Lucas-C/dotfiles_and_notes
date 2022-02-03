@@ -509,6 +509,7 @@ http://keepachangelog.com -> best practices & advices
     * get a leader whose goal is to motivate & educate others
     * templaaaaates are awesome. Alt: script page generation (e.g. for dashboards depending on parameters: IP, hostnames...)
 - cf. [TeachDontTell], [BeautifulDocs], [AuthoringStyleGuide], [WriteTheDocs], [WhatToWrite]
+- https://github.com/Kibibit/command-lime : build you web-based CLI onboarding demo in a fake terminal
 - simple dashboard for JSON APIs : [freeboard](https://github.com/Freeboard/freeboard)
 - http://www.mkdocs.org : simple static doc website generation from Markdown, "à la" ReadTheDocs
 [Lucas]: used at oui.sncf, combined with Gitlab Pages => very powerful and efficient, allow to real deal with:
