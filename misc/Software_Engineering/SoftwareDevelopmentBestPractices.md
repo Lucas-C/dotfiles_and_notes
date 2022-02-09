@@ -131,20 +131,13 @@ My rule #1 : Follow standard conventions within a team [CC-G24]
 > Both direct and indirect.
 
 ## Main design "mantras"
-- KISS & YAGNI: Keep It Super Simple & You Aren't Gonna Need It
-- NIH syndrom (Not Invented Here): tendency to avoid using or buying products, research, standards, or knowledge from external origins
-- Duplication : DRY ! Once, and only once. [CC-G5] but not too DRY: [WhenToRepeatYourself]
-    * switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
-    * similar algorithm            -> template method / strategy pattern
-- less is more : "best code is no code at all" & "complexity is our worst enemy"
-- fail fast
-- [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
-- Favor immutable data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
-- Favor idempotent operations, i.e. "that has no additional effect if it is called more than once with the same input parameters".
-- Smalltalk first principle: "If a system is to serve the creative spirit, it must be entirely comprehensible to a single individual"
+- **KISS** & **YAGNI**: Keep It Super Simple & You Aren't Gonna Need It
+- **less is more** : "best code is no code at all" & "complexity is our worst enemy"
 
 > 13. Perfection (in design) is achieved not when there is nothing more to add, but rather when there is nothing more to take away.
 FROM: The Cathedral and the Bazaar by Eric S. Raymond (Attributed to Antoine de Saint-Exupéry)
+
+- **Not Invented Here** syndrom (NIH): tendency to avoid using or buying products, research, standards, or knowledge from external origins
 
 > They did it by making the single worst strategic mistake that any software company can make:
 > They decided to rewrite the code from scratch.
@@ -152,7 +145,23 @@ FROM: The Cathedral and the Bazaar by Eric S. Raymond (Attributed to Antoine de 
 > There’s a subtle reason that programmers always want to throw away the code and start over.
 > The reason is that they think the old code is a mess.
 > And here is the interesting observation: they are probably wrong.
-FROM: [Joel On Software - Things You Should Never Do]
+> FROM: [Joel On Software - Things You Should Never Do]
+
+**Principle of least astonishment** (POLA, or "Least Surprise" => POLS) :
+> People are part of the system. The design should match the user's experience, expectations, and mental models.
+> If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature.
+
+- Duplication : **DRY** ! Once, and only once. [CC-G5] but not too DRY: [WhenToRepeatYourself]
+    * switch/case OR if/else chain -> polymorphism if appears more than once [CC-G23]
+    * similar algorithm            -> template method / strategy pattern
+- **Fail fast**
+- [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
+- Favor **immutable** data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
+- Favor **idempotent** operations, i.e. "that has no additional effect if it is called more than once with the same input parameters".
+- Smalltalk first principle: "If a system is to serve the creative spirit, it must be entirely comprehensible to a single individual"
+
+> There’s no way to measure productivity in software, so there’s no way to know whether controversial,
+> expensive “productivity enhancing” projects actually deliver on their promise, even in hindsight.
 
 ### On optimization & readability
 - "About 97% of the time: **premature optimization is the root of all evil**." - Donald Knuth, 1974
@@ -166,11 +175,17 @@ FROM: [Joel On Software - Things You Should Never Do]
     - Rule 4. Fancy algorithms are buggier than simple ones, and they're much harder to implement. Use simple algorithms as well as simple data structures.
     - Rule 5. Data dominates. If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident. Data structures, not algorithms, are central to programming.
 
-- "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
-- "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
 - write greppable code
+> "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
+> "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
 
-[John Carmack discusses the art and science of software engineering](//blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/): "It’s about social interactions between the programmers or even between yourself spread over time" + "we talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineer­ing there, these are all best practices, and these are things that have shown to be helpful in the past, but really are only helpful when people are making certain classes of mistakes" + daily code reviews + the code you write may well exist a decade from now
+[John Carmack discusses the art and science of software engineering](//blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/):
+> "It’s about social interactions between the programmers or even between yourself spread over time"
+> "We talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineer­ing there,
+> these are all best practices, and these are things that have shown to be helpful in the past, but really are only helpful when people are making certain classes of mistakes"
+> + daily code reviews + the code you write may well exist a decade from now
+
+On repo structure, _cf_. [WhyYouShouldUseAMonorepo] & [We’ll Never Know Whether Monorepos Are Better]
 
 ### Performance-oriented design advices
 - Data/Object anti-symetry : both have different use-cases [CC-Chapt6]
@@ -283,9 +298,7 @@ and advanced (Technological Judgment, Compromising Wisely, Serving Your Team) pr
 ## Design principles
 where "Design" = Architecture / Organisation of the software logic
 
-SE = software entity : class, module, function...
-
-SOLID:
+**SOLID** (SE = software entity : class, module, function...) :
 - Single Responsability Principle : every SE should have a single responsibility, and that responsibility should be entirely encapsulated by the SE
     Aka Common Closure Principle : any change to the software should only have a very local impact
 - Open/Closed Principle : SE should be open for extension, but closed for modification
@@ -301,9 +314,6 @@ DTO/DAO:
 
 CQRS pattern = [CommandQueryResponsibilitySegregation] : split the code & logic between the Query path (DB -> UI) & Command path (UI -> DB)
 
-POLA = Principle of least astonishment (or surprise => POLS) : "People are part of the system. The design should match the user's experience, expectations, and mental models.
-    If a necessary feature has a high astonishment factor, it may be necessary to redesign the feature."
-
 [DesignPatternForHumans] : Ultra-simplified explanation to design patterns
 
 [SystemDesignPrimer]: how to design large-scale systems, with diagram-based examples
@@ -315,7 +325,7 @@ NoSQL: Key-value store / Document store / Wide column store / Graph Database
 
 cf. also [DistributedSystemsAndTheEndOfTheAPI]
 
-useful tool to draw architecture diagrams: [yEd](https://www.yworks.com/products/yed) (used at oui.sncf)
+useful tool to draw architecture diagrams: [yEd](https://www.yworks.com/products/yed) - [draw.io](https://draw.io)
 
 [Architecture Review Working Group : Multiple Perspectives On Technical Problems and Solutions]:
 > Excellent, it sounds like you have a hypothesis! We are gonna do an architecture review.
@@ -330,6 +340,12 @@ A few notes on _Domain Driven Design_ cf. [DDD vite fait]:
 - most important concept: _ubiquituous langage_, to exchange about the domain model.
 Everyone, both domain experts & devs, must be convinced of the importance of building such shared vocabulary, and idealy keep a glossary.
 - beware of _analysis paralysis_ : when teams start to be affraid to make conception decisions
+
+[Architecture hexagonale](https://github.com/voyages-sncf-technologies/architecture-hexagonale-cqrs#architecture-hexagonale) - 4 couches :
+* présentation
+* application
+* domaine
+* infrastructure
 
 [Command Line Interface Guidelines] : An open-source guide to help you write better command-line programs, taking traditional UNIX principles and updating them for the modern day.
 
@@ -398,7 +414,7 @@ cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-gen
   > REST brings some constraints, e.g. your API must be stateless (no session persistance)
   > RPC-based APIs are great for actions [while] REST-based APIs are great for modeling your domain
 
-Handling deprecation:
+Handling **deprecation**:
 - full API version change + `Sunset` or `Warning: 299 - "Deprecated API"` HTTP header
 - OpenAPI `deprecated: true`
 - `207 Multi-Status` or `410 (Gone)` if the resource disappeared
@@ -532,10 +548,6 @@ What are logs used for ?
 - Build requires more than one step [CC-E1]
 - Tests require more than one step [CC-E2]
 - Build is too long to complete
-
-On repo structure, _cf_. [WhyYouShouldUseAMonorepo] & [We’ll Never Know Whether Monorepos Are Better]
-
-> There’s no way to measure productivity in software, so there’s no way to know whether controversial, expensive “productivity enhancing” projects actually deliver on their promise, even in hindsight.
 
 ### Tests
 - F.I.R.S.T tests : Fast Independent Repeatable Self-Validating Timely (written just before prod code) [CC-Chapt9]

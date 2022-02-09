@@ -87,6 +87,7 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 - [kroki](https://kroki.io) : HTTP API to create diagrams from textual descriptions, with support for BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag, PacketDiag, RackDiag), BPMN, Bytefield, C4 (with PlantUML), Ditaa, Erd, Excalidraw, GraphViz, Mermaid, Nomnoml, Pikchr, PlantUML, SvgBob, UMLet, Vega, Vega-Lite, WaveDrom...
 - [ditaa](http://ditaa.sourceforge.net/) : ascii-art to images (Java) -> ne supporte pas les accents :(
 - [blampe/goat](https://github.com/blampe/goat) : render ASCII art as SVG diagrams (Go)
+- [Diagon](https://github.com/ArthurSonzogni/Diagon) : Markdown-style expression to ASCII-art - C++ with CLI & web interface
 - [ivanceras/svgbobrus](https://github.com/ivanceras/svgbobrus) : convert ascii diagram scribbles into SVG (Rust)
 - [gliffy](https://www.gliffy.com/examples/) : online, proprietary code
 

@@ -1505,7 +1505,7 @@ if __name__ == '__main__': # to launch a small WSGI server directly, without uws
     from wsgiref.simple_server import make_server
     make_server('localhost', 8088, application).serve_forever()
 
-saimn/sigal # simple static gallery generator
+saimn/sigal # simple static gallery generator like MinigalNano /files.gallery: https://chezsoi.org/shaarli/shaare/k7TT8Q
 
 make html # Pelican static HTML files generation, using Jinja2 templates
 make serve # preview Pelican articles in localhost, with optional autoreload on edit (devserver)

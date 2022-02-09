@@ -408,3 +408,4 @@ Google PageSpeed
 GT Metrix
 Webpagetest
 BoomerangJS
+https://github.com/mrdoob/stats.js  // JS Performance Monitor 

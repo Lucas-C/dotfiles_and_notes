@@ -136,6 +136,7 @@
 - https://learnbyexample.gitbooks.io/python-basics/
 - http://shf.github.io/Python-Workshop/
 - https://trypython.jcubic.pl/
+- https://www.hackinscience.org (FR, challenges, + emploi de friendly-traceback, conçu par l'AFPY)
 - [Python projects-based-learning](https://github.com/tuvtran/project-based-learning/blob/master/README.md#python)
 - [Reddit learnpython top resources of the year](https://www.reddit.com/r/learnpython/top/?t=year)
 - logic puzzle: https://enigmes-a-thematiques.fr/front/enigme/2433
