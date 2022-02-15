@@ -152,6 +152,8 @@ assoc .py :: get the description of a file extension / protocol
 ftype http=... :: associate program with file extension / protocol
 SetUserFTA / GetUserFTA / SetDefaultBrowser :: for Windows 10 - cf. http://kolbi.cz/blog/?p=346
 
+https://storage.googleapis.com/downloads.webmproject.org/releases/webp/WebpCodecSetup.exe  // provide webp thumbnails in explorer
+
 "L'ordinal 459 est introuvable dans la bibliothèque de liens dynamiques urlmon.dll" -> uninstall MAJ KB2847204
 
 

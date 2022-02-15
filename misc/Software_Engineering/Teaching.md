@@ -4,18 +4,21 @@
 
 <!-- toc -->
 
-- [Stages of learning](#stages-of-learning)
+- [Learning & teaching](#learning--teaching)
 - [TP / Code katas](#tp--code-katas)
-    * [Javascript](#javascript)
+    * [Javascipt](#javascipt)
+    * [Shell](#shell)
     * [Python](#python)
 - [Online platforms](#online-platforms)
+    * [Tools & platforms to write docs / tutorials / practical exercises](#tools--platforms-to-write-docs--tutorials--practical-exercises)
 
 <!-- tocstop -->
 
 ## Learning & teaching
 - shaarli tags: [Enseignement](https://chezsoi.org/shaarli/?searchtags=Enseignement) & [Learning](https://chezsoi.org/shaarli/?searchtags=Learning)
 - Stages of learning: [Shu Ha Ri](https://en.wikipedia.org/wiki/Shuhari) du judo / Di Ren Tian du wushu
-- https://github.com/romulomourao/awesome-courses
+- https://github.com/romulomourao/awesome-courses : list of educational websites, YouTube playlists, channels and books about programming
+- https://github.com/jwasham/coding-interview-university : a complete computer science study plan to become a software engineer
 
 ## TP / Code katas
 * Algorithm-based Interview Questions: https://www.careercup.com/page?sort=votes

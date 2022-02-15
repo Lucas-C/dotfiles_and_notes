@@ -207,9 +207,37 @@ curl -v -u "$username:$password" https://${HOST}/v1/repos/${REPO_NAME}.git/info/
 Git bomb: https://kate.io/blog/making-your-own-exploding-git-repos/
 
 
-@#~#~#~#@
-~ GitHub
-@#~#~#~#@
+@#~#~#~#~#~#~#~#~#@
+~ Gitlab & GitHub ~
+@#~#~#~#~#~#~#~#~#@
+http://gitlab/api/v3/users?per_page=100&page=10&private_token=$api_token # users list
+http://gitlab/api/v3/projects/dwm-tools%2Fcss-tools/members?private_token=$api_token # project members - Alt: /groups/ - acces_level meanings: https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md
+
+https://github.com/explore
+https://github.com/notifications
+https://github.com/issues
+https://github.com/pulls
+https://github.com/$user/$repo/compare/$tag...master # list commits between 2 versions
+
+curl 'https://api.github.com/repos/Lucas-C/linux_configuration/commits?per_page=100&page=4' | jq -r '.[].sha' # GitHub API usage example
+curl -H 'Accept: application/vnd.github.3.raw' 'https://api.github.com/repos/evanbrumley/spyfall/contents/spyfall/i18n/fr.i18n.json' # "for unauthenticated requests, the rate limit is 60 requests per hour"
+
+path: # specify a path during a SEARCH, ex: https://github.com/python/cpython/search?q=assertRaises+path%3ALib%2Funittest
+#L53-L60 -> lines highlighting: to select ranges, hold shift before clicking
+Add ?w=1 to the URL to see the diff with whitespace ignored
+
+Keyboard shortcuts:
+* s -> focus the search bar
+* t -> repo files search
+* l -> jump to a code line
+
+Any of the keywords fix/fixes/fixed, close/closes/closed or resolve/resolves/resolved, followed by the issue number, will close the issue once it is committed to the master branch.
+
+Tasks lists -> displayed as checkboxes:
+- [ ] A
+  - [x] B
+  - [ ] C
+
 # Checkout GitHub pull requests locally: add the following line in corresponding .git/config section - FROM: https://gist.github.com/piscisaureus/3342247
 [remote "origin"]
     fetch = +refs/pull/*/head:refs/remotes/origin/pr/*

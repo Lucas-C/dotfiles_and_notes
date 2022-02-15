@@ -1055,38 +1055,6 @@ sed -n 's/.*\(Key<\/b>: http[^<]*\).*/\1\n/p' ???????? > urls
 Simulate throttling: Network tab > Regular 3G
 
 
-g@g@g@g@g@g@g@g@g
-@ gitlab & github
-g@g@g@g@g@g@g@g@g
-http://gitlab/api/v3/users?per_page=100&page=10&private_token=$api_token # users list
-http://gitlab/api/v3/projects/dwm-tools%2Fcss-tools/members?private_token=$api_token # project members - Alt: /groups/ - acces_level meanings: https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/members.md
-
-https://github.com/explore
-https://github.com/notifications
-https://github.com/issues
-https://github.com/pulls
-https://github.com/$user/$repo/compare/$tag...master # list commits between 2 versions
-
-curl 'https://api.github.com/repos/Lucas-C/linux_configuration/commits?per_page=100&page=4' | jq -r '.[].sha' # GitHub API usage example
-curl -H 'Accept: application/vnd.github.3.raw' 'https://api.github.com/repos/evanbrumley/spyfall/contents/spyfall/i18n/fr.i18n.json' # "for unauthenticated requests, the rate limit is 60 requests per hour"
-
-path: # specify a path during a SEARCH, ex: https://github.com/python/cpython/search?q=assertRaises+path%3ALib%2Funittest
-#L53-L60 -> lines highlighting: to select ranges, hold shift before clicking
-Add ?w=1 to the URL to see the diff with whitespace ignored
-
-Keyboard shortcuts:
-* s -> focus the search bar
-* t -> repo files search
-* l -> jump to a code line
-
-Any of the keywords fix/fixes/fixed, close/closes/closed or resolve/resolves/resolved, followed by the issue number, will close the issue once it is committed to the master branch.
-
-Tasks lists -> displayed as checkboxes:
-- [ ] A
-  - [x] B
-  - [ ] C
-
-
 =\/=/\=\/=/\=\/=
 =  Virtualbox
 =\/=/\=\/=/\=\/=
@@ -1239,24 +1207,6 @@ Answer to the Ultimate Question of Life, the Universe, and Everything
 https://www.google.com/imghp : atari breakout
 
 
-{[{[{[{[{[{[{[{
- 'AWS': "cli"
-}]}]}]}]}]}]}]}
-# Alt: achiku/jungle, donnemartin/saws
-aws configure # eu-west-1
-aws iam list-user-policies --user-name $USER # Also: aws iam list-roles
-aws s3 cp $file s3://$USER-pail/ # Other cmds: mb rb ls rm mv
-# AWS Lambda - mostly from http://alestic.com/mt/mt-search.cgi?blog_id=1&tag=AWS%20Lambda
-aws lambda list-functions
-aws lambda invoke-async --function-name $function --region us-east-1 --invoke-args inputfile.json --debug
-aws logs describe-log-groups --region us-east-1
-log_group_name=/aws/lambda/$function
-log_stream_names=$(aws logs describe-log-streams --region us-east-1 --log-group-name "$log_group_name" --output text --query 'logStreams[*].logStreamName')
-for stream in $log_stream_names; do
-    aws logs get-log-events --region us-east-1 --log-group-name "$log_group_name" --log-stream-name "$stream" --output text --query 'events[*].message'
-done | less
-
-
 /./././
  /irc
 /./././
@@ -1298,24 +1248,6 @@ http://weechat.org/files/temp/scripts/hdata.py # install with '/python load hdat
 <CTRL>+<SHIFT>+1 : add icon
 <CTRL>+3 : node color
 <CTRL>+<SHIFT>+3 : node background color
-
-
-)o)o)o)o)o
-) Heroku
-)o)o)o)o)o
-heroku login
-heroku create
-heroku logs -t # --ps worker.1
-Procfile # web: gunicorn gettingstarted.wsgi --log-file -
-heroku ps # list running dynos
-heroku releases # deployments log
-foreman start web # local run, once deps are installed
-heroku addons:open papertrail # CLI: heroku plugins:install https://github.com/papertrail/papertrail-heroku-plugin
-heroku run python manage.py shell
-heroku run bash
-heroku config # can be defined in .env
-heroku pg # PostgreSQL terminal summary dashboard
-heroku pg:psql
 
 
 [~~][~~][~~][~~]

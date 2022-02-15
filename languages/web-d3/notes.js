@@ -1,11 +1,8 @@
 data:text/html, <html contenteditable> // quick notepad
-
-// In Firefox Web Console
-javascript:alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
-javascript:window.print()
 document.body.contentEditable='true'; // makes everything editable (IE: document.designMode='on')
 
-$$("#articleContent ul li").length
+alert(document.lastModified) // last page update (can be current time if page has dynamic elements)
+window.print() // open browser print window
 
 console.time('myTime') / console.timeEnd('myTime') // for quick benchmarks
 console.table(array) // display array of objects as a nice table in browser console
@@ -54,9 +51,6 @@ function cssRules(){
     return rules;
 };
 cssRules()['.class'].style.X = Y
-
-$._data($(elem).get(0), "events") // get events binded to 'elem' in jQuery
-tipsy // Facebook style tooltips for jQuery
 
 format = function (string) { // Provide both {0} & {keyword} substitutions, '<C3><A0> la Python' - Alt: _.template
     var output = string,
@@ -236,14 +230,15 @@ new, with // NEVER use them as variables ! They're reserved keywords
 //~\~\~\\
 // LIBS \\
 //~\~\~\~\\
-"use strict";
+$._data($(elem).get(0), "events") // get events binded to 'elem' in jQuery
+tipsy // Facebook style tooltips for jQuery
 
 asm.js // static subset of JS, can be compiled ahead, include static typing - Rarely hand-written: C++ -> LLVM bytecode -> asm.js
 
 ParallelJS // .mapPar() .filterPar() .reducePar()
 
 hex_md5('string') // crypt/md5.js
-// davidshimjs/qrcodejs
+davidshimjs/qrcodejs
 
 lazy.js, lodash > underscore.js // Functional prog libs
 Immutable // Facebook JS lib

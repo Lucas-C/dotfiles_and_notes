@@ -1248,6 +1248,7 @@ wxPython # port of C++ wxWidgets
 ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - Alt: cztomczak/cefpython
 curses # terminal dialogs/interface - Ex: https://gist.github.com/claymcleod/b670285f334acd56ad1c
 PySide2 # access to the complete Qt 5.12+ framework
+pywebview # lightweight cross-platform wrapper around a webview component to display HTML content in its own native GUI window - "packagable" with pyinstaller
 
 pytesseract.image_to_string
 JaidedAI/EasyOCR
