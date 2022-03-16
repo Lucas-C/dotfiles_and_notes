@@ -826,6 +826,7 @@ pytest -k "$(tq failure -p -a name < results.xml | awk 'NR>1{print(" or ")} {pri
     pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
     pytest-play # REST APi testing based on YAMLs files
     pytest-icdiff # better, colored diffs in pytest assertion error messages using ICDiff
+    pytest-watch # re-run tests when a file in your project changes
 airspeed velocity # designed to benchmark a single project over its lifetime using a given set of benchmarks – i.e., little snippets of code that are timed - the result data is stored in JSON files
 mschwager/memunit # check memory usage in tests
 self.assertRaisesRegexp / assertDictContainsSubset / assertAlmostEqual(expected, measured, places=7)
@@ -1211,6 +1212,7 @@ thoppe/pixelhouse # minimalist drawing library for making beautiful animations. 
 3b1b/manim # animation engine for explanatory math videos
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
 ryanfox/retread # detect reused frames in video
+smacke/ffsubsync # automagically synchronize subtitles with video, based on libs srt & py-webrtcvad (WebRTC Voice Activity Detector), or auditok (Audio Activity Detection) as a fallback
 
 imageio.mimsave('/movie.gif', images) # lib based on Numpy + Pillow, to read / write a wide range of image data, including animated images, video, volumetric data, and scientific formats
 -> can be used with pygifsicle to build GIF images, cf. https://medium.com/swlh/python-animated-images-6a85b9b68f86

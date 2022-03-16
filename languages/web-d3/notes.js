@@ -304,7 +304,11 @@ FGRibreau/check-build // includes:
     buddy.js // detect magic numbers
     depcheck : "how each dependency is used, which dependencies are useless, and which dependencies are missing from package.json" // Also: npm outdated
     Nsp // detect security vulnerabilities
-bundlephobia.com // find the cost of adding a npm package to your bundle - Alt: use tree shaking aka dead code removal
+npm update // updates package-lock.json - To update also major versions: npx npm-check-updates -u
+npm prune // removes extraneous packages
+node-prune & ModClen // remove unnecessary files from ./node_modules/ - cf. https://tsh.io/blog/reduce-node-modules-for-better-performance/
+npm-remote-ls $pkg // display the whole dependency tree of a package without installing it - Locally: npm ls --production
+bundlephobia.com // find the cost of adding a npm package to your bundle - Alt CLI: cost-of-modules --no-install - Also: use tree shaking aka dead code removal
 
 nyc (instanbul-based, inc. coverage) > karma-runner/karma > JsTestDriver > Qunit // Testing libs
 Sinon.js // test spies, stubs and mocks - framwork agnostic & no dependencies
@@ -403,4 +407,4 @@ Google PageSpeed
 GT Metrix
 Webpagetest
 BoomerangJS
-https://github.com/mrdoob/stats.js  // JS Performance Monitor 
+https://github.com/mrdoob/stats.js  // JS Performance Monitor

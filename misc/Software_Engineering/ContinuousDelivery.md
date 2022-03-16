@@ -12,8 +12,13 @@ Continuous Delivery
 - [Continuous Delivery with Containers](http://www.slideshare.net/dbryant_uk/oreillynginx-2016-continuous-delivery-with-containers-the-trials-and-tribulations) (2016)
 - [Building a Functional Puppet Workflow](http://garylarizza.com/blog/2014/02/17/puppet-workflow-part-1/)
 - [AnsibleVSSaltVSStackStorm](https://medium.com/@anthonypjshaw/ansible-v-s-salt-saltstack-v-s-stackstorm-3d8f57149368)
+- [PhoenixServer](https://martinfowler.com/bliki/PhoenixServer.html)
 
-## general tips & tricks
+## Principles
+* [PhoenixServer] by Martin Fowler:
+> The primary advantage of using phoenix servers is to avoid **configuration drift**: ad hoc changes to a systems configuration that go unrecorded.
+
+## General tips & tricks
 Waiting on a HTTP service to be up:
 
     wget --waitretry=5 --retry-connrefused -T 60 -O - $ENDPOINT

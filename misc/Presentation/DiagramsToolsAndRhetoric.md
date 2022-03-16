@@ -80,6 +80,7 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 
 - [Diagrams](https://diagrams.mingrammer.com/docs/getting-started/examples) : cloud system architectures in Python code
 - [knsv/mermaid](https://github.com/knsv/mermaid) : graphs, GANTT diagrams and flowcharts from markdown-like syntax (Javascript, requires to embed `mermaid.css` & `mermaid.min.js`)
+  Now support by GitHub!
 - [asciiflow](http://asciiflow.com/#Draw) : online + OSS (Javascript) -> https://github.com/lewish/asciiflow2
 - [mapio/GraphvizAnim](https://github.com/mapio/GraphvizAnim) : animated graph visualizations, based on graphviz (Python)
 - [draw.io](https://www.draw.io) : diagrams stored as XML, online editor, OSS (Java) -> https://github.com/jgraph/draw.io

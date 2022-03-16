@@ -605,7 +605,7 @@ echo hello | socat - udp4:127.0.0.1:5000 # send msg to server
 echo hello | nc -u -w 1 127.0.0.1 5000
 
 # Port scanning
-nmap -sS -O 127.0.0.1 # Guess OS !! Also try -A - Alt: p0f
+nmap -sS -O 127.0.0.1 # Guess OS !! Also try -A - Alt: p0f, zmap
 nmap $host -p $port --reason [-sT|-sU] # TCP/UDP scanning ; -Pn => no host ping, only scanning
 nmap -P0 -sT -p0-65535 $host # scan all TCP ports, e.g. for HTTP(s) servers
 nmap 192.168.1.* # Or 192.168.1.0/24, scan entire subnet
