@@ -3,9 +3,9 @@
 # Idea from vvdr12: https://www.reddit.com/r/glitch_art/comments/1p5mno/elephant_hill/ccyzbn1/
 # USAGE: ./steal_colors_with_same_brightness.py --palette-img edJl3YU.jpg japanified_TDZSJMs.jpg
 # REQUIRE: Pillow + optionally tqdm
-# ALTERNATIVE: Image.open('target.jpg').quantize(palette=Image.open('source.png')).save('out.png')
+# ALTERNATIVE: color_palette_copy.py
 
-import argparse
+import argparse, os
 from bisect import bisect_left # binary/dichotomic search on lists
 from PIL import Image
 from os.path import basename, dirname, join
@@ -19,8 +19,8 @@ except ImportError:  # optional dependency, simply print a X/Y ratio on each ste
 
 def main():
     args = parse_args()
-    destination_image = join(dirname(args.source_image),
-                             'colorstolen_' + basename(args.source_image))
+    basename, ext = os.path.splitext(args.source_image)
+    out_filepath = basename + '-colorstolen' + ext
 
     img = Image.open(args.source_image)
     print('Format:', img.format)
@@ -28,8 +28,8 @@ def main():
     print('Mode:', img.mode)
 
     steal_colors(img, args.palette_img)
-    print('Writing to:', destination_image)
-    img.save(destination_image)
+    print('Writing to:', out_filepath)
+    img.save(out_filepath)
 
 
 def parse_args():
