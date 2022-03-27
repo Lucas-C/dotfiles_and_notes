@@ -221,7 +221,7 @@ pre_commit_local_cache_repos () {  # Requires PyYaml & sqlite3
 
 pre_commit_db_rm_repo () {  # Requires sqlite3
     local repo=${1?'Missing parameter'}
-    local repo_path=$(sqlite3 ~/.cache/pre-commit/db.db "SELECT path FROM repos WHERE LIKE '%${repo}%';")
+    local repo_path=$(sqlite3 ~/.cache/pre-commit/db.db "SELECT path FROM repos WHERE repo LIKE '%${repo}%';")
     if [ -z "$repo_path" ]; then
         echo "No repository known for repo $repo"
         return 1

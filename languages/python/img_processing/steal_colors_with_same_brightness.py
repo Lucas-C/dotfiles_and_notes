@@ -3,6 +3,7 @@
 # Idea from vvdr12: https://www.reddit.com/r/glitch_art/comments/1p5mno/elephant_hill/ccyzbn1/
 # USAGE: ./steal_colors_with_same_brightness.py --palette-img edJl3YU.jpg japanified_TDZSJMs.jpg
 # REQUIRE: Pillow + optionally tqdm
+# ALTERNATIVE: Image.open('target.jpg').quantize(palette=Image.open('source.png')).save('out.png')
 
 import argparse
 from bisect import bisect_left # binary/dichotomic search on lists
@@ -75,7 +76,7 @@ def subst_img_colors(img, luminosity2color_palette, brightness_func):
     for j in range(height):
         for i in range(width):
             img[i, j] = luminosity2color_palette[brightness_func(img[i, j])]
-        yield 'ROW_COMPLETE' # progress tracking
+        yield 'ROW_COMPLETE' # for progress tracking
 
 
 def luminosity(pixel):

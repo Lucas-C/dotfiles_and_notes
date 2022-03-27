@@ -249,6 +249,8 @@ GitHub issues & PRs graphs for a repo : https://chezsoi.org/lucas/blog/github-pr
 
 Using the Status API to convey information directly into pull requests: https://tryexceptpass.org/article/continuous-builds-reporting-status/
 
+https://github.com/refined-github/refined-github Browser extension that simplifies the GitHub interface and adds useful features
+
 
 ++++++
 + p4 +

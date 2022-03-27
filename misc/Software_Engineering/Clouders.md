@@ -14,6 +14,11 @@
         aws logs get-log-events --region us-east-1 --log-group-name "$log_group_name" --log-stream-name "$stream" --output text --query 'events[*].message'
     done | less
 
+Alternative tools for CloudWatch logs:
+
+* [awslogs](https://github.com/jorgebastida/awslogs): simple command line tool for querying groups, streams and events
+* [cw](https://github.com/lucagrulla/cw): tail AWS CloudWatch Logs from your terminal
+
 ## Heroku
 
     heroku login
