@@ -380,6 +380,8 @@ mvn jar:jar deploy:deploy  # réalise UNIQUEMENT l'upload de l'artifact, sans re
 
 mvn exec:java -Dexec.mainClass=
 
+mvn ... --no-transfer-progress # suppress very verbose download logs: https://kthoms.wordpress.com/2022/01/07/suppressing-maven-download-messages-with-maven-wrapper/
+
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-antrun-plugin</artifactId>

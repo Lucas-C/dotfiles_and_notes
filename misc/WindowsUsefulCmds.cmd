@@ -153,6 +153,7 @@ ftype http=... :: associate program with file extension / protocol
 SetUserFTA / GetUserFTA / SetDefaultBrowser :: for Windows 10 - cf. http://kolbi.cz/blog/?p=346
 
 https://storage.googleapis.com/downloads.webmproject.org/releases/webp/WebpCodecSetup.exe  // provide webp thumbnails in explorer
+https://www.cherubicsoft.com/en/projects/sagethumbs/ :: alternative explorer.exe thumbnails generator that also support .tga files
 
 "L'ordinal 459 est introuvable dans la bibliothèque de liens dynamiques urlmon.dll" -> uninstall MAJ KB2847204
 

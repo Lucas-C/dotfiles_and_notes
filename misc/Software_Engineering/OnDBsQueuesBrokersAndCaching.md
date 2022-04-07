@@ -73,6 +73,7 @@ sripathikrishnan/redis-rdb-tools: parse Redis dump.rdb files, Analyze Memory, an
 
 twitter/twemproxy # fast, light-weight proxy for memcached and Redis
 psobot/till # cache server for immutable, time-limited object storage providing a HTTP interface
+bee-queue # fast & robust job/task queue for Node.js, like Celery for Python
 
 https://www.compose.com/articles/how-to-talk-raw-redis/
 

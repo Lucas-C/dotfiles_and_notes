@@ -24,6 +24,7 @@
 - [Reveal.js](https://revealjs.com) & [Impress.js](https://github.com/impress/impress.js/) & [DZSlides](http://paulrouget.com/dzslides/) & [Eagle.js](https://github.com/Zulko/eagle.js)
     * extra Reveal.js themes : [by jefBinomed aka JF Garreau](https://github.com/binomed/binomed_docs/tree/master/Prez)
     * WebComponent to hightlight parts of the screen, like code: https://github.com/binomed/mask-highlighter
+    * let audience vote during your presentation through SMS (or an online form) and display graphs: [Choose Your Own Adventure Presentations with Python & WebSockets](https://www.twilio.com/blog/2014/11/choose-your-own-adventure-presentations-with-reveal-js-python-and-websockets.html)
 - [MathJax JS](https://www.mathjax.org)
 - [pandoc](http://pandoc.org) : swiss-army knife that can convert documents in Markdown, reStructuredText, textile, HTML, DocBook, LaTeX, MediaWiki markup, TWiki markup, OPML, Emacs Org-Mode, Txt2Tags, Microsoft Word docx, LibreOffice ODT, EPUB...
 - [JupyterLab](https://jupyter.org) : a web-based interactive development environment for Jupyter notebooks, code, and data
@@ -115,7 +116,7 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 - <https://plot.ly> examples: https://plot.ly/javascript/histograms/
 
 
-# Command-line tips & tricks for demos
+## Command-line tips & tricks for demos
 
 - use & abuse shell history command search : `CTRL`+`R`
   * make your you keep enough history: put `export HISTSIZE=20000` in your `.bashrc`
@@ -138,21 +139,21 @@ set completion-ignore-case on
 ```
 
 
-# Rhetoric
-- Tell STORIES to inspire your audience and make them better remember what you said
-- [The smackdown learning model](http://blog.codinghorror.com/in-defense-of-the-smackdown-learning-model/)
-- [Arguments rhétologiques fallacieux](http://www.informationisbeautiful.net/visualizations/rhetological-fallacies/arguments-rhetologiques-fallacieux/)
-- [Which Online Discussion Archetype Are You](http://blog.codinghorror.com/which-online-discussion-archetype-are-you/)
-- [Bingo du troll](https://grisebouille.net/le-bingo-du-troll/)
-- [American Chopper Meme](https://www.vox.com/2018/4/10/17207588/american-chopper-meme):
-  * > Each panel comes complete with text, and makes for a mini debate — proposition, rebuttal, reaffirmation, second rebuttal, and a final statement.
-  * > the Chopper offers a lighthearted way to demonstrate that you actually understand the viewpoints of people on both sides of an issue
-  * > The meme functions, in this sense, as a miniature version of one of Plato’s dialogues.
-    > Rather than a conventional prose argument, in these books, Plato gives us drama.
-    > The dialogue format makes the line of argument more memorable and allows for the simultaneous presentation of a clear thesis and a deeper understanding of the issues.
+# How to give presentations
+- Tell STORIES to inspire your audience and make them better remember what you said,
+  _cf._ [Why Telling a Story is the Most Powerful Way to Activate Our Brains](https://lifehacker.com/the-science-of-storytelling-why-telling-a-story-is-the-5965703)
+- [You Suck At PowerPoint! by @jessedee](https://www.slideshare.net/jessedee/you-suck-at-powerpoint)
+  Mistakes to avoid:
+  1. too much info
+  2. not enough visuals
+  3. crap quality
+  4. visual vomit
+  5. lack of prep
+- [The smackdown learning model](http://blog.codinghorror.com/in-defense-of-the-smackdown-learning-model/):
+  add heat & controversy to your presentations!
+  **Ex:** Presentation Smackdown: 2 presenters, 2 frameworks, 1 guy with the big bell.
 
 ## Benjamin G. advices
-
 - always **rehearse with someone**
 - always prepare **a commands cheat-sheet**
 - **do not think about people reading your slides later**: you will bloat them with too many words
@@ -163,3 +164,15 @@ set completion-ignore-case on
 - avoid too many bullet points list
 - 20min talk ? -> no need to display the plan
 - slides titles are not always necessary
+
+
+# Rhetoric
+- [Arguments rhétologiques fallacieux](http://www.informationisbeautiful.net/visualizations/rhetological-fallacies/arguments-rhetologiques-fallacieux/)
+- [Which Online Discussion Archetype Are You](http://blog.codinghorror.com/which-online-discussion-archetype-are-you/)
+- [Bingo du troll](https://grisebouille.net/le-bingo-du-troll/)
+- [American Chopper Meme](https://www.vox.com/2018/4/10/17207588/american-chopper-meme):
+  * > Each panel comes complete with text, and makes for a mini debate — proposition, rebuttal, reaffirmation, second rebuttal, and a final statement.
+  * > the Chopper offers a lighthearted way to demonstrate that you actually understand the viewpoints of people on both sides of an issue
+  * > The meme functions, in this sense, as a miniature version of one of Plato’s dialogues.
+    > Rather than a conventional prose argument, in these books, Plato gives us drama.
+    > The dialogue format makes the line of argument more memorable and allows for the simultaneous presentation of a clear thesis and a deeper understanding of the issues.
