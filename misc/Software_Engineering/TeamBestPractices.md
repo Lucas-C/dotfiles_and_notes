@@ -257,10 +257,6 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
   * Setting boundaries & defending them
   * Estimates are not deadlines
   * Take your holidays
-- draw a technical/functional skills matrix of your team
-  Avengers-style:
-    * determine your "Dilts" role among: doer, conceptor, coordinator, systemic vision
-    * cross matrix: Team / Products / Systemic & Vision VS Roles / Skills / Aspirations
 - [What Google Learned From Its Quest to Build the Perfect Team] :
     * Two behaviors that all the good teams generally shared:
         - First, on the good teams, members spoke in roughly the same proportion. " if only one person or a small group spoke all the time, the collective intelligence declined".
@@ -552,7 +548,6 @@ It’s available as a text editor application, a web app, and even a linter, if 
     - screening for **potential** or **experience** ?
     - what methodology to use ? what answers are you looking for ?
 - [IfCompaniesInterviewedTechRecruitersTheWayTheyInterviewProgrammers]
-- [ProgrammerCompetencyMatrix]
 - [10WaysToBeABetterInterviewer] by Kate Matsudaira:
   * Review the candidate's resume
   * Review feedback from previous interviews
@@ -598,6 +593,37 @@ It’s available as a text editor application, a web app, and even a linter, if 
 > Aucune information concernant personnellement un candidat à un emploi ne peut être collectée par un dispositif qui n'a pas été porté préalablement à sa connaissance.
 - [Why Don’t Tech Companies Pay Their Engineers to Stay?]:
 > The hard truth that many companies struggle to wrap their heads around is that they should be paying their long-tenured engineers above market rate. This is because an engineer that’s been working at a company for a long time will be more impactful specifically at that company than at any other company.
+
+### Matrice de compétences
+- [ProgrammerCompetencyMatrix]
+- draw a technical/functional skills matrix of your team
+  Avengers-style:
+    * determine your "Dilts" role among: doer, conceptor, coordinator, systemic vision
+    * cross matrix: Team / Products / Systemic & Vision VS Roles / Skills / Aspirations
+- objectifs :
+    * identifier de potentiels risques de truck factors dans l'équipe, afin de planifier du partage de compétence sur ces sujets
+    * exprimer nos souhaits de progression dans des domaines techniques, et les attraits pour des rôles que nous pouvons avoir
+- note: cette modélisation est fondamentalement limitée : il est bien sûr impossible de capturer sous ce format l'intégralité des domaines de compétence de chacun.
+  Il est simplement accepté que cet exercice peut être utile à faire émarger des actions de partage de connaissances utiles.
+- processus :
+    1. Les membres de l'équipe complètent les tableaux ci-dessous pour ajouter des compétences qui leur semble manquer
+    2. Les membres de l'équipe complètent leur colonne
+    3. La personne en charge de l'exercice analyse les résultats pour identifier les _single-man-army_,
+       ainsi que les opportunités de transmission de connaissance (lorsque les appétences apprendre/transmettre se rejoignent)
+    4. Un court point de restitution à l'équipe est organisé pour proposer du _pairing_ sur les domaines "à risque"
+- critères pour définir s'il est pertinent d'indiquer une compétence dans la matrice :
+    * est-ce qu'en l'absence de cette compétence, l'équipe serait incapable d'effectuer correctement le RUN d'un asset ?
+    * est-ce qu'en l'absence de cette compétence, une partie du "périmètre fonctionnel" (domaine) de l'équipe ne serait pas maîtrisé ?
+- légende : il encouragé d'indiquer les compétences que vous souhaitez développer, ainsi que celles que vous maîtrisez pour lesquelles vous pourriez accompagner d'autres membres de l'équipe
+    * 🟡 : pas de connaissances ou connaissances très basiques sur le sujet
+    * 🟢 : capable de contribuer, seul ou en binôme, de traiter des issues, de répondre au support
+    * ⭐ : capable de régler des bugs complexes ou des incidents, de concevoir des solutions de bout en bout, d'aider les autres.
+    * 😊 : le sujet vous intéresse et vous aimeriez en apprendre plus si l'occasion se présente
+    * 👨‍🏫 : vous pouvez aider vos camarades à en apprendre plus sur le sujet
+- calcul du **Truck Factor** (susceptibilité à la perte d'un membre de l'équipe) :
+    * ✔️ : OK, au moins 2 personnes maîtrisent
+    * ⚠️ : Attention, une seule personne maîtrise, ou aucune ne maitrise et trop peu de membres de l'équipe sont autonomes sur le sujet
+    * 🚨 : Uh oh, même sans « perturbation », l'équipe n'est pas autonome
 
 ### Outils
 - cf. https://chezsoi.org/shaarli/?searchterm=&searchtags=Recruting

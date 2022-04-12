@@ -75,6 +75,8 @@ secpol.msc &:: Security Policy Editor -> can for example gives permision to a us
 rundll32 sysdm.cpl,EditEnvironmentVariables &:: user env variables
 rundll32 "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ImageView_Fullscreen $path_to_img_without_quotes &:: Open Windows Image Viewer
 reg query $key :: get registry key value
+pnputil.exe /enum-devices /connected
+pnputil.exe /disable-device %DID% && pnputil.exe /enable-device %DID%
 
 upx -9 my_homemade_cmd.exe &:: executable packer/compressor/optimizer
 
