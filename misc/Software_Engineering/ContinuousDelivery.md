@@ -66,8 +66,6 @@ source /appl/usljksu1/.jenkins/shiningpanda/jobs/17bf94c9/virtualenvs/d41d8cd9/b
 export LD_LIBRARY_PATH=/appl/usljksu1/.jenkins/shiningpanda/jobs/17bf94c9/virtualenvs/d41d8cd9/lib
 ```
 
-API JSON: `$JENKINS_URL/api/json?depth=1&pretty=true`
-
 Get plugins versions from `/script` console:
 ```
 Jenkins.instance.pluginManager.plugins.each{
@@ -85,6 +83,16 @@ Equivalent of `docker.image($img).inside($args) {}` in CLI: (cf. https://github.
 ```
 docker run -it -w $PWD -v $PWD:$PWD $args $img sh script.sh
 ```
+
+### HTTP API
+* described at `$JENKINS_URL/api/` - Example in JSON: `$JENKINS_URL/api/json?depth=1&pretty=true`
+* permissions details: https://www.jenkins.io/doc/book/security/access-control/permissions/
+* basic curl to display version as HTTP header: `curl -vL --user $USERNAME:$TOKEN $JENKINS_URL -o /dev/null`
+* Java CLI: `java -jar jenkins-cli.jar -s $JENKINS_URL -auth $USERNAME:$TOKEN -webSocket` (download JAR from `$JENKINS_URL/jnlpJars/jenkins-cli.jar`)
+* Python lib: https://jenkinsapi.readthedocs.io/en/latest/index.html
+  Example usage: https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/jenkins.py
+  Tuto to crawl jobs: https://chezsoi.org/lucas/blog/using-python-requests-futures-to-crawl-all-jobs-on-a-jenkins-4-times-faster.html
+
 
 ### Credentials
 Retrieving an encrypted secret value from `credentials.xml` -> in Groovy script window: (tip from https://stackoverflow.com/a/37683492/636849 )

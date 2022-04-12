@@ -23,6 +23,7 @@ cf. http://blog.codinghorror.com/software-development-as-a-collaborative-game/
     * [Chaos Engineering aka Resilience Testing](#chaos-engineering-aka-resilience-testing)
 - [Documentation:](#documentation)
 - [Recruiting / recrutement](#recruiting--recrutement)
+    * [Matrice de compétences](#matrice-de-compétences)
     * [Outils](#outils)
     * [Language-based question](#language-based-question)
 
@@ -596,25 +597,24 @@ It’s available as a text editor application, a web app, and even a linter, if 
 
 ### Matrice de compétences
 - [ProgrammerCompetencyMatrix]
-- draw a technical/functional skills matrix of your team
-  Avengers-style:
+- draw a technical/functional skills matrix of your team, Avengers-style:
     * determine your "Dilts" role among: doer, conceptor, coordinator, systemic vision
     * cross matrix: Team / Products / Systemic & Vision VS Roles / Skills / Aspirations
-- objectifs :
+- **objectifs** :
     * identifier de potentiels risques de truck factors dans l'équipe, afin de planifier du partage de compétence sur ces sujets
     * exprimer nos souhaits de progression dans des domaines techniques, et les attraits pour des rôles que nous pouvons avoir
-- note: cette modélisation est fondamentalement limitée : il est bien sûr impossible de capturer sous ce format l'intégralité des domaines de compétence de chacun.
+- **note** : cette modélisation est fondamentalement limitée : il est bien sûr impossible de capturer sous ce format l'intégralité des domaines de compétence de chacun.
   Il est simplement accepté que cet exercice peut être utile à faire émarger des actions de partage de connaissances utiles.
-- processus :
+- **processus** :
     1. Les membres de l'équipe complètent les tableaux ci-dessous pour ajouter des compétences qui leur semble manquer
     2. Les membres de l'équipe complètent leur colonne
     3. La personne en charge de l'exercice analyse les résultats pour identifier les _single-man-army_,
        ainsi que les opportunités de transmission de connaissance (lorsque les appétences apprendre/transmettre se rejoignent)
     4. Un court point de restitution à l'équipe est organisé pour proposer du _pairing_ sur les domaines "à risque"
-- critères pour définir s'il est pertinent d'indiquer une compétence dans la matrice :
+- **critères** pour définir s'il est pertinent d'indiquer une compétence dans la matrice :
     * est-ce qu'en l'absence de cette compétence, l'équipe serait incapable d'effectuer correctement le RUN d'un asset ?
     * est-ce qu'en l'absence de cette compétence, une partie du "périmètre fonctionnel" (domaine) de l'équipe ne serait pas maîtrisé ?
-- légende : il encouragé d'indiquer les compétences que vous souhaitez développer, ainsi que celles que vous maîtrisez pour lesquelles vous pourriez accompagner d'autres membres de l'équipe
+- **légende** : il encouragé d'indiquer les compétences que vous souhaitez développer, ainsi que celles que vous maîtrisez pour lesquelles vous pourriez accompagner d'autres membres de l'équipe
     * 🟡 : pas de connaissances ou connaissances très basiques sur le sujet
     * 🟢 : capable de contribuer, seul ou en binôme, de traiter des issues, de répondre au support
     * ⭐ : capable de régler des bugs complexes ou des incidents, de concevoir des solutions de bout en bout, d'aider les autres.
