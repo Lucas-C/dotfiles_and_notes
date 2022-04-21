@@ -152,6 +152,8 @@ Also: https://openbadges.org
 - Contributor License Agreement Bots: https://github.com/cla-assistant/cla-assistant & https://github.com/salesforce/salesforce-cla
 - use Github tags to welcome & attract newcomers: `first-timers-only` `trivial` `beginner` `easy pick` `good first issue` `good-first-bug` `starter` `easy fix` `new contributor` `up-for-grabs` `your-first-pr`
     * bonus: reference your project on http://up-for-grabs.net & https://www.codetriage.com & badge http://www.firsttimersonly.com
+- [GitHub repo social media preview](https://docs.github.com/en/github-ae@latest/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview)
+- [techgaun/active-forks](https://github.com/techgaun/active-forks): find the most active forks of a repository
 
 
 ### Gitlab

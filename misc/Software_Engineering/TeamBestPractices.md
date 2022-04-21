@@ -446,7 +446,7 @@ Liens utiles:
     * **Sharing**: sharing knowledge & practices, including successes & failures, learn from each other's experiences, proactively communicate, shadowing & pairing on tasks
 
 ### Post-mortems
-- trying to orgize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
+- trying to organize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
 - PIE = Probability of recurrence * Impact of recurrence * Ease of addressing - cf. [PostMortemsPIEIndicator]
 - planning for a future where we're as stupid as we are today [5WhysWithHumansNotRobots]
 - [No, seriously. Root Cause is a Fallacy.]: because our systems are complex, there is never really a single unique root cause

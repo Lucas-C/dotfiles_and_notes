@@ -102,9 +102,64 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 ## UML
 - [nomnoml](http://www.nomnoml.com) : pretty UML diagrams based on a textual description
 - [UMLet](http://www.umlet.com) : open-source, diagrams can be export to eps, pdf, jpg, svg + new web-based UMLet: called [UMLetino](http://www.umlet.com/umletino)
-- [PlantUML](http://plantuml.com) -> conversion to PNG or SVG (Java):
+- [PlantUML](http://plantuml.com) -> conversion to PNG or SVG (Java) - [online editor](http://www.plantuml.com/plantuml/uml/):
 
     java -jar plantuml.jar -tsvg -nometadata diagram.plantuml.txt
+
+```uml
+@startuml
+skinparam defaultTextAlignment center
+
+artifact component1 as "Composant #1" {
+    queue component1Queue as "Notifs" #YellowGreen
+    boundary component1api as "REST API #1"
+}
+collections collec1 #YellowGreen [
+    <b>MacroService #1</b>
+    Kubernetes
+]
+collections collec2 #YellowGreen [
+    <b>MacroService #2</b>
+    Kubernetes
+]
+
+component service1 as "MicroService #1"
+control Cron as cron
+
+component service2 as "MicroService #2"
+
+queue queue1 as "Queue (Event BUS)" #Beige
+
+queue1 -> collec2
+
+boundary api1 as "Websocket API" #Beige
+
+database db1 #SkyBlue [
+    <b>Database #1</b>
+    ----
+    Dynamodb
+]
+boundary api2 as "REST API #2" #SkyBlue
+
+folder folder1 as "S3 bucket" #Violet
+
+cron --> service1
+service1 -u-> component1api : pull
+service1 --> db1
+service1 --> queue1 : push
+
+component1api ---> collec1 : push
+collec1 --> db1
+collec1 --> queue1
+queue1 --> service2
+
+folder1 -u-> api2 : pull
+api2 -u-> db1
+api1 -> folder1 : push
+service2 ---> api1 : consume
+
+@enduml
+```
 
 ## Sequence diagrams
 - [WebSequenceDiagrams](https://www.websequencediagrams.com/embedding.html) : recommended by the IETF (web API)

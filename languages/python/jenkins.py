@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Basic script to demonstrate connexion to the HTTP API of a Jenkins server, even without admin permissions.
+# INSTALL: pip install jenkinsapi
 # USAGE:
 #   export COOKIE=JSESSIONID.abcdef1234=node0123456789abcdef.node0
 #   ./jenkins_api.py $JENKINS_URL
@@ -30,13 +31,13 @@ def main():
     print('jenkins.version=', jenkins.version)
 
     print('Listing agent nodes:')
-    for node in jenkins.nodes.values():
+    for node in jenkins.nodes.values():  # requests $JENKINS_URL/computer/api/json
         # All Node available methods: https://github.com/pycontribs/jenkinsapi/blob/master/jenkinsapi/node.py#L201
         print(f'- {node}: num_executors={node.get_num_executors()} online={node.is_online()} {node.offline_reason()}')
         print(f'  labels: {" ".join(l["name"] for l in node._data["assignedLabels"])}')
 
     print('Now trying to list plugins (admin permissions required):')
-    for plugin in jenkins.plugins.values():
+    for plugin in jenkins.plugins.values():  # requests $JENKINS_URL/pluginManager/api/json?depth=1
         print(f'- Short Name: {plugin.shortName}')
         print(f'  Long Name: {plugin.longName}')
         print(f'  Version: {plugin.version}')
