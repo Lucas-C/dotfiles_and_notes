@@ -281,6 +281,7 @@ connect().use(serveStatic(__dirname)).listen(8080);
 
 bottleneck, request-rate-limiter // rate limiters
 yammer/circuit-breaker-js // Hystrix-like circuit breaker for JavaScript
+pm2 // production process manager for Node.JS: https://pm2.keymetrics.io - Monitoring, watch & reload code & configuration, cluster mode...
 
 var fs = require("fs"); // Node.js
 fs.readFileSync('./input.txt').toString().split('\n').forEach(function (line) {
@@ -403,8 +404,9 @@ But the plugin works great ! Demo:
 /*******
  Perfs
 *******/
-Google PageSpeed
+https://pagespeed.web.dev (Google)
+https://speedvitals.com
+https://www.webpagetest.org
 GT Metrix
-Webpagetest
 BoomerangJS
 https://github.com/mrdoob/stats.js  // JS Performance Monitor

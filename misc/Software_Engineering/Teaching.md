@@ -20,6 +20,22 @@
 - https://github.com/romulomourao/awesome-courses : list of educational websites, YouTube playlists, channels and books about programming
 - https://github.com/jwasham/coding-interview-university : a complete computer science study plan to become a software engineer
 
+### Pédagogie, méthodologies
+* "Méthode singapourienne" (_Demain, l'école_ - documentataire de Frédéric Castaignede - 2018) :
+> Selon les théories de l'apprentissage, les enfants apprennent les maths de plusieurs façons.
+> Ils apprennent toujours en **faisant**.
+> Ce n'est pas une opinion : c'est une théorie de **Jerome Bruner**
+> Ils apprennent aussi en parlant, en discutant avec leurs amis et en s'amusant.
+> C'est une théorie de **Piaget**, qui a aussi dit: ne les pressez pas, accompagnez toujours l'enfant.
+> Les élèves ont besoin de **temps** pour assimiler les idées complexes.
+* Recommendation :
+> Laissez les élèves discuter 20min en petits groupes du concept qui vient d'être présentée,
+> puis avec le reste de la classe sous la direction du professeur.
+* Approche : **glissement progressif du concret vers l'abstrait**
+* Approche : **méthode de la classe inversée** = l'élève regarde le cours à la maison ou au CDI
+  sous forme de courtes vidéos (capsules) fournies par le professeur.
+  Il va a son propre rythme et est ensuite aidé par le professeur pour les exercices en classe.
+
 ## TP / Code katas
 * Algorithm-based Interview Questions: https://www.careercup.com/page?sort=votes
 * https://coderdojo.com/fr-FR/

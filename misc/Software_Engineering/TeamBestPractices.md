@@ -63,7 +63,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Alarm design: From nuclear power to WebOps](http://humanisticsystems.com/2015/10/16/fit-for-purpose-questions-about-alarm-system-design-from-theory-and-practice/)
 - [Climbing out of the software death spiral](http://tinyletter.com/programming-beyond-practices/letters/beginning-to-climb-out-of-the-software-death-spiral)
 - [Interviewing is broken](http://www.stilldrinking.org/interviewing-is-broken)
-- [What Google Learned From Its Quest to Build the Perfect Team](http://www.nytimes.com/2016/02/28/magazine/what-google-learned-from-its-quest-to-build-the-perfect-team.html?_r=0)
+- [What Google Learned From Its Quest to Build the Perfect Team](http://www.nytimes.com/2016/02/28/magazine/what-google-learned-from-its-quest-to-build-the-perfect-team.html)
 - [We Hire the Best, Just Like Everyone Else](http://blog.codinghorror.com/we-hire-the-best-just-like-everyone-else/)
 - [Google SREs](http://www.wired.com/2016/04/google-ensures-services-almost-never-go/)
 - [Learning Through Blameless Reviews](http://fr.slideshare.net/joelchippindale/learning-through-blameless-reviews)
@@ -118,6 +118,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Agile at 20: The Failed Rebellion](https://www.simplethread.com/agile-at-20-the-failed-rebellion/)
 - [The DevOps Phenomenon / CALMS framework](https://queue.acm.org/detail.cfm?id=3338532)
 - [Why Don’t Tech Companies Pay Their Engineers to Stay?](https://marker.medium.com/why-dont-tech-companies-pay-their-engineers-to-stay-b9c7e4b751e9)
+- [Who wrote this shit?](https://www.heltweg.org/posts/who-wrote-this-shit/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -182,6 +183,7 @@ Cons from [Why "Agile" and especially Scrum are terrible]:
 - ask people for coffee breaks (force yourself !)
 - grasp the whole architecture using [CodeVisualizationTools]
 - get along with HR and plan out-of-the-box projetcs with them that will make your team happier
+- [Who wrote this shit?]
 
 ## Coaching new hires & bringing them up to speed
 - **First**: publicly tell her/him WELCOME + invite them to have launch or have a drink

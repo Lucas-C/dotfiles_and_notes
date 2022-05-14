@@ -42,6 +42,8 @@ Example, to watch Elasticsearch native Java protocol traffic:
     $ ab -n 10 http://my.json/service | grep -F 'Time per request:'
     Time per request:       0.861 [ms] (mean)
     $ boom -n 10 http://my.json/service # Python package
+- HTTPS Tracking : every single TLS connection includes a unique session ID: https://www.hackerfactor.com/blog/index.php?/archives/957-Fully-Embracing-HTTPS.html
+> You don't even need to log in; simply connecting to an HTTPS web server is enough to establish a unique session ID
 
 ### Single Origin Policy
 

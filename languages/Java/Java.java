@@ -84,6 +84,7 @@ JSP (JavaServer Pages) is an alternative to PHP
 JavaFX / OpenJFX // bytecode compiled non-dynamic language providing GUI and app packaging
 Packr // Package .jar & assets for any distrib (most suited for GUI apps)
 Capsule // dead-Simple packaging and deployment for JVM apps
+wiverson/maven-jpackage-template // GitHub Actions template project to generate native desktop applications with jpackage + Maven + JavaFX or Swing
 
 dex2jar // Convert an Android .apk into .jar
 

@@ -162,7 +162,7 @@ and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra whi
 spotify/sparkey : simple constant key/value storage library, for read-heavy systems with infrequent large bulk inserts,
     inspired by CDB and Tokyo Cabinet : https://labs.spotify.com/2013/09/03/sparkey/
 
-[The Three DynamoDB Limits You Need to Know](https://www.alexdebrie.com/posts/dynamodb-limits/):
+[The Three AWS DynamoDB Limits You Need to Know](https://www.alexdebrie.com/posts/dynamodb-limits/):
     the item size limit; the page size limit for Query and Scan operations; and the partition throughput limits.
 
 
@@ -329,7 +329,6 @@ Stop the Windows service (e.g. installed with MySQL Workbench):
     sc interrogate MySQL57
     sc stop MySQL57
 
-
 ##### How to start a file to make it executable AND runnable with mysql < FILE.mysql
 
     /*/cat <<NOEND | mysql #*/
@@ -346,3 +345,254 @@ Stop the Windows service (e.g. installed with MySQL Workbench):
         ...
     ORDER BY
         ...;
+
+
+### Migration methods & tools
+
+[Evolutionary Database Design by Martin Fowler](https://martinfowler.com/articles/evodb.html) - Best practices:
+* DBAs collaborate closely with developers
+* All database artifacts are version controlled with application code
+* All database changes are migrations
+* Everybody gets their own database instance
+* Developers continuously integrate database changes
+* A database consists of schema and data
+* All database changes are database refactorings
+* Automate the refactorings
+* Developers can update their databases on demand
+* Clearly separate all database access code
+* Release frequently
+
+[Database Refactoring](https://databaserefactoring.com) patterns:
+* **Architecture Refactoring**: Add CRUD Methods, Add Mirror Table, Add Read Method, Encapsulate Table With View, Introduce Calculation Method, Introduce Index, Introduce Read Only Table, Migrate Method From Database, Migrate Method To Database, Replace Method(s) With View, Replace View With Methods(s), Use Official Data Source
+* **Structural Refactoring**: Drop Column, Drop Table, Drop View, Introduce Calculated Column, Introduce Surrogate Key, Merge Columns, Merge Tables, Move Column, Rename Column, Rename Table, Rename View, Replace LOB With Table, Replace Column, Replace One-To-Many With Associative Tables, Replace Surrogate Key With Natural Key, Split Column, Split Table
+* **Data Quality Refactoring**: Add Lookup Table, Apply Standard Codes, Apply Standard Type, Consolidate Key Strategy, Drop Column Constraint, Drop Default Value, Drop Non Nullable, Introduce Column Constraint, Introduce Common Format, Introduce Default Value, Make Column Non Nullable, Move Data, Replace Type Code With Property Flags
+* **Referential Integrity Refactoring**: Add Foreign Key Constraint, Add Trigger for Calculated Column, Drop Foreign Key Constraint, Introduce Cascading Delete, Introduce Hard Delete, Introduce Soft Delete, Introduce Trigger for History
+* **Transformation**: Insert Data, Introduce New Column, Introduce New Table, Introduce View, Update Data
+* **Method Refactoring**: Parameterize Methods, Remove Parameter, Rename Method, Reorder Parameters, Replace Parameter with Explicit Methods, Consolidate Conditional Expression, Decompose Conditional, Extract Method, Introduce Variable, Remove Control Flag, Remove Middle Man, Replace Literal with Table Lookup, Replace Nested Conditional with Guard Clauses, Split Temporary Variable, Substitute Algorithm
+
+> The general rule of thumb is that you make database changes independent of code changes,
+> and you always make the changes in such a way that they are compatible with the current deployed code
+> AND with the next version that you plan to roll out.
+Source: https://news.ycombinator.com/item?id=11481593
+
+[Best Practices using Flyway for Database Migrations (2018)](https://dbabulletin.com/index.php/2018/03/29/best-practices-using-flyway-for-database-migrations/) (also applies to many other tools):
+* Team Arrangement and Branching with Flyway: in case _Multiple Developers Make DB Changes_:
+    1. Each developer should work with his/her own database copy
+    2. Each developer should work in his/her own branch
+    3. Use timestamps for delta file versions instead of integers
+    4. Enable out of order migrations
+    5. Use continuous integration DB environment to merge all DB changes
+    6. Do a DB code review before merging changes to CI environment (trunk)
+    7. If feasible, combine multiple changes from different branches into one delta file
+* Idempotent delta scripts
+* Baseline
+* Flyway Configuration using Spring Boot
+* Flyway and H2 Unit Tests
+* Versioned and Repeatable Migrations
+> Repeatable migrations are useful in the following situations:
+> * Rebuilding indexes, views and stored procedures.
+> * Adding permissions
+> * Other maintenance tasks
+* Dealing with Hotfixes
+* Multiple Instances with Flyway
+* Manage Multiple Schemes or Shards with Flyway
+* Flyway in Production:
+    1. make sure you **baseline your production database**
+    2. **disable the Clean command**
+    3. **enable out-of-order migrations** to allow hotfixes
+    4. consider a **dedicated connection string** for your Flyway migrations
+    5. decide if **your application will trigger Flyway migrations**, or your DBA will run it manually from command line
+* Dry Runs
+* Rollback of Flyway Migrations
+* Flyway Log
+
+#### FlyWay
+
+https://flywaydb.org/
+
+> With Flyway all changes to the database are called **migrations**. Migrations can be either versioned or repeatable. Versioned migrations come in 2 forms: regular and undo.
+> By default, Flyway always wraps the execution of an entire migration within a **single transaction**.
+
+* **Project maturity/community : high** - créé en 2010 - 6.5k GitHub ⭐ - 3000+ commits - 100+ contributeurs
+* CLI : `flyway` - Installable comme package NPM : https://www.npmjs.com/package/node-flywaydb
+* stocke des métadonnées en base dans une table `flyway_schema_history`
+
+Example: `V1__Initial_version.sql`
+```sql
+CREATE TABLE car (
+    id INT NOT NULL PRIMARY KEY,
+    license_plate VARCHAR NOT NULL,
+    color VARCHAR NOT NULL
+);
+ALTER TABLE owner ADD driver_license_id VARCHAR;
+INSERT INTO brand (name) VALUES ('DeLorean');
+```
+
+**Important notes / limitations** : https://flywaydb.org/documentation/command/undo#important-notes
+
+> Undo migrations assume the whole migration succeeded and should now be undone. - Note (Lucas) : avec PostGreSQL les transactions
+> [...] an alternative approach could be to **maintain backwards compatibility between the DB and all versions of the code currently deployed in production**.
+> This way the old version of the application is still compatible with the DB, so you can simply roll back the application code, investigate, and take corrective measures.
+
+⛔ La fonctionnalité undo est payante ! 😔
+
+#### LiquiBase
+
+https://docs.liquibase.com
+
+* **Project maturity/community : high** - créé en 2012 - 3.1k GitHub ⭐ - 10000+ commits - 100+ contributeurs
+* CLI : `liquibase`
+* stocke des métadonnées en base dans des tables `DATABASECHANGELOG` & `DATABASECHANGELOGLOCK`
+* supporte des **préconditions**, intègre des **quality checks** sur les migrations rédigées et permet de générer des **diffs**
+* [Best Practices Using Liquibase & usage with SpringBoot](https://reflectoring.io/database-migration-spring-boot-liquibase/#best-practices-using-liquibase)
+* le changelog peut être au format SQL, XML, JSON ou YAML :
+
+Example: `changelog`
+```sql
+--liquibase formatted sql
+
+--changeset nvoxland:1
+create table test1 (
+    id int primary key,
+    name varchar(255)
+);
+--rollback drop table test1;
+
+--changeset nvoxland:2
+insert into test1 (id, name) values (1, ‘name 1′);
+insert into test1 (id,  name) values (2, ‘name 2′);
+
+--changeset nvoxland:3 dbms:oracle
+create sequence seq_test;
+```
+
+#### Knex.JS
+
+http://knexjs.org/
+
+> **Migrations** allow for you to define sets of schema changes so upgrading a database is a breeze.
+> Migrations use a `knexfile.js`, which specify various configuration settings for the module.
+> Migrations are performed inside transactions.
+
+* **Project maturity/community : high** - créé en 2013 - 15k GitHub ⭐ - 2900+ commits - 100+ contributeurs
+* CLI : `knex migrate:make $migration_name`
+* stocke des métadonnées en base dans une table `knex_migrations`
+
+Example: `knexfile.js`
+```javascript
+exports.up = function(knex) {
+  return knex.schema
+    .createTable('users', function (table) {
+       table.increments('id');
+       table.string('first_name', 255).notNullable();
+       table.string('last_name', 255).notNullable();
+    })
+    .createTable('products', function (table) {
+       table.increments('id');
+       table.decimal('price').notNullable();
+       table.string('name', 1000).notNullable();
+    });
+};
+exports.down = function(knex) {
+  return knex.schema
+      .dropTable("products")
+      .dropTable("users");
+};
+```
+
+**Limitations** : pas de support pour les indexs full-text (issue #203) ni pour la modifications d'enums (issue #1699)
+
+#### Sequelize
+
+https://sequelize.org/docs/v6/other-topics/migrations/
+
+> A **Migration** in Sequelize is javascript file which exports two functions, up and down, that dictate how to perform the migration and undo it.
+> You define those functions manually, but you don't call them manually; they will be called automatically by the CLI.
+
+* **Project maturity/community : high** - créé en 2011 - 26k GitHub ⭐ - 9000+ commits - 100+ contributeurs
+* CLI : `npx sequelize-cli db:migrate`
+* stocke des métadonnées en base dans une table `SequelizeMeta`
+
+Example: `XXXXXXXXXXXXXX-demo-user.js`
+```javascript
+```
+
+**Limitations** :
+
+* quelques limitations sont décrites ici, mais ne concernent pas les migrations : https://medium.com/riipen-engineering/limitations-of-sequelize-f131ecf50c3a (2019)
+* ne supporte pas AWS Aurora Data API : issue #11021
+* performing updates and deletions involving nested objects is currently not possible. For that, you will have to perform each separate action explicitly - issue #11836
+
+#### dbmate
+
+https://github.com/amacneil/dbmate
+
+* **Project maturity/community : medium** - créé en 2016 - 2.5k GitHub ⭐ - 200+ commits - 25 contributeurs
+* CLI : `dbmate up`
+* stocke des métadonnées en base dans une table `schema_migrations`
+
+Example: `db/migrations/20151127184807_create_users_table.sql`
+```sql
+-- migrate:up
+create table users (
+  id integer,
+  name varchar(255),
+  email varchar(255) not null
+);
+
+-- migrate:down
+drop table users;
+```
+
+#### goose
+
+https://github.com/pressly/goose
+
+* **Project maturity/community : medium** - créé en 2013 - 2.5k GitHub ⭐ - 500+ commits - 65 contributeurs
+* CLI : `goose up`
+* stocke des métadonnées en base dans une table `goose_db_version`
+
+Example: `20170506082420_create_table_posts.sql`
+```sql
+-- +goose Up
+CREATE TABLE post (
+    id int NOT NULL,
+    title text,
+    body text,
+    PRIMARY KEY(id)
+);
+
+-- +goose Down
+DROP TABLE post;
+```
+
+#### terraform-provider-sql
+
+https://registry.terraform.io/providers/paultyng/sql/latest/docs/resources/migrate
+
+* **Project maturity/community : low** - créé en 2020 - 18 GitHub ⭐ - 44 commits - 1 contributeur
+* CLI : `terraform`
+* stocke ses métadonnées dans le state Terraform
+* les migrations non encore appliquées sont exécutées dans l'ordre où elles apparaisent dans l'IAC
+
+```terraform
+resource "sql_migrate" "db" {
+  migration {
+    up = <<SQL
+CREATE TABLE users (
+    user_id integer unique,
+    name    varchar(40),
+    email   varchar(40)
+);
+SQL
+    down = "DROP TABLE IF EXISTS users;"
+  }
+
+  migration {
+    up   = "INSERT INTO users VALUES (1, 'Paul Tyng', 'paul@example.com');"
+    down = "DELETE FROM users WHERE user_id = 1;"
+  }
+}
+```
+
+**Limitation** : le projet semble très peu actif : https://github.com/paultyng/terraform-provider-sql/pull/57

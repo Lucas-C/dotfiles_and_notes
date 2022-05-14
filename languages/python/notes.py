@@ -221,6 +221,13 @@ string.Template # $-based substitutions
 # - vinay.sajip/logutils/logutils/__init__.py:Formatter - based on http://plumberjack.blogspot.co.uk/2010/10/supporting-alternative-formatting.html
 logger = logging.getLogger(__name__)
 
+# Capturing / detecting a specific log:
+from logging.handlers import BufferingHandler
+log_handler = BufferingHandler(capacity=100)
+logger.addHandler(log_handler)
+...  # call code that generates logs
+print(log_handler.buffer)  # list of LogRecord
+
 from logging_tree import printout  # from logging_tree package
 printout()  # print out the details of the current logging configuration.
 
@@ -1220,7 +1227,7 @@ neozhaoliang/pywonderland/blob/master/src/wilson/maze.py # example of GIF genera
 
 cairo # graphics library outputting .ps .pdf .svg & more
 pikepdf # edit & validate existing PDFs, using qpdf - Tuto to extract info / rotate / merge / split / add watermark / encrypt: https://realpython.com/pdf-python/ & craft_pdf_with_remote_img.py
-fpdf2 # generate PDFs from scratch - Alt: https://github.com/pmaupin/pdfrw#other-libraries - cf. https://github.com/MrBitBucket/reportlab-mirror/tree/master/docs & https://github.com/driscollis/reportlabbookcode
+fpdf2 # generate PDFs from scratch - cf. https://github.com/MrBitBucket/reportlab-mirror/tree/master/docs & https://github.com/driscollis/reportlabbookcode
 xhtml2pdf # generate PDF documents from HTML content, with automated flow control such as pagination and keeping text together - Alt: Kozea/WeasyPrint
 camelot # extract tables from PDFs - require NumPy - webapp side project: excalibur
 PyMuPDF # access links and bookmarks; render pages in raster & vector formats; search for text; extract fonts, text and images...
@@ -1236,7 +1243,7 @@ colorsys # rgb / yiq / hls / hsv conversions
 makkoncept/colorpalette # Flask app that extracts palette of dominating colors from image - heroku app available
 
 AAlib, legofy # ASCII/Lego rendering, cf. ascii_art_email.py
-fogleman/Tiling # pavages
+fogleman/Tiling # pavages - uses cairo
 nuno-faria/tiler # create an image using all kinds of other smaller images
 andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
 anishathalye/neural-style # an implementation of neural style in TensorFlow
@@ -1460,7 +1467,6 @@ awslabs/aws-lambda-powertools-python # utilities for AWS Lambda functions to eas
 # Web frameworks (from barcamp@AFPY):
 bottle # include server, only 1 file long, behind 0bin
 CherryPy # good prod WSGI server, very easy to launch - Alt: bjoern > meinheld > gunicorn > uwsgi (in terms of perfs)
-gunicorn --reload # auto-restart on files changes
 Eyepea/API-Hour # perf-oriented web APIs using AsyncIO & ujson - Alt: Sanic + uvloop, a fast drop-in replacement for asyncio ; squeaky-pl/japronto, "screaming-fast" & based on uvloop and picohttpparser
 nameko # framework for building microservices: RPC/pub-sub over AMQP, websocket RPC and subscriptions
 featherweight # transform functions into REST web services
@@ -1478,16 +1484,20 @@ Flask(__name__, static_folder='..', static_url_path='', template_folder='.') # h
     Flask-HTTPAuth # Basic, Digest and Token HTTP authentication
     mjhea0/awesome-flask # A curated list of awesome things related to Flask
     Talisman / Secure.py # add HTTP headers protecting against common webapps security issues
-tiangolo/meinheld-gunicorn-flask-docker # Docker image with Meinheld managed by Gunicorn for high-performance web applications in Flask using Python 3, with performance auto-tuning - Alt: tiangolo/uvicorn-gunicorn-docker
 Quart # like Flask, but async -> ASGI - ~3x faster than Flask - cf. https://www.metal3d.org/blog/2020/de-flask-%C3%A0-quart/
-Uvicorn # lightning-fast ASGI server implementation, using uvloop and httptools
 reddit/baseplate # library to build web services on: includes metrics, tracing, logging, configuration parsing and gevent-based Thrift and WSGI servers meant to run under Einhorn
 Django # cf. dedicated section
 pyramid # more modular alternative to Django (= Pylons project)
 + web.py # very old now, written by Aaron Swarz, used by Yandex
-WTForms # forms validation
-pyswagger # generates a Python client from a JSON formatted Swagger (Open API) schema
+
 python -m SimpleHTTPServer 8080 # --version > 3: -m http.server
+gunicorn --reload # auto-restart on files changes - Python WSGI server
+Uvicorn # lightning-fast ASGI server implementation, using uvloop and httptools
+tiangolo/meinheld-gunicorn-flask-docker # Docker image with Meinheld managed by Gunicorn for high-performance web applications in Flask using Python 3, with performance auto-tuning - Alt: tiangolo/uvicorn-gunicorn-docker
+
+WTForms # forms validation
+
+pyswagger # generates a Python client from a JSON formatted Swagger (Open API) schema - Alt: Azure/autorest
 
 # Flask tricks:
 app.logger.addHandler(file_handler)
@@ -1509,10 +1519,6 @@ if __name__ == '__main__': # to launch a small WSGI server directly, without uws
     make_server('localhost', 8088, application).serve_forever()
 
 saimn/sigal # simple static gallery generator like MinigalNano /files.gallery: https://chezsoi.org/shaarli/shaare/k7TT8Q
-
-make html # Pelican static HTML files generation, using Jinja2 templates
-make serve # preview Pelican articles in localhost, with optional autoreload on edit (devserver)
-sitemap, extract-toc, Tipue-search # plugins Pelican
 
 jstasiak/python-zeroconf  # multicast DNS service discovery - usage example: nils-werner/zget filename-based peer to peer file transfer
 pycares # asynchronous DNS resolution
@@ -1649,7 +1655,7 @@ livereload # browser automatic reloading for development - Alt: hupper for reloa
 
 filemagic, ahupp/python-magic # interfaces to libmagic file type identification, aka the "file" command under Unix : it identifies file types by checking their headers according to a predefined list of file types - Alt: commit/identify
 
-reload(module) # Python 2 only, else : importlib.reload
+reload(module) # Python 2 only, else : importlib.reload - Alt: xreload
 modulefinder # determine the set of modules imported by a script
 
 asynchat, irc, sleekxmpp, embolalia/willie # IRC/XMPP bots
@@ -1844,7 +1850,7 @@ super() # new simpler syntax !
 
 obj.__qualname__
 
-from enum import Enum, IntEnum
+from enum import Enum, IntEnum  # A very nice recipe: CoerciveEnum - https://github.com/PyFPDF/fpdf2/blob/master/fpdf/enums.py
 
 from functools import \
         singledispatch, \ @foo.register(int) def _(obj, verbose=False): ...

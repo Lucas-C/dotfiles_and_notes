@@ -38,7 +38,6 @@ Project management best practices
 - [OnUseCasesAndUserStories](http://www.batimes.com/articles/user-stories-and-use-cases-dont-use-both.html)
 - [ChooseBoringTechnology](http://mcfunley.com/choose-boring-technology)
 - [10 reasons not to adopt this new toy techno in production](https://translate.google.fr/translate?sl=auto&tl=en&js=y&prev=_t&hl=fr&ie=UTF-8&u=http%3A%2F%2Feax.me%2Favoid-new-toys%2F&edit-text=)
-- [TheFailureOfAgileAndGROWS](http://blog.toolshed.com/2015/05/the-failure-of-agile.html)
 - [Les développeurs Heisenberg](http://blog.ticabri.com/blog/2015/04/21/les-developpeurs-heisenberg/) - TL;DR Vous ne pouvez pas observer un développeur sans en altérer son comportement.
 - "flow-breaking interruptions & effectiveness of an org / number of engineers devoted to an Engineering Effectiveness team" : http://www.gigamonkeys.com/flowers/
 - [No bullshit : What is Scrum ?](https://www.youtube.com/watch?v=jNhRX-RBs_4)
@@ -202,12 +201,12 @@ E.g. fix all the doc pain points, homogenize & securize all our DB requests, imp
     * https://github.com/LisaDziuba/Awesome-Design-Tools
 - maintain a project glossary [PP]. Document the vocabulary used in the domain and shared with clients, to avoid ambiguity (from [ThoughbotPlaybook])
 Same recommendation from Domain Driven Design / Event Storming : **ubiquitous language**
-- Agile recommend using user stories over UML use cases (that can be drawn with e.g. PlantUML). Use cases are NOT a form a requirements, just an illustration of them. They are NOT Agile, user stories are. Cf. [OnUseCasesAndUserStories]
+- Agile recommend using user stories over UML use cases (that can be drawn with e.g. PlantUML).
+  Use cases are NOT a form a requirements, just an illustration of them. They are NOT Agile, user stories are. Cf. [OnUseCasesAndUserStories]
 - van Genuchten, 1991
 > The two biggest causes of project failure are poor estimation an unstable requirements.
 
 ## Agile
-[TheFailureOfAgileAndGROWS]
 [Why "Agile" and especially Scrum are terrible]:
 - "the work gets atomized into “user stories” and “iterations” that often strip a sense of accomplishment from the work, as well as any hope of setting a long-term vision for where things are going."
 Instead of working on actual, long-term projects that a person could get excited about, they’re relegated to working on atomized, feature-level “user stories” and often disallowed to work on improvements that can’t be related to short-term, immediate business needs
