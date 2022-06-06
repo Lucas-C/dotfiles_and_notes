@@ -53,6 +53,10 @@ Techniques for Bypassing the SOP:
 - The document.domain property relaxation:  2 documents from distinct origins communicate by setting their domain properties to a common value
 - PostMessage/ReceiveMessage browser API : "it is the responsibility of the receiving document to additionally check the srcOrigin parameter to ensure that the message is coming from a trustworthy document."
 
+### RSS
+
+* [RSS Feed Best Practises](https://kevincox.ca/2022/05/06/rss-feed-best-practices/): detailed technical tips
+
 ## IP
 RFC 1918 – "Address Allocation for Private Internets" :
 - 10.0.0.0 – 10.255.255.255

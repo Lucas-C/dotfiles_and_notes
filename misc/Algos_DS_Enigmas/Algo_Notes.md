@@ -39,11 +39,12 @@ Hashing:
 - google/highwayhash: Fast strong hash functions: SipHash/HighwayHash, faster that SipTreeHash
 - [A new fast hash table (2018)](https://probablydance.com/2018/05/28/a-new-fast-hash-table-in-response-to-googles-new-fast-hash-table/)
 - [Fibonacci Hashing: The Optimization that the World Forgot](https://probablydance.com/2018/06/16/fibonacci-hashing-the-optimization-that-the-world-forgot-or-a-better-alternative-to-integer-modulo/)
-> Hash tables should not be prime number sized and they should not use an integer modulo to map hashes into slots. Fibonacci hashing is just better. Yet somehow nobody is using it
+> Hash tables should not be prime number sized and they should not use an integer modulo to map hashes into slots. Fibonacci ing is just better. Yet somehow nobody is using it
 
 Perceptual hashes:
 - https://tech.okcupid.com/evaluating-perceptual-image-hashes-okcupid/
-- cf. Python notes: LSHash, aHash, pHash, dHash, wHash
+- Applied Hashes: Perceptual and Cryptographic, by Dr. Neal Krawetz: https://www.youtube.com/watch?v=1lubZl1ccC4
+- cf. Python notes: LSHash, aHash, pHash, dHash, wHash, PhotoDNA, SIFT
 
 Geohash: geocoding system with a hierarchical spatial data structure that subdivides space into buckets of grid shape
 
@@ -55,6 +56,7 @@ Compression:
 - Google Zopfli (5% more compression, 100x slower than LZMA (7z))
 - Google Brotli: better than zlib, LZMA (7z) and Snappy/Zopfli in term of speed AND compression ratio
 - Facebook Zstd: very fast lossless data compression algorithm, comparable to lzma, lzham, ppmx, lza or bzip2; use LZ4 & xxHash libs
+- https://github.com/kspalaiologos/bzip3: excels at compressing text or code
 
 -> Pinterest predefined dictionary to optimize Zlib DEFLATE LZ77 stage : https://engineering.pinterest.com/blog/evolving-mysql-compression-part-2
 

@@ -12,6 +12,8 @@ clang-format -style="{BasedOnStyle: llvm, IndentWidth: 4, AllowShortFunctionsOnA
 re2c // tool generating fast code for regular expressions matching
 gperf // GNU Perfect Hash Function Generator - http://www.ibm.com/developerworks/library/l-gperf/
 
+Abseil // Google open source collection of C++ libs
+
 tcc, cling, ccons // C interpreters
 
 gcc -dM -E </dev/null // dump the list of predefined macros; e.g. unix & linux

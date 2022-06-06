@@ -365,7 +365,8 @@ cf. also [AWS Recos: Implementing health checks](https://aws.amazon.com/fr/build
 Named because it resembles the sectioned partitions of a ship's hull: if it is compromised, only the damaged section fills with water, which prevents the ship from sinking.
 - Compensating Transaction : Undo the work performed by a series of steps, which together define an eventually consistent operation.
 - Extensive Parameter Checking: often neglected
-> Be conservative in what you send, be liberal in what you accept (Postel's law / Robustness principle)
+
+> Be conservative in what you send, be liberal in what you accept (**Postel's law** / Robustness principle) - https://en.wikipedia.org/wiki/Robustness_principle
 
 [Rachel Kroll Reliability list]:
 - rollbacks need to be possible - cf. also [AWS Recos: Ensuring rollback safety during deployments](https://aws.amazon.com/fr/builders-library/ensuring-rollback-safety-during-deployments/)

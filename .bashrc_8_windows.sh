@@ -8,6 +8,7 @@
 PATH=$PATH:/c/Windows/System32
 PATH=$PATH:/c/Windows
 PATH="$PATH:/c/Program Files$X86/Windows Kits/10/Debuggers/x64"
+PATH="$PATH:/c/Program Files/Microsoft VS Code"
 
 if ! [ -s ~/.dir_colors ]; then
     curl -s 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > ~/.dir_colors

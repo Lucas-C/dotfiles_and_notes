@@ -9,7 +9,7 @@ class JsonHandler(BaseHTTPRequestHandler):
         if path.startswith('/status'):
             _, status = path.rsplit('/', 1)
             self._send_response(b'', status=int(status))
-        elif path == '/get':
+        else:
             self._send_ok_json_response(resp_body)
     def do_POST(self):
         path, resp_body = self._extract_base_resp_body()

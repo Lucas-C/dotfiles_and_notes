@@ -13,6 +13,7 @@ performance.timing // and performance.memory : useful debugging informations
 performance.memory : jsHeapSizeLimit, totalJSHeapSize & usedJSHeapSize
 console.profile('profileName') & console.profileEnd('profileName')
 
+.textContent >>faster>> .innerText // cf. https://kellegous.com/j/2013/02/27/innertext-vs-textcontent/
 while (e.firstChild) { e.removeChild(e.firstChild); } >>faster>> e.innerHTML = ''
 
 <script id='loadarea' type='text/javascript'></script>

@@ -1240,7 +1240,7 @@ lincolnloop/python-qrcode > pyqrcode # use PIL > C++ & Java
 requests.post('https://zxing.org/w/decode', files={'f': open('qr.png', 'rb')})  # able to decode more images than pyzbar / zbarlight in my experience
 graphviz # graphs generation and export as images
 colorsys # rgb / yiq / hls / hsv conversions
-makkoncept/colorpalette # Flask app that extracts palette of dominating colors from image - heroku app available
+makkoncept/colorpalette # Flask/heroku app that extracts palette of dominating colors from image - Alt: LanceGin/haishoku
 
 AAlib, legofy # ASCII/Lego rendering, cf. ascii_art_email.py
 fogleman/Tiling # pavages - uses cairo
@@ -1251,7 +1251,7 @@ ribab/quadart # producing quad-tree art
 lucashadfield/speck # line art image renderer
 ahmedkhalf/Circle-Evolution # Evolutionary Art Using Circles
 
-Tkinter, EasyGui, EasyDialogs (MacOSX), optparse_gui (last update 2008)
+Tkinter, EasyGui, guizero, EasyDialogs (MacOSX), optparse_gui (last update 2008)
 Kivy # GUI inc. multi-touch support, packaged with PyInstaller
 wxPython # port of C++ wxWidgets
 ChrisKnott/Eel # simple Electron-like HTML/JS GUI apps - Alt: cztomczak/cefpython
@@ -1667,7 +1667,7 @@ paramiko # remote SSH/SFTP connexion
 
 scales # metrics for Python, send data points to Graphite - Pros: inc. with-context to measure latency, metering-rates 1/5/15min, PmfStat => stdev, p99 - Cons: not actively maintained, its code uses lots of global state, there is test code in its source, a thread launched at import time and its documentation is incomplete
 
-@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation: deprecated! => tenacity - Alt: retrace, tenacity
+@retry # https://github.com/rholder/retrying - Exponential Backoff algorithm implementation: deprecated! => tenacity - Alt: tenacity
 
 daviddrysdale/python-phonenumbers # port of Google's libphonenumber to validate phone numbers
 TwilioLookupsClient().phone_numbers.get("15108675309", include_carrier_info=True) # Twilio API phone number validation
