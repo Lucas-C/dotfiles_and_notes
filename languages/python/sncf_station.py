@@ -41,8 +41,8 @@ def main():
         updated_at = disruption['updated_at']
         for impacted_object in disruption['impacted_objects']:
             for impacted_stop in impacted_object['impacted_stops']:
-                amended_arrival_time = impacted_stop['amended_arrival_time']
-                amended_departure_time = impacted_stop['amended_departure_time']
+                # amended_arrival_time = impacted_stop['amended_arrival_time']
+                # amended_departure_time = impacted_stop['amended_departure_time']
                 cause = impacted_stop['cause'] or 'unknown cause'
                 stop_point_name = impacted_stop['stop_point']['name']
                 train_id = impacted_stop['stop_point']['id']

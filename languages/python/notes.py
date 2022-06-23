@@ -859,7 +859,7 @@ python -mtrace --ignore-module=codeop,__future__ --trace [ $file | $code_module_
 dhellmann/smiley # application tracer, record & report, inspired by rad2py/wiki/QdbRemotePythonDebugger
 
 python -mtimeit -s'xs=range(10)' '[hex(x) for x in xs]' # exec time, compare to 'map(hex, xs)'
-timeit.timeit(lambda: local_func(), setup="from m import dostuff; dostuff()", number=1000)
+timeit.timeit(local_func, setup="from m import dostuff; dostuff()", number=1000)
 
 python -m cProfile -o output.pstats script.py # cProfile.Profile().dump_stats('output.pstats')
 from pstats import Stats; stats = Stats(); stats.add('output.pstats'); stats.sort_stats('cumulative'); stats.print_stats()
@@ -1041,6 +1041,7 @@ kwgoodman/roly # moving window median algorithms - Alt: ajcr/rolling: computatio
 
 scipy
     numpy # n-dimensional arrays, vectorized operations and broadcasting : faster than CPython for large arrays
+        Illustrated Guide: https://betterprogramming.pub/numpy-illustrated-the-visual-guide-to-numpy-3b1d4976de1d
     sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
     pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
         pd.read_html(url, header=0, parse_dates=["Call Date"]) # extract table from HTML page into a DataFrame

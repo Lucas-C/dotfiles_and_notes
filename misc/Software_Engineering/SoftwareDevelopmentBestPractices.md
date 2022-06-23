@@ -108,6 +108,8 @@ Software Development Best Practices
 - [Command Line Interface Guidelines](https://clig.dev)
 - [What I learned from Software Engineering at Google](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/)
 - [Shortcuts - a handy guide to cognitive biases](https://www.shortcogs.com)
+- [REST – PUT vs POST](https://restfulapi.net/rest-put-vs-post/)
+- [Solutions Architect Tips — The 5 Types of Architecture Diagrams](https://betterprogramming.pub/solutions-architect-tips-the-5-types-of-architecture-diagrams-eb0c11996f9e)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -323,6 +325,13 @@ On RDBs: Master-slave replication / Master-master replication / Federation (= fu
        / Denormalization / SQL tuning
 NoSQL: Key-value store / Document store / Wide column store / Graph Database
 
+[Solutions Architect Tips — The 5 Types of Architecture Diagrams]:
+1. The Flow Diagram
+2. The Service Diagram
+3. The Persona Diagram
+4. The Infrastructure Diagram
+5. The Developer Diagram
+
 cf. also [DistributedSystemsAndTheEndOfTheAPI]
 
 useful tool to draw architecture diagrams: [yEd](https://www.yworks.com/products/yed) - [draw.io](https://draw.io)
@@ -400,6 +409,9 @@ Dr. Leonard Richardson put together a maturity model that interprets various lev
 [PUT vs PATCH vs JSON-PATCH] tl;dr :
 > The existing HTTP PUT method only allows a complete replacement of a document. This proposal adds a new HTTP method, PATCH, to modify an existing HTTP resource.
 cf. also the [JSON PATCH spec](http://jsonpatch.com)
+[REST – PUT vs POST] tl;dr :
+> PUT method is idempotent. POST is NOT idempotent.
+> use PUT for UPDATE operations; use POST for CREATE operations.
 
 [Partial resources](https://developers.google.com/youtube/v3/getting-started#partial) : `?part=A,B&fields=e,f`
 Implem avec du Python : http://yaoganglian.com/2013/07/01/partial-response/

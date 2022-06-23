@@ -630,7 +630,7 @@ It’s available as a text editor application, a web app, and even a linter, if 
 ### Outils
 - cf. https://chezsoi.org/shaarli/?searchterm=&searchtags=Recruting
 - http://collabedit.com
-- https://sharemycode.fr
+- https://sharemycode.fr (éditable uniquement par le 1er visiteur)
 
 ### Language-based question
 - Python:

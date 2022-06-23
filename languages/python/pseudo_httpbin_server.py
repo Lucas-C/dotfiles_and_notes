@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import http, json, os, re, time
+import http, json, os, re, sys, time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qsl, unquote
 
@@ -50,6 +50,8 @@ class JsonHandler(BaseHTTPRequestHandler):
 if __name__ == '__main__':
     HOST_NAME = os.environ.get('HOST', '0.0.0.0')
     PORT_NUMBER = int(os.environ.get('PORT', '8000'))
+    if len(sys.argv) > 1:
+        PORT_NUMBER = int(sys.argv[-1])
     httpd = HTTPServer((HOST_NAME, PORT_NUMBER), JsonHandler)
     print(time.asctime(), 'Server UP - %s:%s' % (HOST_NAME, PORT_NUMBER))
     try:
