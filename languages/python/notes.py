@@ -1268,6 +1268,7 @@ fonttools # playing with font kerning: https://readevalprint.com/Schmelvetica.ht
 espeak-ng # open source speech synthesizer supporting 7+ languages, based on the eSpeak engine
 Uberi/speech_recognition # speech recognition with support for CMU Sphinx / Google Speech Recognition / Google Cloud Speech API / Wit.ai / Microsoft Bing Voice Recognition / Houndify API / IBM Speech to Text
 jiaaro/pydub # manipulate audio with a simple and easy high level interface (with ugly operator override)
+demucs # hybrid source separation: separate drums, bass and vocals from the rest
 antiboredom/audiogrep
 playsound # pure Python, cross platform, single function module with no dependencies for playing sounds
 
@@ -1939,6 +1940,10 @@ list(requires('requests'))  # ['chardet (<3.1.0,>=3.0.2)']
 list(files('requests'))[:5]
 
 asyncio.run()  # is now stable API
+
+sys.addaudithook() # allows to watch many events + can be used to forbid networks connections in a secure way
+# https://docs.python.org/3/library/audit_events.html#audit-events
+# https://www.reddit.com/r/Python/comments/vjlfom/comment/idnwhfx/?context=3
 
 
 #-----------

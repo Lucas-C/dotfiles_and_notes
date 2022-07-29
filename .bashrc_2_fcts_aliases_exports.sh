@@ -234,6 +234,8 @@ pre_commit_db_rm_repo () {  # Requires sqlite3
 #------------
 # One-letter
 #------------
+alias ..="cd .."
+alias ...="cd ../.."
 alias e='$EDITOR'
 alias k=kubectl
 f () { ( nohup firefox "${@:-$(cat)}" >~/firefox.log 2>&1 & ); }
@@ -248,7 +250,23 @@ t () { # Execute some cmd with start/end timestamps
 }
 alias ..="cd .."
 alias ...="cd ../.."
-
+# Recipes from https://superuser.com/a/611582/255048 :
+countdown() {
+    start="$(( $(date '+%s') + $1))"
+    while [ $start -ge $(date +%s) ]; do
+        time="$(( $start - $(date +%s) ))"
+        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+        sleep 0.1
+    done
+}
+stopwatch() {
+    start=$(date +%s)
+    while true; do
+        time="$(( $(date +%s) - $start))"
+        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+        sleep 0.1
+    done
+}
 
 #---------
 # Languages
@@ -677,3 +695,6 @@ EOF
 # Recipe from: https://stackoverflow.com/questions/47691479/listing-all-resources-in-a-namespace#comment105095503_53016918
 # The k8s namespace must be provided as argument
 alias k8s-show-ns=" kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n"
+
+# This allows to retries a playlist download without re-downloading songs already downloaded:
+alias youtube-dl-playlist="youtube-dl -x --download-archive downloaded.txt --no-post-overwrites"

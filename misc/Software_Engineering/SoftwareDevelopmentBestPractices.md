@@ -417,20 +417,22 @@ cf. also the [JSON PATCH spec](http://jsonpatch.com)
 Implem avec du Python : http://yaoganglian.com/2013/07/01/partial-response/
 Alt: HTTP header Range avec valeur non numérique
 
++ follow simple standards for server status / healthcheck like [Simple Standard Service Endpoints]
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 + similarly for protocols: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
 + representation for RESTful APIs: Swagger==OpenAPI / API Blueprint / APIDOC
-cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-generated doc & server mocks + auto integration testing with [dredd](https://github.com/apiaryio/dredd) + has a free plan
-+ follow simple standards for server status / healthcheck like [Simple Standard Service Endpoints]
+cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-generated doc & server mocks + auto integration testing with [dredd](https://github.com/apiaryio/dredd) (NodeJS) + has a free plan
+https://github.com/Tufin/oasdiff : diff tool for OpenAPI Specification 3  (Go / binary)
 + alternative to REST: [JSON RPC](http://www.jsonrpc.org/specification) cf. [Understanding RPC Vs REST For HTTP APIs]!
   > REST brings some constraints, e.g. your API must be stateless (no session persistance)
   > RPC-based APIs are great for actions [while] REST-based APIs are great for modeling your domain
 
 Handling **deprecation**:
 - full API version change + `Sunset` or `Warning: 299 - "Deprecated API"` HTTP header
+  Ex: https://github.com/voyages-sncf-technologies/hesperides/blob/master/documentation/lightweight-architecture-decision-records/deprecated_endpoints.md
 - OpenAPI `deprecated: true`
-- `207 Multi-Status` or `410 (Gone)` if the resource disappeared
+- HTTP `207 Multi-Status` or `410 (Gone)` if the resource disappeared
 - add handling of deprecation warnings into **clients**
 
 [The Amazon Builders' Library](https://aws.amazon.com/fr/builders-library/)

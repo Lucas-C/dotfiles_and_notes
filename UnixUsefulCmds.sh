@@ -495,8 +495,6 @@ printf "%-8s\n" "${value}" # 8 spaces output formatting
 | xargs -n 1 sh -c 'echo ${0:0:3}' # 3 first characters of $string
 var=$(echo "$var" | xargs echo) # Remove leading/trailing whitespaces
 
-csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # csvlook allow to view a CSV in a terminal console - pip install csvkit - Alt: mlr (Miller)
-
 jq -r '..|objects|.name//empty' # JSON syntax highlighting + sed-like processing - Basic alt: python -mjson.tool
 echo '{"A1":"a1","A2":"b2","B1":"b2"}' | jq '"A." as $regex | del(.[keys[]|select(match($regex))])'
 echo '{"A0":["a1","a2","a3"], "B0":["b1","b2","b3"], "c3":[]}' | jq '".[^3]" as $regex|to_entries|map(select(.key|match($regex)))|map(.value|=map(select(match($regex))))|from_entries'
@@ -507,7 +505,8 @@ jq '.dict|with_entries(select(.value.date|contains("29 Jul 2016")))' < $json_fil
 jq input_filename,input_line_number *.json
 ls $dir | jq --raw-input --slurp 'split("\n")[:-1]' # build JSON array from a mutlilines non-JSON input
 tomnomnom/gron # make JSON greppable!
-q # command line tool that allows direct execution of SQL-like queries on CSVs/TSVs
+q # command line tool that allows direct execution of SQL-like queries on CSVs/TSVs - Alt: sqlite / textql: https://sebsauvage.net/links/?uBdPXA
+csv{cut,look,stat,grep,sort,clean,format,join,stack,py,sql} {in,sql}2csv # csvlook allow to view a CSV in a terminal console - pip install csvkit - Alt: mlr (Miller)
 plainas/tq, ericchiang/pup, html-xml-utils, xml2, 2xml, html2, 2html # convert XML/HTML to "grepable" stream - Also: xmlstarlet & http://stackoverflow.com/a/91801
 
 zcat /usr/share/man/man1/man.1.gz | groff -mandoc -Thtml > man.1.html # also -Tascii

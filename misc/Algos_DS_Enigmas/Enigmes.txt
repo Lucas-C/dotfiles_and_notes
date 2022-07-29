@@ -157,11 +157,11 @@ Fractal maze : https://cstheory.stackexchange.com/questions/11024/decidability-o
 
     En 2018, j'ai trouvé 1.92 € en petites pièces par terre.
     Sachant que j'ai trouvé autant de pièces de 1 cens, de 5 cens et de 10 cens,
-    combient de pièces ai-je ramassé au total ?
+    combien de pièces ai-je ramassé au total ?
 
     Où trouve-t-on samedi avant vendredi ?
 
-    Lors d'un repas de famille où tout le mondre trinque avec tout le monde,
+    Lors d'un repas de famille où tout le monde trinque avec tout le monde,
     tu dénombres 28 tintements de verre.
     Combien de personnes sont présentes ?
 

@@ -4,7 +4,7 @@ Chuck Norris facts:
 
 
 ASCII boats source: http://www.ascii-art.de/ascii/ab/boat.txt
-
+```
       _~
    _~)_)_~
   )_))_))_)
@@ -59,6 +59,7 @@ ___t_________
  .___...../ /__| |__\ \_/H__,      ^^
   \                        /
 #####^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~\O/~~\Q/~^~^~rr
+```
 
 ScroogeMcDuck & MickeyMouse fun facts:
 

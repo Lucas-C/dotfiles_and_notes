@@ -23,6 +23,7 @@ On DBs, Queues, Brokers and Caching
 
 ## References
 - [AOSA_NoSQL] : [The Architecture of Open Source Applications](http://www.aosabook.org) chapter dedicated to NoSQL
+- [Things You Should Know About Databases](https://architecturenotes.co/things-you-should-know-about-databases/)
 
 
 ## Memory caching system
