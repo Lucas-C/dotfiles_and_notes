@@ -49,6 +49,7 @@
 - https://www.learnshell.org
 
 ### Python
+#### Cours / classes / formations
 - [Uptime Formation](https://python2021q1.uptime-formation.fr/) (Aurélien)
     * Introduction
     * Mémo Syntaxe Python
@@ -142,27 +143,33 @@
         6. Bases de données
         7. Les erreurs courantes en Python
         8. Ressources
-- https://py-rates.fr
-- https://py.checkio.org : Python practice online, with 500 missions
-- https://speedsheet.io/s/python : interactive cheat sheet, just type what you want into the search bar
 - [MIT 6 0001 - Introduction to Computer Science and Programming in Python (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)
 - [MIT 6 0002 - Introduction to Computational Thinking and Data Science (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0002-introduction-to-computational-thinking-and-data-science-fall-2016/)
-- Python learning map / curriculum: https://app.learney.me/maps/PythonCurriculum
-- BattleDev : https://www.isograd.com/FR/solutionconcours.php [FR]
-- https://github.com/norvig/pytudes
-- http://codekata.com [EN]
-- https://www.codewars.com [EN] -> https://github.com/rwisecar/code-katas + https://github.com/adrianeyre/codewars/tree/master/Python
-- https://github.com/newrelic/newrelic-python-kata [EN]
-- https://gitlab.com/azae/craft/legacy-testing-kata-python [EN]
 - https://learnbyexample.gitbooks.io/python-basics/
 - http://shf.github.io/Python-Workshop/
-- https://trypython.jcubic.pl/
-- https://www.hackinscience.org (FR, challenges, + emploi de friendly-traceback, conçu par l'AFPY)
+
+#### Approches ludiques
+- https://py-rates.fr [FR] : initiation ludique, pédagogique & gratuite à la programmation en Python
+- https://www.hackinscience.org [FR] : challenges avec robot correcteur (emploi de _friendly-traceback_ conçu par l'AFPY)
+- https://py.checkio.org [EN] : Python practice online, with 500 missions
+
+#### Katas
+Short exercises (30min to 1h) to practice Python programming:
+
+- http://codekata.com [EN]
+- https://www.codewars.com [EN] ( example solutions: https://github.com/adrianeyre/codewars/tree/master/Python )
+- https://github.com/rwisecar/code-katas
+- https://github.com/newrelic/newrelic-python-kata [EN]
+- https://gitlab.com/azae/craft/legacy-testing-kata-python [EN]
+
+#### Autres ressources
+- https://speedsheet.io/s/python : interactive cheat sheet, just type what you want into the search bar
+- Python learning map / curriculum: https://app.learney.me/maps/PythonCurriculum
+- https://github.com/norvig/pytudes : Python programs, usually short, for perfecting particular programming skills
 - [Python projects-based-learning](https://github.com/tuvtran/project-based-learning/blob/master/README.md#python)
 - [Reddit learnpython top resources of the year](https://www.reddit.com/r/learnpython/top/?t=year)
 - [Resources I've used and still use to learn Python](https://www.reddit.com/r/Python/comments/w2eowi/resources_ive_used_and_still_use_to_learn_python/)
-- logic puzzle: https://enigmes-a-thematiques.fr/front/enigme/2433
-Solution: abs int hex len ord
+- https://trypython.jcubic.pl/ : interactive online interpreter
 
 
 ## Online platforms
