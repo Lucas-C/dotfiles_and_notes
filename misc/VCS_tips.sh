@@ -204,6 +204,10 @@ awssec.py -u $USER
 export $(echo -e "protocol=https\npath=/v1/repos/${REPO_NAME}\nhost=${HOST}" | aws codecommit credential-helper --profile ${PROFILE} get)
 curl -v -u "$username:$password" https://${HOST}/v1/repos/${REPO_NAME}.git/info/refs?service=git-receive-pack 2> >(grep '< HTTP')
 
+# Encrypting files/secrets:
+* to encrypt SOME files: https://github.com/AGWA/git-cryptgit-crypt
+* to encrypt WHOLE repos: https://github.com/spwhitton/git-remote-gcrypt (tested, requires gpg2)
+
 Git bomb: https://kate.io/blog/making-your-own-exploding-git-repos/
 
 

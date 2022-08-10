@@ -135,3 +135,5 @@
     path = ~/.gitconfig_user
 [init]
     defaultBranch = main
+[gpg]
+    program = gpg2
