@@ -929,7 +929,7 @@ alien # transformer un .rpm en .deb
 
 init q # Reload upstart config : /etc/inittab, /etc/init.d, /etc/init/*.conf -> can be really simple & useful
 init-checkconf # check upstart script syntax
-initctl list # list active upstart services - Alt:  /sbin/service --status-all
+initctl list # list active upstart services - Alt: service --status-all
 chkconfig, service # control & check upstart scripts
 # Alt & init.d example: http://support.ghost.org/deploying-ghost/
 # /etc/init/ script example:

@@ -112,6 +112,7 @@ PYTHONUTF8 # cf. https://www.python.org/dev/peps/pep-0540/
 r'Raw string literal: no need to double escape \{0}\{one:.5f}'.format("zero", one=1) # raw string: treat backslashes as literal characters
 'My name is {0[firstname]} {0[lastname]}'.format({'firstname': 'Jack', 'lastname': 'Vance'})
 u"Unicode string {obj.__class__} {obj!r}".format(obj=0) # for formatting with a defaultdict, use string.Formatter().vformat
+"\N{Sauropod}" * 10 # you can insert Emoji using `\N{NAME_OF_EMOJI}`
 from __future__ import unicode_literals # make all literal strings unicode by default, not ASCII - Gotchas: http://stackoverflow.com/a/827449/636849
 unicodedata.normalize('NFKD', u"éçûö") # Also, for Cyrillc, Mandarin... : import unidecode
 eyalr/unicode_mayo # detect unicode corruption
@@ -601,7 +602,7 @@ from functools import partial, reduce # for Py3+ compatibility
 sum(list_of_lists, []) # flatten a list of lists - Alt: list(itertools.chain.from_iterable(l_o_l)) OR reduce(operator.concat, l_o_l)
 
 # Extra libs
-dakerfp/patterns # functional pattern matching through real DSL made by modifying the AST ; http://www.slideshare.net/dakerfp/functional-pattern-matching - Alt: santinic/pampy
+dakerfp/patterns # functional pattern matching through real DSL made by modifying the AST ; http://www.slideshare.net/dakerfp/functional-pattern-matching - Alt: santinic/pampy - Also with Py3.10+: https://www.hillelwayne.com/post/python-abc/
 toolz # brings: pluck, tail, compose, pipe, memoize - Even faster: CyToolz
 suor/funcy
 kachayev/fn.py
@@ -1458,7 +1459,8 @@ ariebovenberg/snug # organize your HTTP client code to ease reuse, async compati
 python-mocket # socket mocks
 
 spiderclub/haipproxy # IP proxy pool, powered by Scrapy and Redis
-community-libs/vaurien # TCP proxy to simulate chaos between your application and a backend server - Originated at Mozilla, not much maintained - Alt: Shopify/toxiproxy in Ruby
+community-libs/vaurien # TCP proxy to simulate chaos between your application and a backend server - Originated at Mozilla, not much maintained - Alt: Shopify/toxiproxy in Ruby ; kffl/speedbump in Go
+st = speedtest.Speedtest() # speedtest-cli - provides download/upload speed based on speedtest.net
 
 ramses # API generation framework: based on RAML, ElasticSearch & Pyramid -> https://realpython.com/blog/python/create-a-rest-api-in-minutes-with-pyramid-and-ramses/ & https://www.elastic.co/blog/make-an-elasticsearch-powered-rest-api-for-any-data-with-ramses
 Kinto # minimalist JSON storage service, easy to bootstrap with Heroku/Docker, by Mozilla: https://kinto.readthedocs.io/en/stable/tutorials/install.html
@@ -1964,6 +1966,6 @@ zoneinfo  # new builtin module providing IANA time zones like Pypi tzdata packag
 
 PYTHONWARNDEFAULTENCODING : raise EncodingWarning when no encoding was specified when opening text files
 
-match event.get():
+match event.get():  # pattern matching - Horrible uses: https://www.hillelwayne.com/post/python-abc/
     case Click(position=(x, y)):
         handle_click_at(x, y)

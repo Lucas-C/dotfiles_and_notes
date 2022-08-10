@@ -61,20 +61,20 @@
     * Tutoriels utiles
     * Bibliographie
 - [Un zeste de Python par entwanne @ ZesteDeSavoir](https://zestedesavoir.com/contenus/beta/2514/un-zeste-de-python/)
-    I. Premiers pas avec Python
+    * I. Premiers pas avec Python
         1. Présentation du langage
         2. Installation
         3. Prise en main de l'interpréteur
         4. Écrire du code dans des fichiers
         5. Fichiers ou interpréteur interactif ?
-    II. Manipuler des données
+    * II. Manipuler des données
         1. Retour sur la calculatrice
         2. Des variables pour sauvegarder nos résultats
         3. Manipuler du texte
         4. Interactions
         5. Objets et méthodes
         6. TP : Combat en tour par tour
-    III. Des programmes moins déterminés
+    * III. Des programmes moins déterminés
         1. Les conditions (if/elif/else)
         2. Expressions booléennes
         3. TP : Ajoutons des conditions à notre jeu
@@ -83,20 +83,20 @@
         6. Boucler sur une condition (while)
         7. Algorithmes
         8. TP : Ajoutons des boucles à notre jeu
-    IV. Types de données
+    * IV. Types de données
         1. Retour sur les types précédents
         2. Les dictionnaires
         3. Itérer sur un dictionnaire
         4. Les tuples
         5. TP
-    V. Les fonctions
+    * V. Les fonctions
         1. Des fonctions pour factoriser
         2. Fonctions paramétrées
         3. Retours de fonctions
         4. Paramètres et types mutables
         5. Fonctions de tests
         6. TP : Intégrons des fonctions à notre application
-    VI. Entrées / sorties
+    * VI. Entrées / sorties
         1. Découper son code en modules
         2. Lire un fichier en Python
         3. Itérer sur un fichier
@@ -107,7 +107,7 @@
         8. Arguments de la ligne de commande
         9. Les paquets
         10. TP : Sauvegarder la partie
-    VII. Aller plus loin
+    * VII. Aller plus loin
         1. Les autres types de données
         2. Retour sur les conditions
         3. Retour sur les boucles
@@ -115,7 +115,7 @@
         5. Retour sur les variables
         6. Retour sur les exceptions
         7. Débogage
-    VIII. La bibliothèque standard
+    * VIII. La bibliothèque standard
         1. Tour d'horizon de la bibliothèque standard
         2. Un peu d'aléatoire
         3. Gestion du temps
@@ -125,7 +125,7 @@
         7. Plusieurs tâches en même temps
         8. TP
         9. Installer des modules complémentaires
-    IX. Exercices
+    * IX. Exercices
         1. Premiers pas avec Python
         2. Manipuler des données
         3. Des programmes moins déterminés
@@ -133,7 +133,7 @@
         5. Types de données
         6. Entrées / sorties
         7. Aller plus loin
-    X. Annexes
+    * X. Annexes
         1. Glossaire et mots clés
         2. Quelques modules complémentaires bien utiles
         3. Tests
@@ -143,9 +143,11 @@
         7. Les erreurs courantes en Python
         8. Ressources
 - https://py-rates.fr
-- https://py.checkio.org
+- https://py.checkio.org : Python practice online, with 500 missions
+- https://speedsheet.io/s/python : interactive cheat sheet, just type what you want into the search bar
 - [MIT 6 0001 - Introduction to Computer Science and Programming in Python (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)
 - [MIT 6 0002 - Introduction to Computational Thinking and Data Science (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0002-introduction-to-computational-thinking-and-data-science-fall-2016/)
+- Python learning map / curriculum: https://app.learney.me/maps/PythonCurriculum
 - BattleDev : https://www.isograd.com/FR/solutionconcours.php [FR]
 - https://github.com/norvig/pytudes
 - http://codekata.com [EN]
@@ -158,6 +160,7 @@
 - https://www.hackinscience.org (FR, challenges, + emploi de friendly-traceback, conçu par l'AFPY)
 - [Python projects-based-learning](https://github.com/tuvtran/project-based-learning/blob/master/README.md#python)
 - [Reddit learnpython top resources of the year](https://www.reddit.com/r/learnpython/top/?t=year)
+- [Resources I've used and still use to learn Python](https://www.reddit.com/r/Python/comments/w2eowi/resources_ive_used_and_still_use_to_learn_python/)
 - logic puzzle: https://enigmes-a-thematiques.fr/front/enigme/2433
 Solution: abs int hex len ord
 

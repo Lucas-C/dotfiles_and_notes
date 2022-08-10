@@ -231,3 +231,10 @@ for /f "usebackq tokens=*" %p in (`powershell -Command "$pword = read-host 'Ente
 '''''''''''''
 WScript.CreateObject("WScript.Shell").SendKeys "^%{DOWN}"
 CreateObject("SAPI.SpVoice").speak "Hello"
+
+
+@@@@@@
+@ WSL
+@@@@@@
+:: Windows Terminal provides support for emojis, use it like this:
+"C:\Program Files\WindowsApps\Microsoft.WindowsTerminalPreview_1.15.2002.0_x64__8wekyb3d8bbwe\wt.exe" wsl

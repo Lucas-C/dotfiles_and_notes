@@ -119,6 +119,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [The DevOps Phenomenon / CALMS framework](https://queue.acm.org/detail.cfm?id=3338532)
 - [Why Don’t Tech Companies Pay Their Engineers to Stay?](https://marker.medium.com/why-dont-tech-companies-pay-their-engineers-to-stay-b9c7e4b751e9)
 - [Who wrote this shit?](https://www.heltweg.org/posts/who-wrote-this-shit/)
+- [You will always have more Problems than Engineers](https://betterprogramming.pub/you-will-always-have-more-problems-than-engineers-aafff94a4623)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -210,6 +211,8 @@ avec des sections "liens utiles" / "à installer sur son poste" / "par où comme
 - [Valve Handbook For New Employees]
     * present the team history a bit
     * Your First Month / What To Work On
+- https://walkthrough.dev: step-by-step code walkthroughs to share knowledge and bring developers up to speed - GitHub based, $7/month
+  Alt: free VSCode plugin - https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour
 
 ## Leadership
 cf. [#gamedev Lead Quick Start Guide] & [Things I was unprepared for as a lead developer] & TED Talk WhyGoodLeadersMakeYouFeelSafe
@@ -337,6 +340,10 @@ Experiment by Aranda & Easterbrook (2005)
 Source: [Greg Wilson - What We Actually Know About Software Development, and Why We Believe It's True] - 15:55
 - If more than 20-25% of a component has to be revised,
 it's better to rewrite it from scratch (Thomas et al, 1997)
+
+[You will always have more Problems than Engineers]:
+> When you’re overwhelmed with problems, ordering them isn’t the most important skill, filtering them is. The most valuable prioritization skill is simply saying “No. I’m not going to solve that problem right now”.
+> Engineers need prioritization skills too.
 
 ## Retrospectives
 - Content/Pas content/A améliorer/A continuer/A arrêter/Questions
@@ -488,7 +495,8 @@ Présentation par Sylvain Hellegouarch:
   * ChaoSlingr (AWS)
   * Chaos Spring Boot : Latency / Exception / AppKiller Assaults
   * Byte Monkey
-  * [toxiproxy](https://github.com/Shopify/toxiproxy): framework for simulating network conditions
+  * [toxiproxy](https://github.com/Shopify/toxiproxy): Ruby framework for simulating network conditions
+    Alt: community-libs/vaurien in Python (not much maintained); kffl/speedbump in Go
 - [ChaosToolKit](https://chaostoolkit.org)
 
 ## Documentation:

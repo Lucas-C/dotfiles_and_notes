@@ -78,6 +78,8 @@ bee-queue # fast & robust job/task queue for Node.js, like Celery for Python
 
 https://www.compose.com/articles/how-to-talk-raw-redis/
 
+dragonfly # modern replacement for Redis and Memcached - Reddit prefers Redis though: https://redis.com/blog/redis-architecture-13-years-later/
+
 ### etcd
 
 > an open-source distributed key value store, HTTP-based and using Raft, for shared configuration and service discovery. Also: [python-etcd](https://github.com/jplana/python-etcd)

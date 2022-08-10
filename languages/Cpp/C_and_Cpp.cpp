@@ -64,6 +64,19 @@ int a=41; a = a++; printf("%d\n", a); // undefined
 
 !bool1 ??!??! func() // http://stackoverflow.com/questions/7825055
 
+[The different ways to handle errors in C](https://mccue.dev/pages/7-27-22-c-errors):
+1. The Ostrich Algorithm: ignore them
+2. Crash.
+3. Return a negative number.
+4. Return NULL
+5. Return a boolean and take an out param
+6. Return an enum and take an out param
+7. Return a boolean and take two out params
+8. Return an enum and multiple out params
+9. Set a thread local static value
+10. Return a tagged union
+11. Return a boxed "error object"
+
 /***********/
 // C++ only
 /**********/

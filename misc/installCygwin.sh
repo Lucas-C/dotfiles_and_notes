@@ -58,4 +58,3 @@ exit 0
 minidumper --nokill $FILENAME $WIN32PID # create a minidump of a running Windows process
 
 pldd $PID # List dynamic shared objects loaded into a process
-
