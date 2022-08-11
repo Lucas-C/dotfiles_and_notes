@@ -1546,6 +1546,7 @@ tn.write(user + "\n")
 
 Brython.info # replace Javascript as the scripting language for the Web
 Pyodide # Python with the scientific stack, compiled to WebAssembly
+Skulpt # entirely in-browser implementation of Python, by compiling it to Javascript
 
 yandex/gixy # a tool to analyze Nginx configuration. The main goal of Gixy is to prevent security misconfiguration and automate flaw detection.
 

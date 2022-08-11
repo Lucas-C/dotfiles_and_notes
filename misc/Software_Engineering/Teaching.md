@@ -28,13 +28,25 @@
 > Ils apprennent aussi en parlant, en discutant avec leurs amis et en s'amusant.
 > C'est une théorie de **Piaget**, qui a aussi dit: ne les pressez pas, accompagnez toujours l'enfant.
 > Les élèves ont besoin de **temps** pour assimiler les idées complexes.
-* Recommendation :
+* Recommandation :
 > Laissez les élèves discuter 20min en petits groupes du concept qui vient d'être présentée,
 > puis avec le reste de la classe sous la direction du professeur.
 * Approche : **glissement progressif du concret vers l'abstrait**
 * Approche : **méthode de la classe inversée** = l'élève regarde le cours à la maison ou au CDI
   sous forme de courtes vidéos (capsules) fournies par le professeur.
   Il va a son propre rythme et est ensuite aidé par le professeur pour les exercices en classe.
+
+* [Ce que la recherche nous dit sur les styles d’apprentissage (2016)](https://edupass.hypotheses.org/1049):
+> Les recherches sur les styles d’apprentissage se révèlent disparates et fragmentées et ne montrent pour l’instant aucun consensus quant à la validité des résultats.
+> Les styles d’apprentissage, bien que de nombreuses fois évoqués dans la littérature scientifique ou non, ne possèdent aucun fondement validés scientifiquement.
+> Les controverses concernant le champ d’investigation relatif aux styles d’apprentissage sont nombreuses : peu de fiabilité ou validité scientifique, confusion terminologique, définitions des concepts, etc.
+
+**Lucas** : les questions de pédagogie que je me pose toujours aujourd'hui, COMMENT :
+* construire une trame / un support de cours, adapté à "tous les profils" d'apprenants ?
+* équilibrer théorie, exercices de mise en pratique, discussion, défis, jeux, projets personnels... ?
+* faire en sorte que le cours soit adapté à "tous les profils" d'apprenants ?
+  Exemples: est-il important de permettre aux apprenants de passer à une autre activité lorsqu'ils "bloquent" ?
+  Et d'apporter de la gratification via de la ludification / des récompenses ?
 
 ## TP / Code katas
 * Algorithm-based Interview Questions: https://www.careercup.com/page?sort=votes
@@ -50,7 +62,7 @@
 
 ### Python
 #### Cours / classes / formations
-- [Uptime Formation](https://python2021q1.uptime-formation.fr/) (Aurélien)
+- [Uptime Formation](https://python2021q1.uptime-formation.fr/) [FR] (merci Aurélien)
     * Introduction
     * Mémo Syntaxe Python
     * Partie 1 - Notions de base
@@ -61,7 +73,7 @@
     * Exporter les supports en pdf
     * Tutoriels utiles
     * Bibliographie
-- [Un zeste de Python par entwanne @ ZesteDeSavoir](https://zestedesavoir.com/contenus/beta/2514/un-zeste-de-python/)
+- [Un zeste de Python par entwanne @ ZesteDeSavoir](https://zestedesavoir.com/contenus/beta/2514/un-zeste-de-python/) [FR] - Plan du cours :
     * I. Premiers pas avec Python
         1. Présentation du langage
         2. Installation
@@ -143,6 +155,9 @@
         6. Bases de données
         7. Les erreurs courantes en Python
         8. Ressources
+- Cours de Xavier Dupré à l'ENSAE : [Python dans tous ses états](http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx/index.html)
+    * [Apprendre la programmation avec Python](http://www.xavierdupre.fr/app/teachpyx/helpsphinx/index.html)
+    * [Les enfants codaient - Jeux autour d’algorithmes pour les enfatns](http://www.xavierdupre.fr/app/code_beatrix/helpsphinx/)
 - [MIT 6 0001 - Introduction to Computer Science and Programming in Python (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)
 - [MIT 6 0002 - Introduction to Computational Thinking and Data Science (2016)](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0002-introduction-to-computational-thinking-and-data-science-fall-2016/)
 - https://learnbyexample.gitbooks.io/python-basics/
@@ -150,6 +165,12 @@
 
 #### Approches ludiques
 - https://py-rates.fr [FR] : initiation ludique, pédagogique & gratuite à la programmation en Python
+<!-- Contacté par email - Idées :
+* interdire ";" qui permet de concaténer plusiseurs instructions sur une même ligne ?
+* log : pourquoi inclure la date ?
+* permanlink incluant l'ID ? (3vfe1zR)
+* passer la 3e (vitesse) ?
+-->
 - https://www.hackinscience.org [FR] : challenges avec robot correcteur (emploi de _friendly-traceback_ conçu par l'AFPY)
 - https://py.checkio.org [EN] : Python practice online, with 500 missions
 
@@ -158,14 +179,23 @@ Short exercises (30min to 1h) to practice Python programming:
 
 - http://codekata.com [EN]
 - https://www.codewars.com [EN] ( example solutions: https://github.com/adrianeyre/codewars/tree/master/Python )
-- https://github.com/rwisecar/code-katas
+- https://github.com/rwisecar/code-katas [EN]
 - https://github.com/newrelic/newrelic-python-kata [EN]
 - https://gitlab.com/azae/craft/legacy-testing-kata-python [EN]
 
+#### Jupyter
+- [Google Colaboratory](https://colab.research.google.com/notebooks/intro.ipynb) : notebooks Jupyter (Python)
+- Notebooks de Xavier Dupré pour l'ENSAE : [Ballades autour de Python, Pandas, numpy](http://www.xavierdupre.fr/app/teachpyx/helpsphinx/all_notebooks.html#l-notebooks)
+- Articles de Marc BUFFAT :
+    * [Système de validation/gestion de cours avec Jupyter/nbgrader](https://perso.univ-lyon1.fr/marc.buffat/2021/Jupyter%20validation/index.html)
+    * [Retour d’expérience d’enseignements avec Jupyter/nbgrader](https://perso.univ-lyon1.fr/marc.buffat/2021/Jupyter%20nbgrader/index.html)
+    * [Introduction à Python et Jupyter](https://perso.univ-lyon1.fr/marc.buffat/2020/Python/index.html)
+
 #### Autres ressources
-- https://speedsheet.io/s/python : interactive cheat sheet, just type what you want into the search bar
-- Python learning map / curriculum: https://app.learney.me/maps/PythonCurriculum
-- https://github.com/norvig/pytudes : Python programs, usually short, for perfecting particular programming skills
+- [Apprendre Python en quelques minutes](https://learnxinyminutes.com/docs/fr-fr/python-fr/) [FR] : toute la syntaxe Python détaillée en une seule _cheat sheet_
+- https://speedsheet.io/s/python [EN] : interactive cheat sheet, just type what you want into the search bar
+- Python learning map / curriculum [EN]: https://app.learney.me/maps/PythonCurriculum
+- https://github.com/norvig/pytudes [EN] : Python programs, usually short, for perfecting particular programming skills
 - [Python projects-based-learning](https://github.com/tuvtran/project-based-learning/blob/master/README.md#python)
 - [Reddit learnpython top resources of the year](https://www.reddit.com/r/learnpython/top/?t=year)
 - [Resources I've used and still use to learn Python](https://www.reddit.com/r/Python/comments/w2eowi/resources_ive_used_and_still_use_to_learn_python/)
@@ -181,7 +211,6 @@ Short exercises (30min to 1h) to practice Python programming:
 Interactive Learning and Training Platform for Software Engineers
 => Docker Weaveworks Kubernetes OpenShift Hashicorp Envoy Proxy Istio Hashicorp Consul Hashicorp Vault Linux Jenkins Prometheus OpenTracing Ansible Tensorflow Git Rlang Go .NET Node.js Ruby
 Ex playground for Python: https://www.katacoda.com/courses/python/playground
-- [Google Colaboratory](https://colab.research.google.com/notebooks/intro.ipynb) : notebooks Jupyter
 - [TutorialsPoint](https://www.tutorialspoint.com/codingground.htm) Online Compilers and Interpreters,
   ex: [Bash Shell Online](https://www.tutorialspoint.com/unix_terminal_online.php)
 - https://bellard.org/jslinux/ / https://copy.sh

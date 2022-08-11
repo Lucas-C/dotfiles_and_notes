@@ -102,7 +102,7 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 ## UML
 - [nomnoml](http://www.nomnoml.com) : pretty UML diagrams based on a textual description
 - [UMLet](http://www.umlet.com) : open-source, diagrams can be export to eps, pdf, jpg, svg + new web-based UMLet: called [UMLetino](http://www.umlet.com/umletino)
-- [PlantUML](http://plantuml.com) -> conversion to PNG or SVG (Java) - [online editor](http://www.plantuml.com/plantuml/uml/):
+- [PlantUML](http://plantuml.com) -> conversion to PNG or SVG (Java) - [official online editor](http://www.plantuml.com/plantuml/uml/) - [alt online editor](https://plantuml-editor.kkeisuke.dev/) using `!theme sketchy-outline`:
 
     java -jar plantuml.jar -tsvg -nometadata diagram.plantuml.txt
 
