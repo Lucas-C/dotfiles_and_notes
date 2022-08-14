@@ -1314,3 +1314,10 @@ AssetsBundleExtraUnityctor_2.1_64bit > Open resources.assets > Select TextAsset 
 ~ NVDA ~
 ~^~^~^~^
 %TEMP%\nvda.log
+
+
+[#~#~#~#~#~#~#~#]
+~ Security key ~
+[#~#~#~#~#~#~#~#]
+fido2-token -L  # list devices
+fido2-token -I $device  # inspect device

@@ -243,3 +243,8 @@ wsl --terminate $distro
 wsl --shutdown
 :: Windows Terminal provides support for emojis, use it like this:
 "C:\Program Files\WindowsApps\Microsoft.WindowsTerminalPreview_1.15.2002.0_x64__8wekyb3d8bbwe\wt.exe" wsl
+
+# enable changing file owners & permissions:
+$ cat /etc/wsl.conf
+[automount]
+options = "metadata"
