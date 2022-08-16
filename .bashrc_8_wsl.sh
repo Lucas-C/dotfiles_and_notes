@@ -1,6 +1,6 @@
 ####################################
 # SPECIFIC conf for Ubuntu WSL
-[[ $(uname -a) =~ ^Linux.+Microsoft ]] || return 0
+[[ $(uname -a) =~ ^Linux.+[Mm]icrosoft ]] || return 0
 ####################################
 
 export DOCKER_HOST=tcp://localhost:2375
