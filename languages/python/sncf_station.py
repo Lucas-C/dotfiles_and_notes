@@ -4,6 +4,8 @@
 #                                      87484006 = Angers
 #                                      87481002 = Nantes
 #                                      87487892 = St Mathurin
+#                                      87484352 = Champtocé
+# Documentation: https://doc.navitia.io/#coverage
 
 import json, os, urllib.request, sys
 from base64 import b64encode
@@ -12,10 +14,15 @@ from datetime import datetime
 
 def main():
     stop_area = sys.argv[1]
+    # 1st: retrieve & display station name:
+    json_resp = http_get(f'https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:SNCF:{stop_area}',
+                         auth=(os.environ['API_KEY'], ''), parse_json=True)
+    print(json_resp["stop_areas"][0]["label"])
+    # 2nd: retrieve & display departure times:
     json_resp = http_get(f'https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:SNCF:{stop_area}/departures?data_freshness=realtime',
                          auth=(os.environ['API_KEY'], ''), parse_json=True)
-    with open('sncf.json', 'w+') as json_file:
-        json.dump(json_resp, json_file)
+    # with open('sncf.json', 'w+') as json_file:
+        # json.dump(json_resp, json_file, indent=4)
     print('Departs en gare:')
     for departure in json_resp['departures']:
         name = departure['display_informations']['name']
@@ -24,7 +31,7 @@ def main():
         departure_date_time = departure['stop_date_time']['departure_date_time']
         base_departure_date_time = departure['stop_date_time'].get('base_departure_date_time', departure_date_time)
         if departure_date_time != base_departure_date_time:
-            delay_msg = f' (retard: {time_diff(base_departure_date_time, departure_date_time)}min)'
+            delay_msg = f' (inclus retard: {time_diff(base_departure_date_time, departure_date_time)}min)'
         else:
             delay_msg = ''
         print(f'* {direction} [{commercial_mode}] depart: {horaire(departure_date_time)}{delay_msg}')

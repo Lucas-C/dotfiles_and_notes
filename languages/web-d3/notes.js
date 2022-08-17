@@ -279,6 +279,7 @@ var connect = require('connect');
 var serveStatic = require('serve-static');
 connect().use(serveStatic(__dirname)).listen(8080);
 // Alt: npm install http-server -g && http-server
+uWebSockets.js // HTTP/WebSocket server for Node.js that runs 8.5x that of Fastify and at least 10x that of Socket.IO
 
 bottleneck, request-rate-limiter // rate limiters
 yammer/circuit-breaker-js // Hystrix-like circuit breaker for JavaScript

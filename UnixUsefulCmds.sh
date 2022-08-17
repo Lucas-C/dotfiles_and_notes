@@ -1170,7 +1170,7 @@ jpegtran -perfect -optimize -progressive -grayscale -outfile $out_file $in_file 
 identify -verbose $jpg | grep -E 'Image:|Quality:' # get JPEG compression level
 identify -verbose $jpg | grep 'Interlace: JPEG' # is JPEG progressive ? Alt: grep -Fq $'\xff\xc2' $jpg - cf. https://en.wikipedia.org/wiki/JPEG#Syntax_and_structure
 exiv2 # extract EXIF, IPTC & XMP image metadata
-mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata - Alt: pdf-redact-tools (Python)
+mat # Metadata Anonymisation Toolkit, removes e.g. images hermful metadata - Alt: jvoisin/mat2, pdf-redact-tools (Python)
 feh -F -d -D 3 --cycle-once -f <(findImg .) # fast image viewer: fullscreen slideshow with 3s delay - Alt: gpicviw
 
 

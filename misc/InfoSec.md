@@ -98,6 +98,8 @@ stampery/mongoaudit : MongoDB auditing and pentesting in Python
 
     hashcat -a 0 -m 3200 hashes.txt ~/Downloads/10_million_password_list_top_10000.txt --force # from a cloudfare blog post
 
+- cracking ZIP/7z/RAR archives: https://www.acceis.fr/craquage-darchives-chiffrees-pkzip-zip-zipcrypto-winzip-zip-aes-7-zip-rar/ Uses: bkcrack, haiti, John the Ripper
+
 ### Windows
 mimikatz : extract plaintexts Windows passwords, hash, PIN code and kerberos tickets from memory; can also perform pass-the-hash, pass-the-ticket or build Golden tickets
 mimipenguin: same as Mimikatz for Linux - must be root
