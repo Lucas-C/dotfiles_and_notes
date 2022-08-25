@@ -884,8 +884,21 @@ emeryberger/scalene # a high-performance, high-precision CPU and memory profiler
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
 fabianp/memory_profiler # track the memory usage of a program line by line in the source code - require psutil => not usable with Cygwin - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
-memleax # utility producing a report of C call stacks where a process memory allocations are not matched by deallocations - Demo + LD_PRELOAD usage: https://www.reddit.com/r/Python/comments/a4w61x/fixing_a_tough_memory_leak_in_python/
+libleak > memleax # utility producing a report of C call stacks where a process memory allocations are not matched by deallocations - Demo + LD_PRELOAD usage: https://web.archive.org/web/20210227012641/https://info.cloudquant.com/2018/12/numpyleaks/
 cProfile + psutil.Process().num_ctx_switches # cf. https://pythonspeed.com/articles/custom-python-profiler/
+import tracemalloc # Python3, stats on allocated memory blocks per filename & line number - Recipe: https://confluence.desy.de/display/FSEC/Finding+memory+leaks
+from pympler import muppy, summary, tracker # tools to track memory usage
+from guppy import hpy
+h = hpy()
+h.heap()
+h.iso(...objects...).sp
+summary.print_(summary.summarize(muppy.get_objects()))
+# Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
+asizeof # the simplest solution from: https://pympler.readthedocs.org/en/latest/related.html
+print('Memory usage:', resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1000, 'MB')  # peak process memory usage - unit: https://stackoverflow.com/questions/938733/total-memory-used-by-python-process#comment35291064_7669482 - but BEWARE: this value does not make sense in a containerized env (I witnessed it with a Python process in Docker: the host did not allocated those >1Go)
+rogerhu/gdb-heap
+
+import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector -> SUPER powerful to hack python code and sniff values
 
 from rfoo.utils import rconsole # RPC remote debugging - Alt: signal-based handle on a program to debug: http://stackoverflow.com/a/133384/636849
 rconsole.spawn_server()
@@ -989,21 +1002,6 @@ foo.func_code = marshal.loads(marshal.dumps(foo.func_code).replace('bar', 'baz')
 astor / astunparse # AST 'unparse' : tree -> source
 ast.literal_eval # safe eval of a basic string expression: "it is not capable of evaluating arbitrarily complex expressions, e.g. involving operators or indexing"
 pyrser # easy Python AST transformations, with CSS-like selectors
-
-import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector
-# SUPER powerful to hack python code and sniff values
-
-# Get memory usage (+ cf. resource snippet elsewhere on this page)
-from guppy import hpy
-h = hpy()
-h.heap()
-h.iso(...objects...).sp
-# Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
-asizeof # the simplest solution from: https://pympler.readthedocs.org/en/latest/related.html
-rogerhu/gdb-heap
-print('Memory usage:', resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1000, 'MB')  # peak process memory usage - unit: https://stackoverflow.com/questions/938733/total-memory-used-by-python-process#comment35291064_7669482 - but BEWARE: this value does not make sense in a containerized env (I witnessed it with a Python process in Docker: the host did not allocated those >1Go)
-summary.print_(summary.summarize(muppy.get_objects()))
-import tracemalloc # Python3, stats on allocated memory blocks per filename & line number
 
 def get_refcount(obj):
     """Valid for CPython implementation only"""

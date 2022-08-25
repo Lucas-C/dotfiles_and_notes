@@ -44,8 +44,10 @@ def main(args):
             if not args.check_archives:
                 continue
             file_full_path = os.path.join(tmp_dir, filename)
+            print(f'Fetching {filename}...')
             with open(file_full_path, 'wb') as new_file:
                 ftp.retrbinary(f'RETR {filename}', new_file.write)
+            print('Checking archive integrity...')
             _.tar('xzf', file_full_path, '--to-stdout', _out='/dev/null')
             print(f'Successfully checked tar.gz archive {filename}')
             md5 = md5_per_filename.get(filename)
