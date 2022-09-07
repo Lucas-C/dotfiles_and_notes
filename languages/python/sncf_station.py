@@ -1,23 +1,27 @@
 #!/usr/bin/env python
 
 # USAGE: API_KEY=... ./sncf_station.py $stop_area
-#                                      87484006 = Angers
-#                                      87481002 = Nantes
-#                                      87487892 = St Mathurin
-#                                      87484352 = Champtocé
 # Documentation: https://doc.navitia.io/#coverage
+# Ce script n'inclue pas les changements d'horaires "temps réel" :(
 
 import json, os, urllib.request, sys
 from base64 import b64encode
 from datetime import datetime
 
+STATION_ID_PER_CITY_NAME = {
+    "Angers": 87484006,
+    "Nantes": 87481002,
+    "StMath": 87487892,
+    "Champtocé": 87484352,
+}
 
 def main():
     stop_area = sys.argv[1]
+    stop_area = STATION_ID_PER_CITY_NAME.get(stop_area, stop_area)
     # 1st: retrieve & display station name:
-    json_resp = http_get(f'https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:SNCF:{stop_area}',
-                         auth=(os.environ['API_KEY'], ''), parse_json=True)
-    print(json_resp["stop_areas"][0]["label"])
+    # json_resp = http_get(f'https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:SNCF:{stop_area}',
+                         # auth=(os.environ['API_KEY'], ''), parse_json=True)
+    # print(json_resp["stop_areas"][0]["label"])
     # 2nd: retrieve & display departure times:
     json_resp = http_get(f'https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:SNCF:{stop_area}/departures?data_freshness=realtime',
                          auth=(os.environ['API_KEY'], ''), parse_json=True)
@@ -28,12 +32,17 @@ def main():
         name = departure['display_informations']['name']
         direction = departure['display_informations']['direction'].split(' (')[0]
         commercial_mode = departure['display_informations']['commercial_mode']
+        delay_msg = ''
         departure_date_time = departure['stop_date_time']['departure_date_time']
         base_departure_date_time = departure['stop_date_time'].get('base_departure_date_time', departure_date_time)
         if departure_date_time != base_departure_date_time:
-            delay_msg = f' (inclus retard: {time_diff(base_departure_date_time, departure_date_time)}min)'
-        else:
-            delay_msg = ''
+            delay_msg = f'inclus retard au départ: {time_diff(base_departure_date_time, departure_date_time)}min'
+        arrival_date_time = departure['stop_date_time']['arrival_date_time']
+        base_arrival_date_time = departure['stop_date_time'].get('base_arrival_date_time', arrival_date_time)
+        if arrival_date_time != base_arrival_date_time:
+            delay_msg = f" retard à l'arrivée: {time_diff(base_arrival_date_time, arrival_date_time)}min"
+        if delay_msg:
+            delay_msg = f' ({delay_msg})'
         print(f'* {direction} [{commercial_mode}] depart: {horaire(departure_date_time)}{delay_msg}')
 
     if json_resp['disruptions']:

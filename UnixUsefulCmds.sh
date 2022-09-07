@@ -745,12 +745,12 @@ Xdummy > Xvfb # in-memory X11 display server that doesn't render to screen
 pjscrape, PhantomJS, SlimerJS, CasperJS # PhantomJS alt CDN download: https://cnpmjs.org/downloads
 sikuli # Java-based (with JS, Python & Ruby ports) visual workflow, able to identify images on screen using OpenCV
 Netflix/sketchy # takes screenshots and scrap text using PhantomJS & Celery
-pageres, pageres-cli, capturejs # Easily capture website screenshots - An interesting alternative to use FF with casperjs --engine=slimerj: https://gist.github.com/nhoizey/4060568
+pageres, pageres-cli, capturejs # Easily capture website screenshots - An interesting alternative to use Firefox with casperjs --engine=slimerj: https://gist.github.com/nhoizey/4060568
 new Pageres({filename: '<%= date %>_<%= url %>_<%= size %>'})
     .src('jobs.voyages-sncf.com', ['1366x768', 'iPad', 'iPhone 6'])
     .dest(__dirname).run()
     .catch(function (error) { console.error(error.stack.split('\n')); process.exit(1); });
-GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # FF extensions
+GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # Firefox extensions to perform web scrapping
 Selenium, Scrapy, RoboBrowser, FlexGet, ghost.py, splinter, pyspider # python crawling libs
 kimono, import.io # web services
 parklemotion/nokogiri # Ruby gem
@@ -1014,6 +1014,12 @@ $ff_profile_dir/.parentlock # fix "Firefox is already running but is not respond
 cp sessionstore.bak sessionstore.js # Restore previous session tabs
 <CTRL>+F5 # refresh page bypassing the cache
 MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage - Alt: http://freze.it
+# Useful extensions:
+* uBlock
+* ViolentMonkey
+* Wappalyzer
+* Refined GitHub
+* Pinterest Save Button
 
 https://developer.mozilla.org/en-US/docs/Tools/Web_Console
 - inspect(), pprint()

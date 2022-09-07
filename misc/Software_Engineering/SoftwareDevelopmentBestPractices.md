@@ -110,6 +110,7 @@ Software Development Best Practices
 - [Shortcuts - a handy guide to cognitive biases](https://www.shortcogs.com)
 - [REST – PUT vs POST](https://restfulapi.net/rest-put-vs-post/)
 - [Solutions Architect Tips — The 5 Types of Architecture Diagrams](https://betterprogramming.pub/solutions-architect-tips-the-5-types-of-architecture-diagrams-eb0c11996f9e)
+- [Event-Driven Architecture Patterns](https://medium.com/wix-engineering/6-event-driven-architecture-patterns-part-1-93758b253f47)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -334,7 +335,7 @@ NoSQL: Key-value store / Document store / Wide column store / Graph Database
 
 cf. also [DistributedSystemsAndTheEndOfTheAPI]
 
-useful tool to draw architecture diagrams: [yEd](https://www.yworks.com/products/yed) - [draw.io](https://draw.io)
+Useful tools to draw architecture diagrams: [yEd](https://www.yworks.com/products/yed) - [draw.io](https://draw.io)
 
 [Architecture Review Working Group : Multiple Perspectives On Technical Problems and Solutions]:
 > Excellent, it sounds like you have a hypothesis! We are gonna do an architecture review.
@@ -355,6 +356,14 @@ Everyone, both domain experts & devs, must be convinced of the importance of bui
 * application
 * domaine
 * infrastructure
+
+[Event-Driven Architecture Patterns]:
+* Consume and project, for very popular services that become a bottleneck
+* Event-driven from end to end, for easy business flow status updates
+* In memory KV store, for 0-latency data access
+* Schedule and Forget, when you need to make sure scheduled events are eventually processed
+* Events in Transactions, when idempotency is hard to achieve
+* Events Aggregation, when you want to know that a complete batch of events have been consumed
 
 [Command Line Interface Guidelines] : An open-source guide to help you write better command-line programs, taking traditional UNIX principles and updating them for the modern day.
 

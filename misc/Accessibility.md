@@ -60,7 +60,8 @@ https://github.com/access42/AccessTooltip : JS function to make the title attrib
 ## Outils
 Quick check WEBAIM based [Wave](http://wave.webaim.org)
 
-[asqatasun](https://doc.asqatasun.org/en/index.html)
+- [asqatasun](https://doc.asqatasun.org): Opensource web site analyser, used for web accessibility
+- [lighthouse-ci](https://www.npmjs.com/package/lighthouse-ci): wrapper around Google Lighthouse CLI
 
 Contrast checkers:
 - [Colour Contrast Analyser](https://www.paciellogroup.com/resources/contrastanalyser/) (The Paciello Group) : top !
