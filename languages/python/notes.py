@@ -786,7 +786,7 @@ pyinstaller --onefile cli.py # Use --noupx under Windows - I successfully used t
 > The executable that PyInstaller builds is not fully static, in that it still depends on the system libc.
 > [A] solution is to use a tool like StaticX to create a fully-static bundled version of your PyInstaller application.
 pynsist # used by Sam & Max with nuitka (installer for non-web apps)
-PyOxidizer
+PyOxidizer # Build Portable Binaries of Python Applications: https://hynek.me/til/python-portable-binaries/
 
 from distutils.command.build import build
 class custom_build(build):
@@ -1052,6 +1052,7 @@ scipy
     OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
     matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/)
         prettymaps  # draw customized maps from OpenStreetMap data
+        Pyqtgraph  # "when you really want to plot a million points on the screen without the computer crying"
     yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
     (ggplot(mtcars, aes('wt', 'mpg', color='factor(gear)'))
      + geom_point()
@@ -1094,6 +1095,7 @@ Optimization guide:
 - measure first (line_profiler !)
 - improve algorithms ? data structures (for lightweight objects, use namedtuples) ? use a cache ?
 - Numba (faster than Cython, which is faster than Pypy) + Numpy (vectorized operations are way faster than Pyhton slow loops - use: ufuncs, aggregates, broadcasting, slicing & masking)
+- try Pypy or taichi
 
 Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C
     AlanCristhian/statically : provides the @statically.typed decorator to compile a Python function with Cython
@@ -1103,6 +1105,8 @@ from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can b
 Jython / Py4J # intercommunicate with Java -> Jython has pip, but won't support lib depending on multiprocessing - however, it has excellent support for built-in Java threads: http://www.jython.org/jythonbook/en/1.0/Concurrency.html
 voc # transpiler converting Python code into Java bytecode
 Numba # NumPy aware dynamic Python compiler using LLVM - Also: numbapro # for targeting the GPU & writing CUDA code in Python
+taichi # Python subest for parallel programming / high-performance numerical computation with just-in-time (JIT) compiler to offload compute-intensive code to the GPU or CPU - https://docs.taichi-lang.org/blog/accelerate-python-code-100x
+    supports multiple data types, including struct / dataclass / quant / sparse, and allows you to adjust memory layout flexibly
 Pyston # VM using LLVM JIT
 Pythran # Python to c++ compiler for a subset of the Python language. It takes a Python module annotated with a few interface description and turns it into a native python module with the same interface, but (hopefully) faster.
 PyInline # put source code from other programming languages (e.g. C) directly "inline" in Python code

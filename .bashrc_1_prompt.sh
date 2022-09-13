@@ -31,7 +31,9 @@ export EXIT_CODE=0
 IS_CHROOTED_PROMPT='{}'
 if stat -c %i / >/dev/null 2>&1; then # Ensuring 'stat' command exists (it is not under boot2docker)
     ROOT_INODE=$(stat -c %i /)
-    if [ $ROOT_INODE -ne 2 -a $ROOT_INODE -ne 128 ] && [ -z "${WINDIR:-}" ]; then
+    if [ -n "$WSL_DISTRO_NAME" ]; then
+        IS_CHROOTED_PROMPT="{$WSL_DISTRO_NAME}"
+    elif [ $ROOT_INODE -ne 2 -a $ROOT_INODE -ne 128 ] && [ -z "${WINDIR:-}" ]; then
         IS_CHROOTED_PROMPT='{chrooted}'
     fi
 fi

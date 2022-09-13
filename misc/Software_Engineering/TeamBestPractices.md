@@ -345,6 +345,12 @@ it's better to rewrite it from scratch (Thomas et al, 1997)
 > When you’re overwhelmed with problems, ordering them isn’t the most important skill, filtering them is. The most valuable prioritization skill is simply saying “No. I’m not going to solve that problem right now”.
 > Engineers need prioritization skills too.
 
+[J'ai presque fini - David Laizé - DevFest 2021](https://youtube.com/watch?v=ohVd4ugay1o)
+* Overconficence effect
+* Escalation of commitment (aka _Sunk cost fallacy_ aka "biais des coûts irrécupérables")
+
+Ses solutions : la phase de conception est importante; solliciter des collègues un feedback si on est tombés dans ce biais => psychological safety
+
 ## Retrospectives
 - Content/Pas content/A améliorer/A continuer/A arrêter/Questions
 - Drop/Add/Keep/Improve
