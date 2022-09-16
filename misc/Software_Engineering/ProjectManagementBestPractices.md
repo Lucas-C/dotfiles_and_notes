@@ -61,6 +61,7 @@ Project management best practices
 - [The Gartner Hype Cycle is … hype. Don’t use it as an excuse](https://davidgerard.co.uk/blockchain/2019/10/03/the-gartner-hype-cycle-is-hype-dont-use-it-as-an-excuse/)
 - [5 arguments to make managers care about technical debt](https://understandlegacycode.com/blog/5-arguments-to-make-managers-care-about-technical-debt/)
 - [Is tasking developers with creating detailed estimates a waste of company money?](https://iism.org/article/is-tasking-developers-with-creating-detailed-estimates-a-waste-of-company-money-42)
+- [Agilité à grande échelle @ Spotify avec les Tribus, Brigades, Chapitres & Guildes](http://www.les-traducteurs-agiles.org/assets/fabrice_aimetti/SpotifyScaling_fr.pdf) mais [Spotify Doesn't Use the Spotify Model](https://www.agility11.com/blog/2020/6/22/spotify-doesnt-use-the-spotify-model)
 
 ### "Comment manager des Geeks" Agilité, Méthodologie & Tests - Luc Legardeur - Devoxx Paris 2015
 - Bien définir les valeurs de l'entreprise (ex: Xebia : des logiciels de haute qualité)
@@ -213,6 +214,8 @@ Instead of working on actual, long-term projects that a person could get excited
 - these "Agile" systems, so often misapplied, demand that they provide humiliating visibility into their time and work, despite a lack of reciprocity
 - Scrum is the worst, with its silliness around two-week “iterations”. It induces needless anxiety about microfluctuations in one’s own productivity
 - Ultimately, Agile (as practiced) and Waterfall both are forms of business-driven engineering, and that’s why neither is any good at producing quality software or happy employees.
+
+[Agilité à grande échelle @ Spotify avec les Tribus, Brigades, Chapitres & Guildes](http://www.les-traducteurs-agiles.org/assets/fabrice_aimetti/SpotifyScaling_fr.pdf) mais [Spotify Doesn't Use the Spotify Model](https://www.agility11.com/blog/2020/6/22/spotify-doesnt-use-the-spotify-model)
 
 ### Stories
 Stories should be clearly defined so there aren’t any misunderstandings between the Development Team and Product Owner about what is being delivered.
