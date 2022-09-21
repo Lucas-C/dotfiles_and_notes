@@ -351,6 +351,9 @@ A few notes on _Domain Driven Design_ cf. [DDD vite fait]:
 Everyone, both domain experts & devs, must be convinced of the importance of building such shared vocabulary, and idealy keep a glossary.
 - beware of _analysis paralysis_ : when teams start to be affraid to make conception decisions
 
+[Layered Architecture](https://www.baeldung.com/cs/layered-architecture) _aka_ multitier architecture:
+![](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/assets/sapr_0104.png)
+
 [Architecture hexagonale](https://github.com/voyages-sncf-technologies/architecture-hexagonale-cqrs#architecture-hexagonale) - 4 couches :
 * présentation
 * application
@@ -600,6 +603,12 @@ What are logs used for ?
     * "The writing and running of tests is not a goal in and of itself — EVER. We do it to get some benefit for our team, or the business"
     * "there are coverage based fuzzers like afl as well as tools like the address sanitizer, thread sanitizer, memory sanitizer, undefined behavior sanitizer and the leak sanitizer to name a few."
     * "This was but one example of a system that didn’t stand much to benefit from integration testing and where monitoring has worked much better."
+- [How to Deal with Flaky Tests](https://thenewstack.io/how-to-deal-with-flaky-tests/):
+    * How to Spot a Flaky Test: some tools can rerun your tests to see if they’re deterministic, e.g. Spotify GitHub bot
+    * How to Address Flaky Tests? Quarantining Flaky Tests, Look for Timeouts...
+- [Flaky Tests at Google and How We Mitigate Them](https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html)
+    * add an option to re-run tests automatically when they fail
+    * A tool that monitors the flakiness of tests and if the flakiness is too high, it automatically quarantines the test
 
 
 #### Why unit tests ? [PP-Chapt34]

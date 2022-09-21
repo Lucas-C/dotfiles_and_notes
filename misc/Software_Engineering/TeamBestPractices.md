@@ -111,6 +111,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Technical interview exercises](http://www.colinhowe.co.uk/general/2018/05/30/technical-interview-exercises/)
 - [Have interviewers practice](https://rework.withgoogle.com/guides/hiring-train-your-interviewers/steps/giving-interviewers-practice/)
 - [Valve Handbook For New Employees](https://steamcdn-a.akamaihd.net/apps/valve/Valve_NewEmployeeHandbook.pdf)
+- [Survival guide for Odooers](https://www.odoo.com/web/content/31413934?utm_campaign=HR_recruitment&utm_source=annonce+job&unique=495f86cbf17dad7e465ba2b292b62e3c80d09b1a)
 - [Using 6 Page and 2 Page Documents To Make Organizational Decisions](https://medium.com/@inowland/using-6-page-and-2-page-documents-to-make-organizational-decisions-3216badde909)
 - [Les ADR pour garder une trace de tous les choix d'architecture](https://blog.stack-labs.com/code/adr-to-remember-past-archiectural-decisions/)
 - [L1221-6 à L1221-9 du Code du travail (Section 2: Recrutement)](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006177850/2008-05-01/)
@@ -211,6 +212,17 @@ avec des sections "liens utiles" / "à installer sur son poste" / "par où comme
 - [Valve Handbook For New Employees]
     * present the team history a bit
     * Your First Month / What To Work On
+- [Survival guide for Odooers]
+    * Your first days : You'll get a quick tour of the company before starting a 2-week training on the product. You’ll learn this through the eLearning platform by creating your own database and by having fun with our business game. At the end of the training, you’ll have to take the certification to assess your level. After the training, you’ll join your team and a coach will train you
+    * Our culture & values
+    * It’s ok to fail. It’s ok to ask stupid questions. Please, do it.
+    * Be responsible: avoid the “this is not my job” attitude
+    * Our Tools
+    * Career Path : the tools to help you evolve (in the company)
+    * Work Hard, Play Hard: the idea is to have fun after work
+    * Our Offices
+    * HR Policies: purchase policy, working hours, legal/sick leaves
+    * Glossary
 - https://walkthrough.dev: step-by-step code walkthroughs to share knowledge and bring developers up to speed - GitHub based, $7/month
   Alt: free VSCode plugin - https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour
 

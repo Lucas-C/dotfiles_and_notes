@@ -14,8 +14,9 @@
     * [Sequence diagrams](#sequence-diagrams)
     * [Histograms](#histograms)
 - [Command-line tips & tricks for demos](#command-line-tips--tricks-for-demos)
-- [Rhetoric](#rhetoric)
+- [How to give presentations](#how-to-give-presentations)
     * [Benjamin G. advices](#benjamin-g-advices)
+- [Rhetoric](#rhetoric)
 
 <!-- tocstop -->
 
@@ -207,6 +208,16 @@ set completion-ignore-case on
 - [The smackdown learning model](http://blog.codinghorror.com/in-defense-of-the-smackdown-learning-model/):
   add heat & controversy to your presentations!
   **Ex:** Presentation Smackdown: 2 presenters, 2 frameworks, 1 guy with the big bell.
+
+## Style: Lessons in Clarity and Grace
+Based on [a 2-pages summary by Fabien Pinckaers](https://docs.google.com/document/d/1F8_p3bkzugTvkBd1Ja6bHLR2v_XXRWqtcq7jF2gu0EM/edit)
+* A sentence is clear when **its important actions are in verbs**, and **main characters are subjects**
+* Reassemble using conjunctions such as _if, although, because, when, how, why_
+* When the character is not clear, use the word “you” as often as you can
+* When writing paragraphs, the last few words of one sentence should set up information that appears in the first few words of the next.
+* Begin sentences with what they are “about”; end with words that should receive a special emphasis.
+* To motivate the reader, you should address **why your topic is important in the introduction**. A good introduction structure contains: a shared context, a problem, the solution
+* Shorter is better. Short sentences are strong.
 
 ## Benjamin G. advices
 - always **rehearse with someone**
