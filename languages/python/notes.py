@@ -828,11 +828,11 @@ import nose # -m nose.core -v -w dir --pdb --nologcapture --verbose --nocapture 
 nosetest # -vv --collect-only # for debug
 py.test -vv --capture=no/-s --showlocals/-l --strict-config --strict-markers --exitfirst --cache-clear --pdb -m $marker -k 'TestClass and test_methode_name' # selective test execution - To set parameters by defaults, use the `addopts` entry in your config file
 pytest -k "$(tq failure -p -a name < results.xml | awk 'NR>1{print(" or ")} {print}' ORS='')" # rerunning only failed tests, require --junit-xml=results.xml
-    pytest-bdd, pytest-benchmark, pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
+    pytest-bdd, pytest-benchmark (can produces an histogram), pytest-cram, pytest-pythonpath, pytest-selenium, pytest-sugar # plugins - Also: memory leak detector https://nvbn.github.io/2017/02/02/pytest-leaking/
     pytest-monitor # Analyze resources consumption (memory / time / CPU) & keep an history
     pytest-profiling # tests are profiled with cProfile and analysed with pstats; heat graphs are generated using gprof2dot and dot
     pytest-testmon # keeps track of which code is used by which tests, to only run the tests relevant for the changes made
-    pytest-play # REST APi testing based on YAMLs files
+    pytest-play # REST API testing based on YAMLs files
     pytest-icdiff # better, colored diffs in pytest assertion error messages using ICDiff
     pytest-watch # re-run tests when a file in your project changes
 airspeed velocity # designed to benchmark a single project over its lifetime using a given set of benchmarks – i.e., little snippets of code that are timed - the result data is stored in JSON files

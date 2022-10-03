@@ -33,6 +33,8 @@ DO NOT "underestimate the complexities and issues caching brings along with it" 
 
 write-through VS write-around VS write-back caching policies (with Python) : https://shahriar.svbtle.com/Understanding-writethrough-writearound-and-writeback-caching-with-python
 
+[cachegrand](https://github.com/danielealbano/cachegrand): a modern OSS Key-Value store built for today's hardware
+
 JCache API caching strategies (https://dzone.com/refcardz/java-caching):
 
   FACTOR                  |  STRATEGY
@@ -41,6 +43,8 @@ JCache API caching strategies (https://dzone.com/refcardz/java-caching):
  Cache modes              | Embedded cache or Isolated cache
  Transparent cache access | Read-Through and Write-Through caching
  Cache data quality       | Expiry / Eviction policy fine tuning
+
+[Cache stampede](https://en.wikipedia.org/wiki/Cache_stampede): a type of cascading failure that can occur when massively parallel computing systems with caching mechanisms come under very high load
 
 ### memcached
 
