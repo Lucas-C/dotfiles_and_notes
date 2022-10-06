@@ -1038,27 +1038,29 @@ fractions
 statistics # Python 3 or pypi/statistics backport - Alt: simplestatistics
 kwgoodman/roly # moving window median algorithms - Alt: ajcr/rolling: computationally efficient rolling window iterators - Also: quantile sketches algos in Algo_Notes.md
 
-scipy
-    numpy # n-dimensional arrays, vectorized operations and broadcasting : faster than CPython for large arrays
-        Illustrated Guide: https://betterprogramming.pub/numpy-illustrated-the-visual-guide-to-numpy-3b1d4976de1d
-    sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
-    pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
-        pd.read_html(url, header=0, parse_dates=["Call Date"]) # extract table from HTML page into a DataFrame
-        JosPolfliet/pandas-profiling # -> create HTML profiling reports from pandas DataFrame objects, inc. quantiles, most frequent values, histograms & descriptive statistics
-        agate # data analysis library optimized for humans, not machines; alternative to numpy and pandas that solves real-world problems with readable code
-    geoplotlib, ResidentMario/geoplot
-    ResidentMario/missingno, holoviews, pascal-schetelat/Slope # other dataviz libs
-    pyecharts # line charts, bars, pie, map, radar, graphs, trees, treemaps, sunburst, gauge, calendars, 3D
-    OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
-    matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/)
-        prettymaps  # draw customized maps from OpenStreetMap data
-        Pyqtgraph  # "when you really want to plot a million points on the screen without the computer crying"
-    yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
-    (ggplot(mtcars, aes('wt', 'mpg', color='factor(gear)'))
-     + geom_point()
-     + stat_smooth(method='lm')
-     + facet_wrap('~gear')
-     + theme_xkcd())
+numpy # n-dimensional arrays, vectorized operations and broadcasting : faster than CPython for large arrays
+    Illustrated Guide: https://betterprogramming.pub/numpy-illustrated-the-visual-guide-to-numpy-3b1d4976de1d
+    SciPy  # collection of mathematical algorithms and convenience functions built on NumPy
+sympy # symbolic mathematics: formula printing (also: PyLatex), simplification, equations, matrices, solvers...
+SageMath # open-source mathematics software system built on top of NumPy, SciPy, matplotlib, Sympy, Maxima, GAP, FLINT, R and many more
+pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or PyMC (Machine Learning), orange (dedicated soft for visu), miha-stopar/nnets (neural networks)
+    pd.read_html(url, header=0, parse_dates=["Call Date"]) # extract table from HTML page into a DataFrame
+    JosPolfliet/pandas-profiling # -> create HTML profiling reports from pandas DataFrame objects, inc. quantiles, most frequent values, histograms & descriptive statistics
+    agate # data analysis library optimized for humans, not machines; alternative to numpy and pandas that solves real-world problems with readable code
+OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
+matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/)
+    Pylab = matplotlib.pyplot + NumPy
+    prettymaps  # draw customized maps from OpenStreetMap data
+    Pyqtgraph  # "when you really want to plot a million points on the screen without the computer crying"
+pyecharts # line charts, bars, pie, map, radar, graphs, trees, treemaps, sunburst, gauge, calendars, 3D
+geoplotlib, ResidentMario/geoplot
+ResidentMario/missingno, holoviews, pascal-schetelat/Slope # other dataviz libs
+yhat/ggplot # data visualisation 2d graphing/plotting - Also: pyplot.xkcd() is awesome - Also: has2k1/plotnine
+(ggplot(mtcars, aes('wt', 'mpg', color='factor(gear)'))
+ + geom_point()
+ + stat_smooth(method='lm')
+ + facet_wrap('~gear')
+ + theme_xkcd())
 
 hickford/primesieve-python # one of the fastest prime sieve implementaions (C++)
 
