@@ -29,12 +29,12 @@ PATH=$GOPATH/bin:$PATH
 
 export SHELL # needed for pew: https://github.com/berdario/pew/blob/master/pew/pew.py#L169
 
-export DISPLAY=:0 # for xclip, can be checked with 'w' cmd
-export LOG=1 # for notify-osd
+DISPLAY=:0 # for xclip, can be checked with 'w' cmd
 
-export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
-export HISTTIMEFORMAT="%F %T "
-export HISTCONTROL=ignoreboth # ignoredups and ignorespace
+HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
+HISTFILESIZE=$HISTSIZE
+HISTTIMEFORMAT="%F %T "
+HISTCONTROL=ignoreboth:erasedups # ignoreboth = ignoredups + ignorespace
 shopt -s histappend # append to the history file, don't overwrite it
 alias r='fc -s' # 'repeat' - USAGE: r [old=new] [cmd] : runs last command [matching $cmd if provided], after performing the OLD=NEW substitution
 

@@ -72,7 +72,10 @@ prompt_command ()
         GIT_BRANCH=$(git branch --no-color 2>/dev/null | sed -ne 's/^* //p')
     fi
 
-    history -a # flush history => shared between term sessions
+    # flush history => shared between term sessions
+    builtin history -a
+    builtin history -c
+    builtin history -r
 
     [ -n "${TMUX:-}" ] && tmux list-windows | awk -F: '{print $1}' > $CURRENT_PWD_DIR/tmux_live_windows
 }
