@@ -61,7 +61,6 @@ An open source game about learning Git: https://ohmygit.org
 
 Next/previous commits: $commit^ (first parent) & $commit~ (first child)
 
-curl 'https://raw.githubusercontent.com/eacousineau/util/master/git-new-workdir.sh' > .git-new-workdir.sh
 curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' > .bashrc_git_completion # buggy with TMUX
 
 curl http://git-punish.io/get -o /usr/local/bin/git-punish
@@ -254,6 +253,12 @@ GitHub issues & PRs graphs for a repo : https://chezsoi.org/lucas/blog/github-pr
 Using the Status API to convey information directly into pull requests: https://tryexceptpass.org/article/continuous-builds-reporting-status/
 
 https://github.com/refined-github/refined-github Browser extension that simplifies the GitHub interface and adds useful features
+
+# Fetching all open GitHub issues & comments as Markdown files using "gh" CLI & jq
+gh issue list --json number --jq .[].number | while read nb; do
+    gh issue view $nb > $nb.md
+    gh issue view $nb --comments >> $nb.md
+done
 
 
 ++++++

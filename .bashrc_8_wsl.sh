@@ -36,3 +36,5 @@ img () {
         rundll32.exe "$PhotoGalleryDLLPath" ImageView_Fullscreen $(wslpath -w "$@")
     fi
 }
+
+alias vid='/c/Program\ Files/VideoLAN/VLC/vlc.exe'

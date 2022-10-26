@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # To list this file sections: $ grep '^"" ' notes.py
 
 """""""""""""
@@ -476,6 +475,9 @@ print '            f:', f              # 3.0
 print '       int(f):', int(f)         # 2
 print '     floor(f):', floor(f)       # 2.0
 
+a = 1234.567; b = 45.67834; c = 0.0004
+(a+b)+c != a+(b+c)  # From: https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems
+
 # Name mangling:
 class Yo(object):
     def __init__(self):
@@ -688,7 +690,7 @@ pip-review # check for updates of all dependency packages currently installed in
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 pyproject.toml # PEP-518 replacement for setup.py - Alt: https://github.com/pypa/pipfile by kennethreitz
 python setup.py check --strict  # validate meta-data, ensuring all required args are present - To go further: setuptools-lint
-pip-compile # recursively pin Python dependencies; part of pip-tools - Alt: pip2tgz "/var/www/packages" mypackage && pip install --index-url="file:///var/www/packages" mypackage
+pip-compile # recursively pin Python dependencies; part of pip-tools - Alt: pip freeze - pip2tgz "/var/www/packages" mypackage && pip install --index-url="file:///var/www/packages" mypackage
 PyPRI # private Python index in the cloud to which you have total control of access.
 http://www.watchman-pypi.com  # Effectively find upstream & downstream dependencies of a Pypi package - Alt: https://github.com/DavHau/pypi-deps-db / libraries.io
 
@@ -1490,6 +1492,7 @@ Flask(__name__, static_folder='..', static_url_path='', template_folder='.') # h
     flask-babel # adds i18n and l10n support
     flask-login # user session management
     Flask-HTTPAuth # Basic, Digest and Token HTTP authentication
+    flask_weasyprint # easily provides a PDF export of an HTML page using Weasyprint
     mjhea0/awesome-flask # A curated list of awesome things related to Flask
     Talisman / Secure.py # add HTTP headers protecting against common webapps security issues
 Quart # like Flask, but async -> ASGI - ~3x faster than Flask - cf. https://www.metal3d.org/blog/2020/de-flask-%C3%A0-quart/
@@ -1974,3 +1977,20 @@ PYTHONWARNDEFAULTENCODING : raise EncodingWarning when no encoding was specified
 match event.get():  # pattern matching - Horrible uses: https://www.hillelwayne.com/post/python-abc/
     case Click(position=(x, y)):
         handle_click_at(x, y)
+
+
+#-----------
+# Python 3.11
+
+tomllib: Support for Parsing TOML in the Standard Library
+
+try:
+    ...
+except* SpamError:
+    ...
+except* FooError as e:
+    ...
+except* (BarError, BazError) as e:
+    ...
+
+asyncio.TaskGroup

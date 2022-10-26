@@ -373,7 +373,8 @@ Liens utiles:
 * http://retrospectivewiki.org
 * https://retromat.org
 * https://www.scrumalliance.org/community/member-articles/699
-- https://www.scrumexpert.com/tools/truly-connect-with-your-team-retros-radars-with-trune/ : online retrospective & health radar tool
+* https://action.parabol.co : open-source online retrospectives, sprint poker, standup meetings...
+* TRUNE: https://www.scrumexpert.com/tools/truly-connect-with-your-team-retros-radars-with-trune/ : online retrospective & health radar tool
 
 | Nom rétrospective                       | Description / Lien                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |-----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

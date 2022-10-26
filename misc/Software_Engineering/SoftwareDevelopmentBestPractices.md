@@ -563,6 +563,7 @@ During my research I identified nine types of comments:
     * Raise an exception
     * Use a functional "Optional" construct
 - [The different ways to handle errors in C](https://mccue.dev/pages/7-27-22-c-errors): 11 different ways!
+- empty `catch` blocks after a `try` are very common cause of errors: https://stackoverflow.com/a/1234364/636849 / https://cwe.mitre.org/data/definitions/390.html
 
 ### Logs
 From [DontReadYourLogs]: "The next time you start to write a log line, ask yourself whether another observability tool would be a better fit."
