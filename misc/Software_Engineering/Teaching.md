@@ -216,4 +216,4 @@ Ex playground for Python: https://www.katacoda.com/courses/python/playground
 - https://bellard.org/jslinux/ / https://copy.sh
 - [play-with-docker](https://labs.play-with-docker.com): free Alpine Linux Virtual Machine in the cloud where you can build and run Docker containers,
   through your web browser. Require a docker.com account.
-- [Qwiklabs AWS](https://run.qwiklab.com/catalog?cloud=AWS) (1 credit == 1 dollar)
+- [AWS Skill Builder](https://explore.skillbuilder.aws/learn) (gratuit)

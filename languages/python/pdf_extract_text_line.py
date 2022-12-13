@@ -9,6 +9,7 @@
 
 import argparse, binascii
 from pdfrw import PdfArray, PdfReader
+from pdfrw.uncompress import uncompress
 
 
 def main():
@@ -22,6 +23,7 @@ def main():
                                  for font_id, font in fonts.items()]
     target_substrings.append((args.target_substring, None))
     contents = page.Contents if isinstance(page.Contents, PdfArray) else [page.Contents]
+    uncompress(contents)
     matching_line = None
     for content in contents:
         for line in content.stream.split('\n'):
@@ -51,15 +53,16 @@ def parse_args():
 
 
 def font2cmap(font):
-    if font.Encoding and font.Encoding.Differences:
+    if font.Encoding and hasattr(font.Encoding, "Differences") and font.Encoding.Differences:
         raise NotImplementedError(f'font with base "{font.BaseFont}" has .Encoding.Differences')
     cmap = {}
     if not font.ToUnicode :
         return cmap
     DescendantFont = font.DescendantFonts and font.DescendantFonts[0]
-    DescendantFontCIDToGIDMap = DescendantFont and DescendantFonts.CIDToGIDMap
-    if DescendantFontCIDToGIDMap != '/Identity':
+    DescendantFontCIDToGIDMap = DescendantFont and DescendantFont.CIDToGIDMap
+    if DescendantFontCIDToGIDMap and DescendantFontCIDToGIDMap != '/Identity':
         raise NotImplementedError(f'font.DescendantFonts[0].CIDToGIDMap={DescendantFontCIDToGIDMap}')
+    assert uncompress([font.ToUnicode])
     font_words = font.ToUnicode.stream.replace('\n', ' ').split(' ')
     if 'beginbfchar' in font_words:
         bfchar_table_start_index = next(i for i, word in enumerate(font_words) if word == 'beginbfchar')
@@ -71,9 +74,17 @@ def font2cmap(font):
         bfrange_table_start_index = next(i for i, word in enumerate(font_words) if word == 'beginbfrange')
         bfrange_table_end_index = next(i for i, word in enumerate(font_words) if word == 'endbfrange')
         bfrange_table_words = font_words[bfrange_table_start_index+1:bfrange_table_end_index]
-        for srcCode1, srcCode2, dstString in zip(bfrange_table_words[::3], bfrange_table_words[1::3], bfrange_table_words[2::3]):
-            for srcCode in char_range(srcCode1[1:-1].lower(), srcCode2[1:-1].lower()):
-                cmap[srcCode] = dstString[1:-1].lower()
+        if bfrange_table_words[2] == "[":
+            assert bfrange_table_words[-1] == "]"
+            r_start = bfrange_table_words[0]
+            r_end = bfrange_table_words[1]
+            for i, src in enumerate(char_range(r_start[1:-1].lower(), r_end[1:-1].lower())):
+                dst = bfrange_table_words[3 + i]
+                cmap[src] = dst[1:-1].lower()
+        else:  # legacy, untested code:
+            for r_start, r_end, dst in zip(bfrange_table_words[::3], bfrange_table_words[1::3], bfrange_table_words[2::3]):
+                for src in char_range(r_start[1:-1].lower(), r_end[1:-1].lower()):
+                    cmap[src] = dst[1:-1].lower()
     return cmap
 
 

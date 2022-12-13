@@ -23,7 +23,7 @@ FROM: Alex Martelli, in "Python Interviews: Discussions with Python Experts", on
 """""""
 _ # result of the last expression evaluated (in an interactive interpreter)
 
-os.chdir(os.path.dirname(os.path.realpath(__file__))) # useful at beginning of a script : change the current directory to the script parent directory
+os.chdir(os.path.dirname(os.path.realpath(__file__))) # useful at beginning of a script : change the current directory to the script parent directory - Alt: Path(__file__).resolve().parent
 <module>.__file__ # can refer to .py OR .pyc !!
 __all__ = ['bar', 'foo']  # list of symbol to export from module. Default: all symbol not starting with _
 

@@ -261,7 +261,7 @@ Another take on that subject from [Why "Agile" and especially Scrum are terrible
     * [Related articles on opensource.com](https://opensource.com/sitewide-search?search_api_views_fulltext=imposter%20syndrome)
 
 
-[The Role of a Senior Developper](http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/):
+[The Role of a Senior Developper](http://web.archive.org/web/20160529001956/http://mattbriggs.net/blog/2015/06/01/the-role-of-a-senior-developer/):
 - A senior developer [...] is obsessed with simplicity.
 - senior developer [...] understand that there is no “Right Way” to build software
 - A senior developer understands that everything in our field involves tradeoff
@@ -311,20 +311,11 @@ where "Design" = Architecture / Organisation of the software logic
 
 Law of Demeter : each SE should have only limited knowledge about other SEs. Write "shy code". Talk to friends; Don’t talk to strangers [CC-G36]
 
-DTO/DAO:
-- Data Transfer Object : used to transfer the data between classes and modules of your application. DTO should only contain private fields for your data, getters, setters and constructors. It is not recommended to add business logic methods to such classes, but it is OK to add some util methods.
-- Data Access Object encapsulate the logic for retrieving, saving and updating data in your data storage (a database, a file-system, whatever).
-
-CQRS pattern = [CommandQueryResponsibilitySegregation] : split the code & logic between the Query path (DB -> UI) & Command path (UI -> DB)
-
-[DesignPatternForHumans] : Ultra-simplified explanation to design patterns
-
-[SystemDesignPrimer]: how to design large-scale systems, with diagram-based examples
--> Performance vs scalability / Latency vs throughput / Availability vs consistency / DNS & CDN / Load balancer
- / Reverse proxy / Microservices / Service discovery / RDBMS & NoSQL / Cache / Asynchronism / Communication / Security
-On RDBs: Master-slave replication / Master-master replication / Federation (= functional partitioning) / Sharding
-       / Denormalization / SQL tuning
-NoSQL: Key-value store / Document store / Wide column store / Graph Database
+A few notes on _Domain Driven Design_ cf. [DDD vite fait]:
+- a useful diagram in the PDF gather the major concepts
+- most important concept: _ubiquituous langage_, to exchange about the domain model.
+Everyone, both domain experts & devs, must be convinced of the importance of building such shared vocabulary, and idealy keep a glossary.
+- beware of _**analysis paralysis**_ : when teams start to be afraid to make conception decisions
 
 [Solutions Architect Tips — The 5 Types of Architecture Diagrams]:
 1. The Flow Diagram
@@ -332,8 +323,6 @@ NoSQL: Key-value store / Document store / Wide column store / Graph Database
 3. The Persona Diagram
 4. The Infrastructure Diagram
 5. The Developer Diagram
-
-cf. also [DistributedSystemsAndTheEndOfTheAPI]
 
 Useful tools to draw architecture diagrams: [yEd](https://www.yworks.com/products/yed) - [draw.io](https://draw.io)
 
@@ -345,30 +334,39 @@ Useful tools to draw architecture diagrams: [yEd](https://www.yworks.com/product
 [The log/event processing pipeline you can't have] : very efficient, low tech, zero "big data" tool, praised by JMason
 -> reading notes: https://chezsoi.org/shaarli/?UJHL3Q
 
-A few notes on _Domain Driven Design_ cf. [DDD vite fait]:
-- a useful diagram in the PDF gather the major concepts
-- most important concept: _ubiquituous langage_, to exchange about the domain model.
-Everyone, both domain experts & devs, must be convinced of the importance of building such shared vocabulary, and idealy keep a glossary.
-- beware of _analysis paralysis_ : when teams start to be affraid to make conception decisions
+### Software architecture patterns
+We can distinguish between **system** design patterns & **application** design patterns, focused on a single software component internal structure
 
-[Layered Architecture](https://www.baeldung.com/cs/layered-architecture) _aka_ multitier architecture:
-![](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/assets/sapr_0104.png)
+* [Service-oriented architecture (SOA) & microservices](https://en.wikipedia.org/wiki/Service-oriented_architecture#Microservices) - _cf._ section _APIs, REST vs RPC, microservices_ below
+* [Model–View–Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) / -Presenter / -Viewmodel / -Adapter & [Presentation–Abstraction–Control](https://en.wikipedia.org/wiki/Presentation%E2%80%93abstraction%E2%80%93control)
+* event bus / [publish–subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) / [event-driven architecture](https://en.wikipedia.org/wiki/Event-driven_architecture) - _cf._ [Event-Driven Architecture Patterns]:
+    + Consume and project, for very popular services that become a bottleneck
+    + Event-driven from end to end, for easy business flow status updates
+    + In memory KV store, for 0-latency data access
+    + Schedule and Forget, when you need to make sure scheduled events are eventually processed
+    + Events in Transactions, when idempotency is hard to achieve
+    + Events Aggregation, when you want to know that a complete batch of events have been consumed
+* layered architecture = multitier architecture : [@ Baeldung](https://www.baeldung.com/cs/layered-architecture): - [@ Oreilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html)
+* [architecture hexagonale](https://github.com/voyages-sncf-technologies/architecture-hexagonale-cqrs#architecture-hexagonale) - 4 couches : présentation, application, domaine, infrastructure
+* CQRS pattern = [CommandQueryResponsibilitySegregation] : split the code & logic between the Query path (DB -> UI) & Command path (UI -> DB)
+* [microkernel / plug-in architecture @ Oreilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch03.html)
+* [space-based architecture @ Oreilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch05.html) : designed to solve scalability and concurrency issues in web-based business applications
 
-[Architecture hexagonale](https://github.com/voyages-sncf-technologies/architecture-hexagonale-cqrs#architecture-hexagonale) - 4 couches :
-* présentation
-* application
-* domaine
-* infrastructure
+[DesignPatternForHumans] : Ultra-simplified explanation to Creational, Structural & Behavioral design patterns : Simple Factory, Factory Method, Abstract Factory, Builder, Prototype
+, Singleton ; Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy ; Chain of Responsibility, Command, Iterator, Mediator, Memento, Observer, Visitor, Strategy, State, Template, Method
 
-[Event-Driven Architecture Patterns]:
-* Consume and project, for very popular services that become a bottleneck
-* Event-driven from end to end, for easy business flow status updates
-* In memory KV store, for 0-latency data access
-* Schedule and Forget, when you need to make sure scheduled events are eventually processed
-* Events in Transactions, when idempotency is hard to achieve
-* Events Aggregation, when you want to know that a complete batch of events have been consumed
+[SystemDesignPrimer]: how to design large-scale systems, with diagram-based examples
+-> Performance vs scalability / Latency vs throughput / Availability vs consistency / DNS & CDN / Load balancer
+ / Reverse proxy / Microservices / Service discovery / RDBMS & NoSQL / Cache / Asynchronism / Communication / Security
+On RDBs: Master-slave replication / Master-master replication / Federation (= functional partitioning) / Sharding
+       / Denormalization / SQL tuning
+NoSQL: Key-value store / Document store / Wide column store / Graph Database
 
 [Command Line Interface Guidelines] : An open-source guide to help you write better command-line programs, taking traditional UNIX principles and updating them for the modern day.
+
+DTO/DAO:
+- Data Transfer Object : used to transfer the data between classes and modules of your application. DTO should only contain private fields for your data, getters, setters and constructors. It is not recommended to add business logic methods to such classes, but it is OK to add some util methods.
+- Data Access Object encapsulate the logic for retrieving, saving and updating data in your data storage (a database, a file-system, whatever).
 
 ### Resilience patterns
 FROM: https://docs.microsoft.com/en-us/azure/architecture/patterns/
@@ -407,6 +405,10 @@ they add moving parts and interdependencies, perf overhand and data segregation,
 REST = Representational State Transfer: [How to design a REST API], [RESTful API design refcard]
 cf. also OData ISO/IEC approved, OASIS standard, defining a set of best practices for building and consuming RESTful APIs
 or the [{json:api}](http://jsonapi.org) spec, which has a [very detailed description of how to return errors](http://jsonapi.org/format/#errors)
+
+[DistributedSystemsAndTheEndOfTheAPI] :
+1. the notion of the networked application API is an unsalvageable anachronism that fails to account for the necessary complexities of distributed systems.
+2. there exist a set of formalisms that do account for these complexities, but which are effectively absent from modern programming practice.
 
 ![](http://martinfowler.com/articles/images/richardsonMaturityModel/overview.png)
 
@@ -556,6 +558,7 @@ During my research I identified nine types of comments:
 ### Error handling
 - Handle as many errors as possible locally, but export as few errors as possible [SDP]
 - Use unchecked exceptions over return codes & checked exceptions
+  _cf._ https://stackoverflow.com/a/614494/636849
 - Provide context with exceptions : chain them [CC-Chapt7]
 - DO NOT RETURN/PASS NULL : C.A.R. Hoare "billion-dollar mistake". Alternatives:
     * NullObject & SpecialCase patterns

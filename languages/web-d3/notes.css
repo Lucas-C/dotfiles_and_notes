@@ -36,7 +36,7 @@ table {
 
 for(i=0;A=$$("*")[i++];)A.style.outline="solid hsl("+(A+A).length*9+",99%,50%)1px" // CSS debuggung one-liner - Alt: pesticide.io
 
-background-size: cover
+background-size: cover / contain
 
 'pointer-events: none' prevents:
 - click actions from doing anything

@@ -450,6 +450,7 @@ gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer
 pdfjam file1.pdf file2.pdf 1,3- `# optional selector` --nup 2x1 --landscape --outfile out.pdf # printer-friendly version - Also: pdf270 to rotate
 xournal # edit PDF as background images, and export to PDF. To manipulate its vectorial data, with the risk of skewed visual output: LibreOfficeDraw / PDFEdit
 convert -density 150 $pdf -flatten $png # pdf2png ; opt: -sharpen 0x1.0
+/opt/pdfrw/examples/extract.py cat.py subset.py # useful Python scripts to extract images / merge PDFs / extract pages
 verapdf --format text -v $pdf # CLI validator - Alt: https://www.access-for-all.ch/en/pdf-lab/ (non CLI)
 qpdf --qdf --object-streams=disable $pdf qpdf-$pdf # pretty-format & annotate a PDF syntax
 mutool clean -g -g -g -l -z $in.pdf $out.pdf  # https://mupdf.com/docs/manual-mutool-clean.html

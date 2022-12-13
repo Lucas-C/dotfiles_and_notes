@@ -248,6 +248,11 @@ Daniel Pink motivational building blocks from "The puzzle of motivation" :
 > An autonomous team is a team which is responsible for solving a specific business problem. The members of this team cut across system boundaries to solve business problems
 > The challenge of the manager is to get his team to engage with the problem statement. [...] The ability to do this, in my opinion, the hallmark of a great manager/leader
 
+[WorkAtDifferentManagementLevels]
+* Managing a team of individual contributors
+* Managing individual contributors and managers
+* Managing just managers
+
 ## Team culture building & best practices
 - two main tenets: RESPECT & TRUST people.
 How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [Minimum Viable Bureaucracy] + [MAPP] on trust, autonomy & Agile methods in Michelin

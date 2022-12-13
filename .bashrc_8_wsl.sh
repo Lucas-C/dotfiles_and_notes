@@ -18,6 +18,12 @@ npp () {
     done
 }
 
+export BROWSER=firefox.exe
+unset -f f
+f () { $BROWSER "${@:-$(cat)}"; }
+
+alias vscode="/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe"
+
 win_hosts='/c/Windows/System32/drivers/etc/hosts'
 
 unfuncalias nav
@@ -38,3 +44,11 @@ img () {
 }
 
 alias vid='/c/Program\ Files/VideoLAN/VLC/vlc.exe'
+alias vlc='/c/Program\ Files/VideoLAN/VLC/vlc.exe'
+
+unfuncalias message
+message () { # USAGE: $message* [$header]
+    local message="${1?'Missing message'}"
+    local header="${2:-ALERT}"
+    cmd.exe /c $(wslpath -w $BASHRC_DIR/bin/win_alert_powershell.bat) "$message" "$header"
+}

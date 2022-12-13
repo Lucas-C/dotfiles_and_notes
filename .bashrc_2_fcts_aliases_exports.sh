@@ -134,7 +134,7 @@ pa () { # print aliases
 }
 
 alias nofuncalias='type -P'
-unfuncalias () { # undefined any function/alias named as arg
+unfuncalias () { # undefine any function/alias named as arg
     unset -f "$@"; unalias "$@" 2>/dev/null
 }
 
@@ -239,6 +239,7 @@ alias ...="cd ../.."
 alias e='$EDITOR'
 alias k=kubectl
 f () { ( nohup firefox "${@:-$(cat)}" >~/firefox.log 2>&1 & ); }
+export BROWSER=firefox  # used by Python webbrowser module
 t () { # Execute some cmd with start/end timestamps
     date +"# Started: %c - @%s"
     local start_time=$(date +%s)

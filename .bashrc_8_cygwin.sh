@@ -62,24 +62,12 @@ npp () {
     done
 }
 
-pspad () {
-    "/cygdrive/c/Program Files$X86/PSPad editor/PSPad" $(convertWinArgs "$@")
-}
-
 bat () {
     cmd /c "set PATH=%OLD_PATH% && $@"
 }
 
 cdw () {
     cd $(cygpath "$1")
-}
-
-firefox () {
-    "/cygdrive/c/Program Files$X86/Mozilla Firefox/firefox" $(convertWinArgs "$@")
-}
-
-freeplane () {
-    "/cygdrive/c/Program Files$X86/Freeplane/freeplane" $(convertWinArgs "$@")
 }
 
 unfuncalias nav
@@ -136,7 +124,8 @@ alias _=convert_win_cmd_output_encoding
 
 alias tcpdump="WinDump.exe" # or RawCap + Wireshark
 
-message () { # ARGS: $message* [$header]
+unfuncalias message
+message () { # USAGE: $message* - Alt: win_alert.bat & win_alter_powershell.bat
     local message=${1?'Missing message'}
     type -p play >/dev/null && play -n synth 0.1 tri 1000 2>/dev/null # beep !
     msg $USERNAME "$message"
