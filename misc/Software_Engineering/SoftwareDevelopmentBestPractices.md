@@ -393,6 +393,11 @@ Named because it resembles the sectioned partitions of a ship's hull: if it is c
 - more than one person should be able to ship a given binary.
 - using weak or ambiguous formats for storage will get us in trouble
 
+[Modes Considered Harmful](https://a-nickels-worth.dev/posts/modesharm/): On the importance of avoiding infrequently-used fallback code — a classic from Jacob Gabrielson
+1. There are more cases to **test**, some of which can be hard because some service you talk to has to be down (or appear to be) in order to test.
+2. The unhappy mode will be afflicted by **code rot**.
+3. There's a **logical fallacy** that the undesirable mode is somehow "okay" when things are wrong; more likely it's the worst thing you could do.
+
 ### APIs, REST vs RPC, microservices
 
 ![xkcd/1481](http://imgs.xkcd.com/comics/api.png)

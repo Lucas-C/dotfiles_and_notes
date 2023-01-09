@@ -36,7 +36,7 @@ nav () {
 img () {
     local PhotoViewerDLLPath="C:\Program Files\Windows Photo Viewer\PhotoViewer.dll"
     local PhotoGalleryDLLPath="C:\Program Files\Windows Photo Gallery\PhotoViewer.dll"
-    if [ -f "$(wslpath "$PhotoViewerDLLPath")" ]; then
+    if [ -f "$(wslpath -w "$PhotoViewerDLLPath")" ]; then
         rundll32.exe "$PhotoViewerDLLPath" ImageView_Fullscreen $(wslpath -w "$@")
     else
         rundll32.exe "$PhotoGalleryDLLPath" ImageView_Fullscreen $(wslpath -w "$@")

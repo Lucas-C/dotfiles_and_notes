@@ -177,8 +177,10 @@ lse () { # group files by their extension - Alt: find . -type f -not -path '*/.g
 alias g='grep -i --color=always'
 [ -d $BASHRC_DIR/.git ] && NOTES_FILES=$(cd $BASHRC_DIR && git ls-files)
 gn () {
+    echo 'Searching local $NOTES_FILES...'
     ( cd ${BASHRC_DIR?} && grep -iI --color=always "${@}" ${NOTES_FILES?}; ) #  $NOTES_FILES can be undefined in case of a virtualenv (eg. with pew)
     if type shaarli >/dev/null 2>&1 && type jq >/dev/null 2>&1; then
+        echo 'Searching Shaarli bookmarks...'
         shaarli get-links --limit all --searchterm "${@}" | jq --raw-output '.[]|(.title, "https://chezsoi.org/shaarli/?"+.shorturl)'
     else
         echo 'You need to install jq & pip install shaarli_client to also query chezsoi.org/shaarli'

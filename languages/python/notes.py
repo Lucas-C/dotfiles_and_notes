@@ -263,6 +263,11 @@ pyrsistent PVector, PMap, PSet, Precord, PClass, PBag, PList, Pdeque
 
 DanielStutzbach/blist > std list # kind of a rope
 pyropes # rope: binary tree-based data structure for efficiently storing and manipulating a very long string
+pytries
+    marisa-trie  # static memory-efficient Trie-like structures based on marisa-trie C++ library
+    datrie  # fast, efficiently stored Trie for Python. Uses libdatrie
+    hat-trie  # wrapper for hat-trie C library, an extremely efficient (space and time) modern variant of tries
+    DAWG  # DAFSA-based dictionary-like read-only objects. Based on `dawgdic` C++ library - Alt: DAWG-Python in pure Python
 bitarray # array of booleans
 
 Banyan, mozman/bintrees, pytst, rbtree, scipy-spatial # binary, redblack, AVL, ternary-search & k-d trees
@@ -691,6 +696,7 @@ pip top-level requirements  override sub-dependency ones  # full resolver logic 
 pyproject.toml # PEP-518 replacement for setup.py - Alt: https://github.com/pypa/pipfile by kennethreitz
 python setup.py check --strict  # validate meta-data, ensuring all required args are present - To go further: setuptools-lint
 pip-compile # recursively pin Python dependencies; part of pip-tools - Alt: pip freeze - pip2tgz "/var/www/packages" mypackage && pip install --index-url="file:///var/www/packages" mypackage
+pipconflictchecker # pip-conflict-checker package, detect dependency versions conflicts
 PyPRI # private Python index in the cloud to which you have total control of access.
 http://www.watchman-pypi.com  # Effectively find upstream & downstream dependencies of a Pypi package - Alt: https://github.com/DavHau/pypi-deps-db / libraries.io
 
@@ -845,12 +851,14 @@ import sure # use assertions like 'foo.when.called_with(42).should.throw(ValueEr
 import doctest # include tests as part of the documentation
 AndreaCensi/contracts # Design By Contract lib - Alt: PythonDecoratorLibrary basic pre/postcondition decorator
 behave # Behavior Driven Development (BDD) - Comparison with alts: https://pythonhosted.org/behave/comparison.html
-brodie/cram # generic command-line (CLI) app testing - Alt: Bats (TAP-compliant, bash), autoexpect, Tush, Aruba
-import capsys # capture stdin/out
-import tmpdir # generate a tmp dir for the time of the unit test
 import hypothesis # feed you test with known to break edge cases - "based on a fuzzer-kind of mechanics where data generation is based off a byte stream that can get higher or lower in complexity"
 
+import capsys # capture stdin/out
 with capture_stderrout() as (stdout, stderr): # Recipe from http://stackoverflow.com/a/17981937/636849
+
+brodie/cram # generic command-line (CLI) app testing - Alt: Bats (TAP-compliant, bash), autoexpect, Tush, Aruba
+Pexpect # interact with programs based on expected stdout outputs - Include pxssh to interact with ssh: login()/logout()/prompt()
+ptyprocess # launch a subprocess in a pseudo terminal (pty) and allow read/write to it
 
 
 """""""""""""
@@ -875,7 +883,7 @@ P403n1x87/austin # frame stack sampler for CPython
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
 py-spy # sampling profiler, lets you visualize what your Python program is spending time on without restarting the program, with low overhead
 # Usage example: https://blog.redash.io/how-we-spotted-and-fixed-a-performance-degradation-in-our-python-code/
-http://mg.pov.lt/objgraph # explore Python object graphs
+http://mg.pov.lt/objgraph # explore Python object graphs: objgraph.show_most_common_types(limit=30)
 yappi # multithread/CPU time profiling
 snakefood # draw code base dependency graphs
 what-studio/profiling # interactive continuous/live CLI profiler
@@ -884,17 +892,24 @@ nschloe/tuna # profile viewer using tornado
 nvdv/vprof # Visual Python profiler
 emeryberger/scalene # a high-performance, high-precision CPU and memory profiler - Ex: https://www.reddit.com/r/Python/comments/s1oqb7/that_time_i_optimized_a_python_program_by_5000x/
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
-fabianp/memory_profiler # track the memory usage of a program line by line in the source code - require psutil => not usable with Cygwin - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
 libleak > memleax # utility producing a report of C call stacks where a process memory allocations are not matched by deallocations - Demo + LD_PRELOAD usage: https://web.archive.org/web/20210227012641/https://info.cloudquant.com/2018/12/numpyleaks/
 cProfile + psutil.Process().num_ctx_switches # cf. https://pythonspeed.com/articles/custom-python-profiler/
-import tracemalloc # Python3, stats on allocated memory blocks per filename & line number - Recipe: https://confluence.desy.de/display/FSEC/Finding+memory+leaks
-from pympler import muppy, summary, tracker # tools to track memory usage
+import tracemalloc # Python3, stats on allocated memory blocks per filename & line number - Recipes: https://confluence.desy.de/display/FSEC/Finding+memory+leaks & https://stackoverflow.com/a/45679009/636849
+fabianp/memory_profiler # track the memory usage of a program line by line in the source code - require psutil => not usable with Cygwin - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
+    from pympler.muppy import get_objects, getsizeof
+    from pympler.summary import print_, summarize
+    from pympler.util.stringutils import pp
+    from psutil import Process
+    print("[psutil] process memory:", pp(Process().memory_info()[0]))
+    all_objects = get_objects()
+    objs_size_sum = sum(getsizeof(obj) for obj in all_objects)
+    print("[pympler/muppy] sum of objects memory size:", pp(objs_size_sum)) # usually a lot lower than the actual process memory usage :(
+    print_(summarize(all_objects))
 from guppy import hpy
 h = hpy()
 h.heap()
 h.iso(...objects...).sp
-summary.print_(summary.summarize(muppy.get_objects()))
 # Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
 asizeof # the simplest solution from: https://pympler.readthedocs.org/en/latest/related.html
 print('Memory usage:', resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1000, 'MB')  # peak process memory usage - unit: https://stackoverflow.com/questions/938733/total-memory-used-by-python-process#comment35291064_7669482 - but BEWARE: this value does not make sense in a containerized env (I witnessed it with a Python process in Docker: the host did not allocated those >1Go)
@@ -1105,6 +1120,7 @@ Cython # .pyx : superset of Python with optional static types, can invoke C/C++ 
     AlanCristhian/statically : provides the @statically.typed decorator to compile a Python function with Cython
     fast_crash.pyx # nice Cython multiprocessing (OpenMP) code sample from "Personalized PGP Key IDs for fun and profit" by Filippo Valsorda in Phrack #69
 PyPy # can be faster, compiles RPython code down to C, automatically adding in aspects such as garbage collection and a JIT compiler, but does not support C extensions. Also: PyPy-STM
+exaloop/codon # high-performance Python compiler that compiles to native machine code. Typical speedups are on the order of 10-100x
 from jitpy.wrapper import jittify # fijal/jitpy : embed PyPy into CPython, can be up to 20x faster
 Jython / Py4J # intercommunicate with Java -> Jython has pip, but won't support lib depending on multiprocessing - however, it has excellent support for built-in Java threads: http://www.jython.org/jythonbook/en/1.0/Concurrency.html
 voc # transpiler converting Python code into Java bytecode
@@ -1256,7 +1272,7 @@ nuno-faria/tiler # create an image using all kinds of other smaller images
 andersbll/neural_artistic_style # transfer the style of one image to the subject of another image
 anishathalye/neural-style # an implementation of neural style in TensorFlow
 ribab/quadart # producing quad-tree art
-lucashadfield/speck # line art image renderer
+lucashadfield/speck # line art image renderer, like Joy Division's Unknown Pleasures album
 ahmedkhalf/Circle-Evolution # Evolutionary Art Using Circles
 
 Tkinter, EasyGui, guizero, EasyDialogs (MacOSX), optparse_gui (last update 2008)
@@ -1586,7 +1602,6 @@ angr # binary analysis platform
 
 # Violent Python: A Cookbook for Hackers, Forensic Analysts, Penetration Testers and Security Engineers
 python-nmap # port scanner
-Pexpect # interact with programs based on expected stdout outputs - Include pxssh to interact with ssh: login()/logout()/prompt()
 winreg # access to the Windows registry
 
 
@@ -1869,7 +1884,7 @@ from enum import Enum, IntEnum  # A very nice recipe: CoerciveEnum - https://git
 from functools import \
         singledispatch, \ @foo.register(int) def _(obj, verbose=False): ...
     total_ordering, # to define all comparison methods given __eq__ and __lt__, __le__, __gt__, or __ge__
-    lru_cache # memoize / cache for pure functions - avoid using it as a decorator so that the cache is local and not module-global
+    lru_cache # memoize / cache for pure functions - avoid using it as a decorator so that the cache is local and not module-global - has a .cache_info() function that returns a named tuple showing hits, misses, maxsize and currsize
     # Alt: Py2.7 decorator recipe for caching with TTL : https://wiki.python.org/moin/PythonDecoratorLibrary#Cached_Properties
     # Alt: pypi/cached-property / boltons.cacheutils.LRI / boltons.cacheutils.LRU
 

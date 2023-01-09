@@ -17,7 +17,7 @@ cat /proc/$pid/smaps # get resources infos
 pmap -x $pid # get memory usage
 valgrind --tool=massif $cmd # get memory usage with details & graph
 valgrind --db-attach=yes --leak-check=full --track-origins=yes # --tool=callgrind / kcachegrind
-oprofile
+oprofile # statistical profiler for Linux systems, profiles running code at low overhead
 
 cat hex.txt
 000000: b8d1 a3d8 8d56 e389 c69d d8ca 99e0 cd51

@@ -262,9 +262,11 @@ CHEAT SHEET : DEVELOPPEMENT SECURISE
 
 Principe de Kerckhoffs : la sécurité d'un cryptosystème ne doit reposer que sur le secret de la clef; autrement dit, tous les autres paramètres doivent être supposés publiquement connus
 
-Slowloris denial-of-service attack: The server says "well, I can't start too many threads, or I will run out of memory. -> https://pypi.python.org/pypi/PySlowLoris
+**Slowloris** denial-of-service attack: The server says "well, I can't start too many threads, or I will run out of memory. -> https://pypi.python.org/pypi/PySlowLoris
 I will therefore set a limit, say, 200, and refuse to start more threads if I have 200 currently serving a request."
 The attacker says "Ok, fine...I'll just submit 200 requests that talk to the server in a deliberately slow way,
 taking up all the lines you made available."
+
+Real-world detailed testimony of **HTTP flood**: https://www.hackerfactor.com/blog/index.php?/archives/974-What-doesnt-kill-you.html
 
 En cas de faille de sécu non encore patchée dans une lib: utiliser le "virtual patching" du WAF pour résoudre la faille temporairement.
