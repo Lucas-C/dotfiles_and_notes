@@ -55,7 +55,7 @@ ipconfig /displaydns
 :: Windows Performance Toolkit, also inc. xbootmgr - TUTOS: http://www.msfn.org/board/topic/140263-how-to-get-the-cause-of-high-cpu-usage-by-dpc-interrupt/ - http://www.msfn.org/board/topic/140264-how-to-get-the-cause-of-high-cpu-usage-caused-by-apps/
 xperf -on latency -stackwalk profile
 xperf -d latency.etl
-wtrace :: strace-like based on Event Tracing for Windows
+wtrace :: strace-like based on Event Tracing for Windows - Alt: ProcMon
 userdump %pid% :: download: https://www.microsoft.com/en-us/download/details.aspx?id=4060
 
 powercfg /hibernate off/on &:: as admin, delete hiberfil.sys

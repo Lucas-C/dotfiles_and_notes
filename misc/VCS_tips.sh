@@ -254,11 +254,17 @@ Using the Status API to convey information directly into pull requests: https://
 
 https://github.com/refined-github/refined-github Browser extension that simplifies the GitHub interface and adds useful features
 
-# Fetching all open GitHub issues & comments as Markdown files using "gh" CLI & jq
-gh issue list --json number --jq .[].number | while read nb; do
+# Sync all open GitHub issues & comments as Markdown files in a directory, using "gh" CLI & jq:
+TITLE_PREFIX='title:	'
+EXISTING_FILES=( $(ls *.md) )
+for nb in $(gh issue list --json number --jq .[].number); do
     gh issue view $nb > $nb.md
     gh issue view $nb --comments >> $nb.md
+    echo "Processed #$nb: "$(grep -F "$TITLE_PREFIX" $nb.md | sed "s/$TITLE_PREFIX//")
+    # Removing file from array:
+    EXISTING_FILES=( "${EXISTING_FILES[@]/$nb.md}" )
 done
+rm ${EXISTING_FILES[@]}
 
 
 ++++++

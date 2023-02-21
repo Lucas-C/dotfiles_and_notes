@@ -31,10 +31,10 @@ export SHELL # needed for pew: https://github.com/berdario/pew/blob/master/pew/p
 
 DISPLAY=:0 # for xclip, can be checked with 'w' cmd
 
-HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
-HISTFILESIZE=$HISTSIZE
-HISTTIMEFORMAT="%F %T "
-HISTCONTROL=ignoreboth:erasedups # ignoreboth = ignoredups + ignorespace
+export HISTSIZE=20000 # equivalent to HISTFILESIZE and .inputrc 'history-size'
+export HISTFILESIZE=$HISTSIZE
+export HISTTIMEFORMAT="%F %T "
+export HISTCONTROL=ignoreboth:erasedups # ignoreboth = ignoredups + ignorespace
 shopt -s histappend # append to the history file, don't overwrite it
 alias r='fc -s' # 'repeat' - USAGE: r [old=new] [cmd] : runs last command [matching $cmd if provided], after performing the OLD=NEW substitution
 

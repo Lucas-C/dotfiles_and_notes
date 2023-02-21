@@ -12,6 +12,7 @@ cf. http://blog.codinghorror.com/software-development-as-a-collaborative-game/
     * [Open-plan offices](#open-plan-offices)
 - [Joining a new team](#joining-a-new-team)
 - [Coaching new hires & bringing them up to speed](#coaching-new-hires--bringing-them-up-to-speed)
+- [Feedbacks](#feedbacks)
 - [Leadership](#leadership)
 - [Team culture building & best practices](#team-culture-building--best-practices)
 - [Stand-up & meetings](#stand-up--meetings)
@@ -121,6 +122,8 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [Why Don’t Tech Companies Pay Their Engineers to Stay?](https://marker.medium.com/why-dont-tech-companies-pay-their-engineers-to-stay-b9c7e4b751e9)
 - [Who wrote this shit?](https://www.heltweg.org/posts/who-wrote-this-shit/)
 - [You will always have more Problems than Engineers](https://betterprogramming.pub/you-will-always-have-more-problems-than-engineers-aafff94a4623)
+- [Le guide essentiel pour donner & recevoir des Feedbacks efficaces](https://bloculus.com/sauvez-des-vies-faites-des-feedbacks/)
+- [Sécurité Psychologique en image @bloculus](https://bloculus.com/outil-google-performance-equipe/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -253,6 +256,9 @@ Daniel Pink motivational building blocks from "The puzzle of motivation" :
 * Managing individual contributors and managers
 * Managing just managers
 
+## Feedbacks
+[Le guide essentiel pour donner & recevoir des Feedbacks efficaces](https://bloculus.com/sauvez-des-vies-faites-des-feedbacks/)
+
 ## Team culture building & best practices
 - two main tenets: RESPECT & TRUST people.
 How to build trust ? Start by trusting others, be trustworthy, build relationships + it takes time [Minimum Viable Bureaucracy] + [MAPP] on trust, autonomy & Agile methods in Michelin
@@ -303,6 +309,7 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
     * Make it obvious when your team is doing well: celebrate glorious failure
     * Make your communication clear, and your expectations explicit: f you expect someone to do something for you, ask for a specific commitment – “When might this be done?”, rather than assuming everyone agrees on its urgency
     * Make your team feel safe
+- [Sécurité Psychologique en image @bloculus]
 - exercice d'écoute empathique -> cf [Liste des émotions & sentiments]
 - [Core Protocols]:
   * pass:  decline to participate in something

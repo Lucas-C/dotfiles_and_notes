@@ -3,10 +3,12 @@
 # USAGE: API_KEY=... ./sncf_station.py $stop_area
 # Documentation: https://doc.navitia.io/#coverage
 # Ce script n'inclue pas les changements d'horaires "temps réel" :(
+# Note: feed publisher is "SNCF PIV Production"
 
 import json, os, urllib.request, sys
 from base64 import b64encode
 from datetime import datetime
+from urllib.error import URLError
 
 STATION_ID_PER_CITY_NAME = {
     "Angers": 87484006,
@@ -16,18 +18,18 @@ STATION_ID_PER_CITY_NAME = {
 }
 
 def main():
-    stop_area = sys.argv[1]
-    stop_area = STATION_ID_PER_CITY_NAME.get(stop_area, stop_area)
+    station_name = sys.argv[1]
+    stop_area = int(STATION_ID_PER_CITY_NAME.get(station_name, station_name))
     # 1st: retrieve & display station name:
     # json_resp = http_get(f'https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:SNCF:{stop_area}',
                          # auth=(os.environ['API_KEY'], ''), parse_json=True)
     # print(json_resp["stop_areas"][0]["label"])
     # 2nd: retrieve & display departure times:
-    json_resp = http_get(f'https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:SNCF:{stop_area}/departures?data_freshness=realtime',
+    json_resp = http_get(f'https://api.sncf.com/v1/coverage/sncf/stop_areas/stop_area:SNCF:{stop_area}/departures?data_freshness=realtime&duration=86400&count=20&direction_type=all',
                          auth=(os.environ['API_KEY'], ''), parse_json=True)
     # with open('sncf.json', 'w+') as json_file:
         # json.dump(json_resp, json_file, indent=4)
-    print('Departs en gare:')
+    print(f'Prochain départs en gare de {station_name}:')
     for departure in json_resp['departures']:
         name = departure['display_informations']['name']
         direction = departure['display_informations']['direction'].split(' (')[0]
@@ -49,12 +51,15 @@ def main():
         print('Disruptions:')
     for disruption in json_resp['disruptions']:
         status = disruption['status']  # active, future...
-        if 'messages' not in disruption:
-            print(disruption)
-            continue
-        assert len(disruption['messages']) == 1, len(disruption['messages'])
-        msg = disruption['messages'][0]['text']
         updated_at = disruption['updated_at']
+        assert len(disruption['application_periods']) == 1
+        application_periods = disruption['application_periods'][0]
+        begin, end = as_dt(application_periods["begin"]), as_dt(application_periods["end"])
+        if 'messages' in disruption:
+            assert len(disruption['messages']) == 1, len(disruption['messages'])
+            msg = disruption['messages'][0]['text']
+        else:
+            msg = ""
         for impacted_object in disruption['impacted_objects']:
             for impacted_stop in impacted_object['impacted_stops']:
                 # amended_arrival_time = impacted_stop['amended_arrival_time']
@@ -62,17 +67,22 @@ def main():
                 cause = impacted_stop['cause'] or 'unknown cause'
                 stop_point_name = impacted_stop['stop_point']['name']
                 train_id = impacted_stop['stop_point']['id']
-                print(f'* {stop_point_name}: {msg} - {cause} ({status})')
+                print(f'* {stop_point_name}: {msg} - {cause} ({status} - begin: {begin} - end: {end})')# - updated-on: {as_dt(updated_at)})')
 
 def http_get(url, auth=None, timeout_in_secs=5, parse_json=False):
     req = urllib.request.Request(url)
     if auth:
         encoded_creds = b64encode(('%s:%s' % auth).encode('utf-8'))
         req.add_header('Authorization', 'Basic %s' % encoded_creds.decode('utf-8'))
-    with urllib.request.urlopen(req, timeout=timeout_in_secs) as resp:
-        if parse_json:
-            return json.load(resp)
-        return resp.read().decode('utf-8')
+    try:
+        with urllib.request.urlopen(req, timeout=timeout_in_secs) as resp:
+            if parse_json:
+                return json.load(resp)
+            return resp.read().decode('utf-8')
+    except URLError as error:
+        if error.fp:
+            print("HTTP response:", error.fp.read().decode())
+        raise error
 
 def horaire(time_str):  # convert a string like 20210907T193130 into HHhMM
     time_str = time_str.split('T')[1]

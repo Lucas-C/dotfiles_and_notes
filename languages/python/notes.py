@@ -882,7 +882,6 @@ python-flamegraph # FlameGraph profiler
 P403n1x87/austin # frame stack sampler for CPython
 https://tech.dropbox.com/2012/07/plop-low-overhead-profiling-for-python/ # like gperftools, sampling profiler for prod servers
 py-spy # sampling profiler, lets you visualize what your Python program is spending time on without restarting the program, with low overhead
-# Usage example: https://blog.redash.io/how-we-spotted-and-fixed-a-performance-degradation-in-our-python-code/
 http://mg.pov.lt/objgraph # explore Python object graphs: objgraph.show_most_common_types(limit=30)
 yappi # multithread/CPU time profiling
 snakefood # draw code base dependency graphs
@@ -890,9 +889,11 @@ what-studio/profiling # interactive continuous/live CLI profiler
 PyVmMonitor # profiler with graphs
 nschloe/tuna # profile viewer using tornado
 nvdv/vprof # Visual Python profiler
-emeryberger/scalene # a high-performance, high-precision CPU and memory profiler - Ex: https://www.reddit.com/r/Python/comments/s1oqb7/that_time_i_optimized_a_python_program_by_5000x/
+emeryberger/scalene # a high-performance, high-precision CPU, GPU and memory profiler - Ex: https://www.reddit.com/r/Python/comments/s1oqb7/that_time_i_optimized_a_python_program_by_5000x/
 StackImpact Python Agent # production profiler: CPU, memory allocations, exceptions, metrics
 objgraph.show_most_common_types() # summary of the number objects (by type) currently in memory
+        .get_leaking_objects() # objects in memory that do not have any other objects pointing at them
+        .show_backrefs(obj, max_depth=10) # Usage example: https://benbernardblog.com/tracking-down-a-freaky-python-memory-leak/
 libleak > memleax # utility producing a report of C call stacks where a process memory allocations are not matched by deallocations - Demo + LD_PRELOAD usage: https://web.archive.org/web/20210227012641/https://info.cloudquant.com/2018/12/numpyleaks/
 cProfile + psutil.Process().num_ctx_switches # cf. https://pythonspeed.com/articles/custom-python-profiler/
 import tracemalloc # Python3, stats on allocated memory blocks per filename & line number - Recipes: https://confluence.desy.de/display/FSEC/Finding+memory+leaks & https://stackoverflow.com/a/45679009/636849

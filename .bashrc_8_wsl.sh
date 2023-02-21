@@ -21,6 +21,9 @@ npp () {
 export BROWSER=firefox.exe
 unset -f f
 f () { $BROWSER "${@:-$(cat)}"; }
+# Not enough for Python, this is also required:
+# from webbrowser import register, Mozilla
+# register("firefox.exe", None, Mozilla("firefox.exe"))
 
 alias vscode="/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe"
 
