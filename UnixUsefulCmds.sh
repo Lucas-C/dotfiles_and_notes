@@ -48,6 +48,7 @@ pstree -p [$OPT_PID] # hierarchy of processes
 
 pgrep -f $procname_pattern | xargs ps -fp # or kill - Alt: pidof $procname
 /proc/$pid/{cmdline,comm,exe} # get process name - Alt: ps -o comm= -p $pid
+tr '\0' '\n' < /proc/$pid/environ
 file /proc/$pid/cwd # get process working directory - Alt: pwdx $pid
 
 nohup $cmd # detach command
@@ -853,6 +854,7 @@ dstat -tcmdsn -N eth0 --top-cpu-adv --top-mem
 pt-summary, glances, psdash, conky
 collectd, perfwatcher, diamond, fullerite
 hdparm -tT /dev/sda # Check a disk read/write speed
+f3 / f3write / f3read # Check USB disk health & speed: https://sebsauvage.net/wiki/doku.php?id=linux-vrac#f3
 https://github.com/epickrram/grav # threads perfs & JVM heap visualisation, including animated flamegraphs
 
 stap # SystemTap

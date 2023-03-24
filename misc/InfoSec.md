@@ -184,6 +184,8 @@ https://github.com/square/keywhiz : A system for distributing and managing secre
 
 https://github.com/zricethezav/gitleaks : detect hardcoded secrets like passwords, API keys, and tokens in git repos
 
+magic-wormhole : (Python) get things from one computer to another, safely: text, files, directories
+
 ## Disposable email providers
 - https://github.com/FGRibreau/mailchecker
 - https://github.com/martenson/disposable-email-domains

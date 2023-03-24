@@ -747,25 +747,29 @@ carta/flipper-client # feature flipping engine
 joeyespo/grip # preview GitHub Markdown files locally before committing them
 vaab/gitchangelog # creates a changelog from git log history - I configured it for keepachangelog.com format on the Hesperides project
 
+Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
+lobocv/crashreporter # store and send crash reports directly to the developers
+
 
 """""""""""""
 "" Security
 """""""""""""
+# Security linters:
 safety, snyk # report security vulnerabilities in dependencies
 dxa4481/truffleHog, landscapeio/dodgy, Yelp/detect-secrets # detect credentials/passwords/secrets in source code - Also, in other languages : awslabs/git-secrets, auth0/repo-supervisor, zricethezav/gitleaks
-python-security/pyt # detect vulnerabilities in Python Web Applications: XSS, SQL injection, command injection, directory traversal...
-flipkart-incubator/Astra # Automated Security Testing For REST API's
+Pysa # PYthon Static Analyzer from facebook/pyre-check - detect vulnerabilities in Python Web Applications: XSS, SQL injection, command injection, directory traversal...
 openstack/bandit  # Python AST-based security linter
     echo -e "[bandit]\nexclude: my_proj/.eggs,my_proj/src/unittest"
     bandit --ini .banditrc --recursive my_proj/ # -lll to limit to HIGH severity issues
 returntocorp/semgrep # static analysis tool for finding bugs, suggested in Gitlab pipelines by default
+python-afl # find bugs by fuzzing input - cf. https://barro.github.io/2018/01/taking-a-look-at-python-afl/
+
+flipkart-incubator/Astra # Automated Security Testing for Rest Api's
 openstack/syntribos  # automated API security testing tool
 sqlmap  # automatic SQL injection and database takeover tool
 wapiti  # "fuzzer", performs "black-box" scans of a web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data
-python-afl # find bugs by fuzzing input - cf. https://barro.github.io/2018/01/taking-a-look-at-python-afl/
 
-Cookiecutter # creates projects from project templates, e.g. Django, OpenStack, Kivy... + in other languages !
-lobocv/crashreporter # store and send crash reports directly to the developers
+magic-wormhole  # get things from one computer to another, safely: text, files, directories
 
 
 """""""""""""
@@ -896,7 +900,8 @@ objgraph.show_most_common_types() # summary of the number objects (by type) curr
         .show_backrefs(obj, max_depth=10) # Usage example: https://benbernardblog.com/tracking-down-a-freaky-python-memory-leak/
 libleak > memleax # utility producing a report of C call stacks where a process memory allocations are not matched by deallocations - Demo + LD_PRELOAD usage: https://web.archive.org/web/20210227012641/https://info.cloudquant.com/2018/12/numpyleaks/
 cProfile + psutil.Process().num_ctx_switches # cf. https://pythonspeed.com/articles/custom-python-profiler/
-import tracemalloc # Python3, stats on allocated memory blocks per filename & line number - Recipes: https://confluence.desy.de/display/FSEC/Finding+memory+leaks & https://stackoverflow.com/a/45679009/636849
+sys._debugmallocstats()  # print summary info to stderr about the state of Pymalloc's structures - paulross/pymemtrace allows to extract the information it contains
+import tracemalloc # Python3, stats on allocated memory blocks per filename & line number - Requires -X tracemalloc - Recipes: https://confluence.desy.de/display/FSEC/Finding+memory+leaks & https://stackoverflow.com/a/45679009/636849
 fabianp/memory_profiler # track the memory usage of a program line by line in the source code - require psutil => not usable with Cygwin - Tuto: https://medium.com/zendesk-engineering/hunting-for-memory-leaks-in-python-applications-6824d0518774
     from pympler.muppy import get_objects, getsizeof
     from pympler.summary import print_, summarize
@@ -914,7 +919,8 @@ h.iso(...objects...).sp
 # Also: http://stackoverflow.com/questions/938733/total-memory-used-by-python-process
 asizeof # the simplest solution from: https://pympler.readthedocs.org/en/latest/related.html
 print('Memory usage:', resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1000, 'MB')  # peak process memory usage - unit: https://stackoverflow.com/questions/938733/total-memory-used-by-python-process#comment35291064_7669482 - but BEWARE: this value does not make sense in a containerized env (I witnessed it with a Python process in Docker: the host did not allocated those >1Go)
-rogerhu/gdb-heap
+rogerhu/gdb-heap  #  Heap Analyzer for Python
+bcc/PyPerf # eBPF-based Python profiler https://github.com/iovisor/bcc/blob/master/examples/cpp/pyperf/PyPerf.cc - Related talk & vid: https://granulate.io/blog/python-application-profiling-ebpf/
 
 import gc; gc.get_objects() # Returns a list of all objects tracked by the garbage collector -> SUPER powerful to hack python code and sniff values
 
@@ -1065,6 +1071,10 @@ pandas, sql4pandas # data analysis, to go further : statsmodels, scikit-learn or
     pd.read_html(url, header=0, parse_dates=["Call Date"]) # extract table from HTML page into a DataFrame
     JosPolfliet/pandas-profiling # -> create HTML profiling reports from pandas DataFrame objects, inc. quantiles, most frequent values, histograms & descriptive statistics
     agate # data analysis library optimized for humans, not machines; alternative to numpy and pandas that solves real-world problems with readable code
+ortools # Google Operational Research tools:
+  # * Constraint Programming - CP-SAT solver: A constraint programming solver that uses SAT (satisfiability) methods. - Original CP solver: A constraint programming solver.
+  # * Linear and Mixed-Integer Programming - Glop: A linear optimizer to find the optimal value of a linear objective function, given a set of linear inequalities as constraints. - MPSolver, ModelBuilder: Wrappers around commercial and other open source solvers, including mixed integer solvers: CBC, CLP, GLPK, Gurobi or SCIP.
+  # * Graph Algorithms Code for finding shortest paths in graphs, min-cost flows, max flows, and linear sum assignments.
 OpenAI Gym # toolkit for developing and comparing reinforcement learning algorithms
 matplotlib, prettyplotlib, mpld3, bokeh, plotly, glue, vispy, vincent (d3.js), seaborn, pygal, folium (-> Leaflet.js maps, cf. http://python-visualization.github.io/folium/)
     Pylab = matplotlib.pyplot + NumPy

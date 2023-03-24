@@ -68,15 +68,18 @@ services.msc &:: Services windows
 diskmgmt.msc &:: Disk & Partition Management
 magnify &:: Loupe
 cmd | clip &:: copy to clipboard - Hold CTRL + INSERT to copy Windows error messages
-regsvr32 %dll_file% &:: register dll
 vssadmin list shadows &:: list available Volume Shadow Copies aka restore points, cf. http://superuser.com/a/165576)
 mstsc &:: builtin but less secure TeamViewer-like
 secpol.msc &:: Security Policy Editor -> can for example gives permision to a user to create symlinks
-rundll32 sysdm.cpl,EditEnvironmentVariables &:: user env variables
-rundll32 "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ImageView_Fullscreen $path_to_img_without_quotes &:: Open Windows Image Viewer
 reg query $key :: get registry key value
 pnputil.exe /enum-devices /connected
 pnputil.exe /disable-device %DID% && pnputil.exe /enable-device %DID%
+
+rundll32 sysdm.cpl,EditEnvironmentVariables &:: user env variables
+rundll32 "C:\Program Files\Windows Photo Viewer\PhotoViewer.dll" ImageView_Fullscreen $path_to_img_without_quotes &:: Open Windows Image Viewer
+regsvr32 %dll_file% &:: register dll
+dumpbin.exe /exports %dll_file%  &:: list functions exported by a DLL file
+&:: where dumpbin: C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30037\bin\Hostx64\x64\dumpbin.exe
 
 upx -9 my_homemade_cmd.exe &:: executable packer/compressor/optimizer
 

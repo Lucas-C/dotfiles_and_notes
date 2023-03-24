@@ -548,6 +548,34 @@ Take the time to choose descriptive names. Naming things is a great power, it co
 - Commented-out code [CC-C5]
 Don't use comments when you can use a function/variable to expresse the intent [CC-Chapt4]
 
+[Best practices for writing code comments @ StackOverflow blog](https://stackoverflow.blog/2021/12/23/best-practices-for-writing-code-comments/)
+1. Comments should not duplicate the code.
+2. Good comments do not excuse unclear code.
+3. If you can’t write a clear comment, there may be a problem with the code.
+4. Comments should dispel confusion, not cause it.
+5. Explain unidiomatic code in comments.
+6. Provide links to the original source of copied code.
+7. Include links to external references where they will be most helpful.
+8. Add comments when fixing bugs.
+9. Use comments to mark incomplete implementations.
+
+[The Real Purpose of Comments in Code](https://www.cognizantsoftvision.com/blog/never-use-comments-in-code-because-it-should-speak-for-itself-right/)
+* What are the benefits of explaining the intent of a specific part of the code?
+* The myth of the auto commenting code
+* Now, let’s address the worries which lurk in the minds of people who despise comments.
+    1. Comments will become out of date and will become misleading
+    2. Line noise in code
+    3. A lot of time is being wasted by writing comments
+* 8 comment-writing guidelines to follow
+    1. Make an effort to understand all the code you’re dealing with
+    2. Never restate your code functionality in the comments
+    3. Respect documentation comments
+    4. You may write marvelous comments, but that does not allow you to write poor code
+    5. Comments will become out of date only if you let them
+    6. Never commit commented-out code
+    7. Our comments should be a living form of our specifications
+    8. Self-commenting code should live along with intent comments
+
 ### antirez on code comments
 During my research I identified nine types of comments:
 * Function comments
@@ -559,6 +587,9 @@ During my research I identified nine types of comments:
 * Trivial comments
 * Debt comments
 * Backup comments
+
+> the writer attempts to provide the gist of what a given piece of code does, what are the guarantees, the side effects.
+> **Writing good comments is harder than writing good code**
 
 ### Error handling
 - Handle as many errors as possible locally, but export as few errors as possible [SDP]
@@ -580,6 +611,15 @@ What are logs used for ?
 - error reporting -> use a dedicated tool like Sentry
 - durable records -> use a DB
 - debug tracing -> use something like Zipkin
+
+[Heroku Writing Best Practices For Application Logs > Include pertinent details](https://devcenter.heroku.com/articles/writing-best-practices-for-application-logs#include-pertinent-details)
+> Add context to the message content, such as:
+> * What action was performed
+> * Who performed the action
+> * Why a failure occurred
+> * Remediation information when possible for WARN and ERROR messages
+
+[Logging Best Practices : 6. Add Context to Your Log Messages](https://www.dataset.com/blog/the-10-commandments-of-logging/)
 
 ### Build system smells
 - Build requires more than one step [CC-E1]
