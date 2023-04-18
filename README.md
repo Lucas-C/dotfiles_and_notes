@@ -63,6 +63,12 @@ and use stow: http://sametmax.com/regrouper-ses-fichiers-de-settings-avec-stow/
 or https://github.com/deadc0de6/dotdrop
 -->
 
+### VScode settings
+As admin:
+
+    cd C:\Users\...\AppData\Roaming\Code\User
+    mklink settings.json C:\...\dotfiles_and_notes\vscode-settings.json
+
 ### Gimp custom shortcuts install
 
     cp gimp-menurc $APPDATA/GIMP/2.10/menurc

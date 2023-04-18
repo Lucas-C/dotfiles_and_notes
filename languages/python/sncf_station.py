@@ -8,7 +8,7 @@
 import json, os, urllib.request, sys
 from base64 import b64encode
 from datetime import datetime
-from urllib.error import URLError
+from urllib.error import HTTPError
 
 STATION_ID_PER_CITY_NAME = {
     "Angers": 87484006,
@@ -95,7 +95,7 @@ def http_get(url, auth=None, timeout_in_secs=5, parse_json=False):
             if parse_json:
                 return json.load(resp)
             return resp.read().decode('utf-8')
-    except URLError as error:
+    except HTTPError as error:
         if error.fp:
             print("HTTP response:", error.fp.read().decode())
         raise error

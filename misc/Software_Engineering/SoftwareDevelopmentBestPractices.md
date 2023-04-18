@@ -354,6 +354,7 @@ We can distinguish between **system** design patterns & **application** design p
 
 [DesignPatternForHumans] : Ultra-simplified explanation to Creational, Structural & Behavioral design patterns : Simple Factory, Factory Method, Abstract Factory, Builder, Prototype
 , Singleton ; Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy ; Chain of Responsibility, Command, Iterator, Mediator, Memento, Observer, Visitor, Strategy, State, Template, Method
+Alt: https://refactoring.guru/fr/design-patterns site très exhaustif sur les patrons de conception, avec version française
 
 [SystemDesignPrimer]: how to design large-scale systems, with diagram-based examples
 -> Performance vs scalability / Latency vs throughput / Availability vs consistency / DNS & CDN / Load balancer

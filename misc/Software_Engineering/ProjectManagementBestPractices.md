@@ -234,6 +234,15 @@ If there is any possibility of misunderstanding what is included, it is sometime
 
 Sub-story: The smallest unit of work that has value for our customers
 
+![](http://formations.imt-atlantique.fr/bi/images/bi/invest.png)
+_**INVEST**_: A good user story should be:
+* **“I” ndependent** (of all others)
+* **“N” egotiable** (not a specific contract for features)
+* **“V” aluable** (or vertical)
+* **“E” stimable** (to a good approximation)
+* **“S” mall** (so as to fit within an iteration)
+* **“T” estable** (in principle, even if there isn’t a test for it yet)
+
 #### Template
 - Objectifs de l'étude
   * Contexte: Dans le cadre de la mise en place de ...

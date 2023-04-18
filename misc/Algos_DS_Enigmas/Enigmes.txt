@@ -299,6 +299,9 @@ https://www.reddit.com/r/puzzles/comments/k7jwla/colored_wall_maze/
 Maze rule: do not make any left turn or U-turn!
 https://www.reddit.com/r/puzzles/comments/y5h2ua/is_this_maze_possible/
 
+Simple geometry: nested squares
+https://www.reddit.com/r/puzzles/comments/125mvfm/nested_squares/
+
 Which card to open (logic, easy)
 https://www.reddit.com/r/puzzles/comments/zkuj0b/which_card_to_open/
 

@@ -50,7 +50,7 @@
   },
   "javascript.updateImportsOnFileMove.enabled": "always",
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "HookyQR.beautify"
   },
   "[java]": {
     "editor.tabSize": 4,
@@ -114,5 +114,7 @@
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "window.zoomLevel": 1
+  "window.zoomLevel": 1,
+  "nsis.compiler.pathToMakensis": "C:\\DevHome\\tools\\NSIS\\makensis",
+  "explorer.confirmDelete": false
 }
