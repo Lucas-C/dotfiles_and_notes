@@ -388,8 +388,8 @@ Liens utiles:
 * https://action.parabol.co : open-source online retrospectives, sprint poker, standup meetings...
 * TRUNE: https://www.scrumexpert.com/tools/truly-connect-with-your-team-retros-radars-with-trune/ : online retrospective & health radar tool
 
-| Nom rétrospective                       | Description / Lien                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-|-----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Nom rétrospective                       | Description / Lien |
+|-----------------------------------------|-|
 | 4L + W³                                 | Liked / Learned / Lacked / Longed for + [What / So What / Now What ?](https://www.liberatingstructures.com/9-what-so-what-now-what-w/) |
 | TRIZ                                    | Stop Counterproductive Activities and Behaviors to Make Space for Innovation - http://www.everydaykanban.com/2015/06/18/shake-up-retrospective-with-triz/ |
 | STARFISH                                | Start Stop Continue More Less |
