@@ -169,10 +169,12 @@ and the Elder Ones: BigTable ~ HBase, Amazon Dynamo ~ Voldemort, + Cassandra whi
 spotify/sparkey : simple constant key/value storage library, for read-heavy systems with infrequent large bulk inserts,
     inspired by CDB and Tokyo Cabinet : https://labs.spotify.com/2013/09/03/sparkey/
 
+#### DynamoDB
+
 [The Three AWS DynamoDB Limits You Need to Know](https://www.alexdebrie.com/posts/dynamodb-limits/):
     the item size limit; the page size limit for Query and Scan operations; and the partition throughput limits.
 
-
+ddbsh is an interactive shell for AWS DynamoDB: https://hypecycles.com/2023/01/25/hello-dynamodb-shell/
 
 #### MongoDB
 

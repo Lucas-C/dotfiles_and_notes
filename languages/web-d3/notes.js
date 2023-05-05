@@ -29,6 +29,52 @@ o.get_name = o.get_name.bind({name: 'BAR'})
 o.get_name() // 'BAR'
 // + no way to found out if o.get_name is bounded or not !! (nor to what object it's bounded)
 
+Promise.any VS Promise.race
+Promise.all VS Promise.allSettled VS Promise.map() that processes promises results in the order they are resolved
+// `for async` processes the promises results in the order they are PROVIDED, not in the order they are RESOLVED
+async function sleepAndReturn(value, ms) {
+  return new Promise((resolve) => {
+    console.log(`Started Promise with value ${value}`)
+    setTimeout(() => {
+      console.log(`Resolving Promise with value ${value}`)
+      resolve(value)
+    }, ms)
+  })
+}
+(async () => {
+  const promises = [
+    sleepAndReturn(1, 200),
+    sleepAndReturn(2, 50),
+  ]
+  for await (const result of promises) {
+    console.log(result)
+  }
+})()
+async function anyPromiseResolveTrue(promises/*: Promise<boolean>[]*/)/*: Promise<boolean>*/ {
+    // Using Promise.any() is faster that Promise.all() in this case,
+    // as it allows us to return true as soon as any promise resolves to true,
+    // without waiting for all of them to complete.
+    // The drawback is that an AggregateError is raised if zero promise resolves to true.
+    // Note that all promises will complete in the background, and that none of them will be interrupted.
+    try {
+        await Promise.any(promises.map(promise => promise.then(result => result ? Promise.resolve(result) : Promise.reject(result))))
+    } catch (error) {
+      if (error instanceof AggregateError) {
+        return false
+      }
+      throw error
+    }
+    return true
+}
+(async () => {
+  const promises = [
+    sleepAndReturn("SLOW", 1000), // truthy but slow to resolve
+    sleepAndReturn(false, 50),    // falsy but fast to resolve
+    sleepAndReturn("FAST", 200),  // truthy and relatively fast to resolve
+  ]
+  console.log(await anyPromiseResolveTrue(promises))
+})()
+
 Object.freeze / Object.seal
 
 Object.create > mutating .protoype // cf. https://github.com/mbostock/d3/issues/1805
@@ -323,13 +369,6 @@ nodemon // watch files in current directory, and restart a script on any change 
 
 var logs = driver.manage().logs(), // driver is a selenium-webdriver instance
     fetchLogsPromises = _.map(webdriver.logging.Type, logs.get.bind(logs)); // !! native .map does not work here - there are 5 logging.Type defined here: https://github.com/SeleniumHQ/selenium/blob/master/javascript/webdriver/logging.js#L234
-Promise.all(fetchLogsPromises).then(function (fetchedLogs) { // Alt: Promise.allSettled
-    fetchedLogs.forEach(function (logs, logIndex) {
-        logs.forEach(function (log) {
-            console.log('\x1b[3%sm%s [%s] %s\x1b[0m', logIndex + 1, new Date(log.timestamp), log.level.name, log.message);
-        });
-    });
-});
 
 E4X // official JavaScript standard that adds direct support for XML
 

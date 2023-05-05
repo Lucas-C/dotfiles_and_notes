@@ -1014,7 +1014,7 @@ about:memory # Firefox memory allocation details
 about:about # all the about: pages e.g. :crashes :healthreport :permissions :plugins :sessionrestore
 resource://gre-resources/
 $ff_profile_dir/.parentlock # fix "Firefox is already running but is not responding" error
-cp sessionstore.bak sessionstore.js # Restore previous session tabs
+cp sessionstore-backups/recovery.jsonlz4 sessionstore.jsonlz4  # restore tabs from a lost session - require Firefox process to be shut down - To decode those files: https://unix.stackexchange.com/a/434882
 <CTRL>+F5 # refresh page bypassing the cache
 MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage - Alt: http://freze.it
 # Useful extensions:
