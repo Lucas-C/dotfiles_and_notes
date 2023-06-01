@@ -44,6 +44,7 @@ Example, to watch Elasticsearch native Java protocol traffic:
     $ boom -n 10 http://my.json/service # Python package
 - HTTPS Tracking : every single TLS connection includes a unique session ID: https://www.hackerfactor.com/blog/index.php?/archives/957-Fully-Embracing-HTTPS.html
 > You don't even need to log in; simply connecting to an HTTPS web server is enough to establish a unique session ID
+- [Polling vs SSE vs WebSocket - How to choose the right one](https://codeburst.io/polling-vs-sse-vs-websocket-how-to-choose-the-right-one-1859e4e13bd9)
 
 ### Single Origin Policy
 
