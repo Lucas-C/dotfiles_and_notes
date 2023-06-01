@@ -699,5 +699,6 @@ EOF
 # The k8s namespace must be provided as argument
 alias k8s-show-ns=" kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n"
 
+alias dl-vid="yt-dlp -f 'best[filesize<300M]'"
 # This allows to retries a playlist download without re-downloading songs already downloaded:
-alias youtube-dl-playlist="youtube-dl -x --download-archive downloaded.txt --no-post-overwrites"
+alias dl-playlist="yt-dlp -x --download-archive downloaded.txt --no-post-overwrites"

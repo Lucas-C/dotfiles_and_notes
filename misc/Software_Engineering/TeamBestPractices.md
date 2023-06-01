@@ -75,7 +75,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [WorkAtDifferentManagementLevels](http://larahogan.me/blog/manager-levels/)
 - [SelfFormingTeams](https://blogs.msdn.microsoft.com/bharry/2015/07/24/self-forming-teams-at-scale/)
 - [OnFindingRootCauses](https://medium.com/production-ready/on-finding-root-causes-c0ce524bf98b#.fu7ofzcr4)
-- [HoneYourProductionIncidentPostmortems](http://tech.shutterstock.com/2016/11/11/5-ways-to-hone-your-production-incident-postmortems/)
+- [HoneYourProductionIncidentPostmortems](https://web.archive.org/web/20161123102450/https://tech.shutterstock.com/2016/11/11/5-ways-to-hone-your-production-incident-postmortems/)
 - [EtsyDebriefingFacilitationGuide](https://extfiles.etsy.com/DebriefingFacilitationGuide.pdf)
 - [HowDoYouMakeAnAwesomeTeam](http://jvns.ca/blog/2017/01/13/how-do-you-make-an-awesome-team/)
 - [IncidentManagementAtGoogle](https://cloudplatform.googleblog.com/2017/02/Incident-management-at-Google-adventures-in-SRE-land.html)
@@ -317,6 +317,8 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
   * check-out: "You must Check Out when you are aware that you cannot maintain the Core Commitments or whenever it would be better for you to be elsewhere."
 - [Intro à la Sociodynamique]: socio-passifs B1, hésitants B2, déchirés B3, irréductibles B4, opposants B5, alignés B6, concertatifs B7
 - [CNV & Agilité par T. Clavier & J. Quille]
+- La loi de la mobilité ou **loi des deux pieds** : http://www.oeildecoach.com/eviter-lennui-reunion-pendant-conference/
+> si vous n’êtes ni en train d’apprendre, ni de contribuer, passez à autre chose !
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [Why Scrum Should Basically Just Die In A Fire]
@@ -495,7 +497,14 @@ Liens utiles:
 - if we made an incremental improvment in area A or area B, which would prevent the broadest class of problems going ahead ? [5WhysWithHumansNotRobots]
 - human error is NEVER a root cause [OnFindingRootCauses] : You can’t fix people, but you can fix systems and processes to better support them.
 Learning is the goal during post-mortems (cf. [Learning Through Blameless Reviews] for a nice quick slideshow) + questions examples : [InfiniteHows]
-- share your postmortem in an accessible, standardized way : [HoneYourProductionIncidentPostmortems] & [EtsyDebriefingFacilitationGuide]
+- share your postmortem in an accessible, standardized way :
+    + [EtsyDebriefingFacilitationGuide]
+    + [HoneYourProductionIncidentPostmortems]
+        1. Take notes as you put out the fire
+        2. Who has point? Who has comms? Define your roles
+        3. Do follow-up analysis before the data – and your passion – evaporates
+        4. Know when to give up
+        5. Share your postmortem in an accessible, standardized way
 - tooling: https://github.com/etsy/morgue : PHP based web application to help manage your postmortems, made by Etsy
 - FTA = Fault Tree method = Arbre des défaillances : ~ méthode des "5 whys" avec une mindmap
 - train people to handle those situations : [IncidentManagementAtGoogle]

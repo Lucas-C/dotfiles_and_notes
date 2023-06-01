@@ -300,8 +300,10 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
 
 [Why Uber Engineering Switched from Postgres to MySQL](https://eng.uber.com/mysql-migration/)
 
+[Sharding Pinterest: How we scaled our MySQL fleet](https://medium.com/pinterest-engineering/sharding-pinterest-how-we-scaled-our-mysql-fleet-3f341e96ca6f)
+
 [vitess](https://github.com/vitessio/vitess): database clustering system for horizontal scaling of MySQL through generalized sharding.
-Core component of GiThub & YouTube's infrastructure.
+Core component of GitHub & YouTube's infrastructure.
 
     mysqladmin --defaults-file=/etc/mysql/debian.cnf status # mysqladmin config file can be found in /etc/init.d/mysql, along MySQL own one: /etc/mysql/my.cnf
 
