@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
-# coding: utf-8
+# Zero-config, single-file, Python web-app to perform & share dice rolls
+# Features:
+# * name your room as you want: just choose a custom URL
+# * variable number of d6 can be rolled
+# * in-memory data storage, with RAM usage control (no more than 50 tables can exist)
+# * optional Blades in the Dark result interpretation with ?bitd=1
+# * optional name prefill with ?name=
+# * optional timer with ?timer=1
+
 # LIVE INSTANCE: https://chezsoi.org/lucas/jdr/rpg-dice
 # USAGE: ./rpg_dice.py
 # INSTALL:
@@ -16,13 +24,15 @@
 #       proxy_pass http://127.0.0.1:8084;
 #   }
 
-import os
+import os, sys
 from collections import OrderedDict
 from datetime import datetime
 from random import randrange
 from flask import Flask, jsonify, request
 
-BASE_URL = os.environ.get('BASE_URL', 'https://chezsoi.org/lucas/jdr/rpg-dice')
+DEBUG = bool(os.environ.get('DEBUG'))
+PORT = int(os.environ.get('PORT', '8084'))
+BASE_URL = f"http://localhost:{PORT}" if DEBUG else (os.environ.get('BASE_URL') or 'https://chezsoi.org/lucas/jdr/rpg-dice')
 BASE_HTML = '''<!DOCTYPE html>
 <head>
   <meta charset="utf-8"/>
@@ -53,13 +63,13 @@ BASE_HTML = '''<!DOCTYPE html>
     border-radius: 1rem;
     padding: 2rem 0;
   }}
-  button, label, input {{
-    font-size: 2rem;
+  button, label, input {{ font-size: 2rem; }}
+  input[type="text"] {{ max-width: 15rem; }}
+  input[type="number"] {{ max-width: 4rem; }}
+  button, #name-label, input[type="submit"] {{
     display: block;
     margin: 1rem auto;
-    max-width: 15rem;
   }}
-  input[type="number"] {{ width: 4rem; }}
   p {{ font-size: 1.5rem; }}
   s {{ /* dices */
     text-decoration: none;
@@ -91,18 +101,29 @@ BASE_HTML = '''<!DOCTYPE html>
 DIE_ROLLS_PER_TABLE = OrderedDict()  # in-memory data state
 MAX_TABLES_COUNT = 50
 
+def log(*args):
+   print(*args, file=sys.stderr)
+
 app = Flask(__name__)
 
 @app.route('/<table>', methods=('GET', 'POST'))
 def table_html(table):
     die_rolls = DIE_ROLLS_PER_TABLE.setdefault(table, [])
-    name = ''
     if request.method == 'POST':
         autocleanup()
         name = request.form['name']
-        die = 1 + randrange(6)
-        hour = datetime.now().strftime('%X')
-        die_rolls.append((name, die, hour))
+        count = int(request.form['dice-count'])
+        roll_type = None
+        if count == 0 and request.args.get('bitd'):
+            count = 2
+            roll_type = "WORST"
+        results = []
+        for _ in range(count):
+            results.append(1 + randrange(6))
+        time = datetime.now()
+        die_rolls.append((name, results, time, roll_type))
+    else:
+        name = request.args.get('name') or ''
     json_endpoint = f'{BASE_URL}/{table}/json'
     return BASE_HTML.format(
         body='''
@@ -111,8 +132,11 @@ def table_html(table):
           <input type="number" value="20"></input>min
         </div>
         <form onsubmit="return this.name.value.length >= 3" method="POST">
-          <label for="name">Name:</label>
+          <label id="name-label" for="name">Name:</label>
           <input type="text" minlength="3" name="name">
+          &nbsp;
+          <label id="dice-count-label" for="dice-count">#d6:</label>
+          <input type="number" name="dice-count">
           <input type="submit" value="Roll the die">
         </form>
         <p>The die rolls of all people using this URL are displayed below :</p>
@@ -120,9 +144,11 @@ def table_html(table):
         <script>
         const nameAlreadyTyped = '{name}';
         const queryParams = new URLSearchParams(location.search);
+        const isBitD = queryParams.get('bitd');
         if (queryParams.get('timer')) {{
           document.getElementById('timer').style.visibility = 'visible';
         }}
+        document.getElementsByName('dice-count')[0].value = queryParams.get('dice-count') || 1;
         if (nameAlreadyTyped) document.forms[0].name.value = nameAlreadyTyped;
         window.dieRolls = [];
         function startTimer(button) {{
@@ -143,11 +169,16 @@ def table_html(table):
               while (ul.firstChild) {{ ul.removeChild(ul.firstChild); }}
               dieRolls.forEach(dieRoll => {{
                 const li = document.createElement('li');
-                li.innerHTML = `${{dieRoll.player}}: <s>${{dieRoll.dieChar}}</s> (${{dieRoll.hour}})`;
+                let html = `${{dieRoll.player}}: <s>${{dieRoll.dieChars}}</s>`;
+                if (isBitD) {{
+                    html += ` <em>${{dieRoll.bitd}}</em>`;
+                }}
+                html += ` <small>(${{dieRoll.hour}})</small>`;
+                li.innerHTML = html;
                 ul.appendChild(li);
               }});
             }}
-            setTimeout(watchForever, 2000);
+            setTimeout(watchForever, 2000/*ms*/);
           }}).catch(error => console.error(error));
         }}
         watchForever();
@@ -170,21 +201,37 @@ def homepage_html():
         </script>'''.format(BASE_URL=BASE_URL))
 
 def to_json(die_roll):
-    player, die, hour = die_roll
+    first_second_of_today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    player, results, time, roll_type = die_roll
     return {
         'player': player,
-        'dieChar': emojify(die),
-        'hour': hour,
+        'roll_type': roll_type,
+        'dieChars': ' '.join(emojify(die) for die in results),
+        'bitd': bitd_result(results, roll_type),
+        # It would be cleaner to have this date being formatted by the fronted, but YAGNI:
+        'hour': time.strftime('%X') if time > first_second_of_today else time.strftime('%x %X'),
     }
 
 def emojify(die):
     return {1: '⚀', 2: '⚁', 3: '⚂', 4: '⚃', 5: '⚄', 6: '⚅'}[die]
 
+def bitd_result(results, roll_type):
+    if roll_type == "WORST":
+        results = [min(results)]
+    six_count = sum(1 for die in results if die == 6)
+    if six_count > 1:
+        return "CRITICAL success!"
+    if six_count == 1:
+        return "full success"
+    if max(results or ()) in (4, 5):
+        return "partial success"
+    return "bad outcome"
+
 def autocleanup():
     while len(DIE_ROLLS_PER_TABLE) > MAX_TABLES_COUNT:
         table, _ = DIE_ROLLS_PER_TABLE.popitem(last=True)
-        print('autocleanup removed table:', table)
+        log('autocleanup removed table:', table)
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=int(os.environ.get('PORT', '8084')))
+    app.run(debug=DEBUG, port=PORT)
