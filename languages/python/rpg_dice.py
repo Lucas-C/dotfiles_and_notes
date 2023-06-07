@@ -28,7 +28,9 @@ import os, sys
 from collections import OrderedDict
 from datetime import datetime
 from random import randrange
-from flask import Flask, jsonify, request
+from string import ascii_letters, digits
+from uuid import uuid4
+from flask import Flask, jsonify, make_response, request
 
 DEBUG = bool(os.environ.get('DEBUG'))
 PORT = int(os.environ.get('PORT', '8084'))
@@ -112,6 +114,9 @@ def table_html(table):
     if request.method == 'POST':
         autocleanup()
         name = request.form['name']
+        if not is_sane(name):
+            log('Non-sane "name" received:', name)
+            name = ''
         count = int(request.form['dice-count'])
         roll_type = None
         if count == 0 and request.args.get('bitd'):
@@ -125,13 +130,14 @@ def table_html(table):
     else:
         name = request.args.get('name') or ''
     json_endpoint = f'{BASE_URL}/{table}/json'
-    return BASE_HTML.format(
+    nonce = uuid4()
+    response = make_response(BASE_HTML.format(
         body='''
         <div id="timer" style="visibility: hidden">
-          <button onclick="startTimer(this)">Start timer</button>
+          <button>Start timer</button>
           <input type="number" value="20"></input>min
         </div>
-        <form onsubmit="return this.name.value.length >= 3" method="POST">
+        <form method="POST">
           <label id="name-label" for="name">Name:</label>
           <input type="text" minlength="3" name="name">
           &nbsp;
@@ -141,7 +147,7 @@ def table_html(table):
         </form>
         <p>The die rolls of all people using this URL are displayed below :</p>
         <ul id="rolls"></ul>
-        <script>
+        <script nonce="{nonce}">
         const nameAlreadyTyped = '{name}';
         const queryParams = new URLSearchParams(location.search);
         const isBitD = queryParams.get('bitd');
@@ -155,6 +161,10 @@ def table_html(table):
           chrono(button.parentNode, new Date());
           button.nextElementSibling.remove();
           button.remove();
+        }}
+        document.getElementsByTagName('button')[0].onclick = startTimer;
+        document.getElementsByTagName('form')[0].onsubmit = function () {{
+          return this.name.value.length >= 3;
         }}
         function chrono(timerElem, startTime) {{
           let remaingSeconds = 20 * 60 - Math.floor((new Date() - startTime) / 1000);
@@ -182,7 +192,9 @@ def table_html(table):
           }}).catch(error => console.error(error));
         }}
         watchForever();
-        </script>'''.format(**locals()))
+        </script>'''.format(**locals())))
+    response.headers['Content-Security-Policy'] = f"script-src 'self' 'nonce-{nonce}'"
+    return response
 
 @app.route('/<table>/json')
 def table_json(table):
@@ -232,6 +244,9 @@ def autocleanup():
         table, _ = DIE_ROLLS_PER_TABLE.popitem(last=True)
         log('autocleanup removed table:', table)
 
+VALID_CHARS = ascii_letters + digits + '-_.:|=+@#$%'
+def is_sane(str):
+    return all(c in VALID_CHARS for c in str)
 
 if __name__ == '__main__':
     app.run(debug=DEBUG, port=PORT)
