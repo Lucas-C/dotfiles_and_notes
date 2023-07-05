@@ -66,9 +66,9 @@ BASE_HTML = '''<!DOCTYPE html>
     padding: 2rem 0;
   }}
   button, label, input {{ font-size: 2rem; }}
-  input[type="text"] {{ max-width: 15rem; }}
+  input[type="text"] {{ max-width: 20rem; text-align: center; }}
   input[type="number"] {{ max-width: 4rem; }}
-  button, #name-label, input[type="submit"] {{
+  button, input[type="submit"] {{
     display: block;
     margin: 1rem auto;
   }}
@@ -140,7 +140,7 @@ def table_html(table):
         <form method="POST">
           <label id="name-label" for="name">Name:</label>
           <input type="text" minlength="3" name="name">
-          &nbsp;
+          <br>
           <label id="dice-count-label" for="dice-count">#d6:</label>
           <input type="number" name="dice-count">
           <input type="submit" value="Roll the die">

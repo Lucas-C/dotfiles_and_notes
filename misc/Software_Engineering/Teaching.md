@@ -206,13 +206,11 @@ Short exercises (30min to 1h) to practice Python programming:
 - https://exercism.io
 
 ### Tools & platforms to write docs / tutorials / practical exercises
+- https://killercoda.com/ (alternative to katacoda that has shut down) : interactive environments in your browser. Study scenarios by others or create scenarios for yourself : Linux | Kubernetes | Containers | Programming | DevOps | Networking 
 - https://github.com/Kibibit/command-lime : build you web-based CLI onboarding demo in a fake terminal
-- [katakoda](https://katacoda.com) : Learn new technologies using real environments right in your browser
-Interactive Learning and Training Platform for Software Engineers
-=> Docker Weaveworks Kubernetes OpenShift Hashicorp Envoy Proxy Istio Hashicorp Consul Hashicorp Vault Linux Jenkins Prometheus OpenTracing Ansible Tensorflow Git Rlang Go .NET Node.js Ruby
-Ex playground for Python: https://www.katacoda.com/courses/python/playground
 - [TutorialsPoint](https://www.tutorialspoint.com/codingground.htm) Online Compilers and Interpreters,
   ex: [Bash Shell Online](https://www.tutorialspoint.com/unix_terminal_online.php)
+- https://www.pluralsight.com/cloud-guru
 - https://bellard.org/jslinux/ / https://copy.sh
 - [play-with-docker](https://labs.play-with-docker.com): free Alpine Linux Virtual Machine in the cloud where you can build and run Docker containers,
   through your web browser. Require a docker.com account.

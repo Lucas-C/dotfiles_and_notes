@@ -182,9 +182,11 @@ FROM: The Cathedral and the Bazaar by Eric S. Raymond (Attributed to Antoine de 
 > "Programs must be written for people to read, and only incidentally for machines to execute." - Hal Abelson
 > "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability." - John Woods
 
+[Clever code is bad. Don't write clever code.](https://guifroes.com/clever-code-is-bad/)
+
 [John Carmack discusses the art and science of software engineering](//blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/):
 > "It’s about social interactions between the programmers or even between yourself spread over time"
-> "We talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineer­ing there,
+> "We talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineering there,
 > these are all best practices, and these are things that have shown to be helpful in the past, but really are only helpful when people are making certain classes of mistakes"
 > + daily code reviews + the code you write may well exist a decade from now
 

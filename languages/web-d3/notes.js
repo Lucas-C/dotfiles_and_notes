@@ -75,6 +75,13 @@ async function anyPromiseResolveTrue(promises/*: Promise<boolean>[]*/)/*: Promis
   console.log(await anyPromiseResolveTrue(promises))
 })()
 
+class MyClass { constructor(name) { this.name = name } }
+const myMap = new Map(); // maps MyClass instances to boolean values
+const bar1 = new MyClass("bar");
+myMap.set(bar1, true);
+const bar2 = new MyClass("bar");
+console.log(myMap.has(bar2)); // false !
+
 Object.freeze / Object.seal
 
 Object.create > mutating .protoype // cf. https://github.com/mbostock/d3/issues/1805

@@ -28,25 +28,6 @@
     "editor.formatOnSave": false,
     "editor.formatOnType": false
   },
-  "typescript.autoClosingTags": true,
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnPaste": true,
-    "editor.formatOnType": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true,
-      "source.organizeImports": false
-    }
-  },
-  "typescript.suggest.autoImports": true,
-  "[typescriptreact]": {
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": false,
-      "source.fixAll": true
-    },
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "javascript.updateImportsOnFileMove.enabled": "always",
   "[javascript]": {
     "editor.defaultFormatter": "HookyQR.beautify"
@@ -104,6 +85,22 @@
     }
   },
   "terraform.codelens.referenceCount": true,
+  "typescript.autoClosingTags": true,
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.formatOnSave": false,
+  },
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": false,
+      "source.fixAll": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[xml]": {
     "editor.defaultFormatter": "redhat.vscode-xml",
     "editor.formatOnPaste": false,
