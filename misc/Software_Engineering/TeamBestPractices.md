@@ -331,8 +331,12 @@ In general, limit meetings by making them informal chats or doing them properly:
 
 Identify what's the main purpose of the meeting: **think & reflect**, **decide** or **inform**
 
-Décision commune par consensus, explitie : demander si quelqu'un a un concern / une objection.
+Décision commune par consensus, explicite : demander si quelqu'un a un _concern_ / une objection.
 Si personne ne se manifeste -> adopté
+
+> Programmers in large companies spend over 50% of their week NOT coding primarily due to meetings averaging 22.5 hours of their time
+> It takes developers 23 minutes of uninterrupted focus before they hit their flow state. The period where they are being truly productive
+Source: https://www.reddit.com/r/programming/comments/15t3hhw/til_programmers_in_large_companies_spend_over_50/
 
 [Liberating Structures](http://www.liberatingstructures.com) 33 microstructures to replace more controlling or constraining meetings
 \+ problème peut être découpé en plusieurs ateliers pour diverger puis converger
@@ -372,7 +376,7 @@ it's better to rewrite it from scratch (Thomas et al, 1997)
 > Engineers need prioritization skills too.
 
 [J'ai presque fini - David Laizé - DevFest 2021](https://youtube.com/watch?v=ohVd4ugay1o)
-* Overconficence effect
+* Overconfidence effect
 * Escalation of commitment (aka _Sunk cost fallacy_ aka "biais des coûts irrécupérables")
 
 Ses solutions : la phase de conception est importante; solliciter des collègues un feedback si on est tombés dans ce biais => psychological safety
@@ -389,6 +393,8 @@ Liens utiles:
 * https://www.scrumalliance.org/community/member-articles/699
 * https://action.parabol.co : open-source online retrospectives, sprint poker, standup meetings...
 * TRUNE: https://www.scrumexpert.com/tools/truly-connect-with-your-team-retros-radars-with-trune/ : online retrospective & health radar tool
+* https://www.neatro.io/
+* https://app.retrospected.com/ : open-source online retrospective
 
 | Nom rétrospective                       | Description / Lien |
 |-----------------------------------------|-|
@@ -412,7 +418,7 @@ Liens utiles:
 | RETRO MARTINE                           | Chaque personne réalise une ou plusieurs couvertures de Martine en reflétant son état d'esprit ou le sprint qui vient de se terminerimprimer et afficher sur le mur pour générer des discussions & actions http://www.retourdemartine.free.fr/create.phphttp://www.nintendo-town.fr/martine/create.php Dans le même genre avec les livres oreilly : https://korben.info/generateur-de-couvertures-oreilly.html |
 | Jour de lessive !                       | La rétrospective, c'est un peu laver son linge sale (en famille bien sur). Chaque équipe rédige ses post-its "linge propre" ou "linge sale", et les accroche sur un fil à linge : côté "linge propre" (les points positifs du sprint) ou "linge sale" (les points négatifs du sprint). Puis les équipes tournent et analysent les post-its sur le fil à linge de l'équipe précédente, et propose des actions d'amélioration. |
 | Le rétro dont vous êtes le héros        | http://blog.octo.com/la-retrospective-dont-vous-etes-le-heros/ |
-| FunRetro                                | http://funretro.github.io -> en ligne, nécessite de préparer des questions à l'avance |
+| FunRetro                                | https://easyretro.io -> en ligne, nécessite de préparer des questions à l'avance |
 | Problem Solving Tree                    | Got a big goal? Find the steps that lead to it https://retromat.org/en/?id=96 |
 | Strengths-Based Retrospective           | Do more of the things that you are already doing and which you are good at. http://retrospectivewiki.org/index.php?title=Strengths-Based_Retrospective |
 | Force Field Analysis                    | List all the supporting/driving factors for the topic, then the inhibiting/restraining ones http://retrospectivewiki.org/index.php?title=Force_Field_Analysis |

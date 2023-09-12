@@ -694,7 +694,8 @@ pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pip
 pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list --outdated --not-required ; piprot requirements.txt ; ./manage.py pipchecker
 pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 pyproject.toml # PEP-518 replacement for setup.py - Alt: https://github.com/pypa/pipfile by kennethreitz
-python setup.py check --strict  # validate meta-data, ensuring all required args are present - To go further: setuptools-lint
+pip install build && python -m build
+python setup.py check --strict  # validate meta-data, ensuring all required args are present - Also: python setup.py sdist bdist_wheel
 pip-compile # recursively pin Python dependencies; part of pip-tools - Alt: pip freeze - pip2tgz "/var/www/packages" mypackage && pip install --index-url="file:///var/www/packages" mypackage
 pipconflictchecker # pip-conflict-checker package, detect dependency versions conflicts
 PyPRI # private Python index in the cloud to which you have total control of access.
@@ -737,6 +738,7 @@ coverage report # ASCII report - Alt: html, xml
 
 csvoss/onelinerizer # Convert any Python 2 file into a single line of code
 liftoff/pyminifier # code minifier, obfuscator, and compressor
+therealOri/PolyLock # encryption (with chaeslib) + obfscation (fork of hyperion) + Code compilation (with nuitka)
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried), google/yapf
 pyreverse # UML diagrams, integrated in pylint
 pinetr2e/napkin # write UML sequence diagrams

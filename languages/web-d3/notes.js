@@ -458,3 +458,9 @@ https://www.webpagetest.org
 GT Metrix
 BoomerangJS
 https://github.com/mrdoob/stats.js  // JS Performance Monitor
+
+
+/****
+ Best practices & craftmanship
+***/
+Clean Code JS : https://github.com/ryanmcdermott/clean-code-javascript

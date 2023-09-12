@@ -63,6 +63,8 @@ https://qira.me is a a timeless debugger: all state is tracked while a program i
 Binary vizualizers: https://reverseengineering.stackexchange.com/a/6011/33675
     inc. binwalk, a good Python script to perform a quick CLI analysis
 
+Reco Nicolas S. : https://binary.ninja/
+
 ## Exploitation
 iKAT : gain access to the underlying OS in Kiosk (browser) restricted environment http://ikat.ha.cked.net/Windows/index.html
 -> also: https://blog.netspi.com/breaking-out-of-applications-deployed-via-terminal-services-citrix-and-kiosks/

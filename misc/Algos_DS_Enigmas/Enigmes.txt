@@ -320,6 +320,9 @@ https://www.reddit.com/r/mathriddles/comments/ia1c59/a_game_of_ping_pong/
 > Bob played 17 games, Alice played 15 games, and Tim played 10 games.
 > Who lost the second game?
 
+https://www.reddit.com/r/puzzles/comments/15tymez/how_tall_is_the_table/
+Basic arithmetic
+
 https://www.brainzilla.com/logic/kyudoku/
 > In this logic puzzle you have to choose nine unique numbers (1 through 9) so that each row and column has a sum of 9 or less.
 -> could lead to a 9-digits code

@@ -80,7 +80,7 @@ Software Development Best Practices
 - [WhenToRepeatYourself](http://devblog.songkick.com/2016/08/31/when-to-repeat-yourself/)
 - [InternetScaleServicesChecklist](https://gist.github.com/acolyer/95ef23802803cb8b4eb5)
 - [WhatsWrongWithGit?AConceptualDesignAnalysis](https://blog.acolyer.org/2016/10/24/whats-wrong-with-git-a-conceptual-design-analysis/)
-- [Simple Standard Service Endpoints](https://github.com/beamly/SE4/blob/master/SE4.md)
+- [Simple Standard Service Endpoints](http://web.archive.org/web/20220409201950/https://github.com/beamly/SE4/blob/master/SE4.md)
 - [DesignPatternForHumans](https://github.com/kamranahmedse/design-patterns-for-humans)
 - [SystemDesignPrimer](https://github.com/donnemartin/system-design-primer)
 - [CommandQueryResponsibilitySegregation](http://blog.eleven-labs.com/en/cqrs-pattern-2/)

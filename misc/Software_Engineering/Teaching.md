@@ -213,5 +213,5 @@ Short exercises (30min to 1h) to practice Python programming:
 - https://www.pluralsight.com/cloud-guru
 - https://bellard.org/jslinux/ / https://copy.sh
 - [play-with-docker](https://labs.play-with-docker.com): free Alpine Linux Virtual Machine in the cloud where you can build and run Docker containers,
-  through your web browser. Require a docker.com account.
+  through your web browser. Require a docker.com account (or a Google one)
 - [AWS Skill Builder](https://explore.skillbuilder.aws/learn) (gratuit)
