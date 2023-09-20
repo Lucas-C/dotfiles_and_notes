@@ -450,7 +450,7 @@ pdftotext $file.pdf - | grep # from xpdf-utils - Alt: euske/pdfminer pdf2txt.py 
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite [-dPDFSETTINGS=/screen|/ebook|/printer|/prepress] -sOutputFile=$out.pdf $in.pdf # reduce pdf size with ghostscript - Also: -dFirstPage=X -dLastPage=Y - Alt: http://compress.smallpdf.com
 pdfjam file1.pdf file2.pdf 1,3- `# optional selector` --nup 2x1 --landscape --outfile out.pdf # printer-friendly version - Also: pdf270 to rotate
 xournal # edit PDF as background images, and export to PDF. To manipulate its vectorial data, with the risk of skewed visual output: LibreOfficeDraw / PDFEdit
-convert -density 150 $pdf -flatten $png # pdf2png ; opt: -sharpen 0x1.0
+convert -density 300 $pdf -flatten $png # pdf2png ; opt: -sharpen 0x1.0
 /opt/pdfrw/examples/extract.py cat.py subset.py # useful Python scripts to extract images / merge PDFs / extract pages
 verapdf --format text -v $pdf # CLI validator - Alt: https://www.access-for-all.ch/en/pdf-lab/ (non CLI)
 qpdf --qdf --object-streams=disable $pdf qpdf-$pdf # pretty-format & annotate a PDF syntax

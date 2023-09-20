@@ -121,7 +121,7 @@ Display full error message with `docker service` : `--no-trunc`
 
 cf. [bin/docker_api.sh](https://github.com/Lucas-C/dotfiles_and_notes/blob/master/bin/docker_api.sh) :
 
-    export DOCKER_HOST=...
+    export DOCKER_HOST=tcp://localhost:2375
     docker_api.sh /tasks?filters=$(echo '{"id": ["'$task_id'"]}' | urlencode) | jq '.[]|{ID,Status,CreatedAt,UpdatedAt}'
     docker_api.sh "/events?since=$(date -d 2018-06-26T15:38:00 +%s)&until=$(date +%s)" > events.log
 

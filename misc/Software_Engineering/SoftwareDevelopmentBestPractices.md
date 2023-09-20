@@ -43,7 +43,7 @@ Software Development Best Practices
 - [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley : http://blog.codinghorror.com/a-pragmatic-quick-reference/
 - [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) - Amy Brown & Greg Wilson
 - [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter - Ed. Addison-Wesley
-- [SDP] : [Software Design Philosophy - John Ousterhout](//ramcloud.stanford.edu/wiki/display/ramcloud/Software+Design+Philosophy)
+- [SDP] : Software Design Philosophy - John Ousterhout
 - [97TEPSK] : [97 Things Every Programmer Should Know](http://programmer.97things.oreilly.com/wiki/index.php/Contributions_Appearing_in_the_Book)
 - [DOM] : [Don't overuse mocks](http://googletesting.blogspot.com/2013/05/testing-on-toilet-dont-overuse-mocks.html)
 - [KYTD] : [Know your test doubles](http://googletesting.blogspot.com/2013/07/testing-on-toilet-know-your-test-doubles.html)
@@ -400,6 +400,8 @@ Named because it resembles the sectioned partitions of a ship's hull: if it is c
 1. There are more cases to **test**, some of which can be hard because some service you talk to has to be down (or appear to be) in order to test.
 2. The unhappy mode will be afflicted by **code rot**.
 3. There's a **logical fallacy** that the undesirable mode is somehow "okay" when things are wrong; more likely it's the worst thing you could do.
+
+[Awesome Load Management](https://github.com/StanzaSystems/awesome-load-management): links to articles, papers, conference talks, and tooling related to load management in software services: loadshedding, circuitbreaking, quota management and throttling
 
 ### APIs, REST vs RPC, microservices
 

@@ -26,6 +26,7 @@ export HOST_COLOR=$T_normal
 export DIRCOLOR=$T_normal
 export USER_STYLE=$T_normal
 export EXIT_CODE=0
+VIRTUAL_ENV_DIRNAME=$(basename "${VIRTUAL_ENV:-}")
 
 # FROM: http://stackoverflow.com/a/88716
 IS_CHROOTED_PROMPT='{}'
@@ -43,7 +44,7 @@ export PS1=\
 '@\[\e[${HOST_COLOR}m\]\h\[\e[${T_normal}m\]'\
 '\[\e[${C_chrooted}m\]${IS_CHROOTED_PROMPT}\[\e[${T_normal}m\]'\
 '\[\e[${C_branch}m\][${GIT_BRANCH}]\[\e[${T_normal}m\]'\
-'\[\e[${C_virtualenv}m\]('$(basename "${VIRTUAL_ENV:-}")')\[\e[${T_normal}m\]'\
+'\[\e[${C_virtualenv}m\](${VENV_FS})\[\e[${T_normal}m\]'\
 ':\[\e[${DIRCOLOR}m\]\W\[\e[${T_normal}m\]'\
 '\[\e[${C_error}m\] $EXIT_CODE\[\e[${T_normal}m\]\$ '
 
@@ -70,6 +71,15 @@ prompt_command ()
 
     if type git >/dev/null 2>&1; then
         GIT_BRANCH=$(git branch --no-color 2>/dev/null | sed -ne 's/^* //p')
+    fi
+
+    if [ -n "$WSL_DISTRO_NAME" ]; then
+        case $PWD in
+        /mnt*|/c*|/d*)
+            VENV_FS="$VIRTUAL_ENV_DIRNAME";;
+        *)
+            VENV_FS="$VIRTUAL_ENV_DIRNAME/wsl-fs";;
+        esac
     fi
 
     # flush history => shared between term sessions

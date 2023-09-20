@@ -22,7 +22,7 @@ cf. http://blog.codinghorror.com/software-development-as-a-collaborative-game/
 - [Ops](#ops)
     * [Post-mortems](#post-mortems)
     * [Chaos Engineering aka Resilience Testing](#chaos-engineering-aka-resilience-testing)
-- [Documentation:](#documentation)
+- [Documentation](#documentation)
 - [Recruiting / recrutement](#recruiting--recrutement)
     * [Matrice de compétences](#matrice-de-compétences)
     * [Outils](#outils)

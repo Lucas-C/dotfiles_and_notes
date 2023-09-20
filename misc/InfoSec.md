@@ -19,6 +19,8 @@ https://github.com/SharadKumar97/OSINT-SPY : Python, call Clearbit / Shodan / Fu
 
 [wafw00f](https://github.com/EnableSecurity/wafw00f) : allows one to identify and fingerprint Web Application Firewall (WAF) products protecting a website
 
+[Holehe](https://github.com/megadose/holehe): find registered accounts from emails
+
 
 ### Sniffing
 OWASP Zap Proxy (Zed Attack Proxy) concurrent OSS de Burp

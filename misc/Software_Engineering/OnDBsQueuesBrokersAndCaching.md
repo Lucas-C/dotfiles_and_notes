@@ -269,6 +269,12 @@ https://remusao.github.io/posts/2017-10-21-few-tips-sqlite-perf.html
     PRAGMA locking_mode = EXCLUSIVE;
     PRAGMA temp_store = MEMORY;
 
+[Write-Ahead Logging](https://sqlite.org/wal.html) aka `PRAGMA journal_mode=WAL;`:
+
+> - WAL is significantly faster in most scenarios.
+> - WAL provides more concurrency as readers do not block writers and a writer does not block readers. Reading and writing can proceed concurrently.
+> - Disk I/O operations tends to be more sequential using WAL.
+
 [The ultimate SQLite extension set](https://antonz.org/sqlean/):
 
 * **crypto**: cryptographic hashes like MD5 or SHA-256.
