@@ -701,12 +701,19 @@ alias k8s-show-ns=" kubectl api-resources --verbs=list --namespaced -o name | xa
 
 alias dl-vid="yt-dlp -f 'best[filesize<300M]'"
 # This allows to retries a playlist download without re-downloading songs already downloaded:
-alias dl-playlist="yt-dlp -x --download-archive downloaded.txt --no-post-overwrites"
+alias dl-playlist="yt-dlp -x -o '%(playlist_index)s - %(title)s.%(ext)s' --restrict-filenames --download-archive downloaded.txt --no-post-overwrites"
+
+function no-exif() {
+    for img in "$@"; do
+        exiftool -all= "$img"
+        rm "${img}_original"
+    done
+}
 
 function optim-jpgs() {
     for jpg in "$@"; do
         jpegoptim --all-progressive -m90 "$jpg"
-        exiftool -all= "$jpg" && rm -f *_original
+        no-exif "$jpg"
         chmod 644 "$jpg"
     done
 }
@@ -714,7 +721,7 @@ function optim-jpgs() {
 function optim-pngs() {
     for png in "$@"; do
         pngquant --ext .png -f "$png"
-        exiftool -all= "$png" && rm -f *_original
+        no-exif "$png"
         chmod 644 "$png"
     done
 }

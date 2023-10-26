@@ -1358,7 +1358,7 @@ import xmlrpc.client # XML-RPC via HTTP
 server = xmlrpc.client.ServerProxy("http://www.pythonchallenge.com/pc/phonebook.php")
 print(server.system.getCapabilities())  # Also: .listMethods() .methodSignature(...) .methodHelp(...)
 
-rtfd/CommonMark-py # Markdown parser - Alt: waylan/Python-Markdown (used by pelican, support extensions), miyuchina/mistletoe, theacodes/cmarkgfm (beware issue #13), Hultner/safemd - focusing on security, e.g. to avoid XSS
+miyuchina/mistletoe # Markdown parser with 100% CommonMark support - Alt: Python-Markdown/markdown (not CommonMark but used by pelican & has 3.4K GitHub stars), executablebooks/markdown-it-py (100% CommonMark), theacodes/cmarkgfm (beware issue #13), Hultner/safemd - focusing on security, e.g. to avoid XSS
 templite, wheezy.template, mako, jinja2 # HTML template system - Note: {{"{{"}} escapes {{
 mozilla/bleach # HTML sanitizing library that escapes or strips markup and attributes
 tinycss2 > tinycss > cssutils  # CSS parsers

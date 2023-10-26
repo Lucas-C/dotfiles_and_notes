@@ -97,10 +97,11 @@ BASE_HTML = '''<!DOCTYPE html>
     <figcaption><a href="https://www.deviantart.com/durpy/art/Cutie-Mark-Dice-294117495">Cutie Mark - Dice by Durpy</a> - CC BY-NC 3.0</figcaption>
   </figure>
   {body}
-  <footer>Source code: <a href="https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/rpg_dice.py">rpg_dice.py</a></footer>
+  <footer>Source code: <a href="https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/rpg_dice.py">rpg_dice.py</a> - Backup app: <a href="https://www.rolldicewithfriends.com">RollDiceWithFriends</a></footer>
 </body>
 </html>'''
 DIE_ROLLS_PER_TABLE = OrderedDict()  # in-memory data state
+MAX_DICE_ROLLED = 10
 MAX_TABLES_COUNT = 50
 
 def log(*args):
@@ -116,14 +117,17 @@ def table_html(table):
         name = request.form['name']
         if not is_sane(name):
             log('Non-sane "name" received:', name)
-            name = ''
-        count = int(request.form['dice-count'])
+            return make_response(jsonify({'error': f'Non-sane "name" received: {name}'}), 404)
+        dice_count = int(request.form['dice-count'])
+        if dice_count > MAX_DICE_ROLLED:
+            log('Requested "dice-count" is too high:', dice_count)
+            return make_response(jsonify({'error': f'Requested "dice-count" is too high: {dice_count}'}), 404)
         roll_type = None
-        if count == 0 and request.args.get('bitd'):
-            count = 2
+        if dice_count == 0 and request.args.get('bitd'):
+            dice_count = 2
             roll_type = "WORST"
         results = []
-        for _ in range(count):
+        for _ in range(dice_count):
             results.append(1 + randrange(6))
         time = datetime.now()
         die_rolls.append((name, results, time, roll_type))
@@ -142,7 +146,7 @@ def table_html(table):
           <input type="text" minlength="3" name="name">
           <br>
           <label id="dice-count-label" for="dice-count">#d6:</label>
-          <input type="number" name="dice-count">
+          <input type="number" name="dice-count" max="10">
           <input type="submit" value="Roll the die">
         </form>
         <p>The die rolls of all people using this URL are displayed below :</p>

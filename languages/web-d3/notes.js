@@ -179,6 +179,7 @@ function RemoveArrayElement( array, element ) !!let (pos=array.lastIndexOf(eleme
 'abcd'.match(/a(.*)/) // regexp, also new RegExp("string", 'igm') where g: global, m:multi-line i: ignore case
 RegExp.$1 // 'bcd'
 /whatever/g.test() // ! STATEFUL ! no need for 'g' with .test() or use .exec/.match()
+                   // cf. section "What’s the Trouble then?" de cet article : https://kelly-kh-woo.medium.com/js-101-regexp-exec-vs-string-match-2377102dd021
 str.replace(new RegExp('\\{' + key + '\\}', 'g'), value);
 
 execCommand('copy') // manual copy to clipboard, cf. http://blog.idleman.fr/snippet-27-javascript-copier-dans-le-presse-papier-sans-flash-et-fonctionne-sur-ie/
