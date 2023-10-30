@@ -146,7 +146,7 @@ def table_html(table):
           <input type="text" minlength="3" name="name">
           <br>
           <label id="dice-count-label" for="dice-count">#d6:</label>
-          <input type="number" name="dice-count" max="10">
+          <input type="number" name="dice-count" min="0" max="10">
           <input type="submit" value="Roll the die">
         </form>
         <p>The die rolls of all people using this URL are displayed below :</p>

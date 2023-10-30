@@ -80,6 +80,8 @@ prompt_command ()
         *)
             VENV_FS="$VIRTUAL_ENV_DIRNAME/wsl-fs";;
         esac
+    else
+        VENV_FS="$VIRTUAL_ENV_DIRNAME"
     fi
 
     # flush history => shared between term sessions

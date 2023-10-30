@@ -12,7 +12,8 @@ From http://www.pentest-standard.org
 
 ## Intelligence Gathering
 DNSMAP
-Patator : Multi-threaded Service & URL Brute Forcing Tool, in Python
+https://github.com/laramies/theHarvester : performs open source intelligence (OSINT) gathering to help determine a domain's external threat landscape. The tool gathers names, emails, IPs, subdomains, and URLs by using multiple public resources
+https://github.com/lanjelot/patator : Multi-threaded Service & URL Brute Forcing Tool, in Python
 https://github.com/eldraco/domain_analyzer Python script that automatically discovers and reports information about the given domain
 https://github.com/SharadKumar97/OSINT-SPY : Python, call Clearbit / Shodan / Fullcontact / Virus_Total / EmailHunter APIs
 [Wappalyzer](https://www.wappalyzer.com): Chrome & Firefox plugin (+ REST API) to detect a website stack & libs
@@ -91,7 +92,6 @@ https://github.com/ShutdownRepo/shellerator
 
 ### DB attacks
 sqlmap.py -r burp_raw_exemple_request.txt
-Strongloop NodeJS framework has same injection vulnerabilities as a typical PHP+SQL framework
 stampery/mongoaudit : MongoDB auditing and pentesting in Python
 
 
