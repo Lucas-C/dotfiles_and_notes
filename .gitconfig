@@ -1,9 +1,10 @@
-# Author: Lucas Cimon (github.com/Lucas-C/linux_configuration)
+# Author: Lucas Cimon (github.com/Lucas-C/dotfiles_and_notes)
 # Note: .gitconfig format impose to double backslashes: \\
 [alias]
     br = branch
     co = checkout
     st = status
+    pff = push --force-if-includes --force-with-lease
     # include creation dates into the output:
     sl = stash list --date=local
 

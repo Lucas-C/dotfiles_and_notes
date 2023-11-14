@@ -138,7 +138,7 @@ otfinfo & cie # lcdf-typetools utilities for manipulating PostScript Type 1, Typ
 fontforge # std pkg (exist in Cygwin) to convert fonts formats: OTF, TTF, EOT - used by zoltan-dulac/css3FontConverter
 pip install --user brotlipy fonttools # provide the `ttx` command that convert otf/ttf files into editable XML ones
 
-set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS - cf. http://redsymbol.net/articles/unofficial-bash-strict-mode/ / https://kvz.io/bash-best-practices.html / https://gist.github.com/outro56/4a2403ae8fefdeb832a5
+set -o pipefail -o errexit -o nounset -o xtrace # can be read / exported to subshells using $SHELLOPTS - cf. http://redsymbol.net/articles/unofficial-bash-strict-mode/ / https://kvz.io/blog/bash-best-practices.html / https://gist.github.com/outro56/4a2403ae8fefdeb832a5
 fail () { echo "$1"; return ${2:-1}; }  # to exit the script with a given message & optional error code (default: 1) - Rely on `set -o errexit`
 export PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():}line ${LINENO}: '
 

@@ -159,7 +159,7 @@ FROM: The Cathedral and the Bazaar by Eric S. Raymond (Attributed to Antoine de 
     * similar algorithm            -> template method / strategy pattern
 - **Fail fast**
 - [Regular Expressions: Now You Have Two Problems](https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/)
-- Favor **immutable** data structures. Use the builder pattern for constructors with many parameters : MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()
+- Favor **immutable** data structures. Use the builder pattern for constructors with many parameters : `MyClass.newMyClass("initial_param").withParamA("A").withParamB("B").build()`
 - Favor **idempotent** operations, i.e. "that has no additional effect if it is called more than once with the same input parameters".
 - Smalltalk first principle: "If a system is to serve the creative spirit, it must be entirely comprehensible to a single individual"
 

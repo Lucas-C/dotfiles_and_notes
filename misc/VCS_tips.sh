@@ -78,6 +78,7 @@ git rebase --interactive # squash commits. For initial commit, use: git reset HE
 git commit --all --amend
 gri HEAD^
 git push --force-with-lease origin master # --force-with-lease >>> --force : if there are new remote commits, --force-with-lease will fail
+git push --force-if-includes # checks your reflog in addition to the remote tracking branch to make sure there's no changes you missed
 
 git reset HEAD^ # Git 'uncommit', as 'don't-change-any-files-but-cancel-last-commit'
 
