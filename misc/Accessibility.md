@@ -70,6 +70,7 @@ Contrast checkers:
 
 Other tools:
 - [HTML_CodeSniffer](http://squizlabs.github.io/HTML_CodeSniffer/)
+  -> broken: https://github.com/squizlabs/HTML_CodeSniffer/issues/318
 - [Extension navigateur Assistant RGAA](https://github.com/DISIC/assistant-rgaa) : permet d'auditer des pages web en suivant le référentiel RGAA
 - [PDF Accessibility Checker](http://www.access-for-all.ch/en/pdf-lab/pdf-accessibility-checker-pac/downloading-pac.html) (from Swiss foundation "Access for all")
 - [Web Accessibility Toolbar for IE](https://github.com/ThePacielloGroup/WebAccessibilityToolbar/releases) (The Paciello Group)

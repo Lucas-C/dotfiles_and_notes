@@ -195,6 +195,8 @@ How to bypass the PowerShell execution policy : https://blog.netspi.com/15-ways-
 
 Get-Process -Id (Get-NetTCPConnection -LocalPort $Port).OwningProcess # get the name of a process using a given port
 
+Get-Content $FilePath -Wait -Tail 30 -encoding UTF8 # file tailing, e.g. a .log
+
 
 ::::::::::
 :: Batch

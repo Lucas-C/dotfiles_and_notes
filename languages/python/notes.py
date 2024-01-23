@@ -692,7 +692,7 @@ pip install --editable $path_or_git_url # Install a project in editable mode (i.
 pip install --user $USER --src . --no-index --no-deps --no-cache-dir --upgrade --upgrade-strategy eager --requirement requirements.txt --require-hashes # CLI tool to help with retrieving correct hashes : hashin
 pip freeze > requirements.txt # dumps all the virtualenv dependencies - Alt: pipdeptree to show the dependency tree of packages - Also, programatical access: pip.operations.freeze.freeze
 pip-review # check for updates of all dependency packages currently installed in your environment : Alt: pip list --outdated --not-required ; piprot requirements.txt ; ./manage.py pipchecker
-pip top-level requirements  override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
+pip top-level requirements override sub-dependency ones  # full resolver logic : https://github.com/pypa/pip/issues/988
 pyproject.toml # PEP-518 replacement for setup.py - Alt: https://github.com/pypa/pipfile by kennethreitz
 pip install build && python -m build
 python setup.py check --strict  # validate meta-data, ensuring all required args are present - Also: python setup.py sdist bdist_wheel
@@ -1256,6 +1256,7 @@ Zulko/gizeh, Zulko/MoviePy, ManimCommunity/manim, jdf/processing.py (uses Jython
 thoppe/pixelhouse # minimalist drawing library for making beautiful animations. Comes with beautiful gradients, instagram-like filters, and elastic transforms.
 3b1b/manim # animation engine for explanatory math videos
 pygst # GStreamer : media-processing framework : audio & video playback, recording, streaming and editing
+itsKaspar/tomato # glitch AVI files
 ryanfox/retread # detect reused frames in video
 smacke/ffsubsync # automagically synchronize subtitles with video, based on libs srt & py-webrtcvad (WebRTC Voice Activity Detector), or auditok (Audio Activity Detection) as a fallback
 

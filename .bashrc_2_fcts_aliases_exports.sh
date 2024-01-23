@@ -705,8 +705,9 @@ alias dl-playlist="yt-dlp -x -o '%(playlist_index)s - %(title)s.%(ext)s' --restr
 
 function no-exif() {
     for img in "$@"; do
-        exiftool -all= "$img"
-        rm "${img}_original"
+        if exiftool -all= "$img" | grep -F "1 image files updated"; then
+            rm "${img}_original"
+        fi
     done
 }
 
@@ -723,5 +724,11 @@ function optim-pngs() {
         pngquant --ext .png -f "$png"
         no-exif "$png"
         chmod 644 "$png"
+    done
+}
+
+function img2webp() {  # Install: apt install webp
+    for img in "$@"; do
+        cwebp "$img" -q 100 -o "${img%%.*}.webp"
     done
 }

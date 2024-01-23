@@ -21,6 +21,8 @@ Redactor.prototype.paste = function() {
   var originalInit = paste.init;
   paste.init = function (e) {
     console.log("Redactor.paste.init() START");
+    // In this function, this.paste.getPasteBoxCode() is called
+    // to retrieve the clipboard content, but that does not work properly...
     originalInit.apply(this, [e]);
   };
   return paste;

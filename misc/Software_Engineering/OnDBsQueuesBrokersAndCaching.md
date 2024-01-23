@@ -71,7 +71,8 @@ JCache API caching strategies (https://dzone.com/refcardz/java-caching):
     maxmemory 2mb
     maxmemory-policy noeviction # Or LRU... - cf. https://redis.io/topics/memory-optimization#memory-allocation
 
-sripathikrishnan/redis-rdb-tools: parse Redis dump.rdb files, Analyze Memory, and Export Data to JSON
+https://github.com/sripathikrishnan/redis-rdb-tools : parse Redis dump.rdb files, Analyze Memory, and Export Data to JSON
+https://github.com/Snapchat/KeyDB : a Multithreaded fork of Redis (faster)
 
     # identify the largest 100 keys in a dump
     rdb -c memory dump_56379.rdb --largest 100 -f largest.csv

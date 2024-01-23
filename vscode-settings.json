@@ -30,7 +30,7 @@
   },
   "javascript.updateImportsOnFileMove.enabled": "always",
   "[javascript]": {
-    "editor.defaultFormatter": "HookyQR.beautify"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[java]": {
     "editor.tabSize": 4,
@@ -115,5 +115,16 @@
   "explorer.confirmDelete": false,
   "security.allowedUNCHosts": [
     "wsl.localhost"
-  ]
+  ],
+  "[java][typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "never"
+    }
+  },
+  "[terraform][terraform-vars]": {
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": "explicit"
+    }
+  }
 }
