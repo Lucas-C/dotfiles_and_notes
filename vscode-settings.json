@@ -35,8 +35,8 @@
   "[java]": {
     "editor.tabSize": 4,
     "editor.codeActionsOnSave": {
-      "source.fixAll": true,
-      "source.organizeImports": false
+      "source.fixAll": "explicit",
+      "source.organizeImports": "never"
     },
     "editor.defaultFormatter": "redhat.java"
   },
@@ -73,7 +73,7 @@
     "editor.formatOnSaveMode": "file",
     "editor.formatOnType": true,
     "editor.codeActionsOnSave": {
-      "source.formatAll.terraform": true
+      "source.formatAll.terraform": "explicit"
     }
   },
   "[terraform-vars]": {
@@ -81,7 +81,7 @@
     "editor.formatOnSaveMode": "file",
     "editor.formatOnType": true,
     "editor.codeActionsOnSave": {
-      "source.formatAll.terraform": true
+      "source.formatAll.terraform": "explicit"
     }
   },
   "terraform.codelens.referenceCount": true,
@@ -96,8 +96,8 @@
   },
   "[typescriptreact]": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": false,
-      "source.fixAll": true
+      "source.organizeImports": "never",
+      "source.fixAll": "explicit"
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

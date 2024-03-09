@@ -6,13 +6,14 @@
 
 set -o pipefail -o errexit -o nounset -o xtrace
 
-DOWNLOADED_ZIP_FILENAME=PDF-CHECKER-Lin64.zip
+set -o pipefail -o errexit -o nounset -o xtrace
+
+BASE_URL=https://cdn.datalogics.com/evals
+DOWNLOADED_FILENAME=PDF-Optimizer-Checker-Linux64.bsx
 INSTALL_DIR_PATH=${1:-$PWD/PDF_Checker}
 export TMPDIR=$(mktemp -d /tmp/pdfchecker.XXXXXX)
 
-wget --quiet --no-check-certificate https://www.datalogics.com/pdflibinfo/grzqordg/che-lin64-MfeaURpvtQXzGKjY/$DOWNLOADED_ZIP_FILENAME
-unzip $DOWNLOADED_ZIP_FILENAME
-rm $DOWNLOADED_ZIP_FILENAME
+wget --quiet $BASE_URL/$DOWNLOADED_FILENAME
 
 bsx_extract() {
     local bsx_filepath=${1?'Missing arg'}
@@ -29,3 +30,4 @@ bsx_extract $TMPDIR/PDF_Checker.bsx
 mkdir -p "$INSTALL_DIR_PATH"
 tar -xf $TMPDIR/PDFChecker.tar -C "$INSTALL_DIR_PATH"
 rm -rf $TMPDIR
+rm $INSTALL_DIR_PATH/*.pdf

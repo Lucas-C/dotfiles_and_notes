@@ -248,6 +248,7 @@ wsl --terminate $distro
 wsl --shutdown
 :: Windows Terminal provides support for emojis, use it like this:
 "C:\Program Files\WindowsApps\Microsoft.WindowsTerminalPreview_1.15.2002.0_x64__8wekyb3d8bbwe\wt.exe" wsl
+Optimize-VHD -Path  $env:HOMEPATH\Ubuntu_2004.2020.424.0_x64\ext4.vhdx
 
 # enable changing file owners & permissions:
 $ cat /etc/wsl.conf

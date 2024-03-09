@@ -40,7 +40,7 @@ cf. https://github.com/todogroup/repolinter
 
 - other tools:
   * pre-launch checklist: https://opensource.guide/starting-a-project/#your-pre-launch-checklist
-  * [Licensee](https://github.com/benbalter/licensee): detect under what license a project is distributed (Ruby) - Alt: https://github.com/pivotal/LicenseFinder
+  * [Licensee](https://github.com/benbalter/licensee): detect under what license a project is distributed (Ruby) - Alt: https://github.com/pivotal/LicenseFinder (Python / NodeJS / Go / Java) - https://github.com/davglass/license-checker (NodeJS)
   * curated lists:
     - https://opensource.guide/best-practices/#bring-in-the-robots : include `mention-bot`, `no-response` or `stale`, `dependabot-preview`...
     - https://github.com/todogroup/awesome-oss-mgmt
@@ -389,6 +389,7 @@ Licenses & related websites of interest:
 - [Climate Strike Software](https://github.com/climate-strike/license)
 - [The Hippocratic License](https://firstdonoharm.dev)
 - https://tldrlegal.com
+- https://choosealicense.com
 
 
 ### The struggles of an open source maintainer - @antirez
