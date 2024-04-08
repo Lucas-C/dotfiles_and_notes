@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+# USAGE: ./ftp_backups_check.py --check-archives
 # INSTALL: pip install --user pytz
 # CLI shell: lftp -u $FTP_LOGIN:$FTP_PASSWORD $FTP_HOST -e 'debug;rels;exit'  # just "debug" enables verbose mode
 # Common backup-manager sources of failure:
 # * network access (iptables, they differ in containers)
 # * missing dependencies: Perl module Net::Lite::FTP, libz-dev...
 import argparse, hashlib, os, socket, sys, tempfile
-from subprocess import run
+from subprocess import run, DEVNULL
 from datetime import datetime
 from pytz import timezone
 from ftplib import FTP, Error as FTPError
@@ -21,7 +22,7 @@ def main(args):
     ftp_password = os.environ['FTP_PASSWORD']
     print(f"Connecting to {ftp_login}@{ftp_host}...")
     with FTP(ftp_host) as ftp:
-        # This avoids a ConnectionRefusedError during FTP.ntransfercmd() calling socket.create_connection():
+        # This avoids a ConnectionRefusedError during FTP.ntransfercmd() calling socket.create_connection() due to PASV:
         ftp.trust_server_pasv_ipv4_address = True
         if args.debug:
             ftp.set_debuglevel(2)
@@ -54,7 +55,7 @@ def main(args):
             with open(file_full_path, 'wb') as new_file:
                 ftp.retrbinary(f'RETR {filename}', new_file.write)
             print('Checking archive integrity...')
-            run(["tar", "xzf", file_full_path, "--to-stdout"], check=True)
+            run(["tar", "xzf", file_full_path, "--to-stdout"], check=True, stdout=DEVNULL)
             print(f'Successfully checked tar.gz archive {filename}')
             md5 = md5_per_filename.get(filename)
             if not md5:
