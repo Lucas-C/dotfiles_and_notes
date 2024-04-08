@@ -103,7 +103,7 @@ psexec -i -s -d cmd &:: "run as" System user
 :: A good strategy to fix file ownerships (e.g. for Cygwin issues):
 cd %pita_directory%
 takeown /a /r /f . &:: (as admin) recursively give ownership of files in directory to admin
-icacls . /grant %USER%:F /t /l &:: (as admin) recursively give full control (all permissions) to $USER on files in directory (fail fast -> any failure must be investigated & cmd re-run when problem is solved)
+icacls . /grant %USERNAME%:F /t /l &:: (as admin) recursively give full control (all permissions) to $USER on files in directory (fail fast -> any failure must be investigated & cmd re-run when problem is solved)
 takeown /r /f . &:: (as %USER%)
 
 junction (directory symbolic links), pskill, pslist, TCPView... &:: Sysinternals Process Utilities
@@ -118,7 +118,7 @@ Windows Master Control Panel shortcut: {ED7BA470-8E54-465E-825C-99712043E01C}
 - cleanmgr.exe &:: Click the Clean up System Files button & enable the Windows Update Cleanup option ! -> can free many Go by removing installers
 - CCCleaner
 - Malwarebytes (+ possibly HijackThis)
-- WinDirStat / SpaceMonger
+- WinDirStat / SpaceMonger / WizTree
 - Microsoft Securit Scanner & Microsoft Security Essentials
 - Defrag
 - désactiver l'indexation des disques
@@ -157,7 +157,6 @@ assoc .py :: get the description of a file extension / protocol
 ftype http=... :: associate program with file extension / protocol
 SetUserFTA / GetUserFTA / SetDefaultBrowser :: for Windows 10 - cf. http://kolbi.cz/blog/?p=346
 
-https://storage.googleapis.com/downloads.webmproject.org/releases/webp/WebpCodecSetup.exe  // provide webp thumbnails in explorer
 https://www.cherubicsoft.com/en/projects/sagethumbs/ :: alternative explorer.exe thumbnails generator that also support .tga files
 
 "L'ordinal 459 est introuvable dans la bibliothèque de liens dynamiques urlmon.dll" -> uninstall MAJ KB2847204
@@ -174,6 +173,7 @@ Get-EventLog -Log "Application"
 Get-Process # list processes
 Stop-Process -Name notepad # or -ID 2668
 Get-Acl $file | Format-List
+Unblock-File -Path $filePath # removes the Zone.Identifier data stream that indicates it was downloaded from the web, allowing for example Excel macros on .xlsm files
 
 #FROM: https://software.intel.com/en-us/blogs/2014/06/17/giving-powershell-a-persistent-history-of-commands + include how to have a persistent cmds history
 set-executionpolicy remotesigned
@@ -196,6 +196,13 @@ How to bypass the PowerShell execution policy : https://blog.netspi.com/15-ways-
 Get-Process -Id (Get-NetTCPConnection -LocalPort $Port).OwningProcess # get the name of a process using a given port
 
 Get-Content $FilePath -Wait -Tail 30 -encoding UTF8 # file tailing, e.g. a .log
+
+# Launching a subprocess script and getting its exit code:
+# This can actually be very tricky, cf. https://stackoverflow.com/a/16018287/636849 / https://github.com/PowerShell/PowerShell/issues/5421
+$Proc = Start-Process -NoNewWindow -PassThru -Wait PowerShell {
+  Exit 42
+}
+Write-Host Proc.ExitCode: $Proc.ExitCode
 
 
 ::::::::::
@@ -229,6 +236,9 @@ call:foo
 
 :: read %PASSWORD% secretely - cf. https://stackoverflow.com/a/20343074/636849
 for /f "usebackq tokens=*" %p in (`powershell -Command "$pword = read-host 'Enter Password' -AsSecureString ; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)"`) do set PASSWORD=%p
+
+https://apps.microsoft.com/detail/9pg2dk419drg :: support for .webp images in Windows Photos, including thumbnails generation
+https://store.rg-adguard.net/ :: converts apps.microsoft.com/* package URLs to download links, allowing manual install of .AppxBundle packages - Alt: use winget - cf. https://serverfault.com/a/1120490
 
 
 '''''''''''''

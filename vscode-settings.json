@@ -126,5 +126,6 @@
     "editor.codeActionsOnSave": {
       "source.formatAll.terraform": "explicit"
     }
-  }
+  },
+  "editor.mouseWheelZoom": true
 }

@@ -1061,6 +1061,9 @@ cd ~/browsable_cache
 ls ???????? | wc -l
 sed -n 's/.*\(Key<\/b>: http[^<]*\).*/\1\n/p' ???????? > urls
 Simulate throttling: Network tab > Regular 3G
+Extensions:
+* Slideshow Chrome addon: https://chrome.google.com/webstore/detail/localgalleryviewerextensi/opheklanmaieaeneebdohfpbjkhcgilk -> visit /gallery.html
+* Fake news debunker by InVID & WeVerify: https://chrome.google.com/webstore/detail/localgalleryviewerextensi/opheklanmaieaeneebdohfpbjkhcgilk
 
 
 =\/=/\=\/=/\=\/=

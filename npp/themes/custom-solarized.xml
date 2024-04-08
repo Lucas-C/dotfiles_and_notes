@@ -734,5 +734,7 @@
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="F57900" bgColor="B58900" fontStyle="0" />
         <WidgetStyle name="Active tab text" styleID="0" fgColor="2E3436" bgColor="FDF6E3" fontStyle="0" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="555753" bgColor="BABDB6" fontStyle="0" />
+        <WidgetStyle name="EOL custom color" styleID="0" fgColor="DADADA" />
+        <WidgetStyle name="Non-printing characters custom color" styleID="0" fgColor="FCAF3E" />
     </GlobalStyles>
 </NotepadPlus>

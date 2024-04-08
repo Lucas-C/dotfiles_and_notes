@@ -657,13 +657,39 @@ What are logs used for ?
     * "The writing and running of tests is not a goal in and of itself — EVER. We do it to get some benefit for our team, or the business"
     * "there are coverage based fuzzers like afl as well as tools like the address sanitizer, thread sanitizer, memory sanitizer, undefined behavior sanitizer and the leak sanitizer to name a few."
     * "This was but one example of a system that didn’t stand much to benefit from integration testing and where monitoring has worked much better."
+
+#### Flaky tests
 - [How to Deal with Flaky Tests](https://thenewstack.io/how-to-deal-with-flaky-tests/):
     * How to Spot a Flaky Test: some tools can rerun your tests to see if they’re deterministic, e.g. Spotify GitHub bot
     * How to Address Flaky Tests? Quarantining Flaky Tests, Look for Timeouts...
-- [Flaky Tests at Google and How We Mitigate Them](https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html)
-    * add an option to re-run tests automatically when they fail
-    * A tool that monitors the flakiness of tests and if the flakiness is too high, it automatically quarantines the test
-
+- [Flaky Tests at Google and How We Mitigate Them (2016)](https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html)
+    * 1.5% of all test runs report a "flaky" result & almost 16% of our tests have some level of flakiness associated with them
+    * In some cases, developers dismiss a failing result as flaky only to later realize that it was a legitimate failure caused by the code
+    * We have several mitigation strategies for flaky tests:
+        + the ability to re-run only failing tests
+        + an option to re-run tests automatically when they fail
+        + denote a test as flaky - causing it to report a failure only if it fails 3 times in a row
+        + a tool that monitors the flakiness of tests and if the flakiness is too high, it automatically quarantines the test
+        + another tool detects changes in the flakiness level of tests and works to identify the change that caused the test to change the level of flakiness.
+- [Software Engineering at Google: Lessons Learned from Programming Over Time (2020)](https://abseil.io/resources/swe-book): **Case Study: Flaky Tests Are Expensive**
+    * In some cases, you can limit the impact of flaky tests by automatically rerunning them when they fail. This is effectively trading CPU cycles for engineering time.
+    * If test flakiness continues to grow, you will experience something much worse than lost productivity: a loss of confidence in the tests.
+    * At Google, our flaky rate hovers around 0.15%, which implies thousands of flakes every day.
+    * Software provides many sources of nondeterminism: clock time, thread scheduling, network latency, and more. Learning how to isolate and stabilize the effects of randomness is not easy.
+- [Flaky tests @ gitlab.com](https://docs.gitlab.com/ee/development/testing_guide/flaky_tests.html)
+    * ils établissent que les tests flaky sont l'un de leurs plus sérieux problèmes, à l'origine d'une grande temps / ressources / argent, _cf._ [gitlab-org/quality/engineering-productivity/team issue #204](https://gitlab.com/gitlab-org/quality/engineering-productivity/team/-/issues/204)
+    * ils classifient les test flaky en plusieurs catégories : state leak, dataset-specific, random input, unreliable dom selector, datetime-sensitive, unstable infrastructure
+    * ils combinent du retry automatique avec un outil de reporting pour suivre l'évolution de leurs tests flaky : Snowflake
+    * ils ont une procédure de mise en quarantaine des tests flaky (une version rapide/urgente et une version plus complète)
+    * enfin, ils conservent un historique des problèmes de stabilité de tests flaky rencontrés par le passé, les solutions apportées, et des conseils pour déboguer ces tests
+- [A Simple System for Measuring Flaky Tests in a Large CI/CD Pipeline @ SingleStoreDB](https://davidgomes.com/measuring-flaky-tests-large-ci-cd-pipeline/)
+    1. have all test jobs output a JUnit XML file
+    2. track all this data for every single pipeline run [by] implementing a Gitlab CI after_script command that takes this data and ships it to a centralized location
+    3. set up automated reporting to post [reports] to our team's Slack channel once per week
+- [Flaky Tests: Are You Sure You Want to Retry Them?](https://semaphoreci.com/blog/2017/04/20/flaky-tests.html)
+> I personally think that rerunning failed tests is poisonous — it legitimizes and encourages entropy, and rots the test suite in the long run. [...]
+> Deleting and fixing flaky tests is a pretty aggressive measure, and rewriting tests can be time consuming. However, not taking care of flaky tests leads to certain long-term test suite degradation. On the other hand, there are some legitimate use-cases for flaky test reruns. [...]
+> At this point, we are choosing not to support rerunning failed tests, since our position is that this approach is harmful much more often than it is useful.
 
 #### Why unit tests ? [PP-Chapt34]
 - build trust in your code

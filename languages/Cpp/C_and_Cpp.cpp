@@ -145,5 +145,6 @@ AStyle // source code beautifier
 cl /analyze // Visual Studio code analysis: http://www.altdev.co/2011/12/24/static-code-analysis/ (John Carmack)
     cl.exe /analyze:only /EHsc /fsanitize=address /Zi /fp:strict /sdl /Wall /WX /external:anglebrackets /external:W0
 OCLint // static source code analysis tool to improve quality and reduce defects for C, C++ and Objective-C
+clang-tidy / CppCheck // other C++ linters
 
 https://github.com/taylorconor/quinesnake : A quine that plays snake over its own source!
