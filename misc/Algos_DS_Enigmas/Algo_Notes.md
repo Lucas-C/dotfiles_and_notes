@@ -46,6 +46,9 @@ Perceptual hashes:
 - Applied Hashes: Perceptual and Cryptographic, by Dr. Neal Krawetz: https://www.youtube.com/watch?v=1lubZl1ccC4
 - cf. Python notes: LSHash, aHash, pHash, dHash, wHash, PhotoDNA, SIFT
 
+XEP-0392: Consistent Color Generation: a set of algorithms to consistently generate colors given a string
+https://xmpp.org/extensions/xep-0392.html
+
 Geohash: geocoding system with a hierarchical spatial data structure that subdivides space into buckets of grid shape
 
 [Z-Order curve / Lebesgue curve / Morton Morton code](https://en.wikipedia.org/wiki/Z-order_curve) : map multidimensional data to one dimension while preserving locality of the data points.

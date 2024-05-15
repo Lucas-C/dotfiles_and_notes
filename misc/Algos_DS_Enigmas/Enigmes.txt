@@ -37,7 +37,7 @@ le notaire se retrouve fort embarrassé devant cette curieuse demande de répart
 (Le notaire peut ajouter son chameau à l'héritage sans aucun engagement : Il y aura alors 18 chameaux à donner aux 3 fils, et la distribution s'effectue sans problème. A la fin de l'opération, on remarque qu'il reste un chameau que le notaire peut reprendre.)
 
 
-Can you place six X's on this naughts and crosses board without making three-in-a-row in any direction ? (no trick)
+Can you place six X's on this naughts and crosses board without making three-in-a-row in any direction ? (no trick) - Vidéo : https://www.youtube.com/watch?v=QKvk0TA699U
    |   |
 ___|___|___
    |   |
@@ -292,9 +292,11 @@ Fractal maze : https://cstheory.stackexchange.com/questions/11024/decidability-o
 
 Grille 3x3 Pierre-Papier-Ciseaux :
 https://www.reddit.com/r/puzzles/comments/i5yfh0/a_grid_puzzle_based_on_rock_paper_scissors/
+-> https://chezsoi.org/lucas/GrillePierrePapierCiseaux.jpg
 
 The Colored Maze Game :
 https://www.reddit.com/r/puzzles/comments/k7jwla/colored_wall_maze/
+-> https://chezsoi.org/lucas/blog/images/enigmes/TheWallGame.jpg
 
 Maze rule: do not make any left turn or U-turn!
 https://www.reddit.com/r/puzzles/comments/y5h2ua/is_this_maze_possible/
@@ -336,8 +338,40 @@ https://www.reddit.com/r/puzzles/comments/1apsix3/not_sure_if_this_is_the_right_
 Which face down card is the eight of diamonds? (carré magique)
 https://www.reddit.com/r/puzzles/comments/19b3syx/which_face_down_card_is_the_eight_of_diamonds/
 
+Dessin de l'enveloppe / la maison Saint-Nicolas, sans lever le crayon ni repasser sur un trait déjà dessiné :
+https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_dessin_de_l%27enveloppe
+
+
+## Énigmes de chasse au trésor
+https://www.explorador.fr/enigme-chasse-au-tresor/
+1. Charade
+2. Rébus
+3. Qui Suis-je ?
+4. Cacher des lettres dans un texte
+5. Faire un trou sous certaines lettres
+6. Utiliser les premières syllabes des mots (ou les dernières)
+7. Anagramme
+8. Regrouper les lettres
+9. Créer un message codé
+10. Puzzle
+11. Mot en miroir
+12. Texte à trous à compléter
+13. Message invisible
+14. Page P. Ligne L. Mot M.
+15. Pliage
+
+Autres idées :
+
+* Cacher les indices suivants dans des livres, et faire devenir les livres à trouver à partir de citations, ou de devinettes.
+
+* Texte décrivant un lieu où se trouve le prochain indice, mais où certains mots du textes sont mêlés, c'est-à-dire que les lettres sont mélangées et qu'il faut les réordonner dans le bon ordre pour deviner quels sont ces mots.
+
+* Papiers, issus d'énigmes précédentes, qui une fois superposés forment un message où un plan : comme dans TinTin !
+
+
 ## Basé sur des dés
 Three Dice Trick (3d6) : https://www.youtube.com/watch?v=27qhUZbHKao
+
 
 ## Programming-based
 https://enigmes-a-thematiques.fr/front/enigme/2433

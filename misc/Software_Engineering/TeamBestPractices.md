@@ -334,6 +334,8 @@ Identify what's the main purpose of the meeting: **think & reflect**, **decide**
 Décision commune par consensus, explicite : demander si quelqu'un a un _concern_ / une objection.
 Si personne ne se manifeste -> adopté
 
+[Manifeste pour le droit à des réunions efficaces](https://www.pinterest.fr/pin/464996730250633222/) (wlsembly)
+
 > Programmers in large companies spend over 50% of their week NOT coding primarily due to meetings averaging 22.5 hours of their time
 > It takes developers 23 minutes of uninterrupted focus before they hit their flow state. The period where they are being truly productive
 Source: https://www.reddit.com/r/programming/comments/15t3hhw/til_programmers_in_large_companies_spend_over_50/

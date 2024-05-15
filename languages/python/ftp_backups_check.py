@@ -32,7 +32,8 @@ def main(args):
         md5_per_filename = {}
         try:
             md5_lines = []
-            ftp.retrlines(f'RETR chezsoi-{args.timestamp}.md5', md5_lines.append)  # on disk: /var/archives/chezsoi-hashes.md5 - not uploaded by backup-manager 0.7.12
+            # It used to be f"chezsoi-{args.timestamp}.md5" before backup-manager 0.7.12
+            ftp.retrlines('RETR chezsoi-hashes.md5', md5_lines.append)
             for md5_line in md5_lines:
                 md5, filename = md5_line.split()
             md5_per_filename[filename] = md5
@@ -59,6 +60,7 @@ def main(args):
             print(f'Successfully checked tar.gz archive {filename}')
             md5 = md5_per_filename.get(filename)
             if not md5:
+                print(f'[WARN] No known MD5 hash for {filename}')
                 continue
             with open(file_full_path, 'rb') as fetched_file:
                 computed_md5 = hashlib.md5(fetched_file.read()).hexdigest()

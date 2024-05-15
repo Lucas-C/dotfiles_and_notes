@@ -2,6 +2,7 @@
 // @name        canva.com-only-free-templates
 // @description Only display free templates on canva.com
 // @namespace   Violentmonkey Scripts
+// @match       https://www.canva.com/templates/*
 // @match       https://www.canva.com/fr_fr/modeles/*
 // @version     1.0
 // @author      Lucas-C

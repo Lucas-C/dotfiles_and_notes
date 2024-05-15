@@ -31,11 +31,12 @@ class JsonHandler(BaseHTTPRequestHandler):
         self._send_ok_json_response(resp_body)
     def _extract_base_resp_body(self):
         path, _, query_string = self.path.partition('?')
+        host, port = self.request.getsockname()
         return path, {
             'args': dict(parse_qsl(query_string, True)),
             'headers': {k: str(v) for k, v in self.headers.items()},
             'origin': self.connection.getpeername()[0],
-            'url': 'http://httpbin' + self.path,
+            'url': 'http://' + host + ':' + str(port) + self.path,
         }
     def _send_ok_json_response(self, resp_body):
         self._send_response(json.dumps(resp_body, indent=2, sort_keys=True).encode('utf8') + b'\n', content_type='application/json')
