@@ -357,8 +357,11 @@ Dot Voting : une fois les idées listées (sous forme de post-its par exemple) c
   * proposer en début de séance de timeboxer à 5 ou 10min max par US
 - planning poker
 - spread tasks in 5 columns arbitrarily assigned a 2/3/5/8/13 points value, comparing them in terms of estimate time to completion (with no absolute estimation in man-days), e.g. with RealTimeBoard
-- [Weighted Shortest Job First] (WSJF) = _Cost of Delay_ / _Job Duration_, where _Cost of Delay_ = _User-business value_ + _Time criticality_ + _Risk reduction-opportunity enablement value_
-and all values can be estimated on a 1-13 scale using planning poker cards
+- [Weighted Shortest Job First] (WSJF) = _Cost of Delay_ / _Job Duration_, where _Cost of Delay_ = _User-business value_ + _Time criticality_ + _Risk reduction-opportunity enablement value_ and all values can be estimated on a 1-13 scale using planning poker cards
+- [Climbing out of the software death spiral] -> either :
+    * comprehensive backlog audit
+    * issue bankruptcy
+    * new dev "work queue"
 - [What is Spike in Scrum?]
 > Spikes are an invention of Extreme Programming (XP), are a special type of user story that is used to gain the knowledge necessary to reduce the risk of a technical approach. A spike has a maximum time-box size [...] A Spike is a great way to mitigate risks early and allows the team ascertain feedback and develop an understanding on an upcoming PBI’s complexity.
 - Anchor effect (bias) :
@@ -404,7 +407,7 @@ Liens utiles:
 | TRIZ                                    | Stop Counterproductive Activities and Behaviors to Make Space for Innovation - http://www.everydaykanban.com/2015/06/18/shake-up-retrospective-with-triz/ |
 | STARFISH                                | Start Stop Continue More Less |
 | DAKI                                    | Drop Add Keep Improve - http://www.funretrospectives.com/daki-drop-add-keep-improve |
-| SPEED BOAT                              | http://blog.xebia.fr/2015/03/20/la-retrospective-le-format-speed-boat/ |
+| SPEED BOAT                              | https://coach-agile.com/speed-boat/ |
 | Worked well, kinda Worked, didn’t Work  | http://www.funretrospectives.com/www-activity-worked-well-kinda-worked-didnt-work/ |
 | UPS & DOWNS                             | Similaire à la retro Dixit, on utilise les cartes de facilitation Ups And Downs représentant un personnage nu navigant sur la mer dans sa baignoire (?!) On étale les cartes et pose une question à l'équipe (comment vous vous sentez..) et on demande à chacun de choisir une carte adaptée et de raconter au groupe ce que l'on ressent http://innovativeresources.org/resources/card-sets/ups-and-downs/ |
 | JEOPARDY                                | Comme le jeu télé : trouver les questions aux réponses données http://talondagile.fr/2013/02/un-oeil-dans-la-retro-33-jeopardy/http://jeopardyretro.blogspot.fr/2012/11/jeopardy-retrospective-plan.html |
@@ -459,10 +462,6 @@ Liens utiles:
 - event management: cf. [Event Management]
 - use a chatbot for real time alerts (e.g. Hubot in Node.js, can integrate with Jenkins via Janky - Also: Slack, Lita for Ruby, Err or Zulip for Python, cog for Slack / HipChat)
 - useful questions to ask yourself when designing an alarms system : [Alarm design: From nuclear power to WebOps]
-- [Climbing out of the software death spiral] -> either :
-    * comprehensive backlog audit
-    * issue bankruptcy
-    * new dev "work queue"
 - [Google SRE] : "no SRE could spent more than 50 percent of his or her time on traditional operations as opposed to coding"
 - keep Ops playbooks
 - [BeingResponsibleForMyProgramsOperationsMakesMeABetterDeveloper]

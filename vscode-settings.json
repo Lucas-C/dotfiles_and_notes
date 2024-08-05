@@ -127,5 +127,24 @@
       "source.formatAll.terraform": "explicit"
     }
   },
-  "editor.mouseWheelZoom": true
+  "editor.mouseWheelZoom": true,
+  "cSpell.language": "en,fr,fr-FR",
+  "cSpell.enabledLanguageIds": [
+    "markdown",
+    "plaintext"
+  ],
+  "cSpell.userWords": [
+    "antagoniser",
+    "impropice",
+    "impropices",
+    "playtest",
+    "playtests",
+    "roleplay"
+  ],
+  "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+  "cSpell.dictionaryDefinitions": [],
+  "cSpell.enableFiletypes": [
+    "markdown"
+  ],
+  "cSpell.maxNumberOfProblems": 1000
 }

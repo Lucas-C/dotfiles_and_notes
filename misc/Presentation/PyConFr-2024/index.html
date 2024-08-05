@@ -1,0 +1,110 @@
+<!doctype html>
+<!--
+Reveal.js cheatsheet:
+- Doc: https://revealjs.com
+- Markup:
+  * Markdown classics: **bold**, *italics* and ~~striked~~ text
+    ![img alt text](https://...img...url... "Img title")
+    ```
+    code
+    ```
+  * Le nombre de sauts de ligne (2 ou 3) entre chaque ##section indique la direction du slide suivant (bas/droite)
+  * Note: hidden speaker notes
+  * class="fragment"
+  * Change the background on a slide: <!-- .slide: data-background="#ff0000" -- >
+- Shortcuts:
+  * Press 's' to open speaker-notes pop-up window - un clic sur le compteur le reset
+  * Press ESC to enter the slide overview
+  * Press 'b' to fade out to black screen
+- PDF export using Chrome: https://github.com/hakimel/reveal.js/#pdf-export
+    + append 'index.html?print-pdf&showNotes' and scroll to the end before printing
+-->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>PyConFr 2024</title>
+        <link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/sky.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/zenburn.css">
+        <style>
+        .reveal section img {
+          border: none;
+          vertical-align: middle;
+          max-height: 50vh;
+        }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+          text-transform: none;
+        }
+        p > code, li > code, span > code   { color: #D05; }
+        .reveal h2, .reveal h3, .reveal h4 { font-weight: bold; }
+        .reveal pre                        { max-width: 100rem; }
+        .reveal pre > code                 { padding: 1rem; }
+        blockquote                         { width: 90% !important; }
+        .reveal sup                        { font-weight: bold; font-family: Times; font-size: 1.5rem; text-decoration: underline; }
+        </style>
+		<script><!-- Printing and PDF exports -->
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown data-separator="^\n\n\n" data-separator-vertical="^\n\n" data-notes="^Note:" data-charset="utf-8">
+					<textarea data-template>
+<!-- .element: data-state="first-slide" -->
+### ?
+#### PyConFr 2024
+
+
+Note:
+* bla bla bla
+
+
+
+### Le plan
+* 
+
+					</textarea data-template>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			var options = {
+                history: true,
+                slideNumber: 'c/t',
+                plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			};
+            if (/showNotes/.test(location.search)) {
+                options.showNotes = true; // for PDF export to include notes
+            }
+            Reveal.initialize(options);
+            document.addEventListener('ready', function(event) { // RevealJS finished rendering
+                // Open all links in a new tab:
+                [].forEach.call(document.getElementsByTagName('a'), a => a.target = '_blank')
+                // Any click on the page should trigger a slide change:
+                document.onclick = function (event) {
+                    if (event.target.tagName.toLocaleLowerCase() != 'a') {
+                        Reveal.next()
+                    }
+                }
+			      Reveal.layout() // re-compute slides height ("top" CSS attribute)
+            })
+		</script>
+	</body>
+</html>

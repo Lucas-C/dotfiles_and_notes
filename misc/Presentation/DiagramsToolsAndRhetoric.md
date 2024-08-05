@@ -94,6 +94,7 @@ Conversion tools: https://blog.codeship.com/documenting-microservices/#conversio
 - [Diagon](https://github.com/ArthurSonzogni/Diagon) : Markdown-style expression to ASCII-art - C++ with CLI & web interface
 - [ivanceras/svgbobrus](https://github.com/ivanceras/svgbobrus) : convert ascii diagram scribbles into SVG (Rust)
 - [gliffy](https://www.gliffy.com/examples/) : online, proprietary code
+- [sketchviz](https://github.com/gpotter2/sketchviz) : command line clone of https://sketchviz.com that render Graphviz diagrams using [RoughJS](https://roughjs.com/) to get a hand-drawn, sketchy appearance
 
 ## Word / tag clouds
 

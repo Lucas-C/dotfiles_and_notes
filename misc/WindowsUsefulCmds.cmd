@@ -235,7 +235,7 @@ goto:eof
 call:foo
 
 :: read %PASSWORD% secretely - cf. https://stackoverflow.com/a/20343074/636849
-for /f "usebackq tokens=*" %p in (`powershell -Command "$pword = read-host 'Enter Password' -AsSecureString ; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)"`) do set PASSWORD=%p
+for /f "usebackq tokens=*" %p in (`powershell -Command "$pword = read-host 'Enter Password' -AsSecureString; $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)"`) do set PASSWORD=%p
 
 https://apps.microsoft.com/detail/9pg2dk419drg :: support for .webp images in Windows Photos, including thumbnails generation
 https://store.rg-adguard.net/ :: converts apps.microsoft.com/* package URLs to download links, allowing manual install of .AppxBundle packages - Alt: use winget - cf. https://serverfault.com/a/1120490

@@ -1323,10 +1323,16 @@ cf. http://www.alanzucconi.com/2015/09/02/a-practical-tutorial-to-hack-and-prote
 AssetsBundleExtraUnityctor_2.1_64bit > Open resources.assets > Select TextAsset > Export Dump # hack dialogs - Alt: disunity
 
 
-~^~^~^~^
-~ NVDA ~
-~^~^~^~^
-%TEMP%\nvda.log
+~^~^~^~^~^~
+~ Android ~
+~^~^~^~^~^~
+# Tested from Windows with https://dl.google.com/android/repository/platform-tools-latest-windows.zip
+# Require developer mode enabled + USB debugging enabled
+# Tuto rapide : https://www.youtube.com/watch?v=gbEOJWSLR3k
+adb devices # doit lister le smartphone
+adb shell
+pm list packages -f $lowercase_term
+pm uninstall --user 0 $package_id # delete/remove some app by ID - does not require root access
 
 
 [#~#~#~#~#~#~#~#]

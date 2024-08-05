@@ -24,6 +24,8 @@ http.createServer((request, response) => {
             response.end()
             return
         }
+        // Note: potential path traversal attack
+        // cf. https://github.com/Lucas-C/dotfiles_and_notes/security/advisories/GHSA-3jmm-x722-6m65
         response.writeHead(200)
         fs.createReadStream(filename).pipe(response)
     }
