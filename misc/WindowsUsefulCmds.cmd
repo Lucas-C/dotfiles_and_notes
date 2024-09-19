@@ -51,6 +51,8 @@ wmic process where "ProcessID=9760" list <:: OR: get CommandLine, ExecutablePath
 
 where %cmd% &:: UNIX 'which' equivalent
 ipconfig /displaydns
+netsh interface ip show dns "Wi-Fi"
+netsh interface ip set dns "Wi-Fi" static 8.8.8.8
 
 :: Windows Performance Toolkit, also inc. xbootmgr - TUTOS: http://www.msfn.org/board/topic/140263-how-to-get-the-cause-of-high-cpu-usage-by-dpc-interrupt/ - http://www.msfn.org/board/topic/140264-how-to-get-the-cause-of-high-cpu-usage-caused-by-apps/
 xperf -on latency -stackwalk profile

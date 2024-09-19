@@ -13,6 +13,8 @@
     * [UML](#uml)
     * [Sequence diagrams](#sequence-diagrams)
     * [Histograms](#histograms)
+- [Libs adding interactivity to a page](#libs-adding-interactivity-to-a-page)
+- [Web terminal](#web-terminal)
 - [Command-line tips & tricks for demos](#command-line-tips--tricks-for-demos)
 - [How to give presentations](#how-to-give-presentations)
     * [Benjamin G. advices](#benjamin-g-advices)
@@ -173,9 +175,22 @@ service2 ---> api1 : consume
 - [tehmaze/diagram](https://github.com/tehmaze/diagram) : text mode utf8 diagrams in colors, in Python
 - <https://plot.ly> examples: https://plot.ly/javascript/histograms/
 
+# Libs adding interactivity to a page
+* https://github.com/MaxLaumeister/collectibles.js JS library for adding collectible items to your website
+* https://roughnotation.com/ JS library to create and animate annotations on a web page, using Rough.js
 
-## Command-line tips & tricks for demos
+Check also "Cool animations" in [notes.css](../../languages/web-d3/notes.css)
+& "Interactivity & widgets" in [notes.js](../../languages/web-d3/notes.js)
 
+# Web terminal
+* https://github.com/jacksonbenete/email_terminal
+* https://github.com/luisbraganca/fake-terminal-website
+* https://github.com/jcubic/jquery.terminal
+* https://github.com/Kibibit/command-lime
+* https://bellard.org/jslinux/ / https://copy.sh
+  -> could be configured with an initial "curl | bash" script, but how to paste ?
+
+# Command-line tips & tricks for demos
 - use & abuse shell history command search : `CTRL`+`R`
   * make your you keep enough history: put `export HISTSIZE=20000` in your `.bashrc`
   * add a `#tag` at the end of long commands you want to retrieve easily, so that you can later on `CTRL`+`R` on this keyword. Exemple:
@@ -195,6 +210,20 @@ prompt_command() { EXIT_CODE=${?/#0/}; }; export PROMPT_COMMAND=prompt_command; 
 set show-all-if-ambiguous on
 set completion-ignore-case on
 ```
+
+## Cool shell commands
+
+    ssh telnet mapscii.me
+    # subdomain-based start location: https://github.com/rastapasta/mapscii/issues/105
+
+    curl parrot.live
+
+    echo "Simulate on-screen progressive typing" | pv -qL 10
+    nms # CLI recreating the data decryption effect seen the 1992 hacker movie Sneakers - https://github.com/bartobri/no-more-secrets
+
+    # from bsdgames package, in /usr/games/ :
+    ppt 'SECRET MSG' > out; cat out; ppt -d < out
+    morse 'SECRET MSG' > out; cat out; morse -d < out
 
 
 # How to give presentations

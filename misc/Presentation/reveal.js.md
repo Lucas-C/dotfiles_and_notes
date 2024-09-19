@@ -1,9 +1,7 @@
 Doc: https://revealjs.com
 Online visual editor: http://slid.es
 
-
 # Markdown Demo
-
 <link rel="stylesheet" href="md-tags.css"/>
 
 <span class=red>RED red Red</span>
@@ -15,7 +13,6 @@ Online visual editor: http://slid.es
 <span class=green>GREEN green Green</span>
 
 <span class=blue>BLUE blue Blue</span>
-
 
 ### Some code
 
@@ -37,11 +34,13 @@ Add a class on the first slide only:
 
 Change the background on a slide:
 
-    <!-- .slide: data-background="#ff0000" -- >
+    <!-- .slide: data-background="#ff0000" -->
 
+Add class one slide:
+
+    <!-- .slide: class="poll" -->
 
 ## Features
-
 Le nombre de sauts de ligne (2 ou 3) entre chaque ##section indique la direction du slide suivant (bas/droite)
 
     <ul>
@@ -52,29 +51,24 @@ Le nombre de sauts de ligne (2 ou 3) entre chaque ##section indique la direction
 
     Note: Coucou ! This will only be displayed in the speaker window
 
-
 ## Down to the rabbit hole...
-
 With *bold*, **italics** and ~~striked~~ text.
 
 ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
-
 ## Multimedia era
-
 <video data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
 
-
 ## Back to start
-
 <a href="#/">Click me !</a>
-
 
 ## Shortcuts:
 * Press `s` to open speaker-notes pop-up window
 * Press `ESC` to enter the slide overview
 * Press `b` to fade out to black screen
 
+## Poll
+https://github.com/jschildgen/reveal.js-poll-plugin (used on chezsoi.org)
 
 ## PDF export
 Using Chrome: https://github.com/hakimel/reveal.js/#pdf-export

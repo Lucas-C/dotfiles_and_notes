@@ -249,7 +249,7 @@ Delgan/loguru # Features: values of variables, color, rotation / retention / com
 "" Data structures
 """""""""""""""""""
 from bisect import bisect_left # binary/dichotomic search on lists
-import heapq # min-heap: .nlargest .nsmallest
+import heapq # priority queue / min-heap: .nlargest .nsmallest - cf. projecteuler/problem081.py
 
 collections.deque # double-ended queue, with optional maximum length
 queueutils.PriorityQueue # from mahmoud/boltons
@@ -1130,6 +1130,7 @@ Optimization guide:
 - Numba (faster than Cython, which is faster than Pypy) + Numpy (vectorized operations are way faster than Pyhton slow loops - use: ufuncs, aggregates, broadcasting, slicing & masking)
 - try Pypy or taichi
 
+Using a C++ library in a Python script # one-page tutorial in Page Out #4
 Cython # .pyx : superset of Python with optional static types, can invoke C/C++ and compile down to C
     AlanCristhian/statically : provides the @statically.typed decorator to compile a Python function with Cython
     fast_crash.pyx # nice Cython multiprocessing (OpenMP) code sample from "Personalized PGP Key IDs for fun and profit" by Filippo Valsorda in Phrack #69
@@ -1338,6 +1339,8 @@ asyncio.ensure_future # GOTO -> considered harmful
 dabeaz/curio # Python 3 alt implementation of coroutines, with a better design: https://veriny.tf/asyncio-a-dumpster-fire-of-bad-design/
 aiofiles # local disk files read/write in asyncio applications
 
+wakepy # cross-platform wakelock / keep-awake / stay-awake: keeping CPU awake OR keeping screen awake
+
 # Things I Wish They Told Me About The Multiprocessing Module in Python 3, with code examples:
 # * https://pyvideo.org/pycon-us-2019/things-i-wish-they-told-me-about-the-multiprocessing-module-in-python-3.html
 # * https://www.cloudcity.io/blog/2019/02/27/things-i-wish-they-told-me-about-multiprocessing-in-python/
@@ -1436,7 +1439,7 @@ requests.post(form_url, data={'x':'42'})
             adapter = HTTPAdapter(max_retries=Retry(total=retries, read=retries, connect=retries, backoff_factor=backoff_factor))
             session.mount('http://', adapter)
             session.mount('https://', adapter)
-connect timeout / read timeout / download size limit : https://benbernardblog.com/the-case-of-the-mysterious-python-crash/
+connect timeout / read timeout / download size limit : https://web.archive.org/web/20231130143329/https://benbernardblog.com/the-case-of-the-mysterious-python-crash/
 def requests_get_with_max_size(url):
     with closing(requests.get(url, stream=True, timeout=TIMEOUT)) as response:
         response.raise_for_status()

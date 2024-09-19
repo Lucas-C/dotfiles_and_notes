@@ -286,7 +286,6 @@ new, with // NEVER use them as variables ! They're reserved keywords
 // LIBS \\
 //~\~\~\~\\
 $._data($(elem).get(0), "events") // get events binded to 'elem' in jQuery
-tipsy // Facebook style tooltips for jQuery
 
 asm.js // static subset of JS, can be compiled ahead, include static typing - Rarely hand-written: C++ -> LLVM bytecode -> asm.js
 
@@ -394,12 +393,7 @@ Brython, RapydScript, Pyjamas, PythonJS // for Python
 Esprima // ECMAScript parser
 http://zaa.ch/jison/ // grammar parser like Bison/Yacc
 
-CommonMark // "Standard" Markdown https://github.com/jgm/stmd/blob/master/js/stmd.js
 cemerick/jsdifflib // reimplement Python difflib + provide HTML side-by-side rendering
-
-sweetalert // pretty replacement for 'alert'
-roll-a-die // display a die roll
-https://pqina.nl/flip/ # count down to an event, visualize a fund raising campaign, show a clock or a sale counter
 
 esprima // JS AST manipulation: parsing, rewrite, refactoring ; + escodegen for code generation - Also: substack/node-falafel based on acorn
 
@@ -410,6 +404,13 @@ Matt-Esch/virtual-dom & anthonyshort/deku
 the entire DOM whenever state changes. Of course, if you actually recreated the entire DOM every time your application state changed, your app would be very slow
 and your input fields would lose focus."
 
+/********************************
+* Interactivity & widgets
+********************************/
+tipsy // Facebook style tooltips for jQuery
+sweetalert // pretty replacement for 'alert'
+roll-a-die // display a die roll
+https://pqina.nl/flip/ # count down to an event, visualize a fund raising campaign, show a clock or a sale counter
 
 /********************************
 * Progressive/lazy image loading

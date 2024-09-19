@@ -375,6 +375,7 @@ DTO/DAO:
 FROM: https://docs.microsoft.com/en-us/azure/architecture/patterns/
 - Timeouts: cf. also [AWS Recos: Timeouts, retries and backoff with jitter](https://aws.amazon.com/fr/builders-library/timeouts-retries-and-backoff-with-jitter/)
 - Retry : handle anticipated, temporary failures of a partner service or network resource by transparently retrying an operation that failed, ideally with an exponential backoff logic
+  -> excellent detailed article about the need for exponential backoffs: [An interactive study of common retry methods](https://encore.dev/blog/retries)
 - Back Pressure (ex: `Retry-After` HTTP header)
 - Circuit Breaker : preserve a remote service or resource that may fall down
 - Health Endpoint Monitoring : Implement functional checks in an application that external tools can access through exposed endpoints at regular intervals.

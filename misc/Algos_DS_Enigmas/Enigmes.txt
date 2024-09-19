@@ -376,3 +376,7 @@ Three Dice Trick (3d6) : https://www.youtube.com/watch?v=27qhUZbHKao
 ## Programming-based
 https://enigmes-a-thematiques.fr/front/enigme/2433
 Solution: abs int hex len ord
+
+Quel est le seul mot singulier français faisant 57 points au Scrabble ?
+cf. dotfiles_and_notes/languages/python/scrabble_enigma.py
+

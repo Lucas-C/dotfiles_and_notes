@@ -124,6 +124,7 @@ major points in the timeline of the event, information on trigger, root cause & 
 - [You will always have more Problems than Engineers](https://betterprogramming.pub/you-will-always-have-more-problems-than-engineers-aafff94a4623)
 - [Le guide essentiel pour donner & recevoir des Feedbacks efficaces](https://bloculus.com/sauvez-des-vies-faites-des-feedbacks/)
 - [Sécurité Psychologique en image @bloculus](https://bloculus.com/outil-google-performance-equipe/)
+- [Why Heroism Is Bad by Alexander Malmberg, Google SRE](https://sre.google/resources/practices-and-processes/no-heroes/)
 
 ## Teams organization
 "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations" - Mel Conway, 1968
@@ -319,6 +320,9 @@ How to build trust ? Start by trusting others, be trustworthy, build relationshi
 - [CNV & Agilité par T. Clavier & J. Quille]
 - La loi de la mobilité ou **loi des deux pieds** : http://www.oeildecoach.com/eviter-lennui-reunion-pendant-conference/
 > si vous n’êtes ni en train d’apprendre, ni de contribuer, passez à autre chose !
+- [Why Heroism Is Bad by Alexander Malmberg, Google SRE](https://sre.google/resources/practices-and-processes/no-heroes/)
+    * "The Hero decides that they will uphold this property, _no matter_ what" on their own
+    * Solution: _Let it break_
 
 ## Stand-up & meetings
 It mush be SHORT (<15min), everybody has to be ponctual, actually **stand-up**, **listen** and **be concise** : [Why Scrum Should Basically Just Die In A Fire]
@@ -334,7 +338,7 @@ Identify what's the main purpose of the meeting: **think & reflect**, **decide**
 Décision commune par consensus, explicite : demander si quelqu'un a un _concern_ / une objection.
 Si personne ne se manifeste -> adopté
 
-[Manifeste pour le droit à des réunions efficaces](https://www.pinterest.fr/pin/464996730250633222/) (wlsembly)
+[Manifeste pour le droit à des réunions efficaces](https://www.pinterest.fr/pin/464996730250633222/) (wlsembly) <!-- Alt img: wwcb -->
 
 > Programmers in large companies spend over 50% of their week NOT coding primarily due to meetings averaging 22.5 hours of their time
 > It takes developers 23 minutes of uninterrupted focus before they hit their flow state. The period where they are being truly productive

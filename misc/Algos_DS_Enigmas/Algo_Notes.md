@@ -16,7 +16,7 @@ qp-trie > crit-bit trie > Patricia trie: http://fanf.livejournal.com/137283.html
 
 Test set membership aka sketching data structures:
 - HyperLogLog: [original paper](http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf), [2013 paper from Google](http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40671.pdf) and [an explanation](http://research.neustar.biz/2012/10/25/sketch-of-the-day-hyperloglog-cornerstone-of-a-big-data-infrastructure/)
-- Bloom filters : http://crystal.uta.edu/~mcguigan/cse6350/papers/Bloom.pdf - http://corte.si/%2Fposts/code/bloom-filter-rules-of-thumb/index.html - Invertible: http://arxiv.org/pdf/1101.2245v2.pdf (cf. Python implementations)
+- Bloom filters : http://crystal.uta.edu/~mcguigan/cse6350/papers/Bloom.pdf - http://corte.si/%2Fposts/code/bloom-filter-rules-of-thumb/index.html  - Invertible: http://arxiv.org/pdf/1101.2245v2.pdf (cf. Python implementations)
 - "[Cuckoo filters](http://www.pdl.cmu.edu/PDL-FTP/FS/cuckoo-conext2014.pdf) support adding and removing items dynamically while achieving even higher performance than Bloom filters"
 [Cuckoo Filters vs. Bloom Filters in Python](http://blog.fastforwardlabs.com/post/153566952648/probabilistic-data-structure-showdown-cuckoo)
 - Counting Quotient Filter alternative to Bloom filters: https://blog.acolyer.org/2017/08/08/a-general-purpose-counting-filter-making-every-bit-count/
@@ -30,6 +30,9 @@ Test set membership aka sketching data structures:
     * [Space-Efficient Online Computation of Quantile Summaries](http://infolab.stanford.edu/~datar/courses/cs361a/papers/quantiles.pdf)
     * [Quantiles on Streams](http://www.cs.ucsb.edu/~suri/psdir/ency.pdf)
     * [Some moving window median algos comparison](https://github.com/kwgoodman/roly) in Python, including a double heap solution
+
+New CVM algorithm - Counting Distinct Elements in Streams (liked by D. Knuth): https://chezsoi.org/shaarli/shaare/V8UsIQ
+    -> implementation uses `treap` ( https://en.wikipedia.org/wiki/Treap ) that maintain a dynamic set of ordered keys and allow binary searches among the key
 
 Succint data structures: use an amount of space that is "close" to the information-theoretic lower bound but still allow for efficient query operations, by encoding data very efficiently in-place, so that it does not need to be decompressed to be used.
 

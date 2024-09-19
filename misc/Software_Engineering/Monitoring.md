@@ -2,6 +2,8 @@
 [AWS Recos: Instrumenting distributed systems for operational visibility](https://aws.amazon.com/fr/builders-library/instrumenting-distributed-systems-for-operational-visibility/)
 
 cf. https://github.com/ripienaar/free-for-dev#monitoring
+cf. https://european-alternatives.eu/category/uptime-monitoring-services
+    -> French with a free plan: https://european-alternatives.eu/product/hyperping
 
 - Errors monitoring:
   * https://sentry.io : has a free plan (10k events/month, 7 days history), clients in many languages, [email notifications](https://docs.sentry.io/learn/notifications/), server is open source
