@@ -739,7 +739,10 @@ coverage report # ASCII report - Alt: html, xml
 csvoss/onelinerizer # Convert any Python 2 file into a single line of code
 liftoff/pyminifier # code minifier, obfuscator, and compressor
 therealOri/PolyLock # encryption (with chaeslib) + obfscation (fork of hyperion) + Code compilation (with nuitka)
+
 pyflakes, pylint --generate-rcfile > .pylintrc # static analysis - Also: Flake8, openstack-dev/hacking, landscapeio/prospector, pylama (did not work last time I tried), google/yapf
+seddonym/import-linter # define and enforce rules for the internal and external imports
+
 pyreverse # UML diagrams, integrated in pylint
 pinetr2e/napkin # write UML sequence diagrams
 
@@ -770,6 +773,10 @@ flipkart-incubator/Astra # Automated Security Testing for Rest Api's
 openstack/syntribos  # automated API security testing tool
 sqlmap  # automatic SQL injection and database takeover tool
 wapiti  # "fuzzer", performs "black-box" scans of a web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data
+
+PyRASP  # Runtime Application Self Protection package for Python-based Web Servers and cloud functions
+
+pwntools # CTF framework and exploit development, designed for rapid prototyping
 
 magic-wormhole  # get things from one computer to another, safely: text, files, directories
 
@@ -2027,3 +2034,11 @@ except* (BarError, BazError) as e:
     ...
 
 asyncio.TaskGroup
+
+
+#-----------
+# Python 3.12
+with tempfile.NamedTemporaryFile(delete_on_close=False) as fp:
+    fp.write(b'Hello world!')
+    fp.close()
+    # the file is closed, but not removed

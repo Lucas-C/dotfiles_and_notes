@@ -1,6 +1,6 @@
 #!/bin/bash
 # USAGE: ./pdf2img2pdf.sh file.pdf [--landscape]
-set -o pipefail -o errexit -o nounset
+set -o pipefail -o errexit -o nounset -o xtrace
 
 # $DENSITY can be defined before calling this script
 [ -n "${DENSITY:-}" ] || DENSITY=600

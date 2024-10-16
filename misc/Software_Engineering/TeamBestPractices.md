@@ -435,6 +435,18 @@ Liens utiles:
 | Le Conseil                              | https://ut7.fr/images-v2/20180429-idetido-de%CC%81roule%CC%81%20re%CC%81tro%20avec%20le%20conseil%20de%20UT7%20et%20virginia%20satir%20-%20V2%20-%20pour%20e%CC%81dition.jpg |
 
 
+## Tools & tips for remote work
+### Online Games
+* https://skribbl.io/
+* https://smashkarts.io/
+* https://cemantix.certitudes.org/ - https://cemantix.certitudes.org/pedantix
+* https://www.freeboardgames.org/fr
+    + Skull & Roses 2-6j: https://www.freeboardgames.org/fr/jouer/bombsAndBunnies
+    + Coop 2-5j: https://www.freeboardgames.org/fr/jouer/zooparade
+* https://secret-hitler.online/ (5-10j) / https://www.freeboardgames.org/fr/jouer/secretDracula
+* https://codenames.game/ (4+j) / https://www.freeboardgames.org/fr/jouer/secretcodes
+
+
 ## Define team metrics
 - customer satisfaction
 - performance, output data quality

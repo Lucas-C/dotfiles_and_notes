@@ -38,7 +38,7 @@ Software Development Best Practices
 <!-- tocstop -->
 
 ## References
-- [CC-\\w\\d+](http://fr.slideshare.net/hebel/clean-code-vortrag032009pdf) : Clean Code - Robert C. Martin - Ed. Prentice Hall
+- [Clean Code summary by Hendrik Ebel](https://fr.slideshare.net/slideshow/clean-code-vortrag032009pdf/14615447#16) : Clean Code - Robert C. Martin - Ed. Prentice Hall
   It has criticism: https://qntm.org/clean
 - [PP] : The Pragmatic Programmer - Andrew Hunt & David Thomas - Ed. Addison-Wesley : http://blog.codinghorror.com/a-pragmatic-quick-reference/
 - [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) - Amy Brown & Greg Wilson

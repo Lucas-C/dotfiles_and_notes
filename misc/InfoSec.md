@@ -6,9 +6,9 @@ https://github.com/Hack-with-Github/Awesome-Hacking
 
 How to Start Your Career in Cyber Security by Mikko Hypponen : https://safeandsavvy.f-secure.com/2017/02/03/a-hacker-hunters-advice-for-getting-into-infosec/
 
+
 # Phases of Penetration Testing
 From http://www.pentest-standard.org
-
 
 ## Intelligence Gathering
 DNSMAP
@@ -22,10 +22,8 @@ https://github.com/SharadKumar97/OSINT-SPY : Python, call Clearbit / Shodan / Fu
 
 [Holehe](https://github.com/megadose/holehe): find registered accounts from emails
 
-
 ### Sniffing
 OWASP Zap Proxy (Zed Attack Proxy) concurrent OSS de Burp
-
 
 ## Threat Modeling
 Méthodologie d'attaque:
@@ -51,7 +49,6 @@ Méthodologie d'attaque:
       v             v       v         |
 phishing        sniffer  redirections +---->orce brute
 ```
-
 
 ## Vulnerability Analysis
 
@@ -82,6 +79,8 @@ Content-Security-Policy HTTP response header : reduce XSS risks by declaring wha
 - [faille OpenRedirect](https://chezsoi.org/lucas/wwcb/photos/faille-OpenRedirect.png)
 
 https://github.com/x0rz/EQGRP - NSA hacking tools - Decrypted content of eqgrp-auction-file.tar.xz released by "The Shadow Brokers" : supposedly a free sample of the files exfiltrated from the Equation Group
+
+MSFVenom : générateur de payload autonome (shellcode) issu de Metasploit
 
 ### Remote shell
 https://github.com/3gstudent/Javascript-Backdoor : JSRAT is a Python script that can be used to get a remote shell on a target PC simply by making him visit an URL with a browser
@@ -119,6 +118,7 @@ w3af
 FuzzBunch -> used by the NSA : https://github.com/fuzzbunch/fuzzbunch
 wapiti -> modular & in Python, website "fuzzer", performs "black-box" scans of a web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data
 https://n0where.net/popular-pentesting-scanner-v3n0m Python pentesting scanner
+https://github.com/Gallopsled/pwntools Python CTF framework and exploit development, designed for rapid prototyping
 ./gobuster -u http://ctf.example:12345 -w Filenames_or_Directories_All.wordlist  # file/directory scanner
 
 ## CD/CI pipelines
@@ -148,7 +148,7 @@ Une solution pour stocker vos secrets et les employer de manière sécurisée da
 ### Avec pip (Python)
 - Invoquez [safety](https://github.com/pyupio/safety-db) dans vos pipelines pour détecter d'éventuelles vulnérabilités dans vos dépendances
 - Invoquez le linter de sécurité [bandit](https://github.com/PyCQA/bandit) dans vos pipelines
-
+- [PyRASP](https://paracyberbellum.gitbook.io/pyrasp) Runtime Application Self Protection package for Python-based Web Servers and cloud functions
 
 ## Cryptography
 SSL3 est mort depuis 2015/12/22/continuous-security-owasp-java-vulnerability-check
