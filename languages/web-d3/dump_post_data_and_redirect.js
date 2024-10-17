@@ -6,6 +6,11 @@ const fs = require('fs'),
 http.createServer((request, response) => {
     console.log(request.method, request.url)
     let uri = url.parse(request.url).pathname
+    if (path.normalize(decodeURI(uri)) !== decodeURI(uri)) {
+        response.statusCode = 403;
+        response.end();
+        return;
+    }
     if (!uri || uri === '/') uri = '/index.html'
     if (request.method === 'POST') {
         let body = ''
