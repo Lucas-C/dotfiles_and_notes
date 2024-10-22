@@ -25,7 +25,17 @@ f () { $BROWSER "${@:-$(cat)}"; }
 # from webbrowser import register, Mozilla
 # register("firefox.exe", None, Mozilla("firefox.exe"))
 
-alias vscode="/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe"
+VSCODE_BIN='/mnt/c/Program Files/Microsoft VS Code/Code.exe'
+unfuncalias vscode
+vscode () {
+    if [ -n "$WSL_DISTRO_NAME" ]; then
+        for f in "$@"; do
+            "$VSCODE_BIN" --remote "wsl+$WSL_DISTRO_NAME" "$(wslpath -a $f)"
+        done
+    else
+        "$VSCODE_BIN" "$@"
+    fi
+}
 
 win_hosts='/c/Windows/System32/drivers/etc/hosts'
 

@@ -1,8 +1,6 @@
 {
   "editor.suggestSelection": "first",
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "telemetry.telemetryLevel": "off",
-  "redhat.telemetry.enabled": false,
   "eslint.format.enable": true,
   "editor.tabSize": 2,
   "files.eol": "\n",
@@ -18,8 +16,6 @@
     "**/.settings": true,
     "**/.factorypath": true
   },
-  "cmake.configureOnOpen": true,
-  "remote.WSL.debug": true,
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -37,27 +33,8 @@
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
       "source.organizeImports": "never"
-    },
-    "editor.defaultFormatter": "redhat.java"
-  },
-  "java.format.enabled": true,
-  "java.test.defaultConfig": "myConfiguration",
-  "java.jdt.ls.java.home": "C:\\DevHome\\tools\\jdk-14.0.2",
-  "java.configuration.runtimes": [
-    {
-      "name": "JDK-14",
-      "path": "C:\\DevHome\\tools\\jdk-14.0.2",
-      "default": true
-    },
-    {
-      "name": "JDK-11",
-      "path": "C:\\Program Files\\AdoptOpenJDK\\jdk-11.0.11.9-hotspot"
-    },
-    {
-      "name": "JDK-8",
-      "path": "C:\\DevHome\\tools\\jdk1.8.0_40"
     }
-  ],
+  },
   "[json]": {
     "editor.quickSuggestions": {
       "strings": true
@@ -89,6 +66,7 @@
   "typescript.suggest.autoImports": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "[typescript]": {
+
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnPaste": true,
     "editor.formatOnType": true,
@@ -102,7 +80,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[xml]": {
-    "editor.defaultFormatter": "redhat.vscode-xml",
     "editor.formatOnPaste": false,
     "editor.formatOnType": false,
     "editor.formatOnSave": false
@@ -111,7 +88,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "window.zoomLevel": 1,
-  "nsis.compiler.pathToMakensis": "C:\\DevHome\\tools\\NSIS\\makensis",
   "explorer.confirmDelete": false,
   "security.allowedUNCHosts": [
     "wsl.localhost"
@@ -147,5 +123,6 @@
     "markdown"
   ],
   "cSpell.maxNumberOfProblems": 1000,
-  "diffEditor.maxComputationTime": 0
+  "diffEditor.maxComputationTime": 0,
+  "security.workspace.trust.untrustedFiles": "open"
 }
