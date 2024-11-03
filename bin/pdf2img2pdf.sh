@@ -16,7 +16,7 @@ SRC_PDF_NAME=$(basename "$SRC_PDF")
 # Calling ImageMagick:
 convert -density "$DENSITY" "$SRC_PDF_NAME" tmp-%03d.png
 rm "$SRC_PDF_NAME"
-$SCRIPT_DIR/a4-from-imgs.py "$@" --no-margin tmp-*.png
+$SCRIPT_DIR/a4-from-imgs "$@" --no-margin tmp-*.png
 DST_FILE="$OLDPWD/fromImgs-d$DENSITY-$SRC_PDF_NAME"
 mv *.pdf "$DST_FILE"
 echo "Moved to $DST_FILE"

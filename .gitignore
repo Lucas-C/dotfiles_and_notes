@@ -1,0 +1,11 @@
+__pycache__/
+node_modules/
+Release/
+
+.bash_aliases
+.bash_dirs
+.pypirc
+
+*.bak
+*.jpg
+*.png
