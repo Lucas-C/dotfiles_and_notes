@@ -59,8 +59,8 @@ Software Development Best Practices
 - [Functional Programming Patterns](http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt)
 - [MicroservicesIncreaseOuterArchitectureComplexity](http://blogs.gartner.com/gary-olliffe/2015/01/30/microservices-guts-on-the-outside/)
 - [How API schemas help you make web sites fast](http://gilesbowkett.blogspot.be/2015/01/why-panda-strike-wrote-fastest-json.html#apis-and-json-schema)
-- [How to design a REST API](http://blog.octo.com/en/design-a-rest-api/) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
-- [RESTful API design refcard](http://blog.octo.com/wp-content/uploads/2014/10/RESTful-API-design-OCTO-Quick-Reference-Card-2.2.pdf)
+- [How to design a REST API](https://blog.octo.com/design-a-rest-api) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
+- [RESTful API design refcard](https://gandrille.github.io/tech-notes/Software_Engineering/DDD_and_API_design/OCTO-Refcard_API_Design_EN_3.0.pdf)
 - [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development](http://neverworkintheory.org/2011/08/31/comparing-the-defect-reduction-benefits-of-code-inspection-and-test-driven-development.html)
 - [TestPyramid](http://martinfowler.com/bliki/TestPyramid.html) & [IceCreamConeAntipattern](https://saeedgatson.com/the-software-testing-ice-cream-cone/)
 - [John Carmack discusses the art and science of software engineering](//blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/)
@@ -111,6 +111,7 @@ Software Development Best Practices
 - [REST – PUT vs POST](https://restfulapi.net/rest-put-vs-post/)
 - [Solutions Architect Tips — The 5 Types of Architecture Diagrams](https://betterprogramming.pub/solutions-architect-tips-the-5-types-of-architecture-diagrams-eb0c11996f9e)
 - [Event-Driven Architecture Patterns](https://medium.com/wix-engineering/6-event-driven-architecture-patterns-part-1-93758b253f47)
+- [Martin Fowler on Feature Toggles](https://martinfowler.com/articles/feature-toggles.html)
 
 My rule #1 : Follow standard conventions within a team [CC-G24]
 
@@ -446,12 +447,13 @@ Alt: HTTP header Range avec valeur non numérique
 + use a JSON Schema for validation ! : [How API schemas help you make web sites fast]
 + similarly for protocols: IDL, Interface Description Language. E.g. ApacheThrift, Protocol Buffers, SWIG, DTD/XSD for XML...
 + WSDL = Web Service Description Language (in xml, often used with SOAP)
-+ representation for RESTful APIs: Swagger==OpenAPI / API Blueprint / APIDOC
-cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-generated doc & server mocks + auto integration testing with [dredd](https://github.com/apiaryio/dredd) (NodeJS) + has a free plan
-https://github.com/Tufin/oasdiff : diff tool for OpenAPI Specification 3  (Go / binary)
 + alternative to REST: [JSON RPC](http://www.jsonrpc.org/specification) cf. [Understanding RPC Vs REST For HTTP APIs]!
   > REST brings some constraints, e.g. your API must be stateless (no session persistance)
   > RPC-based APIs are great for actions [while] REST-based APIs are great for modeling your domain
+
++ representation for RESTful APIs: Swagger==OpenAPI / API Blueprint / APIDOC
+cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-generated doc & server mocks + auto integration testing with [dredd](https://github.com/apiaryio/dredd) (NodeJS) + has a free plan
+[oasdiff](https://www.oasdiff.com/) is an OpenAPI Specification Diff Tool which can be used as a command-line utility (or Go package) to compare two versions of OpenAPI specifications (OAS) and identify the differences or changes between them
 
 Handling **deprecation**:
 - full API version change + `Sunset` or `Warning: 299 - "Deprecated API"` HTTP header
@@ -460,8 +462,15 @@ Handling **deprecation**:
 - HTTP `207 Multi-Status` or `410 (Gone)` if the resource disappeared
 - add handling of deprecation warnings into **clients**
 
-[The Amazon Builders' Library](https://aws.amazon.com/fr/builders-library/)
+**Feature flipping** / feature flags:
+[Martin Fowler on Feature Toggles] distinguish several categories:
+* Release Toggles: to separate [feature] release from [code] deployment (=> CD)
+* Experiment Toggles: to perform multivariate or A/B testing
+* Ops Toggles
+* Permissioning Toggles
+* Extra: [Capability Feature Flags](https://spin.atomicobject.com/capability-feature-flags/): These types of flags are set based on the capabilities of an external integration point.
 
+[The Amazon Builders' Library](https://aws.amazon.com/fr/builders-library/)
 
 ### The UNIX Philosophy by Mike Gancarz
 1. Small is beautiful.

@@ -42,7 +42,6 @@
     "editor.suggest.insertMode": "replace",
     "editor.formatOnPaste": true,
     "editor.formatOnType": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSaveMode": "file"
   },
   "[terraform]": {

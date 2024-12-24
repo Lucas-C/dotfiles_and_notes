@@ -1154,6 +1154,7 @@ Pythran # Python to c++ compiler for a subset of the Python language. It takes a
 PyInline # put source code from other programming languages (e.g. C) directly "inline" in Python code
 Pyrex # write code that mixes Python and C data types and compiles it into a C extension
 Nuitka # converts Python code into C++ code (targetting VisualStudio, MinGW or Clang/LLVM compilers)
+    #-> REX (Lucas): makes it really easy to create a binary from a Python script
 
 pgiri/pycos # asynchronous, concurrent, network, distributed programming and distributed computing, using tasks, generator functions, asynchronous completions and message passing
 pgiri/dispy # distributed and parallel computing framework, in a cluster, grid or cloud -> well suited for data parallel (SIMD) paradigm
@@ -1619,6 +1620,7 @@ pywin32 # Windows API, e.g. win32crypt.CryptUnprotectData - cf. http://docs.acti
     excel = win32.gencache.EnsureDispatch('Excel.Application'); excel.Visible = True
     outlook = win32.gencache.EnsureDispatch('Outlook.Application'); new_mail = outlook.CreateItem(0)
     win10toast # create Windows 10 notifications
+apprise # send a notification to all of the most popular notification services: Telegram, Discord, Slack, Amazon SNS, Gotify, etc.
 theller/comtypes # access and implement both custom and dispatch based COM interfaces
 n1nj4sec/memorpy # search/edit Windows programs memory
 

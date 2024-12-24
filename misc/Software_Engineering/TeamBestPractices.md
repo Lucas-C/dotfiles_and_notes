@@ -391,8 +391,8 @@ it's better to rewrite it from scratch (Thomas et al, 1997)
 Ses solutions : la phase de conception est importante; solliciter des collègues un feedback si on est tombés dans ce biais => psychological safety
 
 ## Retrospectives
-- Content/Pas content/A améliorer/A continuer/A arrêter/Questions
-- Drop/Add/Keep/Improve
+- Content/Pas content/À améliorer/À continuer/À arrêter/Questions (STARFISH)
+- Drop/Add/Keep/Improve (DAKI)
 - Ecocycle schema of products maturity: https://www.taesch.com/references-cards/ecocycle
 
 Liens utiles:
@@ -408,7 +408,7 @@ Liens utiles:
 | Nom rétrospective                       | Description / Lien |
 |-----------------------------------------|-|
 | 4L + W³                                 | Liked / Learned / Lacked / Longed for + [What / So What / Now What ?](https://www.liberatingstructures.com/9-what-so-what-now-what-w/) |
-| TRIZ                                    | Stop Counterproductive Activities and Behaviors to Make Space for Innovation - http://www.everydaykanban.com/2015/06/18/shake-up-retrospective-with-triz/ |
+| TRIZ                                    | Stop Counterproductive Activities and Behaviors to Make Space for Innovation - https://www.liberatingstructures.com/6-making-space-with-triz/ |
 | STARFISH                                | Start Stop Continue More Less |
 | DAKI                                    | Drop Add Keep Improve - http://www.funretrospectives.com/daki-drop-add-keep-improve |
 | SPEED BOAT                              | https://coach-agile.com/speed-boat/ |

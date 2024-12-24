@@ -369,14 +369,27 @@ Autres idées :
 * Papiers, issus d'énigmes précédentes, qui une fois superposés forment un message où un plan : comme dans TinTin !
 
 
-## Basé sur des dés
+### Basé sur des dés
 Three Dice Trick (3d6) : https://www.youtube.com/watch?v=27qhUZbHKao
 
 
-## Programming-based
+### Programming-based
 https://enigmes-a-thematiques.fr/front/enigme/2433
 Solution: abs int hex len ord
 
 Quel est le seul mot singulier français faisant 57 points au Scrabble ?
 cf. dotfiles_and_notes/languages/python/scrabble_enigma.py
 
+### Web-based
+Un unique fichier SVG contient les 3 parties de l'énoncé d'une énigme,
+mais chacune est consultable dans une langue différente :
+https://en.m.wikipedia.org/wiki/File:Multilingual_SVG_example.svg
+
+https://managore.itch.io/alphabet-soup-for-picky-eaters
+    existing word -> green
+    B/C/D/F -> purple : odd number of consonants?
+    N -> blue
+    consecutive letters in alphabet -> yellow
+    6 or 7 letters -> brown
+    repeated vowel -> red
+    ( Solution: echo QkFCT09OCg== | base64 -d )

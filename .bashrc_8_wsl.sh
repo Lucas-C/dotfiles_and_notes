@@ -29,9 +29,14 @@ VSCODE_BIN='/mnt/c/Program Files/Microsoft VS Code/Code.exe'
 unfuncalias vscode
 vscode () {
     if [ -n "$WSL_DISTRO_NAME" ]; then
-        for f in "$@"; do
-            "$VSCODE_BIN" --remote "wsl+$WSL_DISTRO_NAME" "$(wslpath -a $f)"
-        done
+        case $PWD in
+            /mnt*|/c*|/d*)
+                "$VSCODE_BIN" "$@";;
+            *)
+                for f in "$@"; do
+                    "$VSCODE_BIN" --remote "wsl+$WSL_DISTRO_NAME" "$(wslpath -a $f)"
+                done;;
+            esac
     else
         "$VSCODE_BIN" "$@"
     fi

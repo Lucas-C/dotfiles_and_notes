@@ -701,7 +701,7 @@ alias k8s-show-ns=" kubectl api-resources --verbs=list --namespaced -o name | xa
 
 alias dl-vid="yt-dlp -f 'best[filesize<300M]'"
 # This allows to retries a playlist download without re-downloading songs already downloaded:
-alias dl-playlist="yt-dlp -x -o '%(playlist_index)s - %(title)s.%(ext)s' --restrict-filenames --download-archive downloaded.txt --no-post-overwrites"
+alias dl-playlist="yt-dlp -x -o '%(playlist_index)s - %(title)s.%(ext)s' --restrict-filenames --download-archive downloaded.txt --no-post-overwrites --parse-metadata 'playlist_index:%(track_number)s' --add-metadata"
 
 function no-exif() {
     for img in "$@"; do
@@ -731,4 +731,16 @@ function img2webp() {  # Install: apt install webp
     for img in "$@"; do
         cwebp "$img" -q 100 -o "${img%%.*}.webp"
     done
+}
+
+# Recipe from: https://unix.stackexchange.com/a/370221
+function container_copy_from_img() { # USAGE: container_copy_from_img $img $path $dst_dir
+    local img="${1?'Missing Docker image parameter'}"
+    local path="${2?'Missing path parameter'}"
+    local dst_dir="${3?'Missing dst_dir parameter'}"
+    local cmd=docker
+    [[ $(uname -a) =~ ^Linux.+[Mm]icrosoft ]] && cmd=podman
+    local container_id=$($cmd create "$img")
+    $cmd cp "$container_id:$path" "$dst_dir"
+    $cmd rm "$container_id"
 }
