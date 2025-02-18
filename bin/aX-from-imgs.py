@@ -15,8 +15,8 @@ def gen(args):
     else:
         pdf_format = args.format
     pdf = FPDF(format=pdf_format, orientation=args.orientation)
-    if args.no_margin:
-        pdf.set_margin(0)
+    if args.margin is not None:
+        pdf.set_margin(args.margin)
     half_h, half_w = pdf.eph/2, pdf.epw/2
     if args.format == "a5":
         kwargs = dict(keep_aspect_ratio=True, h=pdf.eph, w=half_w)
@@ -70,7 +70,8 @@ def parse_args():
     parser.add_argument("--orientation", choices=("landscape", "portrait"), default="portrait")
     parser.add_argument("--portrait", action="store_const", dest="orientation", const="portrait")
     parser.add_argument("--landscape", action="store_const", dest="orientation", const="landscape")
-    parser.add_argument("--no-margin", action="store_true")
+    parser.add_argument("--margin", type=float)
+    parser.add_argument("--no-margin", action="store_const", dest="margin", const=0)
     parser.add_argument("--repeat-imgs", action="store_true")
     parser.add_argument("--out", help="Output file path")
     parser.add_argument("img_filepaths", nargs="+")

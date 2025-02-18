@@ -21,6 +21,7 @@ Open source challenges
 - [Comparison of 7 governance models for CPython by Victor Stinner](https://discuss.python.org/t/comparison-of-the-7-governance-peps/392)
 - [The Meme Hustler - Tim O’Reilly’s crazy talk | Evgeny Morozov - The Baffler](https://thebaffler.com/salvos/the-meme-hustler)
 - [The struggles of an open source maintainer - @antirez](http://antirez.com/news/129)
+- [How to Create an Open Source Program](https://github.com/todogroup/guides/blob/master/creating-an-open-source-program.md)
 
 ## Resources for newcomers
 - [freeCodeCamp guide to contribute to Open Source]
@@ -243,6 +244,8 @@ This is a personal selection:
 
 
 ### Le Logiciel Libre Et L'entreprise
+_cf._ [LeLogicielLibreEtLEntrepriseParTanguiMorlier](http://www.april.org/le-logiciel-libre-et-lentreprise-par-tangui-morlier-lup-le-5-novembre-2010)
+
 Par Tangui Morlier
 
 4 libertés qui définissent le Logiciel Libre en entreprise [1]:
@@ -260,8 +263,17 @@ Pourquoi une entreprise a des avantages à faire du logiciel libre ?
 - véhicule l'expertise (ex: Sensio avec Symphony)
 
 
+### Open Source Monitor 2023
+Rapport PDF accessible ici : [Open Source Monitor 2023](https://numeum.fr/actu-informatique/etude-lusage-de-lopen-source-en-france-open-source-monitor-2023)
+
+Le modèle open-source est promu par les institutions françaises : <https://code.gouv.fr/fr/bluehats/>
+
+[La stratégie open source de RTE](https://code.gouv.fr/fr/bluehats/rte/)
+
+
+
 ### Producing Open Source Software: How to Run a Successful Free Software Project
-By Karl Fogel, 2005-2013 - https://producingoss.com
+By Karl Fogel, 2005-2023 - https://producingoss.com
 Traduit par Framasoft en français : https://framabook.org/produire-du-logiciel-libre-2/
 
 #### Chapter 1 - Introduction

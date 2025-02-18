@@ -123,5 +123,6 @@
   ],
   "cSpell.maxNumberOfProblems": 1000,
   "diffEditor.maxComputationTime": 0,
-  "security.workspace.trust.untrustedFiles": "open"
+  "security.workspace.trust.untrustedFiles": "open",
+  "cmake.showOptionsMovedNotification": false
 }

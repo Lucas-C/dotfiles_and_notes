@@ -574,7 +574,7 @@ Don't use comments when you can use a function/variable to expresse the intent [
 8. Add comments when fixing bugs.
 9. Use comments to mark incomplete implementations.
 
-[The Real Purpose of Comments in Code](https://www.cognizantsoftvision.com/blog/never-use-comments-in-code-because-it-should-speak-for-itself-right/)
+[The Real Purpose of Comments in Code](https://web.archive.org/web/20220706062757/https://www.cognizantsoftvision.com/blog/never-use-comments-in-code-because-it-should-speak-for-itself-right/)
 * What are the benefits of explaining the intent of a specific part of the code?
 * The myth of the auto commenting code
 * Now, let’s address the worries which lurk in the minds of people who despise comments.

@@ -106,6 +106,7 @@ Combien de fois devez-vous remplir un récipient au robinet ?
 [How to communicate six bits of information by the flip of a single coin?](http://datagenetics.com/blog/december12014/index.html)
 
 Enigme de la ficelle et des 2 prisonniers (apprise en Irlande)
+-> https://www.youtube.com/watch?v=pv8w8eh4lRY
 
 So there's this king. Someone breaks into his wine cellar where he stores 1000 bottles of wine.
 This person proceeds to poison one of the 1000 bottles, but gets away too quickly for the king's guard to see which one he poisoned or to catch him.
@@ -128,9 +129,7 @@ https://chezsoi.org/shaarli/?searchtags=PuzzleGenerator
 
 https://github.com/Lucas-C/dotfiles_and_notes/tree/master/languages/web-d3/secret-grid
 
-Mots formés à partir de tags HTML:
-<strong><body><track><time><table><source> / <small><title><embed><details><summary> / <address><mark>...
-<div><ins> / <ins><table> / <th><em> / <tr><a><p><u> / <q><u><i> ...
+AFR/Paques-JeuDePiste/gen_easter_riddle_grid.py Message caché dans grille à colorier
 
 Substitution monoalphabétique des « hommes dansants » de Sherlock Holmes -> [GL Dancing Men Font](https://www.fontspace.com/gutenberg-labo/gl-dancingmen)
 
@@ -318,7 +317,7 @@ https://www.consumethismedia.com/etp-room-writeups
 > Every episode, we design a full, audio only escape room that we run (like a dnd game) for a guest. But we also make the full notes available for free to anyone who wants to run them with friends.
 
 https://www.reddit.com/r/mathriddles/comments/ia1c59/a_game_of_ping_pong/
-> Bob , Alice, and Tim decided to play ping pong. Only two people can play at a time, so they agree that two of them will start playing, and then whoever loses the game will swap out with the player who was sitting out.
+> Bob, Alice, and Tim decided to play ping pong. Only two people can play at a time, so they agree that two of them will start playing, and then whoever loses the game will swap out with the player who was sitting out.
 > Bob played 17 games, Alice played 15 games, and Tim played 10 games.
 > Who lost the second game?
 
@@ -341,6 +340,14 @@ https://www.reddit.com/r/puzzles/comments/19b3syx/which_face_down_card_is_the_ei
 Dessin de l'enveloppe / la maison Saint-Nicolas, sans lever le crayon ni repasser sur un trait déjà dessiné :
 https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_dessin_de_l%27enveloppe
 
+https://www.youtube.com/watch?v=FUHkTs-Ipfg
+![](https://mindyourdecisions.com/blog/wp-content/uploads/2015/07/sat-math-circle-revolution-yt.png)
+Circle A has 1/3 the radius of circle B. Circle A rolls around circle B until it returns to its starting position. How many revolutions of circle A are there in total?
+a. 3/2
+b. 3
+c. 6
+d. 9/2
+e. 9
 
 ## Énigmes de chasse au trésor
 https://www.explorador.fr/enigme-chasse-au-tresor/
@@ -374,6 +381,10 @@ Three Dice Trick (3d6) : https://www.youtube.com/watch?v=27qhUZbHKao
 
 
 ### Programming-based
+Mots formés à partir de tags HTML:
+<strong><body><track><time><table><source> / <small><title><embed><details><summary> / <address><mark>...
+<div><ins> / <ins><table> / <th><em> / <tr><a><p><u> / <q><u><i> ...
+
 https://enigmes-a-thematiques.fr/front/enigme/2433
 Solution: abs int hex len ord
 

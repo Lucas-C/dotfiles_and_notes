@@ -165,7 +165,7 @@ alias lt='ll --reverse --sort=time'       # sort by date, oldest first
 lsp () { # group files by their prefix
     LANG=en_US.UTF-8 ls -AB1 $@ | sed 's/\(.[^.]\+\).*/\1/' | sort | uniq -c
 }
-lse () { # group files by their extension - Alt: find . -type f -not -path '*/.git/*' -not -path '*/.idea/*' -not -path '*/bower_components/*' -not -path '*/node_modules/*' -not -path '*/target/*' | awk -F'.' '{print $NF}' | sort | uniq -c | sort
+lse () { # group files by their extension - Alt: find | awk -F'.' '{print $NF}' | sort | uniq -c | sort
     LANG=en_US.UTF-8 ls -AB1 $@ | awk -F'.' '{print $NF}' | sort | uniq -c
 }
 
@@ -204,8 +204,14 @@ alias gau='git add --update .'
 alias gdh='git diff HEAD'
 alias gdc='git diff --cached'
 alias gdp='git diff -U999999999 --no-color HEAD'
-alias gri='git rebase --interactive'
 alias gsp='git stash && git pull && git stash pop'
+
+gri() {
+    local prev=$(git config core.hooksPath)
+    git config core.hooksPath .no-hooks
+    git rebase --interactive "$@"
+    git config core.hooksPath "$prev"
+}
 
 pre_commit_all_cache_repos () {  # Requires sqlite3
     sqlite3 -header -column ~/.cache/pre-commit/db.db < <(echo -e ".width 50\nSELECT repo, ref, path FROM repos ORDER BY repo;")
