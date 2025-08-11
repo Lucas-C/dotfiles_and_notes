@@ -82,6 +82,8 @@ https://github.com/x0rz/EQGRP - NSA hacking tools - Decrypted content of eqgrp-a
 
 MSFVenom : générateur de payload autonome (shellcode) issu de Metasploit
 
+LinPEAS - Linux Privilege Escalation Awesome Script : search for possible paths to escalate privileges on Linux/Unix*/MacOS hosts - https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS
+
 ### Remote shell
 https://github.com/3gstudent/Javascript-Backdoor : JSRAT is a Python script that can be used to get a remote shell on a target PC simply by making him visit an URL with a browser
 http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet : with Bash, Perl, Python, PHP, Ruby, Java, xterm

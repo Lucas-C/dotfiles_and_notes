@@ -15,7 +15,7 @@ HAMT: "achieves almost hash table-like speed while using memory much more econom
 qp-trie > crit-bit trie > Patricia trie: http://fanf.livejournal.com/137283.html
 
 Test set membership aka sketching data structures:
-- HyperLogLog: [original paper](http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf), [2013 paper from Google](http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40671.pdf) and [an explanation](http://research.neustar.biz/2012/10/25/sketch-of-the-day-hyperloglog-cornerstone-of-a-big-data-infrastructure/)
+- HyperLogLog: [original paper](http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf), [2013 paper from Google](http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40671.pdf) and [an explanation](http://research.neustar.biz/2012/10/25/sketch-of-the-day-hyperloglog-cornerstone-of-a-big-data-infrastructure/) - Modern alt: [UltraLogLog](https://arxiv.org/abs/2308.16862)
 - Bloom filters : http://crystal.uta.edu/~mcguigan/cse6350/papers/Bloom.pdf - http://corte.si/%2Fposts/code/bloom-filter-rules-of-thumb/index.html  - Invertible: http://arxiv.org/pdf/1101.2245v2.pdf (cf. Python implementations)
 - "[Cuckoo filters](http://www.pdl.cmu.edu/PDL-FTP/FS/cuckoo-conext2014.pdf) support adding and removing items dynamically while achieving even higher performance than Bloom filters"
 [Cuckoo Filters vs. Bloom Filters in Python](http://blog.fastforwardlabs.com/post/153566952648/probabilistic-data-structure-showdown-cuckoo)

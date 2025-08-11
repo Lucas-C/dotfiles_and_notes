@@ -5,6 +5,7 @@ cf. https://github.com/ripienaar/free-for-dev#monitoring
 cf. https://european-alternatives.eu/category/uptime-monitoring-services
     -> French with a free plan: https://european-alternatives.eu/product/hyperping
 
+### Tools & services
 - Errors monitoring:
   * https://sentry.io : has a free plan (10k events/month, 7 days history), clients in many languages, [email notifications](https://docs.sentry.io/learn/notifications/), server is open source
   * https://rollbar.com : has a free plan (5k events/month, 30 days retention), clients in many languages, [email notifications](https://rollbar.com/blog/notification-types-how-to-use-them/#notifications-for-email), server is closed source
@@ -32,10 +33,11 @@ cf. https://european-alternatives.eu/category/uptime-monitoring-services
   * https://healthchecks.io : "Get Notified When Your Cron Jobs Fail"
   * https://deadmanssnitch.com : "Kiss Silent Failures Goodbye"
 - passive public server external monitoring:
-  * https://www.checkiton.us
   * https://www.pingdom.com
-  * http://www.sixnines.io
-  * https://github.com/louislam/uptime-kuma (self-hosted)
+  * https://uptimerobot.com
+  * https://github.com/louislam/uptime-kuma (self-hosted, Node.js & pm2)
+  * https://github.com/phpservermon/phpservermon (self-hosted, PHP)
+  * https://github.com/TwiN/gatus (self-hosted, Go): tested, ✅
 - receive notifications on mobile:
   * https://pushover.net : KISS, SAAS, not open source, the app is 5$ and that's it.
   Require a device configured, else error: "no active devices to send to"

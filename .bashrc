@@ -4,7 +4,7 @@
 [ -e /etc/bashrc ] && source /etc/bashrc
 [ -e /etc/bash_completion ] && source /etc/bash_completion
 
-# if shell is not interactive, exit, as printing anything at this point will break 'scp'
+# if shell is not interactive, exit, as printing anything at this point will break scp & sftp
 # also ensure that [[ =~ ]] is available
 [[ $- =~ i ]] || return
 

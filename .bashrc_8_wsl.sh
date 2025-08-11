@@ -43,6 +43,22 @@ vscode () {
 }
 
 win_hosts='/c/Windows/System32/drivers/etc/hosts'
+# (Lucas 2025/02/05) I gave Full Permissions to Authenticated Users on this file
+
+backup_win_hosts () {
+    cp ${win_hosts} ~/hosts.bak
+}
+restore_win_hosts () {
+    cp ~/hosts.bak ${win_hosts} && rm ~/hosts.bak
+}
+block_youtube () {
+    backup_win_hosts
+    cat >>${win_hosts} <<EOF
+127.0.0.1 youtube.com
+127.0.0.1 www.youtube.com
+EOF
+}
+alias block_youtube=restore_win_hosts
 
 unfuncalias nav
 nav () {

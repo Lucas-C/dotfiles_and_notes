@@ -44,42 +44,40 @@ Software Development Best Practices
 - [AOSA] : [The Architecture of Open Source Applications](http://www.aosabook.org) - Amy Brown & Greg Wilson
 - [JP] : Java Puzzlers - Joshua Bloch & Neal Gafter - Ed. Addison-Wesley
 - [SDP] : Software Design Philosophy - John Ousterhout
-- [97TEPSK] : [97 Things Every Programmer Should Know](http://programmer.97things.oreilly.com/wiki/index.php/Contributions_Appearing_in_the_Book)
+- [97TEPSK] : [97 Things Every Programmer Should Know](https://97-things-every-x-should-know.gitbook.io/97-things-every-programmer-should-know/en/summary)
 - [DOM] : [Don't overuse mocks](http://googletesting.blogspot.com/2013/05/testing-on-toilet-dont-overuse-mocks.html)
 - [KYTD] : [Know your test doubles](http://googletesting.blogspot.com/2013/07/testing-on-toilet-know-your-test-doubles.html)
 - [CRoTDD] : [CR over TDD](http://svenpet.com/2014/01/07/better-code-reviews/)
 - [JC-PI] : [John Carmack on Parallel Implementations](http://www.altdev.co/2011/11/22/parallel-implementations/)
 - [RobPikeKenThompson] : [What Rob Pike learned from KenThompson](http://www.informit.com/articles/article.aspx?p=1941206)
-- [The Problems With Acceptance Testing](http://www.jamesshore.com/Blog/The-Problems-With-Acceptance-Testing.html)
+- [The Problems With Acceptance Testing](https://www.jamesshore.com/v2/blog/2010/the-problems-with-acceptance-testing)
 - [Cyclomatic] : [Quantifying the effect of TDD](http://www.keithbraithwaite.demon.co.uk/professional/presentations/2008/qcon/MeasureForMeasure.pdf) & [Cyclomatic complexity measure](http://www.keithbraithwaite.demon.co.uk/professional/software)
 - [CRTP] : [Code review - Tools and process](http://www.slideshare.net/rantav/code-review) slides
-- [BuildingADecentAPI](//philsturgeon.uk/blog/2013/07/building-a-decent-api/)
+- [BuildingADecentAPI](https://philsturgeon.com/building-a-decent-api/)
 - [DistributedSystemsAndTheEndOfTheAPI](http://writings.quilt.org/2014/05/12/distributed-systems-and-the-end-of-the-api/)
 - [AwkwardMicroservicesQuestions](http://blog.oshineye.com/2015/01/awkward-microservices-questions.html)
 - [Functional Programming Patterns](http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt)
-- [MicroservicesIncreaseOuterArchitectureComplexity](http://blogs.gartner.com/gary-olliffe/2015/01/30/microservices-guts-on-the-outside/)
 - [How API schemas help you make web sites fast](http://gilesbowkett.blogspot.be/2015/01/why-panda-strike-wrote-fastest-json.html#apis-and-json-schema)
 - [How to design a REST API](https://blog.octo.com/design-a-rest-api) : includes discussion on URIs, query strings, content negotiation, CORS, Jsonp, HATEOAS and HTTP errors
 - [RESTful API design refcard](https://gandrille.github.io/tech-notes/Software_Engineering/DDD_and_API_design/OCTO-Refcard_API_Design_EN_3.0.pdf)
 - [Comparing the Defect Reduction Benefits of Code Inspection and Test-Driven Development](http://neverworkintheory.org/2011/08/31/comparing-the-defect-reduction-benefits-of-code-inspection-and-test-driven-development.html)
 - [TestPyramid](http://martinfowler.com/bliki/TestPyramid.html) & [IceCreamConeAntipattern](https://saeedgatson.com/the-software-testing-ice-cream-cone/)
-- [John Carmack discusses the art and science of software engineering](//blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/)
+- [John Carmack discusses the art and science of software engineering](https://medium.com/bits-and-behavior/john-carmack-discusses-the-art-and-science-of-software-engineering-a56e100c27aa)
 - [The microservices cargo cult](http://www.stavros.io/posts/microservices-cargo-cult/)
 - [LatencyNumbersEveryProgrammerShouldKnow](https://gist.github.com/hellerbarde/2843375)
 - [ResponseTimes-The3ImportantLimits](http://www.nngroup.com/articles/response-times-3-important-limits/)
-- [What happens when the Board Of Directors begins to panic?](http://www.smashcompany.com/business/what-happens-when-the-board-of-directors-begins-to-panic)
+- [What happens when the Board Of Directors begins to panic?](https://web.archive.org/web/20230525161742/http://www.smashcompany.com/business/what-happens-when-the-board-of-directors-begins-to-panic)
 - [Why code review beats testing: evidence from decades of programming research](https://kev.inburke.com/kevin/the-best-ways-to-find-bugs-in-your-code/)
 - [Why Should Software Architects Write Code](http://blog.ieeesoftware.org/2016/02/why-should-software-architects-write.html)
 - [A Guide to Naming Variables](http://a-nickels-worth.blogspot.fr/2016/04/a-guide-to-naming-variables.html)
 - [Why do record/replay tests of web applications break?](https://blog.acolyer.org/2016/05/30/why-do-recordreplay-tests-of-web-applications-break)
-- [MicroservicesPleaseDont](https://blog.komand.com/microservices-please-dont)
-- [LogstashAlternatives][https://sematext.com/blog/2016/09/13/logstash-alternatives/] : Filebeat, Fluentd, rsyslog, syslog-ng & Logagent
+- [MicroservicesPleaseDont](https://www.rapid7.com/blog/post/2016/09/15/microservices-please-dont/)
 - [ModernSoftwareOverEngineeringMistakes](https://medium.com/@rdsubhas/10-modern-software-engineering-mistakes-bc67fbef4fc8#.3y051ocdz)
 - [WhyYouShouldUseAMonorepo](http://www.drmaciver.com/2016/10/why-you-should-use-a-single-repository-for-all-your-companys-projects/)
 - [We’ll Never Know Whether Monorepos Are Better](https://redfin.engineering/well-never-know-whether-monorepos-are-better-2c08ab9324c0?gi=b84fa48f58da)
-- [WhenToRepeatYourself](http://devblog.songkick.com/2016/08/31/when-to-repeat-yourself/)
+- [WhenToRepeatYourself](https://devblog.songkick.com/when-to-repeat-yourself-f4abde384cc9)
 - [InternetScaleServicesChecklist](https://gist.github.com/acolyer/95ef23802803cb8b4eb5)
-- [WhatsWrongWithGit?AConceptualDesignAnalysis](https://blog.acolyer.org/2016/10/24/whats-wrong-with-git-a-conceptual-design-analysis/)
+- [WhatsWrongWithGit?AConceptualDesignAnalysis](https://spderosso.github.io/onward13.pdf)
 - [Simple Standard Service Endpoints](http://web.archive.org/web/20220409201950/https://github.com/beamly/SE4/blob/master/SE4.md)
 - [DesignPatternForHumans](https://github.com/kamranahmedse/design-patterns-for-humans)
 - [SystemDesignPrimer](https://github.com/donnemartin/system-design-primer)
@@ -185,7 +183,7 @@ FROM: The Cathedral and the Bazaar by Eric S. Raymond (Attributed to Antoine de 
 
 [Clever code is bad. Don't write clever code.](https://guifroes.com/clever-code-is-bad/)
 
-[John Carmack discusses the art and science of software engineering](//blogs.uw.edu/ajko/2012/08/22/john-carmack-discusses-the-art-and-science-of-software-engineering/):
+[John Carmack discusses the art and science of software engineering](https://medium.com/bits-and-behavior/john-carmack-discusses-the-art-and-science-of-software-engineering-a56e100c27aa):
 > "It’s about social interactions between the programmers or even between yourself spread over time"
 > "We talk about functional programming and lambda calculus and monads and this sounds all nice and sciency, but it really doesn’t affect what you do in software engineering there,
 > these are all best practices, and these are things that have shown to be helpful in the past, but really are only helpful when people are making certain classes of mistakes"
@@ -411,7 +409,7 @@ Named because it resembles the sectioned partitions of a ship's hull: if it is c
 
 cf. [BuildingADecentAPI]
 
-On microservices : [AwkwardMicroservicesQuestions], [MicroservicesIncreaseOuterArchitectureComplexity], [The microservices cargo cult], [MicroservicesPleaseDont] :
+On microservices : [AwkwardMicroservicesQuestions], [The microservices cargo cult], [MicroservicesPleaseDont] :
 they add moving parts and interdependencies, perf overhand and data segregation, and in the end more complexity
 
 REST = Representational State Transfer: [How to design a REST API], [RESTful API design refcard]

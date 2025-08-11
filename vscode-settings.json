@@ -124,5 +124,9 @@
   "cSpell.maxNumberOfProblems": 1000,
   "diffEditor.maxComputationTime": 0,
   "security.workspace.trust.untrustedFiles": "open",
-  "cmake.showOptionsMovedNotification": false
+  "cmake.showOptionsMovedNotification": false,
+  "git.openRepositoryInParentFolders": "never",
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  }
 }

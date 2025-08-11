@@ -17,6 +17,7 @@ cf. http://blog.codinghorror.com/software-development-as-a-collaborative-game/
 - [Team culture building & best practices](#team-culture-building--best-practices)
 - [Stand-up & meetings](#stand-up--meetings)
     * [Collective tasks estimation](#collective-tasks-estimation)
+    * [Ateliers d'équipe](#ateliers-dequipe)
 - [Retrospectives](#retrospectives)
 - [Define team metrics](#define-team-metrics)
 - [Ops](#ops)
@@ -33,7 +34,7 @@ cf. http://blog.codinghorror.com/software-development-as-a-collaborative-game/
 ## References
 - [Minimum Viable Bureaucracy](https://speakerdeck.com/lauraxt/minimum-viable-bureaucracy-june-2014-edition)
 - [HowToBeGoodAtOps](https://adamhjk.github.io/good-at-ops/#/8)
-- [ShittyDashboards](http://attackwithnumbers.com/the-laws-of-shitty-dashboard)
+- [ShittyDashboards](https://www.bears-repeating.com/the-laws-of-shitty-dashboards)
 - [Why Scrum Should Basically Just Die In A Fire](http://gilesbowkett.blogspot.com.au/2014/09/why-scrum-should-basically-just-die-in.html)
 - [Five essential phone screen questions](https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions)
 - [InfiniteHows](http://radar.oreilly.com/2014/11/the-infinite-hows.html)
@@ -390,6 +391,11 @@ it's better to rewrite it from scratch (Thomas et al, 1997)
 
 Ses solutions : la phase de conception est importante; solliciter des collègues un feedback si on est tombés dans ce biais => psychological safety
 
+### Ateliers d'équipe
+* Etreme reading
+    * la lecture rapide est une arnaque, cf. ggmilgram : https://www.youtube.com/watch?v=T1YZsP3rnOk
+    * [Xtrem reading - Yoan Thirion @Medium](https://yoan-thirion.medium.com/xtrem-reading-6a8a8d407543)
+
 ## Retrospectives
 - Content/Pas content/À améliorer/À continuer/À arrêter/Questions (STARFISH)
 - Drop/Add/Keep/Improve (DAKI)
@@ -511,6 +517,10 @@ Liens utiles:
     * **Lean**: minimize WIP state, shorten and amplify feedback loops, look for opportunities to remove waste, fix errors as they are discovered
     * **Measurement**: monitoring, system metrics, KPIs
     * **Sharing**: sharing knowledge & practices, including successes & failures, learn from each other's experiences, proactively communicate, shadowing & pairing on tasks
+- [My Philosophy on Alerting by Rob Ewaschuk](https://docs.google.com/document/d/199PqyG3UsyXlwieHaqbGiWVa8eMWi8zzAn0YfcApr8Q/edit?tab=t.0)
+> based my observations while I was a Site Reliability Engineer at Google
+
+_cf._ also [Monitoring](./Monitoring.md)
 
 ### Post-mortems
 - trying to organize it THE DAY AFTER THE EVENT, when it is fresh in people's minds
@@ -544,6 +554,7 @@ Learning is the goal during post-mortems (cf. [Learning Through Blameless Review
   * Partir d'une défaillance trop générale
   * Modéliser ce qui n'est pas de son ressort
   * En faire à chaque fois
+- [Why Amazon Never Makes The Same Mistake Twice: Correction of Error documents](https://beabetterdev.com/2025/02/23/why-amazon-never-makes-the-same-mistake-twice/#412:%20AWS%20%22Don't%20Mention%20TikTok%22%20for%20Containers%20-%2016799450)
 - cf. [PostMortemTemplate.md](PostMortemTemplate.md)
 
 ### Chaos Engineering aka Resilience Testing

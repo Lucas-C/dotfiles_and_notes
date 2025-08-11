@@ -297,8 +297,14 @@ The Colored Maze Game :
 https://www.reddit.com/r/puzzles/comments/k7jwla/colored_wall_maze/
 -> https://chezsoi.org/lucas/blog/images/enigmes/TheWallGame.jpg
 
+Path to Sofie's bedroom :
+https://www.reddit.com/r/puzzles/comments/1gbm956/help/
+
 Maze rule: do not make any left turn or U-turn!
 https://www.reddit.com/r/puzzles/comments/y5h2ua/is_this_maze_possible/
+
+Laser Escape (maze/labyrinth):
+https://www.reddit.com/r/puzzles/comments/1jej8p4/laser_escape/
 
 Simple geometry: nested squares
 https://www.reddit.com/r/puzzles/comments/125mvfm/nested_squares/
@@ -323,6 +329,9 @@ https://www.reddit.com/r/mathriddles/comments/ia1c59/a_game_of_ping_pong/
 
 https://www.reddit.com/r/puzzles/comments/15tymez/how_tall_is_the_table/
 Basic arithmetic
+
+https://stephanedurette.itch.io/pawn-queen
+Pawn = Queen (chess)
 
 https://www.brainzilla.com/logic/kyudoku/
 > In this logic puzzle you have to choose nine unique numbers (1 through 9) so that each row and column has a sum of 9 or less.

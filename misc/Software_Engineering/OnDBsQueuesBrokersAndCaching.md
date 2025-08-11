@@ -7,17 +7,17 @@ On DBs, Queues, Brokers and Caching
 
 <!-- toc -->
 
-    * [References](#references)
-    * [Memory caching system](#memory-caching-system)
-        + [memcached](#memcached)
-        + [Redis](#redis)
-        + [etcd](#etcd)
-    * [Queues](#queues)
-    * [Storage layer for numeric data series over time](#storage-layer-for-numeric-data-series-over-time)
-        + [Graphite](#graphite)
-    * [DBs](#dbs)
-        + [NoSQL DBs](#nosql-dbs)
-        + [SQL DBs](#sql-dbs)
+* [References](#references)
+* [Memory caching system](#memory-caching-system)
+    + [memcached](#memcached)
+    + [Redis](#redis)
+    + [etcd](#etcd)
+* [Queues](#queues)
+* [Storage layer for numeric data series over time](#storage-layer-for-numeric-data-series-over-time)
+    + [Graphite](#graphite)
+* [DBs](#dbs)
+    + [NoSQL DBs](#nosql-dbs)
+    + [SQL DBs](#sql-dbs)
 
 <!-- tocstop -->
 
@@ -301,7 +301,7 @@ Unless using --skip-auto-rehash,-A **tab-completion** aka 'automatic rehashing' 
 
 [Unix SSH Auth](http://www.mon-code.net/article/72/utiliser-le-compte-linux-pour-se-connecter-de-facon-securise-a-mariadb-et-mysql-sans-mot-de-passe)
 
-[REST API for v>5.7](www.infoq.com/news/2014/09/MySQL-REST)
+[REST API for v>5.7](http://www.infoq.com/news/2014/09/MySQL-REST)
 
 [MyWebSQL web admin UI](http://freedif.org/mywebsql-web-based-database-administration-panel/)
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# List files containg JavaScript code and print this code
+# List files containing JavaScript code and print this code
 # USAGE: ./get_js_from_pdf_files.py $files
 # Script Dependencies:
 #    pypdf

@@ -79,7 +79,7 @@
     prune-remotes-main = "!git remote prune origin && git branch --merged main | grep -v '^[ *]*main$' | xargs --no-run-if-empty git branch -d"
     prune-remotes-master = "!git remote prune origin && git branch --merged master | grep -v '^[ *]*master$' | xargs --no-run-if-empty git branch -d"
     prune-local-branches-without-remote = "!git branch -vv | grep -E ': (gone|disparue)\\]' | grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -D"
-    permission-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
+    permission-reset = !git diff -p -R --no-color HEAD | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 
     # Source: How to properly rebase and deal with a contributor's PR gist -> https://gist.github.com/hkaj/97c16a9ec6df6e6f1e18
     checkoutpr = "!f() { git fetch origin refs/pull/$1/head:pr/$1; git checkout pr/$1; }; f"
