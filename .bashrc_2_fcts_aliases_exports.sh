@@ -705,9 +705,11 @@ EOF
 # The k8s namespace must be provided as argument
 alias k8s-show-ns=" kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n"
 
-alias dl-vid="yt-dlp -f 'best[filesize<300M]'"
+alias dl-vid='yt-dlp --extractor-args "youtube:player_js_version=actual"'
 # This allows to retries a playlist download without re-downloading songs already downloaded:
 alias dl-playlist="yt-dlp -x -o '%(playlist_index)s - %(title)s.%(ext)s' --restrict-filenames --download-archive downloaded.txt --no-post-overwrites --parse-metadata 'playlist_index:%(track_number)s' --add-metadata"
+alias dl-subtitles="yt-dlp --write-auto-sub --skip-download"
+alias dl-subtitles-fr="dl-subtitles --sub-lang fr"
 
 function no-exif() {
     for img in "$@"; do
@@ -749,4 +751,8 @@ function container_copy_from_img() { # USAGE: container_copy_from_img $img $path
     local container_id=$($cmd create "$img")
     $cmd cp "$container_id:$path" "$dst_dir"
     $cmd rm "$container_id"
+}
+
+function targz_fast_extract() {
+    pv "$1" | tar --use-compress-program=pigz -x
 }

@@ -9,6 +9,7 @@
     * [Javascipt](#javascipt)
     * [Shell](#shell)
     * [Python](#python)
+    * [git Gitlab GitHub](#git-gitlab-github)
 - [Online platforms](#online-platforms)
     * [Tools & platforms to write docs / tutorials / practical exercises](#tools--platforms-to-write-docs--tutorials--practical-exercises)
 
@@ -200,6 +201,11 @@ Short exercises (30min to 1h) to practice Python programming:
 - [Reddit learnpython top resources of the year](https://www.reddit.com/r/learnpython/top/?t=year)
 - [Resources I've used and still use to learn Python](https://www.reddit.com/r/Python/comments/w2eowi/resources_ive_used_and_still_use_to_learn_python/)
 - https://trypython.jcubic.pl/ : interactive online interpreter
+
+### git Gitlab GitHub
+- Tutos FR : Comment contribuer une Merge Request ?
+    * https://pole-calcul-formation.gricad-pages.univ-grenoble-alpes.fr/outils-collaboratifs-gitlab/cours/pdf/outils_collab_gitlab.pdf : à partir de la page 109 notamment
+    * https://roza.gitlab.io/formation-git/git-cmds-branchs-depot-unique.pdf
 
 
 ## Online platforms

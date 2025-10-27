@@ -2,7 +2,7 @@
 # USAGE: ./a3-from-imgs.py [--a3/4/5/6] [--landscape] [--no-margin] [--repeat-imgs] $img_file1 [$img_file2]
 # Script Dependencies:
 #    fpdf2
-import argparse, sys
+import argparse, pathlib, sys
 from fpdf import FPDF
 
 
@@ -18,18 +18,21 @@ def gen(args):
     if args.margin is not None:
         pdf.set_margin(args.margin)
     half_h, half_w = pdf.eph/2, pdf.epw/2
+    kwargs = {"keep_aspect_ratio": not args.stretch}
     if args.format == "a5":
-        kwargs = dict(keep_aspect_ratio=True, h=pdf.eph, w=half_w)
+        kwargs["h"] = pdf.eph
+        kwargs["w"] = half_w
     elif args.format == "a6":
-        kwargs = dict(keep_aspect_ratio=True, h=half_h, w=half_w)
-    else:
-        kwargs = dict(keep_aspect_ratio=True)
+        kwargs["h"] = half_h
+        kwargs["w"] = half_w
     img_iterator = build_img_iterator(args)
     try:
         while True:
             first_img_on_page = next(img_iterator)
             if args.out is None:
-                args.out = f"{first_img_on_page[:-4]}.pdf"
+                args.out = first_img_on_page.with_suffix(".pdf")
+                if args.suffix:
+                    args.out = args.out.with_stem(args.out.stem + f"-{args.suffix}")
             pdf.add_page()
             if args.format == "a5":
                 pdf.image(first_img_on_page, **kwargs, x=pdf.x,        y=pdf.y)
@@ -73,11 +76,15 @@ def parse_args():
     parser.add_argument("--margin", type=float)
     parser.add_argument("--no-margin", action="store_const", dest="margin", const=0)
     parser.add_argument("--repeat-imgs", action="store_true")
-    parser.add_argument("--out", help="Output file path")
-    parser.add_argument("img_filepaths", nargs="+")
+    parser.add_argument("--stretch", action="store_true")
+    parser.add_argument("--out", type=pathlib.Path, help="Output file path. Default to the input file name with the extension replaced to .pdf")
+    parser.add_argument("--suffix", help="Suffix to append to the output file name")
+    parser.add_argument("img_filepaths", nargs="+", type=pathlib.Path)
     args = parser.parse_args(sys.argv[1:])
     if args.repeat_imgs and args.format not in ("a5", "a6"):
         parser.error("--repeat-imgs is only meaningful with --a5/6")
+    if args.out and args.suffix:
+        parser.error("Only one of --out & --suffix must be provided")
     return args
 
 

@@ -125,6 +125,9 @@ FROM: http://www.mindcipher.com/puzzles/121
 https://handsomeone.github.io/Nonogram nonogram (also known as hanjie, picross and griddlers) editor and solver
 -> pourrait révéler un QR code
 
+https://github.com/Lucas-C/minesweeper
+-> peut révêler un code
+
 https://chezsoi.org/shaarli/?searchtags=PuzzleGenerator
 
 https://github.com/Lucas-C/dotfiles_and_notes/tree/master/languages/web-d3/secret-grid

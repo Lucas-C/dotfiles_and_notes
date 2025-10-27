@@ -2,9 +2,11 @@
 "Downloads all new PDFs in https://www.famileo.com/web-family/#/gazette"
 # USAGE: ./famileo_archiver.py download_dir phpsessid
 # INSTALL: pip install selenium
+# In case of `locale.Error: unsupported locale setting` do: locale-gen fr_FR.UTF-8
 import argparse, locale, logging, os
 from datetime import datetime
 from pathlib import Path
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.common.by import By
@@ -31,6 +33,18 @@ def main():
     driver.add_cookie({"name": "PHPSESSID", "value": args.phpsessid})
     driver.get(URL)
     try:
+        print("Waiting for wall to be loaded...")
+        wait_for(driver, "#ngb-nav-0-panel")
+        try:  # Modale d'acceptation des cookies
+            driver.find_element(By.CSS_SELECTOR, "#tarteaucitronAllDenied2").click()
+            print("Modal #tarteaucitronAllDenied2 discarded")
+        except NoSuchElementException:
+            pass
+        try:  # Modale "Les événements du jour"
+            driver.find_element(By.CSS_SELECTOR, "#birthday-modal-ok-button").click()
+            print("Modal #birthday-modal-ok-button discarded")
+        except NoSuchElementException:
+            pass
         wait_for(driver, 'a[href="#/gazette"]').click()
         wait_for(driver, ".gazettes")
         for a in driver.find_elements(By.CSS_SELECTOR, ".gazettes a"):
@@ -54,7 +68,10 @@ def parse_args():
     parser.add_argument("--headless", default=False, action="store_true", help="Headless browser mode")
     parser.add_argument("--detach", default=False, action="store_true", help="Allows to keep the browser open after script has executed")
     parser.add_argument("--debug", default=False, action="store_true", help="Enable Selenium debug logs")
-    return parser.parse_args()
+    args = parser.parse_args()
+    if ';' in args.phpsessid or '=' in args.phpsessid:
+        parser.error("Invalid ; or = character in $PHPSESSID provided")
+    return args
 
 def init_browser(args):
     options = ChromeOptions()

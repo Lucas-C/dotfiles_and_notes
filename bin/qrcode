@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+import sys
+from qrcode import QRCode
+
+if len(sys.argv) < 2:
+    print("A target URL must be provided as argument", file=sys.stderr)
+    exit(1)
+
+url = sys.argv[1]
+
+if not url.startswith("http"):
+    print("Target URL must start with https:// or http://", file=sys.stderr)
+    exit(1)
+
+img_path = url.split("//")[1] + ".png"
+
+qr = QRCode()
+qr.add_data(url)
+img = qr.make_image(back_color="transparent")
+img.save(img_path)
+print(f"Produced: {img_path}")

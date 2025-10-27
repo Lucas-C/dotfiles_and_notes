@@ -1,5 +1,5 @@
 #!/bin/bash
-# USAGE: ./pdf2img2pdf.sh file.pdf [--landscape]
+# USAGE: ./pdf2img2pdf.sh file.pdf --aX [--landscape]
 set -o pipefail -o errexit -o nounset -o xtrace
 
 # $DENSITY can be defined before calling this script
@@ -16,7 +16,7 @@ SRC_PDF_NAME=$(basename "$SRC_PDF")
 # Calling ImageMagick:
 convert -density "$DENSITY" "$SRC_PDF_NAME" tmp-%03d.png
 rm "$SRC_PDF_NAME"
-$SCRIPT_DIR/a4-from-imgs "$@" --no-margin tmp-*.png
+$SCRIPT_DIR/aX-from-imgs.py "$@" --no-margin tmp-*.png
 DST_FILE="$OLDPWD/fromImgs-d$DENSITY-$SRC_PDF_NAME"
 mv *.pdf "$DST_FILE"
 echo "Moved to $DST_FILE"

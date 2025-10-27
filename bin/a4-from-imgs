@@ -1,3 +1,3 @@
 #!/bin/bash
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
-$SCRIPT_DIR/aX-from-imgs.py --format a4 "$@"
+$SCRIPT_DIR/aX-from-imgs.py --format a4 --suffix A4 "$@"

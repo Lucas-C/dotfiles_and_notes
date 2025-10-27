@@ -450,7 +450,7 @@ Alt: HTTP header Range avec valeur non numérique
   > RPC-based APIs are great for actions [while] REST-based APIs are great for modeling your domain
 
 + representation for RESTful APIs: Swagger==OpenAPI / API Blueprint / APIDOC
-cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-generated doc & server mocks + auto integration testing with [dredd](https://github.com/apiaryio/dredd) (NodeJS) + has a free plan
+cf. https://apiary.io -> online APi editor with persistance on GitHub + auto-generated doc & server mocks + auto integration testing with [dredd](https://github.com/apiaryio/dredd) (NodeJS, now abandonned: https://github.com/apiaryio/dredd/issues/2294 )
 [oasdiff](https://www.oasdiff.com/) is an OpenAPI Specification Diff Tool which can be used as a command-line utility (or Go package) to compare two versions of OpenAPI specifications (OAS) and identify the differences or changes between them
 
 Handling **deprecation**:
