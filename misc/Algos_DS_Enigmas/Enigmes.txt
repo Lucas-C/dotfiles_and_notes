@@ -300,6 +300,12 @@ The Colored Maze Game :
 https://www.reddit.com/r/puzzles/comments/k7jwla/colored_wall_maze/
 -> https://chezsoi.org/lucas/blog/images/enigmes/TheWallGame.jpg
 
+Maze where you must pass through every square :
+https://www.reddit.com/r/puzzles/comments/1ktez57/labyrinth_puzzle_i_made_for_you_fine_folks_rules/
+
+Maze where you MUST cross each line ONCE :
+https://www.reddit.com/r/puzzles/comments/1k77btb/comment/mox95eb/
+
 Path to Sofie's bedroom :
 https://www.reddit.com/r/puzzles/comments/1gbm956/help/
 
@@ -360,6 +366,8 @@ b. 3
 c. 6
 d. 9/2
 e. 9
+
+pdf-game/Anna-noel-2025 : chemin a tracer pour rendre visite a tous les champignons, sans ecraser les fleurs
 
 ## Énigmes de chasse au trésor
 https://www.explorador.fr/enigme-chasse-au-tresor/

@@ -12,7 +12,14 @@ if not url.startswith("http"):
     print("Target URL must start with https:// or http://", file=sys.stderr)
     exit(1)
 
-img_path = url.split("//")[1] + ".png"
+url_slug = url
+if "//" in url_slug:
+    url_slug = url_slug.split("//")[1]
+while url_slug.endswith("/"):
+    url_slug = url_slug[:-1]
+if "/" in url_slug:
+    url_slug = url_slug.split("/")[-1]
+img_path = f"qrcode-{url_slug}.png"
 
 qr = QRCode()
 qr.add_data(url)
