@@ -75,8 +75,8 @@ Content-Security-Policy HTTP response header : reduce XSS risks by declaring wha
 [browser autofill phishing](https://github.com/anttiviljami/browser-autofill-phishing)
 [Target="_blank" - the most underestimated vulnerability ever](https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/)
 
-- [faille IDOR](https://chezsoi.org/lucas/wwcb/photos/faille-IDOR.png)
-- [faille OpenRedirect](https://chezsoi.org/lucas/wwcb/photos/faille-OpenRedirect.png)
+- [faille IDOR](https://chezsoi.org/lucas/wwcb/faille-IDOR.png)
+- [faille OpenRedirect](https://chezsoi.org/lucas/wwcb/faille-OpenRedirect.png)
 
 https://github.com/x0rz/EQGRP - NSA hacking tools - Decrypted content of eqgrp-auction-file.tar.xz released by "The Shadow Brokers" : supposedly a free sample of the files exfiltrated from the Equation Group
 

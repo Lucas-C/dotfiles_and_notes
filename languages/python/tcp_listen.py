@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # A simple Python 3 equivalent for `nc -l` command, e.g. to listen for Graphite logs
 # USAGE: ./tcp_listen.py $host $port
-import socket, sys
+import sys
 from socketserver import StreamRequestHandler, TCPServer
 
 class RequestHandler(StreamRequestHandler):

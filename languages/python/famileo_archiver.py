@@ -4,7 +4,7 @@
 # INSTALL: pip install selenium
 # In case of `locale.Error: unsupported locale setting` do: locale-gen fr_FR.UTF-8
 import argparse, locale, logging, os
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import Chrome
@@ -43,6 +43,11 @@ def main():
         try:  # Modale "Les événements du jour"
             driver.find_element(By.CSS_SELECTOR, "#birthday-modal-ok-button").click()
             print("Modal #birthday-modal-ok-button discarded")
+        except NoSuchElementException:
+            pass
+        try:  # Autres modales
+            driver.find_element(By.CSS_SELECTOR, ".close").click()
+            print("Modal closed by clicking on .close button")
         except NoSuchElementException:
             pass
         wait_for(driver, 'a[href="#/gazette"]').click()
@@ -118,10 +123,14 @@ def list_existing_pdf_files(download_dir):
     existing_dates = set()
     locale.setlocale(locale.LC_ALL, "fr_FR.UTF-8")  # set locale for strptime
     for pdf_file in Path(download_dir).glob("*.pdf"):
-        existing_dates.add(datetime.strptime(pdf_file.name, ARCHIVER_FILE_FORMAT))
+        publication_day = datetime.strptime(pdf_file.name, ARCHIVER_FILE_FORMAT)
+        existing_dates.add(publication_day)
+        # Sometimes the date in PDF file name is one day before the date visible in the HTML page:
+        existing_dates.add(publication_day - timedelta(days=1))
     return existing_dates
 
 def rename_downloaded_files(download_dir):
+    locale.setlocale(locale.LC_ALL, "fr_FR.UTF-8")  # set locale for strptime
     for pdf_file in Path(download_dir).glob("*.pdf"):
         try:
             datetime.strptime(pdf_file.name, ARCHIVER_FILE_FORMAT)

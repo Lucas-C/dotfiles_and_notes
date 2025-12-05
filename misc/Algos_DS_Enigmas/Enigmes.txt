@@ -344,7 +344,7 @@ Pawn = Queen (chess)
 
 https://www.brainzilla.com/logic/kyudoku/
 > In this logic puzzle you have to choose nine unique numbers (1 through 9) so that each row and column has a sum of 9 or less.
--> could lead to a 9-digits code
+-> could lead to a 9-digits code -> https://chezsoi.org/lucas/code/ ?
 
 Sliding blocks on a small line map:
 https://www.reddit.com/r/puzzles/comments/18m9tks/little_puzzle_i_came_up_with/
