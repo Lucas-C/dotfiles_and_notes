@@ -15,6 +15,7 @@ MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage - Alt: h
 * uBlock
 * Clippings
 * ViolentMonkey
+* Unhook : Remove YouTube Recommended Videos Comments
 * Refined GitHub
 * https://webhint.io : improve your site accessibility, speed, cross-browser compatibility
 * https://github.com/tilfinltd/aws-extend-switch-roles

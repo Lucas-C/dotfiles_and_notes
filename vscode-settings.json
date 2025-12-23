@@ -128,5 +128,6 @@
   "git.openRepositoryInParentFolders": "never",
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
-  }
+  },
+  "workbench.editor.empty.hint": "hidden"
 }

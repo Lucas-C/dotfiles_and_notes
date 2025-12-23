@@ -7,7 +7,7 @@
 import json, os, sys
 from flask import Flask, redirect, request
 
-URL_PER_CODE = json.loads(os.environ['URL_PER_CODE'])
+URL_PER_CODE = json.loads(os.environ.get('URL_PER_CODE', '{}'))
 DEBUG = bool(os.environ.get('DEBUG'))
 PORT = int(os.environ.get('PORT', '8083'))
 BASE_HTML = '''<!DOCTYPE html>
@@ -42,36 +42,46 @@ app = Flask(__name__)
 
 @app.route('/', methods=('GET', 'POST'))
 def root():
+    input_type = request.args.get('t', 'n').lower()  # n (number) OR w (word)
+    size = int(request.args.get('s', '6'))
     error = ''
     if request.method == 'POST':
         str_code = request.form['code']
-        code = sanitize(str_code)
-        if code is False:
+        code = sanitize(str_code, input_type, size)
+        if code is None:
             log('Non-sane "code" received:', str_code)
             error = f'Le code reçu n\'a pas le bon format : {str_code}'
         else:
             url = URL_PER_CODE.get(code)
             if url:
                 return redirect(url)
-            error = f'Code incorrect : {code:06}'
+            if input_type == 'n':
+                code = f'{code:>06}'
+            error = f'Code incorrect : {code}'
         error += '\n<br><hr>'
-    return BASE_HTML.format(body=f'''{error}
+    if input_type == 'w':  # word
+        input_html = f'<input type="text" name="code" maxlength="{size}" size="{size}" placeholder="ABCDEFGH" required style="text-transform: uppercase"/>'
+    else:  # number
+        input_html = f'<input type="number" name="code" maxlength="{size}" size="{size}" placeholder="123456789" required/>'
+    body = f'''{error}
     <form method="POST">
-        <label for="code">Entrez le code :</label>
+        <label for="code">Quel est le code ?</label>
         <br><br>
-        <input type="number" name="code" maxlength="6" size="6" pattern="\\d{6}" placeholder="123456" required/>
+        {input_html}
         <br><br>
-        <input type="submit"/>
-    </form>''')
+        <input type="submit" value="Essayer"/>
+    </form>'''
+    return BASE_HTML.format(body=body)
 
-def sanitize(code: str):
+def sanitize(code: str, input_type: str, size: int) -> str | None:
+    if len(code) > size:
+        return None
+    if input_type != 'n':
+        return code.upper()
     try:
-        code = int(code)
+        return code if int(code) >= 0 else None
     except:
-        return False
-    if 0 <= int(code) < 1000000:
-        return str(code)
-    return False
+        return None
 
 if __name__ == '__main__':
     app.run(debug=DEBUG, port=PORT)

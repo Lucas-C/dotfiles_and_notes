@@ -167,6 +167,7 @@ https://www.cherubicsoft.com/en/projects/sagethumbs/ :: alternative explorer.exe
 <############
 ## PowerShell
 ############>
+# .bashrc equivalent: C:\Users\%USERNAME%\Documents\WindowsPowerShell\Profile.ps1
 Remove-Item $file
 Get-Help Remove-Item -full
 Get-Service | ConvertTo-HTML -Property Name, Status > C:\services.htm
