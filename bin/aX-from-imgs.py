@@ -3,6 +3,7 @@
 # Script Dependencies:
 #    fpdf2
 import argparse, pathlib, sys
+from itertools import count
 from fpdf import FPDF
 from fpdf.enums import PageOrientation
 from fpdf.image_parsing import preload_image
@@ -11,14 +12,10 @@ from fpdf.image_parsing import preload_image
 def gen(args):
     if args.format == "a5":
         pdf_format = "a4"
-        if args.orientation:
-            print(f"Ignoring --orientation {args.orientation} - Forcing: landscape")
-        args.orientation = "landscape"
+        if not args.orientation:
+            args.orientation = "landscape"
     elif args.format == "a6":
         pdf_format = "a4"
-        if args.orientation:
-            print(f"Ignoring --orientation {args.orientation} - Forcing: portrait")
-        args.orientation = "portrait"
     else:
         pdf_format = args.format
     pdf = FPDF(format=pdf_format, orientation=args.orientation or "portrait")
@@ -26,8 +23,12 @@ def gen(args):
     half_h, half_w = pdf.eph/2, pdf.epw/2
     kwargs = {"keep_aspect_ratio": not args.stretch}
     if args.format == "a5":
-        kwargs["h"] = pdf.eph - 2*args.padding
-        kwargs["w"] = half_w - 2*args.padding
+        if args.orientation == "landscape":
+            kwargs["h"] = pdf.eph - 2*args.padding
+            kwargs["w"] = half_w - 2*args.padding
+        else:
+            kwargs["h"] = half_h - 2*args.padding
+            kwargs["w"] = pdf.epw - 2*args.padding
     elif args.format == "a6":
         kwargs["h"] = half_h - 2*args.padding
         kwargs["w"] = half_w - 2*args.padding
@@ -36,15 +37,16 @@ def gen(args):
         kwargs["w"] = pdf.epw - 2*args.padding
     img_iterator = build_img_iterator(args)
     try:
-        while True:
+        for index in count(1):
             first_img_on_page = next(img_iterator)
             if not args.orientation:
                 _name, _img, info = preload_image(pdf.image_cache, first_img_on_page)
                 orientation = PageOrientation.LANDSCAPE if info["w"] > info["h"] else PageOrientation.PORTRAIT
-                print(f"Auto-detected document orientation: {orientation.name}")
-                pdf._set_orientation(orientation, pdf.dw_pt, pdf.dh_pt)
-                pdf.def_orientation = pdf.cur_orientation
-                args.orientation = orientation  # to avoid re-entering this "if" later
+                print(f"Auto-detected document orientation for page {index}: {orientation.name}")
+                if orientation != pdf.cur_orientation:
+                    pdf._set_orientation(orientation, pdf.dw_pt, pdf.dh_pt)
+                    pdf.def_orientation = pdf.cur_orientation
+                    kwargs["h"], kwargs["w"] = kwargs["w"], kwargs["h"]
             if args.out is None:
                 args.out = first_img_on_page.with_suffix(".pdf")
                 if args.suffix:
@@ -52,18 +54,21 @@ def gen(args):
             pdf.add_page()
             if args.format == "a5":
                 pdf.image(first_img_on_page, **kwargs,  x=pdf.x+args.padding,        y=pdf.y+args.padding)
-                pdf.image(next(img_iterator), **kwargs, x=pdf.x+args.padding+half_w, y=pdf.y+args.padding)
+                if pdf.cur_orientation == PageOrientation.LANDSCAPE:
+                    pdf.image(next(img_iterator), **kwargs, x=pdf.x+args.padding+half_w, y=pdf.y+args.padding)
+                else:
+                    pdf.image(next(img_iterator), **kwargs, x=pdf.x+args.padding, y=pdf.y+args.padding+half_h)
             elif args.format == "a6":
                 pdf.image(first_img_on_page, **kwargs,  x=pdf.x+args.padding,        y=pdf.y+args.padding)
                 pdf.image(next(img_iterator), **kwargs, x=pdf.x+args.padding+half_w, y=pdf.y+args.padding)
                 pdf.image(next(img_iterator), **kwargs, x=pdf.x+args.padding,        y=pdf.y+args.padding+half_h)
                 pdf.image(next(img_iterator), **kwargs, x=pdf.x+args.padding+half_w, y=pdf.y+args.padding+half_h)
             else:
-                pdf.image(first_img_on_page,**kwargs, x=args.padding, y=args.padding)
+                pdf.image(first_img_on_page,**kwargs, x=pdf.x+args.padding, y=pdf.y+args.padding)
     except StopIteration:  # raised by next(img_iterator) at some point
         pass
     pdf.output(args.out)
-    print(f"{args.out} generated")
+    print(f"{args.out} generated with {index - 1} pages")
 
 
 def build_img_iterator(args):
@@ -93,14 +98,15 @@ def parse_args():
     parser.add_argument("--padding", type=float, default=0, help="Inner image padding")
     parser.add_argument("--repeat-imgs", action="store_true")
     parser.add_argument("--stretch", action="store_true")
-    parser.add_argument("--out", type=pathlib.Path, help="Output file path. Default to the input file name with the extension replaced to .pdf")
+    parser.add_argument("--out", "-o", type=pathlib.Path, help="Output file path. Default to the input file name with the extension replaced to .pdf")
     parser.add_argument("--suffix", help="Suffix to append to the output file name")
     parser.add_argument("img_filepaths", nargs="+", type=pathlib.Path)
     args = parser.parse_args(sys.argv[1:])
     if args.repeat_imgs and args.format not in ("a5", "a6"):
         parser.error("--repeat-imgs is only meaningful with --a5/6")
     if args.out and args.suffix:
-        parser.error("Only one of --out & --suffix must be provided")
+        print("WARNING: --out & --suffix both provided, --suffix is ignored")
+        args.suffix = None
     return args
 
 

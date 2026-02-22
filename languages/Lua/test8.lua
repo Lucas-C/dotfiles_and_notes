@@ -1,7 +1,7 @@
 #!/usr/bin/lua
 
 function permgen (a, n)
-    n = n or table.getn(a)
+    n = n or #a
     if n == 0 then
         coroutine.yield(a)
 --~         printResult(a)

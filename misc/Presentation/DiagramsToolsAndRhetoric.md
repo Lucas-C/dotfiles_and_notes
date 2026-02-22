@@ -172,8 +172,9 @@ service2 ---> api1 : consume
 
 ## Histograms & other graphs
 - [Chart.js](https://www.chartjs.org) : used on https://nf-co.re/stats#github_prs
-- [tehmaze/diagram](https://github.com/tehmaze/diagram) : text mode utf8 diagrams in colors, in Python
+- [termgraph](https://github.com/mkaz/termgraph) - [tehmaze/diagram](https://github.com/tehmaze/diagram) : text mode utf8 diagrams in colors, in Python
 - <https://plot.ly> examples: https://plot.ly/javascript/histograms/
+- `gnuplot` can easily graph time series data, _cf._ `UnixUsefulCmds.sh`
 
 # Libs adding interactivity to a page
 * https://github.com/MaxLaumeister/collectibles.js JS library for adding collectible items to your website

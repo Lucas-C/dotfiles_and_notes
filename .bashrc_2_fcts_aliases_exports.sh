@@ -9,6 +9,7 @@ PATH=/usr/sbin:$PATH
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/sbin:$PATH
 PATH=~/.local/bin/:$PATH
+PATH=~/.luarocks/bin/:$PATH
 PATH=$BASHRC_DIR/bin:$PATH
 
 NPM_PACKAGES="$HOME/.npm-packages"
@@ -515,7 +516,11 @@ src2pdf () {
 }
 
 fqdn () { python2 -c "import socket ; print socket.gethostbyaddr(\"$@\")[2]" ; } # Better than 'getfqdn' as it will fail properly in case it doesn't find a match
-ext_ip () { dig +short myip.opendns.com @resolver1.opendns.com; } # faster than HTTP, e.g. ipecho.net/plain checkip.dyndns.org ifconfig.me
+ext_ip () { dig +short myip.opendns.com @resolver1.opendns.com; } # faster than HTTP
+ext_ip2 () { curl ipecho.net/plain; }
+ext_ip3 () { curl ifconfig.me; }
+ext_ip4 () { curl ipinfo.io/ip; }
+ext_ip5 () { curl checkip.dyndns.org; }
 int_ips () { /sbin/ifconfig $1 | grep "inet[^0-9]" | sed 's/.*[^0-9]\([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\)[^0-9].*/\1/' | grep -v '127\.0\.0\.1'; }
 
 mtr_proto () {

@@ -241,7 +241,8 @@ call:foo
 for /f "usebackq tokens=*" %p in (`powershell -Command "$pword = read-host 'Enter Password' -AsSecureString; $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)"`) do set PASSWORD=%p
 
 https://apps.microsoft.com/detail/9pg2dk419drg :: support for .webp images in Windows Photos, including thumbnails generation
-https://store.rg-adguard.net/ :: converts apps.microsoft.com/* package URLs to download links, allowing manual install of .AppxBundle packages - Alt: use winget - cf. https://serverfault.com/a/1120490
+https://apps.microsoft.com/detail/9pmmsr1cgpwg :: support for HEIF (.avif) images in Windows Photos, including thumbnails generation
+https://store.rg-adguard.net/ :: converts apps.microsoft.com/* package URLs to download links, allowing manual install of .AppxBundle packages - Alt: use winget - cf. https://serverfault.com/a/1120490 - Alt (tested at work): Download-AppxPackage - cf. https://serverfault.com/a/1052641/97081
 
 
 '''''''''''''
@@ -267,3 +268,6 @@ Optimize-VHD -Path $env:HOMEPATH\Ubuntu_2004.2020.424.0_x64\ext4.vhdx
 $ cat /etc/wsl.conf
 [automount]
 options = "metadata"
+
+# mount Google Drive:
+sudo mount -t drvfs I: /mnt/i

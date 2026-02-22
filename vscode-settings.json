@@ -42,7 +42,8 @@
     "editor.suggest.insertMode": "replace",
     "editor.formatOnPaste": true,
     "editor.formatOnType": true,
-    "editor.formatOnSaveMode": "file"
+    "editor.formatOnSaveMode": "file",
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform",

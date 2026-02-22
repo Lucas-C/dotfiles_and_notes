@@ -408,8 +408,33 @@ replot
 # Loop by rereading this file, doesn't work with -e on the command-line
 reread
 EOF
-tail -F $log_file | grep $keyword | pv --line-mode --numeric >/dev/null 2>$in_data_file & # Alt: petit --sgraph
+tail -F $log_file | grep $keyword | pv --line-mode --numeric >/dev/null 2>$in_data_file & # Alt: fatherlinux/petit --sgraph
 gnuplot $loop_cfg_file # real-time ASCII graphing !
+
+# Chart some data over time:
+cat >plot-time-series.gp <<EOF
+# Configure date parsing as x-axis:
+set xdata time
+set timefmt "%Y-%m-%d"
+# Configure boxes width:
+set boxwidth 5000 absolute
+# Remove default legend & set title:
+set key noautotitle
+set title ARG1
+# Output as PNG:
+set terminal png
+set output ARG2
+# Use stdin, use 2nd column for x, 1st for y, render boxes:
+plot '<cat' using 2:1 with boxes
+EOF
+grep -F $pattern $date_prefixed_log_files \
+  | cut -d 'T' -f 1 \
+  | uniq -c \
+  | sed 's/^ \+//' \
+  | gnuplot -c plot-time-series.gp $title $png_out_filename
+
+https://stackoverflow.com/questions/41602351/how-to-make-gnuplot-charts-look-more-visually-appealing
+https://github.com/Gnuplotting/gnuplot-palettes
 
 
 ++++++++++++++++

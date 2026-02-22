@@ -12,11 +12,13 @@ veltman/flubber // best-guess methods for smoothly interpolating between 2D shap
 /*~*~*~*~*/
 /* d3.js */
 /*~*~*~*~*/
-Simpler DSL / higher level layers: c3.js b3.js d4.js a3.js (for 3D)
-Simple animated gauge with C3 : http://c3js.org/samples/chart_gauge.html
+C3.js : D3-based reusable chart library
+    Simple animated gauge with C3 : http://c3js.org/samples/chart_gauge.html
 
 MetricsGraphics.js // D3-based lib to visualize time-series data : http://metricsgraphicsjs.org/examples.htm
 Alt: https://square.github.io/cubism/
+
+https://github.com/sebastian-meier/d3.sketchy : create sketchy backgrounds, shapes and lines
 
 d3.select("css-selector").append("elem") // Also: selectAll
 

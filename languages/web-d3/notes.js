@@ -355,6 +355,7 @@ log(util.inspect(process._getActiveHandles()));
 plato // source code visualization, static analysis, and complexity tool
 FGRibreau/check-build // includes:
     eslint --fix > JSHint > JSLint > gjslint --disable 0001,0011,0110,0120,0121 -r src/ -e .flowlibs // static code analysis
+        eslint-plugin-boundaries
     JSCS // code style checker
     jsinspect // check for code duplication
     buddy.js // detect magic numbers

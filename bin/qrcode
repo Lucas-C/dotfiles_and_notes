@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# TODO: --margin 0
 import sys
 from qrcode import QRCode
 

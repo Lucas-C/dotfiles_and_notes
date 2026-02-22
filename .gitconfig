@@ -4,6 +4,7 @@
     br = branch
     co = checkout
     st = status
+    wt = worktree
     pff = push --force-if-includes --force-with-lease
     # include creation dates into the output:
     sl = stash list --date=local
