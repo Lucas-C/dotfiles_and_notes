@@ -18,6 +18,7 @@ Alternative tools for CloudWatch logs:
 
 * [awslogs](https://github.com/jorgebastida/awslogs): simple command line tool for querying groups, streams and events
 * [cw](https://github.com/lucagrulla/cw): tail AWS CloudWatch Logs from your terminal
+* [aws-doctor](https://github.com/elC0mpa/aws-doctor) : open-source CLI to audit security, costs, and best practices in AWS
 
 ## Heroku
 

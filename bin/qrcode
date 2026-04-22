@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# INSTALL: pip install qrcode
 # TODO: --margin 0
 import sys
 from qrcode import QRCode

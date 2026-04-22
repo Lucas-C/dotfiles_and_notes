@@ -715,6 +715,7 @@ alias dl-vid='yt-dlp --extractor-args "youtube:player_js_version=actual"'
 alias dl-playlist="yt-dlp -x -o '%(playlist_index)s - %(title)s.%(ext)s' --restrict-filenames --download-archive downloaded.txt --no-post-overwrites --parse-metadata 'playlist_index:%(track_number)s' --add-metadata"
 alias dl-subtitles="yt-dlp --write-auto-sub --skip-download"
 alias dl-subtitles-fr="dl-subtitles --sub-lang fr"
+# Also useful: --embed-subs
 
 function no-exif() {
     for img in "$@"; do
@@ -756,6 +757,13 @@ function container_copy_from_img() { # USAGE: container_copy_from_img $img $path
     local container_id=$($cmd create "$img")
     $cmd cp "$container_id:$path" "$dst_dir"
     $cmd rm "$container_id"
+}
+
+function artifactory_list_docker_tags() {  # E.g. 
+    local repo_key=${1?'Required'}
+    local image_name=${2?'Required'}
+    # $REGISTRY_API_URL must end with /artifactory/api
+    curl --fail --silent --user "${REGISTRY_USERNAME?'Required'}:${REGISTRY_PASSWORD?'Required'}" ${REGISTRY_API_URL?'Required'}/docker/${repo_key}/v2/${image_name}/tags/list | jq -r .
 }
 
 function targz_fast_extract() {

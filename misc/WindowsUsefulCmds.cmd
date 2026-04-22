@@ -244,6 +244,11 @@ https://apps.microsoft.com/detail/9pg2dk419drg :: support for .webp images in Wi
 https://apps.microsoft.com/detail/9pmmsr1cgpwg :: support for HEIF (.avif) images in Windows Photos, including thumbnails generation
 https://store.rg-adguard.net/ :: converts apps.microsoft.com/* package URLs to download links, allowing manual install of .AppxBundle packages - Alt: use winget - cf. https://serverfault.com/a/1120490 - Alt (tested at work): Download-AppxPackage - cf. https://serverfault.com/a/1052641/97081
 
+:: Useful commands to diagnose & debug windows printer / spooler:
+wmic printer list brief                           :: provide printers states & statuses (status codes: 3=IDLE 4=PRINTING)
+wmic printer get DriverName,Name,Portname,Status
+net stop spooler && net start spooler             :: restart the spooler
+
 
 '''''''''''''
 '' VBScript

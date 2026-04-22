@@ -1,0 +1,41 @@
+#!/bin/bash
+# Script to generate an autonomous <img> HTML tag with base64 content from an image file
+set -o pipefail -o errexit -o nounset
+
+cmd_exists () { type "$1" >/dev/null 2>/dev/null; }
+
+IMG_FILEPATH="${1?'Required'}"
+if [[ $IMG_FILEPATH =~ .jpe?g ]]; then
+    MIME_TYPE=image/jpeg
+    if cmd_exists jpegoptim; then
+        jpegoptim --all-progressive -m90 "$IMG_FILEPATH"
+        echo "JPEG image optimized"
+    fi
+elif [[ $IMG_FILEPATH =~ .png ]]; then
+    MIME_TYPE=image/png
+    if cmd_exists pngquant; then
+        pngquant --ext .png -f "$IMG_FILEPATH"
+        echo "PNG image optimized"
+    fi
+elif [[ $IMG_FILEPATH =~ .svg ]]; then
+    MIME_TYPE=image/svg+xml
+else
+    echo "Unknown image mime type" >&2
+    exit 1
+fi
+echo "Guessed MIME_TYPE=$MIME_TYPE"
+TMP_FILE=$(mktemp)
+base64 --wrap=0 "$1" >$TMP_FILE
+
+HTML_FILEPATH="${IMG_FILEPATH%.*}.html"
+echo "<img src=\"data:$MIME_TYPE;base64,$(cat $TMP_FILE)\">" >"$HTML_FILEPATH"
+rm "$TMP_FILE"
+echo "$HTML_FILEPATH generated"
+ls -hl "$HTML_FILEPATH"
+
+for cmd in xclip clip.exe pbcopy; do
+    if cmd_exists $cmd; then
+        echo "$cmd found in \$PATH, now copying $HTML_FILEPATH content to clipboard"
+        cat "$HTML_FILEPATH" | $cmd
+    fi
+done
