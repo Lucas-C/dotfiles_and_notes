@@ -749,7 +749,7 @@ wget --random-wait --recursive -e robots=off -U mozilla http://www.example.com #
   -c --continue : continue getting a partially-downloaded file
   --spider : do not download pages, only check they exist. Useful e.g. with --input-file bookmarks.html
 curl --fail --insecure --head --header "$(< $headers_file)" -d @data_file # --trace-ascii - - http://curl.haxx.se/docs/httpscripting.html - Alt: jakubroztocil/httpie
-curl_with_error_code () { # Better than curl --fail as the response body is still sent to stdout
+curl_with_error_code () { # Better than curl --fail as the response body is still sent to stdout - Alt: --fail-with-body (if curl version supports it)
     _curl_with_error_code "$@" | sed '$d'
 }
 _curl_with_error_code () {    local curl_error_code http_code
@@ -812,7 +812,10 @@ openssl s_client -CApath $ca -cert $cert -key $key -connect $host:443 -ssl3 # ba
 curl -v --cacert $ca --cert $cert --key $key $host:443
 openssl x509 -text -dates -noout -in $cert.pem # get certs details - For full chain: https://kdecherf.com/blog/2015/04/10/show-the-certificate-chain-of-a-local-x509-file/#fnref-disqus
 openssl x509 -inform der -in $cert.cer -out $cert.pem # convert .cer to .pem
-openssl s_client -showcerts -servername $host -connect $host:443 </dev/null | openssl x509 > ${host}cert.pem  # retrieve a server certificate - can detect "certificate has expired"
+openssl s_client -showcerts -servername $host -connect $host:443 </dev/null | openssl x509 > ${host}-cert.pem  # retrieve a server certificate - can detect "certificate has expired"
+# Check that a private key match a certificate (both commands must return the same thing):
+    openssl rsa  -noout -modulus -in $private_key | openssl md5
+    openssl x509 -noout -modulus -in $certificate | openssl md5
 keytool -printcert -file $cert.pem # get certs details
 sshfs # && fusermount -u
 Russell91/sshrc # bring your .*rc with you
@@ -1158,6 +1161,7 @@ https://www.google.fr/search?q=5%2B(-sqrt(1-x^2-(y-abs(x))^2))*sin(100*((10-x^2-
 youtube-dl --ignore-errors --format best --extract-audio FLF8xTv55ZmwikWWmWLPEAZQ # download playlist as .m4a files - in case of HTTP error 500, try -f18
 youtube-dl --write-auto-sub --skip-download --sub-lang fr https://www.youtube.com/watch?v=$id | grep -A1 -F ' --> '
 normalize-audio *.mp3
+mp3gain -r -k **mp3  # normalize audio gain dB - cf. https://doc.ubuntu-fr.org/mp3gain
 
 # Snippet-search
 cse_id=003799500572498885021:6zbuscnifvi
@@ -1285,3 +1289,15 @@ pm uninstall --user 0 $package_id # delete/remove some app by ID - does not requ
 [#~#~#~#~#~#~#~#]
 fido2-token -L  # list devices
 fido2-token -I $device  # inspect device
+
+
+~°~°~°~°~°~
+~°~ WSL ~°~
+~°~°~°~°~°~
+$ cat .wslconfig
+[wsl2]
+# Limit .vhdx size to 100GB:
+defaultVhdSize=100000000000
+kernelCommandLine=ipv6.disable=1
+localhostForwarding=true
+swap=0

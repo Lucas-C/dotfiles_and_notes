@@ -14,9 +14,12 @@ cd "$TMP_DIR"
 SRC_PDF_NAME=$(basename "$SRC_PDF")
 
 # Calling ImageMagick:
-convert -density "$DENSITY" "$SRC_PDF_NAME" tmp-%03d.png
+convert -density "$DENSITY" "$SRC_PDF_NAME" tmp-%03d.jpg
 rm "$SRC_PDF_NAME"
-$SCRIPT_DIR/aX-from-imgs.py "$@" --no-margin tmp-*.png
+for jpg in tmp-*.jpg; do
+    jpegoptim --all-progressive -m90 "${jpg}"
+done
+$SCRIPT_DIR/aX-from-imgs.py "$@" tmp-*.jpg
 DST_FILE="$OLDPWD/fromImgs-d$DENSITY-$SRC_PDF_NAME"
 mv *.pdf "$DST_FILE"
 echo "Moved to $DST_FILE"

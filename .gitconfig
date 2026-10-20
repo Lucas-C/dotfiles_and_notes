@@ -68,8 +68,6 @@
 
     ls-tags = "!git tag --list | xargs -I{} git show --no-patch --format=format:'{}  %h  %cd\n' {}^{commit} | sort --version-sort"
     rm-tags = "!git tag --list | xargs -I{} git tag -d {}"
-    # List all [Labels] in commit msgs, stripping digits
-    ls-labels = "!git log --pretty=format:%s | sed -e 's/[0-9]//g' -e 's/^Revert \"//' -e 's/\\(\\[[^]]\\+\\]\\)[^[]*/\\1\\n/g' | grep -F [ | sort | uniq -c"
 
     # List file changes (A/M/D) that affected a single directory
     dir-history = log --name-status
@@ -141,3 +139,7 @@
     defaultBranch = main
 [gpg]
     program = gpg2
+[user]
+	email = TEAM_SYG@oui.sncf
+[pack]
+	windowMemory = 512m

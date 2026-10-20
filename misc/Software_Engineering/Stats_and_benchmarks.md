@@ -9,6 +9,7 @@ Alternatives :
 
 - Gatling (Scala avec Akka et Netty)
 - https://k6.io (Go + NodeJS)
+- mcollina/autocannon (NodeJS)
 - loads/molotov (Python)
 - locustio/locust (Python)
 - wg/wrk (C) modern HTTP benchmarking tool

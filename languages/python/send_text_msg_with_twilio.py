@@ -3,12 +3,12 @@ import os, sys, time
 from twilio.rest import Client
 
 # USAGE:
-#   export $(xargs < .twilio)
+#   export $(xargs < .twilio_env)
 #   curl -u $TWILIO_ACCOUNT_SID:$TWILIO_AUTH_TOKEN -G https://api.twilio.com/2010-04-01/Accounts/$TWILIO_ACCOUNT_SID/IncomingPhoneNumbers.json | jq -r '.incoming_phone_numbers[].phone_number'
 #   cat msg.txt | ./send_text_msg_with_twilio.py 00353...
 
 # Interesting twilio widget: https://www.twilio.com/labs/twimlets/menu
-# Alt: bandwidth, nexmo, plivo, sinch
+# Alt: bandwidth, nexmo, plivo, sinch, httpsms (cf. script)
 
 def main():
     if len(sys.argv) < 2:

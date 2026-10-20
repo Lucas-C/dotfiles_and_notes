@@ -26,7 +26,7 @@ MAJ+F2: screenshot --fullpage $filename # PNG screenshot of the webpage - Alt: h
 * Mailevelope
 * OverbiteNX : gopher support, requires OverbiteNX binaries to be installed on OS
 * GreaseMonkey/TamperMonkey, ChickenFoot, Scrapbook, iMacros, DejaClick # for web scrapping
-
+* https://libredirect.github.io : redirects YouTube, Instagram, Reddit, Twitter and other websites to alternative privacy-friendly frontends
 
 https://developer.mozilla.org/en-US/docs/Tools/Web_Console
 - inspect(), pprint()

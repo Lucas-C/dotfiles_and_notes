@@ -3,7 +3,7 @@
 # USAGE: ./famileo_archiver.py download_dir phpsessid
 # INSTALL: pip install selenium
 # In case of `locale.Error: unsupported locale setting` do: locale-gen fr_FR.UTF-8
-import argparse, locale, logging, os
+import argparse, locale, logging, os, re
 from datetime import datetime, timedelta
 from pathlib import Path
 from selenium.common.exceptions import NoSuchElementException
@@ -14,7 +14,7 @@ from selenium.webdriver.support.expected_conditions import element_to_be_clickab
 from selenium.webdriver.support.wait import WebDriverWait
 
 URL = "https://www.famileo.com/web-family/"
-FAMILEO_LINK_TEXT_FORMAT = "Gazette du %d %b %Y > " # %b is in French
+FAMILEO_LINK_TEXT_FORMAT = "Gazette du %d %b %Y" # %b is in French
 FAMILEO_DOWNLOADED_FILE_FORMAT = "Gazette-%Y-%b-%d.pdf" # %b is in English
 ARCHIVER_FILE_FORMAT = "Gazette-%Y-%m-%d-%B.pdf" # %b is in French
 SCREENSHOT_FILENAME = "famileo-browser-screenshot-on-failure.png"
@@ -115,6 +115,8 @@ def wait_for(driver, css_selector):
 
 def get_publication_day(link_text):
     locale.setlocale(locale.LC_ALL, "fr_FR.UTF-8")  # set locale for strptime
+    link_text = re.sub(r"^.* +\| +", "", link_text)
+    link_text = re.sub(r" *>? *$", "", link_text)
     # Strangely, this was not needed with Python 3.11 under Windows:
     link_text = link_text.replace("avr.", "avril")
     return datetime.strptime(link_text, FAMILEO_LINK_TEXT_FORMAT)
@@ -145,6 +147,12 @@ def rename_downloaded_files(download_dir):
         new_filename = publication_day.strftime(ARCHIVER_FILE_FORMAT)
         print(f"Renaming {pdf_file.name} into {new_filename}...")
         pdf_file.rename(new_filename)
+    partial_dl = False
+    for pdf_file in Path(download_dir).glob("*.pdf.crdownload"):
+        print("A PDF file was partially downloaded:", pdf_file.name)
+        partial_dl = True
+    if partial_dl:
+        raise RuntimeError("Some files were partially downloaded: rm *.pdf.crdownload then re-run this script")
 
 
 if __name__ == "__main__":

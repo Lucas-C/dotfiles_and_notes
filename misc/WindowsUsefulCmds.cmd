@@ -131,10 +131,12 @@ sfc /scannow &:: To restore system files
 chkdsk /r /f
 :: CheckSUR : check system is up-to-date and installation conform aka KB947821 - http://technet.microsoft.com/en-us/library/ee619779%28WS.10%29.aspx
 DISM.exe /Online /Cleanup-image /Scanhealth &:: on Win7, one needs to run KB947821.msu
+DISM.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase &:: allow to cleanup the WinSxS directory
 :: -> when you run this command, DISM uses Windows Update to provide the files that are required to fix corruptions. However, if your Windows Update client is already broken, use a running Windows installation as the repair source, or use a Windows side-by-side folder from a network share or from a removable media, such as the Windows DVD, as the source of the files. To do this, run the following command instead:
 DISM.exe /Online /Cleanup-Image /RestoreHealth /Source:C:\RepairSource\Windows /LimitAccess
 findstr /c:"[SR]" %windir%\logs\cbs\cbs.log >sfcdetails.txt &:: to read CBS.Log
 net stop wuauserv && del /q /s C:\Windows\SoftwareDistribution\* && net start wuauserv :: FROM: https://www.malekal.com/vider-catalogue-softwaredistribution-mise-a-jour-windows-update/
+https://github.com/no-faff/InstallerClean # cleanup C:\Windows\Installer
 
 ::: Install Windows Update .msu without looking for updates
 sc query wuauserv | find "RUNNING"  &:: check that it is running (it restarts every minute or so)
@@ -245,7 +247,7 @@ https://apps.microsoft.com/detail/9pmmsr1cgpwg :: support for HEIF (.avif) image
 https://store.rg-adguard.net/ :: converts apps.microsoft.com/* package URLs to download links, allowing manual install of .AppxBundle packages - Alt: use winget - cf. https://serverfault.com/a/1120490 - Alt (tested at work): Download-AppxPackage - cf. https://serverfault.com/a/1052641/97081
 
 :: Useful commands to diagnose & debug windows printer / spooler:
-wmic printer list brief                           :: provide printers states & statuses (status codes: 3=IDLE 4=PRINTING)
+wmic printer list brief                           :: provide printers states & statuses : 3=IDLE 4=PRINTING - cf. https://github.com/nikvoronin/howdy-mr-printer/blob/main/Program.cs#L135
 wmic printer get DriverName,Name,Portname,Status
 net stop spooler && net start spooler             :: restart the spooler
 
@@ -267,7 +269,8 @@ wsl --terminate $distro
 wsl --shutdown
 :: Windows Terminal provides support for emojis, use it like this:
 "C:\Program Files\WindowsApps\Microsoft.WindowsTerminalPreview_1.15.2002.0_x64__8wekyb3d8bbwe\wt.exe" wsl
-Optimize-VHD -Path $env:HOMEPATH\Ubuntu_2004.2020.424.0_x64\ext4.vhdx
+Optimize-VHD -Path $env:LOCALAPPDATA\Packages\CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc\LocalState\ext4.vhdx
+C:\Users\lucas_cimon\AppData\Local\Temp\wsl-crashes :: often fill up the drive
 
 # enable changing file owners & permissions:
 $ cat /etc/wsl.conf

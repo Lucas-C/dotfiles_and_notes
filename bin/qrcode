@@ -1,33 +1,42 @@
 #!/usr/bin/env python3
+# USAGE: qrcode $url [-c $color] [-m $margin] [-o $filepath]
 # INSTALL: pip install qrcode
-# TODO: --margin 0
-import sys
+# ? Submit it oimport argparse, sys
+import argparse, sys
 from qrcode import QRCode
 
-if len(sys.argv) < 2:
-    print("A target URL must be provided as argument", file=sys.stderr)
-    exit(1)
+DEFAULT_COLOR = "black"
 
-url = sys.argv[1]
+def gen(args):
+    qr = QRCode(border=args.margin)
+    qr.add_data(args.url)
+    img = qr.make_image(back_color="transparent", fill_color=args.color)
+    img.save(args.out)
+    print(f"Produced: {args.out}")
 
-if not url.startswith("http"):
-    print("Target URL must start with https:// or http://", file=sys.stderr)
-    exit(1)
+def parse_args():
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+                                     allow_abbrev=False)
+    parser.add_argument("--color", "-c", default=DEFAULT_COLOR, help="Pixels color")
+    parser.add_argument("--margin", "-m", type=int, default=0, help="Outer margin")
+    parser.add_argument("--out", "-o", help="Output image filepath")
+    parser.add_argument("url", help="A target URL")
+    args = parser.parse_args(sys.argv[1:])
+    if not args.url.startswith("http"):
+        parser.error("Target URL must start with https:// or http://")
+    if not args.out:
+        url_slug = args.url
+        if "//" in url_slug:
+            url_slug = url_slug.split("//")[1]
+        while url_slug.endswith("/"):
+            url_slug = url_slug[:-1]
+        if "/" in url_slug:
+            url_slug = url_slug.split("/")[-1]
+        if args.color != DEFAULT_COLOR:
+            url_slug += f"-{args.color}"
+        args.out = f"qrcode-{url_slug}.png"
+    return args
 
-if len(sys.argv) > 2:
-    img_path = sys.argv[2]
-else:
-    url_slug = url
-    if "//" in url_slug:
-        url_slug = url_slug.split("//")[1]
-    while url_slug.endswith("/"):
-        url_slug = url_slug[:-1]
-    if "/" in url_slug:
-        url_slug = url_slug.split("/")[-1]
-    img_path = f"qrcode-{url_slug}.png"
 
-qr = QRCode()
-qr.add_data(url)
-img = qr.make_image(back_color="transparent")
-img.save(img_path)
-print(f"Produced: {img_path}")
+if __name__ == "__main__":
+    gen(parse_args())

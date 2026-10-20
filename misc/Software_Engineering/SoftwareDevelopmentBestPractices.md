@@ -632,7 +632,7 @@ What are logs used for ?
 > * Why a failure occurred
 > * Remediation information when possible for WARN and ERROR messages
 
-[Logging Best Practices : 6. Add Context to Your Log Messages](https://www.dataset.com/blog/the-10-commandments-of-logging/)
+[Logging Best Practices : 6. Add Context to Your Log Messages](https://www.masterzen.fr/2013/01/13/the-10-commandments-of-logging/)
 
 ### Build system smells
 - Build requires more than one step [CC-E1]

@@ -710,12 +710,13 @@ EOF
 # The k8s namespace must be provided as argument
 alias k8s-show-ns=" kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found -n"
 
-alias dl-vid='yt-dlp --extractor-args "youtube:player_js_version=actual"'
+alias yt-dlp='yt-dlp --js-runtimes node --extractor-args "youtube:player_client=android"'
+alias dl-vid='yt-dlp -S filesize:50M'
 # This allows to retries a playlist download without re-downloading songs already downloaded:
 alias dl-playlist="yt-dlp -x -o '%(playlist_index)s - %(title)s.%(ext)s' --restrict-filenames --download-archive downloaded.txt --no-post-overwrites --parse-metadata 'playlist_index:%(track_number)s' --add-metadata"
 alias dl-subtitles="yt-dlp --write-auto-sub --skip-download"
 alias dl-subtitles-fr="dl-subtitles --sub-lang fr"
-# Also useful: --embed-subs
+# Also useful: --embed-subs, 
 
 function no-exif() {
     for img in "$@"; do
